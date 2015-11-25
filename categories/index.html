@@ -1,25 +1,26 @@
 
-  <!DOCTYPE HTML>
+ <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   
-    <title>归档: 2015/9 | 思想杂物间</title>
+    <title>categories | 思想杂物间</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Jay.Run">
     
 
     
-    <meta name="description" content="学习 思考 行动">
+    <meta name="description" content="编程">
 <meta property="og:type" content="website">
-<meta property="og:title" content="思想杂物间">
-<meta property="og:url" content="http://ponder.work/archives/2015/09/index.html">
+<meta property="og:title" content="categories">
+<meta property="og:url" content="http://ponder.work/categories/index.html">
 <meta property="og:site_name" content="思想杂物间">
-<meta property="og:description" content="学习 思考 行动">
+<meta property="og:description" content="编程">
+<meta property="og:updated_time" content="2015-11-09T11:26:08.473Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="思想杂物间">
-<meta name="twitter:description" content="学习 思考 行动">
+<meta name="twitter:title" content="categories">
+<meta name="twitter:description" content="编程">
 
     
     <link rel="alternative" href="/atom.xml" title="思想杂物间" type="application/atom+xml">
@@ -68,87 +69,15 @@
 </div>
       </header>
       <div id="container">
-        
-
+          
 <div class="archive-title" >
-  <h2 class="archive-icon">2015/9</h2>
-  
-  <div class="archiveslist archive-float clearfix">
-   <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">2015 年 11 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">2015 年 10 月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015 年 09 月</a><span class="archive-list-count">5</span></li></ul>
- </div>
-  
+<h2 class="category-icon">分类</h2>
+
 </div>
-<div id="main" class="archive-part clearfix">
-  <div id="archive-page">
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/09/30/《超越自卑》读书笔记/" title="《超越自卑》读书笔记" itemprop="url">
-  
-
-    <time datetime="2015-09-30T12:10:00.000Z" itemprop="datePublished">2015-09-30</time>
-
-
-    <h1 itemprop="name">《超越自卑》读书笔记</h1>
-
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/09/29/对一些事物的看法/" title="对一些事物的看法" itemprop="url">
-  
-
-    <time datetime="2015-09-29T15:39:38.000Z" itemprop="datePublished">2015-09-29</time>
-
-
-    <h1 itemprop="name">对一些事物的看法</h1>
-
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/09/29/《社会契约论》读书笔记/" title="《社会契约论》读书笔记" itemprop="url">
-  
-
-    <time datetime="2015-09-29T13:17:00.000Z" itemprop="datePublished">2015-09-29</time>
-
-
-    <h1 itemprop="name">《社会契约论》读书笔记</h1>
-
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/09/29/世界事物组织的本质/" title="世界事物组织的本质" itemprop="url">
-  
-
-    <time datetime="2015-09-29T12:25:49.914Z" itemprop="datePublished">2015-09-29</time>
-
-
-    <h1 itemprop="name">世界事物组织的本质</h1>
-
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/09/29/《乡关何处》读书笔记/" title="《乡关何处》读书笔记" itemprop="url">
-  
-
-    <time datetime="2015-09-28T16:00:00.000Z" itemprop="datePublished">2015-09-29</time>
-
-
-    <h1 itemprop="name">《乡关何处》读书笔记</h1>
-
-  </a>
-</section>
-
-
-  </div>
+<div id="main" class="archive-part">
+<div class="all-list-box"></div>
 </div>
+
 
       </div>
       <footer><div id="footer" >
@@ -250,6 +179,24 @@ $(document).ready(function(){
 
 
 
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var list    = $('.archive-title a'),
+      box     = $('.all-list-box'),
+      first   = $('.archive-title a:first-of-type');
+      box.load(first.attr('data-src').toString()+' #archive-page');
+      first.addClass('current');
+  list.each(function(){
+    $(this).click(function(){
+      var listSrc=$(this).attr('data-src').toString()+' #archive-page';
+      box.load(listSrc);
+      list.removeClass('current');
+      $(this).addClass('current');
+     });  
+    });
+  }); 
+</script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">

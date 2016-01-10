@@ -4,32 +4,38 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>《一九八四》读书笔记 | 思想杂物间</title>
+    <title>python赋值语句小坑 | 思想杂物间</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Jay.Run">
     
 
     
-    <meta name="description" content="概述
-简介：政治寓言，可惜在过往历史中已经能找到他的影子了，老大哥、真理部等梗的来源。说的是在1984年世界被三个国家瓜分，他们均高度集权，改变历史，改变语言（所谓新话）；建立健全的监控系统，控制人们的思想和行为。
+    <meta name="description" content="说到python赋值语句，大家想必一个念头——so easy，不是`lz = &amp;apos;dashabi&amp;apos;`吗。
+确实，easy是easy，里面却有个小坑，虽小，却不易发现。在代码量多的时候，就有点恶心了。
 
-本篇文章仅为测试人工智能的最新研究进展。">
+正常的语句是这样123&amp;gt;&amp;gt;&amp;gt; aa = u&apos;这是一个坑&apos;&amp;gt;&amp;gt;&amp;gt; aa u&apos;\u8fd9\u662f\u4e00\u4e2a\u5751&apos;
+
+坑在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《一九八四》读书笔记">
-<meta property="og:url" content="http://ponder.work/2015/10/17/《一九八四》读书笔记/index.html">
+<meta property="og:title" content="python赋值语句小坑">
+<meta property="og:url" content="http://ponder.work/2016/01/10/python赋值语句小坑/index.html">
 <meta property="og:site_name" content="思想杂物间">
-<meta property="og:description" content="概述
-简介：政治寓言，可惜在过往历史中已经能找到他的影子了，老大哥、真理部等梗的来源。说的是在1984年世界被三个国家瓜分，他们均高度集权，改变历史，改变语言（所谓新话）；建立健全的监控系统，控制人们的思想和行为。
+<meta property="og:description" content="说到python赋值语句，大家想必一个念头——so easy，不是`lz = &amp;apos;dashabi&amp;apos;`吗。
+确实，easy是easy，里面却有个小坑，虽小，却不易发现。在代码量多的时候，就有点恶心了。
 
-本篇文章仅为测试人工智能的最新研究进展。">
-<meta property="og:updated_time" content="2016-01-10T09:16:38.313Z">
+正常的语句是这样123&amp;gt;&amp;gt;&amp;gt; aa = u&apos;这是一个坑&apos;&amp;gt;&amp;gt;&amp;gt; aa u&apos;\u8fd9\u662f\u4e00\u4e2a\u5751&apos;
+
+坑在">
+<meta property="og:updated_time" content="2016-01-10T09:13:53.414Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《一九八四》读书笔记">
-<meta name="twitter:description" content="概述
-简介：政治寓言，可惜在过往历史中已经能找到他的影子了，老大哥、真理部等梗的来源。说的是在1984年世界被三个国家瓜分，他们均高度集权，改变历史，改变语言（所谓新话）；建立健全的监控系统，控制人们的思想和行为。
+<meta name="twitter:title" content="python赋值语句小坑">
+<meta name="twitter:description" content="说到python赋值语句，大家想必一个念头——so easy，不是`lz = &amp;apos;dashabi&amp;apos;`吗。
+确实，easy是easy，里面却有个小坑，虽小，却不易发现。在代码量多的时候，就有点恶心了。
 
-本篇文章仅为测试人工智能的最新研究进展。">
+正常的语句是这样123&amp;gt;&amp;gt;&amp;gt; aa = u&apos;这是一个坑&apos;&amp;gt;&amp;gt;&amp;gt; aa u&apos;\u8fd9\u662f\u4e00\u4e2a\u5751&apos;
+
+坑在">
 
     
     <link rel="alternative" href="/atom.xml" title="思想杂物间" type="application/atom+xml">
@@ -87,14 +93,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/17/《一九八四》读书笔记/" title="《一九八四》读书笔记" itemprop="url">《一九八四》读书笔记</a>
+      <a href="/2016/01/10/python赋值语句小坑/" title="python赋值语句小坑" itemprop="url">python赋值语句小坑</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-17T12:05:00.000Z" itemprop="datePublished"> 发表于 2015-10-17</time>
+    <time datetime="2016-01-10T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-10</time>
     
   </p>
 </header>
@@ -103,52 +109,28 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7B14_u8BB0"><span class="toc-number">2.</span> <span class="toc-text">笔记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E0B_u8F7D"><span class="toc-number">3.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7262_u8BB0"><span class="toc-number">4.</span> <span class="toc-text">牢记</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#u6B63_u5E38_u7684_u8BED_u53E5_u662F_u8FD9_u6837"><span class="toc-number">1.</span> <span class="toc-text">正常的语句是这样</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#u5751_u5728_u8FD9_u91CC"><span class="toc-number">2.</span> <span class="toc-text">坑在这里</span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h3><ul>
-<li><p>简介：政治寓言，可惜在过往历史中已经能找到他的影子了，老大哥、真理部等梗的来源。说的是在1984年世界被三个国家瓜分，他们均高度集权，改变历史，改变语言（所谓新话）；建立健全的监控系统，控制人们的思想和行为。</p>
+		<pre><code>说到python赋值语句，大家想必一个念头——so easy，不是`lz = &apos;dashabi&apos;`吗。
+确实，easy是easy，里面却有个小坑，虽小，却不易发现。在代码量多的时候，就有点恶心了。
+</code></pre><ul>
+<li><h5 id="u6B63_u5E38_u7684_u8BED_u53E5_u662F_u8FD9_u6837"><a href="#u6B63_u5E38_u7684_u8BED_u53E5_u662F_u8FD9_u6837" class="headerlink" title="正常的语句是这样"></a>正常的语句是这样</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa </span><br><span class="line"><span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>本篇文章仅为测试人工智能的最新研究进展。</p>
+<li><h5 id="u5751_u5728_u8FD9_u91CC"><a href="#u5751_u5728_u8FD9_u91CC" class="headerlink" title="坑在这里"></a>坑在这里</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span>,</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa </span><br><span class="line">(<span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span>,)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<a id="more"></a>
-<h3 id="u7B14_u8BB0"><a href="#u7B14_u8BB0" class="headerlink" title="笔记"></a>笔记</h3><ul>
-<li>他们因为不能去看绞刑，所以不高兴。<pre><code>博主云：他人为敌国，很多时候你的痛苦在别人眼中什么都不是。当然，反过来也是成立的。
-古人云：我死后，哪管洪水滔天。
-</code></pre></li>
-<li>所有的历史都是可以多次重新书写的本子，只要需要可以随时擦干净重新书写。<pre><code>博主云：清朝的愚民是不让你明白，而更高明的是只给你简单的无可证伪的假信息，因为当世界只存在一种东西时就无所谓真假了。
-</code></pre></li>
-<li><p>性压抑能导致歇斯底里，这是求之不得的，因为它能转化成战争狂热和对领袖的崇拜。</p>
-</li>
-<li><p>一个等级社会只有建立在贫穷和无知的基础上才可能存在。</p>
-<pre><code>朝鲜：你们慢慢聊，我先走了。
-</code></pre></li>
-<li>通过承诺在死后可以进入一个想象出来的世界，从而淡化等级的压迫性。<pre><code>博主云：正因如此，佛家产生在等级制度最为森严的印度。此生遭罪，为前世造业；今生修福，为投生净土。
-ISIS：招募“圣战士” 死后能获72位纯洁处女。
-</code></pre></li>
-<li><p>统治集团下台可能的情况：被征服；统治效率低，被造反；让强大的充满不满的中等阶级集团出现；或者是自己丧失了统治的信心和意志。这四者一般综合起来作用。</p>
-</li>
-<li><p>大众只要不让他们掌握比较的标准，他们就甚至永远不会意识到他们在受压迫。</p>
-<pre><code>博主云：比较让我们变得不幸福。在不知道一块钱一斤的苹果之前，十块钱一斤的苹果是很便宜的。
-</code></pre></li>
-<li>寡头统治的要旨不是父传子，子传孙，而是坚持死者加诸生者的某种世界观和生活方式。只要他能指派自己的后继者，统治集团就永远回事统治集团。它所关心的不是血统上的永存，而是自身的不朽。只要等级化结构永远保持不变，至于是谁掌握权力并不重要。</li>
-</ul>
-<h3 id="u4E0B_u8F7D"><a href="#u4E0B_u8F7D" class="headerlink" title="下载"></a>下载</h3><ul>
-<li><a href="http://pan.baidu.com/s/1hq8RADI" target="_blank" rel="external">百度网盘</a></li>
-</ul>
-<h3 id="u7262_u8BB0"><a href="#u7262_u8BB0" class="headerlink" title="牢记"></a>牢记</h3><blockquote>
-<p><strong>Big brother is watching you !</strong></p>
-</blockquote>
-  
+<pre><code>看出区别没有，坑的后面有个逗号，平时这逗号没什么卵用，但在赋值语句的末尾会将原来的对象转化为tuple。
+和`aa = (u&apos;这是一个坑&apos;,)`是一样的效果。
+</code></pre>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
 </div>
 
 
@@ -158,7 +140,7 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://ponder.work/2015/10/17/《一九八四》读书笔记/" data-title="《一九八四》读书笔记 | 思想杂物间" data-tsina="null" class="share clearfix">
+	  <div data-url="http://ponder.work/2016/01/10/python赋值语句小坑/" data-title="python赋值语句小坑 | 思想杂物间" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -171,19 +153,11 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/10/18/每个人心中都有个小王子/" title="每个人心中都有个小王子">
-  <strong>上一篇：</strong><br/>
-  <span>
-  每个人心中都有个小王子</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/10/10/生死之间有大恐怖/"  title="生死之间有大恐怖">
+<a href="/2015/11/25/django-admin过滤foreignkey值/"  title="django-admin过滤foreignkey值">
  <strong>下一篇：</strong><br/> 
- <span>生死之间有大恐怖
+ <span>django-admin过滤foreignkey值
 </span>
 </a>
 </div>
@@ -192,7 +166,7 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/10/17/《一九八四》读书笔记/" data-title="《一九八四》读书笔记" data-url="http://ponder.work/2015/10/17/《一九八四》读书笔记/"></div>
+	<div class="ds-thread" data-thread-key="2016/01/10/python赋值语句小坑/" data-title="python赋值语句小坑" data-url="http://ponder.work/2016/01/10/python赋值语句小坑/"></div>
 </section>
 
 

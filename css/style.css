@@ -985,10 +985,12 @@ article .article-content h3 {
   line-height: 1em;
   margin-top: 1.3em;
 }
-article .article-content h4,
+article .article-content h4 {
+  font-size: 128%;
+}
 article .article-content h5,
 article .article-content h6 {
-  font-size: 140%;
+  font-size: 113%;
 }
 article .article-content h1,
 article .article-content h2,

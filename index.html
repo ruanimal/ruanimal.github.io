@@ -149,6 +149,71 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/01/20/排序算法总结/" title="排序算法总结" itemprop="url">排序算法总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-20T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-20</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u4E00_u3001_u5192_u6CE1_u6392_u5E8F_BubbleSort"><a href="#u4E00_u3001_u5192_u6CE1_u6392_u5E8F_BubbleSort" class="headerlink" title="一、冒泡排序 BubbleSort"></a>一、冒泡排序 BubbleSort</h2><h4 id="u4ECB_u7ECD_uFF1A"><a href="#u4ECB_u7ECD_uFF1A" class="headerlink" title="介绍："></a>介绍：</h4><p>遍历序列，比较两个元素，如果前面的大于后面的就交换两者的位置。其实称之为冒泡排序不如加沉底排序，因为每一轮比较，这一轮轮最大都会被排到序列末尾，其实沉底更为贴切。</p>
+<h4 id="u6B65_u9AA4_uFF1A"><a href="#u6B65_u9AA4_uFF1A" class="headerlink" title="步骤："></a>步骤：</h4><ol>
+<li>遍历序列，比较序列的相邻元素，比较n-1次，如果前面的大于后面的就交换两者的位置。</li>
+<li>比较次数减一，重复步骤1</li>
+<li>共遍历n-1次</li>
+</ol>
+<h4 id="u4EE3_u7801_uFF1A"><a href="#u4EE3_u7801_uFF1A" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(arry)</span>:</span></span><br><span class="line">    n = len(arry)</span><br><span class="line">    <span class="keyword">while</span> n &gt; <span class="number">1</span>:</span><br><span class="line">        n -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span> arry[x] &gt; arry[x+<span class="number">1</span>]:</span><br><span class="line">                arry[x], arry[x+<span class="number">1</span>] = arry[x+<span class="number">1</span>], arry[x]</span><br><span class="line">    <span class="keyword">return</span> arry</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/01/20/排序算法总结/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/01/20/排序算法总结/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/20/排序算法总结/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/01/10/python赋值语句小坑/" title="python赋值语句小坑" itemprop="url">python赋值语句小坑</a>
   </h1>
   <p class="article-author">By
@@ -197,6 +262,131 @@
 	
 	  	<span></span>
 		<a href="/2016/01/10/python赋值语句小坑/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/python赋值语句小坑/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/10/除法在python2和python3中的区别/" title="除法在 python2 和 python3 中的区别" itemprop="url">除法在 python2 和 python3 中的区别</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-10T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>python2 中使用<code>from __future__ import division</code>就可以使用python3的除法。</li>
+<li>python2 中<code>/</code>与操作数有关，<code>x / y</code>中x、y都为整型的话，为<code>floor除法</code>，否则为<code>true除法</code>也是日常的除法。</li>
+<li>python3 中<code>/</code>为<code>true除法</code>， 与操作数无关。</li>
+<li><code>//</code>在 python2 与 python3 中并无差别， 都代表<code>floor除法</code></li>
+</ol>
+<h3 id="python3"><a href="#python3" class="headerlink" title="python3"></a>python3</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">1.6666666666666667</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">1.6666666666666667</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2.0</span></span><br></pre></td></tr></table></figure>
+<h3 id="python2"><a href="#python2" class="headerlink" title="python2"></a>python2</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">1.6666666666666667</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2.0</span></span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/01/10/除法在python2和python3中的区别/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/除法在python2和python3中的区别/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" title="【Chrome扩展】谷歌百度一键搜索修改版" itemprop="url">【Chrome扩展】谷歌百度一键搜索修改版</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="1-__u7B80_u4ECB"><a href="#1-__u7B80_u4ECB" class="headerlink" title="1. 简介"></a>1. 简介</h3><p>谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。 </p>
+<p>详细描述：<br>虽然谷歌比较好用，结果也准确，但搜索中文这方面却也弱了点，百度还是有点用。谷歌百度一键搜索， 在谷歌的页面上搜索百度，在百度页面上搜谷歌，无需切换，无需重新输入搜索词。<br>目前支持http(s)://www.baidu.com, http(s)://www.google.com.hk, http(s)://www.google.com</p>
+<p>创建：2015.11.25<br>作者：ponder.work<br>反馈：190127701@qq.com<br>forked from: raywill/BaiGoogleDu</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
@@ -318,67 +508,6 @@
 	
 	  	<span></span>
 		<a href="/2015/11/25/django 登录后的跳转问题/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django 登录后的跳转问题/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" title="【Chrome扩展】谷歌百度一键搜索修改版" itemprop="url">【Chrome扩展】谷歌百度一键搜索修改版</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="1-__u7B80_u4ECB"><a href="#1-__u7B80_u4ECB" class="headerlink" title="1. 简介"></a>1. 简介</h3><p>谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。 </p>
-<p>详细描述：<br>虽然谷歌比较好用，结果也准确，但搜索中文这方面却也弱了点，百度还是有点用。谷歌百度一键搜索， 在谷歌的页面上搜索百度，在百度页面上搜谷歌，无需切换，无需重新输入搜索词。<br>目前支持http(s)://www.baidu.com, http(s)://www.google.com.hk, http(s)://www.google.com</p>
-<p>创建：2015.11.25<br>作者：ponder.work<br>反馈：190127701@qq.com<br>forked from: raywill/BaiGoogleDu</p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
@@ -570,132 +699,6 @@
 	
 	  	<span></span>
 		<a href="/2015/10/10/生死之间有大恐怖/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/10/生死之间有大恐怖/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/10/03/《经济学原理：微观经济学分册》思维导图/" title="《经济学原理：微观经济学分册》思维导图" itemprop="url">《经济学原理：微观经济学分册》思维导图</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-10-03T05:46:00.000Z" itemprop="datePublished"> 发表于 2015-10-03</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="u8BF4_u660E"><a href="#u8BF4_u660E" class="headerlink" title="说明"></a>说明</h3><ul>
-<li>由于微观经济学经济学中的概念较多，且繁杂，故作思维导图作为记忆和理解的辅助。</li>
-<li>书籍版本：<a href="http://book.douban.com/subject/3719533/">《经济学原理(第4版):微观经济学分册》</a></li>
-<li>作者：<a href="http://baike.baidu.com/link?url=RCDcniLIx-hAl-nesCNmnGVNvCh8qZ4CKwB8anLMBMu58798gFgmAeRKUwsXVJ9lWJgdxYNuwdUpV-U1ly2tg_">[美] N.格里高利·曼昆</a></li>
-<li>制作工具：<a href="http://www.xmind.net/">xmind</a></li>
-</ul>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/10/03/《经济学原理：微观经济学分册》思维导图/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/10/03/《经济学原理：微观经济学分册》思维导图/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/03/《经济学原理：微观经济学分册》思维导图/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/10/03/《禅者的初心》读书笔记/" title="《禅者的初心》读书笔记" itemprop="url">《禅者的初心》读书笔记</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-10-03T00:48:00.000Z" itemprop="datePublished"> 发表于 2015-10-03</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h3><ul>
-<li>作者：[日]铃木俊隆</li>
-<li>简介：禅修的心应该始终是一颗初心（初学者的心）。初心是空空如也的，不受各种习性的羁绊。只有保持这颗初心，随时准备好去接受、怀疑，并对所有的可能性敞开，才能如实看待万物的本然面貌，一步接着一步前进，然后在一闪念中证悟到万物的原初本性。<a href="http://book.douban.com/subject/4898627/">[1]</a></li>
-</ul>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/10/03/《禅者的初心》读书笔记/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/10/03/《禅者的初心》读书笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/03/《禅者的初心》读书笔记/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

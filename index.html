@@ -149,6 +149,66 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/01/21/Git常用命令备忘录/" title="Git 常用命令备忘录" itemprop="url">Git 常用命令备忘录</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-21T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-21</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="git__u7B80_u4ECB"><a href="#git__u7B80_u4ECB" class="headerlink" title="git 简介"></a>git 简介</h3><p>git是一个分散式版本控制软件，最初由林纳斯·托瓦兹（Linus Torvalds）創作，於2005年以GPL釋出。最初目的是为更好地管理Linux内核开发而设计。<br>初始版本由Linus大神在两个星期内写出来，之后基本一统文件版本控制的天下。</p>
+<h3 id="u540D_u8BCD_u89E3_u91CA"><a href="#u540D_u8BCD_u89E3_u91CA" class="headerlink" title="名词解释"></a>名词解释</h3><p>工作区：就是你在电脑里能看到的目录。<br>暂存区：英文叫stage, 或index。一般存放在”git目录”下的index文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。<br>版本库：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。<br>branch：分支，相当于不同的平行世界<br>remote：远程仓库<br>origin：默认的远程仓库名词<br>HEAD：一个指向当前版本号的指针</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/01/21/Git常用命令备忘录/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/01/21/Git常用命令备忘录/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/21/Git常用命令备忘录/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/01/20/排序算法总结/" title="排序算法总结" itemprop="url">排序算法总结</a>
   </h1>
   <p class="article-author">By
@@ -406,6 +466,65 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/11/25/django-admin过滤foreignkey值/" title="django-admin过滤foreignkey值" itemprop="url">django-admin过滤foreignkey值</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="u95EE_u9898_u80CC_u666F"><a href="#u95EE_u9898_u80CC_u666F" class="headerlink" title="问题背景"></a>问题背景</h3><pre><code>在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
+当然，也可通过自定义form解决该问题。
+</code></pre><h3 id="u89E3_u51B3_u65B9_u6848"><a href="#u89E3_u51B3_u65B9_u6848" class="headerlink" title="解决方案"></a>解决方案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryOrderItemInline</span><span class="params">(admin.TabularInline)</span>:</span></span><br><span class="line">    model = FactoryOrderItem</span><br><span class="line">    fields = (<span class="string">'order_item'</span>, <span class="string">'product_sn'</span>, <span class="string">'style'</span>, <span class="string">'size'</span>, <span class="string">'factory_sn'</span>, <span class="string">'price'</span>, <span class="string">'quantity'</span>, <span class="string">'amount'</span>)</span><br><span class="line">    extra = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">formfield_for_foreignkey</span><span class="params">(self, db_field, request, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> db_field.name == <span class="string">'order_item'</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                parent_obj_id = request.resolver_match.args[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">except</span> IndexError: <span class="comment">#仅在新建状态过滤</span></span><br><span class="line">                kwargs[<span class="string">'queryset'</span>] = OrderItem.objects.filter(order__status=<span class="string">'2'</span>)</span><br><span class="line">        <span class="keyword">return</span> super(FactoryOrderItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/25/django-admin过滤foreignkey值/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django-admin过滤foreignkey值/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/11/25/django 登录后的跳转问题/" title="django 登录后的跳转到之前的页面" itemprop="url">django 登录后的跳转到之前的页面</a>
   </h1>
   <p class="article-author">By
@@ -449,65 +568,6 @@
 	
 	  	<span></span>
 		<a href="/2015/11/25/django 登录后的跳转问题/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django 登录后的跳转问题/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/25/django-admin过滤foreignkey值/" title="django-admin过滤foreignkey值" itemprop="url">django-admin过滤foreignkey值</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="u95EE_u9898_u80CC_u666F"><a href="#u95EE_u9898_u80CC_u666F" class="headerlink" title="问题背景"></a>问题背景</h3><pre><code>在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
-当然，也可通过自定义form解决该问题。
-</code></pre><h3 id="u89E3_u51B3_u65B9_u6848"><a href="#u89E3_u51B3_u65B9_u6848" class="headerlink" title="解决方案"></a>解决方案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryOrderItemInline</span><span class="params">(admin.TabularInline)</span>:</span></span><br><span class="line">    model = FactoryOrderItem</span><br><span class="line">    fields = (<span class="string">'order_item'</span>, <span class="string">'product_sn'</span>, <span class="string">'style'</span>, <span class="string">'size'</span>, <span class="string">'factory_sn'</span>, <span class="string">'price'</span>, <span class="string">'quantity'</span>, <span class="string">'amount'</span>)</span><br><span class="line">    extra = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">formfield_for_foreignkey</span><span class="params">(self, db_field, request, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> db_field.name == <span class="string">'order_item'</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                parent_obj_id = request.resolver_match.args[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">except</span> IndexError: <span class="comment">#仅在新建状态过滤</span></span><br><span class="line">                kwargs[<span class="string">'queryset'</span>] = OrderItem.objects.filter(order__status=<span class="string">'2'</span>)</span><br><span class="line">        <span class="keyword">return</span> super(FactoryOrderItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)</span><br></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/11/25/django-admin过滤foreignkey值/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django-admin过滤foreignkey值/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
@@ -633,72 +693,6 @@
 	
 	  	<span></span>
 		<a href="/2015/10/17/《一九八四》读书笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/17/《一九八四》读书笔记/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/10/10/生死之间有大恐怖/" title="生死之间有大恐怖" itemprop="url">生死之间有大恐怖</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-10-10T12:41:00.000Z" itemprop="datePublished"> 发表于 2015-10-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>　　昨天晚上听到一则消息，小学一老师得骨癌，37岁，自杀了。<br>　　不知怎的，心里乱乱的，就想起“生死之间有大恐怖”这句话来了。<br>　　人生在世确如白驹过隙，忽然而已。而这白驹过隙却也还有快慢之分，如何不令人怅然。犹记得，《兰亭集序》里一句“修短随化，终期于尽。”，少时懵懂只觉语句优美，终不解其中深意。到如今，自己也算是经历了一些，才明白这寥寥数语却是道尽世间沧桑。个体寿命的长与短，都是由造化决定，最终都不免走向那个尽头。然而这个中差别，却让多少世人肝肠寸断。</p>
-<p>　　也曾想，自己的生命有多长，然后就是一阵惊惧。<br>　　生命实在是太过短暂，而且很可能在你不经意时终结。</p>
-<blockquote>
-<p>生死事大，无常迅速。</p>
-</blockquote>
-<p>　　唉！无法，徒增忧伤而已。</p>
-<blockquote>
-<p>人生苦短，及时行乐。<br>有愿立偿，不余遗憾。</p>
-</blockquote>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/随笔/">随笔</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/10/10/生死之间有大恐怖/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/10/生死之间有大恐怖/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

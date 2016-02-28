@@ -1,0 +1,417 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>关于Python的继承 | 思想杂物间</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Jay.Run">
+    
+
+    
+    <meta name="description" content="引子童话里经常会看到英雄打败恶人的故事，而且故事里总会有一个类似黑暗森林的场景——要么是一个山洞，要么是一篇森林，要么是另一个星球，反正是英雄不该去的某个地方。当然，一旦反面角色在剧情中出现，你就会发现英雄非得去那片破森林去杀掉坏人。当英雄的总是不得不冒着生命危险进到邪恶森林中去。
+在面向对象编程中，“继承”就是那片邪恶森林。有经验的程序员知道如何躲开这个恶魔，因为他们知道，在丛林深处的“继承”，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于Python的继承">
+<meta property="og:url" content="http://ponder.work/2016/02/28/python中关于继承/index.html">
+<meta property="og:site_name" content="思想杂物间">
+<meta property="og:description" content="引子童话里经常会看到英雄打败恶人的故事，而且故事里总会有一个类似黑暗森林的场景——要么是一个山洞，要么是一篇森林，要么是另一个星球，反正是英雄不该去的某个地方。当然，一旦反面角色在剧情中出现，你就会发现英雄非得去那片破森林去杀掉坏人。当英雄的总是不得不冒着生命危险进到邪恶森林中去。
+在面向对象编程中，“继承”就是那片邪恶森林。有经验的程序员知道如何躲开这个恶魔，因为他们知道，在丛林深处的“继承”，">
+<meta property="og:updated_time" content="2016-02-28T03:30:14.866Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于Python的继承">
+<meta name="twitter:description" content="引子童话里经常会看到英雄打败恶人的故事，而且故事里总会有一个类似黑暗森林的场景——要么是一个山洞，要么是一篇森林，要么是另一个星球，反正是英雄不该去的某个地方。当然，一旦反面角色在剧情中出现，你就会发现英雄非得去那片破森林去杀掉坏人。当英雄的总是不得不冒着生命危险进到邪恶森林中去。
+在面向对象编程中，“继承”就是那片邪恶森林。有经验的程序员知道如何躲开这个恶魔，因为他们知道，在丛林深处的“继承”，">
+
+    
+    <link rel="alternative" href="/atom.xml" title="思想杂物间" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="思想杂物间">思想杂物间</a></h1>
+				<h2 class="blog-motto">人类一思考，上帝就发笑。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:ponder.work">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/28/python中关于继承/" title="关于Python的继承" itemprop="url">关于Python的继承</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-28T03:26:00.000Z" itemprop="datePublished"> 发表于 2016-02-28</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5F15_u5B50"><span class="toc-number">1.</span> <span class="toc-text">引子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7EE7_u627F_28Inheritance_29"><span class="toc-number">2.</span> <span class="toc-text">继承(Inheritance)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E00-__u9690_u5F0F_u7EE7_u627F_uFF08Implicit_Inheritance_uFF09"><span class="toc-number">2.1.</span> <span class="toc-text">一. 隐式继承（Implicit Inheritance）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E8C-__u663E_u5F0F_u8986_u5199_uFF08Explicit_Override_uFF09"><span class="toc-number">2.2.</span> <span class="toc-text">二. 显式覆写（Explicit Override）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E09-__u4E0D_u5B8C_u5168_u8986_u5199_u2014_u2014super_28_29"><span class="toc-number">2.3.</span> <span class="toc-text">三. 不完全覆写——super()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5408_u6210_28Composition_29"><span class="toc-number">3.</span> <span class="toc-text">合成(Composition)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7EE7_u627F_u548C_u5408_u6210_u7684_u5E94_u7528_u573A_u5408"><span class="toc-number">4.</span> <span class="toc-text">继承和合成的应用场合</span></a></li></ol>
+		
+		</div>
+		
+		<h3 id="u5F15_u5B50"><a href="#u5F15_u5B50" class="headerlink" title="引子"></a>引子</h3><p>童话里经常会看到英雄打败恶人的故事，而且故事里总会有一个类似黑暗森林的场景——要么是一个山洞，要么是一篇森林，要么是另一个星球，反正是英雄不该去的某个地方。当然，一旦反面角色在剧情中出现，你就会发现英雄非得去那片破森林去杀掉坏人。当英雄的总是不得不冒着生命危险进到邪恶森林中去。</p>
+<p>在面向对象编程中，“继承”就是那片邪恶森林。有经验的程序员知道如何躲开这个恶魔，因为他们知道，在丛林深处的“继承”，其实是邪恶女皇“多重继承”。她喜欢用自己的巨口尖牙吃掉程序员和软件，咀嚼这些堕落者的血肉。不过这片丛林的吸引力是如此的强大，几乎每一个程序员都会进去探险，梦想着提着邪恶女皇的头颅走出丛林，从而声称自己是真正的程序员。你就是无法阻止丛林的魔力，于是你深入其中，而等你冒险结束，九死一生之后，你唯一学到的，就是远远躲开这片破森林，而如果你不得不再进去一次，你会带一支军队。</p>
+<p>有的程序员现在正在丛林里跟邪恶女皇作战，他会对你说你必须进到森林里去。他们这样说其实是因为他们需要你的帮助，因为他们已经无法承受他们自己创建的东西了。</p>
+<p>而对于你来说，你只要记住这一条：<br>大部分使用继承的场合都可以用合成取代，而多级继承则需要不惜一切地避免之。</p>
+<a id="more"></a>
+<h3 id="u7EE7_u627F_28Inheritance_29"><a href="#u7EE7_u627F_28Inheritance_29" class="headerlink" title="继承(Inheritance)"></a>继承(Inheritance)</h3><p>继承的用处，就是用来指明一个类的大部分或全部功能，都是从一个父类中获得的。当你写 class Foo(Bar) 时，代码就发生了继承效果，这句代码的意思是“创建一个叫 Foo 的类，并让他继承 Bar”。</p>
+<p>继承的时候，父类和子类有三种交互方式：</p>
+<h4 id="u4E00-__u9690_u5F0F_u7EE7_u627F_uFF08Implicit_Inheritance_uFF09"><a href="#u4E00-__u9690_u5F0F_u7EE7_u627F_uFF08Implicit_Inheritance_uFF09" class="headerlink" title="一. 隐式继承（Implicit Inheritance）"></a>一. 隐式继承（Implicit Inheritance）</h4><p>当你在父类里定义了一个函数，但没有在子类中定义的例子，这时候会发生隐式继承。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">implicit</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"PARENT implicit()"</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span><span class="params">(Parent)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">dad = Parent()</span><br><span class="line">son = Child()</span><br><span class="line">dad.implicit()</span><br><span class="line">son.implicit()</span><br></pre></td></tr></table></figure>
+<h4 id="u4E8C-__u663E_u5F0F_u8986_u5199_uFF08Explicit_Override_uFF09"><a href="#u4E8C-__u663E_u5F0F_u8986_u5199_uFF08Explicit_Override_uFF09" class="headerlink" title="二. 显式覆写（Explicit Override）"></a>二. 显式覆写（Explicit Override）</h4><p>有时候你需要让子类里的函数有一个不同的行为，这种情况下隐式继承是做不到的，而你需要覆写子类中的函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">override</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"PARENT override()"</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span><span class="params">(Parent)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">override</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"CHILD override()"</span></span><br><span class="line"></span><br><span class="line">dad = Parent()</span><br><span class="line">son = Child()</span><br><span class="line">dad.override()</span><br><span class="line">son.override()</span><br></pre></td></tr></table></figure>
+<h4 id="u4E09-__u4E0D_u5B8C_u5168_u8986_u5199_u2014_u2014super_28_29"><a href="#u4E09-__u4E0D_u5B8C_u5168_u8986_u5199_u2014_u2014super_28_29" class="headerlink" title="三. 不完全覆写——super()"></a>三. 不完全覆写——super()</h4><p>父类中定义的内容运行之前或者之后再修改行为。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">altered</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"PARENT altered()"</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span><span class="params">(Parent)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">altered</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"CHILD, BEFORE PARENT altered()"</span></span><br><span class="line">        super(Child, self).altered()</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"CHILD, AFTER PARENT altered()"</span></span><br><span class="line">dad = Parent()</span><br><span class="line">son = Child()</span><br><span class="line">dad.altered()</span><br><span class="line">son.altered()</span><br></pre></td></tr></table></figure>
+<h3 id="u5408_u6210_28Composition_29"><a href="#u5408_u6210_28Composition_29" class="headerlink" title="合成(Composition)"></a>合成(Composition)</h3><p><b>合成就是不通过继承直接引用所需要类的方法。</b>继承是一种有用的技术，不过还有一种实现相同功能的方法，就是直接使用别的类和模块，而非依赖于继承。如果你回头看的话，我们有三种继承的方式，但有两种会通过新代码取代或者修改父类的功能。这其实可以很容易地用调用模块里的函数来实现。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Other</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">override</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"OTHER override()"</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">implicit</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"OTHER implicit()"</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">altered</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"OTHER altered()"</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.other = Other()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">implicit</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.other.implicit()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">override</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"CHILD override()"</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">altered</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"CHILD, BEFORE OTHER altered()"</span></span><br><span class="line">        self.other.altered()</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"CHILD, AFTER OTHER altered()"</span></span><br><span class="line"></span><br><span class="line">son = Child()</span><br><span class="line">son.implicit()</span><br><span class="line">son.override()</span><br><span class="line">son.altered()</span><br></pre></td></tr></table></figure></p>
+<h3 id="u7EE7_u627F_u548C_u5408_u6210_u7684_u5E94_u7528_u573A_u5408"><a href="#u7EE7_u627F_u548C_u5408_u6210_u7684_u5E94_u7528_u573A_u5408" class="headerlink" title="继承和合成的应用场合"></a>继承和合成的应用场合</h3><p>“继承 vs 合成”的问题说到底还是关于代码重用的问题。你不想到处都是重复的代码，这样既难看又没效率。继承可以让你在基类里隐含父类的功能，从而解决了这个问题。而合成则是利用模块和别的类中的函数调用实现了相同的目的。<br>如果两种方案都能解决重用的问题，那什么时候该用哪个呢？这个问题答案其实是非常主观的，不过我可以给你三个大体的指引方案：</p>
+<ol>
+<li>不惜一切代价地避免多重继承，它带来的麻烦比能解决的问题都多。如果你非要用，那你得准备好专研类的层次结构，以及花时间去找各种东西的来龙去脉吧。 </li>
+<li>如果你有一些代码会在不同位置和场合应用到，那就用合成来把它们做成模块。 </li>
+<li>只有在代码之间有清楚的关联，可以通过一个单独的共性联系起来的时候使用继承，或者你受现有代码或者别的不可抗拒因素所限非用不可的话，那也用吧。<br>然而，不要成为这些规则的奴隶。面向对象编程中要记住的一点是，程序员创建软件包，共享代码，这些都是一种社交习俗。由于这是一种社交习俗，有时可能因为你的工作同事的原因，你需要打破这些规则。这时候，你就需要去观察别人的工作方式，然后去适应这种场合。</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ponder.work/2016/02/28/python中关于继承/" data-title="关于Python的继承 | 思想杂物间" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/02/11/番茄工作法工具推荐/"  title="番茄工作法工具推荐">
+ <strong>下一篇：</strong><br/> 
+ <span>番茄工作法工具推荐
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/02/28/python中关于继承/" data-title="关于Python的继承" data-url="http://ponder.work/2016/02/28/python中关于继承/"></div>
+</section>
+
+
+</div>  
+    </div>
+    <footer><div id="footer" >
+	
+	<section class="info">
+		<p> Life is short, play more! </p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Jay.Run">Jay.Run</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ponder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

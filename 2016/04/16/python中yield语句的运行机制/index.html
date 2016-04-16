@@ -1,0 +1,418 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Python中yield语句的运行机制 | 思想杂物间</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Jay.Run">
+    
+
+    
+    <meta name="description" content="如果一个在函数中存在yield关键字，那么这个函数就构成了生成器。生成器是一个函数，它生成一个序列，以便在迭代中使用。调用这个函数，并不会马上开始执行函数体中的代码，而是返回一个生成器对象，通过调用生成器对象的next()方法（python3中是__netx__()）执行函数。
+那么，具体的函数中语句的执行顺序是怎么样的呢？
+代码12345678910111213141516def func(x=">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python中yield语句的运行机制">
+<meta property="og:url" content="http://ponder.work/2016/04/16/python中yield语句的运行机制/index.html">
+<meta property="og:site_name" content="思想杂物间">
+<meta property="og:description" content="如果一个在函数中存在yield关键字，那么这个函数就构成了生成器。生成器是一个函数，它生成一个序列，以便在迭代中使用。调用这个函数，并不会马上开始执行函数体中的代码，而是返回一个生成器对象，通过调用生成器对象的next()方法（python3中是__netx__()）执行函数。
+那么，具体的函数中语句的执行顺序是怎么样的呢？
+代码12345678910111213141516def func(x=">
+<meta property="og:updated_time" content="2016-04-16T12:46:57.500Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python中yield语句的运行机制">
+<meta name="twitter:description" content="如果一个在函数中存在yield关键字，那么这个函数就构成了生成器。生成器是一个函数，它生成一个序列，以便在迭代中使用。调用这个函数，并不会马上开始执行函数体中的代码，而是返回一个生成器对象，通过调用生成器对象的next()方法（python3中是__netx__()）执行函数。
+那么，具体的函数中语句的执行顺序是怎么样的呢？
+代码12345678910111213141516def func(x=">
+
+    
+    <link rel="alternative" href="/atom.xml" title="思想杂物间" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="思想杂物间">思想杂物间</a></h1>
+				<h2 class="blog-motto">人类一思考，上帝就发笑。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:ponder.work">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/16/python中yield语句的运行机制/" title="Python中yield语句的运行机制" itemprop="url">Python中yield语句的运行机制</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-16T12:17:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4EE3_u7801"><span class="toc-number">1.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5206_u6790"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a></li></ol>
+		
+		</div>
+		
+		<p>如果一个在函数中存在yield关键字，那么这个函数就构成了生成器。生成器是一个函数，它生成一个序列，以便在迭代中使用。<br>调用这个函数，并不会马上开始执行函数体中的代码，而是返回一个生成器对象，通过调用生成器对象的<code>next()</code>方法（python3中是<code>__netx__()</code>）执行函数。</p>
+<p>那么，具体的函数中语句的执行顺序是怎么样的呢？</p>
+<h3 id="u4EE3_u7801"><a href="#u4EE3_u7801" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'the beginning of function'</span></span><br><span class="line">    <span class="keyword">if</span> x &lt;= <span class="number">0</span> <span class="keyword">or</span> <span class="keyword">not</span> isinstance(x, int):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(x):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'before yield'</span>, i</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'after yield'</span>, i</span><br><span class="line"></span><br><span class="line">gen = func(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br></pre></td></tr></table></figure>
+<p>输出<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">the beginning of function</span><br><span class="line">before yield 0</span><br><span class="line">-&gt; yielding: 0</span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">after yield 0</span><br><span class="line">before yield 1</span><br><span class="line">-&gt; yielding: 1</span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">after yield 1</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"D:\Projects\test.py"</span>, line 28, in <span class="variable">&lt;module&gt;</span></span><br><span class="line">    print '-&gt; yielding: %s' % gen.next()</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
+<h3 id="u5206_u6790"><a href="#u5206_u6790" class="headerlink" title="分析"></a>分析</h3><ol>
+<li>首先运行<code>func(2)</code>，这时函数的所有语句都没有执行，返回一个生成器赋值给<code>gen</code>。</li>
+<li>第一次执行<code>gen.next()</code>，函数从头开始执行，运行完yield语句暂停住了。</li>
+<li>再次运行<code>gen.next()</code>，从停下的地方继续，直到遇到遇到下一个yield，运行完yield语句又暂停住了。</li>
+<li>第三次尝试运行<code>gen.next()</code>，运行完<code>print &#39;after yield&#39;, i</code>，由于循环次数已满，找不到下一个yield，就出现<code>StopIteration</code>错误</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ponder.work/2016/04/16/python中yield语句的运行机制/" data-title="Python中yield语句的运行机制 | 思想杂物间" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/04/16/ubuntu静态ip配置/" title="ubuntu静态ip配置">
+  <strong>上一篇：</strong><br/>
+  <span>
+  ubuntu静态ip配置</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/04/16/git代码自动同步/"  title="git代码自动同步">
+ <strong>下一篇：</strong><br/> 
+ <span>git代码自动同步
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/04/16/python中yield语句的运行机制/" data-title="Python中yield语句的运行机制" data-url="http://ponder.work/2016/04/16/python中yield语句的运行机制/"></div>
+</section>
+
+
+</div>  
+    </div>
+    <footer><div id="footer" >
+	
+	<section class="info">
+		<p> Life is short, play more! </p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Jay.Run">Jay.Run</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ponder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

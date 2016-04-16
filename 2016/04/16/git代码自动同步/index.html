@@ -4,29 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>【Chrome扩展】谷歌百度一键搜索修改版 | 思想杂物间</title>
+    <title>git代码自动同步 | 思想杂物间</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Jay.Run">
     
 
     
-    <meta name="description" content="1. 简介谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。 
-详细描述：虽然谷歌比较好用，结果也准确，但搜索中文这方面却也弱了点，百度还是有点用。谷歌百度一键搜索， 在谷歌的页面上搜索百度，在百度页面上搜谷歌，无需切换，无需重新输入搜索词。目前支持http(s)://www.baidu.com, http(s)://www.google.com.hk,">
+    <meta name="description" content="需求由于最近做Python的linux服务器脚本，经常要同步代码到测试服务器，又不想直接ssh登录到服务器，所以萌生了用git自动同步代码的想法。具体的要求是：测试机是服务器，需要本地一push代码，测试机能实时更新。查阅相关资料发现可以用git的hooks来实现。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Chrome扩展】谷歌百度一键搜索修改版">
-<meta property="og:url" content="http://ponder.work/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/index.html">
+<meta property="og:title" content="git代码自动同步">
+<meta property="og:url" content="http://ponder.work/2016/04/16/git代码自动同步/index.html">
 <meta property="og:site_name" content="思想杂物间">
-<meta property="og:description" content="1. 简介谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。 
-详细描述：虽然谷歌比较好用，结果也准确，但搜索中文这方面却也弱了点，百度还是有点用。谷歌百度一键搜索， 在谷歌的页面上搜索百度，在百度页面上搜谷歌，无需切换，无需重新输入搜索词。目前支持http(s)://www.baidu.com, http(s)://www.google.com.hk,">
-<meta property="og:image" content="http://i5.tietuku.com/e1a7dd1fb93c3487.png">
-<meta property="og:image" content="http://i5.tietuku.com/ff31dda13801e426.png">
-<meta property="og:image" content="http://i5.tietuku.com/2f63d95de731641e.png">
-<meta property="og:updated_time" content="2016-01-10T07:55:00.477Z">
+<meta property="og:description" content="需求由于最近做Python的linux服务器脚本，经常要同步代码到测试服务器，又不想直接ssh登录到服务器，所以萌生了用git自动同步代码的想法。具体的要求是：测试机是服务器，需要本地一push代码，测试机能实时更新。查阅相关资料发现可以用git的hooks来实现。">
+<meta property="og:updated_time" content="2016-04-16T12:16:35.084Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Chrome扩展】谷歌百度一键搜索修改版">
-<meta name="twitter:description" content="1. 简介谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。 
-详细描述：虽然谷歌比较好用，结果也准确，但搜索中文这方面却也弱了点，百度还是有点用。谷歌百度一键搜索， 在谷歌的页面上搜索百度，在百度页面上搜谷歌，无需切换，无需重新输入搜索词。目前支持http(s)://www.baidu.com, http(s)://www.google.com.hk,">
+<meta name="twitter:title" content="git代码自动同步">
+<meta name="twitter:description" content="需求由于最近做Python的linux服务器脚本，经常要同步代码到测试服务器，又不想直接ssh登录到服务器，所以萌生了用git自动同步代码的想法。具体的要求是：测试机是服务器，需要本地一push代码，测试机能实时更新。查阅相关资料发现可以用git的hooks来实现。">
 
     
     <link rel="alternative" href="/atom.xml" title="思想杂物间" type="application/atom+xml">
@@ -84,14 +78,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" title="【Chrome扩展】谷歌百度一键搜索修改版" itemprop="url">【Chrome扩展】谷歌百度一键搜索修改版</a>
+      <a href="/2016/04/16/git代码自动同步/" title="git代码自动同步" itemprop="url">git代码自动同步</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
+    <time datetime="2016-04-16T12:01:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
     
   </p>
 </header>
@@ -100,20 +94,26 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-__u7B80_u4ECB"><span class="toc-number">1.</span> <span class="toc-text">1. 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-__u5B89_u88C5_u65B9_u6CD5"><span class="toc-number">2.</span> <span class="toc-text">2. 安装方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-__u66F4_u65B0_u65E5_u5FD7"><span class="toc-number">3.</span> <span class="toc-text">3. 更新日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-__u622A_u56FE"><span class="toc-number">4.</span> <span class="toc-text">4. 截图</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u9700_u6C42"><span class="toc-number">1.</span> <span class="toc-text">需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u89E3_u51B3_u65B9_u6848"><span class="toc-number">2.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E00_u3001_u521D_u59CB_u5316_u4E2D_u8F6C_u4ED3_u5E93"><span class="toc-number">2.1.</span> <span class="toc-text">一、初始化中转仓库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E8C_u3001_u5C06_u4E2D_u8F6C_u4ED3_u5E93_u6DFB_u52A0_u5230_u672C_u5730_u9879_u76EE_u7684remote"><span class="toc-number">2.2.</span> <span class="toc-text">二、将中转仓库添加到本地项目的remote</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E09_u3001_u7ED9_u4E2D_u8F6C_u4ED3_u5E93_u6DFB_u52A0hooks"><span class="toc-number">2.3.</span> <span class="toc-text">三、给中转仓库添加hooks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u56DB_u3001_u5C06_u4E2D_u8F6C_u4ED3_u5E93clone_u5230_u76EE_u7684_u9879_u76EE"><span class="toc-number">2.4.</span> <span class="toc-text">四、将中转仓库clone到目的项目</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h3 id="1-__u7B80_u4ECB"><a href="#1-__u7B80_u4ECB" class="headerlink" title="1. 简介"></a>1. 简介</h3><p>谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。 </p>
-<p>详细描述：<br>虽然谷歌比较好用，结果也准确，但搜索中文这方面却也弱了点，百度还是有点用。谷歌百度一键搜索， 在谷歌的页面上搜索百度，在百度页面上搜谷歌，无需切换，无需重新输入搜索词。<br>目前支持http(s)://www.baidu.com, http(s)://www.google.com.hk, http(s)://www.google.com</p>
-<p>创建：2015.11.25<br>作者：ponder.work<br>反馈：190127701@qq.com<br>forked from: raywill/BaiGoogleDu</p>
+		<h3 id="u9700_u6C42"><a href="#u9700_u6C42" class="headerlink" title="需求"></a>需求</h3><p>由于最近做Python的linux服务器脚本，经常要同步代码到测试服务器，又不想直接ssh登录到服务器，所以萌生了用git自动同步代码的想法。<br>具体的要求是：测试机是服务器，需要本地一push代码，测试机能实时更新。<br>查阅相关资料发现可以用git的hooks来实现。</p>
 <a id="more"></a>
-<h3 id="2-__u5B89_u88C5_u65B9_u6CD5"><a href="#2-__u5B89_u88C5_u65B9_u6CD5" class="headerlink" title="2. 安装方法"></a>2. 安装方法</h3><p>下载crx文件：<a href="http://pan.baidu.com/s/1bnG626b" target="_blank" rel="external">pan.baidu.com/s/1bnG626b</a><br>拖入到 chrome://extensions/ 页面，即可完成安装。</p>
-<h3 id="3-__u66F4_u65B0_u65E5_u5FD7"><a href="#3-__u66F4_u65B0_u65E5_u5FD7" class="headerlink" title="3. 更新日志"></a>3. 更新日志</h3><p>2015年11月28日　　版本: 1.2.1</p>
-<ul>
-<li>改进百度首页判断逻辑。</li>
-</ul>
-<h3 id="4-__u622A_u56FE"><a href="#4-__u622A_u56FE" class="headerlink" title="4. 截图"></a>4. 截图</h3><p><img src="http://i5.tietuku.com/e1a7dd1fb93c3487.png" alt=""><br><img src="http://i5.tietuku.com/ff31dda13801e426.png" alt=""><br><img src="http://i5.tietuku.com/2f63d95de731641e.png" alt=""></p>
+<h3 id="u89E3_u51B3_u65B9_u6848"><a href="#u89E3_u51B3_u65B9_u6848" class="headerlink" title="解决方案"></a>解决方案</h3><p>说明：  </p>
+<ol>
+<li>本地项目： git-test  </li>
+<li>中转仓库： git-transfer  </li>
+<li>目的项目： git-dest  </li>
+<li>中转仓库与目的项目都在测试机上</li>
+</ol>
+<h4 id="u4E00_u3001_u521D_u59CB_u5316_u4E2D_u8F6C_u4ED3_u5E93"><a href="#u4E00_u3001_u521D_u59CB_u5316_u4E2D_u8F6C_u4ED3_u5E93" class="headerlink" title="一、初始化中转仓库"></a>一、初始化中转仓库</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir git-transfer&#10;git --bare init</span><br></pre></td></tr></table></figure>
+<h4 id="u4E8C_u3001_u5C06_u4E2D_u8F6C_u4ED3_u5E93_u6DFB_u52A0_u5230_u672C_u5730_u9879_u76EE_u7684remote"><a href="#u4E8C_u3001_u5C06_u4E2D_u8F6C_u4ED3_u5E93_u6DFB_u52A0_u5230_u672C_u5730_u9879_u76EE_u7684remote" class="headerlink" title="二、将中转仓库添加到本地项目的remote"></a>二、将中转仓库添加到本地项目的remote</h4><p><code>git remote add transfer ssh://r@192.168.157.129/home/r/git-transfer/</code></p>
+<h4 id="u4E09_u3001_u7ED9_u4E2D_u8F6C_u4ED3_u5E93_u6DFB_u52A0hooks"><a href="#u4E09_u3001_u7ED9_u4E2D_u8F6C_u4ED3_u5E93_u6DFB_u52A0hooks" class="headerlink" title="三、给中转仓库添加hooks"></a>三、给中转仓库添加hooks</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /home/r/git-transfer/hooks/&#10;cp post-update.sample post-update&#10;vi post-update</span><br></pre></td></tr></table></figure>
+<p>将 post-update 的内容修改为如下<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh&#10;#&#10;# An example hook script to prepare a packed repository for use over&#10;# dumb transports.&#10;#&#10;# To enable this hook, rename this file to &#34;post-update&#34;.&#10;&#10;unset GIT_DIR&#10;DeployPath=/home/r/git-dest&#10;&#10;cd $DeployPath&#10;git add . -A &#38;&#38; git stash&#10;git pull origin master</span><br></pre></td></tr></table></figure></p>
+<h4 id="u56DB_u3001_u5C06_u4E2D_u8F6C_u4ED3_u5E93clone_u5230_u76EE_u7684_u9879_u76EE"><a href="#u56DB_u3001_u5C06_u4E2D_u8F6C_u4ED3_u5E93clone_u5230_u76EE_u7684_u9879_u76EE" class="headerlink" title="四、将中转仓库clone到目的项目"></a>四、将中转仓库clone到目的项目</h4><p><code>git clone /home/r/git-transfer/ /home/r/git-dest/</code></p>
+<p>或者<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd git-dest&#10;git init&#10;git remote add origin /home/r/git-transfer/</span><br></pre></td></tr></table></figure></p>
+<p>这样在本地项目一push，目的项目就会马上更新</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -131,7 +131,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://ponder.work/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" data-title="【Chrome扩展】谷歌百度一键搜索修改版 | 思想杂物间" data-tsina="null" class="share clearfix">
+	  <div data-url="http://ponder.work/2016/04/16/git代码自动同步/" data-title="git代码自动同步 | 思想杂物间" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -145,18 +145,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/01/10/python赋值语句小坑/" title="python赋值语句小坑">
+ <a href="/2016/04/16/python中yield语句的运行机制/" title="Python中yield语句的运行机制">
   <strong>上一篇：</strong><br/>
   <span>
-  python赋值语句小坑</span>
+  Python中yield语句的运行机制</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/11/25/django 登录后的跳转问题/"  title="django 登录后的跳转到之前的页面">
+<a href="/2016/04/16/lightdm自动登录root账户/"  title="xubuntu自动登录root账户">
  <strong>下一篇：</strong><br/> 
- <span>django 登录后的跳转到之前的页面
+ <span>xubuntu自动登录root账户
 </span>
 </a>
 </div>
@@ -165,7 +165,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" data-title="【Chrome扩展】谷歌百度一键搜索修改版" data-url="http://ponder.work/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/"></div>
+	<div class="ds-thread" data-thread-key="2016/04/16/git代码自动同步/" data-title="git代码自动同步" data-url="http://ponder.work/2016/04/16/git代码自动同步/"></div>
 </section>
 
 

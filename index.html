@@ -79,6 +79,317 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/" title="Python2中UnicodeDecodeError的几种解决办法" itemprop="url">Python2中UnicodeDecodeError的几种解决办法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-16T13:45:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="u539F_u7406"><a href="#u539F_u7406" class="headerlink" title="原理"></a>原理</h3><p>由于在Python2中字符串有两种类型<code>str</code>和<code>unicode</code>，他们都是<code>basestring</code>的子类。<br>其中str类型的一个字符，即是ascii字符（美国信息交换标准代码，主要用于显示现代英语和其他西欧语言。），占用1byte，所以str字符最多只有256(2^8)个。<br>而unicode包含了256个ascii码之外还包含其他各个国家的文字的编码，所以unicode的一个字符占用2个字节，这样理论上一共最多可以表示2^16（即65536）个字符，远大于256。</p>
+<p>操作系统的默认编码方式是ascii，如果我们给系统的输入是unicode的字符（除256个ascii字符之外），系统在尝试解码时就会出现<code>UnicodeDecodeError</code></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; s = <span class="string">'2'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; u = u<span class="string">'2'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; type(s)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; type(u)</span><br><span class="line">&lt;type <span class="string">'unicode'</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; issubclass(str,basestring)</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; issubclass(unicode,basestring)</span><br><span class="line"><span class="constant">True</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; <span class="string">'啊'</span>.decode(<span class="string">'ascii'</span>)</span><br><span class="line"><span class="constant">Traceback</span> (most recent call last)<span class="symbol">:</span></span><br><span class="line">  <span class="constant">File</span> <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;<span class="class"><span class="keyword">module</span>&gt;</span></span><br><span class="line"><span class="constant">UnicodeDecodeError</span><span class="symbol">:</span> <span class="string">'ascii'</span> codec can<span class="string">'t decode byte 0xe5 in position 0: ordinal not in range(128)</span><br><span class="line">'</span>ascii<span class="string">' codec can'</span>t decode byte <span class="number">0xe5</span> <span class="keyword">in</span> position <span class="number">0</span><span class="symbol">:</span> ordinal <span class="keyword">not</span> <span class="keyword">in</span> range(<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="u51E0_u79CD_u89E3_u51B3_u65B9_u6CD5"><a href="#u51E0_u79CD_u89E3_u51B3_u65B9_u6CD5" class="headerlink" title="几种解决方法"></a>几种解决方法</h3>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/Python中UnicodeDecodeError的几种解决办法/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/16/ubuntu静态ip配置/" title="ubuntu静态ip配置" itemprop="url">ubuntu静态ip配置</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-16T12:52:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>以vmware虚拟机为例  </p>
+<h4 id="u8BBE_u7F6EIP"><a href="#u8BBE_u7F6EIP" class="headerlink" title="设置IP"></a>设置IP</h4><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> eth0  <span class="preprocessor"># eth0是网卡名称，你的不一定是这个，可通过ifconfig查看</span></span><br><span class="line">iface eth0 inet <span class="keyword">static</span></span><br><span class="line">address <span class="number">192.168</span><span class="number">.157</span><span class="number">.129</span>   <span class="preprocessor"># 地址</span></span><br><span class="line">gateway <span class="number">192.168</span><span class="number">.157</span><span class="number">.2</span>    <span class="preprocessor"># 网关</span></span><br><span class="line">netmask <span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span>   <span class="preprocessor"># 掩码</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="u4FEE_u6539DNS"><a href="#u4FEE_u6539DNS" class="headerlink" title="修改DNS"></a>修改DNS</h4><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/16/ubuntu静态ip配置/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/ubuntu静态ip配置/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/16/python中yield语句的运行机制/" title="Python中yield语句的运行机制" itemprop="url">Python中yield语句的运行机制</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-16T12:17:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>如果一个在函数中存在yield关键字，那么这个函数就构成了生成器。生成器是一个函数，它生成一个序列，以便在迭代中使用。<br>调用这个函数，并不会马上开始执行函数体中的代码，而是返回一个生成器对象，通过调用生成器对象的<code>next()</code>方法（python3中是<code>__netx__()</code>）执行函数。</p>
+<p>那么，具体的函数中语句的执行顺序是怎么样的呢？</p>
+<h3 id="u4EE3_u7801"><a href="#u4EE3_u7801" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'the beginning of function'</span></span><br><span class="line">    <span class="keyword">if</span> x &lt;= <span class="number">0</span> <span class="keyword">or</span> <span class="keyword">not</span> isinstance(x, int):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(x):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'before yield'</span>, i</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'after yield'</span>, i</span><br><span class="line"></span><br><span class="line">gen = func(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br></pre></td></tr></table></figure>
+<p>输出<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">the beginning of function</span><br><span class="line">before yield 0</span><br><span class="line">-&gt; yielding: 0</span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">after yield 0</span><br><span class="line">before yield 1</span><br><span class="line">-&gt; yielding: 1</span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">after yield 1</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"D:\Projects\test.py"</span>, line 28, in <span class="variable">&lt;module&gt;</span></span><br><span class="line">    print '-&gt; yielding: %s' % gen.next()</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
+<h3 id="u5206_u6790"><a href="#u5206_u6790" class="headerlink" title="分析"></a>分析</h3><ol>
+<li>首先运行<code>func(2)</code>，这时函数的所有语句都没有执行，返回一个生成器赋值给<code>gen</code>。</li>
+<li>第一次执行<code>gen.next()</code>，函数从头开始执行，运行完yield语句暂停住了。</li>
+<li>再次运行<code>gen.next()</code>，从停下的地方继续，直到遇到遇到下一个yield，运行完yield语句又暂停住了。</li>
+<li>第三次尝试运行<code>gen.next()</code>，运行完<code>print &#39;after yield&#39;, i</code>，由于循环次数已满，找不到下一个yield，就出现<code>StopIteration</code>错误</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/16/python中yield语句的运行机制/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/python中yield语句的运行机制/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/16/git代码自动同步/" title="git代码自动同步" itemprop="url">git代码自动同步</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-16T12:01:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="u9700_u6C42"><a href="#u9700_u6C42" class="headerlink" title="需求"></a>需求</h3><p>由于最近做Python的linux服务器脚本，经常要同步代码到测试服务器，又不想直接ssh登录到服务器，所以萌生了用git自动同步代码的想法。<br>具体的要求是：测试机是服务器，需要本地一push代码，测试机能实时更新。<br>查阅相关资料发现可以用git的hooks来实现。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/04/16/git代码自动同步/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/16/git代码自动同步/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/git代码自动同步/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/16/lightdm自动登录root账户/" title="xubuntu自动登录root账户" itemprop="url">xubuntu自动登录root账户</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-16T11:42:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="u4E00_u3001_u8BBE_u7F6Eroot_u5BC6_u7801"><a href="#u4E00_u3001_u8BBE_u7F6Eroot_u5BC6_u7801" class="headerlink" title="一、设置root密码"></a>一、设置root密码</h3><p>运行 <code>sudo passwd</code><br>根据提示输入root帐户密码。</p>
+<h3 id="u4E8C_u3001_u4FEE_u6539lightdm_u914D_u7F6E_u6587_u4EF6"><a href="#u4E8C_u3001_u4FEE_u6539lightdm_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="二、修改lightdm配置文件"></a>二、修改lightdm配置文件</h3><p>运行 <code>ls /usr/share/lightdm/lightdm.conf.d/ -al</code><br>-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf<br>-rw-r–r– 1 root root   68 12月  3 03:57 50-guest-wrapper.conf<br>-rw-r–r– 1 root root   51 12月  3 03:57 50-xserver-command.conf<br>-rw-r–r– 1 root root  118  4月 16 17:08 <b>60-lightdm-gtk-greeter.conf</b></p>
+<p>就是greeter这个文件，不同的发行版可能名字不同。<br>运行 <code>sudo gedit /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf</code><br>改完以后是这样<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[SeatDefaults]</span></span><br><span class="line"><span class="setting">autologin-user=<span class="value">root</span></span></span><br><span class="line"><span class="setting">greeter-session=<span class="value">lightdm-gtk-greeter</span></span></span><br><span class="line"><span class="setting">greeter-show-manual-login=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"><span class="setting">all-guest=<span class="value"><span class="keyword">false</span></span></span></span><br></pre></td></tr></table></figure></p>
+<h3 id="u4E09_u3001_u4FEE_u6539_/root/-profile"><a href="#u4E09_u3001_u4FEE_u6539_/root/-profile" class="headerlink" title="三、修改 /root/.profile"></a>三、修改 <code>/root/.profile</code></h3><p>在刚修改完root权限自动登录后，发现可能开机出现以下提示：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error found <span class="keyword">when</span> loading <span class="regexp">/root/</span>.profile</span><br><span class="line"><span class="attribute">stdin</span>:<span class="keyword">is</span> <span class="keyword">not</span> a tty</span><br><span class="line">…………</span><br></pre></td></tr></table></figure>
+<p>运行 <code>gedit /root/.profile</code><br>打开文件后找到<code>mesg n</code>，将其更改为<code>tty -s &amp;&amp; mesg n</code>。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/linux/">linux</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/16/lightdm自动登录root账户/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/lightdm自动登录root账户/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/02/28/python中关于继承/" title="关于Python的继承" itemprop="url">关于Python的继承</a>
   </h1>
   <p class="article-author">By
@@ -381,316 +692,6 @@
 	
 	  	<span></span>
 		<a href="/2016/01/10/除法在python2和python3中的区别/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/除法在python2和python3中的区别/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/01/10/python赋值语句小坑/" title="python赋值语句小坑" itemprop="url">python赋值语句小坑</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-10T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <pre><code>说到python赋值语句，大家想必一个念头——so easy，不是`lz = &apos;dashabi&apos;`吗。
-确实，easy是easy，里面却有个小坑，虽小，却不易发现。在代码量多的时候，就有点恶心了。
-</code></pre><ul>
-<li><h5 id="u6B63_u5E38_u7684_u8BED_u53E5_u662F_u8FD9_u6837"><a href="#u6B63_u5E38_u7684_u8BED_u53E5_u662F_u8FD9_u6837" class="headerlink" title="正常的语句是这样"></a>正常的语句是这样</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa </span><br><span class="line"><span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><h5 id="u5751_u5728_u8FD9_u91CC"><a href="#u5751_u5728_u8FD9_u91CC" class="headerlink" title="坑在这里"></a>坑在这里</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span>,</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa </span><br><span class="line">(<span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span>,)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<pre><code>看出区别没有，坑的后面有个逗号，平时这逗号没什么卵用，但在赋值语句的末尾会将原来的对象转化为tuple。
-和`aa = (u&apos;这是一个坑&apos;,)`是一样的效果。
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/01/10/python赋值语句小坑/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/python赋值语句小坑/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/25/django-admin过滤foreignkey值/" title="django-admin过滤foreignkey值" itemprop="url">django-admin过滤foreignkey值</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="u95EE_u9898_u80CC_u666F"><a href="#u95EE_u9898_u80CC_u666F" class="headerlink" title="问题背景"></a>问题背景</h3><pre><code>在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
-当然，也可通过自定义form解决该问题。
-</code></pre><h3 id="u89E3_u51B3_u65B9_u6848"><a href="#u89E3_u51B3_u65B9_u6848" class="headerlink" title="解决方案"></a>解决方案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryOrderItemInline</span><span class="params">(admin.TabularInline)</span>:</span></span><br><span class="line">    model = FactoryOrderItem</span><br><span class="line">    fields = (<span class="string">'order_item'</span>, <span class="string">'product_sn'</span>, <span class="string">'style'</span>, <span class="string">'size'</span>, <span class="string">'factory_sn'</span>, <span class="string">'price'</span>, <span class="string">'quantity'</span>, <span class="string">'amount'</span>)</span><br><span class="line">    extra = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">formfield_for_foreignkey</span><span class="params">(self, db_field, request, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> db_field.name == <span class="string">'order_item'</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                parent_obj_id = request.resolver_match.args[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">except</span> IndexError: <span class="comment">#仅在新建状态过滤</span></span><br><span class="line">                kwargs[<span class="string">'queryset'</span>] = OrderItem.objects.filter(order__status=<span class="string">'2'</span>)</span><br><span class="line">        <span class="keyword">return</span> super(FactoryOrderItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)</span><br></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/11/25/django-admin过滤foreignkey值/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django-admin过滤foreignkey值/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/25/django 登录后的跳转问题/" title="django 登录后的跳转到之前的页面" itemprop="url">django 登录后的跳转到之前的页面</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <pre><code>在开发django网站时发现，用户登录后不能跳转到之前的页面，google了很多答案，讲得也不清楚。
-自己琢磨解决了，以下干货。
-</code></pre><h4 id="1-__u767B_u5F55_u94FE_u63A5"><a href="#1-__u767B_u5F55_u94FE_u63A5" class="headerlink" title="1. 登录链接"></a>1. 登录链接</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">a</span>  <span class="attribute">href</span>=<span class="value">"/account/login/?next=&#123;&#123;request.path&#125;&#125;"</span>&gt;</span>登录<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-_view"><a href="#2-_view" class="headerlink" title="2. view"></a>2. view</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(request)</span>:</span></span><br><span class="line">    next_url = request.REQUEST.get(<span class="string">'next'</span>, <span class="string">'/'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        <span class="keyword">return</span> render_to_response(<span class="string">'account/login.html'</span>, &#123;<span class="string">'next_url'</span>: next_url&#125;, context_instance=RequestContext(request))</span><br><span class="line"></span><br><span class="line">    django_login(request, user)</span><br><span class="line">    <span class="keyword">return</span> redirect(next_url)</span><br></pre></td></tr></table></figure>
-<h4 id="3-__u767B_u5F55_u8868_u5355"><a href="#3-__u767B_u5F55_u8868_u5355" class="headerlink" title="3. 登录表单"></a>3. 登录表单</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">form</span> <span class="attribute">action</span>=<span class="value">"/account/login/?next=&#123;&#123;next_url&#125;&#125;"</span> <span class="attribute">method</span>=<span class="value">"post"</span> &gt;</span></span><br><span class="line">&#123;% csrf_token %&#125;</span><br><span class="line">    用户名<span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"username"</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">name</span>=<span class="value">"username"</span>  <span class="attribute">required</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">br</span>&gt;</span></span><br><span class="line">    密码<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">required</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"登  录"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/11/25/django 登录后的跳转问题/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django 登录后的跳转问题/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" title="【Chrome扩展】谷歌百度一键搜索修改版" itemprop="url">【Chrome扩展】谷歌百度一键搜索修改版</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="1-__u7B80_u4ECB"><a href="#1-__u7B80_u4ECB" class="headerlink" title="1. 简介"></a>1. 简介</h3><p>谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。 </p>
-<p>详细描述：<br>虽然谷歌比较好用，结果也准确，但搜索中文这方面却也弱了点，百度还是有点用。谷歌百度一键搜索， 在谷歌的页面上搜索百度，在百度页面上搜谷歌，无需切换，无需重新输入搜索词。<br>目前支持http(s)://www.baidu.com, http(s)://www.google.com.hk, http(s)://www.google.com</p>
-<p>创建：2015.11.25<br>作者：ponder.work<br>反馈：190127701@qq.com<br>forked from: raywill/BaiGoogleDu</p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/10/18/每个人心中都有个小王子/" title="每个人心中都有个小王子" itemprop="url">每个人心中都有个小王子</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-10-18T12:14:00.000Z" itemprop="datePublished"> 发表于 2015-10-18</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>　　下午去看了《小王子》电影，拍得很好，在忠实原著的基础上又有所发展。回来又把原著给温习了一遍，感触颇深。</p>
-<p>　　记得李安在拍《卧虎藏龙》的时候说过<code>每个人心中都有把青冥剑</code>，而我想说<code>每个人心中都有个小王子</code>。</p>
-<p>　　作者说过，这是<code>写给曾经是孩子的成人的童话</code>。所以，不论文章还是电影，都比较有深度，适合我们这些曾经是孩子的人观看。<br>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/10/18/每个人心中都有个小王子/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/10/18/每个人心中都有个小王子/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/18/每个人心中都有个小王子/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

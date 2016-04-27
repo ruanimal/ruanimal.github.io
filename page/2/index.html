@@ -79,6 +79,71 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/01/20/排序算法总结/" title="排序算法总结" itemprop="url">排序算法总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-20T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-20</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="一、冒泡排序_BubbleSort">一、冒泡排序 BubbleSort</h2><h3 id="介绍">介绍</h3><p>遍历序列，比较两个元素，如果前面的大于后面的就交换两者的位置。其实称之为冒泡排序不如加沉底排序，因为每一轮比较，这一轮轮最大都会被排到序列末尾，其实沉底更为贴切。</p>
+<h3 id="步骤">步骤</h3><ol>
+<li>遍历序列，比较序列的相邻元素，比较n-1次，如果前面的大于后面的就交换两者的位置。</li>
+<li>比较次数减一，重复步骤1</li>
+<li>共遍历n-1次</li>
+</ol>
+<h3 id="代码">代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(arry)</span>:</span></span><br><span class="line">    n = len(arry)</span><br><span class="line">    <span class="keyword">while</span> n &gt; <span class="number">1</span>:</span><br><span class="line">        n -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span> arry[x] &gt; arry[x+<span class="number">1</span>]:</span><br><span class="line">                arry[x], arry[x+<span class="number">1</span>] = arry[x+<span class="number">1</span>], arry[x]</span><br><span class="line">    <span class="keyword">return</span> arry</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/01/20/排序算法总结/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/01/20/排序算法总结/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/20/排序算法总结/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/01/10/除法在python2和python3中的区别/" title="除法在 python2 和 python3 中的区别" itemprop="url">除法在 python2 和 python3 中的区别</a>
   </h1>
   <p class="article-author">By
@@ -628,68 +693,6 @@
 	
 	  	<span></span>
 		<a href="/2015/10/03/《经济学原理：微观经济学分册》思维导图/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/03/《经济学原理：微观经济学分册》思维导图/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/10/03/《禅者的初心》读书笔记/" title="《禅者的初心》读书笔记" itemprop="url">《禅者的初心》读书笔记</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-10-03T00:48:00.000Z" itemprop="datePublished"> 发表于 2015-10-03</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="概述">概述</h3><ul>
-<li>作者：[日]铃木俊隆</li>
-<li>简介：禅修的心应该始终是一颗初心（初学者的心）。初心是空空如也的，不受各种习性的羁绊。只有保持这颗初心，随时准备好去接受、怀疑，并对所有的可能性敞开，才能如实看待万物的本然面貌，一步接着一步前进，然后在一闪念中证悟到万物的原初本性。<a href="http://book.douban.com/subject/4898627/">[1]</a></li>
-</ul>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/10/03/《禅者的初心》读书笔记/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/10/03/《禅者的初心》读书笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/03/《禅者的初心》读书笔记/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

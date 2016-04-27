@@ -1,0 +1,413 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Python中的装饰器（decorator） | 思想杂物间</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Jay.Run">
+    
+
+    
+    <meta name="description" content="顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。
+假如我现在想在函数运行时输出一些信息
+小学水平123456789def running(func):    print &apos;`%s` is running...&apos; % func.__name__    return func    @runningdef my_sum():    return &quot;I cat&apos;t sum">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python中的装饰器（decorator）">
+<meta property="og:url" content="http://ponder.work/2016/04/27/python中的装饰器/index.html">
+<meta property="og:site_name" content="思想杂物间">
+<meta property="og:description" content="顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。
+假如我现在想在函数运行时输出一些信息
+小学水平123456789def running(func):    print &apos;`%s` is running...&apos; % func.__name__    return func    @runningdef my_sum():    return &quot;I cat&apos;t sum">
+<meta property="og:updated_time" content="2016-04-27T12:42:52.461Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python中的装饰器（decorator）">
+<meta name="twitter:description" content="顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。
+假如我现在想在函数运行时输出一些信息
+小学水平123456789def running(func):    print &apos;`%s` is running...&apos; % func.__name__    return func    @runningdef my_sum():    return &quot;I cat&apos;t sum">
+
+    
+    <link rel="alternative" href="/atom.xml" title="思想杂物间" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="思想杂物间">思想杂物间</a></h1>
+				<h2 class="blog-motto">人类一思考，上帝就发笑。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:ponder.work">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/27/python中的装饰器/" title="Python中的装饰器（decorator）" itemprop="url">Python中的装饰器（decorator）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-27T12:37:00.000Z" itemprop="datePublished"> 发表于 2016-04-27</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#小学水平"><span class="toc-number">1.</span> <span class="toc-text">小学水平</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中学水平"><span class="toc-number">2.</span> <span class="toc-text">中学水平</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#大学水平"><span class="toc-number">3.</span> <span class="toc-text">大学水平</span></a></li></ol>
+		
+		</div>
+		
+		<p>顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。</p>
+<p>假如我现在想在函数运行时输出一些信息</p>
+<h3 id="小学水平">小学水平</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'`%s` is running...'</span> % func.__name__</span><br><span class="line">    <span class="keyword">return</span> func</span><br><span class="line">    </span><br><span class="line"><span class="decorator">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_sum</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"I cat't sum right now!"</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">print</span> my_sum()</span><br></pre></td></tr></table></figure>
+<p>输出<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">`my_sum` <span class="keyword">is</span> <span class="property">running</span>...</span><br><span class="line">I cat't sum right now!</span><br></pre></td></tr></table></figure></p>
+<p>要使用装饰器，先得定义一个装饰器函数，然后在需要装饰的函数的前一行使用<code>@</code>符号加上<code>装饰器名称</code>。<br>在这里的效果等效于running(my_sum)()，不过看起来有点别扭。</p>
+<h3 id="中学水平">中学水平</h3><p>上一个装饰器用起来还行，但是有一个致命的问题，它不能装饰带参数的函数。所以我们在装饰器内部定义<code>_wrapper</code>函数，并返回它。这个函数接收所有位置参数<code>*args</code>，和关键字参数<code>*kwargs</code>，在<code>_wrapper</code>内部执行<code>func(*args, **kwargs)</code>。</p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">'`%s` is running...'</span> % func.__name__</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> _wrapper</span><br><span class="line">    </span><br><span class="line"><span class="decorator">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_sum</span><span class="params">(a, b=<span class="number">2</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> my_sum(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">print</span> my_sum.__name__</span><br></pre></td></tr></table></figure>
+<p>输出<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">`my_sum` <span class="keyword">is</span> <span class="property">running</span>...</span><br><span class="line"><span class="number">3</span></span><br><span class="line">_wrapper</span><br></pre></td></tr></table></figure></p>
+<p>这也是python中最普通的装饰器，假如需要在<code>my_sum</code>运行之后添加一些功能，则可以改成这样。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'`%s` is running...'</span> % func.__name__</span><br><span class="line">        _result = func(*args, **kwargs)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'run `%s` takes %s seconds'</span> % (func.__name__, time.time()-start)</span><br><span class="line">        <span class="keyword">return</span> _result</span><br><span class="line">    <span class="keyword">return</span> _wrapper</span><br></pre></td></tr></table></figure></p>
+<h3 id="大学水平">大学水平</h3><p>上一个装饰器也有一个问题，就是经过装饰的<code>my_sum.__name__</code>变成了<code>_wrapper</code>。<br>这个问题可以通过python内置的<code>functools.wraps</code>解决，这个装饰器对原函数的一些属性进行了复制。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="decorator">    @functools.wraps(func)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'`%s` is running...'</span> % func.__name__</span><br><span class="line">        _result = func(*args, **kwargs)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'run `%s` takes %s seconds'</span> % (func.__name__, time.time()-start)</span><br><span class="line">        <span class="keyword">return</span> _result</span><br><span class="line">    <span class="keyword">return</span> _wrapper</span><br><span class="line"></span><br><span class="line"><span class="decorator">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_sum</span><span class="params">(a=<span class="number">1</span>, b=<span class="number">2</span>)</span>:</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> my_sum(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">print</span> my_sum.__name__</span><br></pre></td></tr></table></figure>
+<p>输出<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="escape">`m</span>y_sum<span class="escape">` </span>is running...</span><br><span class="line">run <span class="escape">`m</span>y_sum<span class="escape">` </span>takes <span class="number">1.0</span> seconds</span><br><span class="line"><span class="number">3</span></span><br><span class="line">my_sum</span><br></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ponder.work/2016/04/27/python中的装饰器/" data-title="Python中的装饰器（decorator） | 思想杂物间" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/04/25/Python包导入/"  title="Python项目中包的导入">
+ <strong>下一篇：</strong><br/> 
+ <span>Python项目中包的导入
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/04/27/python中的装饰器/" data-title="Python中的装饰器（decorator）" data-url="http://ponder.work/2016/04/27/python中的装饰器/"></div>
+</section>
+
+
+</div>  
+    </div>
+    <footer><div id="footer" >
+	
+	<section class="info">
+		<p> Life is short, play more! </p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Jay.Run">Jay.Run</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ponder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

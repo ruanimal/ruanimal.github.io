@@ -21,7 +21,7 @@
 <meta property="og:description" content="顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。
 假如我现在想在函数运行时输出一些信息
 小学水平123456789def running(func):    print &apos;`%s` is running...&apos; % func.__name__    return func    @runningdef my_sum():    return &quot;I cat&apos;t sum">
-<meta property="og:updated_time" content="2016-04-27T12:42:52.461Z">
+<meta property="og:updated_time" content="2016-05-08T13:43:14.755Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python中的装饰器（decorator）">
 <meta name="twitter:description" content="顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。
@@ -108,7 +108,7 @@
 <p>假如我现在想在函数运行时输出一些信息</p>
 <h3 id="小学水平">小学水平</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'`%s` is running...'</span> % func.__name__</span><br><span class="line">    <span class="keyword">return</span> func</span><br><span class="line">    </span><br><span class="line"><span class="decorator">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_sum</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"I cat't sum right now!"</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">print</span> my_sum()</span><br></pre></td></tr></table></figure>
 <p>输出<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">`my_sum` <span class="keyword">is</span> <span class="property">running</span>...</span><br><span class="line">I cat't sum right now!</span><br></pre></td></tr></table></figure></p>
-<p>要使用装饰器，先得定义一个装饰器函数，然后在需要装饰的函数的前一行使用<code>@</code>符号加上<code>装饰器名称</code>。<br>在这里的效果等效于running(my_sum)()，不过看起来有点别扭。</p>
+<p>要使用装饰器，先得定义一个装饰器函数，然后在需要装饰的函数的前一行使用<code>@</code>符号加上<code>装饰器名称</code>。<br>在这里的效果等效于running(my_sum)()，不过看起来有点别扭。<br><strong>注意：一旦通过<code>@running</code>装饰了函数，不管被装饰函数是否运行，python解释都会执行一遍<code>running</code>函数。</strong></p>
 <h3 id="中学水平">中学水平</h3><p>上一个装饰器用起来还行，但是有一个致命的问题，它不能装饰带参数的函数。所以我们在装饰器内部定义<code>_wrapper</code>函数，并返回它。这个函数接收所有位置参数<code>*args</code>，和关键字参数<code>*kwargs</code>，在<code>_wrapper</code>内部执行<code>func(*args, **kwargs)</code>。</p>
 <a id="more"></a>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">'`%s` is running...'</span> % func.__name__</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> _wrapper</span><br><span class="line">    </span><br><span class="line"><span class="decorator">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_sum</span><span class="params">(a, b=<span class="number">2</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> my_sum(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">print</span> my_sum.__name__</span><br></pre></td></tr></table></figure>
@@ -147,6 +147,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2016/05/08/Python中re模块的用法/" title="Python中re模块的用法">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Python中re模块的用法</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2016/04/25/Python包导入/"  title="Python项目中包的导入">

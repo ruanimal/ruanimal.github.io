@@ -1,0 +1,413 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Python中的类变量与实例变量 | 思想杂物间</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Jay.Run">
+    
+
+    
+    <meta name="description" content="对于初学者来说，python的类变量（也就是java中的静态变量）和实例变量（也就是属性）有一些很容易混淆的地方，同时对这些特性深入了解有助于理解python的面向对象思想。
+类变量与实例变量区分1234567891011121314151617181920212223242526&amp;gt;&amp;gt;&amp;gt; class ClassA(object):  # 1...     num1 = 1  #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python中的类变量与实例变量">
+<meta property="og:url" content="http://ponder.work/2016/05/10/Python中的类变量与实例变量/index.html">
+<meta property="og:site_name" content="思想杂物间">
+<meta property="og:description" content="对于初学者来说，python的类变量（也就是java中的静态变量）和实例变量（也就是属性）有一些很容易混淆的地方，同时对这些特性深入了解有助于理解python的面向对象思想。
+类变量与实例变量区分1234567891011121314151617181920212223242526&amp;gt;&amp;gt;&amp;gt; class ClassA(object):  # 1...     num1 = 1  #">
+<meta property="og:updated_time" content="2016-05-10T14:48:32.342Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python中的类变量与实例变量">
+<meta name="twitter:description" content="对于初学者来说，python的类变量（也就是java中的静态变量）和实例变量（也就是属性）有一些很容易混淆的地方，同时对这些特性深入了解有助于理解python的面向对象思想。
+类变量与实例变量区分1234567891011121314151617181920212223242526&amp;gt;&amp;gt;&amp;gt; class ClassA(object):  # 1...     num1 = 1  #">
+
+    
+    <link rel="alternative" href="/atom.xml" title="思想杂物间" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="思想杂物间">思想杂物间</a></h1>
+				<h2 class="blog-motto">人类一思考，上帝就发笑。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:ponder.work">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/10/Python中的类变量与实例变量/" title="Python中的类变量与实例变量" itemprop="url">Python中的类变量与实例变量</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-10T14:27:00.000Z" itemprop="datePublished"> 发表于 2016-05-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#类变量与实例变量区分"><span class="toc-number">1.</span> <span class="toc-text">类变量与实例变量区分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如果ClassA还有父类"><span class="toc-number">2.</span> <span class="toc-text">如果ClassA还有父类</span></a></li></ol>
+		
+		</div>
+		
+		<p>　　对于初学者来说，python的类变量（也就是java中的静态变量）和实例变量（也就是属性）有一些很容易混淆的地方，同时对这些特性深入了解有助于理解python的面向对象思想。</p>
+<h3 id="类变量与实例变量区分">类变量与实例变量区分</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">ClassA</span><span class="params">(object)</span>:</span>  <span class="comment"># 1</span></span><br><span class="line"><span class="prompt">... </span>    num1 = <span class="number">1</span>  <span class="comment"># 类变量</span></span><br><span class="line"><span class="prompt">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="prompt">... </span>        self.num2 = <span class="number">2</span>  <span class="comment"># 实例变量，或者说属性</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1 = ClassA()</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ClassA.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 2</span></span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.num1 = <span class="number">3</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 3</span></span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.__class__.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.__class__.num1 = <span class="number">4</span>  <span class="comment"># 4</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ClassA.num1</span><br><span class="line"><span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a2 = ClassA()</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a2.num1</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>这里我们定义了<code>ClassA</code>类，它有一个类变量<code>num1</code>，还有一个实例变量<code>num2</code>。  </li>
+<li>a1是ClassA的一个实例，当我们写下<code>a1.num1</code>的时候，实际上是引用类变量num1，因此<code>a1.num1 is ClassA.num1</code>值为<code>True</code>。  </li>
+<li>运行<code>a1.num1 = 3</code>的时候，其实给a1绑定了一个属性num1，这是动态语言的特性，此时<code>a1.num1 is ClassA.num1</code>值为<code>False</code>。<br><strong>因此我不建议通过实例的名称来引用类变量，这样容易引起混淆，你以为改变了ClassA.num1，其实没有。</strong><br>这里就扯到了Python的作用域与命名空间，运行<code>a1.num1</code>的时候，先是在a1自己的命名空间内查找num1，没找到就在所属类的命名空间找，还没有就抛出<code>AttributeError: &#39;ClassA&#39; object has no attribute &#39;num3&#39;</code>.<br>运行<code>a1.num1 = 3</code>之后，a1自己的命名空间内找到了num1，就不继续往上查找了。</li>
+<li>如果此时还想通过a1访问和改变类变量num1，可以通过<code>a1.__class__.num1</code>来访问。</li>
+</ol>
+<p>以上这些，也适用于<code>staticmethod</code>和<code>classmethod</code>。</p>
+<h3 id="如果ClassA还有父类">如果ClassA还有父类</h3><a id="more"></a>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; class FatherI(object):</span><br><span class="line">...     num1 = 11</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; class FatherII(object):</span><br><span class="line">...     num1 = 111</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; class ClassA(FatherI, FatherII):</span><br><span class="line">...     num1 = 1</span><br><span class="line">...     def __init__(self):</span><br><span class="line">...         self.num2 = 2</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; a1 = ClassA()</span><br><span class="line">&gt;&gt;&gt; a1.__class__</span><br><span class="line">&lt;class 'ClassA'&gt;</span><br><span class="line">&gt;&gt;&gt; a1.__class__.__mro__</span><br><span class="line">(&lt;class 'ClassA'&gt;, &lt;class 'FatherI'&gt;, &lt;class 'FatherII'&gt;, &lt;type 'object'&gt;)</span><br><span class="line">&gt;&gt;&gt; a1.__class__.__mro__[0].num1</span><br><span class="line">1</span><br><span class="line">&gt;&gt;&gt; a1.__class__.__mro__[1].num1</span><br><span class="line">11</span><br><span class="line">&gt;&gt;&gt; a1.__class__.__mro__[2].num1</span><br><span class="line">111</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; super(ClassA, a1).num1</span><br><span class="line">11</span><br><span class="line">&gt;&gt;&gt; super(ClassA.__mro__[0], a1).num1</span><br><span class="line">11</span><br><span class="line">&gt;&gt;&gt; super(FatherI, a1).num1</span><br><span class="line">111</span><br><span class="line">&gt;&gt;&gt; super(ClassA.__mro__[1], a1).num1</span><br><span class="line">111</span><br><span class="line">&gt;&gt;&gt; super(FatherII, a1).num1</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "&lt;stdin&gt;", line 1, in &lt;module&gt;</span><br><span class="line">AttributeError: 'super' object has no attribute 'num1'</span><br><span class="line">'super' object has no attribute 'num1'</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果ClassA还有父类，而且可能还有多个，想访问父类的类变量可以通过<code>__mro__</code>或者<code>super</code>。</li>
+<li><code>__mro__</code>属性显示了一个类的继承树，也就是记录了所有属性和方法的查找顺序，由于此处是新式类，mro为广度优先。<br>由于<code>__mro__</code>是一个元祖，所以我们可以用<code>__mro__[1]</code>这种方式来访问继承树树上每个类的属性和方法。</li>
+<li>使用super也能达到相同的效果，不过稍有不同.<code>super(ClassA, a1).num1</code>这个语句的意思其实是，在<code>__mro__</code>中访问<code>&lt;class &#39;ClassA&#39;&gt;</code>后一个类，也就是<code>&lt;class &#39;FatherI&#39;&gt;</code>的num1，所以此处值是11</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ponder.work/2016/05/10/Python中的类变量与实例变量/" data-title="Python中的类变量与实例变量 | 思想杂物间" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/05/08/图书馆见闻/"  title="图书馆见闻">
+ <strong>下一篇：</strong><br/> 
+ <span>图书馆见闻
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/05/10/Python中的类变量与实例变量/" data-title="Python中的类变量与实例变量" data-url="http://ponder.work/2016/05/10/Python中的类变量与实例变量/"></div>
+</section>
+
+
+</div>  
+    </div>
+    <footer><div id="footer" >
+	
+	<section class="info">
+		<p> Life is short, play more! </p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Jay.Run">Jay.Run</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ponder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

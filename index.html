@@ -79,6 +79,74 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/05/10/Python中的类变量与实例变量/" title="Python中的类变量与实例变量" itemprop="url">Python中的类变量与实例变量</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-10T14:27:00.000Z" itemprop="datePublished"> 发表于 2016-05-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>　　对于初学者来说，python的类变量（也就是java中的静态变量）和实例变量（也就是属性）有一些很容易混淆的地方，同时对这些特性深入了解有助于理解python的面向对象思想。</p>
+<h3 id="类变量与实例变量区分">类变量与实例变量区分</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">ClassA</span><span class="params">(object)</span>:</span>  <span class="comment"># 1</span></span><br><span class="line"><span class="prompt">... </span>    num1 = <span class="number">1</span>  <span class="comment"># 类变量</span></span><br><span class="line"><span class="prompt">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="prompt">... </span>        self.num2 = <span class="number">2</span>  <span class="comment"># 实例变量，或者说属性</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1 = ClassA()</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ClassA.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 2</span></span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.num1 = <span class="number">3</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 3</span></span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.__class__.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.__class__.num1 = <span class="number">4</span>  <span class="comment"># 4</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ClassA.num1</span><br><span class="line"><span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a2 = ClassA()</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a2.num1</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>这里我们定义了<code>ClassA</code>类，它有一个类变量<code>num1</code>，还有一个实例变量<code>num2</code>。  </li>
+<li>a1是ClassA的一个实例，当我们写下<code>a1.num1</code>的时候，实际上是引用类变量num1，因此<code>a1.num1 is ClassA.num1</code>值为<code>True</code>。  </li>
+<li>运行<code>a1.num1 = 3</code>的时候，其实给a1绑定了一个属性num1，这是动态语言的特性，此时<code>a1.num1 is ClassA.num1</code>值为<code>False</code>。<br><strong>因此我不建议通过实例的名称来引用类变量，这样容易引起混淆，你以为改变了ClassA.num1，其实没有。</strong><br>这里就扯到了Python的作用域与命名空间，运行<code>a1.num1</code>的时候，先是在a1自己的命名空间内查找num1，没找到就在所属类的命名空间找，还没有就抛出<code>AttributeError: &#39;ClassA&#39; object has no attribute &#39;num3&#39;</code>.<br>运行<code>a1.num1 = 3</code>之后，a1自己的命名空间内找到了num1，就不继续往上查找了。</li>
+<li>如果此时还想通过a1访问和改变类变量num1，可以通过<code>a1.__class__.num1</code>来访问。</li>
+</ol>
+<p>以上这些，也适用于<code>staticmethod</code>和<code>classmethod</code>。</p>
+<h3 id="如果ClassA还有父类">如果ClassA还有父类</h3>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/05/10/Python中的类变量与实例变量/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/05/10/Python中的类变量与实例变量/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/10/Python中的类变量与实例变量/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/05/08/图书馆见闻/" title="图书馆见闻" itemprop="url">图书馆见闻</a>
   </h1>
   <p class="article-author">By
@@ -633,71 +701,9 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/28/python中关于继承/" title="关于Python的继承" itemprop="url">关于Python的继承</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-28T03:26:00.000Z" itemprop="datePublished"> 发表于 2016-02-28</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="引子">引子</h3><p>童话里经常会看到英雄打败恶人的故事，而且故事里总会有一个类似黑暗森林的场景——要么是一个山洞，要么是一篇森林，要么是另一个星球，反正是英雄不该去的某个地方。当然，一旦反面角色在剧情中出现，你就会发现英雄非得去那片破森林去杀掉坏人。当英雄的总是不得不冒着生命危险进到邪恶森林中去。</p>
-<p>在面向对象编程中，“继承”就是那片邪恶森林。有经验的程序员知道如何躲开这个恶魔，因为他们知道，在丛林深处的“继承”，其实是邪恶女皇“多重继承”。她喜欢用自己的巨口尖牙吃掉程序员和软件，咀嚼这些堕落者的血肉。不过这片丛林的吸引力是如此的强大，几乎每一个程序员都会进去探险，梦想着提着邪恶女皇的头颅走出丛林，从而声称自己是真正的程序员。你就是无法阻止丛林的魔力，于是你深入其中，而等你冒险结束，九死一生之后，你唯一学到的，就是远远躲开这片破森林，而如果你不得不再进去一次，你会带一支军队。</p>
-<p>有的程序员现在正在丛林里跟邪恶女皇作战，他会对你说你必须进到森林里去。他们这样说其实是因为他们需要你的帮助，因为他们已经无法承受他们自己创建的东西了。</p>
-<p>而对于你来说，你只要记住这一条：<br>大部分使用继承的场合都可以用合成取代，而多级继承则需要不惜一切地避免之。</p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/02/28/python中关于继承/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/28/python中关于继承/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/28/python中关于继承/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>

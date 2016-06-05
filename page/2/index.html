@@ -79,6 +79,132 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/04/16/python中yield语句的运行机制/" title="Python中yield语句的运行机制" itemprop="url">Python中yield语句的运行机制</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-16T12:17:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>如果一个在函数中存在yield关键字，那么这个函数就构成了生成器。生成器是一个函数，它生成一个序列，以便在迭代中使用。<br>调用这个函数，并不会马上开始执行函数体中的代码，而是返回一个生成器对象，通过调用生成器对象的<code>next()</code>方法（python3中是<code>__netx__()</code>）执行函数。</p>
+<p>那么，具体的函数中语句的执行顺序是怎么样的呢？</p>
+<h3 id="代码">代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'the beginning of function'</span></span><br><span class="line">    <span class="keyword">if</span> x &lt;= <span class="number">0</span> <span class="keyword">or</span> <span class="keyword">not</span> isinstance(x, int):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(x):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'before yield'</span>, i</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'after yield'</span>, i</span><br><span class="line"></span><br><span class="line">gen = func(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br></pre></td></tr></table></figure>
+<p>输出<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">the beginning of function</span><br><span class="line">before yield 0</span><br><span class="line">-&gt; yielding: 0</span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">after yield 0</span><br><span class="line">before yield 1</span><br><span class="line">-&gt; yielding: 1</span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">after yield 1</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"D:\Projects\test.py"</span>, line 28, in <span class="variable">&lt;module&gt;</span></span><br><span class="line">    print '-&gt; yielding: %s' % gen.next()</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
+<h3 id="分析">分析</h3><ol>
+<li>首先运行<code>func(2)</code>，这时函数的所有语句都没有执行，返回一个生成器赋值给<code>gen</code>。</li>
+<li>第一次执行<code>gen.next()</code>，函数从头开始执行，运行完yield语句暂停住了。</li>
+<li>再次运行<code>gen.next()</code>，从停下的地方继续，直到遇到遇到下一个yield，运行完yield语句又暂停住了。</li>
+<li>第三次尝试运行<code>gen.next()</code>，运行完<code>print &#39;after yield&#39;, i</code>，由于循环次数已满，找不到下一个yield，就出现<code>StopIteration</code>错误</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/16/python中yield语句的运行机制/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/python中yield语句的运行机制/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/16/git代码自动同步/" title="git代码自动同步" itemprop="url">git代码自动同步</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-16T12:01:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="需求">需求</h3><p>由于最近做Python的linux服务器脚本，经常要同步代码到测试服务器，又不想直接ssh登录到服务器，所以萌生了用git自动同步代码的想法。<br>具体的要求是：测试机是服务器，需要本地一push代码，测试机能实时更新。<br>查阅相关资料发现可以用git的hooks来实现。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/04/16/git代码自动同步/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/16/git代码自动同步/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/git代码自动同步/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/04/16/lightdm自动登录root账户/" title="xubuntu自动登录root账户" itemprop="url">xubuntu自动登录root账户</a>
   </h1>
   <p class="article-author">By
@@ -572,127 +698,6 @@
 	
 	  	<span></span>
 		<a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/25/django 登录后的跳转问题/" title="django 登录后的跳转到之前的页面" itemprop="url">django 登录后的跳转到之前的页面</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <pre><code>在开发django网站时发现，用户登录后不能跳转到之前的页面，google了很多答案，讲得也不清楚。
-自己琢磨解决了，以下干货。
-</code></pre><h4 id="1-_登录链接">1. 登录链接</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">a</span>  <span class="attribute">href</span>=<span class="value">"/account/login/?next=&#123;&#123;request.path&#125;&#125;"</span>&gt;</span>登录<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-_view">2. view</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(request)</span>:</span></span><br><span class="line">    next_url = request.REQUEST.get(<span class="string">'next'</span>, <span class="string">'/'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        <span class="keyword">return</span> render_to_response(<span class="string">'account/login.html'</span>, &#123;<span class="string">'next_url'</span>: next_url&#125;, context_instance=RequestContext(request))</span><br><span class="line"></span><br><span class="line">    django_login(request, user)</span><br><span class="line">    <span class="keyword">return</span> redirect(next_url)</span><br></pre></td></tr></table></figure>
-<h4 id="3-_登录表单">3. 登录表单</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">form</span> <span class="attribute">action</span>=<span class="value">"/account/login/?next=&#123;&#123;next_url&#125;&#125;"</span> <span class="attribute">method</span>=<span class="value">"post"</span> &gt;</span></span><br><span class="line">&#123;% csrf_token %&#125;</span><br><span class="line">    用户名<span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"username"</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">name</span>=<span class="value">"username"</span>  <span class="attribute">required</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">br</span>&gt;</span></span><br><span class="line">    密码<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">required</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"登  录"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/11/25/django 登录后的跳转问题/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django 登录后的跳转问题/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/25/django-admin过滤foreignkey值/" title="django-admin过滤foreignkey值" itemprop="url">django-admin过滤foreignkey值</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="问题背景">问题背景</h3><pre><code>在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
-当然，也可通过自定义<span class="keyword">form</span>解决该问题。
-</code></pre><h3 id="解决方案">解决方案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryOrderItemInline</span><span class="params">(admin.TabularInline)</span>:</span></span><br><span class="line">    model = FactoryOrderItem</span><br><span class="line">    fields = (<span class="string">'order_item'</span>, <span class="string">'product_sn'</span>, <span class="string">'style'</span>, <span class="string">'size'</span>, <span class="string">'factory_sn'</span>, <span class="string">'price'</span>, <span class="string">'quantity'</span>, <span class="string">'amount'</span>)</span><br><span class="line">    extra = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">formfield_for_foreignkey</span><span class="params">(self, db_field, request, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> db_field.name == <span class="string">'order_item'</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                parent_obj_id = request.resolver_match.args[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">except</span> IndexError: <span class="comment">#仅在新建状态过滤</span></span><br><span class="line">                kwargs[<span class="string">'queryset'</span>] = OrderItem.objects.filter(order__status=<span class="string">'2'</span>)</span><br><span class="line">        <span class="keyword">return</span> super(FactoryOrderItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)</span><br></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/11/25/django-admin过滤foreignkey值/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django-admin过滤foreignkey值/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

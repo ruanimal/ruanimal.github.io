@@ -79,6 +79,191 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/06/05/改善python的91建议 笔记/" title="《改善python的91建议》笔记" itemprop="url">《改善python的91建议》笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-05T13:36:00.000Z" itemprop="datePublished"> 发表于 2016-06-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>文如其名，是由91篇关系不是很紧密的python文章集合而成<br>这本书和国内很多技术类书籍一样，排版的代码缩进很有问题，还有文章有些观点并不正确。<br>除此之外，还是有很多有用的知识点，需要读者自己辨别。</p>
+<h3 id="Python的包和模块规范">Python的包和模块规范</h3><p>结构日益规范化。现在的库或框架跟随了以下潮流：</p>
+<ul>
+<li>包和模块的命名采用小写、单数形式，而且短小。</li>
+<li>包通常仅作为命名空间，如只包含空的<code>__init__</code>.py文件。</li>
+</ul>
+<h3 id="x,_y=y,_x赋值">x, y=y, x赋值</h3><p>Python表达式计算的顺序说起。一般情况下Python表达式的计算顺序是从左到右，但遇到表达式赋值的时候表达式右边的操作数先于左边的操作数计算，因此表达式<code>expr3, expr4=exprl, expr2</code>的计算顺序是<code>exprl, expr2 —&gt; expr3, expr4</code>。因此对于表达式<code>x, y=y, x</code>,其在内存中执行的顺序如下：</p>
+<ol>
+<li>先计算右边的表达式<code>y,x</code>,因此先在内存中创建元组<code>(y,x)</code>，其标示符和值分别为y、x及其对应的值，其中y和x是在初始化时已经存在于内存中的对象。</li>
+<li>计算表达式左边的值并进行赋值，元组被依次分配给左边的标示符，通过解压缩(unpacking),元组第一标识符（为y)分配给左边第一个元素（此时为X)，元组第二个标识符(为x)分配给第二个元素（此时为y),从而达到x、y值交换的目的。</li>
+</ol>
+<h3 id="提高and、or表达式的效率">提高and、or表达式的效率</h3><p>python的and、or表达式并不会将每个值都算出，一旦整个表达式的值已知，其他部分就不会被计算，并且返回最后计算的那个值。<br>因此，在编程过程中，如果对于or条件表达式应该将<code>值为真可能性较高的变量</code>写在or的前面；<br>而对于and则相反，应该推后。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/06/05/改善python的91建议 笔记/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/06/05/改善python的91建议 笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/05/改善python的91建议 笔记/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/05/《超脱烦恼的练习》/" title="《超脱烦恼的练习》笔记" itemprop="url">《超脱烦恼的练习》笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-05T13:30:00.000Z" itemprop="datePublished"> 发表于 2016-06-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong>四念处观</strong></p>
+<ol>
+<li>身体的观察——身随念处</li>
+<li>心情、感觉的观察——受随念处</li>
+<li>内心的观察——心随念处</li>
+<li>法则的观察——法随念处</li>
+</ol>
+<p>欲望和干劲是两回事，干劲反而因为欲望的压力而消耗。</p>
+<blockquote>
+<p>博主云：你的欲望和使欲望满足的方法往往是两个东西，所以欲望越多，越不知道该干什么。欲望想要的是一件事的结果，而我们能做的却仅仅是每一个具体的过程。</p>
+</blockquote>
+<p>难以抉择会给心灵带来极大负担。</p>
+<blockquote>
+<p>博主云：人在一段时间内的自制力是有限的，一个选择在内心停留越久，对自制力就越大损耗，自制力耗尽就表现为什么都不想做。</p>
+</blockquote>
+<p>欲望最原生的材料就是压力，即是苦，所以说将我们驱逐至欲望的正是（痛）苦。</p>
+<p>一直待在痛苦的世界是不好的。</p>
+<p>我们的欲望并不是自己的欲望，它是你前一段时间所有行为对当下心灵的残留影响。</p>
+<p>往往看起来高尚伟大的“xxx主义”，大致上总说着一些漂亮的场面话，实际上只是执着于想要增加自己所属团体的利益。</p>
+<p>觉得快乐并不是什么坏事，但是这往往会导致想要追求更多的快乐，就是扩大欲望。</p>
+<blockquote>
+<p>博主云：因快乐而生欲望，因欲望而生执着，因执着而造业。</p>
+</blockquote>
+<p>倾听对方的苦闷时，不要将自己的观点带入（无我相）。</p>
+<p>所有与当下情景无关的思想念头都是杂念。心与当下该做的事情合二为一。</p>
+<blockquote>
+<p>金刚经云：应如是住，如是降服其心。</p>
+</blockquote>
+<p>一段时间内，内心积极的能量是一定的，所有消极的想法情绪都会消耗它。</p>
+<p>切勿缅怀过去，亦不可期望将来的欣喜。因为过往已如云烟消逝，未来尚未发生，对当下的事物不起执着，深入观察眼前的一切，内心不受动摇，有智慧的人应该如此修行，就从今天开始努力精进。</p>
+<p>刹那——一个心念启动的瞬间。</p>
+<p>行动因欲望而起，过程中却也因欲望而受干扰，只要着手进行，想做的事就应该变为应做的事，从而忘掉欲望。</p>
+<p>灭心中之苦即为修行。</p>
+<p><strong>在行动之前花三秒钟审视欲望。</strong></p>
+<p>当观知诸所以受，若过去若现在，若内若外，若粗若细，若好若丑，若远若近，悉皆非我亦非本我，以此如实正观。</p>
+<p>对内心进行现行犯的机会教育。</p>
+<blockquote>
+<p>博主云：即是在起心动念的刹那观察念头</p>
+</blockquote>
+<p>如果仔细凝视自己内心的状态，会发现无论绝对非做不可、一定要做的这种念头有多强烈，其实一定还隐藏着相反的念头，只是碰巧两端之一浮出水面而已。</p>
+<p><strong>色受想行识</strong></p>
+<ol>
+<li>色是指身体</li>
+<li>受是指快乐或痛苦的感觉</li>
+<li>想是指记忆知识概念</li>
+<li>行是指意志、冲动</li>
+<li>识是指认识、接受信息</li>
+</ol>
+<p>我们的心情并不是以自己的力量创造的，只是任意来去的过客罢了。</p>
+<p>人类所谓的活动，是潜在中憎恶对方的快乐和希望对方痛苦两种组合而成的。</p>
+<p>人的生存，是不断输入心情好、很痛苦、模棱两可这三种刺激而生存。</p>
+<blockquote>
+<p>博主云：感觉心情好生贪念，感觉痛苦生嗔念，感觉模棱两可即是痴亦为无明。</p>
+</blockquote>
+<p>用戒（自律）定（专注）慧（观察力）破贪嗔痴。</p>
+<blockquote>
+<p>博主云：戒而后定，定而能生慧，循序渐进，方能成就。</p>
+</blockquote>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/随笔/">随笔</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/06/05/《超脱烦恼的练习》/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/05/《超脱烦恼的练习》/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/05/22/关于生活/" title="关于生活" itemprop="url">关于生活</a>
   </h1>
   <p class="article-author">By
@@ -469,8 +654,7 @@
 </header>
     <div class="article-content">
         
-        <h3 id="原理">原理</h3><p>由于在Python2中字符串有两种类型<code>str</code>和<code>unicode</code>，他们都是<code>basestring</code>的子类。<br>其中str类型的一个字符，即是ascii字符（美国信息交换标准代码，主要用于显示现代英语和其他西欧语言。），占用1byte，所以str字符最多只有256(2^8)个。<br>而unicode包含了256个ascii码之外还包含其他各个国家的文字的编码，所以unicode的一个字符占用2个字节，这样理论上一共最多可以表示2^16（即65536）个字符，远大于256。</p>
-<p>操作系统的默认编码方式是ascii，如果我们给系统的输入是unicode的字符（除256个ascii字符之外），系统在尝试解码时就会出现<code>UnicodeDecodeError</code></p>
+        <h3 id="原理">原理</h3><p>由于在Python2中字符串有两种类型<code>str</code>和<code>unicode</code>，他们都是<code>basestring</code>的子类。<br>str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。<br>而unicode包含了256个ascii码之外还包含其他各个国家的文字的编码，所以unicode的一个字符占用2个字节，这样理论上一共最多可以表示2^16（即65536）个字符，远大于256。<br>utf-8是unicode的一中实现，是unicode的一种编码方式。而且utf-8的编码方式，包含了ascii码的内容，也就是utf-8兼容ascii。<br>打个比方，unicode是商品，utf-8就是打包好的一个个包裹(encode)，打包是为了传输和储存的方便。而不同的编码之间不能直接互相转换，都需要转成unicode，也就是decode。<br>所以碰到一个str，你就得明白它是encode过的，你得调用相应的decode方法才不会乱码。<br>python2解释器的默认编码方式是ascii，如果我们给系统的输入是非ascii编码的字符，系统在尝试解码时就会出现<code>UnicodeDecodeError</code></p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; s = <span class="string">'2'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; u = u<span class="string">'2'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; type(s)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; type(u)</span><br><span class="line">&lt;type <span class="string">'unicode'</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; issubclass(str,basestring)</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; issubclass(unicode,basestring)</span><br><span class="line"><span class="constant">True</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; <span class="string">'啊'</span>.decode(<span class="string">'ascii'</span>)</span><br><span class="line"><span class="constant">Traceback</span> (most recent call last)<span class="symbol">:</span></span><br><span class="line">  <span class="constant">File</span> <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;<span class="class"><span class="keyword">module</span>&gt;</span></span><br><span class="line"><span class="constant">UnicodeDecodeError</span><span class="symbol">:</span> <span class="string">'ascii'</span> codec can<span class="string">'t decode byte 0xe5 in position 0: ordinal not in range(128)</span><br><span class="line">'</span>ascii<span class="string">' codec can'</span>t decode byte <span class="number">0xe5</span> <span class="keyword">in</span> position <span class="number">0</span><span class="symbol">:</span> ordinal <span class="keyword">not</span> <span class="keyword">in</span> range(<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
 <h3 id="几种解决方法">几种解决方法</h3>
         
@@ -559,132 +743,6 @@
 	
 	  	<span></span>
 		<a href="/2016/04/16/ubuntu静态ip配置/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/ubuntu静态ip配置/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/04/16/python中yield语句的运行机制/" title="Python中yield语句的运行机制" itemprop="url">Python中yield语句的运行机制</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-04-16T12:17:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>如果一个在函数中存在yield关键字，那么这个函数就构成了生成器。生成器是一个函数，它生成一个序列，以便在迭代中使用。<br>调用这个函数，并不会马上开始执行函数体中的代码，而是返回一个生成器对象，通过调用生成器对象的<code>next()</code>方法（python3中是<code>__netx__()</code>）执行函数。</p>
-<p>那么，具体的函数中语句的执行顺序是怎么样的呢？</p>
-<h3 id="代码">代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'the beginning of function'</span></span><br><span class="line">    <span class="keyword">if</span> x &lt;= <span class="number">0</span> <span class="keyword">or</span> <span class="keyword">not</span> isinstance(x, int):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(x):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'before yield'</span>, i</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'after yield'</span>, i</span><br><span class="line"></span><br><span class="line">gen = func(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br></pre></td></tr></table></figure>
-<p>输出<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">the beginning of function</span><br><span class="line">before yield 0</span><br><span class="line">-&gt; yielding: 0</span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">after yield 0</span><br><span class="line">before yield 1</span><br><span class="line">-&gt; yielding: 1</span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">after yield 1</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"D:\Projects\test.py"</span>, line 28, in <span class="variable">&lt;module&gt;</span></span><br><span class="line">    print '-&gt; yielding: %s' % gen.next()</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
-<h3 id="分析">分析</h3><ol>
-<li>首先运行<code>func(2)</code>，这时函数的所有语句都没有执行，返回一个生成器赋值给<code>gen</code>。</li>
-<li>第一次执行<code>gen.next()</code>，函数从头开始执行，运行完yield语句暂停住了。</li>
-<li>再次运行<code>gen.next()</code>，从停下的地方继续，直到遇到遇到下一个yield，运行完yield语句又暂停住了。</li>
-<li>第三次尝试运行<code>gen.next()</code>，运行完<code>print &#39;after yield&#39;, i</code>，由于循环次数已满，找不到下一个yield，就出现<code>StopIteration</code>错误</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/04/16/python中yield语句的运行机制/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/python中yield语句的运行机制/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/04/16/git代码自动同步/" title="git代码自动同步" itemprop="url">git代码自动同步</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-04-16T12:01:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="需求">需求</h3><p>由于最近做Python的linux服务器脚本，经常要同步代码到测试服务器，又不想直接ssh登录到服务器，所以萌生了用git自动同步代码的想法。<br>具体的要求是：测试机是服务器，需要本地一push代码，测试机能实时更新。<br>查阅相关资料发现可以用git的hooks来实现。</p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/04/16/git代码自动同步/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/04/16/git代码自动同步/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/git代码自动同步/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

@@ -4,32 +4,32 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>世界事物组织的本质 | 逸思杂陈</title>
+    <title>linux添加回收站功能 | 逸思杂陈</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Jay.Run">
     
 
     
-    <meta name="description" content="人们如何对世界万物加以组织？是区分与联系。
-所谓区分也就是一事物仅仅是它本身而不被认为是他物，有了区分才有了物与无之间的界线，没有和其他的“区分”就可以说该事物就不能存在。
-
-然后是联系，这体现了该事物存在的意义。如果该事物与其他事物之间完全没有关系，那么它也没有存在的必要了，因为有你没你并没有什么不同。">
+    <meta name="description" content="在linux服务器上工作，常常和rm打交道，难免手滑删除了重要的东西。而且linux又没有回收站功能，一旦删错东西真是欲哭无泪。别问我为什么知道，说多了都是泪。主要思路是用mv命令代替rm，将要删除的东西移动到回收站目录。
+新建删除到回收站脚本mkdir ~/bin
+vim ~/bin/trash  # 将下面的内容写入1mv -v $@ $&amp;#123;trash_bin&amp;#125;
+chmod">
 <meta property="og:type" content="article">
-<meta property="og:title" content="世界事物组织的本质">
-<meta property="og:url" content="http://ponder.work/2015/09/29/世界事物组织的本质/index.html">
+<meta property="og:title" content="linux添加回收站功能">
+<meta property="og:url" content="http://ponder.work/2016/06/12/linux添加回收站功能/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="人们如何对世界万物加以组织？是区分与联系。
-所谓区分也就是一事物仅仅是它本身而不被认为是他物，有了区分才有了物与无之间的界线，没有和其他的“区分”就可以说该事物就不能存在。
-
-然后是联系，这体现了该事物存在的意义。如果该事物与其他事物之间完全没有关系，那么它也没有存在的必要了，因为有你没你并没有什么不同。">
-<meta property="og:updated_time" content="2016-01-10T07:58:12.072Z">
+<meta property="og:description" content="在linux服务器上工作，常常和rm打交道，难免手滑删除了重要的东西。而且linux又没有回收站功能，一旦删错东西真是欲哭无泪。别问我为什么知道，说多了都是泪。主要思路是用mv命令代替rm，将要删除的东西移动到回收站目录。
+新建删除到回收站脚本mkdir ~/bin
+vim ~/bin/trash  # 将下面的内容写入1mv -v $@ $&amp;#123;trash_bin&amp;#125;
+chmod">
+<meta property="og:updated_time" content="2016-06-12T13:51:18.002Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="世界事物组织的本质">
-<meta name="twitter:description" content="人们如何对世界万物加以组织？是区分与联系。
-所谓区分也就是一事物仅仅是它本身而不被认为是他物，有了区分才有了物与无之间的界线，没有和其他的“区分”就可以说该事物就不能存在。
-
-然后是联系，这体现了该事物存在的意义。如果该事物与其他事物之间完全没有关系，那么它也没有存在的必要了，因为有你没你并没有什么不同。">
+<meta name="twitter:title" content="linux添加回收站功能">
+<meta name="twitter:description" content="在linux服务器上工作，常常和rm打交道，难免手滑删除了重要的东西。而且linux又没有回收站功能，一旦删错东西真是欲哭无泪。别问我为什么知道，说多了都是泪。主要思路是用mv命令代替rm，将要删除的东西移动到回收站目录。
+新建删除到回收站脚本mkdir ~/bin
+vim ~/bin/trash  # 将下面的内容写入1mv -v $@ $&amp;#123;trash_bin&amp;#125;
+chmod">
 
     
     <link rel="alternative" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
@@ -87,14 +87,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/09/29/世界事物组织的本质/" title="世界事物组织的本质" itemprop="url">世界事物组织的本质</a>
+      <a href="/2016/06/12/linux添加回收站功能/" title="linux添加回收站功能" itemprop="url">linux添加回收站功能</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
 		
   <p class="article-time">
-    <time datetime="2015-09-29T15:39:38.000Z" itemprop="datePublished"> 发表于 2015-09-29</time>
+    <time datetime="2016-06-12T13:51:18.002Z" itemprop="datePublished"> 发表于 2016-06-12</time>
     
   </p>
 </header>
@@ -103,22 +103,15 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#人们如何对世界万物加以组织？是区分与联系。"><span class="toc-number">1.</span> <span class="toc-text">人们如何对世界万物加以组织？是区分与联系。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#区分的实现包括以下两者：1、定义；2、作用。"><span class="toc-number">2.</span> <span class="toc-text">区分的实现包括以下两者：1、定义；2、作用。</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#新建删除到回收站脚本"><span class="toc-number">1.</span> <span class="toc-text">新建删除到回收站脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#登录时初始化回收站"><span class="toc-number">2.</span> <span class="toc-text">登录时初始化回收站</span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="人们如何对世界万物加以组织？是区分与联系。">人们如何对世界万物加以组织？是<strong>区分</strong>与<strong>联系</strong>。</h3><ul>
-<li><p>所谓区分也就是一事物仅仅是它本身而不被认为是他物，有了区分才有了物与无之间的界线，没有和其他的“区分”就可以说该事物就不能存在。</p>
-</li>
-<li><p>然后是联系，这体现了该事物存在的意义。如果该事物与其他事物之间完全没有关系，那么它也没有存在的必要了，因为有你没你并没有什么不同。</p>
-<a id="more"></a>
-</li>
-</ul>
-<h3 id="区分的实现包括以下两者：1、定义；2、作用。">区分的实现包括以下两者：1、定义；2、作用。</h3><ul>
-<li>定义就是什么东西通过什么方式构成了它，也就是它从哪里来；</li>
-<li>而作用就是能干什么也决定了它能往哪里去。</li>
-</ul>
-<p>在世俗，作用才是最重要的，因为你与他物的联系是由作用实现。这世界就是这么势利，它第一句话总是问你：“你能为我做什么，你有什么用”。经济学告诉我们，价值是由别人对该事物未来的预期决定的，而不是它的成本。而预期从何而来，根据就是一个事物的作用，一定意义上说也就是你所能带来的收益。我觉得记忆（我认为学习的本质就是记忆，所谓的理解、融汇贯通），不过是构筑你脑中的世界，本质与现实世界的组织是一致的，让脑中概念各得其位。</p>
+		<p>在linux服务器上工作，常常和<code>rm</code>打交道，难免手滑删除了重要的东西。而且linux又没有回收站功能，一旦删错东西真是欲哭无泪。别问我为什么知道，说多了都是泪。<br><strong>主要思路是用<code>mv</code>命令代替<code>rm</code>，将要删除的东西移动到回收站目录。</strong></p>
+<h3 id="新建删除到回收站脚本">新建删除到回收站脚本</h3><p><code>mkdir ~/bin</code></p>
+<p><code>vim ~/bin/trash</code>  # 将下面的内容写入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv -v <span class="variable">$@</span> <span class="variable">$&#123;trash_bin&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>chmod +x ~/bin/trash</code>   # 增加执行权限 </p>
+<h3 id="登录时初始化回收站">登录时初始化回收站</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将以下内容追加到"~/.bashrc"中，回收站是以每天的日期新建文件夹</span></span><br><span class="line"></span><br><span class="line">today=$(date <span class="string">"+%Y%m%d"</span>)  <span class="comment"># 形如20160606格式的日期</span></span><br><span class="line"></span><br><span class="line">trash_bin=<span class="string">"/tmp/trash/<span class="variable">$&#123;today&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-d</span> <span class="string">"/tmp/trash"</span> ]; <span class="keyword">then</span></span><br><span class="line">    mkdir <span class="string">"/tmp/trash"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-d</span> <span class="variable">$&#123;trash_bin&#125;</span> ]; <span class="keyword">then</span></span><br><span class="line">    mkdir <span class="variable">$&#123;trash_bin&#125;</span></span><br><span class="line">    <span class="built_in">export</span> trash_bin</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">alias</span> rm=<span class="string">"~/bin/trash"</span></span><br></pre></td></tr></table></figure>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -126,7 +119,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/随笔/">随笔</a>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
 </div>
 
 
@@ -136,7 +129,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://ponder.work/2015/09/29/世界事物组织的本质/" data-title="世界事物组织的本质 | 逸思杂陈" data-tsina="null" class="share clearfix">
+	  <div data-url="http://ponder.work/2016/06/12/linux添加回收站功能/" data-title="linux添加回收站功能 | 逸思杂陈" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -150,18 +143,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/09/30/《超越自卑》读书笔记/" title="《超越自卑》读书笔记">
+ <a href="/2016/06/12/我们为什么不能理解别人/" title="我们为什么不能理解别人">
   <strong>上一篇：</strong><br/>
   <span>
-  《超越自卑》读书笔记</span>
+  我们为什么不能理解别人</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/09/29/对一些事物的看法/"  title="对一些事物的看法">
+<a href="/2016/06/05/改善python的91建议 笔记/"  title="《改善python的91建议》笔记">
  <strong>下一篇：</strong><br/> 
- <span>对一些事物的看法
+ <span>《改善python的91建议》笔记
 </span>
 </a>
 </div>
@@ -170,7 +163,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/09/29/世界事物组织的本质/" data-title="世界事物组织的本质" data-url="http://ponder.work/2015/09/29/世界事物组织的本质/"></div>
+	<div class="ds-thread" data-thread-key="2016/06/12/linux添加回收站功能/" data-title="linux添加回收站功能" data-url="http://ponder.work/2016/06/12/linux添加回收站功能/"></div>
 </section>
 
 

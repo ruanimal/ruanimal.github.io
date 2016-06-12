@@ -79,6 +79,129 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/06/12/我们为什么不能理解别人/" title="我们为什么不能理解别人" itemprop="url">我们为什么不能理解别人</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-12T14:18:00.000Z" itemprop="datePublished"> 发表于 2016-06-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>　　这世界上这么多纷争与烦恼，很大一部分都是因为人与人之间不能相互理解，他人为敌国、以邻为壑等等层出不穷。之所以不能理解，是因为<strong>同一个东西，对于不同的人（或者不同时间或空间的同一个人），价值是全然不同的。</strong></p>
+<p>　　可能你认为重于生命的东西，于他人不过徒增笑谈尔。比如信教者的斋戒等行为，对无神论者来说是多余的，而对信徒来说却是可能比生命更重要。<br>　　又如，你还在大学的时候，这时的时间对你来说十分廉价，所以你愿意去发8元每小时的宣传单；等你事业有成或是垂垂老矣，你还愿意花这一小时去干这个吗，也许只会感叹自己当时太年轻吧。一个人尚且不能理解年轻时的自己，又怎能奢望他理解别人呢？<br>　　真正的相互理解是要认同他人对事物价值的判定，但一个事物对他们的价值有天壤之别，这样你叫他们如何相互理解呢？</p>
+<p>　　那么怎么解决这种情况呢？也就是怎么寻找一种相对普适的价值衡量方法呢？<br>　　我的一个浅薄的思路是，<strong>衡量一个事物的价值可以通过这个人的付出相对自身的稀缺性，这种付出包括物资的付出和精神上承受的压力。</strong><br>　　比如说，一个乞丐付出了仅有的100元买了个表，和一个百万富豪付出1000元买了个表。对乞丐来说这表是全部，而对富豪来说表是1/1000。因此乞丐对表爱护有加，富豪对表弃之如弊履，就完全可以理解了。也可以说乞丐的表价值大于富豪的表。<br>　　虽然绝对价值不可判定，并且造成很多纷争。但是，同一件事对不同的人价值不同也不是全然没有好处，至少在市场经济里，你们完全可以交换这些东西嘛。</p>
+<p>　　要之，于娑婆世界中，众生皆苦，<strong>要以事物相对他人的稀缺性来看他人的付出与承受，如此理解他人才成为可能。</strong></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/随笔/">随笔</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/06/12/我们为什么不能理解别人/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/12/我们为什么不能理解别人/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/12/linux添加回收站功能/" title="linux添加回收站功能" itemprop="url">linux添加回收站功能</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-12T13:51:18.002Z" itemprop="datePublished"> 发表于 2016-06-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在linux服务器上工作，常常和<code>rm</code>打交道，难免手滑删除了重要的东西。而且linux又没有回收站功能，一旦删错东西真是欲哭无泪。别问我为什么知道，说多了都是泪。<br><strong>主要思路是用<code>mv</code>命令代替<code>rm</code>，将要删除的东西移动到回收站目录。</strong></p>
+<h3 id="新建删除到回收站脚本">新建删除到回收站脚本</h3><p><code>mkdir ~/bin</code></p>
+<p><code>vim ~/bin/trash</code>  # 将下面的内容写入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv -v <span class="variable">$@</span> <span class="variable">$&#123;trash_bin&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>chmod +x ~/bin/trash</code>   # 增加执行权限 </p>
+<h3 id="登录时初始化回收站">登录时初始化回收站</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将以下内容追加到"~/.bashrc"中，回收站是以每天的日期新建文件夹</span></span><br><span class="line"></span><br><span class="line">today=$(date <span class="string">"+%Y%m%d"</span>)  <span class="comment"># 形如20160606格式的日期</span></span><br><span class="line"></span><br><span class="line">trash_bin=<span class="string">"/tmp/trash/<span class="variable">$&#123;today&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-d</span> <span class="string">"/tmp/trash"</span> ]; <span class="keyword">then</span></span><br><span class="line">    mkdir <span class="string">"/tmp/trash"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-d</span> <span class="variable">$&#123;trash_bin&#125;</span> ]; <span class="keyword">then</span></span><br><span class="line">    mkdir <span class="variable">$&#123;trash_bin&#125;</span></span><br><span class="line">    <span class="built_in">export</span> trash_bin</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">alias</span> rm=<span class="string">"~/bin/trash"</span></span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/06/12/linux添加回收站功能/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/12/linux添加回收站功能/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/06/05/改善python的91建议 笔记/" title="《改善python的91建议》笔记" itemprop="url">《改善python的91建议》笔记</a>
   </h1>
   <p class="article-author">By
@@ -185,45 +308,11 @@
 <blockquote>
 <p>博主云：因快乐而生欲望，因欲望而生执着，因执着而造业。</p>
 </blockquote>
-<p>倾听对方的苦闷时，不要将自己的观点带入（无我相）。</p>
-<p>所有与当下情景无关的思想念头都是杂念。心与当下该做的事情合二为一。</p>
-<blockquote>
-<p>金刚经云：应如是住，如是降服其心。</p>
-</blockquote>
-<p>一段时间内，内心积极的能量是一定的，所有消极的想法情绪都会消耗它。</p>
-<p>切勿缅怀过去，亦不可期望将来的欣喜。因为过往已如云烟消逝，未来尚未发生，对当下的事物不起执着，深入观察眼前的一切，内心不受动摇，有智慧的人应该如此修行，就从今天开始努力精进。</p>
-<p>刹那——一个心念启动的瞬间。</p>
-<p>行动因欲望而起，过程中却也因欲望而受干扰，只要着手进行，想做的事就应该变为应做的事，从而忘掉欲望。</p>
-<p>灭心中之苦即为修行。</p>
-<p><strong>在行动之前花三秒钟审视欲望。</strong></p>
-<p>当观知诸所以受，若过去若现在，若内若外，若粗若细，若好若丑，若远若近，悉皆非我亦非本我，以此如实正观。</p>
-<p>对内心进行现行犯的机会教育。</p>
-<blockquote>
-<p>博主云：即是在起心动念的刹那观察念头</p>
-</blockquote>
-<p>如果仔细凝视自己内心的状态，会发现无论绝对非做不可、一定要做的这种念头有多强烈，其实一定还隐藏着相反的念头，只是碰巧两端之一浮出水面而已。</p>
-<p><strong>色受想行识</strong></p>
-<ol>
-<li>色是指身体</li>
-<li>受是指快乐或痛苦的感觉</li>
-<li>想是指记忆知识概念</li>
-<li>行是指意志、冲动</li>
-<li>识是指认识、接受信息</li>
-</ol>
-<p>我们的心情并不是以自己的力量创造的，只是任意来去的过客罢了。</p>
-<p>人类所谓的活动，是潜在中憎恶对方的快乐和希望对方痛苦两种组合而成的。</p>
-<p>人的生存，是不断输入心情好、很痛苦、模棱两可这三种刺激而生存。</p>
-<blockquote>
-<p>博主云：感觉心情好生贪念，感觉痛苦生嗔念，感觉模棱两可即是痴亦为无明。</p>
-</blockquote>
-<p>用戒（自律）定（专注）慧（观察力）破贪嗔痴。</p>
-<blockquote>
-<p>博主云：戒而后定，定而能生慧，循序渐进，方能成就。</p>
-</blockquote>
-
         
         
         <p class="article-more-link">
+          
+            <a href="/2016/06/05/《超脱烦恼的练习》/#more">Read More</a>
           
        </p>
     </div>
@@ -622,127 +711,6 @@
 	
 	  	<span></span>
 		<a href="/2016/04/25/Python包导入/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/25/Python包导入/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/" title="Python2中UnicodeDecodeError的几种解决办法" itemprop="url">Python2中UnicodeDecodeError的几种解决办法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-04-16T13:45:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="原理">原理</h3><p>由于在Python2中字符串有两种类型<code>str</code>和<code>unicode</code>，他们都是<code>basestring</code>的子类。<br>str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。<br>而unicode包含了256个ascii码之外还包含其他各个国家的文字的编码，所以unicode的一个字符占用2个字节，这样理论上一共最多可以表示2^16（即65536）个字符，远大于256。<br>utf-8是unicode的一中实现，是unicode的一种编码方式。而且utf-8的编码方式，包含了ascii码的内容，也就是utf-8兼容ascii。<br>打个比方，unicode是商品，utf-8就是打包好的一个个包裹(encode)，打包是为了传输和储存的方便。而不同的编码之间不能直接互相转换，都需要转成unicode，也就是decode。<br>所以碰到一个str，你就得明白它是encode过的，你得调用相应的decode方法才不会乱码。<br>python2解释器的默认编码方式是ascii，如果我们给系统的输入是非ascii编码的字符，系统在尝试解码时就会出现<code>UnicodeDecodeError</code></p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; s = <span class="string">'2'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; u = u<span class="string">'2'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; type(s)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; type(u)</span><br><span class="line">&lt;type <span class="string">'unicode'</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; issubclass(str,basestring)</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; issubclass(unicode,basestring)</span><br><span class="line"><span class="constant">True</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; <span class="string">'啊'</span>.decode(<span class="string">'ascii'</span>)</span><br><span class="line"><span class="constant">Traceback</span> (most recent call last)<span class="symbol">:</span></span><br><span class="line">  <span class="constant">File</span> <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;<span class="class"><span class="keyword">module</span>&gt;</span></span><br><span class="line"><span class="constant">UnicodeDecodeError</span><span class="symbol">:</span> <span class="string">'ascii'</span> codec can<span class="string">'t decode byte 0xe5 in position 0: ordinal not in range(128)</span><br><span class="line">'</span>ascii<span class="string">' codec can'</span>t decode byte <span class="number">0xe5</span> <span class="keyword">in</span> position <span class="number">0</span><span class="symbol">:</span> ordinal <span class="keyword">not</span> <span class="keyword">in</span> range(<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="几种解决方法">几种解决方法</h3>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/Python中UnicodeDecodeError的几种解决办法/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/04/16/ubuntu静态ip配置/" title="ubuntu静态ip配置" itemprop="url">ubuntu静态ip配置</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-04-16T12:52:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>以vmware虚拟机为例  </p>
-<h4 id="设置IP">设置IP</h4><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> eth0  <span class="preprocessor"># eth0是网卡名称，你的不一定是这个，可通过ifconfig查看</span></span><br><span class="line">iface eth0 inet <span class="keyword">static</span></span><br><span class="line">address <span class="number">192.168</span><span class="number">.157</span><span class="number">.129</span>   <span class="preprocessor"># 地址</span></span><br><span class="line">gateway <span class="number">192.168</span><span class="number">.157</span><span class="number">.2</span>    <span class="preprocessor"># 网关</span></span><br><span class="line">netmask <span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span>   <span class="preprocessor"># 掩码</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="修改DNS">修改DNS</h4><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/04/16/ubuntu静态ip配置/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/ubuntu静态ip配置/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

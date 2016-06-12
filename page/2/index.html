@@ -79,6 +79,127 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/" title="Python2中UnicodeDecodeError的几种解决办法" itemprop="url">Python2中UnicodeDecodeError的几种解决办法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-16T13:45:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="原理">原理</h3><p>由于在Python2中字符串有两种类型<code>str</code>和<code>unicode</code>，他们都是<code>basestring</code>的子类。<br>str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。<br>而unicode包含了256个ascii码之外还包含其他各个国家的文字的编码，所以unicode的一个字符占用2个字节，这样理论上一共最多可以表示2^16（即65536）个字符，远大于256。<br>utf-8是unicode的一中实现，是unicode的一种编码方式。而且utf-8的编码方式，包含了ascii码的内容，也就是utf-8兼容ascii。<br>打个比方，unicode是商品，utf-8就是打包好的一个个包裹(encode)，打包是为了传输和储存的方便。而不同的编码之间不能直接互相转换，都需要转成unicode，也就是decode。<br>所以碰到一个str，你就得明白它是encode过的，你得调用相应的decode方法才不会乱码。<br>python2解释器的默认编码方式是ascii，如果我们给系统的输入是非ascii编码的字符，系统在尝试解码时就会出现<code>UnicodeDecodeError</code></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; s = <span class="string">'2'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; u = u<span class="string">'2'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; type(s)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; type(u)</span><br><span class="line">&lt;type <span class="string">'unicode'</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; issubclass(str,basestring)</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; issubclass(unicode,basestring)</span><br><span class="line"><span class="constant">True</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; <span class="string">'啊'</span>.decode(<span class="string">'ascii'</span>)</span><br><span class="line"><span class="constant">Traceback</span> (most recent call last)<span class="symbol">:</span></span><br><span class="line">  <span class="constant">File</span> <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;<span class="class"><span class="keyword">module</span>&gt;</span></span><br><span class="line"><span class="constant">UnicodeDecodeError</span><span class="symbol">:</span> <span class="string">'ascii'</span> codec can<span class="string">'t decode byte 0xe5 in position 0: ordinal not in range(128)</span><br><span class="line">'</span>ascii<span class="string">' codec can'</span>t decode byte <span class="number">0xe5</span> <span class="keyword">in</span> position <span class="number">0</span><span class="symbol">:</span> ordinal <span class="keyword">not</span> <span class="keyword">in</span> range(<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="几种解决方法">几种解决方法</h3>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/Python中UnicodeDecodeError的几种解决办法/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/16/ubuntu静态ip配置/" title="ubuntu静态ip配置" itemprop="url">ubuntu静态ip配置</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-16T12:52:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>以vmware虚拟机为例  </p>
+<h4 id="设置IP">设置IP</h4><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> eth0  <span class="preprocessor"># eth0是网卡名称，你的不一定是这个，可通过ifconfig查看</span></span><br><span class="line">iface eth0 inet <span class="keyword">static</span></span><br><span class="line">address <span class="number">192.168</span><span class="number">.157</span><span class="number">.129</span>   <span class="preprocessor"># 地址</span></span><br><span class="line">gateway <span class="number">192.168</span><span class="number">.157</span><span class="number">.2</span>    <span class="preprocessor"># 网关</span></span><br><span class="line">netmask <span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span>   <span class="preprocessor"># 掩码</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="修改DNS">修改DNS</h4><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/16/ubuntu静态ip配置/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/ubuntu静态ip配置/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/04/16/python中yield语句的运行机制/" title="Python中yield语句的运行机制" itemprop="url">Python中yield语句的运行机制</a>
   </h1>
   <p class="article-author">By
@@ -570,134 +691,6 @@
 	
 	  	<span></span>
 		<a href="/2016/01/10/除法在python2和python3中的区别/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/除法在python2和python3中的区别/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/01/10/python赋值语句小坑/" title="python赋值语句小坑" itemprop="url">python赋值语句小坑</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-10T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <pre><code>说到<span class="keyword">python</span>赋值语句，大家想必一个念头——<span class="keyword">so</span> easy，不是`lz = <span class="string">'dashabi'</span>`吗。
-确实，easy是easy，里面却有个小坑，虽小，却不易发现。在代码量多的时候，就有点恶心了。
-</code></pre><ul>
-<li><h5 id="正常的语句是这样">正常的语句是这样</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa </span><br><span class="line"><span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><h5 id="坑在这里">坑在这里</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span>,</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa </span><br><span class="line">(<span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span>,)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<pre><code>看出区别没有，坑的后面有个逗号，平时这逗号没什么卵用，但在赋值语句的末尾会将原来的对象转化为tuple。
-和`aa = (<span class="string">u'这是一个坑'</span>,)`是一样的效果。
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/01/10/python赋值语句小坑/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/python赋值语句小坑/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" title="【Chrome扩展】谷歌百度一键搜索修改版" itemprop="url">【Chrome扩展】谷歌百度一键搜索修改版</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="1-_简介">1. 简介</h3><p>谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。 </p>
-<p>详细描述：<br>虽然谷歌比较好用，结果也准确，但搜索中文这方面却也弱了点，百度还是有点用。谷歌百度一键搜索， 在谷歌的页面上搜索百度，在百度页面上搜谷歌，无需切换，无需重新输入搜索词。<br>目前支持http(s)://www.baidu.com, http(s)://www.google.com.hk, http(s)://www.google.com</p>
-<p>创建：2015.11.25<br>作者：ponder.work<br>反馈：190127701@qq.com<br>forked from: raywill/BaiGoogleDu</p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

@@ -79,6 +79,190 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/06/16/致己/" title="致己" itemprop="url">致己</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-16T13:48:31.035Z" itemprop="datePublished"> 发表于 2016-06-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>　　吾实乃庸人，于理虽觉明晰通达，于情却犹豫不畅。</p>
+<p>　　独处之时意淫幻想，骤然临之慌乱畏惧不前。平生如遇佳人则豫惧而不前，欲与之亲近而不得。而后偶一回想，怅然颓首而无所惧解。如此于人于己有何益处，空留念想，只招惆怅而已。</p>
+<p>　　呜呼，面皮之为物当得了几两干饭，胆气之所缺非得几斤豹胆所能解。</p>
+<p>　　为文以纪，聊为自勉，愿余能一扫前非。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/随笔/">随笔</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/06/16/致己/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/16/致己/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/16/补记杂感一则/" title="补记杂感一则" itemprop="url">补记杂感一则</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-16T13:31:00.000Z" itemprop="datePublished"> 发表于 2016-06-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>　　人事皆非己见，人心不堪洞见。</p>
+<p>　　既不若向之所求，何须用心添烦恼。</p>
+<p>　　不谏已悟，来者可追。</p>
+<p>　　当效拂袖，心役即脱。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/随笔/">随笔</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/06/16/补记杂感一则/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/16/补记杂感一则/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/12/linux添加回收站功能/" title="linux添加回收站功能" itemprop="url">linux添加回收站功能</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-12T14:21:11.665Z" itemprop="datePublished"> 发表于 2016-06-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在linux服务器上工作，常常和<code>rm</code>打交道，难免手滑删除了重要的东西。而且linux又没有回收站功能，一旦删错东西真是欲哭无泪。别问我为什么知道，说多了都是泪。<br><strong>主要思路是用<code>mv</code>命令代替<code>rm</code>，将要删除的东西移动到回收站目录。</strong></p>
+<h3 id="新建删除到回收站脚本">新建删除到回收站脚本</h3><p><code>mkdir ~/bin</code></p>
+<p><code>vim ~/bin/trash</code>  # 将下面的内容写入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv -v <span class="variable">$@</span> <span class="variable">$&#123;trash_bin&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>chmod +x ~/bin/trash</code>   # 增加执行权限 </p>
+<h3 id="登录时初始化回收站">登录时初始化回收站</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将以下内容追加到"~/.bashrc"中，回收站是以每天的日期新建文件夹</span></span><br><span class="line"></span><br><span class="line">today=$(date <span class="string">"+%Y%m%d"</span>)  <span class="comment"># 形如20160606格式的日期</span></span><br><span class="line"></span><br><span class="line">trash_bin=<span class="string">"/tmp/trash/<span class="variable">$&#123;today&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-d</span> <span class="string">"/tmp/trash"</span> ]; <span class="keyword">then</span></span><br><span class="line">    mkdir <span class="string">"/tmp/trash"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-d</span> <span class="variable">$&#123;trash_bin&#125;</span> ]; <span class="keyword">then</span></span><br><span class="line">    mkdir <span class="variable">$&#123;trash_bin&#125;</span></span><br><span class="line">    <span class="built_in">export</span> trash_bin</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">alias</span> rm=<span class="string">"~/bin/trash"</span></span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/06/12/linux添加回收站功能/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/12/linux添加回收站功能/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/06/12/我们为什么不能理解别人/" title="我们为什么不能理解别人" itemprop="url">我们为什么不能理解别人</a>
   </h1>
   <p class="article-author">By
@@ -121,68 +305,6 @@
 	
 	  	<span></span>
 		<a href="/2016/06/12/我们为什么不能理解别人/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/12/我们为什么不能理解别人/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/12/linux添加回收站功能/" title="linux添加回收站功能" itemprop="url">linux添加回收站功能</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-12T13:51:18.002Z" itemprop="datePublished"> 发表于 2016-06-12</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>在linux服务器上工作，常常和<code>rm</code>打交道，难免手滑删除了重要的东西。而且linux又没有回收站功能，一旦删错东西真是欲哭无泪。别问我为什么知道，说多了都是泪。<br><strong>主要思路是用<code>mv</code>命令代替<code>rm</code>，将要删除的东西移动到回收站目录。</strong></p>
-<h3 id="新建删除到回收站脚本">新建删除到回收站脚本</h3><p><code>mkdir ~/bin</code></p>
-<p><code>vim ~/bin/trash</code>  # 将下面的内容写入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv -v <span class="variable">$@</span> <span class="variable">$&#123;trash_bin&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p><code>chmod +x ~/bin/trash</code>   # 增加执行权限 </p>
-<h3 id="登录时初始化回收站">登录时初始化回收站</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将以下内容追加到"~/.bashrc"中，回收站是以每天的日期新建文件夹</span></span><br><span class="line"></span><br><span class="line">today=$(date <span class="string">"+%Y%m%d"</span>)  <span class="comment"># 形如20160606格式的日期</span></span><br><span class="line"></span><br><span class="line">trash_bin=<span class="string">"/tmp/trash/<span class="variable">$&#123;today&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-d</span> <span class="string">"/tmp/trash"</span> ]; <span class="keyword">then</span></span><br><span class="line">    mkdir <span class="string">"/tmp/trash"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-d</span> <span class="variable">$&#123;trash_bin&#125;</span> ]; <span class="keyword">then</span></span><br><span class="line">    mkdir <span class="variable">$&#123;trash_bin&#125;</span></span><br><span class="line">    <span class="built_in">export</span> trash_bin</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">alias</span> rm=<span class="string">"~/bin/trash"</span></span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/06/12/linux添加回收站功能/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/12/linux添加回收站功能/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
@@ -494,9 +616,9 @@
 </header>
     <div class="article-content">
         
-        <h3 id="占座党乃图书馆通病">占座党乃图书馆通病</h3><p>　　凡是条件好一点的图书馆，只要工作人员不禁止，必定有一部分座位因 左右的座位因占座党而闲置。<br>　　举我最近去的广州图书馆为例，我早上9点开始自习，到下午5点，占座的人始终没来，而且不是一两次。几乎每次有占座的，很大可能一天都不来。<br>　　这也很好理解，既然需要占座自然是来的意愿不是很强，不来自然是情理之中。人皆有惰性，无可厚非，但座位有限，还是留给需要的人为好。</p>
+        <h3 id="占座党乃图书馆通病">占座党乃图书馆通病</h3><p>　　凡是条件好一点的图书馆，只要工作人员不禁止，必定有一部分座位因占座党而闲置。<br>　　举我最近去的广州图书馆为例，我早上9点开始自习，到下午5点，占座的人始终没来，而且不是一两次。几乎每次有占座的，很大可能一天都不来。<br>　　这也很好理解，既然需要占座自然是来的意愿不是很强，不来自然是情理之中。人皆有惰性，无可厚非，但座位有限，还是留给需要的人为好。</p>
 <h3 id="在图书馆玩手机很畅快">在图书馆玩手机很畅快</h3><p>　　除占座党之外，手机党和电脑党也是图书馆一大特色，并且与年龄无关。<br>　　今天坐我对面的是个大概60岁的大爷，先是早上来没找到位置坐，把我对面的占座党呵斥了一通，抢了她占的座位。然后等我下午从图书馆出来时，他手上拿的手机还没有放下。既然玩手机，在家里不是更舒服吗，何必呢？学得下就学，不行就回去休息，在这磨洋工除了求个心安之外毫无裨益。<br>　　另外，品行、习惯与年龄没多大关系，不好的不改正，年纪大了还是不好，不过是习惯了而已。俗语说<code>三岁看老</code>，未免夸张了点，十三、二十三看老估计是十拿九稳。<br>　　人呐，还是要对自己有所要求，若是随着年岁的增长而没有丝毫长进，多么可悲，多么可怕。年少时不学好有人教育你，年老了还无长进，无需教育也无人可教育你了。</p>
-<h3 id="免费的终究会被滥用">免费的终究会被滥用</h3><p>　　在卫生间，洗完手，有一人擦手用了接近2米的纸，很大一堆，不知道什么心态。如果你平时在家都是这样使用，我无话可说，但仅因为免费就滥用，未免太下作了。免费的东西并不是没有成本，而是一些心存善念的人承担了，因此我们在使用它的时候因心存感激。<br>　　一切免费的物品，如图书馆的座位，如纸巾，如果不能在使用价值或者获取代价上和通常物品加以区分，就不免会被滥用，导致真正需要的人不能得到。<br>　　<strong>而这正是这个世界的可悲之处，所有事物并不是让需要的人得到，而是让有取得优势的人得到。</strong></p>
+<h3 id="免费的终究会被滥用">免费的终究会被滥用</h3><p>　　在卫生间，洗完手，有一人擦手用了接近2米的纸，很大一堆，不知道什么心态。如果你平时在家都是这样使用，我无话可说，但仅因为免费就滥用，未免太下作了。<br>　　免费的东西并不是没有成本，而是一些心存善念的人承担了，因此我们在使用它的时候因心存感激。<br>　　一切免费的物品，如图书馆的座位，如纸巾，如果不能在使用价值或者获取代价上和通常物品加以区分，就不免会被滥用，导致真正需要的人不能得到。<br>　　<strong>而这正是这个世界的可悲之处，所有事物并不是让需要的人得到，而是让有取得优势的人得到。</strong></p>
 
         
         
@@ -582,135 +704,6 @@
 	
 	  	<span></span>
 		<a href="/2016/05/08/Python中re模块的用法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/08/Python中re模块的用法/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/04/27/python中的装饰器/" title="Python中的装饰器（decorator）" itemprop="url">Python中的装饰器（decorator）</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-04-27T12:37:00.000Z" itemprop="datePublished"> 发表于 2016-04-27</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。</p>
-<p>假如我现在想在函数运行时输出一些信息</p>
-<h3 id="小学水平">小学水平</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'`%s` is running...'</span> % func.__name__</span><br><span class="line">    <span class="keyword">return</span> func</span><br><span class="line">    </span><br><span class="line"><span class="decorator">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_sum</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"I cat't sum right now!"</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">print</span> my_sum()</span><br></pre></td></tr></table></figure>
-<p>输出<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">`my_sum` <span class="keyword">is</span> <span class="property">running</span>...</span><br><span class="line">I cat't sum right now!</span><br></pre></td></tr></table></figure></p>
-<p>要使用装饰器，先得定义一个装饰器函数，然后在需要装饰的函数的前一行使用<code>@</code>符号加上<code>装饰器名称</code>。<br>在这里的效果等效于running(my_sum)()，不过看起来有点别扭。<br><strong>注意：一旦通过<code>@running</code>装饰了函数，不管被装饰函数是否运行，python解释器都会执行一遍<code>running</code>函数。</strong></p>
-<h3 id="中学水平">中学水平</h3><p>上一个装饰器用起来还行，但是有一个致命的问题，它不能装饰带参数的函数。所以我们在装饰器内部定义<code>_wrapper</code>函数，并返回它。这个函数接收所有位置参数<code>*args</code>，和关键字参数<code>*kwargs</code>，在<code>_wrapper</code>内部执行<code>func(*args, **kwargs)</code>。</p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/04/27/python中的装饰器/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/04/27/python中的装饰器/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/27/python中的装饰器/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/04/25/Python包导入/" title="Python项目中包的导入" itemprop="url">Python项目中包的导入</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-04-25T13:00:00.000Z" itemprop="datePublished"> 发表于 2016-04-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="例子">例子</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">taskman</span><br><span class="line">├── db<span class="class">.sqlite3</span></span><br><span class="line">├── manage<span class="class">.py</span></span><br><span class="line">├── task</span><br><span class="line">│   ├── __init__<span class="class">.py</span></span><br><span class="line">│   ├── admin<span class="class">.py</span></span><br><span class="line">│   ├── models<span class="class">.py</span></span><br><span class="line">│   ├── urls<span class="class">.py</span></span><br><span class="line">│   └── views<span class="class">.py</span></span><br><span class="line">└── man</span><br><span class="line">    ├── __init__<span class="class">.py</span> </span><br><span class="line">    ├── settings<span class="class">.py</span> </span><br><span class="line">    ├── urls<span class="class">.py</span> </span><br><span class="line">    └── wsgi.py</span><br></pre></td></tr></table></figure>
-<h3 id="说明">说明</h3><p>上面的例子是一个Django项目，Python包的导入都是相对于<code>主程序</code>来说的。<br>这个项目的主程序就是<code>manage.py</code>，跟manage.py同级的文件夹（含有<code>__init__.py</code>）如<code>task</code>,<code>man</code>就称之为包，若同级有文件就称之为顶级模块。<br>在这个项目里所有Python包的导入，都应该写完整路径。</p>
-<p>例如在文件<code>/taskman/task/views.py</code>中，想要导入<code>/taskman/man/setting.py</code>，就得这样。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> man.setting <span class="keyword">import</span> some_setting</span><br><span class="line"><span class="comment"># or </span></span><br><span class="line"><span class="keyword">from</span> man <span class="keyword">import</span> setting</span><br></pre></td></tr></table></figure></p>
-<p><b>记住：</b></p>
-<ol>
-<li>所有导入都是根据主程序的路径，然后从完整路径导入包</li>
-<li>主程序应该位于包的最顶层，否则发生<code>ValueError: Attempted relative import in non-package</code></li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/04/25/Python包导入/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/25/Python包导入/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

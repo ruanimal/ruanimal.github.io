@@ -79,6 +79,68 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/06/18/linux添加回收站功能/" title="linux添加回收站功能" itemprop="url">linux添加回收站功能</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-17T23:49:59.519Z" itemprop="datePublished"> 发表于 2016-06-18</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在linux服务器上工作，常常和<code>rm</code>打交道，难免手滑删除了重要的东西。而且linux又没有回收站功能，一旦删错东西真是欲哭无泪。别问我为什么知道，说多了都是泪。<br><strong>主要思路是用<code>mv</code>命令代替<code>rm</code>，将要删除的东西移动到回收站目录。</strong></p>
+<h3 id="新建删除到回收站脚本">新建删除到回收站脚本</h3><p><code>mkdir ~/bin</code></p>
+<p><code>vim ~/bin/trash</code>  # 将下面的内容写入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv -v <span class="variable">$@</span> <span class="variable">$&#123;trash_bin&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>chmod +x ~/bin/trash</code>   # 增加执行权限 </p>
+<h3 id="登录时初始化回收站">登录时初始化回收站</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将以下内容追加到"~/.bashrc"中，回收站是以每天的日期新建文件夹</span></span><br><span class="line"></span><br><span class="line">today=$(date <span class="string">"+%Y%m%d"</span>)  <span class="comment"># 形如20160606格式的日期</span></span><br><span class="line"></span><br><span class="line">trash_bin=<span class="string">"/tmp/trash/<span class="variable">$&#123;today&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-d</span> <span class="string">"/tmp/trash"</span> ]; <span class="keyword">then</span></span><br><span class="line">    mkdir <span class="string">"/tmp/trash"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-d</span> <span class="variable">$&#123;trash_bin&#125;</span> ]; <span class="keyword">then</span></span><br><span class="line">    mkdir <span class="variable">$&#123;trash_bin&#125;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> trash_bin   <span class="comment"># 加入环境变量</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">alias</span> rm=<span class="string">"~/bin/trash"</span></span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/06/18/linux添加回收站功能/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/18/linux添加回收站功能/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/06/17/致己/" title="致己" itemprop="url">致己</a>
   </h1>
   <p class="article-author">By
@@ -182,68 +244,6 @@
 	
 	  	<span></span>
 		<a href="/2016/06/16/补记杂感一则/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/16/补记杂感一则/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/12/linux添加回收站功能/" title="linux添加回收站功能" itemprop="url">linux添加回收站功能</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-12T14:21:11.665Z" itemprop="datePublished"> 发表于 2016-06-12</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>在linux服务器上工作，常常和<code>rm</code>打交道，难免手滑删除了重要的东西。而且linux又没有回收站功能，一旦删错东西真是欲哭无泪。别问我为什么知道，说多了都是泪。<br><strong>主要思路是用<code>mv</code>命令代替<code>rm</code>，将要删除的东西移动到回收站目录。</strong></p>
-<h3 id="新建删除到回收站脚本">新建删除到回收站脚本</h3><p><code>mkdir ~/bin</code></p>
-<p><code>vim ~/bin/trash</code>  # 将下面的内容写入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv -v <span class="variable">$@</span> <span class="variable">$&#123;trash_bin&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p><code>chmod +x ~/bin/trash</code>   # 增加执行权限 </p>
-<h3 id="登录时初始化回收站">登录时初始化回收站</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将以下内容追加到"~/.bashrc"中，回收站是以每天的日期新建文件夹</span></span><br><span class="line"></span><br><span class="line">today=$(date <span class="string">"+%Y%m%d"</span>)  <span class="comment"># 形如20160606格式的日期</span></span><br><span class="line"></span><br><span class="line">trash_bin=<span class="string">"/tmp/trash/<span class="variable">$&#123;today&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-d</span> <span class="string">"/tmp/trash"</span> ]; <span class="keyword">then</span></span><br><span class="line">    mkdir <span class="string">"/tmp/trash"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-d</span> <span class="variable">$&#123;trash_bin&#125;</span> ]; <span class="keyword">then</span></span><br><span class="line">    mkdir <span class="variable">$&#123;trash_bin&#125;</span></span><br><span class="line">    <span class="built_in">export</span> trash_bin</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">alias</span> rm=<span class="string">"~/bin/trash"</span></span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/06/12/linux添加回收站功能/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/12/linux添加回收站功能/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

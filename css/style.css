@@ -1024,11 +1024,13 @@ article .article-content abbr {
   border-bottom: 1px dotted;
 }
 article .article-content blockquote {
+  background: #eee;
+  font-size: 0.9em;
+  padding: 0.1em 1% 0.5em 1%;
+  font-family: Monaco, Menlo, Consolas, Courier New, monospace;
   border-left: 0.2em solid #0a925f;
   margin: 0.65em 0 0.65em 1%;
-  padding-left: 1%;
   line-height: 1.5;
-  font-size: 100%;
   color: #808080;
 }
 article .article-content blockquote footer {

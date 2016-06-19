@@ -79,6 +79,66 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/01/21/Git常用命令备忘录/" title="Git 常用命令备忘录" itemprop="url">Git 常用命令备忘录</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-21T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-21</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="git_简介">git 简介</h3><p>git是一个分散式版本控制软件，最初由林纳斯·托瓦兹（Linus Torvalds）創作，於2005年以GPL釋出。最初目的是为更好地管理Linux内核开发而设计。<br>初始版本由Linus大神在两个星期内写出来，之后基本一统文件版本控制的天下。</p>
+<h3 id="名词解释">名词解释</h3><p>工作区：就是你在电脑里能看到的目录。<br>暂存区：英文叫stage, 或index。一般存放在”git目录”下的index文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。<br>版本库：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。<br>branch：分支，相当于不同的平行世界<br>remote：远程仓库<br>origin：默认的远程仓库名词<br>HEAD：一个指向当前版本号的指针</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/01/21/Git常用命令备忘录/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/01/21/Git常用命令备忘录/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/21/Git常用命令备忘录/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/01/20/排序算法总结/" title="排序算法总结" itemprop="url">排序算法总结</a>
   </h1>
   <p class="article-author">By
@@ -125,6 +185,70 @@
 	
 	  	<span></span>
 		<a href="/2016/01/20/排序算法总结/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/20/排序算法总结/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/10/除法在python2和python3中的区别/" title="除法在 python2 和 python3 中的区别" itemprop="url">除法在 python2 和 python3 中的区别</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-10T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="总结">总结</h3><ol>
+<li>python2 中使用<code>from __future__ import division</code>就可以使用python3的除法。</li>
+<li>python2 中<code>/</code>与操作数有关，<code>x / y</code>中x、y都为整型的话，为<code>floor除法</code>，否则为<code>true除法</code>也是日常的除法。</li>
+<li>python3 中<code>/</code>为<code>true除法</code>， 与操作数无关。</li>
+<li><code>//</code>在 python2 与 python3 中并无差别， 都代表<code>floor除法</code></li>
+</ol>
+<h3 id="python3">python3</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">1.6666666666666667</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">1.6666666666666667</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2.0</span></span><br></pre></td></tr></table></figure>
+<h3 id="python2">python2</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">1.6666666666666667</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2.0</span></span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/01/10/除法在python2和python3中的区别/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/除法在python2和python3中的区别/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
@@ -211,70 +335,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/10/除法在python2和python3中的区别/" title="除法在 python2 和 python3 中的区别" itemprop="url">除法在 python2 和 python3 中的区别</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-10T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="总结">总结</h3><ol>
-<li>python2 中使用<code>from __future__ import division</code>就可以使用python3的除法。</li>
-<li>python2 中<code>/</code>与操作数有关，<code>x / y</code>中x、y都为整型的话，为<code>floor除法</code>，否则为<code>true除法</code>也是日常的除法。</li>
-<li>python3 中<code>/</code>为<code>true除法</code>， 与操作数无关。</li>
-<li><code>//</code>在 python2 与 python3 中并无差别， 都代表<code>floor除法</code></li>
-</ol>
-<h3 id="python3">python3</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">1.6666666666666667</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">1.6666666666666667</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2.0</span></span><br></pre></td></tr></table></figure>
-<h3 id="python2">python2</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">1.6666666666666667</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2.0</span></span><br></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/01/10/除法在python2和python3中的区别/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/除法在python2和python3中的区别/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" title="【Chrome扩展】谷歌百度一键搜索修改版" itemprop="url">【Chrome扩展】谷歌百度一键搜索修改版</a>
   </h1>
   <p class="article-author">By
@@ -317,65 +377,6 @@
 	
 	  	<span></span>
 		<a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/25/django-admin过滤foreignkey值/" title="django-admin过滤foreignkey值" itemprop="url">django-admin过滤foreignkey值</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="问题背景">问题背景</h3><pre><code>在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
-当然，也可通过自定义<span class="keyword">form</span>解决该问题。
-</code></pre><h3 id="解决方案">解决方案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryOrderItemInline</span><span class="params">(admin.TabularInline)</span>:</span></span><br><span class="line">    model = FactoryOrderItem</span><br><span class="line">    fields = (<span class="string">'order_item'</span>, <span class="string">'product_sn'</span>, <span class="string">'style'</span>, <span class="string">'size'</span>, <span class="string">'factory_sn'</span>, <span class="string">'price'</span>, <span class="string">'quantity'</span>, <span class="string">'amount'</span>)</span><br><span class="line">    extra = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">formfield_for_foreignkey</span><span class="params">(self, db_field, request, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> db_field.name == <span class="string">'order_item'</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                parent_obj_id = request.resolver_match.args[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">except</span> IndexError: <span class="comment">#仅在新建状态过滤</span></span><br><span class="line">                kwargs[<span class="string">'queryset'</span>] = OrderItem.objects.filter(order__status=<span class="string">'2'</span>)</span><br><span class="line">        <span class="keyword">return</span> super(FactoryOrderItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)</span><br></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/11/25/django-admin过滤foreignkey值/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django-admin过滤foreignkey值/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
@@ -438,6 +439,65 @@
 	
 	  	<span></span>
 		<a href="/2015/11/25/django 登录后的跳转问题/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django 登录后的跳转问题/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/25/django-admin过滤foreignkey值/" title="django-admin过滤foreignkey值" itemprop="url">django-admin过滤foreignkey值</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="问题背景">问题背景</h3><pre><code>在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
+当然，也可通过自定义<span class="keyword">form</span>解决该问题。
+</code></pre><h3 id="解决方案">解决方案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryOrderItemInline</span><span class="params">(admin.TabularInline)</span>:</span></span><br><span class="line">    model = FactoryOrderItem</span><br><span class="line">    fields = (<span class="string">'order_item'</span>, <span class="string">'product_sn'</span>, <span class="string">'style'</span>, <span class="string">'size'</span>, <span class="string">'factory_sn'</span>, <span class="string">'price'</span>, <span class="string">'quantity'</span>, <span class="string">'amount'</span>)</span><br><span class="line">    extra = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">formfield_for_foreignkey</span><span class="params">(self, db_field, request, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> db_field.name == <span class="string">'order_item'</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                parent_obj_id = request.resolver_match.args[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">except</span> IndexError: <span class="comment">#仅在新建状态过滤</span></span><br><span class="line">                kwargs[<span class="string">'queryset'</span>] = OrderItem.objects.filter(order__status=<span class="string">'2'</span>)</span><br><span class="line">        <span class="keyword">return</span> super(FactoryOrderItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/25/django-admin过滤foreignkey值/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django-admin过滤foreignkey值/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
@@ -629,70 +689,6 @@
 	
 	  	<span></span>
 		<a href="/2015/10/10/生死之间有大恐怖/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/10/生死之间有大恐怖/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/10/03/《经济学原理：微观经济学分册》思维导图/" title="《经济学原理：微观经济学分册》思维导图" itemprop="url">《经济学原理：微观经济学分册》思维导图</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-10-03T05:46:00.000Z" itemprop="datePublished"> 发表于 2015-10-03</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="说明">说明</h3><ul>
-<li>由于微观经济学经济学中的概念较多，且繁杂，故作思维导图作为记忆和理解的辅助。</li>
-<li>书籍版本：<a href="http://book.douban.com/subject/3719533/">《经济学原理(第4版):微观经济学分册》</a></li>
-<li>作者：<a href="http://baike.baidu.com/link?url=RCDcniLIx-hAl-nesCNmnGVNvCh8qZ4CKwB8anLMBMu58798gFgmAeRKUwsXVJ9lWJgdxYNuwdUpV-U1ly2tg_">[美] N.格里高利·曼昆</a></li>
-<li>制作工具：<a href="http://www.xmind.net/">xmind</a></li>
-</ul>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/10/03/《经济学原理：微观经济学分册》思维导图/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/10/03/《经济学原理：微观经济学分册》思维导图/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/03/《经济学原理：微观经济学分册》思维导图/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

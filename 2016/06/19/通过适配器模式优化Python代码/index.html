@@ -1,0 +1,402 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>通过适配器模式优化Python代码 | 逸思杂陈</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Jay.Run">
+    
+
+    
+    <meta name="description" content="当你维护旧项目的时候，可能要优化一些原有的代码，又不想大改特改。毕竟设计模式的原则是对更改关闭，对扩展开放。假如大改特改势必会引入新的bug，增加测试的工作量。优化代码的目的是提高稳定性和效率，如果引入了新bug就得不偿失了。
+　　这时我们可使用适配器或装饰器，在不改变调用的情况下，优化代码。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过适配器模式优化Python代码">
+<meta property="og:url" content="http://ponder.work/2016/06/19/通过适配器模式优化Python代码/index.html">
+<meta property="og:site_name" content="逸思杂陈">
+<meta property="og:description" content="当你维护旧项目的时候，可能要优化一些原有的代码，又不想大改特改。毕竟设计模式的原则是对更改关闭，对扩展开放。假如大改特改势必会引入新的bug，增加测试的工作量。优化代码的目的是提高稳定性和效率，如果引入了新bug就得不偿失了。
+　　这时我们可使用适配器或装饰器，在不改变调用的情况下，优化代码。">
+<meta property="og:updated_time" content="2016-06-19T14:53:54.655Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通过适配器模式优化Python代码">
+<meta name="twitter:description" content="当你维护旧项目的时候，可能要优化一些原有的代码，又不想大改特改。毕竟设计模式的原则是对更改关闭，对扩展开放。假如大改特改势必会引入新的bug，增加测试的工作量。优化代码的目的是提高稳定性和效率，如果引入了新bug就得不偿失了。
+　　这时我们可使用适配器或装饰器，在不改变调用的情况下，优化代码。">
+
+    
+    <link rel="alternative" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="逸思杂陈">逸思杂陈</a></h1>
+				<h2 class="blog-motto">人类一思考，上帝就发笑。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:ponder.work">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/19/通过适配器模式优化Python代码/" title="通过适配器模式优化Python代码" itemprop="url">通过适配器模式优化Python代码</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-19T14:40:00.000Z" itemprop="datePublished"> 发表于 2016-06-19</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#旧代码例子"><span class="toc-number">1.</span> <span class="toc-text">旧代码例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用适配器优化"><span class="toc-number">2.</span> <span class="toc-text">使用适配器优化</span></a></li></ol>
+		
+		</div>
+		
+		<p>　　当你维护旧项目的时候，可能要优化一些原有的代码，又不想大改特改。毕竟设计模式的原则是对更改关闭，对扩展开放。假如大改特改势必会引入新的bug，增加测试的工作量。优化代码的目的是提高稳定性和效率，如果引入了新bug就得不偿失了。</p>
+<p>　　这时我们<strong>可使用适配器或装饰器，在不改变调用的情况下，优化代码。</strong></p>
+<a id="more"></a>
+<h3 id="旧代码例子">旧代码例子</h3><p>　　比如下面这代码段，封装了一个MySQL的连接，但是<strong>只返回了游标对象（cursor），没有返回连接对象（connnection）</strong>。这样每次调用完这个函数之后，<strong>数据库连接不能关闭</strong>，很可能会导致连接量到达上限，引起性能问题。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> MySQLdb</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mysql_connect</span><span class="params">()</span>:</span></span><br><span class="line">    conn = MySQLdb.connect(host=<span class="string">'localhost'</span>,</span><br><span class="line">                         port=<span class="number">3306</span>,</span><br><span class="line">                         user=<span class="string">'root'</span>,</span><br><span class="line">                         passwd=<span class="string">'123456'</span>,</span><br><span class="line">                         db=<span class="string">'db'</span>,</span><br><span class="line">                         charset=<span class="string">'utf8'</span>,</span><br><span class="line">                         use_unicode=<span class="keyword">False</span>,</span><br><span class="line">                         unix_socket=<span class="string">'/tmp/mysql3306.sock'</span>)</span><br><span class="line">    cur = conn.cursor()</span><br><span class="line">    <span class="keyword">return</span> cur</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用适配器优化">使用适配器优化</h3><p>　　所以我写了一个适配器类，<strong>通过适配器对象包装游标和连接</strong>，并且使<code>mysql_connect</code>函数返回适配器对象，以解决连接不能关闭的问题。<br>　　<code>MySQLConnectAdapter</code>适配器组合了<code>cursor</code>和<code>connnection</code>，<strong>调用<code>close</code>方法的时候会同时关闭<code>cursor</code>和<code>connnection</code>。</strong>重写<code>__getattribute__</code>方法，将除<code>close</code>之外的属性和方法重定向的<code>self._cur</code>对象上，实现对原有调用的兼容。需要注意，<strong>一旦重写<code>__getattribute__</code>方法，所以属性和方法查找都会通过自定义的<code>__getattribute__</code>，注意防止无穷递归。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> MySQLdb</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySQLConnectAdapter</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, conn, cur)</span>:</span></span><br><span class="line">        self._conn = conn</span><br><span class="line">        self._cur = cur</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getattribute__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> name <span class="keyword">in</span> (<span class="string">'close'</span>, <span class="string">'_conn'</span>, <span class="string">'_cur'</span>):</span><br><span class="line">            <span class="keyword">return</span> object.__getattribute__(self, name)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> object.__getattribute__(self, <span class="string">'_cur'</span>).__getattribute__(name)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close</span><span class="params">(self)</span>:</span></span><br><span class="line">        self._cur.close()</span><br><span class="line">        self._conn.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mysql_connect</span><span class="params">()</span>:</span></span><br><span class="line">    conn = MySQLdb.connect(host=<span class="string">'localhost'</span>,</span><br><span class="line">                         port=<span class="number">3306</span>,</span><br><span class="line">                         user=<span class="string">'root'</span>,</span><br><span class="line">                         passwd=<span class="string">'123456'</span>,</span><br><span class="line">                         db=<span class="string">'db'</span>,</span><br><span class="line">                         charset=<span class="string">'utf8'</span>,</span><br><span class="line">                         use_unicode=<span class="keyword">False</span>,</span><br><span class="line">                         unix_socket=<span class="string">'/tmp/mysql3306.sock'</span>)</span><br><span class="line">    cur = conn.cursor()</span><br><span class="line">    safe_cur = MySQLConnectAdapter(conn, cur)</span><br><span class="line">    <span class="keyword">return</span> safe_cur</span><br></pre></td></tr></table></figure>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ponder.work/2016/06/19/通过适配器模式优化Python代码/" data-title="通过适配器模式优化Python代码 | 逸思杂陈" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/06/17/致己/"  title="致己">
+ <strong>下一篇：</strong><br/> 
+ <span>致己
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/06/19/通过适配器模式优化Python代码/" data-title="通过适配器模式优化Python代码" data-url="http://ponder.work/2016/06/19/通过适配器模式优化Python代码/"></div>
+</section>
+
+
+</div>  
+    </div>
+    <footer><div id="footer" >
+	
+	<section class="info">
+		<p> Life is short, play more!</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Jay.Run">Jay.Run</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ponder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

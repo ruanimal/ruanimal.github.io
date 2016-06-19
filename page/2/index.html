@@ -79,6 +79,66 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/05/08/Python中re模块的用法/" title="Python中re模块的用法" itemprop="url">Python中re模块的用法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-08T13:37:00.000Z" itemprop="datePublished"> 发表于 2016-05-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong>re是python中的正则表达式处理模块，本文是为了总结re模块的用法。<br>至于正则表达式的写法可以看<a href="http://deerchao.net/tutorials/regex/regex.htm">正则表达式30分钟入门教程</a></strong></p>
+<h3 id="re-compile">re.compile</h3><p><code>re.complie(pattern, flags=0)</code><br>把正则编译为<code>_sre.SRE_Pattern object</code>对象，在多次匹配的时候可提高运行效率。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pattern = re.compile(<span class="string">r'\w(o)'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>)</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45fc3d9990</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>).group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'o'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>)</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45ec0be0a8</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>).group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'o'</span></span><br></pre></td></tr></table></figure></p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/05/08/Python中re模块的用法/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/05/08/Python中re模块的用法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/08/Python中re模块的用法/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/04/27/python中的装饰器/" title="Python中的装饰器（decorator）" itemprop="url">Python中的装饰器（decorator）</a>
   </h1>
   <p class="article-author">By
@@ -631,66 +691,6 @@
 	
 	  	<span></span>
 		<a href="/2016/02/11/番茄工作法工具推荐/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/11/番茄工作法工具推荐/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/01/21/Git常用命令备忘录/" title="Git 常用命令备忘录" itemprop="url">Git 常用命令备忘录</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-21T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-21</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="git_简介">git 简介</h3><p>git是一个分散式版本控制软件，最初由林纳斯·托瓦兹（Linus Torvalds）創作，於2005年以GPL釋出。最初目的是为更好地管理Linux内核开发而设计。<br>初始版本由Linus大神在两个星期内写出来，之后基本一统文件版本控制的天下。</p>
-<h3 id="名词解释">名词解释</h3><p>工作区：就是你在电脑里能看到的目录。<br>暂存区：英文叫stage, 或index。一般存放在”git目录”下的index文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。<br>版本库：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。<br>branch：分支，相当于不同的平行世界<br>remote：远程仓库<br>origin：默认的远程仓库名词<br>HEAD：一个指向当前版本号的指针</p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/01/21/Git常用命令备忘录/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/01/21/Git常用命令备忘录/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/21/Git常用命令备忘录/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

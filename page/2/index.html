@@ -31,7 +31,7 @@
     <link rel="apple-touch-icon" href="/img/jacman.jpg">
     <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
     
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
   <body>
@@ -79,6 +79,194 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/05/22/关于生活/" title="关于生活" itemprop="url">关于生活</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-22T12:41:00.000Z" itemprop="datePublished"> 发表于 2016-05-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>　　有些人以为生活只有诗与远方，后来他离开了生活。<br>　　有些人以为生活只是眼前的苟且，后来他失去了自我。</p>
+<p>　　人生在世，无论理想如何远大，终须为稻粱谋。陶渊明不为五斗米折腰，前提没这点俸禄也不至于饿死。若是形式迫人，虽嗟来之食亦受之。一旦不为生计发愁，迎接你的必是诗与远方。故我先欲求之财务自由，后践吾心之所向。</p>
+<p>　　不够强大的理想主义者，一大部分矮化成了现实主义者，另一部分成了随波逐流的躯壳，余下的抛弃了这个娑婆世界。<br>　　而我，先欲求安身立命之所，后追寻最初的梦想，希望能走得更远。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/随笔/">随笔</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/05/22/关于生活/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/22/关于生活/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/10/Python中的类变量与实例变量/" title="Python中的类变量与实例变量" itemprop="url">Python中的类变量与实例变量</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-10T14:27:00.000Z" itemprop="datePublished"> 发表于 2016-05-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>　　对于初学者来说，python的类变量（也就是java中的静态变量）和实例变量（也就是属性）有一些很容易混淆的地方，同时对这些特性深入了解有助于理解python的面向对象思想。</p>
+<h3 id="类变量与实例变量区分">类变量与实例变量区分</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">ClassA</span><span class="params">(object)</span>:</span>  <span class="comment"># 1</span></span><br><span class="line"><span class="meta">... </span>    num1 = <span class="number">1</span>  <span class="comment"># 类变量</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self.num2 = <span class="number">2</span>  <span class="comment"># 实例变量，或者说属性</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1 = ClassA()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ClassA.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 2</span></span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1 = <span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 3</span></span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.__class__.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.__class__.num1 = <span class="number">4</span>  <span class="comment"># 4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ClassA.num1</span><br><span class="line"><span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a2 = ClassA()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a2.num1</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>这里我们定义了<code>ClassA</code>类，它有一个类变量<code>num1</code>，还有一个实例变量<code>num2</code>。  </li>
+<li>a1是ClassA的一个实例，当我们写下<code>a1.num1</code>的时候，实际上是引用类变量num1，因此<code>a1.num1 is ClassA.num1</code>值为<code>True</code>。  </li>
+<li>运行<code>a1.num1 = 3</code>的时候，其实给a1绑定了一个属性num1，这是动态语言的特性，此时<code>a1.num1 is ClassA.num1</code>值为<code>False</code>。<br><strong>因此我不建议通过实例的名称来引用类变量，这样容易引起混淆，你以为改变了ClassA.num1，其实没有。</strong><br>这里就扯到了Python的作用域与命名空间，运行<code>a1.num1</code>的时候，先是在a1自己的命名空间内查找num1，没找到就在所属类的命名空间找，还没有就抛出<code>AttributeError: &#39;ClassA&#39; object has no attribute &#39;num3&#39;</code>.<br>运行<code>a1.num1 = 3</code>之后，a1自己的命名空间内找到了num1，就不继续往上查找了。</li>
+<li>如果此时还想通过a1访问和改变类变量num1，可以通过<code>a1.__class__.num1</code>来访问。</li>
+</ol>
+<p>以上这些，也适用于<code>staticmethod</code>和<code>classmethod</code>。</p>
+<h3 id="如果ClassA还有父类">如果ClassA还有父类</h3>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/05/10/Python中的类变量与实例变量/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/05/10/Python中的类变量与实例变量/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/10/Python中的类变量与实例变量/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/08/图书馆见闻/" title="图书馆见闻" itemprop="url">图书馆见闻</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-08T13:44:00.000Z" itemprop="datePublished"> 发表于 2016-05-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="占座党乃图书馆通病">占座党乃图书馆通病</h3><p>　　凡是条件好一点的图书馆，只要工作人员不禁止，必定有一部分座位因占座党而闲置。<br>　　举我最近去的广州图书馆为例，我早上9点开始自习，到下午5点，占座的人始终没来，而且不是一两次。几乎每次有占座的，很大可能一天都不来。<br>　　这也很好理解，既然需要占座自然是来的意愿不是很强，不来自然是情理之中。人皆有惰性，无可厚非，但座位有限，还是留给需要的人为好。</p>
+<h3 id="在图书馆玩手机很畅快">在图书馆玩手机很畅快</h3><p>　　除占座党之外，手机党和电脑党也是图书馆一大特色，并且与年龄无关。<br>　　今天坐我对面的是个大概60岁的大爷，先是早上来没找到位置坐，把我对面的占座党呵斥了一通，抢了她占的座位。然后等我下午从图书馆出来时，他手上拿的手机还没有放下。既然玩手机，在家里不是更舒服吗，何必呢？学得下就学，不行就回去休息，在这磨洋工除了求个心安之外毫无裨益。<br>　　另外，品行、习惯与年龄没多大关系，不好的不改正，年纪大了还是不好，不过是习惯了而已。俗语说<code>三岁看老</code>，未免夸张了点，十三、二十三看老估计是十拿九稳。<br>　　人呐，还是要对自己有所要求，若是随着年岁的增长而没有丝毫长进，多么可悲，多么可怕。年少时不学好有人教育你，年老了还无长进，无需教育也无人可教育你了。</p>
+<h3 id="免费的终究会被滥用">免费的终究会被滥用</h3><p>　　在卫生间，洗完手，有一人擦手用了接近2米的纸，很大一堆，不知道什么心态。如果你平时在家都是这样使用，我无话可说，但仅因为免费就滥用，未免太下作了。<br>　　免费的东西并不是没有成本，而是一些心存善念的人承担了，因此我们在使用它的时候因心存感激。<br>　　一切免费的物品，如图书馆的座位，如纸巾，如果不能在使用价值或者获取代价上和通常物品加以区分，就不免会被滥用，导致真正需要的人不能得到。<br>　　<strong>而这正是这个世界的可悲之处，所有事物并不是让需要的人得到，而是让有取得优势的人得到。</strong></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/随笔/">随笔</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/05/08/图书馆见闻/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/08/图书馆见闻/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/05/08/Python中re模块的用法/" title="Python中re模块的用法" itemprop="url">Python中re模块的用法</a>
   </h1>
   <p class="article-author">By
@@ -93,7 +281,7 @@
     <div class="article-content">
         
         <p><strong>re是python中的正则表达式处理模块，本文是为了总结re模块的用法。<br>至于正则表达式的写法可以看<a href="http://deerchao.net/tutorials/regex/regex.htm">正则表达式30分钟入门教程</a></strong></p>
-<h3 id="re-compile">re.compile</h3><p><code>re.complie(pattern, flags=0)</code><br>把正则编译为<code>_sre.SRE_Pattern object</code>对象，在多次匹配的时候可提高运行效率。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pattern = re.compile(<span class="string">r'\w(o)'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>)</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45fc3d9990</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>).group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'o'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>)</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45ec0be0a8</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>).group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'o'</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="re-compile">re.compile</h3><p><code>re.complie(pattern, flags=0)</code><br>把正则编译为<code>_sre.SRE_Pattern object</code>对象，在多次匹配的时候可提高运行效率。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern = re.compile(<span class="string">r'\w(o)'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>)</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45fc3d9990</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>).group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'o'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>)</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45ec0be0a8</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>).group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'o'</span></span><br></pre></td></tr></table></figure></p>
         
         
         <p class="article-more-link">
@@ -154,8 +342,8 @@
         
         <p>顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。</p>
 <p>假如我现在想在函数运行时输出一些信息</p>
-<h3 id="小学水平">小学水平</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'`%s` is running...'</span> % func.__name__</span><br><span class="line">    <span class="keyword">return</span> func</span><br><span class="line">    </span><br><span class="line"><span class="decorator">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_sum</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"I cat't sum right now!"</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">print</span> my_sum()</span><br></pre></td></tr></table></figure>
-<p>输出<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">`my_sum` <span class="keyword">is</span> <span class="property">running</span>...</span><br><span class="line">I cat't sum right now!</span><br></pre></td></tr></table></figure></p>
+<h3 id="小学水平">小学水平</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'`%s` is running...'</span> % func.__name__</span><br><span class="line">    <span class="keyword">return</span> func</span><br><span class="line">    </span><br><span class="line"><span class="meta">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_sum</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"I cat't sum right now!"</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">print</span> my_sum()</span><br></pre></td></tr></table></figure>
+<p>输出<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">`my_sum` <span class="keyword">is</span> running...</span><br><span class="line">I cat<span class="symbol">'t</span> sum right now!</span><br></pre></td></tr></table></figure></p>
 <p>要使用装饰器，先得定义一个装饰器函数，然后在需要装饰的函数的前一行使用<code>@</code>符号加上<code>装饰器名称</code>。<br>在这里的效果等效于running(my_sum)()，不过看起来有点别扭。<br><strong>注意：一旦通过<code>@running</code>装饰了函数，不管被装饰函数是否运行，python解释器都会执行一遍<code>running</code>函数。</strong></p>
 <h3 id="中学水平">中学水平</h3><p>上一个装饰器用起来还行，但是有一个致命的问题，它不能装饰带参数的函数。所以我们在装饰器内部定义<code>_wrapper</code>函数，并返回它。这个函数接收所有位置参数<code>*args</code>，和关键字参数<code>*kwargs</code>，在<code>_wrapper</code>内部执行<code>func(*args, **kwargs)</code>。</p>
         
@@ -216,7 +404,7 @@
 </header>
     <div class="article-content">
         
-        <h3 id="例子">例子</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">taskman</span><br><span class="line">├── db<span class="class">.sqlite3</span></span><br><span class="line">├── manage<span class="class">.py</span></span><br><span class="line">├── task</span><br><span class="line">│   ├── __init__<span class="class">.py</span></span><br><span class="line">│   ├── admin<span class="class">.py</span></span><br><span class="line">│   ├── models<span class="class">.py</span></span><br><span class="line">│   ├── urls<span class="class">.py</span></span><br><span class="line">│   └── views<span class="class">.py</span></span><br><span class="line">└── man</span><br><span class="line">    ├── __init__<span class="class">.py</span> </span><br><span class="line">    ├── settings<span class="class">.py</span> </span><br><span class="line">    ├── urls<span class="class">.py</span> </span><br><span class="line">    └── wsgi.py</span><br></pre></td></tr></table></figure>
+        <h3 id="例子">例子</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">taskman</span><br><span class="line">├── db<span class="selector-class">.sqlite3</span></span><br><span class="line">├── manage<span class="selector-class">.py</span></span><br><span class="line">├── task</span><br><span class="line">│   ├── __init__<span class="selector-class">.py</span></span><br><span class="line">│   ├── admin<span class="selector-class">.py</span></span><br><span class="line">│   ├── models<span class="selector-class">.py</span></span><br><span class="line">│   ├── urls<span class="selector-class">.py</span></span><br><span class="line">│   └── views<span class="selector-class">.py</span></span><br><span class="line">└── man</span><br><span class="line">    ├── __init__<span class="selector-class">.py</span> </span><br><span class="line">    ├── settings<span class="selector-class">.py</span> </span><br><span class="line">    ├── urls<span class="selector-class">.py</span> </span><br><span class="line">    └── wsgi.py</span><br></pre></td></tr></table></figure>
 <h3 id="说明">说明</h3><p>上面的例子是一个Django项目，Python包的导入都是相对于<code>主程序</code>来说的。<br>这个项目的主程序就是<code>manage.py</code>，跟manage.py同级的文件夹（含有<code>__init__.py</code>）如<code>task</code>,<code>man</code>就称之为包，若同级有文件就称之为顶级模块。<br>在这个项目里所有Python包的导入，都应该写完整路径。</p>
 <p>例如在文件<code>/taskman/task/views.py</code>中，想要导入<code>/taskman/man/setting.py</code>，就得这样。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> man.setting <span class="keyword">import</span> some_setting</span><br><span class="line"><span class="comment"># or </span></span><br><span class="line"><span class="keyword">from</span> man <span class="keyword">import</span> setting</span><br></pre></td></tr></table></figure></p>
 <p><b>记住：</b></p>
@@ -282,7 +470,7 @@
     <div class="article-content">
         
         <h3 id="原理">原理</h3><p>由于在Python2中字符串有两种类型<code>str</code>和<code>unicode</code>，他们都是<code>basestring</code>的子类。<br>str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。<br>而unicode包含了256个ascii码之外还包含其他各个国家的文字的编码，所以unicode的一个字符占用2个字节，这样理论上一共最多可以表示2^16（即65536）个字符，远大于256。<br>utf-8是unicode的一中实现，是unicode的一种编码方式。而且utf-8的编码方式，包含了ascii码的内容，也就是utf-8兼容ascii。<br>打个比方，unicode是商品，utf-8就是打包好的一个个包裹(encode)，打包是为了传输和储存的方便。而不同的编码之间不能直接互相转换，都需要转成unicode，也就是decode。<br>所以碰到一个str，你就得明白它是encode过的，你得调用相应的decode方法才不会乱码。<br>python2解释器的默认编码方式是ascii，如果我们给系统的输入是非ascii编码的字符，系统在尝试解码时就会出现<code>UnicodeDecodeError</code></p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; s = <span class="string">'2'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; u = u<span class="string">'2'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; type(s)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; type(u)</span><br><span class="line">&lt;type <span class="string">'unicode'</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; issubclass(str,basestring)</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; issubclass(unicode,basestring)</span><br><span class="line"><span class="constant">True</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; <span class="string">'啊'</span>.decode(<span class="string">'ascii'</span>)</span><br><span class="line"><span class="constant">Traceback</span> (most recent call last)<span class="symbol">:</span></span><br><span class="line">  <span class="constant">File</span> <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;<span class="class"><span class="keyword">module</span>&gt;</span></span><br><span class="line"><span class="constant">UnicodeDecodeError</span><span class="symbol">:</span> <span class="string">'ascii'</span> codec can<span class="string">'t decode byte 0xe5 in position 0: ordinal not in range(128)</span><br><span class="line">'</span>ascii<span class="string">' codec can'</span>t decode byte <span class="number">0xe5</span> <span class="keyword">in</span> position <span class="number">0</span><span class="symbol">:</span> ordinal <span class="keyword">not</span> <span class="keyword">in</span> range(<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; s = <span class="string">'2'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; u = u<span class="string">'2'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; type(s)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; type(u)</span><br><span class="line">&lt;type <span class="string">'unicode'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; issubclass(str,basestring)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; issubclass(unicode,basestring)</span><br><span class="line">True</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="string">'啊'</span>.decode(<span class="string">'ascii'</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;<span class="class"><span class="keyword">module</span>&gt;</span></span><br><span class="line"><span class="symbol">UnicodeDecodeError:</span> <span class="string">'ascii'</span> codec can<span class="string">'t decode byte 0xe5 in position 0: ordinal not in range(128)</span><br><span class="line">'</span>ascii<span class="string">' codec can'</span>t decode byte <span class="number">0xe5</span> <span class="keyword">in</span> position <span class="number">0</span>: ordinal <span class="keyword">not</span> <span class="keyword">in</span> range(<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
 <h3 id="几种解决方法">几种解决方法</h3>
         
         
@@ -343,7 +531,7 @@
     <div class="article-content">
         
         <p>以vmware虚拟机为例  </p>
-<h4 id="设置IP">设置IP</h4><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> eth0  <span class="preprocessor"># eth0是网卡名称，你的不一定是这个，可通过ifconfig查看</span></span><br><span class="line">iface eth0 inet <span class="keyword">static</span></span><br><span class="line">address <span class="number">192.168</span><span class="number">.157</span><span class="number">.129</span>   <span class="preprocessor"># 地址</span></span><br><span class="line">gateway <span class="number">192.168</span><span class="number">.157</span><span class="number">.2</span>    <span class="preprocessor"># 网关</span></span><br><span class="line">netmask <span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span>   <span class="preprocessor"># 掩码</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="设置IP">设置IP</h4><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">auto</span> <span class="selector-tag">eth0</span>  # <span class="selector-tag">eth0</span>是网卡名称，你的不一定是这个，可通过<span class="selector-tag">ifconfig</span>查看</span><br><span class="line"><span class="selector-tag">iface</span> <span class="selector-tag">eth0</span> <span class="selector-tag">inet</span> <span class="selector-tag">static</span></span><br><span class="line"><span class="selector-tag">address</span> 192<span class="selector-class">.168</span><span class="selector-class">.157</span><span class="selector-class">.129</span>   # 地址</span><br><span class="line"><span class="selector-tag">gateway</span> 192<span class="selector-class">.168</span><span class="selector-class">.157</span><span class="selector-class">.2</span>    # 网关</span><br><span class="line"><span class="selector-tag">netmask</span> 255<span class="selector-class">.255</span><span class="selector-class">.255</span><span class="selector-class">.0</span>   # 掩码</span><br></pre></td></tr></table></figure></p>
 <h4 id="修改DNS">修改DNS</h4><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
 
         
@@ -405,7 +593,7 @@
         <p>如果一个在函数中存在yield关键字，那么这个函数就构成了生成器。生成器是一个函数，它生成一个序列，以便在迭代中使用。<br>调用这个函数，并不会马上开始执行函数体中的代码，而是返回一个生成器对象，通过调用生成器对象的<code>next()</code>方法（python3中是<code>__netx__()</code>）执行函数。</p>
 <p>那么，具体的函数中语句的执行顺序是怎么样的呢？</p>
 <h3 id="代码">代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'the beginning of function'</span></span><br><span class="line">    <span class="keyword">if</span> x &lt;= <span class="number">0</span> <span class="keyword">or</span> <span class="keyword">not</span> isinstance(x, int):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(x):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'before yield'</span>, i</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'after yield'</span>, i</span><br><span class="line"></span><br><span class="line">gen = func(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br></pre></td></tr></table></figure>
-<p>输出<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">the beginning of function</span><br><span class="line">before yield 0</span><br><span class="line">-&gt; yielding: 0</span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">after yield 0</span><br><span class="line">before yield 1</span><br><span class="line">-&gt; yielding: 1</span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">after yield 1</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"D:\Projects\test.py"</span>, line 28, in <span class="variable">&lt;module&gt;</span></span><br><span class="line">    print '-&gt; yielding: %s' % gen.next()</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
+<p>输出<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">********************</span><br><span class="line"><span class="keyword">the</span> beginning <span class="keyword">of</span> <span class="function"><span class="keyword">function</span></span></span><br><span class="line"><span class="keyword">before</span> yield <span class="number">0</span></span><br><span class="line">-&gt; yielding: <span class="number">0</span></span><br><span class="line">********************</span><br><span class="line"><span class="keyword">after</span> yield <span class="number">0</span></span><br><span class="line"><span class="keyword">before</span> yield <span class="number">1</span></span><br><span class="line">-&gt; yielding: <span class="number">1</span></span><br><span class="line">********************</span><br><span class="line"><span class="keyword">after</span> yield <span class="number">1</span></span><br><span class="line">Traceback (most recent call <span class="keyword">last</span>):</span><br><span class="line">  File <span class="string">"D:\Projects\test.py"</span>, <span class="built_in">line</span> <span class="number">28</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    print <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
 <h3 id="分析">分析</h3><ol>
 <li>首先运行<code>func(2)</code>，这时函数的所有语句都没有执行，返回一个生成器赋值给<code>gen</code>。</li>
 <li>第一次执行<code>gen.next()</code>，函数从头开始执行，运行完yield语句暂停住了。</li>
@@ -509,204 +697,9 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/04/16/lightdm自动登录root账户/" title="xubuntu自动登录root账户" itemprop="url">xubuntu自动登录root账户</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-04-16T11:42:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="一、设置root密码">一、设置root密码</h3><p>运行 <code>sudo passwd</code><br>根据提示输入root帐户密码。</p>
-<h3 id="二、修改lightdm配置文件">二、修改lightdm配置文件</h3><p>运行 <code>ls /usr/share/lightdm/lightdm.conf.d/ -al</code><br>-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf<br>-rw-r–r– 1 root root   68 12月  3 03:57 50-guest-wrapper.conf<br>-rw-r–r– 1 root root   51 12月  3 03:57 50-xserver-command.conf<br>-rw-r–r– 1 root root  118  4月 16 17:08 <b>60-lightdm-gtk-greeter.conf</b></p>
-<p>就是greeter这个文件，不同的发行版可能名字不同。<br>运行 <code>sudo gedit /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf</code><br>改完以后是这样<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[SeatDefaults]</span></span><br><span class="line"><span class="setting">autologin-user=<span class="value">root</span></span></span><br><span class="line"><span class="setting">greeter-session=<span class="value">lightdm-gtk-greeter</span></span></span><br><span class="line"><span class="setting">greeter-show-manual-login=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"><span class="setting">all-guest=<span class="value"><span class="keyword">false</span></span></span></span><br></pre></td></tr></table></figure></p>
-<h3 id="三、修改_/root/-profile">三、修改 <code>/root/.profile</code></h3><p>在刚修改完root权限自动登录后，发现可能开机出现以下提示：</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error found <span class="keyword">when</span> loading <span class="regexp">/root/</span>.profile</span><br><span class="line"><span class="attribute">stdin</span>:<span class="keyword">is</span> <span class="keyword">not</span> a tty</span><br><span class="line">…………</span><br></pre></td></tr></table></figure>
-<p>运行 <code>gedit /root/.profile</code><br>打开文件后找到<code>mesg n</code>，将其更改为<code>tty -s &amp;&amp; mesg n</code>。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/linux/">linux</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/04/16/lightdm自动登录root账户/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/lightdm自动登录root账户/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/28/python中关于继承/" title="关于Python的继承" itemprop="url">关于Python的继承</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-28T03:26:00.000Z" itemprop="datePublished"> 发表于 2016-02-28</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="引子">引子</h3><p>童话里经常会看到英雄打败恶人的故事，而且故事里总会有一个类似黑暗森林的场景——要么是一个山洞，要么是一篇森林，要么是另一个星球，反正是英雄不该去的某个地方。当然，一旦反面角色在剧情中出现，你就会发现英雄非得去那片破森林去杀掉坏人。当英雄的总是不得不冒着生命危险进到邪恶森林中去。</p>
-<p>在面向对象编程中，“继承”就是那片邪恶森林。有经验的程序员知道如何躲开这个恶魔，因为他们知道，在丛林深处的“继承”，其实是邪恶女皇“多重继承”。她喜欢用自己的巨口尖牙吃掉程序员和软件，咀嚼这些堕落者的血肉。不过这片丛林的吸引力是如此的强大，几乎每一个程序员都会进去探险，梦想着提着邪恶女皇的头颅走出丛林，从而声称自己是真正的程序员。你就是无法阻止丛林的魔力，于是你深入其中，而等你冒险结束，九死一生之后，你唯一学到的，就是远远躲开这片破森林，而如果你不得不再进去一次，你会带一支军队。</p>
-<p>有的程序员现在正在丛林里跟邪恶女皇作战，他会对你说你必须进到森林里去。他们这样说其实是因为他们需要你的帮助，因为他们已经无法承受他们自己创建的东西了。</p>
-<p>而对于你来说，你只要记住这一条：<br>大部分使用继承的场合都可以用合成取代，而多级继承则需要不惜一切地避免之。</p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/02/28/python中关于继承/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/28/python中关于继承/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/28/python中关于继承/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/11/番茄工作法工具推荐/" title="番茄工作法工具推荐" itemprop="url">番茄工作法工具推荐</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-11T04:26:00.000Z" itemprop="datePublished"> 发表于 2016-02-11</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="1-_番茄工作法简介">1. 番茄工作法简介</h3><p>番茄工作法（英语：Pomodoro Technique）是一种时间管理法方法，在上世纪八十年代由Francesco Cirillo创立。 该方法使用一个定时器来分割出一个一般为25分钟的工作时间和5分钟的休息时间，而那些时间段被称为pomodori，为意大利语单词 pomodoro（中文：番茄）之复数。</p>
-<p>番茄工作法有五个基本步骤：</p>
-<ol>
-<li>决定待完成的任务</li>
-<li>设定番茄工作法定时器至 n 分钟（通常为25分钟）。</li>
-<li>持续工作直至定时器提示,记下一个x。</li>
-<li>短暂休息3-5分钟。</li>
-<li>每四个x，休息15-30分钟。</li>
-</ol>
-<p>番茄工作法的关键是规划，追踪，记录，处理，以及可视化。在规划阶段，任务被根据优先级排入”To Do Today” list。 这允许用户预计每个任务的工作量。当每个番茄时结束后，成果会被记录下来以提高参与者的成就感并为未来的自我观察和改进提供原始数据。</p>
-<p>番茄工作法一般与<a href="http://baike.baidu.com/link?url=ZlEFP9gdzCBmRrqAGqClmdyQ3_1t4Op33-tTyXbN_Gw3LRRqU3zmpwowPhW8VSKLriuLGsq8gJD-TJBO40ez_q" target="_blank" rel="external"><code>GTD</code></a>相结合，能取得事半功倍的效果。</p>
-<h3 id="2-_工具推荐">2. 工具推荐</h3><ol>
-<li>GTD软件，用于任务规划和记录，推荐<a href="https://www.dida365.com/" target="_blank" rel="external"><code>滴答清单</code></a>或<a href="http://doitim.com/cn/" target="_blank" rel="external"><code>Doit.im</code></a></li>
-<li>小米手环，震动提醒防止打扰别人。</li>
-<li><a href="http://coolapk.com/apk/cz.zdenekhorak.mibandtools" target="_blank" rel="external">米环工具 Mi Band Tools</a></li>
-<li><a href="http://coolapk.com/apk/com.dacer.simplepomodoro" target="_blank" rel="external">极简番茄</a></li>
-</ol>
-<p>小米手环本来没有番茄钟的功能，通过<code>Mi Band Tools</code>和<code>极简番茄</code>这两个应用，在米环工具的“应用”中添加 极简番茄，可以实现手环震动提醒番茄钟。<br>当然你也可以直接使用<code>极简番茄</code>，通过手机震动或是响铃提醒，或者买一个计时器。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/11/番茄工作法工具推荐/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/11/番茄工作法工具推荐/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
   </nav>
 
 </div>

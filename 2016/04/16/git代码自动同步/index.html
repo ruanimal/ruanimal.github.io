@@ -32,7 +32,7 @@
     <link rel="apple-touch-icon" href="/img/jacman.jpg">
     <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
     
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
   <body>
@@ -107,12 +107,12 @@
 <li>目的项目： git-dest  </li>
 <li>中转仓库与目的项目都在测试机上</li>
 </ol>
-<h4 id="一、初始化中转仓库">一、初始化中转仓库</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir git-transfer&#10;git --bare init</span><br></pre></td></tr></table></figure>
+<h4 id="一、初始化中转仓库">一、初始化中转仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir git-transfer</span><br><span class="line">git --bare init</span><br></pre></td></tr></table></figure>
 <h4 id="二、将中转仓库添加到本地项目的remote">二、将中转仓库添加到本地项目的remote</h4><p><code>git remote add transfer ssh://r@192.168.157.129/home/r/git-transfer/</code></p>
-<h4 id="三、给中转仓库添加hooks">三、给中转仓库添加hooks</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /home/r/git-transfer/hooks/&#10;cp post-update.sample post-update&#10;vi post-update</span><br></pre></td></tr></table></figure>
-<p>将 post-update 的内容修改为如下<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh&#10;#&#10;# An example hook script to prepare a packed repository for use over&#10;# dumb transports.&#10;#&#10;# To enable this hook, rename this file to &#34;post-update&#34;.&#10;&#10;unset GIT_DIR&#10;DeployPath=/home/r/git-dest&#10;&#10;cd $DeployPath&#10;git add . -A &#38;&#38; git stash&#10;git pull origin master</span><br></pre></td></tr></table></figure></p>
+<h4 id="三、给中转仓库添加hooks">三、给中转仓库添加hooks</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /home/r/git-transfer/hooks/</span><br><span class="line">cp post-update.sample post-update</span><br><span class="line">vi post-update</span><br></pre></td></tr></table></figure>
+<p>将 post-update 的内容修改为如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">#</span><br><span class="line"># An example hook script to prepare a packed repository for use over</span><br><span class="line"># dumb transports.</span><br><span class="line">#</span><br><span class="line"># To enable this hook, rename this file to &quot;post-update&quot;.</span><br><span class="line"></span><br><span class="line">unset GIT_DIR</span><br><span class="line">DeployPath=/home/r/git-dest</span><br><span class="line"></span><br><span class="line">cd $DeployPath</span><br><span class="line">git add . -A &amp;&amp; git stash</span><br><span class="line">git pull origin master</span><br></pre></td></tr></table></figure></p>
 <h4 id="四、将中转仓库clone到目的项目">四、将中转仓库clone到目的项目</h4><p><code>git clone /home/r/git-transfer/ /home/r/git-dest/</code></p>
-<p>或者<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd git-dest&#10;git init&#10;git remote add origin /home/r/git-transfer/</span><br></pre></td></tr></table></figure></p>
+<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd git-dest</span><br><span class="line">git init</span><br><span class="line">git remote add origin /home/r/git-transfer/</span><br></pre></td></tr></table></figure></p>
 <p>这样在本地项目一push，目的项目就会马上更新</p>
   
 	</div>

@@ -47,7 +47,7 @@
     <link rel="apple-touch-icon" href="/img/jacman.jpg">
     <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
     
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
   <body>
@@ -116,9 +116,9 @@
 		<pre><code>说到<span class="keyword">python</span>赋值语句，大家想必一个念头——<span class="keyword">so</span> easy，不是`lz = <span class="string">'dashabi'</span>`吗。
 确实，easy是easy，里面却有个小坑，虽小，却不易发现。在代码量多的时候，就有点恶心了。
 </code></pre><ul>
-<li><h5 id="正常的语句是这样">正常的语句是这样</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa </span><br><span class="line"><span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span></span><br></pre></td></tr></table></figure>
+<li><h5 id="正常的语句是这样">正常的语句是这样</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa </span><br><span class="line"><span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><h5 id="坑在这里">坑在这里</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span>,</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa </span><br><span class="line">(<span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span>,)</span><br></pre></td></tr></table></figure>
+<li><h5 id="坑在这里">坑在这里</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span>,</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa </span><br><span class="line">(<span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span>,)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <pre><code>看出区别没有，坑的后面有个逗号，平时这逗号没什么卵用，但在赋值语句的末尾会将原来的对象转化为tuple。
@@ -154,18 +154,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/01/10/除法在python2和python3中的区别/" title="除法在 python2 和 python3 中的区别">
+ <a href="/2016/01/20/排序算法总结/" title="排序算法总结">
   <strong>上一篇：</strong><br/>
   <span>
-  除法在 python2 和 python3 中的区别</span>
+  排序算法总结</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/"  title="【Chrome扩展】谷歌百度一键搜索修改版">
+<a href="/2016/01/10/除法在python2和python3中的区别/"  title="除法在 python2 和 python3 中的区别">
  <strong>下一篇：</strong><br/> 
- <span>【Chrome扩展】谷歌百度一键搜索修改版
+ <span>除法在 python2 和 python3 中的区别
 </span>
 </a>
 </div>

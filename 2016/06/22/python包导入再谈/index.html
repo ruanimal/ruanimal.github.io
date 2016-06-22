@@ -4,26 +4,29 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>xubuntu自动登录root账户 | 逸思杂陈</title>
+    <title>python包导入再谈 | 逸思杂陈</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Jay.Run">
     
 
     
-    <meta name="description" content="一、设置root密码运行 sudo passwd根据提示输入root帐户密码。
-二、修改lightdm配置文件运行 ls /usr/share/lightdm/lightdm.conf.d/ -al-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf-rw-r–r– 1 root root   68 12月  3 03:57">
+    <meta name="description" content="python包、模块导入的顺序包是指含有__init__.py的文件夹，模块就是一个.py文件。python的包和模块是先查找buil-in moudle然后是sys.path这个list里的所有路径。
+
+sys.path[0]是启动Python解释器的脚本所在路径，比如运行python task/admin.py，sys.path[0]是&amp;#39;/home/code/taskman/task&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="xubuntu自动登录root账户">
-<meta property="og:url" content="http://ponder.work/2016/04/16/lightdm自动登录root账户/index.html">
+<meta property="og:title" content="python包导入再谈">
+<meta property="og:url" content="http://ponder.work/2016/06/22/python包导入再谈/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="一、设置root密码运行 sudo passwd根据提示输入root帐户密码。
-二、修改lightdm配置文件运行 ls /usr/share/lightdm/lightdm.conf.d/ -al-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf-rw-r–r– 1 root root   68 12月  3 03:57">
-<meta property="og:updated_time" content="2016-04-16T11:49:13.624Z">
+<meta property="og:description" content="python包、模块导入的顺序包是指含有__init__.py的文件夹，模块就是一个.py文件。python的包和模块是先查找buil-in moudle然后是sys.path这个list里的所有路径。
+
+sys.path[0]是启动Python解释器的脚本所在路径，比如运行python task/admin.py，sys.path[0]是&amp;#39;/home/code/taskman/task&amp;">
+<meta property="og:updated_time" content="2016-06-22T12:02:02.176Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xubuntu自动登录root账户">
-<meta name="twitter:description" content="一、设置root密码运行 sudo passwd根据提示输入root帐户密码。
-二、修改lightdm配置文件运行 ls /usr/share/lightdm/lightdm.conf.d/ -al-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf-rw-r–r– 1 root root   68 12月  3 03:57">
+<meta name="twitter:title" content="python包导入再谈">
+<meta name="twitter:description" content="python包、模块导入的顺序包是指含有__init__.py的文件夹，模块就是一个.py文件。python的包和模块是先查找buil-in moudle然后是sys.path这个list里的所有路径。
+
+sys.path[0]是启动Python解释器的脚本所在路径，比如运行python task/admin.py，sys.path[0]是&amp;#39;/home/code/taskman/task&amp;">
 
     
     <link rel="alternative" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
@@ -81,14 +84,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/04/16/lightdm自动登录root账户/" title="xubuntu自动登录root账户" itemprop="url">xubuntu自动登录root账户</a>
+      <a href="/2016/06/22/python包导入再谈/" title="python包导入再谈" itemprop="url">python包导入再谈</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
 		
   <p class="article-time">
-    <time datetime="2016-04-16T11:42:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
+    <time datetime="2016-06-22T11:26:00.000Z" itemprop="datePublished"> 发表于 2016-06-22</time>
     
   </p>
 </header>
@@ -97,16 +100,27 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、设置root密码"><span class="toc-number">1.</span> <span class="toc-text">一、设置root密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、修改lightdm配置文件"><span class="toc-number">2.</span> <span class="toc-text">二、修改lightdm配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、修改_/root/-profile"><span class="toc-number">3.</span> <span class="toc-text">三、修改 /root/.profile</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#python包、模块导入的顺序"><span class="toc-number">1.</span> <span class="toc-text">python包、模块导入的顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#当前路径是/home/code/taskman"><span class="toc-number">2.</span> <span class="toc-text">当前路径是/home/code/taskman</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#当前路径不是/home/code/taskman"><span class="toc-number">3.</span> <span class="toc-text">当前路径不是/home/code/taskman</span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="一、设置root密码">一、设置root密码</h3><p>运行 <code>sudo passwd</code><br>根据提示输入root帐户密码。</p>
-<h3 id="二、修改lightdm配置文件">二、修改lightdm配置文件</h3><p>运行 <code>ls /usr/share/lightdm/lightdm.conf.d/ -al</code><br>-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf<br>-rw-r–r– 1 root root   68 12月  3 03:57 50-guest-wrapper.conf<br>-rw-r–r– 1 root root   51 12月  3 03:57 50-xserver-command.conf<br>-rw-r–r– 1 root root  118  4月 16 17:08 <b>60-lightdm-gtk-greeter.conf</b></p>
-<p>就是greeter这个文件，不同的发行版可能名字不同。<br>运行 <code>sudo gedit /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf</code><br>改完以后是这样<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[SeatDefaults]</span></span><br><span class="line"><span class="attr">autologin-user</span>=root</span><br><span class="line"><span class="attr">greeter-session</span>=lightdm-gtk-greeter</span><br><span class="line"><span class="attr">greeter-show-manual-login</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">all-guest</span>=<span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="三、修改_/root/-profile">三、修改 <code>/root/.profile</code></h3><p>在刚修改完root权限自动登录后，发现可能开机出现以下提示：</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error found <span class="keyword">when</span> loading <span class="regexp">/root/</span>.profile</span><br><span class="line">stdin:<span class="keyword">is</span> <span class="keyword">not</span> a tty</span><br><span class="line">…………</span><br></pre></td></tr></table></figure>
-<p>运行 <code>gedit /root/.profile</code><br>打开文件后找到<code>mesg n</code>，将其更改为<code>tty -s &amp;&amp; mesg n</code>。</p>
+		<h3 id="python包、模块导入的顺序">python包、模块导入的顺序</h3><p>包是指含有<code>__init__.py</code>的文件夹，模块就是一个.py文件。<br><strong>python的包和模块是先查找<code>buil-in moudle</code>然后是<code>sys.path</code>这个list里的所有路径。</strong></p>
+<ul>
+<li>sys.path[0]是启动Python解释器的脚本所在路径，比如运行<code>python task/admin.py</code>，sys.path[0]是<code>&#39;/home/code/taskman/task&#39;</code>；如果启动的是是idle,ipython等，sys.path[0]是<code>&#39;&#39;</code>。</li>
+<li>如果sys.path[0]是<code>&#39;&#39;</code>，这个值等于当前工作目录也就是<code>os.getcwd()</code>的值，也就是linux的pwd的值，你可以用<code>os.chdir</code>来改变工作路径。</li>
+<li>sys.path里余下的元素是python环境变量里的一些路径</li>
+</ul>
+<p>还是分析之前的那个例子</p>
+<a id="more"></a>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/home/code/taskman</span><br><span class="line">            ├── db<span class="selector-class">.sqlite3</span></span><br><span class="line">            ├── manage<span class="selector-class">.py</span></span><br><span class="line">            ├── requirement<span class="selector-class">.txt</span></span><br><span class="line">            ├── task</span><br><span class="line">            │   ├── __init__<span class="selector-class">.py</span></span><br><span class="line">            │   ├── admin<span class="selector-class">.py</span></span><br><span class="line">            │   ├── models<span class="selector-class">.py</span></span><br><span class="line">            │   ├── urls<span class="selector-class">.py</span></span><br><span class="line">            │   └── views<span class="selector-class">.py</span></span><br><span class="line">            └── man</span><br><span class="line">                ├── __init__<span class="selector-class">.py</span></span><br><span class="line">                ├── settings<span class="selector-class">.py</span></span><br><span class="line">                ├── urls<span class="selector-class">.py</span></span><br><span class="line">                └── wsgi.py</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># task/admin.py 文件</span></span><br><span class="line"><span class="keyword">from</span> man.setting <span class="keyword">import</span> some_setting</span><br><span class="line"></span><br><span class="line">some_setting()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'something'</span></span><br></pre></td></tr></table></figure>
+<h3 id="当前路径是/home/code/taskman">当前路径是<code>/home/code/taskman</code></h3><p>假如我们要直接运行<code>task/admin.py</code>这个文件，直接<code>python task/admin.py</code>，会抛出<code>ImportError</code>。</p>
+<p>直接<code>python task/admin.py</code>，此时的sys.path[0]应该是<code>&#39;/home/code/taskman/task&#39;</code>，此时task/admin.py所需的man.setting显然不在<code>task</code>目录下，自然就是<code>ImportError</code>。这时如果往admin.py加入<code>sys.path.append(&#39;/home/code/taskman&#39;)</code>语句，就可以把<code>man</code>这个包所在目录加入到sys.path，这样就解决了。</p>
+<p>也可以使用<code>python -m task.admin</code> 将admin.py当作一个模块来执行，此时sys.path[0]是<code>&#39;&#39;</code>代表当前工作目录，而我们此时工作目录是<code>/home/code/taskman</code>，所以一切正常。</p>
+<h3 id="当前路径不是/home/code/taskman">当前路径不是<code>/home/code/taskman</code></h3><p>运行<code>python -m task.admin</code>会提示<code>No module named task</code>，因为在那个目录下找不到<code>task</code>这个包。</p>
+<p>此时只能在脚本前部同时添加<code>os.chdir(&#39;/home/code/taskman/task&#39;)</code>和<code>sys.path.append(&#39;/home/code/taskman&#39;)</code>，这样在这个脚本包的导入正常，同时可以通过<code>os.system(&#39;python -m task.models&#39;)</code>运行项目内其他模块，而不用管当前工作目录在那里。</p>
+<p>总之，<strong>如果<code>sys.path[0]</code>是一个具体的脚本路径，<code>os.chdir()</code>是不能对脚本内部包模块的导入产生影响，但是如果<code>sys.path[0]</code>是<code>&#39;&#39;</code>，<code>os.chdir</code>可以影响包的导入。</strong>当然直接把想要的目录添加到sys.path最直接，但是不干净，不推荐使用。</p>
+<p>还有一个霸道的解决方法是，通过<code>export PYTHONPATH=&quot;/home/code/taskman&quot;</code>将项目路径，添加到python环境变量里，这样当解释器启动时项目路径就会直接添加到sys.path中。不过这样会影响整个python环境，可能出现包重名。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -114,7 +128,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/linux/">linux</a>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
 </div>
 
 
@@ -124,7 +138,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://ponder.work/2016/04/16/lightdm自动登录root账户/" data-title="xubuntu自动登录root账户 | 逸思杂陈" data-tsina="null" class="share clearfix">
+	  <div data-url="http://ponder.work/2016/06/22/python包导入再谈/" data-title="python包导入再谈 | 逸思杂陈" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -138,18 +152,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/04/16/git代码自动同步/" title="git代码自动同步">
+ <a href="/2016/06/22/centos开关机日志分析/" title="centos开关机日志分析">
   <strong>上一篇：</strong><br/>
   <span>
-  git代码自动同步</span>
+  centos开关机日志分析</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/02/28/python中关于继承/"  title="关于Python的继承">
+<a href="/2016/06/21/大话设计模式/"  title="《大话设计模式》读书笔记">
  <strong>下一篇：</strong><br/> 
- <span>关于Python的继承
+ <span>《大话设计模式》读书笔记
 </span>
 </a>
 </div>
@@ -158,7 +172,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/04/16/lightdm自动登录root账户/" data-title="xubuntu自动登录root账户" data-url="http://ponder.work/2016/04/16/lightdm自动登录root账户/"></div>
+	<div class="ds-thread" data-thread-key="2016/06/22/python包导入再谈/" data-title="python包导入再谈" data-url="http://ponder.work/2016/06/22/python包导入再谈/"></div>
 </section>
 
 

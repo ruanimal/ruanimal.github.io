@@ -4,29 +4,38 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>django-admin过滤foreignkey值 | 逸思杂陈</title>
+    <title>沟通 | 逸思杂陈</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Jay.Run">
     
 
     
-    <meta name="description" content="问题背景在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
-当然，也可通过自定义form解决该问题。
-解决方案123456789101112class FactoryOrderItemInline(admin.TabularInline):    model = FactoryOrderItem    fields = (">
+    <meta name="description" content="no man is a island.
+
+　　西谚有云“没有人是个孤岛”，人是社会性动物，很多自我价值都在社交中实现，自是离不开沟通。
+　　但真正的沟通又是何其难？某种意义上，你永远都不能知道对方真正的意思。当然，有时你连自己是什么意思都不甚了解。
+　　在聊天中经常出现的是，表面上相谈甚欢，被地里很可能是呵呵一笑。毕竟不同价值观，你不能奢望别人能完全理解你，不然怎么老说知音难觅呢？
+　　叔本华曾">
 <meta property="og:type" content="article">
-<meta property="og:title" content="django-admin过滤foreignkey值">
-<meta property="og:url" content="http://ponder.work/2015/11/25/django-admin过滤foreignkey值/index.html">
+<meta property="og:title" content="沟通">
+<meta property="og:url" content="http://ponder.work/2016/06/26/沟通/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="问题背景在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
-当然，也可通过自定义form解决该问题。
-解决方案123456789101112class FactoryOrderItemInline(admin.TabularInline):    model = FactoryOrderItem    fields = (">
-<meta property="og:updated_time" content="2016-01-10T08:41:35.725Z">
+<meta property="og:description" content="no man is a island.
+
+　　西谚有云“没有人是个孤岛”，人是社会性动物，很多自我价值都在社交中实现，自是离不开沟通。
+　　但真正的沟通又是何其难？某种意义上，你永远都不能知道对方真正的意思。当然，有时你连自己是什么意思都不甚了解。
+　　在聊天中经常出现的是，表面上相谈甚欢，被地里很可能是呵呵一笑。毕竟不同价值观，你不能奢望别人能完全理解你，不然怎么老说知音难觅呢？
+　　叔本华曾">
+<meta property="og:updated_time" content="2016-06-26T00:00:06.294Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="django-admin过滤foreignkey值">
-<meta name="twitter:description" content="问题背景在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
-当然，也可通过自定义form解决该问题。
-解决方案123456789101112class FactoryOrderItemInline(admin.TabularInline):    model = FactoryOrderItem    fields = (">
+<meta name="twitter:title" content="沟通">
+<meta name="twitter:description" content="no man is a island.
+
+　　西谚有云“没有人是个孤岛”，人是社会性动物，很多自我价值都在社交中实现，自是离不开沟通。
+　　但真正的沟通又是何其难？某种意义上，你永远都不能知道对方真正的意思。当然，有时你连自己是什么意思都不甚了解。
+　　在聊天中经常出现的是，表面上相谈甚欢，被地里很可能是呵呵一笑。毕竟不同价值观，你不能奢望别人能完全理解你，不然怎么老说知音难觅呢？
+　　叔本华曾">
 
     
     <link rel="alternative" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
@@ -84,14 +93,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/25/django-admin过滤foreignkey值/" title="django-admin过滤foreignkey值" itemprop="url">django-admin过滤foreignkey值</a>
+      <a href="/2016/06/26/沟通/" title="沟通" itemprop="url">沟通</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
+    <time datetime="2016-06-25T22:41:00.000Z" itemprop="datePublished"> 发表于 2016-06-26</time>
     
   </p>
 </header>
@@ -100,20 +109,32 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题背景"><span class="toc-number">1.</span> <span class="toc-text">问题背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案"><span class="toc-number">2.</span> <span class="toc-text">解决方案</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h3 id="问题背景">问题背景</h3><pre><code>在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
-当然，也可通过自定义<span class="keyword">form</span>解决该问题。
-</code></pre><h3 id="解决方案">解决方案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryOrderItemInline</span><span class="params">(admin.TabularInline)</span>:</span></span><br><span class="line">    model = FactoryOrderItem</span><br><span class="line">    fields = (<span class="string">'order_item'</span>, <span class="string">'product_sn'</span>, <span class="string">'style'</span>, <span class="string">'size'</span>, <span class="string">'factory_sn'</span>, <span class="string">'price'</span>, <span class="string">'quantity'</span>, <span class="string">'amount'</span>)</span><br><span class="line">    extra = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">formfield_for_foreignkey</span><span class="params">(self, db_field, request, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> db_field.name == <span class="string">'order_item'</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                parent_obj_id = request.resolver_match.args[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">except</span> IndexError: <span class="comment">#仅在新建状态过滤</span></span><br><span class="line">                kwargs[<span class="string">'queryset'</span>] = OrderItem.objects.filter(order__status=<span class="string">'2'</span>)</span><br><span class="line">        <span class="keyword">return</span> super(FactoryOrderItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)</span><br></pre></td></tr></table></figure>  
+		<blockquote>
+<p>no man is a island.</p>
+</blockquote>
+<p>　　西谚有云“没有人是个孤岛”，人是社会性动物，很多自我价值都在社交中实现，自是离不开沟通。</p>
+<p>　　但真正的沟通又是何其难？某种意义上，你永远都不能知道对方真正的意思。当然，有时你连自己是什么意思都不甚了解。</p>
+<p>　　在聊天中经常出现的是，表面上相谈甚欢，被地里很可能是呵呵一笑。毕竟不同价值观，你不能奢望别人能完全理解你，不然怎么老说知音难觅呢？</p>
+<p>　　叔本华曾说</p>
+<blockquote>
+<p>人就像寒冬里的刺猬,互相靠得太近,会觉得刺痛;彼此离得太远,却又会感觉寒冷.</p>
+</blockquote>
+<p>　　大师所言简直入木三分，而且这些刺猬靠得太近的时候，会说“这个距离太热了”，而不是“你刺到我了”。人与人之间的沟通乃至交往，正是寻找这个合适的距离，这个对双方都合适的距离。</p>
+<p>　　人人都有刺，你的刺一方面是你防卫的武器，另一方面阻止距离更近一步的枷锁。没安全感的人，他的刺就特别长，这样虽然安全了，但别人永远无法接近你。</p>
+<p>　　但其实这些刺都是无用的累赘，你以为它能保护你，其实它把所有人都隔离在外。其实能伤害你的只有你自己，就算他人要辱骂你，你不放在心上，他就无的放矢。</p>
+<p>　　放下无谓的防备，追求无碍的沟通。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
+  <a class="article-category-link" href="/categories/随笔/">随笔</a>
 </div>
 
 
@@ -123,7 +144,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://ponder.work/2015/11/25/django-admin过滤foreignkey值/" data-title="django-admin过滤foreignkey值 | 逸思杂陈" data-tsina="null" class="share clearfix">
+	  <div data-url="http://ponder.work/2016/06/26/沟通/" data-title="沟通 | 逸思杂陈" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -136,19 +157,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" title="【Chrome扩展】谷歌百度一键搜索修改版">
-  <strong>上一篇：</strong><br/>
-  <span>
-  【Chrome扩展】谷歌百度一键搜索修改版</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/11/25/django 登录后的跳转问题/"  title="django 登录后的跳转到之前的页面">
+<a href="/2016/06/22/centos开关机日志分析/"  title="centos开关机日志分析">
  <strong>下一篇：</strong><br/> 
- <span>django 登录后的跳转到之前的页面
+ <span>centos开关机日志分析
 </span>
 </a>
 </div>
@@ -157,7 +170,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/11/25/django-admin过滤foreignkey值/" data-title="django-admin过滤foreignkey值" data-url="http://ponder.work/2015/11/25/django-admin过滤foreignkey值/"></div>
+	<div class="ds-thread" data-thread-key="2016/06/26/沟通/" data-title="沟通" data-url="http://ponder.work/2016/06/26/沟通/"></div>
 </section>
 
 

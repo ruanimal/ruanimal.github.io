@@ -79,6 +79,68 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/11/25/django 登录后的跳转问题/" title="django 登录后的跳转到之前的页面" itemprop="url">django 登录后的跳转到之前的页面</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <pre><code>在开发django网站时发现，用户登录后不能跳转到之前的页面，google了很多答案，讲得也不清楚。
+自己琢磨解决了，以下干货。
+</code></pre><h4 id="1-_登录链接">1. 登录链接</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span>  <span class="attr">href</span>=<span class="string">"/account/login/?next=&#123;&#123;request.path&#125;&#125;"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-_view">2. view</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(request)</span>:</span></span><br><span class="line">    next_url = request.REQUEST.get(<span class="string">'next'</span>, <span class="string">'/'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        <span class="keyword">return</span> render_to_response(<span class="string">'account/login.html'</span>, &#123;<span class="string">'next_url'</span>: next_url&#125;, context_instance=RequestContext(request))</span><br><span class="line"></span><br><span class="line">    django_login(request, user)</span><br><span class="line">    <span class="keyword">return</span> redirect(next_url)</span><br></pre></td></tr></table></figure>
+<h4 id="3-_登录表单">3. 登录表单</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/account/login/?next=&#123;&#123;next_url&#125;&#125;"</span> <span class="attr">method</span>=<span class="string">"post"</span> &gt;</span></span><br><span class="line">&#123;% csrf_token %&#125;</span><br><span class="line">    用户名<span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"username"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>  <span class="attr">required</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">br</span>&gt;</span></span><br><span class="line">    密码<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">required</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"登  录"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/25/django 登录后的跳转问题/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django 登录后的跳转问题/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/10/18/每个人心中都有个小王子/" title="每个人心中都有个小王子" itemprop="url">每个人心中都有个小王子</a>
   </h1>
   <p class="article-author">By
@@ -626,68 +688,6 @@
 	
 	  	<span></span>
 		<a href="/2015/09/29/《社会契约论》读书笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/29/《社会契约论》读书笔记/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/09/29/《乡关何处》读书笔记/" title="《乡关何处》读书笔记" itemprop="url">《乡关何处》读书笔记</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-09-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-09-29</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="概述">概述</h3><ul>
-<li>这本书是野夫关于他个人对几十年前那动荡而又荒诞不经的时代的感悟，真实的过去往往没有历史书上写的那么伟光正、那么云淡风轻。</li>
-<li>抑郁症、愤青不可读此书，恐加重病情。</li>
-</ul>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/09/29/《乡关何处》读书笔记/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/09/29/《乡关何处》读书笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/29/《乡关何处》读书笔记/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

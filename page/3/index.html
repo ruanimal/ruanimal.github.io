@@ -79,6 +79,65 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/04/16/git代码自动同步/" title="git代码自动同步" itemprop="url">git代码自动同步</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-16T12:01:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="需求">需求</h3><p>由于最近做Python的linux服务器脚本，经常要同步代码到测试服务器，又不想直接ssh登录到服务器，所以萌生了用git自动同步代码的想法。<br>具体的要求是：测试机是服务器，需要本地一push代码，测试机能实时更新。<br>查阅相关资料发现可以用git的hooks来实现。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/04/16/git代码自动同步/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/16/git代码自动同步/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/git代码自动同步/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/04/16/lightdm自动登录root账户/" title="xubuntu自动登录root账户" itemprop="url">xubuntu自动登录root账户</a>
   </h1>
   <p class="article-author">By
@@ -399,70 +458,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/10/除法在python2和python3中的区别/" title="除法在 python2 和 python3 中的区别" itemprop="url">除法在 python2 和 python3 中的区别</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-10T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="总结">总结</h3><ol>
-<li>python2 中使用<code>from __future__ import division</code>就可以使用python3的除法。</li>
-<li>python2 中<code>/</code>与操作数有关，<code>x / y</code>中x、y都为整型的话，为<code>floor除法</code>，否则为<code>true除法</code>也是日常的除法。</li>
-<li>python3 中<code>/</code>为<code>true除法</code>， 与操作数无关。</li>
-<li><code>//</code>在 python2 与 python3 中并无差别， 都代表<code>floor除法</code></li>
-</ol>
-<h3 id="python3">python3</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2.0</span></span><br></pre></td></tr></table></figure>
-<h3 id="python2">python2</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2.0</span></span><br></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/01/10/除法在python2和python3中的区别/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/除法在python2和python3中的区别/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2016/01/10/python赋值语句小坑/" title="python赋值语句小坑" itemprop="url">python赋值语句小坑</a>
   </h1>
   <p class="article-author">By
@@ -530,6 +525,70 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/01/10/除法在python2和python3中的区别/" title="除法在 python2 和 python3 中的区别" itemprop="url">除法在 python2 和 python3 中的区别</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-10T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="总结">总结</h3><ol>
+<li>python2 中使用<code>from __future__ import division</code>就可以使用python3的除法。</li>
+<li>python2 中<code>/</code>与操作数有关，<code>x / y</code>中x、y都为整型的话，为<code>floor除法</code>，否则为<code>true除法</code>也是日常的除法。</li>
+<li>python3 中<code>/</code>为<code>true除法</code>， 与操作数无关。</li>
+<li><code>//</code>在 python2 与 python3 中并无差别， 都代表<code>floor除法</code></li>
+</ol>
+<h3 id="python3">python3</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2.0</span></span><br></pre></td></tr></table></figure>
+<h3 id="python2">python2</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2.0</span></span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/01/10/除法在python2和python3中的区别/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/除法在python2和python3中的区别/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" title="【Chrome扩展】谷歌百度一键搜索修改版" itemprop="url">【Chrome扩展】谷歌百度一键搜索修改版</a>
   </h1>
   <p class="article-author">By
@@ -572,68 +631,6 @@
 	
 	  	<span></span>
 		<a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/25/django 登录后的跳转问题/" title="django 登录后的跳转到之前的页面" itemprop="url">django 登录后的跳转到之前的页面</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <pre><code>在开发django网站时发现，用户登录后不能跳转到之前的页面，google了很多答案，讲得也不清楚。
-自己琢磨解决了，以下干货。
-</code></pre><h4 id="1-_登录链接">1. 登录链接</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span>  <span class="attr">href</span>=<span class="string">"/account/login/?next=&#123;&#123;request.path&#125;&#125;"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-_view">2. view</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(request)</span>:</span></span><br><span class="line">    next_url = request.REQUEST.get(<span class="string">'next'</span>, <span class="string">'/'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        <span class="keyword">return</span> render_to_response(<span class="string">'account/login.html'</span>, &#123;<span class="string">'next_url'</span>: next_url&#125;, context_instance=RequestContext(request))</span><br><span class="line"></span><br><span class="line">    django_login(request, user)</span><br><span class="line">    <span class="keyword">return</span> redirect(next_url)</span><br></pre></td></tr></table></figure>
-<h4 id="3-_登录表单">3. 登录表单</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/account/login/?next=&#123;&#123;next_url&#125;&#125;"</span> <span class="attr">method</span>=<span class="string">"post"</span> &gt;</span></span><br><span class="line">&#123;% csrf_token %&#125;</span><br><span class="line">    用户名<span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"username"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>  <span class="attr">required</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">br</span>&gt;</span></span><br><span class="line">    密码<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">required</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"登  录"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/11/25/django 登录后的跳转问题/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django 登录后的跳转问题/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

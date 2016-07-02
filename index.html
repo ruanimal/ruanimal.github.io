@@ -51,6 +51,10 @@
 					 
 						<li><a href="/">主页</a></li>
 					
+						<li><a href="/categories/编程">编程</a></li>
+					
+						<li><a href="/categories/阅读">阅读</a></li>
+					
 						<li><a href="/categories">分类</a></li>
 					
 						<li><a href="/archives">归档</a></li>
@@ -110,7 +114,7 @@
         
         <p class="article-more-link">
           
-            <a href="/2016/06/30/禅者的初心2笔记/#more">Read More</a>
+            <a href="/2016/06/30/禅者的初心2笔记/#more">查看全文</a>
           
        </p>
     </div>
@@ -119,9 +123,14 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+  <a class="article-category-link" href="/categories/阅读/">阅读</a>
 </div>
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/读书笔记/">读书笔记</a>
+  </div>
 
 </div>
 
@@ -240,7 +249,7 @@
         
         <p class="article-more-link">
           
-            <a href="/2016/06/22/centos开关机日志分析/#more">Read More</a>
+            <a href="/2016/06/22/centos开关机日志分析/#more">查看全文</a>
           
        </p>
     </div>
@@ -252,6 +261,11 @@
   <a class="article-category-link" href="/categories/编程/">编程</a>
 </div>
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a>
+  </div>
 
 </div>
 
@@ -305,7 +319,7 @@
         
         <p class="article-more-link">
           
-            <a href="/2016/06/22/python包导入再谈/#more">Read More</a>
+            <a href="/2016/06/22/python包导入再谈/#more">查看全文</a>
           
        </p>
     </div>
@@ -374,7 +388,7 @@
         
         <p class="article-more-link">
           
-            <a href="/2016/06/21/大话设计模式/#more">Read More</a>
+            <a href="/2016/06/21/大话设计模式/#more">查看全文</a>
           
        </p>
     </div>
@@ -383,9 +397,14 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/读书笔记-编程/">读书笔记, 编程</a>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
 </div>
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/读书笔记/">读书笔记</a><a href="/tags/设计模式/">设计模式</a>
+  </div>
 
 </div>
 
@@ -434,7 +453,7 @@
         
         <p class="article-more-link">
           
-            <a href="/2016/06/19/通过适配器模式优化Python代码/#more">Read More</a>
+            <a href="/2016/06/19/通过适配器模式优化Python代码/#more">查看全文</a>
           
        </p>
     </div>
@@ -714,9 +733,358 @@
 
 
 
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/05/改善python的91建议 笔记/" title="《改善python的91建议》笔记" itemprop="url">《改善python的91建议》笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-05T13:36:00.000Z" itemprop="datePublished"> 发表于 2016-06-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>文如其名，是由91篇关系不是很紧密的python文章集合而成<br>这本书和国内很多技术类书籍一样，排版的代码缩进很有问题，还有文章有些观点并不正确。<br>除此之外，还是有很多有用的知识点，需要读者自己辨别。</p>
+<h3 id="Python的包和模块规范">Python的包和模块规范</h3><p>结构日益规范化。现在的库或框架跟随了以下潮流：</p>
+<ul>
+<li>包和模块的命名采用小写、单数形式，而且短小。</li>
+<li>包通常仅作为命名空间，如只包含空的<code>__init__</code>.py文件。</li>
+</ul>
+<h3 id="x,_y=y,_x赋值">x, y=y, x赋值</h3><p>Python表达式计算的顺序说起。一般情况下Python表达式的计算顺序是从左到右，但遇到表达式赋值的时候表达式右边的操作数先于左边的操作数计算，因此表达式<code>expr3, expr4=exprl, expr2</code>的计算顺序是<code>exprl, expr2 —&gt; expr3, expr4</code>。因此对于表达式<code>x, y=y, x</code>,其在内存中执行的顺序如下：</p>
+<ol>
+<li>先计算右边的表达式<code>y,x</code>,因此先在内存中创建元组<code>(y,x)</code>，其标示符和值分别为y、x及其对应的值，其中y和x是在初始化时已经存在于内存中的对象。</li>
+<li>计算表达式左边的值并进行赋值，元组被依次分配给左边的标示符，通过解压缩(unpacking),元组第一标识符（为y)分配给左边第一个元素（此时为X)，元组第二个标识符(为x)分配给第二个元素（此时为y),从而达到x、y值交换的目的。</li>
+</ol>
+<h3 id="提高and、or表达式的效率">提高and、or表达式的效率</h3><p>python的and、or表达式并不会将每个值都算出，一旦整个表达式的值已知，其他部分就不会被计算，并且返回最后计算的那个值。<br>因此，在编程过程中，如果对于or条件表达式应该将<code>值为真可能性较高的变量</code>写在or的前面；<br>而对于and则相反，应该推后。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/06/05/改善python的91建议 笔记/#more">查看全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/读书笔记/">读书笔记</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/06/05/改善python的91建议 笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/05/改善python的91建议 笔记/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/05/《超脱烦恼的练习》/" title="《超脱烦恼的练习》笔记" itemprop="url">《超脱烦恼的练习》笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-05T13:30:00.000Z" itemprop="datePublished"> 发表于 2016-06-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong>四念处观</strong></p>
+<ol>
+<li>身体的观察——身随念处</li>
+<li>心情、感觉的观察——受随念处</li>
+<li>内心的观察——心随念处</li>
+<li>法则的观察——法随念处</li>
+</ol>
+<p>欲望和干劲是两回事，干劲反而因为欲望的压力而消耗。</p>
+<blockquote>
+<p>博主云：你的欲望和使欲望满足的方法往往是两个东西，所以欲望越多，越不知道该干什么。欲望想要的是一件事的结果，而我们能做的却仅仅是每一个具体的过程。</p>
+</blockquote>
+<p>难以抉择会给心灵带来极大负担。</p>
+<blockquote>
+<p>博主云：人在一段时间内的自制力是有限的，一个选择在内心停留越久，对自制力就越大损耗，自制力耗尽就表现为什么都不想做。</p>
+</blockquote>
+<p>欲望最原生的材料就是压力，即是苦，所以说将我们驱逐至欲望的正是（痛）苦。</p>
+<p>一直待在痛苦的世界是不好的。</p>
+<p>我们的欲望并不是自己的欲望，它是你前一段时间所有行为对当下心灵的残留影响。</p>
+<p>往往看起来高尚伟大的“xxx主义”，大致上总说着一些漂亮的场面话，实际上只是执着于想要增加自己所属团体的利益。</p>
+<p>觉得快乐并不是什么坏事，但是这往往会导致想要追求更多的快乐，就是扩大欲望。</p>
+<blockquote>
+<p>博主云：因快乐而生欲望，因欲望而生执着，因执着而造业。</p>
+</blockquote>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/06/05/《超脱烦恼的练习》/#more">查看全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/阅读/">阅读</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/读书笔记/">读书笔记</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/06/05/《超脱烦恼的练习》/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/05/《超脱烦恼的练习》/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/22/关于生活/" title="关于生活" itemprop="url">关于生活</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-22T12:41:00.000Z" itemprop="datePublished"> 发表于 2016-05-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>　　有些人以为生活只有诗与远方，后来他离开了生活。<br>　　有些人以为生活只是眼前的苟且，后来他失去了自我。</p>
+<p>　　人生在世，无论理想如何远大，终须为稻粱谋。陶渊明不为五斗米折腰，前提没这点俸禄也不至于饿死。若是形式迫人，虽嗟来之食亦受之。一旦不为生计发愁，迎接你的必是诗与远方。故我先欲求之财务自由，后践吾心之所向。</p>
+<p>　　不够强大的理想主义者，一大部分矮化成了现实主义者，另一部分成了随波逐流的躯壳，余下的抛弃了这个娑婆世界。<br>　　而我，先欲求安身立命之所，后追寻最初的梦想，希望能走得更远。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/随笔/">随笔</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/05/22/关于生活/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/22/关于生活/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/10/Python中的类变量与实例变量/" title="Python中的类变量与实例变量" itemprop="url">Python中的类变量与实例变量</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-10T14:27:00.000Z" itemprop="datePublished"> 发表于 2016-05-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>　　对于初学者来说，python的类变量（也就是java中的静态变量）和实例变量（也就是属性）有一些很容易混淆的地方，同时对这些特性深入了解有助于理解python的面向对象思想。</p>
+<h3 id="类变量与实例变量区分">类变量与实例变量区分</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">ClassA</span><span class="params">(object)</span>:</span>  <span class="comment"># 1</span></span><br><span class="line"><span class="meta">... </span>    num1 = <span class="number">1</span>  <span class="comment"># 类变量</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self.num2 = <span class="number">2</span>  <span class="comment"># 实例变量，或者说属性</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1 = ClassA()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ClassA.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 2</span></span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1 = <span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 3</span></span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.__class__.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.__class__.num1 = <span class="number">4</span>  <span class="comment"># 4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ClassA.num1</span><br><span class="line"><span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a2 = ClassA()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a2.num1</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>这里我们定义了<code>ClassA</code>类，它有一个类变量<code>num1</code>，还有一个实例变量<code>num2</code>。  </li>
+<li>a1是ClassA的一个实例，当我们写下<code>a1.num1</code>的时候，实际上是引用类变量num1，因此<code>a1.num1 is ClassA.num1</code>值为<code>True</code>。  </li>
+<li>运行<code>a1.num1 = 3</code>的时候，其实给a1绑定了一个属性num1，这是动态语言的特性，此时<code>a1.num1 is ClassA.num1</code>值为<code>False</code>。<br><strong>因此我不建议通过实例的名称来引用类变量，这样容易引起混淆，你以为改变了ClassA.num1，其实没有。</strong><br>这里就扯到了Python的作用域与命名空间，运行<code>a1.num1</code>的时候，先是在a1自己的命名空间内查找num1，没找到就在所属类的命名空间找，还没有就抛出<code>AttributeError: &#39;ClassA&#39; object has no attribute &#39;num3&#39;</code>.<br>运行<code>a1.num1 = 3</code>之后，a1自己的命名空间内找到了num1，就不继续往上查找了。</li>
+<li>如果此时还想通过a1访问和改变类变量num1，可以通过<code>a1.__class__.num1</code>来访问。</li>
+</ol>
+<p>以上这些，也适用于<code>staticmethod</code>和<code>classmethod</code>。</p>
+<h3 id="如果ClassA还有父类">如果ClassA还有父类</h3>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/05/10/Python中的类变量与实例变量/#more">查看全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/05/10/Python中的类变量与实例变量/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/10/Python中的类变量与实例变量/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/08/图书馆见闻/" title="图书馆见闻" itemprop="url">图书馆见闻</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-08T13:44:00.000Z" itemprop="datePublished"> 发表于 2016-05-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="占座党乃图书馆通病">占座党乃图书馆通病</h3><p>　　凡是条件好一点的图书馆，只要工作人员不禁止，必定有一部分座位因占座党而闲置。<br>　　举我最近去的广州图书馆为例，我早上9点开始自习，到下午5点，占座的人始终没来，而且不是一两次。几乎每次有占座的，很大可能一天都不来。<br>　　这也很好理解，既然需要占座自然是来的意愿不是很强，不来自然是情理之中。人皆有惰性，无可厚非，但座位有限，还是留给需要的人为好。</p>
+<h3 id="在图书馆玩手机很畅快">在图书馆玩手机很畅快</h3><p>　　除占座党之外，手机党和电脑党也是图书馆一大特色，并且与年龄无关。<br>　　今天坐我对面的是个大概60岁的大爷，先是早上来没找到位置坐，把我对面的占座党呵斥了一通，抢了她占的座位。然后等我下午从图书馆出来时，他手上拿的手机还没有放下。既然玩手机，在家里不是更舒服吗，何必呢？学得下就学，不行就回去休息，在这磨洋工除了求个心安之外毫无裨益。<br>　　另外，品行、习惯与年龄没多大关系，不好的不改正，年纪大了还是不好，不过是习惯了而已。俗语说<code>三岁看老</code>，未免夸张了点，十三、二十三看老估计是十拿九稳。<br>　　人呐，还是要对自己有所要求，若是随着年岁的增长而没有丝毫长进，多么可悲，多么可怕。年少时不学好有人教育你，年老了还无长进，无需教育也无人可教育你了。</p>
+<h3 id="免费的终究会被滥用">免费的终究会被滥用</h3><p>　　在卫生间，洗完手，有一人擦手用了接近2米的纸，很大一堆，不知道什么心态。如果你平时在家都是这样使用，我无话可说，但仅因为免费就滥用，未免太下作了。<br>　　免费的东西并不是没有成本，而是一些心存善念的人承担了，因此我们在使用它的时候因心存感激。<br>　　一切免费的物品，如图书馆的座位，如纸巾，如果不能在使用价值或者获取代价上和通常物品加以区分，就不免会被滥用，导致真正需要的人不能得到。<br>　　<strong>而这正是这个世界的可悲之处，所有事物并不是让需要的人得到，而是让有取得优势的人得到。</strong></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/随笔/">随笔</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/05/08/图书馆见闻/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/08/图书馆见闻/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
 
   <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>

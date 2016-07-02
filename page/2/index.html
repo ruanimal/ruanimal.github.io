@@ -79,6 +79,76 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/06/05/改善python的91建议 笔记/" title="《改善python的91建议》笔记" itemprop="url">《改善python的91建议》笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-05T13:36:00.000Z" itemprop="datePublished"> 发表于 2016-06-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>文如其名，是由91篇关系不是很紧密的python文章集合而成<br>这本书和国内很多技术类书籍一样，排版的代码缩进很有问题，还有文章有些观点并不正确。<br>除此之外，还是有很多有用的知识点，需要读者自己辨别。</p>
+<h3 id="Python的包和模块规范">Python的包和模块规范</h3><p>结构日益规范化。现在的库或框架跟随了以下潮流：</p>
+<ul>
+<li>包和模块的命名采用小写、单数形式，而且短小。</li>
+<li>包通常仅作为命名空间，如只包含空的<code>__init__</code>.py文件。</li>
+</ul>
+<h3 id="x,_y=y,_x赋值">x, y=y, x赋值</h3><p>Python表达式计算的顺序说起。一般情况下Python表达式的计算顺序是从左到右，但遇到表达式赋值的时候表达式右边的操作数先于左边的操作数计算，因此表达式<code>expr3, expr4=exprl, expr2</code>的计算顺序是<code>exprl, expr2 —&gt; expr3, expr4</code>。因此对于表达式<code>x, y=y, x</code>,其在内存中执行的顺序如下：</p>
+<ol>
+<li>先计算右边的表达式<code>y,x</code>,因此先在内存中创建元组<code>(y,x)</code>，其标示符和值分别为y、x及其对应的值，其中y和x是在初始化时已经存在于内存中的对象。</li>
+<li>计算表达式左边的值并进行赋值，元组被依次分配给左边的标示符，通过解压缩(unpacking),元组第一标识符（为y)分配给左边第一个元素（此时为X)，元组第二个标识符(为x)分配给第二个元素（此时为y),从而达到x、y值交换的目的。</li>
+</ol>
+<h3 id="提高and、or表达式的效率">提高and、or表达式的效率</h3><p>python的and、or表达式并不会将每个值都算出，一旦整个表达式的值已知，其他部分就不会被计算，并且返回最后计算的那个值。<br>因此，在编程过程中，如果对于or条件表达式应该将<code>值为真可能性较高的变量</code>写在or的前面；<br>而对于and则相反，应该推后。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/06/05/改善python的91建议 笔记/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/06/05/改善python的91建议 笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/05/改善python的91建议 笔记/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/06/05/《超脱烦恼的练习》/" title="《超脱烦恼的练习》笔记" itemprop="url">《超脱烦恼的练习》笔记</a>
   </h1>
   <p class="article-author">By
@@ -639,73 +709,6 @@
 	
 	  	<span></span>
 		<a href="/2016/04/16/ubuntu静态ip配置/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/ubuntu静态ip配置/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/04/16/python中yield语句的运行机制/" title="Python中yield语句的运行机制" itemprop="url">Python中yield语句的运行机制</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-04-16T12:17:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>如果一个在函数中存在yield关键字，那么这个函数就构成了生成器。生成器是一个函数，它生成一个序列，以便在迭代中使用。<br>调用这个函数，并不会马上开始执行函数体中的代码，而是返回一个生成器对象，通过调用生成器对象的<code>next()</code>方法（python3中是<code>__netx__()</code>）执行函数。</p>
-<p>那么，具体的函数中语句的执行顺序是怎么样的呢？</p>
-<h3 id="代码">代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'the beginning of function'</span></span><br><span class="line">    <span class="keyword">if</span> x &lt;= <span class="number">0</span> <span class="keyword">or</span> <span class="keyword">not</span> isinstance(x, int):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(x):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'before yield'</span>, i</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'after yield'</span>, i</span><br><span class="line"></span><br><span class="line">gen = func(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br></pre></td></tr></table></figure>
-<p>输出<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">********************</span><br><span class="line"><span class="keyword">the</span> beginning <span class="keyword">of</span> <span class="function"><span class="keyword">function</span></span></span><br><span class="line"><span class="keyword">before</span> yield <span class="number">0</span></span><br><span class="line">-&gt; yielding: <span class="number">0</span></span><br><span class="line">********************</span><br><span class="line"><span class="keyword">after</span> yield <span class="number">0</span></span><br><span class="line"><span class="keyword">before</span> yield <span class="number">1</span></span><br><span class="line">-&gt; yielding: <span class="number">1</span></span><br><span class="line">********************</span><br><span class="line"><span class="keyword">after</span> yield <span class="number">1</span></span><br><span class="line">Traceback (most recent call <span class="keyword">last</span>):</span><br><span class="line">  File <span class="string">"D:\Projects\test.py"</span>, <span class="built_in">line</span> <span class="number">28</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    print <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
-<h3 id="分析">分析</h3><ol>
-<li>首先运行<code>func(2)</code>，这时函数的所有语句都没有执行，返回一个生成器赋值给<code>gen</code>。</li>
-<li>第一次执行<code>gen.next()</code>，函数从头开始执行，运行完yield语句暂停住了。</li>
-<li>再次运行<code>gen.next()</code>，从停下的地方继续，直到遇到遇到下一个yield，运行完yield语句又暂停住了。</li>
-<li>第三次尝试运行<code>gen.next()</code>，运行完<code>print &#39;after yield&#39;, i</code>，由于循环次数已满，找不到下一个yield，就出现<code>StopIteration</code>错误</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/04/16/python中yield语句的运行机制/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/python中yield语句的运行机制/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

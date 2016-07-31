@@ -982,7 +982,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/10/python赋值语句小坑/" title="python赋值语句小坑" itemprop="url">python赋值语句小坑</a>
+      <a href="/2016/01/10/除法在python2和python3中的区别/" title="除法在 python2 和 python3 中的区别" itemprop="url">除法在 python2 和 python3 中的区别</a>
   </h1>
   <p class="article-author">By
        
@@ -995,17 +995,14 @@
 </header>
     <div class="article-content">
         
-        <pre><code>说到<span class="keyword">python</span>赋值语句，大家想必一个念头——<span class="keyword">so</span> easy，不是`lz = <span class="string">'dashabi'</span>`吗。
-确实，easy是easy，里面却有个小坑，虽小，却不易发现。在代码量多的时候，就有点恶心了。
-</code></pre><ul>
-<li><h5 id="正常的语句是这样">正常的语句是这样</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa </span><br><span class="line"><span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><h5 id="坑在这里">坑在这里</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span>,</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa </span><br><span class="line">(<span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span>,)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<pre><code>看出区别没有，坑的后面有个逗号，平时这逗号没什么卵用，但在赋值语句的末尾会将原来的对象转化为tuple。
-和`aa = (<span class="string">u'这是一个坑'</span>,)`是一样的效果。
-</code></pre>
+        <h3 id="总结">总结</h3><ol>
+<li>python2 中使用<code>from __future__ import division</code>就可以使用python3的除法。</li>
+<li>python2 中<code>/</code>与操作数有关，<code>x / y</code>中x、y都为整型的话，为<code>floor除法</code>，否则为<code>true除法</code>也是日常的除法。</li>
+<li>python3 中<code>/</code>为<code>true除法</code>， 与操作数无关。</li>
+<li><code>//</code>在 python2 与 python3 中并无差别， 都代表<code>floor除法</code></li>
+</ol>
+<h3 id="python3">python3</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2.0</span></span><br></pre></td></tr></table></figure>
+<h3 id="python2">python2</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2.0</span></span><br></pre></td></tr></table></figure>
         
         
         <p class="article-more-link">
@@ -1029,7 +1026,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="/2016/01/10/python赋值语句小坑/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/python赋值语句小坑/" data-count-type="comments">&nbsp;</a>
+		<a href="/2016/01/10/除法在python2和python3中的区别/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/除法在python2和python3中的区别/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

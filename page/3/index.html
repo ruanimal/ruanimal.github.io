@@ -83,6 +83,71 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/01/20/排序算法总结/" title="排序算法总结" itemprop="url">排序算法总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-20T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-20</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="一、冒泡排序_BubbleSort">一、冒泡排序 BubbleSort</h2><h3 id="介绍">介绍</h3><p>遍历序列，比较两个元素，如果前面的大于后面的就交换两者的位置。其实称之为冒泡排序不如加沉底排序，因为每一轮比较，这一轮轮最大都会被排到序列末尾，其实沉底更为贴切。</p>
+<h3 id="步骤">步骤</h3><ol>
+<li>遍历序列，比较序列的相邻元素，比较n-1次，如果前面的大于后面的就交换两者的位置。</li>
+<li>比较次数减一，重复步骤1</li>
+<li>共遍历n-1次</li>
+</ol>
+<h3 id="代码">代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(arry)</span>:</span></span><br><span class="line">    n = len(arry)</span><br><span class="line">    <span class="keyword">while</span> n &gt; <span class="number">1</span>:</span><br><span class="line">        n -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span> arry[x] &gt; arry[x+<span class="number">1</span>]:</span><br><span class="line">                arry[x], arry[x+<span class="number">1</span>] = arry[x+<span class="number">1</span>], arry[x]</span><br><span class="line">    <span class="keyword">return</span> arry</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/01/20/排序算法总结/#more">查看全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/01/20/排序算法总结/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/20/排序算法总结/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/01/10/除法在python2和python3中的区别/" title="除法在 python2 和 python3 中的区别" itemprop="url">除法在 python2 和 python3 中的区别</a>
   </h1>
   <p class="article-author">By
@@ -275,6 +340,65 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/11/25/django-admin过滤foreignkey值/" title="django-admin过滤foreignkey值" itemprop="url">django-admin过滤foreignkey值</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="问题背景">问题背景</h3><pre><code>在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
+当然，也可通过自定义<span class="keyword">form</span>解决该问题。
+</code></pre><h3 id="解决方案">解决方案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryOrderItemInline</span><span class="params">(admin.TabularInline)</span>:</span></span><br><span class="line">    model = FactoryOrderItem</span><br><span class="line">    fields = (<span class="string">'order_item'</span>, <span class="string">'product_sn'</span>, <span class="string">'style'</span>, <span class="string">'size'</span>, <span class="string">'factory_sn'</span>, <span class="string">'price'</span>, <span class="string">'quantity'</span>, <span class="string">'amount'</span>)</span><br><span class="line">    extra = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">formfield_for_foreignkey</span><span class="params">(self, db_field, request, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> db_field.name == <span class="string">'order_item'</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                parent_obj_id = request.resolver_match.args[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">except</span> IndexError: <span class="comment">#仅在新建状态过滤</span></span><br><span class="line">                kwargs[<span class="string">'queryset'</span>] = OrderItem.objects.filter(order__status=<span class="string">'2'</span>)</span><br><span class="line">        <span class="keyword">return</span> super(FactoryOrderItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/25/django-admin过滤foreignkey值/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django-admin过滤foreignkey值/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/11/25/django 登录后的跳转问题/" title="django 登录后的跳转到之前的页面" itemprop="url">django 登录后的跳转到之前的页面</a>
   </h1>
   <p class="article-author">By
@@ -318,65 +442,6 @@
 	
 	  	<span></span>
 		<a href="/2015/11/25/django 登录后的跳转问题/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django 登录后的跳转问题/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/25/django-admin过滤foreignkey值/" title="django-admin过滤foreignkey值" itemprop="url">django-admin过滤foreignkey值</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="问题背景">问题背景</h3><pre><code>在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
-当然，也可通过自定义<span class="keyword">form</span>解决该问题。
-</code></pre><h3 id="解决方案">解决方案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryOrderItemInline</span><span class="params">(admin.TabularInline)</span>:</span></span><br><span class="line">    model = FactoryOrderItem</span><br><span class="line">    fields = (<span class="string">'order_item'</span>, <span class="string">'product_sn'</span>, <span class="string">'style'</span>, <span class="string">'size'</span>, <span class="string">'factory_sn'</span>, <span class="string">'price'</span>, <span class="string">'quantity'</span>, <span class="string">'amount'</span>)</span><br><span class="line">    extra = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">formfield_for_foreignkey</span><span class="params">(self, db_field, request, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> db_field.name == <span class="string">'order_item'</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                parent_obj_id = request.resolver_match.args[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">except</span> IndexError: <span class="comment">#仅在新建状态过滤</span></span><br><span class="line">                kwargs[<span class="string">'queryset'</span>] = OrderItem.objects.filter(order__status=<span class="string">'2'</span>)</span><br><span class="line">        <span class="keyword">return</span> super(FactoryOrderItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)</span><br></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/11/25/django-admin过滤foreignkey值/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django-admin过滤foreignkey值/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
@@ -795,68 +860,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/09/29/世界事物组织的本质/" title="世界事物组织的本质" itemprop="url">世界事物组织的本质</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-09-29T15:39:38.000Z" itemprop="datePublished"> 发表于 2015-09-29</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="人们如何对世界万物加以组织？是区分与联系。">人们如何对世界万物加以组织？是<strong>区分</strong>与<strong>联系</strong>。</h3><ul>
-<li><p>所谓区分也就是一事物仅仅是它本身而不被认为是他物，有了区分才有了物与无之间的界线，没有和其他的“区分”就可以说该事物就不能存在。</p>
-</li>
-<li><p>然后是联系，这体现了该事物存在的意义。如果该事物与其他事物之间完全没有关系，那么它也没有存在的必要了，因为有你没你并没有什么不同。</p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/09/29/世界事物组织的本质/#more">查看全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/随笔/">随笔</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/09/29/世界事物组织的本质/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/29/世界事物组织的本质/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2015/09/29/对一些事物的看法/" title="对一些事物的看法" itemprop="url">对一些事物的看法</a>
   </h1>
   <p class="article-author">By
@@ -901,6 +904,68 @@
 	
 	  	<span></span>
 		<a href="/2015/09/29/对一些事物的看法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/29/对一些事物的看法/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/29/世界事物组织的本质/" title="世界事物组织的本质" itemprop="url">世界事物组织的本质</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-29T15:39:38.000Z" itemprop="datePublished"> 发表于 2015-09-29</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="人们如何对世界万物加以组织？是区分与联系。">人们如何对世界万物加以组织？是<strong>区分</strong>与<strong>联系</strong>。</h3><ul>
+<li><p>所谓区分也就是一事物仅仅是它本身而不被认为是他物，有了区分才有了物与无之间的界线，没有和其他的“区分”就可以说该事物就不能存在。</p>
+</li>
+<li><p>然后是联系，这体现了该事物存在的意义。如果该事物与其他事物之间完全没有关系，那么它也没有存在的必要了，因为有你没你并没有什么不同。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2015/09/29/世界事物组织的本质/#more">查看全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/随笔/">随笔</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/29/世界事物组织的本质/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/29/世界事物组织的本质/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
@@ -968,73 +1033,6 @@
 	
 	  	<span></span>
 		<a href="/2015/09/29/《社会契约论》读书笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/29/《社会契约论》读书笔记/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/09/29/《乡关何处》读书笔记/" title="《乡关何处》读书笔记" itemprop="url">《乡关何处》读书笔记</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-09-28T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-09-29</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="概述">概述</h3><ul>
-<li>这本书是野夫关于他个人对几十年前那动荡而又荒诞不经的时代的感悟，真实的过去往往没有历史书上写的那么伟光正、那么云淡风轻。</li>
-<li>抑郁症、愤青不可读此书，恐加重病情。</li>
-</ul>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/09/29/《乡关何处》读书笔记/#more">查看全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/阅读/">阅读</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/读书笔记/">读书笔记</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/09/29/《乡关何处》读书笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/29/《乡关何处》读书笔记/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

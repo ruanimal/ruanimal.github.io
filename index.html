@@ -83,6 +83,78 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/08/28/狂热分子-读书笔记/" title="《狂热分子》笔记" itemprop="url">《狂热分子》笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-08-28T12:14:00.000Z" itemprop="datePublished"> 发表于 2016-08-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="简介">简介</h3><p>作者，埃里克·霍弗。本书主要讲述处于群众运动中的个体的心理状态。作者亲身参与过群众运动，发现这些运动的参与者主要是现实生活的失意者。他们抛弃自己本已无可救药的生活，投身于“神圣的”群众运动，化身为伟大集体的一份子，号召自我牺牲以获救赎。阅读本书或许会对中国的革命年代多一些不一样的理解。</p>
+<h3 id="笔记">笔记</h3><p>愈做不好一般事情是人愈的胆大妄为。</p>
+<p>希望并不是生命可以寄托的东西。</p>
+<blockquote>
+<p>阮云：除了精进，没有什么可以寄托生命。</p>
+</blockquote>
+<p>当你做不好分内的事时，别人会耻笑你，但当你帮助别人时，没人会耻笑你。</p>
+<p>有成就感的人会把世界当成一个友好的世界，失意者则乐于看到世界急遽改变。</p>
+<p>任何教义如果想要成为一种力量的来源，它就必须宣扬自己是打开未来之书（唯一）的钥匙。<br>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/08/28/狂热分子-读书笔记/#more">查看全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/阅读/">阅读</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/读书笔记/">读书笔记</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/08/28/狂热分子-读书笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/08/28/狂热分子-读书笔记/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/08/17/七十年代读书笔记/" title="《七十年代》读书笔记" itemprop="url">《七十年代》读书笔记</a>
   </h1>
   <p class="article-author">By
@@ -1026,81 +1098,6 @@
 	
 	  	<span></span>
 		<a href="/2016/06/12/linux添加回收站功能/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/12/linux添加回收站功能/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/05/改善python的91建议 笔记/" title="《改善python的91建议》笔记" itemprop="url">《改善python的91建议》笔记</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-05T13:36:00.000Z" itemprop="datePublished"> 发表于 2016-06-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>文如其名，是由91篇关系不是很紧密的python文章集合而成<br>这本书和国内很多技术类书籍一样，排版的代码缩进很有问题，还有文章有些观点并不正确。<br>除此之外，还是有很多有用的知识点，需要读者自己辨别。</p>
-<h3 id="Python的包和模块规范">Python的包和模块规范</h3><p>结构日益规范化。现在的库或框架跟随了以下潮流：</p>
-<ul>
-<li>包和模块的命名采用小写、单数形式，而且短小。</li>
-<li>包通常仅作为命名空间，如只包含空的<code>__init__</code>.py文件。</li>
-</ul>
-<h3 id="x,_y=y,_x赋值">x, y=y, x赋值</h3><p>Python表达式计算的顺序说起。一般情况下Python表达式的计算顺序是从左到右，但遇到表达式赋值的时候表达式右边的操作数先于左边的操作数计算，因此表达式<code>expr3, expr4=exprl, expr2</code>的计算顺序是<code>exprl, expr2 —&gt; expr3, expr4</code>。因此对于表达式<code>x, y=y, x</code>,其在内存中执行的顺序如下：</p>
-<ol>
-<li>先计算右边的表达式<code>y,x</code>,因此先在内存中创建元组<code>(y,x)</code>，其标示符和值分别为y、x及其对应的值，其中y和x是在初始化时已经存在于内存中的对象。</li>
-<li>计算表达式左边的值并进行赋值，元组被依次分配给左边的标示符，通过解压缩(unpacking),元组第一标识符（为y)分配给左边第一个元素（此时为X)，元组第二个标识符(为x)分配给第二个元素（此时为y),从而达到x、y值交换的目的。</li>
-</ol>
-<h3 id="提高and、or表达式的效率">提高and、or表达式的效率</h3><p>python的and、or表达式并不会将每个值都算出，一旦整个表达式的值已知，其他部分就不会被计算，并且返回最后计算的那个值。<br>因此，在编程过程中，如果对于or条件表达式应该将<code>值为真可能性较高的变量</code>写在or的前面；<br>而对于and则相反，应该推后。</p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/06/05/改善python的91建议 笔记/#more">查看全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/读书笔记/">读书笔记</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/06/05/改善python的91建议 笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/05/改善python的91建议 笔记/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

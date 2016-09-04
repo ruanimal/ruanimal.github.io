@@ -21,7 +21,7 @@ sys.path[0]是启动Python解释器的脚本所在路径，比如运行python ta
 <meta property="og:description" content="python包、模块导入的顺序包是指含有__init__.py的文件夹，模块就是一个.py文件。python的包和模块是先查找buil-in moudle然后是sys.path这个list里的所有路径。
 
 sys.path[0]是启动Python解释器的脚本所在路径，比如运行python task/admin.py，sys.path[0]是&amp;#39;/home/code/taskman/task&amp;">
-<meta property="og:updated_time" content="2016-06-22T12:02:02.176Z">
+<meta property="og:updated_time" content="2016-09-04T03:11:24.485Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python包导入再谈">
 <meta name="twitter:description" content="python包、模块导入的顺序包是指含有__init__.py的文件夹，模块就是一个.py文件。python的包和模块是先查找buil-in moudle然后是sys.path这个list里的所有路径。
@@ -123,8 +123,9 @@ sys.path[0]是启动Python解释器的脚本所在路径，比如运行python ta
 <p>也可以使用<code>python -m task.admin</code> 将admin.py当作一个模块来执行，此时sys.path[0]是<code>&#39;&#39;</code>代表当前工作目录，而我们此时工作目录是<code>/home/code/taskman</code>，所以一切正常。</p>
 <h3 id="当前路径不是/home/code/taskman">当前路径不是<code>/home/code/taskman</code></h3><p>运行<code>python -m task.admin</code>会提示<code>No module named task</code>，因为在那个目录下找不到<code>task</code>这个包。</p>
 <p>此时只能在脚本前部同时添加<code>os.chdir(&#39;/home/code/taskman/task&#39;)</code>和<code>sys.path.append(&#39;/home/code/taskman&#39;)</code>，这样在这个脚本包的导入正常，同时可以通过<code>os.system(&#39;python -m task.models&#39;)</code>运行项目内其他模块，而不用管当前工作目录在那里。</p>
-<p>总之，<strong>如果<code>sys.path[0]</code>是一个具体的脚本路径，<code>os.chdir()</code>是不能对脚本内部包模块的导入产生影响，但是如果<code>sys.path[0]</code>是<code>&#39;&#39;</code>，<code>os.chdir</code>可以影响包的导入。</strong>当然直接把想要的目录添加到sys.path最直接，但是不干净，不推荐使用。</p>
+<p>总之，<strong>如果<code>sys.path[0]</code>是一个具体的脚本路径，<code>os.chdir()</code>是不能对脚本内部包模块的导入产生影响，但是如果<code>sys.path[0]</code>是<code>&#39;&#39;</code>，<code>os.chdir</code>可以影响包的导入。</strong></p>
 <p>还有一个霸道的解决方法是，通过<code>export PYTHONPATH=&quot;/home/code/taskman&quot;</code>将项目路径，添加到python环境变量里，这样当解释器启动时项目路径就会直接添加到sys.path中。不过这样会影响整个python环境，可能出现包重名。</p>
+<p>当然还可以在Python的site-packages目录下新建一个<code>some.pth</code>文件，把需要的路径往里面写，这样每一个Python解释器进程的sys.path都会包含这个目录。可能会影响其他用户的程序，不推荐使用。</p>
   
 	</div>
 		<footer class="article-footer clearfix">

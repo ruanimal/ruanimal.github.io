@@ -1,0 +1,473 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>git-svn：通过git来管理svn代码 | 逸思杂陈</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Jay.Run">
+    
+
+    
+    <meta name="description" content="简介svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。
+从sv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git-svn：通过git来管理svn代码">
+<meta property="og:url" content="http://ponder.work/2016/09/10/git-svn——用git来操作svn项目/index.html">
+<meta property="og:site_name" content="逸思杂陈">
+<meta property="og:description" content="简介svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。
+从sv">
+<meta property="og:updated_time" content="2016-09-10T04:04:56.367Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git-svn：通过git来管理svn代码">
+<meta name="twitter:description" content="简介svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。
+从sv">
+
+    
+    <link rel="alternative" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="逸思杂陈">逸思杂陈</a></h1>
+				<h2 class="blog-motto">人类一思考，上帝就发笑。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/categories/编程">编程</a></li>
+					
+						<li><a href="/categories/阅读">阅读</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:ponder.work">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/09/10/git-svn——用git来操作svn项目/" title="git-svn：通过git来管理svn代码" itemprop="url">git-svn：通过git来管理svn代码</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-09-10T04:00:00.000Z" itemprop="datePublished"> 发表于 2016-09-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从svn克隆"><span class="toc-number">2.</span> <span class="toc-text">从svn克隆</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#只下载指定版本之后的历史"><span class="toc-number">2.1.</span> <span class="toc-text">只下载指定版本之后的历史</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工作流程"><span class="toc-number">3.</span> <span class="toc-text">工作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一般工作流程（推荐）"><span class="toc-number">3.1.</span> <span class="toc-text">一般工作流程（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在git本地其他分支工作的情况"><span class="toc-number">3.2.</span> <span class="toc-text">在git本地其他分支工作的情况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SVN分支管理"><span class="toc-number">4.</span> <span class="toc-text">SVN分支管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#新建分支到svn"><span class="toc-number">4.1.</span> <span class="toc-text">新建分支到svn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除svn分支"><span class="toc-number">4.2.</span> <span class="toc-text">删除svn分支</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SVN上tag管理"><span class="toc-number">5.</span> <span class="toc-text">SVN上tag管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#新建tag"><span class="toc-number">5.1.</span> <span class="toc-text">新建tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除tag"><span class="toc-number">5.2.</span> <span class="toc-text">删除tag</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#冲突解决"><span class="toc-number">6.</span> <span class="toc-text">冲突解决</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#svn不遵循规范的情况"><span class="toc-number">7.</span> <span class="toc-text">svn不遵循规范的情况</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#从svn克隆-1"><span class="toc-number">7.1.</span> <span class="toc-text">从svn克隆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加远程分支信息"><span class="toc-number">7.2.</span> <span class="toc-text">添加远程分支信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新建本地分支，与svn对应"><span class="toc-number">7.3.</span> <span class="toc-text">新建本地分支，与svn对应</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="简介">简介</h2><p>svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。</p>
+<h2 id="从svn克隆">从svn克隆</h2><p>首先看一看用于测试的svn项目结构，svn的仓库路径是<code>file:///d/Projects/svn_repo</code>，可以用<code>svnadmin create svn_repo</code>命令新建。该仓库有2个分支，1个tag，属于svn标准布局。</p>
+<p>SVN项目结构：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/d/proj1</span><br><span class="line">├── branches</span><br><span class="line">│   ├── <span class="selector-tag">a</span></span><br><span class="line">│   │   └── readme<span class="selector-class">.txt</span></span><br><span class="line">│   └── <span class="selector-tag">b</span></span><br><span class="line">│       ├── <span class="number">11</span><span class="selector-class">.txt</span></span><br><span class="line">│       └── readme<span class="selector-class">.txt</span></span><br><span class="line">├── tags</span><br><span class="line">│   └── v1.<span class="number">0</span></span><br><span class="line">│       ├── <span class="number">11</span><span class="selector-class">.txt</span></span><br><span class="line">│       └── readme<span class="selector-class">.txt</span></span><br><span class="line">└── trunk</span><br><span class="line">    └── readme.txt</span><br></pre></td></tr></table></figure></p>
+<p>命令格式：<code>git svn clone &lt;svn仓库路径&gt; [本地文件夹名] [其他参数]</code> 相当于<code>git clone</code><br>示例： <code>git svn clone file:///d/Projects/svn_repo proj1_git -s --prefix=svn/</code><br>参数说明：</p>
+<ul>
+<li><code>-s</code> 告诉 Git 该 Subversion 仓库遵循了基本的分支和标签命名法则，也就是标准布局。<br>如果你的主干(trunk，相当于非分布式版本控制里的master分支，代表开发的主线），分支(branches)或者标签(tags)以不同的方式命名，则应做出相应改变。<br><code>-s</code>参数其实是<code>-T trunk -b branches -t tags</code>的缩写，这些参数告诉git这些文件夹与git分支、tag、master的对应关系。</li>
+<li><code>--prefix=svn/</code> 给svn的所有remote名称增加了一个前缀svn，这样比较统一，而且可以防止<code>warning: refname &#39;xxx&#39; is ambiguous.</code></li>
+</ul>
+<p>现在，看下用git-svn克隆的项目情况（运行git branch -a），此处git的分支情况是与svn文件夹对应的。<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* master</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>a</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>b</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>tags/v1<span class="number">.0</span></span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>trunk</span><br></pre></td></tr></table></figure></p>
+<h3 id="只下载指定版本之后的历史">只下载指定版本之后的历史</h3><p>如果svn上的commit次数非常多, git svn clone 就会非常慢，一般超过几百个版本就要大概十分钟。此时可以在clone的时候只下载部分版本，<br>命令：<code>git svn clone -r&lt;开始版本号&gt;:&lt;结束版本号&gt; &lt;svn项目地址&gt; [其他参数]</code><br>示例：<code>git svn clone -r2:HEAD file:///d/Projects/svn_repo proj1_git -s</code><br>说明：其中2为svn版本号，HEAD代表最新版本号，就是只下载svn服务器上版本2到最新的版本的代码.</p>
+<h2 id="工作流程">工作流程</h2><h3 id="一般工作流程（推荐）">一般工作流程（推荐）</h3><ol>
+<li>新建分支<code>git checkout -b &lt;本地分支名称&gt; &lt;远程分支名称&gt;</code><br>示例：<code>git checkout -b a svn/a</code><br>说明：此处新建了一个本地分支a，与svn的a分支对应。</li>
+<li>在本地工作，commit到对应分支上</li>
+<li><code>git svn rebase</code> 从svn上更新代码, 相当于svn的update。</li>
+<li><code>git svn dcommit</code> 提交你的commit到svn远程仓库，建议提交前都先运行下git svn rebase。</li>
+</ol>
+<h3 id="在git本地其他分支工作的情况">在git本地其他分支工作的情况</h3><ol>
+<li><code>git chechout -b a svn/a</code> 此处新建了一个本地分支a，与svn的a分支对应。</li>
+<li><code>git checkout -b feature1</code> 在a分支的基础上，开一个本地feture1分支</li>
+<li>在feture1分支进行开发，有了多次commit</li>
+<li><code>git checkout a</code> 回到a分支</li>
+<li><code>git feture1 dev a</code> 将feature1的代码rebase到本地分支a</li>
+<li><code>git svn rebase</code> 从svn上更新代码</li>
+<li><code>git svn dcommit</code> 提交代码到svn</li>
+<li><code>git branch -d feature1</code> 删除废弃的feature1分支</li>
+</ol>
+<h2 id="SVN分支管理">SVN分支管理</h2><h3 id="新建分支到svn">新建分支到svn</h3><p>命令：<code>git svn branch &lt;分支名称&gt;</code><br>示例：<code>git svn branch c_by_git</code><br>说明：在svn仓库上建了了一个c_by_git分支<br>分支情况<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  a</span><br><span class="line">* master</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>a</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>b</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>c_by_git</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>tags/v1<span class="number">.0</span></span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>trunk</span><br></pre></td></tr></table></figure></p>
+<h3 id="删除svn分支">删除svn分支</h3><ul>
+<li>删除svn分支目录<code>svn rm &lt;svn分支路径&gt; -m &lt;commit信息&gt;</code><br>示例：<code>svn rm file:///d/Projects/svn_repo/branches/c_by_git -m &#39;rm branch&#39;</code></li>
+<li>删除远程跟踪分支<code>git branch -D -r &lt;远程分支名称&gt;</code><br>示例：<code>git branch -D -r svn/c_by_git</code></li>
+</ul>
+<h2 id="SVN上tag管理">SVN上tag管理</h2><h3 id="新建tag">新建tag</h3><p>命令：<code>git svn tag &lt;tag名称&gt;</code><br>示例：<code>git svn tag v1.1</code><br>说明：在svn仓库上建了一个v1.1tag</p>
+<h3 id="删除tag">删除tag</h3><ol>
+<li><p>删除svn目录<code>svn rm &lt;svntag路径&gt; -m &lt;commit信息&gt;</code><br>示例：<code>svn rm file:///d/Projects/svn_repo/tags/v1.1 -m &#39;rm tag&#39;</code></p>
+</li>
+<li><p>删除远程跟踪分支<code>git branch -D -r &lt;远程分支名称&gt;</code><br>示例：<code>git branch -D -r svn/tags/v1.1</code><br>说明：svn的tag和分支在git看来是一样的，所以此处还是用的git branch</p>
+</li>
+</ol>
+<h2 id="冲突解决">冲突解决</h2><p>如果本地和svn都进行了修改，则不能快速前进，git svn rebase 会出现错误。<br>这时应该按以下步骤操作：</p>
+<ol>
+<li><p>手动修改冲突文件，修改完成后<code>git add</code></p>
+</li>
+<li><p><code>git rebase --continue</code></p>
+</li>
+<li><p><code>git svn dcommit</code></p>
+</li>
+</ol>
+<h2 id="svn不遵循规范的情况">svn不遵循规范的情况</h2><p><strong>以上讲的都是svn仓库是标准的情况，如果不标准，则以下几个地方都会有所不同。</strong>主要就是每个步骤基本都要添加svn的具体路径。<br>先看看，示例项目的结构，仓库路径是<code>file:///d/Projects/svn_repo2</code>。这个项目主分支是dev文件夹，branch1和tag1文件夹分别代表的是一个分支和tag。</p>
+<p>svn项目结构：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/d/proj2</span><br><span class="line">├── branch1</span><br><span class="line">│   └── file1<span class="selector-class">.txt</span></span><br><span class="line">├── dev</span><br><span class="line">│   └── file1<span class="selector-class">.txt</span></span><br><span class="line">└── tag1</span><br><span class="line">    └── file1.txt</span><br></pre></td></tr></table></figure></p>
+<h3 id="从svn克隆-1">从svn克隆</h3><p>命令：<code>git svn clone &lt;svn项目地址，要包含具体分支路径&gt; [本地文件夹名]</code><br>示例：<code>git svn clone file:///d/Projects/svn_repo2/dev proj2_svn</code></p>
+<h3 id="添加远程分支信息">添加远程分支信息</h3><p>命令：</p>
+<ol>
+<li><code>git config --add svn-remote.&lt;远程分支名称&gt;.url &lt;svn地址，要包含具体分支路径&gt;</code></li>
+<li><code>git config --add svn-remote.&lt;远程分支名称&gt;.fetch :refs/remotes/&lt;远程分支名称&gt;</code></li>
+</ol>
+<p>示例：</p>
+<ol>
+<li><code>git config --add svn-remote.svn/branch1.url file:///d/Projects/svn_repo2/branch1</code></li>
+<li><code>git config --add svn-remote.svn/branch1.fetch :refs/remotes/svn/branch1</code></li>
+</ol>
+<p>说明：此处的“远程分支名称”可以随意填写，只要这三个保持一致即可。建议都给他们增加<code>svn/</code>前缀，这样svn的所有分支显示起来会比较一致，与上面clone时的<code>--prefix=svn/</code>类似。</p>
+<h3 id="新建本地分支，与svn对应">新建本地分支，与svn对应</h3><p>命令：</p>
+<ol>
+<li><code>git svn fetch &lt;远程分支名称&gt;</code> 获取svn仓库该分支的代码</li>
+<li><code>git checkout -b &lt;本地分支名&gt; &lt;远程分支名称&gt;</code></li>
+</ol>
+<p>示例：</p>
+<ol>
+<li><code>git svn fetch svn/branch1</code></li>
+<li><code>git checkout -b branch1 svn/branch1</code></li>
+</ol>
+<p>分支情况：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* branch1</span><br><span class="line">  <span class="keyword">master</span></span><br><span class="line">  <span class="title">remotes</span>/git-svn</span><br><span class="line">  remotes/svn/branch1</span><br></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ponder.work/2016/09/10/git-svn——用git来操作svn项目/" data-title="git-svn：通过git来管理svn代码 | 逸思杂陈" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/09/04/随风而行笔记/"  title="《随风而行》读书笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>《随风而行》读书笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/09/10/git-svn——用git来操作svn项目/" data-title="git-svn：通过git来管理svn代码" data-url="http://ponder.work/2016/09/10/git-svn——用git来操作svn项目/"></div>
+</section>
+
+
+</div>  
+    </div>
+    <footer><div id="footer" >
+	
+	<section class="info">
+		<p> Life is short, play more!</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Jay.Run">Jay.Run</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ponder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

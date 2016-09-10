@@ -11,19 +11,16 @@
     
 
     
-    <meta name="description" content="简介svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。
-从sv">
+    <meta name="description" content="简介svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git-svn：通过git来管理svn代码">
 <meta property="og:url" content="http://ponder.work/2016/09/10/git-svn——用git来操作svn项目/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="简介svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。
-从sv">
-<meta property="og:updated_time" content="2016-09-10T04:04:56.367Z">
+<meta property="og:description" content="简介svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。">
+<meta property="og:updated_time" content="2016-09-10T04:08:30.850Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git-svn：通过git来管理svn代码">
-<meta name="twitter:description" content="简介svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。
-从sv">
+<meta name="twitter:description" content="简介svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。">
 
     
     <link rel="alternative" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
@@ -106,6 +103,7 @@
 		</div>
 		
 		<h2 id="简介">简介</h2><p>svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。</p>
+<a id="more"></a>
 <h2 id="从svn克隆">从svn克隆</h2><p>首先看一看用于测试的svn项目结构，svn的仓库路径是<code>file:///d/Projects/svn_repo</code>，可以用<code>svnadmin create svn_repo</code>命令新建。该仓库有2个分支，1个tag，属于svn标准布局。</p>
 <p>SVN项目结构：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/d/proj1</span><br><span class="line">├── branches</span><br><span class="line">│   ├── <span class="selector-tag">a</span></span><br><span class="line">│   │   └── readme<span class="selector-class">.txt</span></span><br><span class="line">│   └── <span class="selector-tag">b</span></span><br><span class="line">│       ├── <span class="number">11</span><span class="selector-class">.txt</span></span><br><span class="line">│       └── readme<span class="selector-class">.txt</span></span><br><span class="line">├── tags</span><br><span class="line">│   └── v1.<span class="number">0</span></span><br><span class="line">│       ├── <span class="number">11</span><span class="selector-class">.txt</span></span><br><span class="line">│       └── readme<span class="selector-class">.txt</span></span><br><span class="line">└── trunk</span><br><span class="line">    └── readme.txt</span><br></pre></td></tr></table></figure></p>
 <p>命令格式：<code>git svn clone &lt;svn仓库路径&gt; [本地文件夹名] [其他参数]</code> 相当于<code>git clone</code><br>示例： <code>git svn clone file:///d/Projects/svn_repo proj1_git -s --prefix=svn/</code><br>参数说明：</p>

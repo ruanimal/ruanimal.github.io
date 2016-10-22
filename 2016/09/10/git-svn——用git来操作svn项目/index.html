@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://ponder.work/2016/09/10/git-svn——用git来操作svn项目/index.html">
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="简介svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。">
-<meta property="og:updated_time" content="2016-09-10T04:08:30.850Z">
+<meta property="og:updated_time" content="2016-10-22T13:04:29.206Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git-svn：通过git来管理svn代码">
 <meta name="twitter:description" content="简介svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。">
@@ -113,7 +113,8 @@
 </ul>
 <p>现在，看下用git-svn克隆的项目情况（运行git branch -a），此处git的分支情况是与svn文件夹对应的。<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* master</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>a</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>b</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>tags/v1<span class="number">.0</span></span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>trunk</span><br></pre></td></tr></table></figure></p>
 <h3 id="只下载指定版本之后的历史">只下载指定版本之后的历史</h3><p>如果svn上的commit次数非常多, git svn clone 就会非常慢，一般超过几百个版本就要大概十分钟。此时可以在clone的时候只下载部分版本，<br>命令：<code>git svn clone -r&lt;开始版本号&gt;:&lt;结束版本号&gt; &lt;svn项目地址&gt; [其他参数]</code><br>示例：<code>git svn clone -r2:HEAD file:///d/Projects/svn_repo proj1_git -s</code><br>说明：其中2为svn版本号，HEAD代表最新版本号，就是只下载svn服务器上版本2到最新的版本的代码.</p>
-<h2 id="工作流程">工作流程</h2><h3 id="一般工作流程（推荐）">一般工作流程（推荐）</h3><ol>
+<h2 id="工作流程">工作流程</h2><p>简单来说就是，首次新建分支会记录和svn远程对应分支的追踪关系，之后你的所有commit都是在本地的；并且和纯git管理的项目没有区别，只是在<code>git svn rebase</code>和<code>git svn dcommit</code>的时候才会和svn仓库发生关系</p>
+<h3 id="一般工作流程（推荐）">一般工作流程（推荐）</h3><ol>
 <li>新建分支<code>git checkout -b &lt;本地分支名称&gt; &lt;远程分支名称&gt;</code><br>示例：<code>git checkout -b a svn/a</code><br>说明：此处新建了一个本地分支a，与svn的a分支对应。</li>
 <li>在本地工作，commit到对应分支上</li>
 <li><code>git svn rebase</code> 从svn上更新代码, 相当于svn的update。</li>
@@ -123,11 +124,7 @@
 <li><code>git chechout -b a svn/a</code> 此处新建了一个本地分支a，与svn的a分支对应。</li>
 <li><code>git checkout -b feature1</code> 在a分支的基础上，开一个本地feture1分支</li>
 <li>在feture1分支进行开发，有了多次commit</li>
-<li><code>git checkout a</code> 回到a分支</li>
-<li><code>git feture1 dev a</code> 将feature1的代码rebase到本地分支a</li>
-<li><code>git svn rebase</code> 从svn上更新代码</li>
-<li><code>git svn dcommit</code> 提交代码到svn</li>
-<li><code>git branch -d feature1</code> 删除废弃的feature1分支</li>
+<li>在feture1分支上进行<code>git svn rebase</code> 和 <code>git svn dcommit</code>，这样feature1的commit也会提交到svn的a分支上。<br>需要注意的是要记住feture1是从哪个分支checkout的，它的svn远程分支就与哪个相同。比如此处是a分支，那么svn分支就是svn/a，commit就会提交到svn的a分支。</li>
 </ol>
 <h2 id="SVN分支管理">SVN分支管理</h2><h3 id="新建分支到svn">新建分支到svn</h3><p>命令：<code>git svn branch &lt;分支名称&gt;</code><br>示例：<code>git svn branch c_by_git</code><br>说明：在svn仓库上建了了一个c_by_git分支<br>分支情况<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  a</span><br><span class="line">* master</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>a</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>b</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>c_by_git</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>tags/v1<span class="number">.0</span></span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>trunk</span><br></pre></td></tr></table></figure></p>
 <h3 id="删除svn分支">删除svn分支</h3><ul>
@@ -205,6 +202,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2016/10/22/一些句子/" title="一些句子">
+  <strong>上一篇：</strong><br/>
+  <span>
+  一些句子</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2016/09/04/随风而行笔记/"  title="《随风而行》读书笔记">

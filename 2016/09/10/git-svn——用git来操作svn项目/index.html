@@ -102,43 +102,43 @@
 		
 		</div>
 		
-		<h2 id="简介">简介</h2><p>svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。</p>
+		<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。</p>
 <a id="more"></a>
-<h2 id="从svn克隆">从svn克隆</h2><p>首先看一看用于测试的svn项目结构，svn的仓库路径是<code>file:///d/Projects/svn_repo</code>，可以用<code>svnadmin create svn_repo</code>命令新建。该仓库有2个分支，1个tag，属于svn标准布局。</p>
-<p>SVN项目结构：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/d/proj1</span><br><span class="line">├── branches</span><br><span class="line">│   ├── <span class="selector-tag">a</span></span><br><span class="line">│   │   └── readme<span class="selector-class">.txt</span></span><br><span class="line">│   └── <span class="selector-tag">b</span></span><br><span class="line">│       ├── <span class="number">11</span><span class="selector-class">.txt</span></span><br><span class="line">│       └── readme<span class="selector-class">.txt</span></span><br><span class="line">├── tags</span><br><span class="line">│   └── v1.<span class="number">0</span></span><br><span class="line">│       ├── <span class="number">11</span><span class="selector-class">.txt</span></span><br><span class="line">│       └── readme<span class="selector-class">.txt</span></span><br><span class="line">└── trunk</span><br><span class="line">    └── readme.txt</span><br></pre></td></tr></table></figure></p>
+<h2 id="从svn克隆"><a href="#从svn克隆" class="headerlink" title="从svn克隆"></a>从svn克隆</h2><p>首先看一看用于测试的svn项目结构，svn的仓库路径是<code>file:///d/Projects/svn_repo</code>，可以用<code>svnadmin create svn_repo</code>命令新建。该仓库有2个分支，1个tag，属于svn标准布局。</p>
+<p>SVN项目结构：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">/d/proj1</div><div class="line">├── branches</div><div class="line">│   ├── <span class="selector-tag">a</span></div><div class="line">│   │   └── readme<span class="selector-class">.txt</span></div><div class="line">│   └── <span class="selector-tag">b</span></div><div class="line">│       ├── <span class="number">11</span><span class="selector-class">.txt</span></div><div class="line">│       └── readme<span class="selector-class">.txt</span></div><div class="line">├── tags</div><div class="line">│   └── v1.<span class="number">0</span></div><div class="line">│       ├── <span class="number">11</span><span class="selector-class">.txt</span></div><div class="line">│       └── readme<span class="selector-class">.txt</span></div><div class="line">└── trunk</div><div class="line">    └── readme.txt</div></pre></td></tr></table></figure></p>
 <p>命令格式：<code>git svn clone &lt;svn仓库路径&gt; [本地文件夹名] [其他参数]</code> 相当于<code>git clone</code><br>示例： <code>git svn clone file:///d/Projects/svn_repo proj1_git -s --prefix=svn/</code><br>参数说明：</p>
 <ul>
 <li><code>-s</code> 告诉 Git 该 Subversion 仓库遵循了基本的分支和标签命名法则，也就是标准布局。<br>如果你的主干(trunk，相当于非分布式版本控制里的master分支，代表开发的主线），分支(branches)或者标签(tags)以不同的方式命名，则应做出相应改变。<br><code>-s</code>参数其实是<code>-T trunk -b branches -t tags</code>的缩写，这些参数告诉git这些文件夹与git分支、tag、master的对应关系。</li>
 <li><code>--prefix=svn/</code> 给svn的所有remote名称增加了一个前缀svn，这样比较统一，而且可以防止<code>warning: refname &#39;xxx&#39; is ambiguous.</code></li>
 </ul>
-<p>现在，看下用git-svn克隆的项目情况（运行git branch -a），此处git的分支情况是与svn文件夹对应的。<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* master</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>a</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>b</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>tags/v1<span class="number">.0</span></span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>trunk</span><br></pre></td></tr></table></figure></p>
-<h3 id="只下载指定版本之后的历史">只下载指定版本之后的历史</h3><p>如果svn上的commit次数非常多, git svn clone 就会非常慢，一般超过几百个版本就要大概十分钟。此时可以在clone的时候只下载部分版本，<br>命令：<code>git svn clone -r&lt;开始版本号&gt;:&lt;结束版本号&gt; &lt;svn项目地址&gt; [其他参数]</code><br>示例：<code>git svn clone -r2:HEAD file:///d/Projects/svn_repo proj1_git -s</code><br>说明：其中2为svn版本号，HEAD代表最新版本号，就是只下载svn服务器上版本2到最新的版本的代码.</p>
-<h2 id="工作流程">工作流程</h2><p>简单来说就是，首次新建分支会记录和svn远程对应分支的追踪关系，之后你的所有commit都是在本地的；并且和纯git管理的项目没有区别，只是在<code>git svn rebase</code>和<code>git svn dcommit</code>的时候才会和svn仓库发生关系</p>
-<h3 id="一般工作流程（推荐）">一般工作流程（推荐）</h3><ol>
+<p>现在，看下用git-svn克隆的项目情况（运行git branch -a），此处git的分支情况是与svn文件夹对应的。<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">* master</div><div class="line">  remotes<span class="meta-keyword">/svn/</span>a</div><div class="line">  remotes<span class="meta-keyword">/svn/</span>b</div><div class="line">  remotes<span class="meta-keyword">/svn/</span>tags/v1<span class="number">.0</span></div><div class="line">  remotes<span class="meta-keyword">/svn/</span>trunk</div></pre></td></tr></table></figure></p>
+<h3 id="只下载指定版本之后的历史"><a href="#只下载指定版本之后的历史" class="headerlink" title="只下载指定版本之后的历史"></a>只下载指定版本之后的历史</h3><p>如果svn上的commit次数非常多, git svn clone 就会非常慢，一般超过几百个版本就要大概十分钟。此时可以在clone的时候只下载部分版本，<br>命令：<code>git svn clone -r&lt;开始版本号&gt;:&lt;结束版本号&gt; &lt;svn项目地址&gt; [其他参数]</code><br>示例：<code>git svn clone -r2:HEAD file:///d/Projects/svn_repo proj1_git -s</code><br>说明：其中2为svn版本号，HEAD代表最新版本号，就是只下载svn服务器上版本2到最新的版本的代码.</p>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><p>简单来说就是，首次新建分支会记录和svn远程对应分支的追踪关系，之后你的所有commit都是在本地的；并且和纯git管理的项目没有区别，只是在<code>git svn rebase</code>和<code>git svn dcommit</code>的时候才会和svn仓库发生关系</p>
+<h3 id="一般工作流程（推荐）"><a href="#一般工作流程（推荐）" class="headerlink" title="一般工作流程（推荐）"></a>一般工作流程（推荐）</h3><ol>
 <li>新建分支<code>git checkout -b &lt;本地分支名称&gt; &lt;远程分支名称&gt;</code><br>示例：<code>git checkout -b a svn/a</code><br>说明：此处新建了一个本地分支a，与svn的a分支对应。</li>
 <li>在本地工作，commit到对应分支上</li>
 <li><code>git svn rebase</code> 从svn上更新代码, 相当于svn的update。</li>
 <li><code>git svn dcommit</code> 提交你的commit到svn远程仓库，建议提交前都先运行下git svn rebase。</li>
 </ol>
-<h3 id="在git本地其他分支工作的情况">在git本地其他分支工作的情况</h3><ol>
+<h3 id="在git本地其他分支工作的情况"><a href="#在git本地其他分支工作的情况" class="headerlink" title="在git本地其他分支工作的情况"></a>在git本地其他分支工作的情况</h3><ol>
 <li><code>git chechout -b a svn/a</code> 此处新建了一个本地分支a，与svn的a分支对应。</li>
 <li><code>git checkout -b feature1</code> 在a分支的基础上，开一个本地feture1分支</li>
 <li>在feture1分支进行开发，有了多次commit</li>
 <li>在feture1分支上进行<code>git svn rebase</code> 和 <code>git svn dcommit</code>，这样feature1的commit也会提交到svn的a分支上。<br>需要注意的是要记住feture1是从哪个分支checkout的，它的svn远程分支就与哪个相同。比如此处是a分支，那么svn分支就是svn/a，commit就会提交到svn的a分支。</li>
 </ol>
-<h2 id="SVN分支管理">SVN分支管理</h2><h3 id="新建分支到svn">新建分支到svn</h3><p>命令：<code>git svn branch &lt;分支名称&gt;</code><br>示例：<code>git svn branch c_by_git</code><br>说明：在svn仓库上建了了一个c_by_git分支<br>分支情况<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  a</span><br><span class="line">* master</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>a</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>b</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>c_by_git</span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>tags/v1<span class="number">.0</span></span><br><span class="line">  remotes<span class="meta-keyword">/svn/</span>trunk</span><br></pre></td></tr></table></figure></p>
-<h3 id="删除svn分支">删除svn分支</h3><ul>
+<h2 id="SVN分支管理"><a href="#SVN分支管理" class="headerlink" title="SVN分支管理"></a>SVN分支管理</h2><h3 id="新建分支到svn"><a href="#新建分支到svn" class="headerlink" title="新建分支到svn"></a>新建分支到svn</h3><p>命令：<code>git svn branch &lt;分支名称&gt;</code><br>示例：<code>git svn branch c_by_git</code><br>说明：在svn仓库上建了了一个c_by_git分支<br>分支情况<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">  a</div><div class="line">* master</div><div class="line">  remotes<span class="meta-keyword">/svn/</span>a</div><div class="line">  remotes<span class="meta-keyword">/svn/</span>b</div><div class="line">  remotes<span class="meta-keyword">/svn/</span>c_by_git</div><div class="line">  remotes<span class="meta-keyword">/svn/</span>tags/v1<span class="number">.0</span></div><div class="line">  remotes<span class="meta-keyword">/svn/</span>trunk</div></pre></td></tr></table></figure></p>
+<h3 id="删除svn分支"><a href="#删除svn分支" class="headerlink" title="删除svn分支"></a>删除svn分支</h3><ul>
 <li>删除svn分支目录<code>svn rm &lt;svn分支路径&gt; -m &lt;commit信息&gt;</code><br>示例：<code>svn rm file:///d/Projects/svn_repo/branches/c_by_git -m &#39;rm branch&#39;</code></li>
 <li>删除远程跟踪分支<code>git branch -D -r &lt;远程分支名称&gt;</code><br>示例：<code>git branch -D -r svn/c_by_git</code></li>
 </ul>
-<h2 id="SVN上tag管理">SVN上tag管理</h2><h3 id="新建tag">新建tag</h3><p>命令：<code>git svn tag &lt;tag名称&gt;</code><br>示例：<code>git svn tag v1.1</code><br>说明：在svn仓库上建了一个v1.1tag</p>
-<h3 id="删除tag">删除tag</h3><ol>
+<h2 id="SVN上tag管理"><a href="#SVN上tag管理" class="headerlink" title="SVN上tag管理"></a>SVN上tag管理</h2><h3 id="新建tag"><a href="#新建tag" class="headerlink" title="新建tag"></a>新建tag</h3><p>命令：<code>git svn tag &lt;tag名称&gt;</code><br>示例：<code>git svn tag v1.1</code><br>说明：在svn仓库上建了一个v1.1tag</p>
+<h3 id="删除tag"><a href="#删除tag" class="headerlink" title="删除tag"></a>删除tag</h3><ol>
 <li><p>删除svn目录<code>svn rm &lt;svntag路径&gt; -m &lt;commit信息&gt;</code><br>示例：<code>svn rm file:///d/Projects/svn_repo/tags/v1.1 -m &#39;rm tag&#39;</code></p>
 </li>
 <li><p>删除远程跟踪分支<code>git branch -D -r &lt;远程分支名称&gt;</code><br>示例：<code>git branch -D -r svn/tags/v1.1</code><br>说明：svn的tag和分支在git看来是一样的，所以此处还是用的git branch</p>
 </li>
 </ol>
-<h2 id="冲突解决">冲突解决</h2><p>如果本地和svn都进行了修改，则不能快速前进，git svn rebase 会出现错误。<br>这时应该按以下步骤操作：</p>
+<h2 id="冲突解决"><a href="#冲突解决" class="headerlink" title="冲突解决"></a>冲突解决</h2><p>如果本地和svn都进行了修改，则不能快速前进，git svn rebase 会出现错误。<br>这时应该按以下步骤操作：</p>
 <ol>
 <li><p>手动修改冲突文件，修改完成后<code>git add</code></p>
 </li>
@@ -147,10 +147,10 @@
 <li><p><code>git svn dcommit</code></p>
 </li>
 </ol>
-<h2 id="svn不遵循规范的情况">svn不遵循规范的情况</h2><p><strong>以上讲的都是svn仓库是标准的情况，如果不标准，则以下几个地方都会有所不同。</strong>主要就是每个步骤基本都要添加svn的具体路径。<br>先看看，示例项目的结构，仓库路径是<code>file:///d/Projects/svn_repo2</code>。这个项目主分支是dev文件夹，branch1和tag1文件夹分别代表的是一个分支和tag。</p>
-<p>svn项目结构：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/d/proj2</span><br><span class="line">├── branch1</span><br><span class="line">│   └── file1<span class="selector-class">.txt</span></span><br><span class="line">├── dev</span><br><span class="line">│   └── file1<span class="selector-class">.txt</span></span><br><span class="line">└── tag1</span><br><span class="line">    └── file1.txt</span><br></pre></td></tr></table></figure></p>
-<h3 id="从svn克隆-1">从svn克隆</h3><p>命令：<code>git svn clone &lt;svn项目地址，要包含具体分支路径&gt; [本地文件夹名]</code><br>示例：<code>git svn clone file:///d/Projects/svn_repo2/dev proj2_svn</code></p>
-<h3 id="添加远程分支信息">添加远程分支信息</h3><p>命令：</p>
+<h2 id="svn不遵循规范的情况"><a href="#svn不遵循规范的情况" class="headerlink" title="svn不遵循规范的情况"></a>svn不遵循规范的情况</h2><p><strong>以上讲的都是svn仓库是标准的情况，如果不标准，则以下几个地方都会有所不同。</strong>主要就是每个步骤基本都要添加svn的具体路径。<br>先看看，示例项目的结构，仓库路径是<code>file:///d/Projects/svn_repo2</code>。这个项目主分支是dev文件夹，branch1和tag1文件夹分别代表的是一个分支和tag。</p>
+<p>svn项目结构：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/d/proj2</div><div class="line">├── branch1</div><div class="line">│   └── file1<span class="selector-class">.txt</span></div><div class="line">├── dev</div><div class="line">│   └── file1<span class="selector-class">.txt</span></div><div class="line">└── tag1</div><div class="line">    └── file1.txt</div></pre></td></tr></table></figure></p>
+<h3 id="从svn克隆-1"><a href="#从svn克隆-1" class="headerlink" title="从svn克隆"></a>从svn克隆</h3><p>命令：<code>git svn clone &lt;svn项目地址，要包含具体分支路径&gt; [本地文件夹名]</code><br>示例：<code>git svn clone file:///d/Projects/svn_repo2/dev proj2_svn</code></p>
+<h3 id="添加远程分支信息"><a href="#添加远程分支信息" class="headerlink" title="添加远程分支信息"></a>添加远程分支信息</h3><p>命令：</p>
 <ol>
 <li><code>git config --add svn-remote.&lt;远程分支名称&gt;.url &lt;svn地址，要包含具体分支路径&gt;</code></li>
 <li><code>git config --add svn-remote.&lt;远程分支名称&gt;.fetch :refs/remotes/&lt;远程分支名称&gt;</code></li>
@@ -161,7 +161,7 @@
 <li><code>git config --add svn-remote.svn/branch1.fetch :refs/remotes/svn/branch1</code></li>
 </ol>
 <p>说明：此处的“远程分支名称”可以随意填写，只要这三个保持一致即可。建议都给他们增加<code>svn/</code>前缀，这样svn的所有分支显示起来会比较一致，与上面clone时的<code>--prefix=svn/</code>类似。</p>
-<h3 id="新建本地分支，与svn对应">新建本地分支，与svn对应</h3><p>命令：</p>
+<h3 id="新建本地分支，与svn对应"><a href="#新建本地分支，与svn对应" class="headerlink" title="新建本地分支，与svn对应"></a>新建本地分支，与svn对应</h3><p>命令：</p>
 <ol>
 <li><code>git svn fetch &lt;远程分支名称&gt;</code> 获取svn仓库该分支的代码</li>
 <li><code>git checkout -b &lt;本地分支名&gt; &lt;远程分支名称&gt;</code></li>
@@ -171,7 +171,7 @@
 <li><code>git svn fetch svn/branch1</code></li>
 <li><code>git checkout -b branch1 svn/branch1</code></li>
 </ol>
-<p>分支情况：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* branch1</span><br><span class="line">  <span class="keyword">master</span></span><br><span class="line">  <span class="title">remotes</span>/git-svn</span><br><span class="line">  remotes/svn/branch1</span><br></pre></td></tr></table></figure></p>
+<p>分支情况：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">* branch1</div><div class="line">  <span class="keyword">master</span></div><div class="line">  <span class="title">remotes</span>/git-svn</div><div class="line">  remotes/svn/branch1</div></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -251,7 +251,7 @@
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
 		
 		<a href="/about" target="_blank" title="Jay.Run">Jay.Run</a>
 		

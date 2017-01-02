@@ -102,21 +102,21 @@
 		
 		</div>
 		
-		<h3 id="需求">需求</h3><p>由于最近做Python的linux服务器脚本，经常要同步代码到测试服务器，又不想直接ssh登录到服务器，所以萌生了用git自动同步代码的想法。<br>具体的要求是：测试机是服务器，需要本地一push代码，测试机能实时更新。<br>查阅相关资料发现可以用git的hooks来实现。</p>
+		<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>由于最近做Python的linux服务器脚本，经常要同步代码到测试服务器，又不想直接ssh登录到服务器，所以萌生了用git自动同步代码的想法。<br>具体的要求是：测试机是服务器，需要本地一push代码，测试机能实时更新。<br>查阅相关资料发现可以用git的hooks来实现。</p>
 <a id="more"></a>
-<h3 id="解决方案">解决方案</h3><p>说明：  </p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>说明：  </p>
 <ol>
 <li>本地项目： git-test  </li>
 <li>中转仓库： git-transfer  </li>
 <li>目的项目： git-dest  </li>
 <li>中转仓库与目的项目都在测试机上</li>
 </ol>
-<h4 id="一、初始化中转仓库">一、初始化中转仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir git-transfer</span><br><span class="line">git --bare init</span><br></pre></td></tr></table></figure>
-<h4 id="二、将中转仓库添加到本地项目的remote">二、将中转仓库添加到本地项目的remote</h4><p><code>git remote add transfer ssh://r@192.168.157.129/home/r/git-transfer/</code></p>
-<h4 id="三、给中转仓库添加hooks">三、给中转仓库添加hooks</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /home/r/git-transfer/hooks/</span><br><span class="line">cp post-update.sample post-update</span><br><span class="line">vi post-update</span><br></pre></td></tr></table></figure>
-<p>将 post-update 的内容修改为如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">#</span><br><span class="line"># An example hook script to prepare a packed repository for use over</span><br><span class="line"># dumb transports.</span><br><span class="line">#</span><br><span class="line"># To enable this hook, rename this file to &quot;post-update&quot;.</span><br><span class="line"></span><br><span class="line">unset GIT_DIR</span><br><span class="line">DeployPath=/home/r/git-dest</span><br><span class="line"></span><br><span class="line">cd $DeployPath</span><br><span class="line">git add . -A &amp;&amp; git stash</span><br><span class="line">git pull origin master</span><br></pre></td></tr></table></figure></p>
-<h4 id="四、将中转仓库clone到目的项目">四、将中转仓库clone到目的项目</h4><p><code>git clone /home/r/git-transfer/ /home/r/git-dest/</code></p>
-<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd git-dest</span><br><span class="line">git init</span><br><span class="line">git remote add origin /home/r/git-transfer/</span><br></pre></td></tr></table></figure></p>
+<h4 id="一、初始化中转仓库"><a href="#一、初始化中转仓库" class="headerlink" title="一、初始化中转仓库"></a>一、初始化中转仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir git-transfer</div><div class="line">git --bare init</div></pre></td></tr></table></figure>
+<h4 id="二、将中转仓库添加到本地项目的remote"><a href="#二、将中转仓库添加到本地项目的remote" class="headerlink" title="二、将中转仓库添加到本地项目的remote"></a>二、将中转仓库添加到本地项目的remote</h4><p><code>git remote add transfer ssh://r@192.168.157.129/home/r/git-transfer/</code></p>
+<h4 id="三、给中转仓库添加hooks"><a href="#三、给中转仓库添加hooks" class="headerlink" title="三、给中转仓库添加hooks"></a>三、给中转仓库添加hooks</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /home/r/git-transfer/hooks/</div><div class="line">cp post-update.sample post-update</div><div class="line">vi post-update</div></pre></td></tr></table></figure>
+<p>将 post-update 的内容修改为如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#!/bin/sh</div><div class="line">#</div><div class="line"># An example hook script to prepare a packed repository for use over</div><div class="line"># dumb transports.</div><div class="line">#</div><div class="line"># To enable this hook, rename this file to &quot;post-update&quot;.</div><div class="line"></div><div class="line">unset GIT_DIR</div><div class="line">DeployPath=/home/r/git-dest</div><div class="line"></div><div class="line">cd $DeployPath</div><div class="line">git add . -A &amp;&amp; git stash</div><div class="line">git pull origin master</div></pre></td></tr></table></figure></p>
+<h4 id="四、将中转仓库clone到目的项目"><a href="#四、将中转仓库clone到目的项目" class="headerlink" title="四、将中转仓库clone到目的项目"></a>四、将中转仓库clone到目的项目</h4><p><code>git clone /home/r/git-transfer/ /home/r/git-dest/</code></p>
+<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd git-dest</div><div class="line">git init</div><div class="line">git remote add origin /home/r/git-transfer/</div></pre></td></tr></table></figure></p>
 <p>这样在本地项目一push，目的项目就会马上更新</p>
   
 	</div>
@@ -197,7 +197,7 @@
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
 		
 		<a href="/about" target="_blank" title="Jay.Run">Jay.Run</a>
 		

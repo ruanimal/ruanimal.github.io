@@ -106,8 +106,8 @@
 		</div>
 		
 		<p>以vmware虚拟机为例  </p>
-<h4 id="设置IP">设置IP</h4><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">auto</span> <span class="selector-tag">eth0</span>  # <span class="selector-tag">eth0</span>是网卡名称，你的不一定是这个，可通过<span class="selector-tag">ifconfig</span>查看</span><br><span class="line"><span class="selector-tag">iface</span> <span class="selector-tag">eth0</span> <span class="selector-tag">inet</span> <span class="selector-tag">static</span></span><br><span class="line"><span class="selector-tag">address</span> 192<span class="selector-class">.168</span><span class="selector-class">.157</span><span class="selector-class">.129</span>   # 地址</span><br><span class="line"><span class="selector-tag">gateway</span> 192<span class="selector-class">.168</span><span class="selector-class">.157</span><span class="selector-class">.2</span>    # 网关</span><br><span class="line"><span class="selector-tag">netmask</span> 255<span class="selector-class">.255</span><span class="selector-class">.255</span><span class="selector-class">.0</span>   # 掩码</span><br></pre></td></tr></table></figure></p>
-<h4 id="修改DNS">修改DNS</h4><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
+<h4 id="设置IP"><a href="#设置IP" class="headerlink" title="设置IP"></a>设置IP</h4><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">auto</span> <span class="selector-tag">eth0</span>  # <span class="selector-tag">eth0</span>是网卡名称，你的不一定是这个，可通过<span class="selector-tag">ifconfig</span>查看</div><div class="line"><span class="selector-tag">iface</span> <span class="selector-tag">eth0</span> <span class="selector-tag">inet</span> <span class="selector-tag">static</span></div><div class="line"><span class="selector-tag">address</span> 192<span class="selector-class">.168</span><span class="selector-class">.157</span><span class="selector-class">.129</span>   # 地址</div><div class="line"><span class="selector-tag">gateway</span> 192<span class="selector-class">.168</span><span class="selector-class">.157</span><span class="selector-class">.2</span>    # 网关</div><div class="line"><span class="selector-tag">netmask</span> 255<span class="selector-class">.255</span><span class="selector-class">.255</span><span class="selector-class">.0</span>   # 掩码</div></pre></td></tr></table></figure></p>
+<h4 id="修改DNS"><a href="#修改DNS" class="headerlink" title="修改DNS"></a>修改DNS</h4><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -187,7 +187,7 @@
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
 		
 		<a href="/about" target="_blank" title="Jay.Run">Jay.Run</a>
 		

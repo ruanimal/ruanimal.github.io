@@ -675,7 +675,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/25/django 登录后的跳转问题/" title="django 登录后的跳转到之前的页面" itemprop="url">django 登录后的跳转到之前的页面</a>
+      <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" title="【Chrome扩展】谷歌百度一键搜索修改版" itemprop="url">【Chrome扩展】谷歌百度一键搜索修改版</a>
   </h1>
   <p class="article-author">By
        
@@ -688,15 +688,14 @@
 </header>
     <div class="article-content">
         
-        <pre><code>在开发django网站时发现，用户登录后不能跳转到之前的页面，google了很多答案，讲得也不清楚。
-自己琢磨解决了，以下干货。
-</code></pre><h4 id="1-登录链接"><a href="#1-登录链接" class="headerlink" title="1. 登录链接"></a>1. 登录链接</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span>  <span class="attr">href</span>=<span class="string">"/account/login/?next=&#123;&#123;request.path&#125;&#125;"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
-<h4 id="2-view"><a href="#2-view" class="headerlink" title="2. view"></a>2. view</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(request)</span>:</span></div><div class="line">    next_url = request.REQUEST.get(<span class="string">'next'</span>, <span class="string">'/'</span>)</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</div><div class="line">        <span class="keyword">return</span> render_to_response(<span class="string">'account/login.html'</span>, &#123;<span class="string">'next_url'</span>: next_url&#125;, context_instance=RequestContext(request))</div><div class="line"></div><div class="line">    django_login(request, user)</div><div class="line">    <span class="keyword">return</span> redirect(next_url)</div></pre></td></tr></table></figure>
-<h4 id="3-登录表单"><a href="#3-登录表单" class="headerlink" title="3. 登录表单"></a>3. 登录表单</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/account/login/?next=&#123;&#123;next_url&#125;&#125;"</span> <span class="attr">method</span>=<span class="string">"post"</span> &gt;</span></div><div class="line">&#123;% csrf_token %&#125;</div><div class="line">    用户名<span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"username"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>  <span class="attr">required</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">br</span>&gt;</span></div><div class="line">    密码<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">required</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"登  录"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
-
+        <h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h3><p>谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。</p>
+<p>详细描述：<br>虽然谷歌比较好用，结果也准确，但搜索中文这方面却也弱了点，百度还是有点用。谷歌百度一键搜索， 在谷歌的页面上搜索百度，在百度页面上搜谷歌，无需切换，无需重新输入搜索词。<br>目前支持http(s)://www.baidu.com, http(s)://www.google.com.hk, http(s)://www.google.com</p>
+<p>创建：2015.11.25<br>作者：ponder.work<br>反馈：190127701@qq.com<br>forked from: raywill/BaiGoogleDu</p>
         
         
         <p class="article-more-link">
+          
+            <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#more">查看全文</a>
           
        </p>
     </div>
@@ -717,7 +716,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="/2015/11/25/django 登录后的跳转问题/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django 登录后的跳转问题/" data-count-type="comments">&nbsp;</a>
+		<a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
@@ -796,7 +795,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" title="【Chrome扩展】谷歌百度一键搜索修改版" itemprop="url">【Chrome扩展】谷歌百度一键搜索修改版</a>
+      <a href="/2015/11/25/django 登录后的跳转问题/" title="django 登录后的跳转到之前的页面" itemprop="url">django 登录后的跳转到之前的页面</a>
   </h1>
   <p class="article-author">By
        
@@ -809,14 +808,15 @@
 </header>
     <div class="article-content">
         
-        <h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h3><p>谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。</p>
-<p>详细描述：<br>虽然谷歌比较好用，结果也准确，但搜索中文这方面却也弱了点，百度还是有点用。谷歌百度一键搜索， 在谷歌的页面上搜索百度，在百度页面上搜谷歌，无需切换，无需重新输入搜索词。<br>目前支持http(s)://www.baidu.com, http(s)://www.google.com.hk, http(s)://www.google.com</p>
-<p>创建：2015.11.25<br>作者：ponder.work<br>反馈：190127701@qq.com<br>forked from: raywill/BaiGoogleDu</p>
+        <pre><code>在开发django网站时发现，用户登录后不能跳转到之前的页面，google了很多答案，讲得也不清楚。
+自己琢磨解决了，以下干货。
+</code></pre><h4 id="1-登录链接"><a href="#1-登录链接" class="headerlink" title="1. 登录链接"></a>1. 登录链接</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span>  <span class="attr">href</span>=<span class="string">"/account/login/?next=&#123;&#123;request.path&#125;&#125;"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="2-view"><a href="#2-view" class="headerlink" title="2. view"></a>2. view</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(request)</span>:</span></div><div class="line">    next_url = request.REQUEST.get(<span class="string">'next'</span>, <span class="string">'/'</span>)</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</div><div class="line">        <span class="keyword">return</span> render_to_response(<span class="string">'account/login.html'</span>, &#123;<span class="string">'next_url'</span>: next_url&#125;, context_instance=RequestContext(request))</div><div class="line"></div><div class="line">    django_login(request, user)</div><div class="line">    <span class="keyword">return</span> redirect(next_url)</div></pre></td></tr></table></figure>
+<h4 id="3-登录表单"><a href="#3-登录表单" class="headerlink" title="3. 登录表单"></a>3. 登录表单</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/account/login/?next=&#123;&#123;next_url&#125;&#125;"</span> <span class="attr">method</span>=<span class="string">"post"</span> &gt;</span></div><div class="line">&#123;% csrf_token %&#125;</div><div class="line">    用户名<span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"username"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>  <span class="attr">required</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">br</span>&gt;</span></div><div class="line">    密码<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">required</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"登  录"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+
         
         
         <p class="article-more-link">
-          
-            <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#more">查看全文</a>
           
        </p>
     </div>
@@ -837,7 +837,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" data-count-type="comments">&nbsp;</a>
+		<a href="/2015/11/25/django 登录后的跳转问题/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django 登录后的跳转问题/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

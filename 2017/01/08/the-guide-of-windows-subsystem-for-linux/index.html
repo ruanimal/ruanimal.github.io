@@ -11,12 +11,12 @@
     
 
     
-    <meta name="description" content="简介　　Windows Subsystem for Linux（简称WSL）是一个为在Windows 10上能够原生运行Linux二进制可执行文件（ELF格式）的兼容层。它是由微软与Canonical公司合作开发，目标是使纯正的Ubuntu 14.04 “Trusty Tahr”映像能下载和解压到用户的本地计算机，并且映像内的工具和实用工具能在此子系统上原生运行。　　WSL提供了一个微软开发的Li">
+    <meta name="description" content="Windows Subsystem for Linux（简称WSL）是一个为在Windows 10上能够原生运行Linux二进制可执行文件（ELF格式）的兼容层。它是由微软与Canonical公司合作开发，目标是使纯正的Ubuntu 14.04 “Trusty Tahr”映像能下载和解压到用户的本地计算机，并且映像内的工具和实用工具能在此子系统上原生运行。　　WSL提供了一个微软开发的Linu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows Subsystem for Linux(WSL) 简单指引">
 <meta property="og:url" content="http://ponder.work/2017/01/08/the-guide-of-windows-subsystem-for-linux/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="简介　　Windows Subsystem for Linux（简称WSL）是一个为在Windows 10上能够原生运行Linux二进制可执行文件（ELF格式）的兼容层。它是由微软与Canonical公司合作开发，目标是使纯正的Ubuntu 14.04 “Trusty Tahr”映像能下载和解压到用户的本地计算机，并且映像内的工具和实用工具能在此子系统上原生运行。　　WSL提供了一个微软开发的Li">
+<meta property="og:description" content="Windows Subsystem for Linux（简称WSL）是一个为在Windows 10上能够原生运行Linux二进制可执行文件（ELF格式）的兼容层。它是由微软与Canonical公司合作开发，目标是使纯正的Ubuntu 14.04 “Trusty Tahr”映像能下载和解压到用户的本地计算机，并且映像内的工具和实用工具能在此子系统上原生运行。　　WSL提供了一个微软开发的Linu">
 <meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/91407501-file_1483888101129_101b0.gif">
 <meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/87068378-file_1483888094877_143b7.png">
 <meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/71864116-file_1483888221167_146b1.png">
@@ -30,10 +30,10 @@
 <meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/85096906-file_1483888095449_1787e.png">
 <meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/26700478-file_1483888100890_f880.png">
 <meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/4581644-file_1483888100682_e456.png">
-<meta property="og:updated_time" content="2017-01-08T15:38:42.857Z">
+<meta property="og:updated_time" content="2017-01-08T15:41:18.830Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows Subsystem for Linux(WSL) 简单指引">
-<meta name="twitter:description" content="简介　　Windows Subsystem for Linux（简称WSL）是一个为在Windows 10上能够原生运行Linux二进制可执行文件（ELF格式）的兼容层。它是由微软与Canonical公司合作开发，目标是使纯正的Ubuntu 14.04 “Trusty Tahr”映像能下载和解压到用户的本地计算机，并且映像内的工具和实用工具能在此子系统上原生运行。　　WSL提供了一个微软开发的Li">
+<meta name="twitter:description" content="Windows Subsystem for Linux（简称WSL）是一个为在Windows 10上能够原生运行Linux二进制可执行文件（ELF格式）的兼容层。它是由微软与Canonical公司合作开发，目标是使纯正的Ubuntu 14.04 “Trusty Tahr”映像能下载和解压到用户的本地计算机，并且映像内的工具和实用工具能在此子系统上原生运行。　　WSL提供了一个微软开发的Linu">
 <meta name="twitter:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/91407501-file_1483888101129_101b0.gif">
 
     
@@ -112,11 +112,11 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#替换WSL终端"><span class="toc-number">3.</span> <span class="toc-text">替换WSL终端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在右键菜单中添加在此处打开WSL"><span class="toc-number">4.</span> <span class="toc-text">在右键菜单中添加在此处打开WSL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行linux桌面"><span class="toc-number">5.</span> <span class="toc-text">运行linux桌面</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#替换WSL终端"><span class="toc-number">2.</span> <span class="toc-text">替换WSL终端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在右键菜单中添加在此处打开WSL"><span class="toc-number">3.</span> <span class="toc-text">在右键菜单中添加在此处打开WSL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行linux桌面"><span class="toc-number">4.</span> <span class="toc-text">运行linux桌面</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>　　<code>Windows Subsystem for Linux</code>（简称WSL）是一个为在Windows 10上能够原生运行Linux二进制可执行文件（ELF格式）的兼容层。它是由微软与Canonical公司合作开发，目标是使纯正的Ubuntu 14.04 “Trusty Tahr”映像能下载和解压到用户的本地计算机，并且映像内的工具和实用工具能在此子系统上原生运行。<br>　　WSL提供了一个微软开发的Linux兼容内核接口（不包含Linux代码），来自Ubuntu的用户模式二进制文件在其上运行。</p>
+		<p>　　<code>Windows Subsystem for Linux</code>（简称WSL）是一个为在Windows 10上能够原生运行Linux二进制可执行文件（ELF格式）的兼容层。它是由微软与Canonical公司合作开发，目标是使纯正的Ubuntu 14.04 “Trusty Tahr”映像能下载和解压到用户的本地计算机，并且映像内的工具和实用工具能在此子系统上原生运行。<br>　　WSL提供了一个微软开发的Linux兼容内核接口（不包含Linux代码），来自Ubuntu的用户模式二进制文件在其上运行。</p>
 <p>　　此功能组件从Windows 10 Insider Preview build 14316开始可用，或者Redstone之后的版本（即1607）。</p>
 <p>　　WSL 的出现解决了很大程度上解决了Windows用户使用linux工具链的需求，同时也解决部分用户（比如我）在Linux与Windows之间切换的麻烦。</p>
 <p><strong>WSL的优点</strong></p>

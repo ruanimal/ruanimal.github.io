@@ -1,0 +1,452 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Windows Subsystem for Linux(WSL) 简单指引 | 逸思杂陈</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Jay.Run">
+    
+
+    
+    <meta name="description" content="简介　　Windows Subsystem for Linux（简称WSL）是一个为在Windows 10上能够原生运行Linux二进制可执行文件（ELF格式）的兼容层。它是由微软与Canonical公司合作开发，目标是使纯正的Ubuntu 14.04 “Trusty Tahr”映像能下载和解压到用户的本地计算机，并且映像内的工具和实用工具能在此子系统上原生运行。　　WSL提供了一个微软开发的Li">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows Subsystem for Linux(WSL) 简单指引">
+<meta property="og:url" content="http://ponder.work/2017/01/08/the-guide-of-windows-subsystem-for-linux/index.html">
+<meta property="og:site_name" content="逸思杂陈">
+<meta property="og:description" content="简介　　Windows Subsystem for Linux（简称WSL）是一个为在Windows 10上能够原生运行Linux二进制可执行文件（ELF格式）的兼容层。它是由微软与Canonical公司合作开发，目标是使纯正的Ubuntu 14.04 “Trusty Tahr”映像能下载和解压到用户的本地计算机，并且映像内的工具和实用工具能在此子系统上原生运行。　　WSL提供了一个微软开发的Li">
+<meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/91407501-file_1483888101129_101b0.gif">
+<meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/87068378-file_1483888094877_143b7.png">
+<meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/71864116-file_1483888221167_146b1.png">
+<meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/275971-file_1483888221026_4896.png">
+<meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/57114153-file_1483889057173_a2dd.png">
+<meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/4400425-file_1483888101002_ba17.png">
+<meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/7879750-file_1483888094999_453c.png">
+<meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/86091829-file_1483889277522_60b1.png">
+<meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/74401307-file_1483888095234_162aa.png">
+<meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/59701947-file_1483888095343_17660.png">
+<meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/85096906-file_1483888095449_1787e.png">
+<meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/26700478-file_1483888100890_f880.png">
+<meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/4581644-file_1483888100682_e456.png">
+<meta property="og:updated_time" content="2017-01-08T15:38:42.857Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows Subsystem for Linux(WSL) 简单指引">
+<meta name="twitter:description" content="简介　　Windows Subsystem for Linux（简称WSL）是一个为在Windows 10上能够原生运行Linux二进制可执行文件（ELF格式）的兼容层。它是由微软与Canonical公司合作开发，目标是使纯正的Ubuntu 14.04 “Trusty Tahr”映像能下载和解压到用户的本地计算机，并且映像内的工具和实用工具能在此子系统上原生运行。　　WSL提供了一个微软开发的Li">
+<meta name="twitter:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/91407501-file_1483888101129_101b0.gif">
+
+    
+    <link rel="alternative" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="逸思杂陈">逸思杂陈</a></h1>
+				<h2 class="blog-motto">人类一思考，上帝就发笑。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/categories/编程">编程</a></li>
+					
+						<li><a href="/categories/阅读">阅读</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:ponder.work">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/01/08/the-guide-of-windows-subsystem-for-linux/" title="Windows Subsystem for Linux(WSL) 简单指引" itemprop="url">Windows Subsystem for Linux(WSL) 简单指引</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2017-01-08T12:00:00.000Z" itemprop="datePublished"> 发表于 2017-01-08</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#替换WSL终端"><span class="toc-number">3.</span> <span class="toc-text">替换WSL终端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在右键菜单中添加在此处打开WSL"><span class="toc-number">4.</span> <span class="toc-text">在右键菜单中添加在此处打开WSL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行linux桌面"><span class="toc-number">5.</span> <span class="toc-text">运行linux桌面</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>　　<code>Windows Subsystem for Linux</code>（简称WSL）是一个为在Windows 10上能够原生运行Linux二进制可执行文件（ELF格式）的兼容层。它是由微软与Canonical公司合作开发，目标是使纯正的Ubuntu 14.04 “Trusty Tahr”映像能下载和解压到用户的本地计算机，并且映像内的工具和实用工具能在此子系统上原生运行。<br>　　WSL提供了一个微软开发的Linux兼容内核接口（不包含Linux代码），来自Ubuntu的用户模式二进制文件在其上运行。</p>
+<p>　　此功能组件从Windows 10 Insider Preview build 14316开始可用，或者Redstone之后的版本（即1607）。</p>
+<p>　　WSL 的出现解决了很大程度上解决了Windows用户使用linux工具链的需求，同时也解决部分用户（比如我）在Linux与Windows之间切换的麻烦。</p>
+<p><strong>WSL的优点</strong></p>
+<ul>
+<li>提高了接近原生Linux的使用体验，Python，Shell等开发环境与linux下基本相同</li>
+<li>使用Bash进行一些日常操作比CMD高校和方便多了</li>
+<li>资源利用效率，以及启动速度比虚拟机快多了，而且不用担心文件共享的问题</li>
+</ul>
+<a id="more"></a>
+<p><strong>WSL的不足</strong></p>
+<ul>
+<li>WSL目前属于测试阶段（beta），一些与内核关系紧密的软件包就不能用了，比如<code>systemd</code>，<code>iptables</code>等</li>
+<li>关闭WSL窗口后，后台进程全部会退出，实现后台服务有难度。</li>
+<li>WSL内部和外部的二进制程序并不能通用，也就是WSL里不能调用Win程序，Win也不能调用WSL里的程序。</li>
+<li>文件权限管理，在WSL中可访问win中的文件，不过文件的权限均为777</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li><p>开启开发者模式： 设置 &gt; 更新及安全 &gt; 针对开发人员 &gt; 开发人员模式<br><img src="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/91407501-file_1483888101129_101b0.gif" alt=""></p>
+</li>
+<li><p>启用WSL功能：资源管理器地址栏输入 “控制面板\程序\程序和功能”，选择启用或关闭Windows功能，勾选适用于Linux的Windwos子系统(beta)，重启系统<br><img src="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/87068378-file_1483888094877_143b7.png" alt=""></p>
+</li>
+<li><p>下载Linux镜像：按<code>Win + X</code>选择“命令提示符”或者“Windows PowerShell”，在命令行中输入<code>bash</code>，按提示操作。安装完成后使用也是在命令行中输入<code>bash</code><br><img src="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/71864116-file_1483888221167_146b1.png" alt=""><br><img src="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/275971-file_1483888221026_4896.png" alt=""></p>
+</li>
+</ol>
+<p><strong>也可以看MS的官方教程</strong><a href="https://msdn.microsoft.com/en-us/commandline/wsl/install_guide" target="_blank" rel="external">WSL install guide</a></p>
+<h2 id="替换WSL终端"><a href="#替换WSL终端" class="headerlink" title="替换WSL终端"></a>替换WSL终端</h2><p>可以用<code>mintty</code>作为WSL的终端，替换命令提示符，获得更类似linux的体验。github中已经有人做好了，下载使用即可<a href="https://github.com/goreliu/wsl-terminal/releases" target="_blank" rel="external">goreliu/wsl-terminal</a><br>解压运行open-wsl.exe，你就得到了一个漂亮的linux终端。<br><img src="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/57114153-file_1483889057173_a2dd.png" alt=""></p>
+<h2 id="在右键菜单中添加在此处打开WSL"><a href="#在右键菜单中添加在此处打开WSL" class="headerlink" title="在右键菜单中添加在此处打开WSL"></a>在右键菜单中添加在此处打开WSL</h2><p>新建文本文件，用记事本打开，输入一下内容，替换里面的两处路径，保存重命名为<code>wsl.reg</code>，运行。<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Windows Registry Editor Version 5.00</div><div class="line"></div><div class="line">[HKEY_CLASSES_ROOT<span class="symbol">\D</span>irectory<span class="symbol">\B</span>ackground<span class="symbol">\s</span>hell<span class="symbol">\w</span>sl]</div><div class="line">@="WSL Here"</div><div class="line">"Icon"="<span class="symbol">\"</span>D:<span class="symbol">\\</span>PortableApps<span class="symbol">\\</span>wsl-terminal<span class="symbol">\\</span>open-wsl.ico<span class="symbol">\"</span>"</div><div class="line"></div><div class="line">[HKEY_CLASSES_ROOT<span class="symbol">\D</span>irectory<span class="symbol">\B</span>ackground<span class="symbol">\s</span>hell<span class="symbol">\w</span>sl<span class="symbol">\c</span>ommand]</div><div class="line">@="D:<span class="symbol">\\</span>PortableApps<span class="symbol">\\</span>wsl-terminal<span class="symbol">\\</span>open-wsl.exe"</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/4400425-file_1483888101002_ba17.png" alt=""></p>
+<h2 id="运行linux桌面"><a href="#运行linux桌面" class="headerlink" title="运行linux桌面"></a>运行linux桌面</h2><ol>
+<li>在WSL里安装好桌面，<code>apt-get -y install xorg xfce4</code></li>
+<li>在win上安装<code>x server</code>，可选<code>xming</code>和<code>VcXsrv</code>，这里选用<a href="https://sourceforge.net/projects/vcxsrv/" target="_blank" rel="external">VcXsrv</a></li>
+<li><p>启动<code>x server</code><br><img src="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/7879750-file_1483888094999_453c.png" alt=""><br><img src="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/86091829-file_1483889277522_60b1.png" alt=""><br><img src="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/74401307-file_1483888095234_162aa.png" alt=""><br><img src="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/59701947-file_1483888095343_17660.png" alt=""><br><img src="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/85096906-file_1483888095449_1787e.png" alt=""></p>
+</li>
+<li><p>WSL的配置，在wsl的bash中运行</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">echo <span class="string">"export DISPLAY=:0.0"</span> &gt;&gt; ~/.bashrc  <span class="comment"># 设置屏幕为x server</span></div><div class="line">source ~/.bashrc</div><div class="line">sudo sed -i 's$<span class="variable">&lt;listen&gt;</span>.<span class="symbol">*</span><span class="variable">&lt;/listen&gt;</span>$<span class="variable">&lt;listen&gt;</span>tcp:host=localhost,port=0<span class="variable">&lt;/listen&gt;</span>$' /etc/dbus-1/session.conf  <span class="comment"># 解决D-bus的问题</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>在WSL里运行<code>startxfce4</code>，就此大功告成<br><img src="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/26700478-file_1483888100890_f880.png" alt=""><br><img src="http://7xn7zc.com1.z0.glb.clouddn.com/17-1-8/4581644-file_1483888100682_e456.png" alt=""></p>
+</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ponder.work/2017/01/08/the-guide-of-windows-subsystem-for-linux/" data-title="Windows Subsystem for Linux(WSL) 简单指引 | 逸思杂陈" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/01/02/summary-of-2016/"  title="2016年终总结">
+ <strong>下一篇：</strong><br/> 
+ <span>2016年终总结
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/01/08/the-guide-of-windows-subsystem-for-linux/" data-title="Windows Subsystem for Linux(WSL) 简单指引" data-url="http://ponder.work/2017/01/08/the-guide-of-windows-subsystem-for-linux/"></div>
+</section>
+
+
+</div>  
+    </div>
+    <footer><div id="footer" >
+	
+	<section class="info">
+		<p> Life is short, play more!</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="Jay.Run">Jay.Run</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ponder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

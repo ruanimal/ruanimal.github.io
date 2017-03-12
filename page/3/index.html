@@ -83,6 +83,66 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/04/16/ubuntu静态ip配置/" title="ubuntu静态ip配置" itemprop="url">ubuntu静态ip配置</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-16T12:52:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>以vmware虚拟机为例  </p>
+<h4 id="设置IP"><a href="#设置IP" class="headerlink" title="设置IP"></a>设置IP</h4><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">auto</span> <span class="selector-tag">eth0</span>  # <span class="selector-tag">eth0</span>是网卡名称，你的不一定是这个，可通过<span class="selector-tag">ifconfig</span>查看</div><div class="line"><span class="selector-tag">iface</span> <span class="selector-tag">eth0</span> <span class="selector-tag">inet</span> <span class="selector-tag">static</span></div><div class="line"><span class="selector-tag">address</span> 192<span class="selector-class">.168</span><span class="selector-class">.157</span><span class="selector-class">.129</span>   # 地址</div><div class="line"><span class="selector-tag">gateway</span> 192<span class="selector-class">.168</span><span class="selector-class">.157</span><span class="selector-class">.2</span>    # 网关</div><div class="line"><span class="selector-tag">netmask</span> 255<span class="selector-class">.255</span><span class="selector-class">.255</span><span class="selector-class">.0</span>   # 掩码</div></pre></td></tr></table></figure></p>
+<h4 id="修改DNS"><a href="#修改DNS" class="headerlink" title="修改DNS"></a>修改DNS</h4><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/16/ubuntu静态ip配置/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/ubuntu静态ip配置/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/04/16/python中yield语句的运行机制/" title="Python中yield语句的运行机制" itemprop="url">Python中yield语句的运行机制</a>
   </h1>
   <p class="article-author">By
@@ -544,73 +604,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/10/python赋值语句小坑/" title="python赋值语句小坑" itemprop="url">python赋值语句小坑</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-10T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <pre><code>说到python赋值语句，大家想必一个念头——so easy，不是`lz = &apos;dashabi&apos;`吗。
-确实，easy是easy，里面却有个小坑，虽小，却不易发现。在代码量多的时候，就有点恶心了。
-</code></pre><ul>
-<li><h5 id="正常的语句是这样"><a href="#正常的语句是这样" class="headerlink" title="正常的语句是这样"></a>正常的语句是这样</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>aa </div><div class="line"><span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span></div></pre></td></tr></table></figure>
-</li>
-<li><h5 id="坑在这里"><a href="#坑在这里" class="headerlink" title="坑在这里"></a>坑在这里</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span>,</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>aa </div><div class="line">(<span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span>,)</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<pre><code>看出区别没有，坑的后面有个逗号，平时这逗号没什么卵用，但在赋值语句的末尾会将原来的对象转化为tuple。
-和`aa = (u&apos;这是一个坑&apos;,)`是一样的效果。
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/01/10/python赋值语句小坑/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/python赋值语句小坑/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2016/01/10/除法在python2和python3中的区别/" title="除法在 python2 和 python3 中的区别" itemprop="url">除法在 python2 和 python3 中的区别</a>
   </h1>
   <p class="article-author">By
@@ -675,22 +668,30 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/25/django-admin过滤foreignkey值/" title="django-admin过滤foreignkey值" itemprop="url">django-admin过滤foreignkey值</a>
+      <a href="/2016/01/10/python赋值语句小坑/" title="python赋值语句小坑" itemprop="url">python赋值语句小坑</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
+    <time datetime="2016-01-10T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-10</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h3 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h3><pre><code>在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
-当然，也可通过自定义form解决该问题。
-</code></pre><h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryOrderItemInline</span><span class="params">(admin.TabularInline)</span>:</span></div><div class="line">    model = FactoryOrderItem</div><div class="line">    fields = (<span class="string">'order_item'</span>, <span class="string">'product_sn'</span>, <span class="string">'style'</span>, <span class="string">'size'</span>, <span class="string">'factory_sn'</span>, <span class="string">'price'</span>, <span class="string">'quantity'</span>, <span class="string">'amount'</span>)</div><div class="line">    extra = <span class="number">1</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">formfield_for_foreignkey</span><span class="params">(self, db_field, request, **kwargs)</span>:</span></div><div class="line">        <span class="keyword">if</span> db_field.name == <span class="string">'order_item'</span>:</div><div class="line">            <span class="keyword">try</span>:</div><div class="line">                parent_obj_id = request.resolver_match.args[<span class="number">0</span>]</div><div class="line">            <span class="keyword">except</span> IndexError: <span class="comment">#仅在新建状态过滤</span></div><div class="line">                kwargs[<span class="string">'queryset'</span>] = OrderItem.objects.filter(order__status=<span class="string">'2'</span>)</div><div class="line">        <span class="keyword">return</span> super(FactoryOrderItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)</div></pre></td></tr></table></figure>
+        <pre><code>说到python赋值语句，大家想必一个念头——so easy，不是`lz = &apos;dashabi&apos;`吗。
+确实，easy是easy，里面却有个小坑，虽小，却不易发现。在代码量多的时候，就有点恶心了。
+</code></pre><ul>
+<li><h5 id="正常的语句是这样"><a href="#正常的语句是这样" class="headerlink" title="正常的语句是这样"></a>正常的语句是这样</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>aa </div><div class="line"><span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span></div></pre></td></tr></table></figure>
+</li>
+<li><h5 id="坑在这里"><a href="#坑在这里" class="headerlink" title="坑在这里"></a>坑在这里</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span>,</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>aa </div><div class="line">(<span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span>,)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<pre><code>看出区别没有，坑的后面有个逗号，平时这逗号没什么卵用，但在赋值语句的末尾会将原来的对象转化为tuple。
+和`aa = (u&apos;这是一个坑&apos;,)`是一样的效果。
+</code></pre>
         
         
         <p class="article-more-link">
@@ -714,7 +715,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="/2015/11/25/django-admin过滤foreignkey值/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django-admin过滤foreignkey值/" data-count-type="comments">&nbsp;</a>
+		<a href="/2016/01/10/python赋值语句小坑/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/python赋值语句小坑/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
@@ -857,6 +858,65 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/11/25/django-admin过滤foreignkey值/" title="django-admin过滤foreignkey值" itemprop="url">django-admin过滤foreignkey值</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h3><pre><code>在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
+当然，也可通过自定义form解决该问题。
+</code></pre><h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryOrderItemInline</span><span class="params">(admin.TabularInline)</span>:</span></div><div class="line">    model = FactoryOrderItem</div><div class="line">    fields = (<span class="string">'order_item'</span>, <span class="string">'product_sn'</span>, <span class="string">'style'</span>, <span class="string">'size'</span>, <span class="string">'factory_sn'</span>, <span class="string">'price'</span>, <span class="string">'quantity'</span>, <span class="string">'amount'</span>)</div><div class="line">    extra = <span class="number">1</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">formfield_for_foreignkey</span><span class="params">(self, db_field, request, **kwargs)</span>:</span></div><div class="line">        <span class="keyword">if</span> db_field.name == <span class="string">'order_item'</span>:</div><div class="line">            <span class="keyword">try</span>:</div><div class="line">                parent_obj_id = request.resolver_match.args[<span class="number">0</span>]</div><div class="line">            <span class="keyword">except</span> IndexError: <span class="comment">#仅在新建状态过滤</span></div><div class="line">                kwargs[<span class="string">'queryset'</span>] = OrderItem.objects.filter(order__status=<span class="string">'2'</span>)</div><div class="line">        <span class="keyword">return</span> super(FactoryOrderItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)</div></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/25/django-admin过滤foreignkey值/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django-admin过滤foreignkey值/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/10/18/每个人心中都有个小王子/" title="每个人心中都有个小王子" itemprop="url">每个人心中都有个小王子</a>
   </h1>
   <p class="article-author">By
@@ -973,72 +1033,6 @@
 	
 	  	<span></span>
 		<a href="/2015/10/17/《一九八四》读书笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/17/《一九八四》读书笔记/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/10/10/生死之间有大恐怖/" title="生死之间有大恐怖" itemprop="url">生死之间有大恐怖</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-10-10T12:41:00.000Z" itemprop="datePublished"> 发表于 2015-10-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>　　昨天晚上听到一则消息，小学一老师得骨癌，37岁，自杀了。<br>　　不知怎的，心里乱乱的，就想起“生死之间有大恐怖”这句话来了。<br>　　人生在世确如白驹过隙，忽然而已。而这白驹过隙却也还有快慢之分，如何不令人怅然。犹记得，《兰亭集序》里一句“修短随化，终期于尽。”，少时懵懂只觉语句优美，终不解其中深意。到如今，自己也算是经历了一些，才明白这寥寥数语却是道尽世间沧桑。个体寿命的长与短，都是由造化决定，最终都不免走向那个尽头。然而这个中差别，却让多少世人肝肠寸断。</p>
-<p>　　也曾想，自己的生命有多长，然后就是一阵惊惧。<br>　　生命实在是太过短暂，而且很可能在你不经意时终结。</p>
-<blockquote>
-<p>生死事大，无常迅速。</p>
-</blockquote>
-<p>　　唉！无法，徒增忧伤而已。</p>
-<blockquote>
-<p>人生苦短，及时行乐。<br>有愿立偿，不余遗憾。</p>
-</blockquote>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/随笔/">随笔</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/10/10/生死之间有大恐怖/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/10/生死之间有大恐怖/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

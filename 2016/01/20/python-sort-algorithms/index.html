@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>排序算法总结 | 逸思杂陈</title>
+    <title>Python排序算法总结 | 逸思杂陈</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Jay.Run">
@@ -17,10 +17,12 @@
 比较次数减一，重复步骤1
 共遍历n-1次
 
-代码12345678def bubble_sort(arry):">
+代码
+原始版本
+12345678def bubble_sort(">
 <meta property="og:type" content="article">
-<meta property="og:title" content="排序算法总结">
-<meta property="og:url" content="http://ponder.work/2016/01/20/排序算法总结/index.html">
+<meta property="og:title" content="Python排序算法总结">
+<meta property="og:url" content="http://ponder.work/2016/01/20/python-sort-algorithms/index.html">
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="一、冒泡排序 BubbleSort介绍遍历序列，比较两个元素，如果前面的大于后面的就交换两者的位置。其实称之为冒泡排序不如加沉底排序，因为每一轮比较，这一轮轮最大都会被排到序列末尾，其实沉底更为贴切。
 步骤
@@ -28,17 +30,21 @@
 比较次数减一，重复步骤1
 共遍历n-1次
 
-代码12345678def bubble_sort(arry):">
-<meta property="og:updated_time" content="2016-02-16T14:01:31.470Z">
+代码
+原始版本
+12345678def bubble_sort(">
+<meta property="og:updated_time" content="2017-03-30T03:17:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="排序算法总结">
+<meta name="twitter:title" content="Python排序算法总结">
 <meta name="twitter:description" content="一、冒泡排序 BubbleSort介绍遍历序列，比较两个元素，如果前面的大于后面的就交换两者的位置。其实称之为冒泡排序不如加沉底排序，因为每一轮比较，这一轮轮最大都会被排到序列末尾，其实沉底更为贴切。
 步骤
 遍历序列，比较序列的相邻元素，比较n-1次，如果前面的大于后面的就交换两者的位置。
 比较次数减一，重复步骤1
 共遍历n-1次
 
-代码12345678def bubble_sort(arry):">
+代码
+原始版本
+12345678def bubble_sort(">
 
     
     <link rel="alternative" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
@@ -100,7 +106,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/20/排序算法总结/" title="排序算法总结" itemprop="url">排序算法总结</a>
+      <a href="/2016/01/20/python-sort-algorithms/" title="Python排序算法总结" itemprop="url">Python排序算法总结</a>
   </h1>
   <p class="article-author">By
        
@@ -116,7 +122,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、冒泡排序-BubbleSort"><span class="toc-number">1.</span> <span class="toc-text">一、冒泡排序 BubbleSort</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-number">1.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤"><span class="toc-number">1.2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-number">1.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、选择排序-SelectionSort"><span class="toc-number">2.</span> <span class="toc-text">二、选择排序 SelectionSort</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍-1"><span class="toc-number">2.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤-1"><span class="toc-number">2.2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-1"><span class="toc-number">2.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、插入排序-InsertionSort"><span class="toc-number">3.</span> <span class="toc-text">三、插入排序 InsertionSort</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍-2"><span class="toc-number">3.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤-2"><span class="toc-number">3.2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-2"><span class="toc-number">3.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、希尔排序-ShellSort"><span class="toc-number">4.</span> <span class="toc-text">四、希尔排序 ShellSort</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍-3"><span class="toc-number">4.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现"><span class="toc-number">4.2.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-3"><span class="toc-number">4.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、归并排序-MergeSort"><span class="toc-number">5.</span> <span class="toc-text">五、归并排序 MergeSort</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍-4"><span class="toc-number">5.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现-1"><span class="toc-number">5.2.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-4"><span class="toc-number">5.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、快速排序-QuickSort"><span class="toc-number">6.</span> <span class="toc-text">六、快速排序 QuickSort</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍-5"><span class="toc-number">6.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤-3"><span class="toc-number">6.2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-5"><span class="toc-number">6.3.</span> <span class="toc-text">代码</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、冒泡排序-BubbleSort"><span class="toc-number">1.</span> <span class="toc-text">一、冒泡排序 BubbleSort</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-number">1.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤"><span class="toc-number">1.2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-number">1.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、选择排序-SelectionSort"><span class="toc-number">2.</span> <span class="toc-text">二、选择排序 SelectionSort</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍-1"><span class="toc-number">2.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤-1"><span class="toc-number">2.2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-1"><span class="toc-number">2.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、插入排序-InsertionSort"><span class="toc-number">3.</span> <span class="toc-text">三、插入排序 InsertionSort</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍-2"><span class="toc-number">3.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤-2"><span class="toc-number">3.2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-2"><span class="toc-number">3.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、希尔排序-ShellSort"><span class="toc-number">4.</span> <span class="toc-text">四、希尔排序 ShellSort</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍-3"><span class="toc-number">4.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现"><span class="toc-number">4.2.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-3"><span class="toc-number">4.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、归并排序-MergeSort"><span class="toc-number">5.</span> <span class="toc-text">五、归并排序 MergeSort</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍-4"><span class="toc-number">5.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现-1"><span class="toc-number">5.2.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-4"><span class="toc-number">5.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、快速排序-QuickSort"><span class="toc-number">6.</span> <span class="toc-text">六、快速排序 QuickSort</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍-5"><span class="toc-number">6.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤-3"><span class="toc-number">6.2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-5"><span class="toc-number">6.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、桶排序-BucketSort"><span class="toc-number">7.</span> <span class="toc-text">七、桶排序 BucketSort</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍-6"><span class="toc-number">7.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤-4"><span class="toc-number">7.2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-6"><span class="toc-number">7.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆排序"><span class="toc-number">8.</span> <span class="toc-text">堆排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍-7"><span class="toc-number">8.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤-5"><span class="toc-number">8.2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-7"><span class="toc-number">8.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a></li></ol>
 		
 		</div>
 		
@@ -126,7 +132,14 @@
 <li>比较次数减一，重复步骤1</li>
 <li>共遍历n-1次</li>
 </ol>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(arry)</span>:</span></div><div class="line">    n = len(arry)</div><div class="line">    <span class="keyword">while</span> n &gt; <span class="number">1</span>:</div><div class="line">        n -= <span class="number">1</span></div><div class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(n):</div><div class="line">            <span class="keyword">if</span> arry[x] &gt; arry[x+<span class="number">1</span>]:</div><div class="line">                arry[x], arry[x+<span class="number">1</span>] = arry[x+<span class="number">1</span>], arry[x]</div><div class="line">    <span class="keyword">return</span> arry</div></pre></td></tr></table></figure>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><ol>
+<li><p>原始版本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(arry)</span>:</span></div><div class="line">    n = len(arry)</div><div class="line">    <span class="keyword">while</span> n &gt; <span class="number">1</span>:</div><div class="line">        n -= <span class="number">1</span></div><div class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(n):</div><div class="line">            <span class="keyword">if</span> arry[x] &gt; arry[x+<span class="number">1</span>]:</div><div class="line">                arry[x], arry[x+<span class="number">1</span>] = arry[x+<span class="number">1</span>], arry[x]</div><div class="line">    <span class="keyword">return</span> arry</div></pre></td></tr></table></figure>
+</li>
+<li><p>改进版本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(arry)</span>:</span></div><div class="line">    n = len(arry)</div><div class="line">    <span class="keyword">while</span> n &gt; <span class="number">1</span>:</div><div class="line">        n -= <span class="number">1</span></div><div class="line">        swap_flag = <span class="keyword">False</span>  <span class="comment"># 增加一个标记，当排好序后直接退出</span></div><div class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(n):</div><div class="line">            <span class="keyword">if</span> arry[x] &gt; arry[x+<span class="number">1</span>]:</div><div class="line">                arry[x], arry[x+<span class="number">1</span>] = arry[x+<span class="number">1</span>], arry[x]</div><div class="line">                swap_flag = <span class="keyword">True</span></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> swap_flag:</div><div class="line">            <span class="keyword">break</span></div><div class="line">    <span class="keyword">return</span> arry</div></pre></td></tr></table></figure>
+</li>
+</ol>
 <a id="more"></a>
 <h2 id="二、选择排序-SelectionSort"><a href="#二、选择排序-SelectionSort" class="headerlink" title="二、选择排序 SelectionSort"></a>二、选择排序 SelectionSort</h2><h3 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h3><p>还是先来看看选择排序的思想。选择排序的思想非常直接，不是要排序么？那好，我就从所有序列中先找到最小的，然后放到第一个位置。之后再看剩余元素中最小的，放到第二个位置……以此类推，就可以完成整个的排序工作了。</p>
 <h3 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h3><ol>
@@ -167,7 +180,106 @@
 <li>重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分割结束之后，该基准就处于数列的中间位置。这个称为分割（partition）操作。</li>
 <li>递归地（recursive）把小于基淮值元素的子数列和大于基淮值元素的子数列排序。递归的最底部情形，是数列的大小是零或一，也就是永远都已经被排序好了。虽然一直递迴下去，但是这个演算法总会结束，因为在每次的迭代（iteration）中，它至少会把一个元素摆到它最后的位置去。</li>
 </ol>
-<h3 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(arry)</span>:</span></div><div class="line">    <span class="keyword">return</span> qsort(arry, <span class="number">0</span>, len(arry)<span class="number">-1</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">qsort</span><span class="params">(arry, left, right)</span>:</span></div><div class="line">    <span class="keyword">if</span> left &gt;= right:</div><div class="line">        <span class="keyword">return</span> arry</div><div class="line">    key = arry[right]  <span class="comment"># 以未排序序列最后一个元素为基准</span></div><div class="line">    l = left</div><div class="line">    r = right</div><div class="line">    <span class="keyword">while</span> l &lt; r:</div><div class="line">        <span class="keyword">while</span> arry[l] &lt;= key <span class="keyword">and</span> l &lt; r:   <span class="comment"># A.直到从左边找到一个比基准大的元素</span></div><div class="line">            l += <span class="number">1</span></div><div class="line">        <span class="keyword">while</span> arry[r] &gt;= key <span class="keyword">and</span> l &lt; r:   <span class="comment"># B.直到从右边找到一个比基准小的元素; </span></div><div class="line">            r -= <span class="number">1</span>	<span class="comment"># A与B对调会出错，因为r可能会多移动一步，而arry[r]是要与arry[right]交换的</span></div><div class="line">        arry[l], arry[r] = arry[r], arry[l]</div><div class="line">    arry[r], arry[right] = arry[right], arry[r]</div><div class="line">    qsort(arry, left, l<span class="number">-1</span>)</div><div class="line">    qsort(arry, r+<span class="number">1</span>, right)</div><div class="line">    <span class="keyword">return</span> arry</div></pre></td></tr></table></figure>  
+<h3 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(arry)</span>:</span></div><div class="line">    <span class="keyword">return</span> qsort(arry, <span class="number">0</span>, len(arry)<span class="number">-1</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">qsort</span><span class="params">(arry, left, right)</span>:</span></div><div class="line">    <span class="keyword">if</span> left &gt;= right:</div><div class="line">        <span class="keyword">return</span> arry</div><div class="line">    key = arry[right]  <span class="comment"># 以未排序序列最后一个元素为基准</span></div><div class="line">    l = left</div><div class="line">    r = right</div><div class="line">    <span class="keyword">while</span> l &lt; r:</div><div class="line">        <span class="keyword">while</span> arry[l] &lt;= key <span class="keyword">and</span> l &lt; r:   <span class="comment"># A.直到从左边找到一个比基准大的元素</span></div><div class="line">            l += <span class="number">1</span></div><div class="line">        <span class="keyword">while</span> arry[r] &gt;= key <span class="keyword">and</span> l &lt; r:   <span class="comment"># B.直到从右边找到一个比基准小的元素; </span></div><div class="line">            r -= <span class="number">1</span>	<span class="comment"># A与B对调会出错，因为r可能会多移动一步，而arry[r]是要与arry[right]交换的</span></div><div class="line">        arry[l], arry[r] = arry[r], arry[l]</div><div class="line">    arry[r], arry[right] = arry[right], arry[r]</div><div class="line">    qsort(arry, left, l<span class="number">-1</span>)</div><div class="line">    qsort(arry, r+<span class="number">1</span>, right)</div><div class="line">    <span class="keyword">return</span> arry</div></pre></td></tr></table></figure>
+<h2 id="七、桶排序-BucketSort"><a href="#七、桶排序-BucketSort" class="headerlink" title="七、桶排序 BucketSort"></a>七、桶排序 BucketSort</h2><h3 id="介绍-6"><a href="#介绍-6" class="headerlink" title="介绍"></a>介绍</h3><p>桶排序（Bucket sort）或所谓的箱排序，是一个排序算法，工作的原理是将数组分到有限数量的桶里。每个桶再个别排序（有可能再使用别的排序算法或是以递归方式继续使用桶排序进行排序）。桶排序是鸽巢排序的一种归纳结果。当要被排序的数组内的数值是均匀分配的时候，桶排序使用线性时间（Θ(n)）。但桶排序并不是比较排序，他不受到O(n log n)下限的影响。</p>
+<h3 id="步骤-4"><a href="#步骤-4" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li>根据数据的分布范围建桶，比如年龄，就可以建1-100号的桶。</li>
+<li>根据每个数据的值，将它放到对应的桶中</li>
+<li>从1号到100号桶中，依次将数据倒出</li>
+</ol>
+<h3 id="代码-6"><a href="#代码-6" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">bucket_sort</span><span class="params">(array)</span>:</span></div><div class="line">    buckets = &#123;i:<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">101</span>)&#125;  <span class="comment"># 100 bucket</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> array:</div><div class="line">        buckets[i] += <span class="number">1</span></div><div class="line">    result = []</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">1</span>,<span class="number">101</span>):</div><div class="line">        result.extend([i] * buckets[i])</div><div class="line">    <span class="keyword">return</span> result</div></pre></td></tr></table></figure>
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><h3 id="介绍-7"><a href="#介绍-7" class="headerlink" title="介绍"></a>介绍</h3><p>堆排序在 top K 问题中使用比较频繁。堆排序是采用二叉堆的数据结构来实现的，虽然实质上还是一维数组。二叉堆是一个近似完全二叉树 。</p>
+<p>二叉堆具有以下性质：</p>
+<p>父节点的键值总是大于或等于（小于或等于）任何一个子节点的键值。<br>每个节点的左右子树都是一个二叉堆（都是最大堆或最小堆）。</p>
+<h3 id="步骤-5"><a href="#步骤-5" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li><p>构造最大堆：若数组下标范围为1~n，考虑到单独一个元素是大根堆，则从下标n/2+1开始的元素均为大根堆。于是只要从n/2开始，向前依次构造大根堆，这样就能保证，构造到某个节点时，它的左右子树都已经是大根堆。</p>
+</li>
+<li><p>堆排序（HeapSort）：由于堆是用数组模拟的。得到一个大根堆后，数组内部并不是有序的。因此需要将堆化数组有序化。思想是移除根节点，并做最大堆调整的递归运算。第一次将heap[1]与heap[n]交换，再对heap[1…n-1]做最大堆调整。第二次将heap[1]与heap[n-1]交换，再对heap[1…n-2]做最大堆调整。重复该操作直至heap[1]和heap[2]交换。由于每次都是将最大的数并入到后面的有序区间，故操作完后整个数组就是有序的了。</p>
+</li>
+<li><p>最大堆调整（sink）：该方法是提供给上述两个过程调用的。目的是将堆的末端子节点作调整，使得子节点永远小于父节点 。</p>
+</li>
+</ol>
+<h3 id="代码-7"><a href="#代码-7" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">heap_sort</span><span class="params">(array)</span>:</span></div><div class="line">    <span class="comment"># 此处用最大堆</span></div><div class="line">    n = len(array)</div><div class="line">    pq = [<span class="keyword">None</span>] + array</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sink</span><span class="params">(k)</span>:</span>  <span class="comment"># 下沉</span></div><div class="line">        <span class="keyword">while</span> <span class="number">2</span>*k &lt;= n:</div><div class="line">            j = <span class="number">2</span>*k </div><div class="line">            <span class="keyword">if</span> j &lt; n <span class="keyword">and</span> pq[j] &lt; pq[j+<span class="number">1</span>]:</div><div class="line">                j += <span class="number">1</span></div><div class="line">            <span class="keyword">if</span> pq[k] &gt;= pq[j]:</div><div class="line">                <span class="keyword">break</span></div><div class="line">            pq[k], pq[j] = pq[j], pq[k]</div><div class="line">            k = j</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> xrange(n/<span class="number">2</span>, <span class="number">0</span>, <span class="number">-1</span>):</div><div class="line">        sink(k)</div><div class="line">    <span class="keyword">while</span> n &gt; <span class="number">1</span>:</div><div class="line">        pq[<span class="number">1</span>], pq[n] = pq[n], pq[<span class="number">1</span>]</div><div class="line">        n -= <span class="number">1</span></div><div class="line">        sink(<span class="number">1</span>)</div><div class="line">    <span class="keyword">return</span> pq[<span class="number">1</span>:]</div></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>下面为以上八种排序算法指标对比情况：</p>
+<table>
+<thead>
+<tr>
+<th>排序方法</th>
+<th>平均情况</th>
+<th>最好情况</th>
+<th>最坏情况</th>
+<th>辅助空间</th>
+<th>稳定性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>冒泡排序</td>
+<td>〇(n^2)</td>
+<td>〇(n)</td>
+<td>〇(n^2)</td>
+<td>〇(1)</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>选择排序</td>
+<td>〇(n^2)</td>
+<td>〇(n^2)</td>
+<td>〇(n^2)</td>
+<td>〇(1)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>插入排序</td>
+<td>〇(n^2)</td>
+<td>〇(n)</td>
+<td>〇(n^2)</td>
+<td>〇(1)</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>希尔排序</td>
+<td>〇(nlog(n))~〇(n^2)</td>
+<td>〇(n^1.3)</td>
+<td>〇(n^2)</td>
+<td>〇(1)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td>〇(nlog(n))</td>
+<td>〇(nlog(n))</td>
+<td>〇(nlog(n))</td>
+<td>〇(1)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>〇(nlog(n))</td>
+<td>〇(nlog(n))</td>
+<td>〇(nlog(n))</td>
+<td>〇(n)</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>〇(nlog(n))</td>
+<td>〇(nlog(n))</td>
+<td>〇(n^2)</td>
+<td>〇(log(n))~〇(n)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>桶排序</td>
+<td>〇(n+k)</td>
+<td>〇(n+k)</td>
+<td>〇(n^2)</td>
+<td>〇(n)</td>
+<td>稳定</td>
+</tr>
+</tbody>
+</table>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -184,7 +296,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://ponder.work/2016/01/20/排序算法总结/" data-title="排序算法总结 | 逸思杂陈" data-tsina="null" class="share clearfix">
+	  <div data-url="http://ponder.work/2016/01/20/python-sort-algorithms/" data-title="Python排序算法总结 | 逸思杂陈" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -207,9 +319,9 @@
 
 
 <div class="next">
-<a href="/2016/01/10/除法在python2和python3中的区别/"  title="除法在 python2 和 python3 中的区别">
+<a href="/2016/01/10/python赋值语句小坑/"  title="python赋值语句小坑">
  <strong>下一篇：</strong><br/> 
- <span>除法在 python2 和 python3 中的区别
+ <span>python赋值语句小坑
 </span>
 </a>
 </div>
@@ -218,7 +330,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/01/20/排序算法总结/" data-title="排序算法总结" data-url="http://ponder.work/2016/01/20/排序算法总结/"></div>
+	<div class="ds-thread" data-thread-key="2016/01/20/python-sort-algorithms/" data-title="Python排序算法总结" data-url="http://ponder.work/2016/01/20/python-sort-algorithms/"></div>
 </section>
 
 

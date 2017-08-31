@@ -31,7 +31,7 @@
     <link rel="apple-touch-icon" href="/img/jacman.jpg">
     <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
     
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
 
   <body>
@@ -83,6 +83,135 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/06/22/centos开关机日志分析/" title="centos开关机日志分析" itemprop="url">centos开关机日志分析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-22T11:52:00.000Z" itemprop="datePublished"> 发表于 2016-06-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在工作中发现有获取linux具体开关机时间和类型的需求，可以通过分析<code>/var/log/wtmp</code>日志文件得到。<br>通过<code>last -x -F</code>可以将<code>/var/log/wtmp</code>输出以下格式。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/06/22/centos开关机日志分析/#more">查看全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/06/22/centos开关机日志分析/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/22/centos开关机日志分析/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/22/python包导入再谈/" title="python包导入再谈" itemprop="url">python包导入再谈</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-22T11:26:00.000Z" itemprop="datePublished"> 发表于 2016-06-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="python包、模块导入的顺序">python包、模块导入的顺序</h3><p>包是指含有<code>__init__.py</code>的文件夹，模块就是一个.py文件。<br><strong>python的包和模块是先查找<code>buil-in moudle</code>然后是<code>sys.path</code>这个list里的所有路径。</strong></p>
+<ul>
+<li>sys.path[0]是启动Python解释器的脚本所在路径，比如运行<code>python task/admin.py</code>，sys.path[0]是<code>&#39;/home/code/taskman/task&#39;</code>；如果启动的是是idle,ipython等，sys.path[0]是<code>&#39;&#39;</code>。</li>
+<li>如果sys.path[0]是<code>&#39;&#39;</code>，这个值等于当前工作目录也就是<code>os.getcwd()</code>的值，也就是linux的pwd的值，你可以用<code>os.chdir</code>来改变工作路径。</li>
+<li>sys.path里余下的元素是python环境变量里的一些路径</li>
+</ul>
+<p>还是分析之前的那个例子</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/06/22/python包导入再谈/#more">查看全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/06/22/python包导入再谈/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/22/python包导入再谈/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/06/21/大话设计模式/" title="《大话设计模式》读书笔记" itemprop="url">《大话设计模式》读书笔记</a>
   </h1>
   <p class="article-author">By
@@ -96,7 +225,7 @@
 </header>
     <div class="article-content">
         
-        <h3 id="面向对象基础"><a href="#面向对象基础" class="headerlink" title="面向对象基础"></a>面向对象基础</h3><ol>
+        <h3 id="面向对象基础">面向对象基础</h3><ol>
 <li>类是对对象的抽象，抽象类是对类的抽象，接口是对行为的抽象。</li>
 <li>如果行为跨越不同类的对象，可使用接口；对于一些相似的类对象，用继承抽象类</li>
 </ol>
@@ -126,7 +255,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/读书笔记/">读书笔记</a><a href="/tags/设计模式/">设计模式</a>
+  <span></span> <a href="/tags/设计模式/">设计模式</a><a href="/tags/读书笔记/">读书笔记</a>
   </div>
 
 </div>
@@ -414,10 +543,10 @@
     <div class="article-content">
         
         <p>在linux服务器上工作，常常和<code>rm</code>打交道，难免手滑删除了重要的东西。而且linux又没有回收站功能，一旦删错东西真是欲哭无泪。别问我为什么知道，说多了都是泪。<br><strong>主要思路是用<code>mv</code>命令代替<code>rm</code>，将要删除的东西移动到回收站目录。</strong></p>
-<h3 id="新建删除到回收站脚本"><a href="#新建删除到回收站脚本" class="headerlink" title="新建删除到回收站脚本"></a>新建删除到回收站脚本</h3><p><code>mkdir ~/bin</code></p>
-<p><code>vim ~/bin/trash</code>  # 将下面的内容写入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv -v <span class="variable">$@</span> <span class="variable">$&#123;trash_bin&#125;</span></div></pre></td></tr></table></figure></p>
+<h3 id="新建删除到回收站脚本">新建删除到回收站脚本</h3><p><code>mkdir ~/bin</code></p>
+<p><code>vim ~/bin/trash</code>  # 将下面的内容写入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv -v <span class="variable">$@</span> <span class="variable">$&#123;trash_bin&#125;</span></span><br></pre></td></tr></table></figure></p>
 <p><code>chmod +x ~/bin/trash</code>   # 增加执行权限 </p>
-<h3 id="登录时初始化回收站"><a href="#登录时初始化回收站" class="headerlink" title="登录时初始化回收站"></a>登录时初始化回收站</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 将以下内容追加到"~/.bashrc"中，回收站是以每天的日期新建文件夹</span></div><div class="line"></div><div class="line">today=$(date <span class="string">"+%Y%m%d"</span>)  <span class="comment"># 形如20160606格式的日期</span></div><div class="line"></div><div class="line">trash_bin=<span class="string">"/tmp/trash/<span class="variable">$&#123;today&#125;</span>"</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> [ ! <span class="_">-d</span> <span class="string">"/tmp/trash"</span> ]; <span class="keyword">then</span></div><div class="line">    mkdir <span class="string">"/tmp/trash"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> [ ! <span class="_">-d</span> <span class="variable">$&#123;trash_bin&#125;</span> ]; <span class="keyword">then</span></div><div class="line">    mkdir <span class="variable">$&#123;trash_bin&#125;</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="built_in">export</span> trash_bin   <span class="comment"># 加入环境变量</span></div><div class="line"></div><div class="line"><span class="built_in">alias</span> rm=<span class="string">"~/bin/trash"</span></div></pre></td></tr></table></figure>
+<h3 id="登录时初始化回收站">登录时初始化回收站</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将以下内容追加到"~/.bashrc"中，回收站是以每天的日期新建文件夹</span></span><br><span class="line"></span><br><span class="line">today=$(date <span class="string">"+%Y%m%d"</span>)  <span class="comment"># 形如20160606格式的日期</span></span><br><span class="line"></span><br><span class="line">trash_bin=<span class="string">"/tmp/trash/<span class="variable">$&#123;today&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-d</span> <span class="string">"/tmp/trash"</span> ]; <span class="keyword">then</span></span><br><span class="line">    mkdir <span class="string">"/tmp/trash"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-d</span> <span class="variable">$&#123;trash_bin&#125;</span> ]; <span class="keyword">then</span></span><br><span class="line">    mkdir <span class="variable">$&#123;trash_bin&#125;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> trash_bin   <span class="comment"># 加入环境变量</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">alias</span> rm=<span class="string">"~/bin/trash"</span></span><br></pre></td></tr></table></figure>
 
         
         
@@ -476,17 +605,17 @@
     <div class="article-content">
         
         <p>文如其名，是由91篇关系不是很紧密的python文章集合而成<br>这本书和国内很多技术类书籍一样，排版的代码缩进很有问题，还有文章有些观点并不正确。<br>除此之外，还是有很多有用的知识点，需要读者自己辨别。</p>
-<h3 id="Python的包和模块规范"><a href="#Python的包和模块规范" class="headerlink" title="Python的包和模块规范"></a>Python的包和模块规范</h3><p>结构日益规范化。现在的库或框架跟随了以下潮流：</p>
+<h3 id="Python的包和模块规范">Python的包和模块规范</h3><p>结构日益规范化。现在的库或框架跟随了以下潮流：</p>
 <ul>
 <li>包和模块的命名采用小写、单数形式，而且短小。</li>
 <li>包通常仅作为命名空间，如只包含空的<code>__init__</code>.py文件。</li>
 </ul>
-<h3 id="x-y-y-x赋值"><a href="#x-y-y-x赋值" class="headerlink" title="x, y=y, x赋值"></a>x, y=y, x赋值</h3><p>Python表达式计算的顺序说起。一般情况下Python表达式的计算顺序是从左到右，但遇到表达式赋值的时候表达式右边的操作数先于左边的操作数计算，因此表达式<code>expr3, expr4=exprl, expr2</code>的计算顺序是<code>exprl, expr2 —&gt; expr3, expr4</code>。因此对于表达式<code>x, y=y, x</code>,其在内存中执行的顺序如下：</p>
+<h3 id="x,_y=y,_x赋值">x, y=y, x赋值</h3><p>Python表达式计算的顺序说起。一般情况下Python表达式的计算顺序是从左到右，但遇到表达式赋值的时候表达式右边的操作数先于左边的操作数计算，因此表达式<code>expr3, expr4=exprl, expr2</code>的计算顺序是<code>exprl, expr2 —&gt; expr3, expr4</code>。因此对于表达式<code>x, y=y, x</code>,其在内存中执行的顺序如下：</p>
 <ol>
 <li>先计算右边的表达式<code>y,x</code>,因此先在内存中创建元组<code>(y,x)</code>，其标示符和值分别为y、x及其对应的值，其中y和x是在初始化时已经存在于内存中的对象。</li>
 <li>计算表达式左边的值并进行赋值，元组被依次分配给左边的标示符，通过解压缩(unpacking),元组第一标识符（为y)分配给左边第一个元素（此时为X)，元组第二个标识符(为x)分配给第二个元素（此时为y),从而达到x、y值交换的目的。</li>
 </ol>
-<h3 id="提高and、or表达式的效率"><a href="#提高and、or表达式的效率" class="headerlink" title="提高and、or表达式的效率"></a>提高and、or表达式的效率</h3><p>python的and、or表达式并不会将每个值都算出，一旦整个表达式的值已知，其他部分就不会被计算，并且返回最后计算的那个值。<br>因此，在编程过程中，如果对于or条件表达式应该将<code>值为真可能性较高的变量</code>写在or的前面；<br>而对于and则相反，应该推后。</p>
+<h3 id="提高and、or表达式的效率">提高and、or表达式的效率</h3><p>python的and、or表达式并不会将每个值都算出，一旦整个表达式的值已知，其他部分就不会被计算，并且返回最后计算的那个值。<br>因此，在编程过程中，如果对于or条件表达式应该将<code>值为真可能性较高的变量</code>写在or的前面；<br>而对于and则相反，应该推后。</p>
         
         
         <p class="article-more-link">
@@ -697,7 +826,7 @@
     <div class="article-content">
         
         <p>　　对于初学者来说，python的类变量（也就是java中的静态变量）和实例变量（也就是属性）有一些很容易混淆的地方，同时对这些特性深入了解有助于理解python的面向对象思想。</p>
-<h3 id="类变量与实例变量区分"><a href="#类变量与实例变量区分" class="headerlink" title="类变量与实例变量区分"></a>类变量与实例变量区分</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">ClassA</span><span class="params">(object)</span>:</span>  <span class="comment"># 1</span></div><div class="line"><span class="meta">... </span>    num1 = <span class="number">1</span>  <span class="comment"># 类变量</span></div><div class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line"><span class="meta">... </span>        self.num2 = <span class="number">2</span>  <span class="comment"># 实例变量，或者说属性</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>a1 = ClassA()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1</div><div class="line"><span class="number">1</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>ClassA.num1</div><div class="line"><span class="number">1</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 2</span></div><div class="line"><span class="keyword">True</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1 = <span class="number">3</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 3</span></div><div class="line"><span class="keyword">False</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>a1.__class__.num1</div><div class="line"><span class="number">1</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>a1.__class__.num1 = <span class="number">4</span>  <span class="comment"># 4</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>ClassA.num1</div><div class="line"><span class="number">4</span></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>a2 = ClassA()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>a2.num1</div><div class="line"><span class="number">4</span></div></pre></td></tr></table></figure>
+<h3 id="类变量与实例变量区分">类变量与实例变量区分</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">ClassA</span><span class="params">(object)</span>:</span>  <span class="comment"># 1</span></span><br><span class="line"><span class="prompt">... </span>    num1 = <span class="number">1</span>  <span class="comment"># 类变量</span></span><br><span class="line"><span class="prompt">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="prompt">... </span>        self.num2 = <span class="number">2</span>  <span class="comment"># 实例变量，或者说属性</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1 = ClassA()</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ClassA.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 2</span></span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.num1 = <span class="number">3</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 3</span></span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.__class__.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a1.__class__.num1 = <span class="number">4</span>  <span class="comment"># 4</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ClassA.num1</span><br><span class="line"><span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a2 = ClassA()</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a2.num1</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
 <ol>
 <li>这里我们定义了<code>ClassA</code>类，它有一个类变量<code>num1</code>，还有一个实例变量<code>num2</code>。  </li>
 <li>a1是ClassA的一个实例，当我们写下<code>a1.num1</code>的时候，实际上是引用类变量num1，因此<code>a1.num1 is ClassA.num1</code>值为<code>True</code>。  </li>
@@ -705,7 +834,7 @@
 <li>如果此时还想通过a1访问和改变类变量num1，可以通过<code>a1.__class__.num1</code>来访问。</li>
 </ol>
 <p>以上这些，也适用于<code>staticmethod</code>和<code>classmethod</code>。</p>
-<h3 id="如果ClassA还有父类"><a href="#如果ClassA还有父类" class="headerlink" title="如果ClassA还有父类"></a>如果ClassA还有父类</h3>
+<h3 id="如果ClassA还有父类">如果ClassA还有父类</h3>
         
         
         <p class="article-more-link">
@@ -764,9 +893,9 @@
 </header>
     <div class="article-content">
         
-        <h3 id="占座党乃图书馆通病"><a href="#占座党乃图书馆通病" class="headerlink" title="占座党乃图书馆通病"></a>占座党乃图书馆通病</h3><p>　　凡是条件好一点的图书馆，只要工作人员不禁止，必定有一部分座位因占座党而闲置。<br>　　举我最近去的广州图书馆为例，我早上9点开始自习，到下午5点，占座的人始终没来，而且不是一两次。几乎每次有占座的，很大可能一天都不来。<br>　　这也很好理解，既然需要占座自然是来的意愿不是很强，不来自然是情理之中。人皆有惰性，无可厚非，但座位有限，还是留给需要的人为好。</p>
-<h3 id="在图书馆玩手机很畅快"><a href="#在图书馆玩手机很畅快" class="headerlink" title="在图书馆玩手机很畅快"></a>在图书馆玩手机很畅快</h3><p>　　除占座党之外，手机党和电脑党也是图书馆一大特色，并且与年龄无关。<br>　　今天坐我对面的是个大概60岁的大爷，先是早上来没找到位置坐，把我对面的占座党呵斥了一通，抢了她占的座位。然后等我下午从图书馆出来时，他手上拿的手机还没有放下。既然玩手机，在家里不是更舒服吗，何必呢？学得下就学，不行就回去休息，在这磨洋工除了求个心安之外毫无裨益。<br>　　另外，品行、习惯与年龄没多大关系，不好的不改正，年纪大了还是不好，不过是习惯了而已。俗语说<code>三岁看老</code>，未免夸张了点，十三、二十三看老估计是十拿九稳。<br>　　人呐，还是要对自己有所要求，若是随着年岁的增长而没有丝毫长进，多么可悲，多么可怕。年少时不学好有人教育你，年老了还无长进，无需教育也无人可教育你了。</p>
-<h3 id="免费的终究会被滥用"><a href="#免费的终究会被滥用" class="headerlink" title="免费的终究会被滥用"></a>免费的终究会被滥用</h3><p>　　在卫生间，洗完手，有一人擦手用了接近2米的纸，很大一堆，不知道什么心态。如果你平时在家都是这样使用，我无话可说，但仅因为免费就滥用，未免太下作了。<br>　　免费的东西并不是没有成本，而是一些心存善念的人承担了，因此我们在使用它的时候因心存感激。<br>　　一切免费的物品，如图书馆的座位，如纸巾，如果不能在使用价值或者获取代价上和通常物品加以区分，就不免会被滥用，导致真正需要的人不能得到。<br>　　<strong>而这正是这个世界的可悲之处，所有事物并不是让需要的人得到，而是让有取得优势的人得到。</strong></p>
+        <h3 id="占座党乃图书馆通病">占座党乃图书馆通病</h3><p>　　凡是条件好一点的图书馆，只要工作人员不禁止，必定有一部分座位因占座党而闲置。<br>　　举我最近去的广州图书馆为例，我早上9点开始自习，到下午5点，占座的人始终没来，而且不是一两次。几乎每次有占座的，很大可能一天都不来。<br>　　这也很好理解，既然需要占座自然是来的意愿不是很强，不来自然是情理之中。人皆有惰性，无可厚非，但座位有限，还是留给需要的人为好。</p>
+<h3 id="在图书馆玩手机很畅快">在图书馆玩手机很畅快</h3><p>　　除占座党之外，手机党和电脑党也是图书馆一大特色，并且与年龄无关。<br>　　今天坐我对面的是个大概60岁的大爷，先是早上来没找到位置坐，把我对面的占座党呵斥了一通，抢了她占的座位。然后等我下午从图书馆出来时，他手上拿的手机还没有放下。既然玩手机，在家里不是更舒服吗，何必呢？学得下就学，不行就回去休息，在这磨洋工除了求个心安之外毫无裨益。<br>　　另外，品行、习惯与年龄没多大关系，不好的不改正，年纪大了还是不好，不过是习惯了而已。俗语说<code>三岁看老</code>，未免夸张了点，十三、二十三看老估计是十拿九稳。<br>　　人呐，还是要对自己有所要求，若是随着年岁的增长而没有丝毫长进，多么可悲，多么可怕。年少时不学好有人教育你，年老了还无长进，无需教育也无人可教育你了。</p>
+<h3 id="免费的终究会被滥用">免费的终究会被滥用</h3><p>　　在卫生间，洗完手，有一人擦手用了接近2米的纸，很大一堆，不知道什么心态。如果你平时在家都是这样使用，我无话可说，但仅因为免费就滥用，未免太下作了。<br>　　免费的东西并不是没有成本，而是一些心存善念的人承担了，因此我们在使用它的时候因心存感激。<br>　　一切免费的物品，如图书馆的座位，如纸巾，如果不能在使用价值或者获取代价上和通常物品加以区分，就不免会被滥用，导致真正需要的人不能得到。<br>　　<strong>而这正是这个世界的可悲之处，所有事物并不是让需要的人得到，而是让有取得优势的人得到。</strong></p>
 
         
         
@@ -825,7 +954,7 @@
     <div class="article-content">
         
         <p><strong>re是python中的正则表达式处理模块，本文是为了总结re模块的用法。<br>至于正则表达式的写法可以看<a href="http://deerchao.net/tutorials/regex/regex.htm">正则表达式30分钟入门教程</a></strong></p>
-<h3 id="re-compile"><a href="#re-compile" class="headerlink" title="re.compile"></a>re.compile</h3><p><code>re.complie(pattern, flags=0)</code><br>把正则编译为<code>_sre.SRE_Pattern object</code>对象，在多次匹配的时候可提高运行效率。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>pattern = re.compile(<span class="string">r'\w(o)'</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>)</div><div class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45fc3d9990</span>&gt;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>).group(<span class="number">1</span>)</div><div class="line"><span class="string">'o'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>)</div><div class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45ec0be0a8</span>&gt;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>).group(<span class="number">1</span>)</div><div class="line"><span class="string">'o'</span></div></pre></td></tr></table></figure></p>
+<h3 id="re-compile">re.compile</h3><p><code>re.complie(pattern, flags=0)</code><br>把正则编译为<code>_sre.SRE_Pattern object</code>对象，在多次匹配的时候可提高运行效率。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pattern = re.compile(<span class="string">r'\w(o)'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>)</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45fc3d9990</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>).group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'o'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>)</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45ec0be0a8</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>).group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'o'</span></span><br></pre></td></tr></table></figure></p>
         
         
         <p class="article-more-link">
@@ -886,10 +1015,10 @@
         
         <p>顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。</p>
 <p>假如我现在想在函数运行时输出一些信息</p>
-<h3 id="小学水平"><a href="#小学水平" class="headerlink" title="小学水平"></a>小学水平</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">'`%s` is running...'</span> % func.__name__</div><div class="line">    <span class="keyword">return</span> func</div><div class="line">    </div><div class="line"><span class="meta">@running</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_sum</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">return</span> <span class="string">"I cat't sum right now!"</span></div><div class="line">    </div><div class="line"><span class="keyword">print</span> my_sum()</div></pre></td></tr></table></figure>
-<p>输出<br><figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">`my_sum` is running...</div><div class="line">I cat'<span class="built_in">t</span> <span class="built_in">sum</span> <span class="built_in">right</span> <span class="built_in">now</span>!</div></pre></td></tr></table></figure></p>
+<h3 id="小学水平">小学水平</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'`%s` is running...'</span> % func.__name__</span><br><span class="line">    <span class="keyword">return</span> func</span><br><span class="line">    </span><br><span class="line"><span class="decorator">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_sum</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"I cat't sum right now!"</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">print</span> my_sum()</span><br></pre></td></tr></table></figure>
+<p>输出<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">`my_sum` <span class="keyword">is</span> <span class="property">running</span>...</span><br><span class="line">I cat't sum right now!</span><br></pre></td></tr></table></figure></p>
 <p>要使用装饰器，先得定义一个装饰器函数，然后在需要装饰的函数的前一行使用<code>@</code>符号加上<code>装饰器名称</code>。<br>在这里的效果等效于running(my_sum)()，不过看起来有点别扭。<br><strong>注意：一旦通过<code>@running</code>装饰了函数，不管被装饰函数是否运行，python解释器都会执行一遍<code>running</code>函数。</strong></p>
-<h3 id="中学水平"><a href="#中学水平" class="headerlink" title="中学水平"></a>中学水平</h3><p>上一个装饰器用起来还行，但是有一个致命的问题，它不能装饰带参数的函数。所以我们在装饰器内部定义<code>_wrapper</code>函数，并返回它。这个函数接收所有位置参数<code>*args</code>，和关键字参数<code>*kwargs</code>，在<code>_wrapper</code>内部执行<code>func(*args, **kwargs)</code>。</p>
+<h3 id="中学水平">中学水平</h3><p>上一个装饰器用起来还行，但是有一个致命的问题，它不能装饰带参数的函数。所以我们在装饰器内部定义<code>_wrapper</code>函数，并返回它。这个函数接收所有位置参数<code>*args</code>，和关键字参数<code>*kwargs</code>，在<code>_wrapper</code>内部执行<code>func(*args, **kwargs)</code>。</p>
         
         
         <p class="article-more-link">
@@ -916,132 +1045,6 @@
 	
 	  	<span></span>
 		<a href="/2016/04/27/python中的装饰器/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/27/python中的装饰器/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/04/25/Python包导入/" title="Python项目中包的导入" itemprop="url">Python项目中包的导入</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-04-25T13:00:00.000Z" itemprop="datePublished"> 发表于 2016-04-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">taskman</div><div class="line">├── db<span class="selector-class">.sqlite3</span></div><div class="line">├── manage<span class="selector-class">.py</span></div><div class="line">├── task</div><div class="line">│   ├── __init__<span class="selector-class">.py</span></div><div class="line">│   ├── admin<span class="selector-class">.py</span></div><div class="line">│   ├── models<span class="selector-class">.py</span></div><div class="line">│   ├── urls<span class="selector-class">.py</span></div><div class="line">│   └── views<span class="selector-class">.py</span></div><div class="line">└── man</div><div class="line">    ├── __init__<span class="selector-class">.py</span> </div><div class="line">    ├── settings<span class="selector-class">.py</span> </div><div class="line">    ├── urls<span class="selector-class">.py</span> </div><div class="line">    └── wsgi.py</div></pre></td></tr></table></figure>
-<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>上面的例子是一个Django项目，Python包的导入都是相对于<code>主程序</code>来说的。<br>这个项目的主程序就是<code>manage.py</code>，跟manage.py同级的文件夹（含有<code>__init__.py</code>）如<code>task</code>,<code>man</code>就称之为包，若同级有文件就称之为顶级模块。<br>在这个项目里所有Python包的导入，都应该写完整路径。</p>
-<p>例如在文件<code>/taskman/task/views.py</code>中，想要导入<code>/taskman/man/setting.py</code>，就得这样。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> man.setting <span class="keyword">import</span> some_setting</div><div class="line"><span class="comment"># or </span></div><div class="line"><span class="keyword">from</span> man <span class="keyword">import</span> setting</div></pre></td></tr></table></figure></p>
-<p><b>记住：</b></p>
-<ol>
-<li>所有导入都是根据主程序的路径，然后从完整路径导入包</li>
-<li>主程序应该位于包的最顶层，否则发生<code>ValueError: Attempted relative import in non-package</code></li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/04/25/Python包导入/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/25/Python包导入/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/" title="Python2中UnicodeDecodeError的几种解决办法" itemprop="url">Python2中UnicodeDecodeError的几种解决办法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-04-16T13:45:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>由于在Python2中字符串有两种类型<code>str</code>和<code>unicode</code>，他们都是<code>basestring</code>的子类。<br>str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。<br>而unicode包含了256个ascii码之外还包含其他各个国家的文字的编码，所以unicode的一个字符占用2个字节，这样理论上一共最多可以表示2^16（即65536）个字符，远大于256。<br>utf-8是unicode的一中实现，是unicode的一种编码方式。而且utf-8的编码方式，包含了ascii码的内容，也就是utf-8兼容ascii。<br>打个比方，unicode是商品，utf-8就是打包好的一个个包裹(encode)，打包是为了传输和储存的方便。而不同的编码之间不能直接互相转换，都需要转成unicode，也就是decode。<br>所以碰到一个str，你就得明白它是encode过的，你得调用相应的decode方法才不会乱码。<br>python2解释器的默认编码方式是ascii，如果我们给系统的输入是非ascii编码的字符，系统在尝试解码时就会出现<code>UnicodeDecodeError</code></p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;</span>&gt; s = <span class="string">'2'</span></div><div class="line"><span class="meta">&gt;&gt;</span>&gt; u = u<span class="string">'2'</span></div><div class="line"><span class="meta">&gt;&gt;</span>&gt; type(s)</div><div class="line">&lt;type <span class="string">'str'</span>&gt;</div><div class="line"><span class="meta">&gt;&gt;</span>&gt; type(u)</div><div class="line">&lt;type <span class="string">'unicode'</span>&gt;</div><div class="line"><span class="meta">&gt;&gt;</span>&gt; issubclass(str,basestring)</div><div class="line"><span class="meta">&gt;&gt;</span>&gt; issubclass(unicode,basestring)</div><div class="line">True</div><div class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="string">'啊'</span>.decode(<span class="string">'ascii'</span>)</div><div class="line">Traceback (most recent call last):</div><div class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;<span class="class"><span class="keyword">module</span>&gt;</span></div><div class="line"><span class="symbol">UnicodeDecodeError:</span> <span class="string">'ascii'</span> codec can<span class="string">'t decode byte 0xe5 in position 0: ordinal not in range(128)</div><div class="line">'</span>ascii<span class="string">' codec can'</span>t decode byte <span class="number">0xe5</span> <span class="keyword">in</span> position <span class="number">0</span>: ordinal <span class="keyword">not</span> <span class="keyword">in</span> range(<span class="number">128</span>)</div></pre></td></tr></table></figure>
-<h3 id="几种解决方法"><a href="#几种解决方法" class="headerlink" title="几种解决方法"></a>几种解决方法</h3>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/#more">查看全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/Python中UnicodeDecodeError的几种解决办法/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

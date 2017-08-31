@@ -31,7 +31,7 @@
     <link rel="apple-touch-icon" href="/img/jacman.jpg">
     <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
     
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
 
   <body>
@@ -83,6 +83,132 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/04/25/Python包导入/" title="Python项目中包的导入" itemprop="url">Python项目中包的导入</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-25T13:00:00.000Z" itemprop="datePublished"> 发表于 2016-04-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="例子">例子</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">taskman</span><br><span class="line">├── db<span class="class">.sqlite3</span></span><br><span class="line">├── manage<span class="class">.py</span></span><br><span class="line">├── task</span><br><span class="line">│   ├── __init__<span class="class">.py</span></span><br><span class="line">│   ├── admin<span class="class">.py</span></span><br><span class="line">│   ├── models<span class="class">.py</span></span><br><span class="line">│   ├── urls<span class="class">.py</span></span><br><span class="line">│   └── views<span class="class">.py</span></span><br><span class="line">└── man</span><br><span class="line">    ├── __init__<span class="class">.py</span> </span><br><span class="line">    ├── settings<span class="class">.py</span> </span><br><span class="line">    ├── urls<span class="class">.py</span> </span><br><span class="line">    └── wsgi.py</span><br></pre></td></tr></table></figure>
+<h3 id="说明">说明</h3><p>上面的例子是一个Django项目，Python包的导入都是相对于<code>主程序</code>来说的。<br>这个项目的主程序就是<code>manage.py</code>，跟manage.py同级的文件夹（含有<code>__init__.py</code>）如<code>task</code>,<code>man</code>就称之为包，若同级有文件就称之为顶级模块。<br>在这个项目里所有Python包的导入，都应该写完整路径。</p>
+<p>例如在文件<code>/taskman/task/views.py</code>中，想要导入<code>/taskman/man/setting.py</code>，就得这样。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> man.setting <span class="keyword">import</span> some_setting</span><br><span class="line"><span class="comment"># or </span></span><br><span class="line"><span class="keyword">from</span> man <span class="keyword">import</span> setting</span><br></pre></td></tr></table></figure></p>
+<p><b>记住：</b></p>
+<ol>
+<li>所有导入都是根据主程序的路径，然后从完整路径导入包</li>
+<li>主程序应该位于包的最顶层，否则发生<code>ValueError: Attempted relative import in non-package</code></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/25/Python包导入/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/25/Python包导入/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/" title="Python2中UnicodeDecodeError的几种解决办法" itemprop="url">Python2中UnicodeDecodeError的几种解决办法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-16T13:45:00.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="原理">原理</h3><p>由于在Python2中字符串有两种类型<code>str</code>和<code>unicode</code>，他们都是<code>basestring</code>的子类。<br>str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。<br>而unicode包含了256个ascii码之外还包含其他各个国家的文字的编码，所以unicode的一个字符占用2个字节，这样理论上一共最多可以表示2^16（即65536）个字符，远大于256。<br>utf-8是unicode的一中实现，是unicode的一种编码方式。而且utf-8的编码方式，包含了ascii码的内容，也就是utf-8兼容ascii。<br>打个比方，unicode是商品，utf-8就是打包好的一个个包裹(encode)，打包是为了传输和储存的方便。而不同的编码之间不能直接互相转换，都需要转成unicode，也就是decode。<br>所以碰到一个str，你就得明白它是encode过的，你得调用相应的decode方法才不会乱码。<br>python2解释器的默认编码方式是ascii，如果我们给系统的输入是非ascii编码的字符，系统在尝试解码时就会出现<code>UnicodeDecodeError</code></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; s = <span class="string">'2'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; u = u<span class="string">'2'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; type(s)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; type(u)</span><br><span class="line">&lt;type <span class="string">'unicode'</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; issubclass(str,basestring)</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; issubclass(unicode,basestring)</span><br><span class="line"><span class="constant">True</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; <span class="string">'啊'</span>.decode(<span class="string">'ascii'</span>)</span><br><span class="line"><span class="constant">Traceback</span> (most recent call last)<span class="symbol">:</span></span><br><span class="line">  <span class="constant">File</span> <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;<span class="class"><span class="keyword">module</span>&gt;</span></span><br><span class="line"><span class="constant">UnicodeDecodeError</span><span class="symbol">:</span> <span class="string">'ascii'</span> codec can<span class="string">'t decode byte 0xe5 in position 0: ordinal not in range(128)</span><br><span class="line">'</span>ascii<span class="string">' codec can'</span>t decode byte <span class="number">0xe5</span> <span class="keyword">in</span> position <span class="number">0</span><span class="symbol">:</span> ordinal <span class="keyword">not</span> <span class="keyword">in</span> range(<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="几种解决方法">几种解决方法</h3>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/#more">查看全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/Python中UnicodeDecodeError的几种解决办法/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/04/16/ubuntu静态ip配置/" title="ubuntu静态ip配置" itemprop="url">ubuntu静态ip配置</a>
   </h1>
   <p class="article-author">By
@@ -97,8 +223,8 @@
     <div class="article-content">
         
         <p>以vmware虚拟机为例  </p>
-<h4 id="设置IP"><a href="#设置IP" class="headerlink" title="设置IP"></a>设置IP</h4><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">auto</span> <span class="selector-tag">eth0</span>  # <span class="selector-tag">eth0</span>是网卡名称，你的不一定是这个，可通过<span class="selector-tag">ifconfig</span>查看</div><div class="line"><span class="selector-tag">iface</span> <span class="selector-tag">eth0</span> <span class="selector-tag">inet</span> <span class="selector-tag">static</span></div><div class="line"><span class="selector-tag">address</span> 192<span class="selector-class">.168</span><span class="selector-class">.157</span><span class="selector-class">.129</span>   # 地址</div><div class="line"><span class="selector-tag">gateway</span> 192<span class="selector-class">.168</span><span class="selector-class">.157</span><span class="selector-class">.2</span>    # 网关</div><div class="line"><span class="selector-tag">netmask</span> 255<span class="selector-class">.255</span><span class="selector-class">.255</span><span class="selector-class">.0</span>   # 掩码</div></pre></td></tr></table></figure></p>
-<h4 id="修改DNS"><a href="#修改DNS" class="headerlink" title="修改DNS"></a>修改DNS</h4><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
+<h4 id="设置IP">设置IP</h4><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> eth0  <span class="preprocessor"># eth0是网卡名称，你的不一定是这个，可通过ifconfig查看</span></span><br><span class="line">iface eth0 inet <span class="keyword">static</span></span><br><span class="line">address <span class="number">192.168</span><span class="number">.157</span><span class="number">.129</span>   <span class="preprocessor"># 地址</span></span><br><span class="line">gateway <span class="number">192.168</span><span class="number">.157</span><span class="number">.2</span>    <span class="preprocessor"># 网关</span></span><br><span class="line">netmask <span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span>   <span class="preprocessor"># 掩码</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="修改DNS">修改DNS</h4><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
 
         
         
@@ -158,9 +284,9 @@
         
         <p>如果一个在函数中存在yield关键字，那么这个函数就构成了生成器。生成器是一个函数，它生成一个序列，以便在迭代中使用。<br>调用这个函数，并不会马上开始执行函数体中的代码，而是返回一个生成器对象，通过调用生成器对象的<code>next()</code>方法（python3中是<code>__netx__()</code>）执行函数。</p>
 <p>那么，具体的函数中语句的执行顺序是怎么样的呢？</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x=<span class="number">10</span>)</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">'the beginning of function'</span></div><div class="line">    <span class="keyword">if</span> x &lt;= <span class="number">0</span> <span class="keyword">or</span> <span class="keyword">not</span> isinstance(x, int):</div><div class="line">        <span class="keyword">return</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(x):</div><div class="line">        <span class="keyword">print</span> <span class="string">'before yield'</span>, i</div><div class="line">        <span class="keyword">yield</span> i</div><div class="line">        <span class="keyword">print</span> <span class="string">'after yield'</span>, i</div><div class="line"></div><div class="line">gen = func(<span class="number">2</span>)</div><div class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></div><div class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</div><div class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></div><div class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</div><div class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></div><div class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</div></pre></td></tr></table></figure>
-<p>输出<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">********************</div><div class="line"><span class="keyword">the</span> beginning <span class="keyword">of</span> <span class="function"><span class="keyword">function</span></span></div><div class="line"><span class="keyword">before</span> yield <span class="number">0</span></div><div class="line">-&gt; yielding: <span class="number">0</span></div><div class="line">********************</div><div class="line"><span class="keyword">after</span> yield <span class="number">0</span></div><div class="line"><span class="keyword">before</span> yield <span class="number">1</span></div><div class="line">-&gt; yielding: <span class="number">1</span></div><div class="line">********************</div><div class="line"><span class="keyword">after</span> yield <span class="number">1</span></div><div class="line">Traceback (most recent call <span class="keyword">last</span>):</div><div class="line">  File <span class="string">"D:\Projects\test.py"</span>, <span class="built_in">line</span> <span class="number">28</span>, <span class="keyword">in</span> &lt;module&gt;</div><div class="line">    print <span class="string">'-&gt; yielding: %s'</span> % gen.next()</div><div class="line">StopIteration</div></pre></td></tr></table></figure></p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ol>
+<h3 id="代码">代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'the beginning of function'</span></span><br><span class="line">    <span class="keyword">if</span> x &lt;= <span class="number">0</span> <span class="keyword">or</span> <span class="keyword">not</span> isinstance(x, int):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(x):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'before yield'</span>, i</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'after yield'</span>, i</span><br><span class="line"></span><br><span class="line">gen = func(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br></pre></td></tr></table></figure>
+<p>输出<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">the beginning of function</span><br><span class="line">before yield 0</span><br><span class="line">-&gt; yielding: 0</span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">after yield 0</span><br><span class="line">before yield 1</span><br><span class="line">-&gt; yielding: 1</span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">after yield 1</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"D:\Projects\test.py"</span>, line 28, in <span class="variable">&lt;module&gt;</span></span><br><span class="line">    print '-&gt; yielding: %s' % gen.next()</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
+<h3 id="分析">分析</h3><ol>
 <li>首先运行<code>func(2)</code>，这时函数的所有语句都没有执行，返回一个生成器赋值给<code>gen</code>。</li>
 <li>第一次执行<code>gen.next()</code>，函数从头开始执行，运行完yield语句暂停住了。</li>
 <li>再次运行<code>gen.next()</code>，从停下的地方继续，直到遇到遇到下一个yield，运行完yield语句又暂停住了。</li>
@@ -223,7 +349,7 @@
 </header>
     <div class="article-content">
         
-        <h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>由于最近做Python的linux服务器脚本，经常要同步代码到测试服务器，又不想直接ssh登录到服务器，所以萌生了用git自动同步代码的想法。<br>具体的要求是：测试机是服务器，需要本地一push代码，测试机能实时更新。<br>查阅相关资料发现可以用git的hooks来实现。</p>
+        <h3 id="需求">需求</h3><p>由于最近做Python的linux服务器脚本，经常要同步代码到测试服务器，又不想直接ssh登录到服务器，所以萌生了用git自动同步代码的想法。<br>具体的要求是：测试机是服务器，需要本地一push代码，测试机能实时更新。<br>查阅相关资料发现可以用git的hooks来实现。</p>
         
         
         <p class="article-more-link">
@@ -282,11 +408,11 @@
 </header>
     <div class="article-content">
         
-        <h3 id="一、设置root密码"><a href="#一、设置root密码" class="headerlink" title="一、设置root密码"></a>一、设置root密码</h3><p>运行 <code>sudo passwd</code><br>根据提示输入root帐户密码。</p>
-<h3 id="二、修改lightdm配置文件"><a href="#二、修改lightdm配置文件" class="headerlink" title="二、修改lightdm配置文件"></a>二、修改lightdm配置文件</h3><p>运行 <code>ls /usr/share/lightdm/lightdm.conf.d/ -al</code><br>-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf<br>-rw-r–r– 1 root root   68 12月  3 03:57 50-guest-wrapper.conf<br>-rw-r–r– 1 root root   51 12月  3 03:57 50-xserver-command.conf<br>-rw-r–r– 1 root root  118  4月 16 17:08 <b>60-lightdm-gtk-greeter.conf</b></p>
-<p>就是greeter这个文件，不同的发行版可能名字不同。<br>运行 <code>sudo gedit /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf</code><br>改完以后是这样<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="section">[SeatDefaults]</span></div><div class="line"><span class="attr">autologin-user</span>=root</div><div class="line"><span class="attr">greeter-session</span>=lightdm-gtk-greeter</div><div class="line"><span class="attr">greeter-show-manual-login</span>=<span class="literal">true</span></div><div class="line"><span class="attr">all-guest</span>=<span class="literal">false</span></div></pre></td></tr></table></figure></p>
-<h3 id="三、修改-root-profile"><a href="#三、修改-root-profile" class="headerlink" title="三、修改 /root/.profile"></a>三、修改 <code>/root/.profile</code></h3><p>在刚修改完root权限自动登录后，发现可能开机出现以下提示：</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Error </span>found when loading /root/.profile</div><div class="line">stdin:is not a tty</div><div class="line">…………</div></pre></td></tr></table></figure>
+        <h3 id="一、设置root密码">一、设置root密码</h3><p>运行 <code>sudo passwd</code><br>根据提示输入root帐户密码。</p>
+<h3 id="二、修改lightdm配置文件">二、修改lightdm配置文件</h3><p>运行 <code>ls /usr/share/lightdm/lightdm.conf.d/ -al</code><br>-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf<br>-rw-r–r– 1 root root   68 12月  3 03:57 50-guest-wrapper.conf<br>-rw-r–r– 1 root root   51 12月  3 03:57 50-xserver-command.conf<br>-rw-r–r– 1 root root  118  4月 16 17:08 <b>60-lightdm-gtk-greeter.conf</b></p>
+<p>就是greeter这个文件，不同的发行版可能名字不同。<br>运行 <code>sudo gedit /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf</code><br>改完以后是这样<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[SeatDefaults]</span></span><br><span class="line"><span class="setting">autologin-user=<span class="value">root</span></span></span><br><span class="line"><span class="setting">greeter-session=<span class="value">lightdm-gtk-greeter</span></span></span><br><span class="line"><span class="setting">greeter-show-manual-login=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"><span class="setting">all-guest=<span class="value"><span class="keyword">false</span></span></span></span><br></pre></td></tr></table></figure></p>
+<h3 id="三、修改_/root/-profile">三、修改 <code>/root/.profile</code></h3><p>在刚修改完root权限自动登录后，发现可能开机出现以下提示：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error found <span class="keyword">when</span> loading <span class="regexp">/root/</span>.profile</span><br><span class="line"><span class="attribute">stdin</span>:<span class="keyword">is</span> <span class="keyword">not</span> a tty</span><br><span class="line">…………</span><br></pre></td></tr></table></figure>
 <p>运行 <code>gedit /root/.profile</code><br>打开文件后找到<code>mesg n</code>，将其更改为<code>tty -s &amp;&amp; mesg n</code>。</p>
 
         
@@ -350,7 +476,7 @@
 </header>
     <div class="article-content">
         
-        <h3 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h3><p>童话里经常会看到英雄打败恶人的故事，而且故事里总会有一个类似黑暗森林的场景——要么是一个山洞，要么是一篇森林，要么是另一个星球，反正是英雄不该去的某个地方。当然，一旦反面角色在剧情中出现，你就会发现英雄非得去那片破森林去杀掉坏人。当英雄的总是不得不冒着生命危险进到邪恶森林中去。</p>
+        <h3 id="引子">引子</h3><p>童话里经常会看到英雄打败恶人的故事，而且故事里总会有一个类似黑暗森林的场景——要么是一个山洞，要么是一篇森林，要么是另一个星球，反正是英雄不该去的某个地方。当然，一旦反面角色在剧情中出现，你就会发现英雄非得去那片破森林去杀掉坏人。当英雄的总是不得不冒着生命危险进到邪恶森林中去。</p>
 <p>在面向对象编程中，“继承”就是那片邪恶森林。有经验的程序员知道如何躲开这个恶魔，因为他们知道，在丛林深处的“继承”，其实是邪恶女皇“多重继承”。她喜欢用自己的巨口尖牙吃掉程序员和软件，咀嚼这些堕落者的血肉。不过这片丛林的吸引力是如此的强大，几乎每一个程序员都会进去探险，梦想着提着邪恶女皇的头颅走出丛林，从而声称自己是真正的程序员。你就是无法阻止丛林的魔力，于是你深入其中，而等你冒险结束，九死一生之后，你唯一学到的，就是远远躲开这片破森林，而如果你不得不再进去一次，你会带一支军队。</p>
 <p>有的程序员现在正在丛林里跟邪恶女皇作战，他会对你说你必须进到森林里去。他们这样说其实是因为他们需要你的帮助，因为他们已经无法承受他们自己创建的东西了。</p>
 <p>而对于你来说，你只要记住这一条：<br>大部分使用继承的场合都可以用合成取代，而多级继承则需要不惜一切地避免之。</p>
@@ -412,7 +538,7 @@
 </header>
     <div class="article-content">
         
-        <h3 id="1-番茄工作法简介"><a href="#1-番茄工作法简介" class="headerlink" title="1. 番茄工作法简介"></a>1. 番茄工作法简介</h3><p>番茄工作法（英语：Pomodoro Technique）是一种时间管理法方法，在上世纪八十年代由Francesco Cirillo创立。 该方法使用一个定时器来分割出一个一般为25分钟的工作时间和5分钟的休息时间，而那些时间段被称为pomodori，为意大利语单词 pomodoro（中文：番茄）之复数。</p>
+        <h3 id="1-_番茄工作法简介">1. 番茄工作法简介</h3><p>番茄工作法（英语：Pomodoro Technique）是一种时间管理法方法，在上世纪八十年代由Francesco Cirillo创立。 该方法使用一个定时器来分割出一个一般为25分钟的工作时间和5分钟的休息时间，而那些时间段被称为pomodori，为意大利语单词 pomodoro（中文：番茄）之复数。</p>
 <p>番茄工作法有五个基本步骤：</p>
 <ol>
 <li>决定待完成的任务</li>
@@ -423,7 +549,7 @@
 </ol>
 <p>番茄工作法的关键是规划，追踪，记录，处理，以及可视化。在规划阶段，任务被根据优先级排入”To Do Today” list。 这允许用户预计每个任务的工作量。当每个番茄时结束后，成果会被记录下来以提高参与者的成就感并为未来的自我观察和改进提供原始数据。</p>
 <p>番茄工作法一般与<a href="http://baike.baidu.com/link?url=ZlEFP9gdzCBmRrqAGqClmdyQ3_1t4Op33-tTyXbN_Gw3LRRqU3zmpwowPhW8VSKLriuLGsq8gJD-TJBO40ez_q" target="_blank" rel="external"><code>GTD</code></a>相结合，能取得事半功倍的效果。</p>
-<h3 id="2-工具推荐"><a href="#2-工具推荐" class="headerlink" title="2. 工具推荐"></a>2. 工具推荐</h3><ol>
+<h3 id="2-_工具推荐">2. 工具推荐</h3><ol>
 <li>GTD软件，用于任务规划和记录，推荐<a href="https://www.dida365.com/" target="_blank" rel="external"><code>滴答清单</code></a>或<a href="http://doitim.com/cn/" target="_blank" rel="external"><code>Doit.im</code></a></li>
 <li>小米手环，震动提醒防止打扰别人。</li>
 <li><a href="http://coolapk.com/apk/cz.zdenekhorak.mibandtools" target="_blank" rel="external">米环工具 Mi Band Tools</a></li>
@@ -492,8 +618,8 @@
 </header>
     <div class="article-content">
         
-        <h3 id="git-简介"><a href="#git-简介" class="headerlink" title="git 简介"></a>git 简介</h3><p>git是一个分散式版本控制软件，最初由林纳斯·托瓦兹（Linus Torvalds）創作，於2005年以GPL釋出。最初目的是为更好地管理Linux内核开发而设计。<br>初始版本由Linus大神在两个星期内写出来，之后基本一统文件版本控制的天下。</p>
-<h3 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h3><p>工作区：就是你在电脑里能看到的目录。<br>暂存区：英文叫stage, 或index。一般存放在”git目录”下的index文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。<br>版本库：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。<br>branch：分支，相当于不同的平行世界<br>remote：远程仓库<br>origin：默认的远程仓库名词<br>HEAD：一个指向当前版本号的指针</p>
+        <h3 id="git_简介">git 简介</h3><p>git是一个分散式版本控制软件，最初由林纳斯·托瓦兹（Linus Torvalds）創作，於2005年以GPL釋出。最初目的是为更好地管理Linux内核开发而设计。<br>初始版本由Linus大神在两个星期内写出来，之后基本一统文件版本控制的天下。</p>
+<h3 id="名词解释">名词解释</h3><p>工作区：就是你在电脑里能看到的目录。<br>暂存区：英文叫stage, 或index。一般存放在”git目录”下的index文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。<br>版本库：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。<br>branch：分支，相当于不同的平行世界<br>remote：远程仓库<br>origin：默认的远程仓库名词<br>HEAD：一个指向当前版本号的指针</p>
         
         
         <p class="article-more-link">
@@ -552,18 +678,18 @@
 </header>
     <div class="article-content">
         
-        <h2 id="一、冒泡排序-BubbleSort"><a href="#一、冒泡排序-BubbleSort" class="headerlink" title="一、冒泡排序 BubbleSort"></a>一、冒泡排序 BubbleSort</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>遍历序列，比较两个元素，如果前面的大于后面的就交换两者的位置。其实称之为冒泡排序不如加沉底排序，因为每一轮比较，这一轮轮最大都会被排到序列末尾，其实沉底更为贴切。</p>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+        <h2 id="一、冒泡排序_BubbleSort">一、冒泡排序 BubbleSort</h2><h3 id="介绍">介绍</h3><p>遍历序列，比较两个元素，如果前面的大于后面的就交换两者的位置。其实称之为冒泡排序不如加沉底排序，因为每一轮比较，这一轮轮最大都会被排到序列末尾，其实沉底更为贴切。</p>
+<h3 id="步骤">步骤</h3><ol>
 <li>遍历序列，比较序列的相邻元素，比较n-1次，如果前面的大于后面的就交换两者的位置。</li>
 <li>比较次数减一，重复步骤1</li>
 <li>共遍历n-1次</li>
 </ol>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><ol>
+<h3 id="代码">代码</h3><ol>
 <li><p>原始版本</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(arry)</span>:</span></div><div class="line">    n = len(arry)</div><div class="line">    <span class="keyword">while</span> n &gt; <span class="number">1</span>:</div><div class="line">        n -= <span class="number">1</span></div><div class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(n):</div><div class="line">            <span class="keyword">if</span> arry[x] &gt; arry[x+<span class="number">1</span>]:</div><div class="line">                arry[x], arry[x+<span class="number">1</span>] = arry[x+<span class="number">1</span>], arry[x]</div><div class="line">    <span class="keyword">return</span> arry</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(arry)</span>:</span></span><br><span class="line">    n = len(arry)</span><br><span class="line">    <span class="keyword">while</span> n &gt; <span class="number">1</span>:</span><br><span class="line">        n -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span> arry[x] &gt; arry[x+<span class="number">1</span>]:</span><br><span class="line">                arry[x], arry[x+<span class="number">1</span>] = arry[x+<span class="number">1</span>], arry[x]</span><br><span class="line">    <span class="keyword">return</span> arry</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>改进版本</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(arry)</span>:</span></div><div class="line">    n = len(arry)</div><div class="line">    <span class="keyword">while</span> n &gt; <span class="number">1</span>:</div><div class="line">        n -= <span class="number">1</span></div><div class="line">        swap_flag = <span class="keyword">False</span>  <span class="comment"># 增加一个标记，当排好序后直接退出</span></div><div class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(n):</div><div class="line">            <span class="keyword">if</span> arry[x] &gt; arry[x+<span class="number">1</span>]:</div><div class="line">                arry[x], arry[x+<span class="number">1</span>] = arry[x+<span class="number">1</span>], arry[x]</div><div class="line">                swap_flag = <span class="keyword">True</span></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> swap_flag:</div><div class="line">            <span class="keyword">break</span></div><div class="line">    <span class="keyword">return</span> arry</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(arry)</span>:</span></span><br><span class="line">    n = len(arry)</span><br><span class="line">    <span class="keyword">while</span> n &gt; <span class="number">1</span>:</span><br><span class="line">        n -= <span class="number">1</span></span><br><span class="line">        swap_flag = <span class="keyword">False</span>  <span class="comment"># 增加一个标记，当排好序后直接退出</span></span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span> arry[x] &gt; arry[x+<span class="number">1</span>]:</span><br><span class="line">                arry[x], arry[x+<span class="number">1</span>] = arry[x+<span class="number">1</span>], arry[x]</span><br><span class="line">                swap_flag = <span class="keyword">True</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> swap_flag:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> arry</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
         
@@ -611,6 +737,70 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/01/10/除法在python2和python3中的区别/" title="除法在 python2 和 python3 中的区别" itemprop="url">除法在 python2 和 python3 中的区别</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-10T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="总结">总结</h3><ol>
+<li>python2 中使用<code>from __future__ import division</code>就可以使用python3的除法。</li>
+<li>python2 中<code>/</code>与操作数有关，<code>x / y</code>中x、y都为整型的话，为<code>floor除法</code>，否则为<code>true除法</code>也是日常的除法。</li>
+<li>python3 中<code>/</code>为<code>true除法</code>， 与操作数无关。</li>
+<li><code>//</code>在 python2 与 python3 中并无差别， 都代表<code>floor除法</code></li>
+</ol>
+<h3 id="python3">python3</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">1.6666666666666667</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">1.6666666666666667</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2.0</span></span><br></pre></td></tr></table></figure>
+<h3 id="python2">python2</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>/<span class="number">3</span></span><br><span class="line">-<span class="number">1.6666666666666667</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>-<span class="number">5.0</span>//<span class="number">3</span></span><br><span class="line">-<span class="number">2.0</span></span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/01/10/除法在python2和python3中的区别/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/除法在python2和python3中的区别/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/01/10/python赋值语句小坑/" title="python赋值语句小坑" itemprop="url">python赋值语句小坑</a>
   </h1>
   <p class="article-author">By
@@ -624,16 +814,16 @@
 </header>
     <div class="article-content">
         
-        <pre><code>说到python赋值语句，大家想必一个念头——so easy，不是`lz = &apos;dashabi&apos;`吗。
+        <pre><code>说到<span class="keyword">python</span>赋值语句，大家想必一个念头——<span class="keyword">so</span> easy，不是`lz = <span class="string">'dashabi'</span>`吗。
 确实，easy是easy，里面却有个小坑，虽小，却不易发现。在代码量多的时候，就有点恶心了。
 </code></pre><ul>
-<li><h5 id="正常的语句是这样"><a href="#正常的语句是这样" class="headerlink" title="正常的语句是这样"></a>正常的语句是这样</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>aa </div><div class="line"><span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span></div></pre></td></tr></table></figure>
+<li><h5 id="正常的语句是这样">正常的语句是这样</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa </span><br><span class="line"><span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><h5 id="坑在这里"><a href="#坑在这里" class="headerlink" title="坑在这里"></a>坑在这里</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span>,</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>aa </div><div class="line">(<span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span>,)</div></pre></td></tr></table></figure>
+<li><h5 id="坑在这里">坑在这里</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span>,</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa </span><br><span class="line">(<span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span>,)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <pre><code>看出区别没有，坑的后面有个逗号，平时这逗号没什么卵用，但在赋值语句的末尾会将原来的对象转化为tuple。
-和`aa = (u&apos;这是一个坑&apos;,)`是一样的效果。
+和`aa = (<span class="string">u'这是一个坑'</span>,)`是一样的效果。
 </code></pre>
         
         
@@ -678,70 +868,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/01/10/除法在python2和python3中的区别/" title="除法在 python2 和 python3 中的区别" itemprop="url">除法在 python2 和 python3 中的区别</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-01-10T09:03:00.000Z" itemprop="datePublished"> 发表于 2016-01-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
-<li>python2 中使用<code>from __future__ import division</code>就可以使用python3的除法。</li>
-<li>python2 中<code>/</code>与操作数有关，<code>x / y</code>中x、y都为整型的话，为<code>floor除法</code>，否则为<code>true除法</code>也是日常的除法。</li>
-<li>python3 中<code>/</code>为<code>true除法</code>， 与操作数无关。</li>
-<li><code>//</code>在 python2 与 python3 中并无差别， 都代表<code>floor除法</code></li>
-</ol>
-<h3 id="python3"><a href="#python3" class="headerlink" title="python3"></a>python3</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></div><div class="line"><span class="number">-1.6666666666666667</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></div><div class="line"><span class="number">-2</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></div><div class="line"><span class="number">-1.6666666666666667</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></div><div class="line"><span class="number">-2.0</span></div></pre></td></tr></table></figure>
-<h3 id="python2"><a href="#python2" class="headerlink" title="python2"></a>python2</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></div><div class="line"><span class="number">-2</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></div><div class="line"><span class="number">-2</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></div><div class="line"><span class="number">-1.6666666666666667</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></div><div class="line"><span class="number">-2.0</span></div></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/01/10/除法在python2和python3中的区别/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/10/除法在python2和python3中的区别/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" title="【Chrome扩展】谷歌百度一键搜索修改版" itemprop="url">【Chrome扩展】谷歌百度一键搜索修改版</a>
   </h1>
   <p class="article-author">By
@@ -755,7 +881,7 @@
 </header>
     <div class="article-content">
         
-        <h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h3><p>谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。</p>
+        <h3 id="1-_简介">1. 简介</h3><p>谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。</p>
 <p>详细描述：<br>虽然谷歌比较好用，结果也准确，但搜索中文这方面却也弱了点，百度还是有点用。谷歌百度一键搜索， 在谷歌的页面上搜索百度，在百度页面上搜谷歌，无需切换，无需重新输入搜索词。<br>目前支持http(s)://www.baidu.com, http(s)://www.google.com.hk, http(s)://www.google.com</p>
 <p>创建：2015.11.25<br>作者：ponder.work<br>反馈：190127701@qq.com<br>forked from: raywill/BaiGoogleDu</p>
         
@@ -803,68 +929,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/25/django 登录后的跳转问题/" title="django 登录后的跳转到之前的页面" itemprop="url">django 登录后的跳转到之前的页面</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <pre><code>在开发django网站时发现，用户登录后不能跳转到之前的页面，google了很多答案，讲得也不清楚。
-自己琢磨解决了，以下干货。
-</code></pre><h4 id="1-登录链接"><a href="#1-登录链接" class="headerlink" title="1. 登录链接"></a>1. 登录链接</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span>  <span class="attr">href</span>=<span class="string">"/account/login/?next=&#123;&#123;request.path&#125;&#125;"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
-<h4 id="2-view"><a href="#2-view" class="headerlink" title="2. view"></a>2. view</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(request)</span>:</span></div><div class="line">    next_url = request.REQUEST.get(<span class="string">'next'</span>, <span class="string">'/'</span>)</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</div><div class="line">        <span class="keyword">return</span> render_to_response(<span class="string">'account/login.html'</span>, &#123;<span class="string">'next_url'</span>: next_url&#125;, context_instance=RequestContext(request))</div><div class="line"></div><div class="line">    django_login(request, user)</div><div class="line">    <span class="keyword">return</span> redirect(next_url)</div></pre></td></tr></table></figure>
-<h4 id="3-登录表单"><a href="#3-登录表单" class="headerlink" title="3. 登录表单"></a>3. 登录表单</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/account/login/?next=&#123;&#123;next_url&#125;&#125;"</span> <span class="attr">method</span>=<span class="string">"post"</span> &gt;</span></div><div class="line">&#123;% csrf_token %&#125;</div><div class="line">    用户名<span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"username"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>  <span class="attr">required</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">br</span>&gt;</span></div><div class="line">    密码<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">required</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"登  录"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/11/25/django 登录后的跳转问题/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django 登录后的跳转问题/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2015/11/25/django-admin过滤foreignkey值/" title="django-admin过滤foreignkey值" itemprop="url">django-admin过滤foreignkey值</a>
   </h1>
   <p class="article-author">By
@@ -878,9 +942,9 @@
 </header>
     <div class="article-content">
         
-        <h3 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h3><pre><code>在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
-当然，也可通过自定义form解决该问题。
-</code></pre><h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryOrderItemInline</span><span class="params">(admin.TabularInline)</span>:</span></div><div class="line">    model = FactoryOrderItem</div><div class="line">    fields = (<span class="string">'order_item'</span>, <span class="string">'product_sn'</span>, <span class="string">'style'</span>, <span class="string">'size'</span>, <span class="string">'factory_sn'</span>, <span class="string">'price'</span>, <span class="string">'quantity'</span>, <span class="string">'amount'</span>)</div><div class="line">    extra = <span class="number">1</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">formfield_for_foreignkey</span><span class="params">(self, db_field, request, **kwargs)</span>:</span></div><div class="line">        <span class="keyword">if</span> db_field.name == <span class="string">'order_item'</span>:</div><div class="line">            <span class="keyword">try</span>:</div><div class="line">                parent_obj_id = request.resolver_match.args[<span class="number">0</span>]</div><div class="line">            <span class="keyword">except</span> IndexError: <span class="comment">#仅在新建状态过滤</span></div><div class="line">                kwargs[<span class="string">'queryset'</span>] = OrderItem.objects.filter(order__status=<span class="string">'2'</span>)</div><div class="line">        <span class="keyword">return</span> super(FactoryOrderItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)</div></pre></td></tr></table></figure>
+        <h3 id="问题背景">问题背景</h3><pre><code>在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
+当然，也可通过自定义<span class="keyword">form</span>解决该问题。
+</code></pre><h3 id="解决方案">解决方案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryOrderItemInline</span><span class="params">(admin.TabularInline)</span>:</span></span><br><span class="line">    model = FactoryOrderItem</span><br><span class="line">    fields = (<span class="string">'order_item'</span>, <span class="string">'product_sn'</span>, <span class="string">'style'</span>, <span class="string">'size'</span>, <span class="string">'factory_sn'</span>, <span class="string">'price'</span>, <span class="string">'quantity'</span>, <span class="string">'amount'</span>)</span><br><span class="line">    extra = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">formfield_for_foreignkey</span><span class="params">(self, db_field, request, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> db_field.name == <span class="string">'order_item'</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                parent_obj_id = request.resolver_match.args[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">except</span> IndexError: <span class="comment">#仅在新建状态过滤</span></span><br><span class="line">                kwargs[<span class="string">'queryset'</span>] = OrderItem.objects.filter(order__status=<span class="string">'2'</span>)</span><br><span class="line">        <span class="keyword">return</span> super(FactoryOrderItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)</span><br></pre></td></tr></table></figure>
         
         
         <p class="article-more-link">
@@ -924,27 +988,28 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/18/每个人心中都有个小王子/" title="每个人心中都有个小王子" itemprop="url">每个人心中都有个小王子</a>
+      <a href="/2015/11/25/django 登录后的跳转问题/" title="django 登录后的跳转到之前的页面" itemprop="url">django 登录后的跳转到之前的页面</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-18T12:14:00.000Z" itemprop="datePublished"> 发表于 2015-10-18</time>
+    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>　　下午去看了《小王子》电影，拍得很好，在忠实原著的基础上又有所发展。回来又把原著给温习了一遍，感触颇深。</p>
-<p>　　记得李安在拍《卧虎藏龙》的时候说过<code>每个人心中都有把青冥剑</code>，而我想说<code>每个人心中都有个小王子</code>。</p>
-<p>　　作者说过，这是<code>写给曾经是孩子的成人的童话</code>。所以，不论文章还是电影，都比较有深度，适合我们这些曾经是孩子的人观看。<br>
+        <pre><code>在开发django网站时发现，用户登录后不能跳转到之前的页面，google了很多答案，讲得也不清楚。
+自己琢磨解决了，以下干货。
+</code></pre><h4 id="1-_登录链接">1. 登录链接</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">a</span>  <span class="attribute">href</span>=<span class="value">"/account/login/?next=&#123;&#123;request.path&#125;&#125;"</span>&gt;</span>登录<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-_view">2. view</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(request)</span>:</span></span><br><span class="line">    next_url = request.REQUEST.get(<span class="string">'next'</span>, <span class="string">'/'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        <span class="keyword">return</span> render_to_response(<span class="string">'account/login.html'</span>, &#123;<span class="string">'next_url'</span>: next_url&#125;, context_instance=RequestContext(request))</span><br><span class="line"></span><br><span class="line">    django_login(request, user)</span><br><span class="line">    <span class="keyword">return</span> redirect(next_url)</span><br></pre></td></tr></table></figure>
+<h4 id="3-_登录表单">3. 登录表单</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">form</span> <span class="attribute">action</span>=<span class="value">"/account/login/?next=&#123;&#123;next_url&#125;&#125;"</span> <span class="attribute">method</span>=<span class="value">"post"</span> &gt;</span></span><br><span class="line">&#123;% csrf_token %&#125;</span><br><span class="line">    用户名<span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"username"</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">name</span>=<span class="value">"username"</span>  <span class="attribute">required</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">br</span>&gt;</span></span><br><span class="line">    密码<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">required</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"登  录"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
         
         
         <p class="article-more-link">
-          
-            <a href="/2015/10/18/每个人心中都有个小王子/#more">查看全文</a>
           
        </p>
     </div>
@@ -953,14 +1018,9 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/阅读/">阅读</a>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
 </div>
 
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/读书笔记/">读书笔记</a>
-  </div>
 
 </div>
 
@@ -970,76 +1030,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="/2015/10/18/每个人心中都有个小王子/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/18/每个人心中都有个小王子/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/10/17/《一九八四》读书笔记/" title="《一九八四》读书笔记" itemprop="url">《一九八四》读书笔记</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-10-17T12:05:00.000Z" itemprop="datePublished"> 发表于 2015-10-17</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ul>
-<li><p>简介：政治寓言，可惜在过往历史中已经能找到他的影子了，老大哥、真理部等梗的来源。说的是在1984年世界被三个国家瓜分，他们均高度集权，改变历史，改变语言（所谓新话）；建立健全的监控系统，控制人们的思想和行为。</p>
-</li>
-<li><p>本篇文章仅为测试人工智能的最新研究进展。</p>
-</li>
-</ul>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/10/17/《一九八四》读书笔记/#more">查看全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/阅读/">阅读</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/读书笔记/">读书笔记</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/10/17/《一九八四》读书笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/17/《一九八四》读书笔记/" data-count-type="comments">&nbsp;</a>
+		<a href="/2015/11/25/django 登录后的跳转问题/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django 登录后的跳转问题/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

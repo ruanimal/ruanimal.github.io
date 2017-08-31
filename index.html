@@ -31,7 +31,7 @@
     <link rel="apple-touch-icon" href="/img/jacman.jpg">
     <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
     
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
 
   <body>
@@ -76,6 +76,144 @@
     </header>
     <div id="container">
       <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/30/杂感-1/" title="杂感（1）" itemprop="url">杂感（1）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-30T13:46:13.000Z" itemprop="datePublished"> 发表于 2017-08-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>昨夜偶得春梦一</p>
+<p>早起只有床狼藉</p>
+<p>日有所思夜乃梦</p>
+<p>惊觉独身已忘年</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/随笔/">随笔</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/08/30/杂感-1/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/08/30/杂感-1/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/30/difference-between-python2-and-python3/" title="Python2 与 Python3 的一些区别（未完待续）" itemprop="url">Python2 与 Python3 的一些区别（未完待续）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-30T09:03:00.000Z" itemprop="datePublished"> 发表于 2017-08-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="unicode">unicode</h3><p>Python2</p>
+<ul>
+<li>字符串分 str(‘’) 和 unicode(u’’)</li>
+<li>str，就是以’xxx’形式输入的字符，实际储存的值是xxx经过系统默认字符集encode过的字节串（bytes），如’\xe8\x86\x9c’</li>
+<li>unicode，就是以u’xxx’形式输入的字符，实际储存的值是xxx对应的unicode码， 如u’\u819c’</li>
+<li>str，其实等于python3中的字节串（bytes）</li>
+<li>unicode，其实等于python3中的字符串（str）</li>
+<li>在python2中unicode才是真正的字符串</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'膜法'</span></span><br><span class="line"><span class="string">'\xe8\x86\x9c\xe6\xb3\x95'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">u'膜法'</span></span><br><span class="line"><span class="string">u'\u819c\u6cd5'</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'膜法'</span>.decode(<span class="string">'utf8'</span>)</span><br><span class="line"><span class="string">u'\u819c\u6cd5'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">print</span> <span class="string">u'\u819c\u6cd5'</span></span><br><span class="line">膜法</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">print</span> <span class="string">'\xe8\x86\x9c\xe6\xb3\x95'</span></span><br><span class="line">膜法</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">u'膜法'</span></span><br><span class="line"><span class="string">u'\u819c\u6cd5'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>type(<span class="string">'膜法'</span>)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>type(<span class="string">u'膜法'</span>)</span><br><span class="line">&lt;type <span class="string">'unicode'</span>&gt;</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>Python3</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; '膜法'</span><br><span class="line">'膜法'</span><br><span class="line">&gt;&gt;&gt; '\u819c\u6cd5'</span><br><span class="line">'膜法'</span><br><span class="line">&gt;&gt;&gt; '膜法'.encode('utf8')</span><br><span class="line">b'\xe8\x86\x9c\xe6\xb3\x95'</span><br><span class="line">&gt;&gt;&gt; type('膜法')</span><br><span class="line">&lt;class 'str'&gt;</span><br><span class="line">&gt;&gt;&gt; type(b'\xe8\x86\x9c\xe6\xb3\x95')</span><br><span class="line">&lt;class 'bytes'&gt;</span><br><span class="line">&gt;&gt;&gt; print('\xe8\x86\x9c\xe6\xb3\x95')</span><br><span class="line">èæ³</span><br><span class="line">&gt;&gt;&gt; print(b'\xe8\x86\x9c\xe6\xb3\x95')</span><br><span class="line">b'\xe8\x86\x9c\xe6\xb3\x95'</span><br><span class="line">&gt;&gt;&gt; print(b'\xe8\x86\x9c\xe6\xb3\x95'.decode('utf8'))</span><br><span class="line">膜法</span><br><span class="line">&gt;&gt;&gt; print('\xe8\x86\x9c\xe6\xb3\x95')</span><br><span class="line">èæ³</span><br><span class="line">&gt;&gt;&gt; print(b'\xe8\x86\x9c\xe6\xb3\x95'.decode('utf8'))</span><br><span class="line">膜法</span><br><span class="line">&gt;&gt;&gt; '\xe8\x86\x9c\xe6\xb3\x95'.encode('latin-1')</span><br><span class="line">b'\xe8\x86\x9c\xe6\xb3\x95'</span><br></pre></td></tr></table></figure>
+<h3 id="文件读写">文件读写</h3><p>python2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>subprocess.check_output([<span class="string">'ls'</span>, <span class="string">'/mnt/d'</span>])</span><br><span class="line"><span class="string">'11\n11.txt\n1C63638E19E9\n360\xe6\x9e\x81\xe9\x80\x9f\xe6\xb5\x8f\xe8\xa7\x88\xe5\x99\xa8\xe4\xb8\x8                                                                                                                                          b\xe8\xbd\xbd\nBaiduNetdiskDownload\nBOOTICEx64.exe\nChrome\nDesktop.tar.gz\nDriverGenius\nGames\nJav                                                                                                                                          a\nModOrganizer\nmsys64\nmsys64.7z\nMy Documents\nMyDrivers\nNexus Mod Manager\nnodejs\nNVIDIA\npagef                                                                                                                                          ile.sys\nPortableApps\nProgram Files (x86)\nProjects\nreadme.png\n$RECYCLE.BIN\nSystem Volume Informa                                                                                                                                          tion\ntables.zip\nubuntu\nUsers\nVirtualBox VMs\n\xe6\x96\xb0\xe5\xbb\xba\xe6\x96\x87\xe4\xbb\xb6\xe5                                                                                                                                          \xa4\xb9\n\xe8\xbf\x85\xe9\x9b\xb7\xe4\xb8\x8b\xe8\xbd\xbd\n'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>_.decode(<span class="string">'utf8'</span>)</span><br><span class="line"><span class="string">u'11\n11.txt\n1C63638E19E9\n360\u6781\u901f\u6d4f\u89c8\u5668\u4e0b\u8f7d\nBaiduNetdiskDownload\nBOOT                                                                                                                                          ICEx64.exe\nChrome\nDesktop.tar.gz\nDriverGenius\nGames\nJava\nModOrganizer\nmsys64\nmsys64.7z\nMy Do                                                                                                                                          cuments\nMyDrivers\nNexus Mod Manager\nnodejs\nNVIDIA\npagefile.sys\nPortableApps\nProgram Files (x86                                                                                                                                          )\nProjects\nreadme.png\n$RECYCLE.BIN\nSystem Volume Information\ntables.zip\nubuntu\nUsers\nVirtualB                                                                                                                                          ox VMs\n\u65b0\u5efa\u6587\u4ef6\u5939\n\u8fc5\u96f7\u4e0b\u8f7d\n'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa = open(<span class="string">'/mnt/d/11.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa.readline()</span><br><span class="line"><span class="string">' \xe9\xa9\xb1\xe5\x8a\xa8\xe5\x99\xa8 F \xe4\xb8\xad\xe7\x9a\x84\xe5\x8d\xb7\xe6\x98\xaf 20090108_171210\r\n'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>bb = open(<span class="string">'/mnt/d/11.txt'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>bb.readline()</span><br><span class="line"><span class="string">' \xe9\xa9\xb1\xe5\x8a\xa8\xe5\x99\xa8 F \xe4\xb8\xad\xe7\x9a\x84\xe5\x8d\xb7\xe6\x98\xaf 20090108_171210\r\n'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>cc =  open(<span class="string">'/mnt/d/11_gbk.txt'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>cc.readline()</span><br><span class="line"><span class="string">' \xc7\xfd\xb6\xaf\xc6\xf7 F \xd6\xd0\xb5\xc4\xbe\xed\xca\xc7 20090108_171210'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dd =  open(<span class="string">'/mnt/d/11_gbk.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dd.readline()</span><br><span class="line"><span class="string">' \xc7\xfd\xb6\xaf\xc6\xf7 F \xd6\xd0\xb5\xc4\xbe\xed\xca\xc7 20090108_171210'</span></span><br></pre></td></tr></table></figure>
+<p>python3</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span> aa = open(<span class="string">'/mnt/d/11.txt'</span>, <span class="string">'r'</span>)  <span class="comment"># 11.txt is saved as utf8</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa.readline()</span><br><span class="line"><span class="string">' 驱动器 F 中的卷是 20090108_171210\n'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>bb = open(<span class="string">'/mnt/d/11.txt'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>bb.readline()</span><br><span class="line"><span class="string">b' \xe9\xa9\xb1\xe5\x8a\xa8\xe5\x99\xa8 F \xe4\xb8\xad\xe7\x9a\x84\xe5\x8d\xb7\xe6\x98\xaf 20090108_171210\r\n'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>cc =  open(<span class="string">'/mnt/d/11_gbk.txt'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>cc.readline()</span><br><span class="line"><span class="string">b' \xc7\xfd\xb6\xaf\xc6\xf7 F \xd6\xd0\xb5\xc4\xbe\xed\xca\xc7 20090108_171210'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dd = open(<span class="string">'/mnt/d/11_gbk.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dd.readline()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;ipython-input-10-ba8f5810b020&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    dd.readline()</span><br><span class="line">  File <span class="string">"/home/jayruan/.pyenv/versions/3.6.1/lib/python3.6/codecs.py"</span>, line <span class="number">321</span>, <span class="keyword">in</span> decode</span><br><span class="line">    (result, consumed) = self._buffer_decode(data, self.errors, final)</span><br><span class="line">UnicodeDecodeError: <span class="string">'utf-8'</span> codec can<span class="string">'t decode byte 0xc7 in position 1: invalid continuation byte</span></span><br></pre></td></tr></table></figure>
+<h3 id="语法上区别">语法上区别</h3><h4 id="print">print</h4><p>print 由内置关键字转变为print函数</p>
+<h3 id="一些库的区别">一些库的区别</h3><h4 id="commands">commands</h4><p>commands是python2中用来执行shell命令的一个内置库</p>
+<p>python3 中已移除</p>
+<h4 id="supervisor">supervisor</h4><p>用于进程管理，只支持Python2</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2017/08/30/difference-between-python2-and-python3/#comments" class="ds-thread-count comments-count-link" data-thread-key="2017/08/30/difference-between-python2-and-python3/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
 
    
     
@@ -364,7 +502,7 @@
 </header>
     <div class="article-content">
         
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。</p>
+        <h2 id="简介">简介</h2><p>svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。</p>
         
         
         <p class="article-more-link">
@@ -424,9 +562,9 @@
     <div class="article-content">
         
         <p><em>最近的这些读书笔记基本上都是补的以前的，其实已经近一年没怎么读文学类的书籍了，真是惭愧，自觉面目可憎。<br>工作了毕竟与大学时不同，时间也不那么充裕。而且做的是非本专业的工作，为了三餐，为了果腹，只能多看技术类的书了。<br>文学的先放一放，等稳定了再慢慢补上吧</em></p>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><a href="https://book.douban.com/subject/1966573/">随风而行</a> 是伊朗作家阿巴斯·基阿鲁斯达米的一本诗集。阿巴斯·基阿鲁斯达米不仅仅是为诗人，同时他也是一位电影导演。<br>因此他的短诗有着极强的画面感，诗句隽永富含哲思，使人如临其境。</p>
+<h3 id="简介">简介</h3><p><a href="https://book.douban.com/subject/1966573/">随风而行</a> 是伊朗作家阿巴斯·基阿鲁斯达米的一本诗集。阿巴斯·基阿鲁斯达米不仅仅是为诗人，同时他也是一位电影导演。<br>因此他的短诗有着极强的画面感，诗句隽永富含哲思，使人如临其境。</p>
 <p>下面是本人从中摘录的一些喜欢的。</p>
-<h3 id="摘录"><a href="#摘录" class="headerlink" title="摘录"></a>摘录</h3><p>春风不识字<br>却翻作业本<br>孩子趴在小手上<br>睡得正香</p>
+<h3 id="摘录">摘录</h3><p>春风不识字<br>却翻作业本<br>孩子趴在小手上<br>睡得正香</p>
 <p>飞起再落下<br>落下又飞走<br>蚂蚱的方向<br>只有它知道</p>
 <p>羽绒枕<br>屠害千只小鸟梦</p>
 <p>怎么能<br>老龟活了三百年<br>不知有天<br>
@@ -493,8 +631,8 @@
 </header>
     <div class="article-content">
         
-        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>作者，埃里克·霍弗。本书主要讲述处于群众运动中的个体的心理状态。作者亲身参与过群众运动，发现这些运动的参与者主要是现实生活的失意者。他们抛弃自己本已无可救药的生活，投身于“神圣的”群众运动，化身为伟大集体的一份子，号召自我牺牲以获救赎。阅读本书或许会对中国的革命年代多一些不一样的理解。</p>
-<h3 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h3><p>愈做不好一般事情是人愈的胆大妄为。</p>
+        <h3 id="简介">简介</h3><p>作者，埃里克·霍弗。本书主要讲述处于群众运动中的个体的心理状态。作者亲身参与过群众运动，发现这些运动的参与者主要是现实生活的失意者。他们抛弃自己本已无可救药的生活，投身于“神圣的”群众运动，化身为伟大集体的一份子，号召自我牺牲以获救赎。阅读本书或许会对中国的革命年代多一些不一样的理解。</p>
+<h3 id="笔记">笔记</h3><p>愈做不好一般事情是人愈的胆大妄为。</p>
 <p>希望并不是生命可以寄托的东西。</p>
 <blockquote>
 <p>阮云：除了精进，没有什么可以寄托生命。</p>
@@ -565,13 +703,13 @@
 </header>
     <div class="article-content">
         
-        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>作者：北岛、李陀<br>最早识得北岛这个作家，是因为他的诗句，并为之倾倒。</p>
+        <h3 id="简介">简介</h3><p>作者：北岛、李陀<br>最早识得北岛这个作家，是因为他的诗句，并为之倾倒。</p>
 <pre><code>卑鄙是卑鄙者的通行证，
 高尚是高尚者的墓志铭，
 看吧，在那镀金的天空中，
 飘满了死者弯曲的倒影。
 </code></pre><p>这本书收集了三十篇記憶文字，是作者们对于”上世纪70年代”这一段特殊历史时期的印象和回忆。</p>
-<h3 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h3><p>不知是因为年轻还是饥饿，我们几乎每时每刻低头觅食，仿佛猪狗。</p>
+<h3 id="笔记">笔记</h3><p>不知是因为年轻还是饥饿，我们几乎每时每刻低头觅食，仿佛猪狗。</p>
 <blockquote>
 <p>阮云：我们难以想象的事，却以极平淡的语句说出，让人更加难以承受。</p>
 </blockquote>
@@ -665,7 +803,7 @@
 </header>
     <div class="article-content">
         
-        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>本书讲的的是一些程序员必须了解的数学知识，有些知识点挺有意义的，特别是对于非科班出身的程序员来说。<br>就我的观点来说，一般的程序员需要的数学水平大概是高中就够了，当然要做算法研究大学数学专业水平也不一定够。<br>下文记录本书一些有用知识点，包括一些算法的数学思路，还有有趣的逻辑问题。</p>
+        <h3 id="简介">简介</h3><p>本书讲的的是一些程序员必须了解的数学知识，有些知识点挺有意义的，特别是对于非科班出身的程序员来说。<br>就我的观点来说，一般的程序员需要的数学水平大概是高中就够了，当然要做算法研究大学数学专业水平也不一定够。<br>下文记录本书一些有用知识点，包括一些算法的数学思路，还有有趣的逻辑问题。</p>
         
         
         <p class="article-more-link">
@@ -730,7 +868,7 @@
     <div class="article-content">
         
         <p>本人结合自己使用的感受，推荐以下几十款软件给大家使用，覆盖了日常的大部分使用场景。<br>软件不追新，够用就好，因为软件随着不断更新过度开发的可能性是很大的。<br>资源大部分来自互联网，请知悉相关风险。<br><strong>善用佳软，节约时间，提高效率。</strong></p>
-<h2 id="网页浏览"><a href="#网页浏览" class="headerlink" title="网页浏览"></a>网页浏览</h2><h3 id="Cent-Browser"><a href="#Cent-Browser" class="headerlink" title="Cent Browser"></a>Cent Browser</h3><p>一款基于谷歌浏览器优化的浏览器，本人日用。<br>对谷歌浏览器添加以下优化</p>
+<h2 id="网页浏览">网页浏览</h2><h3 id="Cent_Browser">Cent Browser</h3><p>一款基于谷歌浏览器优化的浏览器，本人日用。<br>对谷歌浏览器添加以下优化</p>
 <ul>
 <li>双击关闭标签页</li>
 <li>快速拖拽</li>
@@ -804,7 +942,7 @@
     <div class="article-content">
         
         <p>主力使用SublimeText3编辑器，将一些常用的快捷键总结一下。</p>
-<h3 id="通用（General）"><a href="#通用（General）" class="headerlink" title="通用（General）"></a>通用（General）</h3><ul>
+<h3 id="通用（General）">通用（General）</h3><ul>
 <li><code>Esc</code> 退出功能，比如退出输出面板</li>
 <li><code>↑↓←→</code>    上下左右移动光标，注意不是不是KJHL！</li>
 <li><code>Alt</code>    显示菜单栏</li>
@@ -987,135 +1125,6 @@
 	
 	  	<span></span>
 		<a href="/2016/06/26/沟通/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/26/沟通/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/22/centos开关机日志分析/" title="centos开关机日志分析" itemprop="url">centos开关机日志分析</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-22T11:52:00.000Z" itemprop="datePublished"> 发表于 2016-06-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>在工作中发现有获取linux具体开关机时间和类型的需求，可以通过分析<code>/var/log/wtmp</code>日志文件得到。<br>通过<code>last -x -F</code>可以将<code>/var/log/wtmp</code>输出以下格式。</p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/06/22/centos开关机日志分析/#more">查看全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/linux/">linux</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/06/22/centos开关机日志分析/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/22/centos开关机日志分析/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/22/python包导入再谈/" title="python包导入再谈" itemprop="url">python包导入再谈</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-22T11:26:00.000Z" itemprop="datePublished"> 发表于 2016-06-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="python包、模块导入的顺序"><a href="#python包、模块导入的顺序" class="headerlink" title="python包、模块导入的顺序"></a>python包、模块导入的顺序</h3><p>包是指含有<code>__init__.py</code>的文件夹，模块就是一个.py文件。<br><strong>python的包和模块是先查找<code>buil-in moudle</code>然后是<code>sys.path</code>这个list里的所有路径。</strong></p>
-<ul>
-<li>sys.path[0]是启动Python解释器的脚本所在路径，比如运行<code>python task/admin.py</code>，sys.path[0]是<code>&#39;/home/code/taskman/task&#39;</code>；如果启动的是是idle,ipython等，sys.path[0]是<code>&#39;&#39;</code>。</li>
-<li>如果sys.path[0]是<code>&#39;&#39;</code>，这个值等于当前工作目录也就是<code>os.getcwd()</code>的值，也就是linux的pwd的值，你可以用<code>os.chdir</code>来改变工作路径。</li>
-<li>sys.path里余下的元素是python环境变量里的一些路径</li>
-</ul>
-<p>还是分析之前的那个例子</p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/06/22/python包导入再谈/#more">查看全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/06/22/python包导入再谈/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/22/python包导入再谈/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

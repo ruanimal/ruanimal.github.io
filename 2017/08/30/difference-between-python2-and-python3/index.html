@@ -1,0 +1,441 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Python2 与 Python3 的一些区别（未完待续） | 逸思杂陈</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Jay.Run">
+    
+
+    
+    <meta name="description" content="unicodePython2
+
+字符串分 str(‘’) 和 unicode(u’’)
+str，就是以’xxx’形式输入的字符，实际储存的值是xxx经过系统默认字符集encode过的字节串（bytes），如’\xe8\x86\x9c’
+unicode，就是以u’xxx’形式输入的字符，实际储存的值是xxx对应的unicode码， 如u’\u819c’
+str，其实等于python3中的字节串（by">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python2 与 Python3 的一些区别（未完待续）">
+<meta property="og:url" content="http://ponder.work/2017/08/30/difference-between-python2-and-python3/index.html">
+<meta property="og:site_name" content="逸思杂陈">
+<meta property="og:description" content="unicodePython2
+
+字符串分 str(‘’) 和 unicode(u’’)
+str，就是以’xxx’形式输入的字符，实际储存的值是xxx经过系统默认字符集encode过的字节串（bytes），如’\xe8\x86\x9c’
+unicode，就是以u’xxx’形式输入的字符，实际储存的值是xxx对应的unicode码， 如u’\u819c’
+str，其实等于python3中的字节串（by">
+<meta property="og:updated_time" content="2017-08-31T00:29:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python2 与 Python3 的一些区别（未完待续）">
+<meta name="twitter:description" content="unicodePython2
+
+字符串分 str(‘’) 和 unicode(u’’)
+str，就是以’xxx’形式输入的字符，实际储存的值是xxx经过系统默认字符集encode过的字节串（bytes），如’\xe8\x86\x9c’
+unicode，就是以u’xxx’形式输入的字符，实际储存的值是xxx对应的unicode码， 如u’\u819c’
+str，其实等于python3中的字节串（by">
+
+    
+    <link rel="alternative" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="逸思杂陈">逸思杂陈</a></h1>
+				<h2 class="blog-motto">人类一思考，上帝就发笑。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/categories/编程">编程</a></li>
+					
+						<li><a href="/categories/阅读">阅读</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:ponder.work">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/30/difference-between-python2-and-python3/" title="Python2 与 Python3 的一些区别（未完待续）" itemprop="url">Python2 与 Python3 的一些区别（未完待续）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-30T09:03:00.000Z" itemprop="datePublished"> 发表于 2017-08-30</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#unicode"><span class="toc-number">1.</span> <span class="toc-text">unicode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件读写"><span class="toc-number">2.</span> <span class="toc-text">文件读写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#语法上区别"><span class="toc-number">3.</span> <span class="toc-text">语法上区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#print"><span class="toc-number">3.1.</span> <span class="toc-text">print</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些库的区别"><span class="toc-number">4.</span> <span class="toc-text">一些库的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#commands"><span class="toc-number">4.1.</span> <span class="toc-text">commands</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#supervisor"><span class="toc-number">4.2.</span> <span class="toc-text">supervisor</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h3 id="unicode">unicode</h3><p>Python2</p>
+<ul>
+<li>字符串分 str(‘’) 和 unicode(u’’)</li>
+<li>str，就是以’xxx’形式输入的字符，实际储存的值是xxx经过系统默认字符集encode过的字节串（bytes），如’\xe8\x86\x9c’</li>
+<li>unicode，就是以u’xxx’形式输入的字符，实际储存的值是xxx对应的unicode码， 如u’\u819c’</li>
+<li>str，其实等于python3中的字节串（bytes）</li>
+<li>unicode，其实等于python3中的字符串（str）</li>
+<li>在python2中unicode才是真正的字符串</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'膜法'</span></span><br><span class="line"><span class="string">'\xe8\x86\x9c\xe6\xb3\x95'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">u'膜法'</span></span><br><span class="line"><span class="string">u'\u819c\u6cd5'</span></span><br><span class="line"></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">'膜法'</span>.decode(<span class="string">'utf8'</span>)</span><br><span class="line"><span class="string">u'\u819c\u6cd5'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">print</span> <span class="string">u'\u819c\u6cd5'</span></span><br><span class="line">膜法</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">print</span> <span class="string">'\xe8\x86\x9c\xe6\xb3\x95'</span></span><br><span class="line">膜法</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="string">u'膜法'</span></span><br><span class="line"><span class="string">u'\u819c\u6cd5'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>type(<span class="string">'膜法'</span>)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>type(<span class="string">u'膜法'</span>)</span><br><span class="line">&lt;type <span class="string">'unicode'</span>&gt;</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>Python3</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; '膜法'</span><br><span class="line">'膜法'</span><br><span class="line">&gt;&gt;&gt; '\u819c\u6cd5'</span><br><span class="line">'膜法'</span><br><span class="line">&gt;&gt;&gt; '膜法'.encode('utf8')</span><br><span class="line">b'\xe8\x86\x9c\xe6\xb3\x95'</span><br><span class="line">&gt;&gt;&gt; type('膜法')</span><br><span class="line">&lt;class 'str'&gt;</span><br><span class="line">&gt;&gt;&gt; type(b'\xe8\x86\x9c\xe6\xb3\x95')</span><br><span class="line">&lt;class 'bytes'&gt;</span><br><span class="line">&gt;&gt;&gt; print('\xe8\x86\x9c\xe6\xb3\x95')</span><br><span class="line">èæ³</span><br><span class="line">&gt;&gt;&gt; print(b'\xe8\x86\x9c\xe6\xb3\x95')</span><br><span class="line">b'\xe8\x86\x9c\xe6\xb3\x95'</span><br><span class="line">&gt;&gt;&gt; print(b'\xe8\x86\x9c\xe6\xb3\x95'.decode('utf8'))</span><br><span class="line">膜法</span><br><span class="line">&gt;&gt;&gt; print('\xe8\x86\x9c\xe6\xb3\x95')</span><br><span class="line">èæ³</span><br><span class="line">&gt;&gt;&gt; print(b'\xe8\x86\x9c\xe6\xb3\x95'.decode('utf8'))</span><br><span class="line">膜法</span><br><span class="line">&gt;&gt;&gt; '\xe8\x86\x9c\xe6\xb3\x95'.encode('latin-1')</span><br><span class="line">b'\xe8\x86\x9c\xe6\xb3\x95'</span><br></pre></td></tr></table></figure>
+<h3 id="文件读写">文件读写</h3><p>python2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>subprocess.check_output([<span class="string">'ls'</span>, <span class="string">'/mnt/d'</span>])</span><br><span class="line"><span class="string">'11\n11.txt\n1C63638E19E9\n360\xe6\x9e\x81\xe9\x80\x9f\xe6\xb5\x8f\xe8\xa7\x88\xe5\x99\xa8\xe4\xb8\x8                                                                                                                                          b\xe8\xbd\xbd\nBaiduNetdiskDownload\nBOOTICEx64.exe\nChrome\nDesktop.tar.gz\nDriverGenius\nGames\nJav                                                                                                                                          a\nModOrganizer\nmsys64\nmsys64.7z\nMy Documents\nMyDrivers\nNexus Mod Manager\nnodejs\nNVIDIA\npagef                                                                                                                                          ile.sys\nPortableApps\nProgram Files (x86)\nProjects\nreadme.png\n$RECYCLE.BIN\nSystem Volume Informa                                                                                                                                          tion\ntables.zip\nubuntu\nUsers\nVirtualBox VMs\n\xe6\x96\xb0\xe5\xbb\xba\xe6\x96\x87\xe4\xbb\xb6\xe5                                                                                                                                          \xa4\xb9\n\xe8\xbf\x85\xe9\x9b\xb7\xe4\xb8\x8b\xe8\xbd\xbd\n'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>_.decode(<span class="string">'utf8'</span>)</span><br><span class="line"><span class="string">u'11\n11.txt\n1C63638E19E9\n360\u6781\u901f\u6d4f\u89c8\u5668\u4e0b\u8f7d\nBaiduNetdiskDownload\nBOOT                                                                                                                                          ICEx64.exe\nChrome\nDesktop.tar.gz\nDriverGenius\nGames\nJava\nModOrganizer\nmsys64\nmsys64.7z\nMy Do                                                                                                                                          cuments\nMyDrivers\nNexus Mod Manager\nnodejs\nNVIDIA\npagefile.sys\nPortableApps\nProgram Files (x86                                                                                                                                          )\nProjects\nreadme.png\n$RECYCLE.BIN\nSystem Volume Information\ntables.zip\nubuntu\nUsers\nVirtualB                                                                                                                                          ox VMs\n\u65b0\u5efa\u6587\u4ef6\u5939\n\u8fc5\u96f7\u4e0b\u8f7d\n'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa = open(<span class="string">'/mnt/d/11.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa.readline()</span><br><span class="line"><span class="string">' \xe9\xa9\xb1\xe5\x8a\xa8\xe5\x99\xa8 F \xe4\xb8\xad\xe7\x9a\x84\xe5\x8d\xb7\xe6\x98\xaf 20090108_171210\r\n'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>bb = open(<span class="string">'/mnt/d/11.txt'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>bb.readline()</span><br><span class="line"><span class="string">' \xe9\xa9\xb1\xe5\x8a\xa8\xe5\x99\xa8 F \xe4\xb8\xad\xe7\x9a\x84\xe5\x8d\xb7\xe6\x98\xaf 20090108_171210\r\n'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>cc =  open(<span class="string">'/mnt/d/11_gbk.txt'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>cc.readline()</span><br><span class="line"><span class="string">' \xc7\xfd\xb6\xaf\xc6\xf7 F \xd6\xd0\xb5\xc4\xbe\xed\xca\xc7 20090108_171210'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dd =  open(<span class="string">'/mnt/d/11_gbk.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dd.readline()</span><br><span class="line"><span class="string">' \xc7\xfd\xb6\xaf\xc6\xf7 F \xd6\xd0\xb5\xc4\xbe\xed\xca\xc7 20090108_171210'</span></span><br></pre></td></tr></table></figure>
+<p>python3</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span> aa = open(<span class="string">'/mnt/d/11.txt'</span>, <span class="string">'r'</span>)  <span class="comment"># 11.txt is saved as utf8</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>aa.readline()</span><br><span class="line"><span class="string">' 驱动器 F 中的卷是 20090108_171210\n'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>bb = open(<span class="string">'/mnt/d/11.txt'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>bb.readline()</span><br><span class="line"><span class="string">b' \xe9\xa9\xb1\xe5\x8a\xa8\xe5\x99\xa8 F \xe4\xb8\xad\xe7\x9a\x84\xe5\x8d\xb7\xe6\x98\xaf 20090108_171210\r\n'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>cc =  open(<span class="string">'/mnt/d/11_gbk.txt'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>cc.readline()</span><br><span class="line"><span class="string">b' \xc7\xfd\xb6\xaf\xc6\xf7 F \xd6\xd0\xb5\xc4\xbe\xed\xca\xc7 20090108_171210'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dd = open(<span class="string">'/mnt/d/11_gbk.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dd.readline()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;ipython-input-10-ba8f5810b020&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    dd.readline()</span><br><span class="line">  File <span class="string">"/home/jayruan/.pyenv/versions/3.6.1/lib/python3.6/codecs.py"</span>, line <span class="number">321</span>, <span class="keyword">in</span> decode</span><br><span class="line">    (result, consumed) = self._buffer_decode(data, self.errors, final)</span><br><span class="line">UnicodeDecodeError: <span class="string">'utf-8'</span> codec can<span class="string">'t decode byte 0xc7 in position 1: invalid continuation byte</span></span><br></pre></td></tr></table></figure>
+<h3 id="语法上区别">语法上区别</h3><h4 id="print">print</h4><p>print 由内置关键字转变为print函数</p>
+<h3 id="一些库的区别">一些库的区别</h3><h4 id="commands">commands</h4><p>commands是python2中用来执行shell命令的一个内置库</p>
+<p>python3 中已移除</p>
+<h4 id="supervisor">supervisor</h4><p>用于进程管理，只支持Python2</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ponder.work/2017/08/30/difference-between-python2-and-python3/" data-title="Python2 与 Python3 的一些区别（未完待续） | 逸思杂陈" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/08/30/杂感-1/" title="杂感（1）">
+  <strong>上一篇：</strong><br/>
+  <span>
+  杂感（1）</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/03/12/movie-huozhe/"  title="电影《活着》随感">
+ <strong>下一篇：</strong><br/> 
+ <span>电影《活着》随感
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/08/30/difference-between-python2-and-python3/" data-title="Python2 与 Python3 的一些区别（未完待续）" data-url="http://ponder.work/2017/08/30/difference-between-python2-and-python3/"></div>
+</section>
+
+
+</div>  
+    </div>
+    <footer><div id="footer" >
+	
+	<section class="info">
+		<p> Life is short, play more!</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="Jay.Run">Jay.Run</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ponder"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

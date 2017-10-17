@@ -83,6 +83,70 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/04/27/python中的装饰器/" title="Python中的装饰器（decorator）" itemprop="url">Python中的装饰器（decorator）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-27T12:37:00.000Z" itemprop="datePublished"> 发表于 2016-04-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。</p>
+<p>假如我现在想在函数运行时输出一些信息</p>
+<h3 id="小学水平">小学水平</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'`%s` is running...'</span> % func.__name__</span><br><span class="line">    <span class="keyword">return</span> func</span><br><span class="line">    </span><br><span class="line"><span class="decorator">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_sum</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"I cat't sum right now!"</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">print</span> my_sum()</span><br></pre></td></tr></table></figure>
+<p>输出<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">`my_sum` <span class="keyword">is</span> <span class="property">running</span>...</span><br><span class="line">I cat't sum right now!</span><br></pre></td></tr></table></figure></p>
+<p>要使用装饰器，先得定义一个装饰器函数，然后在需要装饰的函数的前一行使用<code>@</code>符号加上<code>装饰器名称</code>。<br>在这里的效果等效于running(my_sum)()，不过看起来有点别扭。<br><strong>注意：一旦通过<code>@running</code>装饰了函数，不管被装饰函数是否运行，python解释器都会执行一遍<code>running</code>函数。</strong></p>
+<h3 id="中学水平">中学水平</h3><p>上一个装饰器用起来还行，但是有一个致命的问题，它不能装饰带参数的函数。所以我们在装饰器内部定义<code>_wrapper</code>函数，并返回它。这个函数接收所有位置参数<code>*args</code>，和关键字参数<code>*kwargs</code>，在<code>_wrapper</code>内部执行<code>func(*args, **kwargs)</code>。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/04/27/python中的装饰器/#more">查看全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/27/python中的装饰器/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/27/python中的装饰器/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/04/25/Python包导入/" title="Python项目中包的导入" itemprop="url">Python项目中包的导入</a>
   </h1>
   <p class="article-author">By
@@ -969,68 +1033,6 @@
 	
 	  	<span></span>
 		<a href="/2015/11/25/django-admin过滤foreignkey值/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django-admin过滤foreignkey值/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/11/25/django 登录后的跳转问题/" title="django 登录后的跳转到之前的页面" itemprop="url">django 登录后的跳转到之前的页面</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2015-11-25T12:57:00.000Z" itemprop="datePublished"> 发表于 2015-11-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <pre><code>在开发django网站时发现，用户登录后不能跳转到之前的页面，google了很多答案，讲得也不清楚。
-自己琢磨解决了，以下干货。
-</code></pre><h4 id="1-_登录链接">1. 登录链接</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">a</span>  <span class="attribute">href</span>=<span class="value">"/account/login/?next=&#123;&#123;request.path&#125;&#125;"</span>&gt;</span>登录<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-_view">2. view</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(request)</span>:</span></span><br><span class="line">    next_url = request.REQUEST.get(<span class="string">'next'</span>, <span class="string">'/'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        <span class="keyword">return</span> render_to_response(<span class="string">'account/login.html'</span>, &#123;<span class="string">'next_url'</span>: next_url&#125;, context_instance=RequestContext(request))</span><br><span class="line"></span><br><span class="line">    django_login(request, user)</span><br><span class="line">    <span class="keyword">return</span> redirect(next_url)</span><br></pre></td></tr></table></figure>
-<h4 id="3-_登录表单">3. 登录表单</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">form</span> <span class="attribute">action</span>=<span class="value">"/account/login/?next=&#123;&#123;next_url&#125;&#125;"</span> <span class="attribute">method</span>=<span class="value">"post"</span> &gt;</span></span><br><span class="line">&#123;% csrf_token %&#125;</span><br><span class="line">    用户名<span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"username"</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">name</span>=<span class="value">"username"</span>  <span class="attribute">required</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">br</span>&gt;</span></span><br><span class="line">    密码<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">required</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">value</span>=<span class="value">"登  录"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/11/25/django 登录后的跳转问题/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/25/django 登录后的跳转问题/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

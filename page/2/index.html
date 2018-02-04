@@ -83,6 +83,83 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/06/30/禅者的初心2笔记/" title="《禅者的初心2》读书笔记" itemprop="url">《禅者的初心2》读书笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-29T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-06-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>　　诸行无常是你于此世遭受痛苦、挫折的原因。</p>
+<p>　　如果你能缓慢地行走，没有任何想要获得什么的念头，便已经是一名优秀的禅门弟子。</p>
+<p>　　入道之门屏息外界的诸多攀援之物，并止内在的情绪与妄念，当你变成一块砖或一面石墙，你便入了道。</p>
+<p>　　虽然由你的推想，你可以有一种试验性的理解；然而，你应该由经验而理解空性。</p>
+<p>　　叙述出来的并不是真正是实相，而当你认为它是实相时，已经包含你个人的观念和想法，那是一个自我的概念。</p>
+<p>　　大小方圆，并不属于现实实相，它们仅仅是观念，这就是空去水杯的含义。（忘记已有的观念）</p>
+<p>　　当我们分析一己的经验时，就产生了时间或空间大或小、重或轻的概念；某种的衡量尺度是必要的；以我们心中的各色各样的衡量尺度，我们经历着事物。然而事物本身并不存在衡量尺度，那是我们强加到实相上的。</p>
+<blockquote>
+<p>阮云：先生未生之前各种尺度何在，又何必头上安头。</p>
+</blockquote>
+<p>　　我们有无限的痛苦，因为我们有无限的欲望。</p>
+<blockquote>
+<p>阮云：因欲生贪，因欲生嗔，贪嗔既久，陈陈相因，愚痴无救。</p>
+</blockquote>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2016/06/30/禅者的初心2笔记/#more">查看全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/阅读/">阅读</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/读书笔记/">读书笔记</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/06/30/禅者的初心2笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/30/禅者的初心2笔记/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/06/26/沟通/" title="沟通" itemprop="url">沟通</a>
   </h1>
   <p class="article-author">By
@@ -1005,66 +1082,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/05/08/Python中re模块的用法/" title="Python中re模块的用法" itemprop="url">Python中re模块的用法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-05-08T13:37:00.000Z" itemprop="datePublished"> 发表于 2016-05-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><strong>re是python中的正则表达式处理模块，本文是为了总结re模块的用法。<br>至于正则表达式的写法可以看<a href="http://deerchao.net/tutorials/regex/regex.htm">正则表达式30分钟入门教程</a></strong></p>
-<h3 id="re-compile">re.compile</h3><p><code>re.complie(pattern, flags=0)</code><br>把正则编译为<code>_sre.SRE_Pattern object</code>对象，在多次匹配的时候可提高运行效率。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pattern = re.compile(<span class="string">r'\w(o)'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>)</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45fc3d9990</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>).group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'o'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>)</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45ec0be0a8</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>).group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'o'</span></span><br></pre></td></tr></table></figure></p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/05/08/Python中re模块的用法/#more">查看全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/编程/">编程</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/05/08/Python中re模块的用法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/08/Python中re模块的用法/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
@@ -1094,7 +1111,7 @@
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
 		
 		<a href="/about" target="_blank" title="Jay.Run">Jay.Run</a>
 		

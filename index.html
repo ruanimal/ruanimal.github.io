@@ -83,6 +83,68 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2018/02/04/run-python-from-explorer/" title="从windows资源管理器启动Python脚本" itemprop="url">从windows资源管理器启动Python脚本</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
+		
+  <p class="article-time">
+    <time datetime="2018-02-04T02:40:00.000Z" itemprop="datePublished"> 发表于 2018-02-04</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>有时想给windows的资源管理器增加一些自定义的功能，比如创建目录联接到某个目录。</p>
+<h3 id="思路">思路</h3><p>给windows的资源管理器添加一个右键菜单，调用你想要运行的程序或脚本，理论上可以实现任意功能。</p>
+<h3 id="实现">实现</h3><p><strong>那么我们就开始py一个脚本吧, 创建目录联接到指定目录</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os, sys, subprocess</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> len(sys.argv) &lt; <span class="number">2</span>:</span><br><span class="line">    exit()</span><br><span class="line"></span><br><span class="line">p = sys.argv[<span class="number">1</span>]  <span class="comment"># 目标路径通过命令行参数传入</span></span><br><span class="line">base_dir, name = os.path.split(p)</span><br><span class="line"></span><br><span class="line">si = subprocess.STARTUPINFO()</span><br><span class="line">si.dwFlags |= subprocess.STARTF_USESHOWWINDOW   <span class="comment"># 隐藏subprocess运行的命令窗口</span></span><br><span class="line">cmd = <span class="string">'mklink /J &#123;&#125; &#123;&#125;'</span>.format(os.path.join(<span class="string">'E:\\share'</span>, name), p)</span><br><span class="line">subprocess.call(cmd, startupinfo=si, shell=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2018/02/04/run-python-from-explorer/#more">查看全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/编程/">编程</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2018/02/04/run-python-from-explorer/#comments" class="ds-thread-count comments-count-link" data-thread-key="2018/02/04/run-python-from-explorer/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/10/17/无常迅速/" title="无常迅速" itemprop="url">无常迅速</a>
   </h1>
   <p class="article-author">By
@@ -1052,83 +1114,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/06/30/禅者的初心2笔记/" title="《禅者的初心2》读书笔记" itemprop="url">《禅者的初心2》读书笔记</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Jay.Run" target="_blank" itemprop="author">Jay.Run</a>
-		
-  <p class="article-time">
-    <time datetime="2016-06-29T16:00:00.000Z" itemprop="datePublished"> 发表于 2016-06-30</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>　　诸行无常是你于此世遭受痛苦、挫折的原因。</p>
-<p>　　如果你能缓慢地行走，没有任何想要获得什么的念头，便已经是一名优秀的禅门弟子。</p>
-<p>　　入道之门屏息外界的诸多攀援之物，并止内在的情绪与妄念，当你变成一块砖或一面石墙，你便入了道。</p>
-<p>　　虽然由你的推想，你可以有一种试验性的理解；然而，你应该由经验而理解空性。</p>
-<p>　　叙述出来的并不是真正是实相，而当你认为它是实相时，已经包含你个人的观念和想法，那是一个自我的概念。</p>
-<p>　　大小方圆，并不属于现实实相，它们仅仅是观念，这就是空去水杯的含义。（忘记已有的观念）</p>
-<p>　　当我们分析一己的经验时，就产生了时间或空间大或小、重或轻的概念；某种的衡量尺度是必要的；以我们心中的各色各样的衡量尺度，我们经历着事物。然而事物本身并不存在衡量尺度，那是我们强加到实相上的。</p>
-<blockquote>
-<p>阮云：先生未生之前各种尺度何在，又何必头上安头。</p>
-</blockquote>
-<p>　　我们有无限的痛苦，因为我们有无限的欲望。</p>
-<blockquote>
-<p>阮云：因欲生贪，因欲生嗔，贪嗔既久，陈陈相因，愚痴无救。</p>
-</blockquote>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/06/30/禅者的初心2笔记/#more">查看全文</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/阅读/">阅读</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/读书笔记/">读书笔记</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/06/30/禅者的初心2笔记/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/06/30/禅者的初心2笔记/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -1158,7 +1143,7 @@
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
 		
 		<a href="/about" target="_blank" title="Jay.Run">Jay.Run</a>
 		

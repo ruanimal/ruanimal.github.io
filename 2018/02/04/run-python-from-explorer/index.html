@@ -23,9 +23,9 @@
 思路给windows的资源管理器添加一个右键菜单，调用你想要运行的程序或脚本，理论上可以实现任意功能。
 实现那么我们就开始py一个脚本吧, 创建目录联接到指定目录
 123456789101112import os, sys, subprocessif len(sys.argv) &amp;lt; 2:    exit()">
-<meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/18-2-4/77007025.jpg">
-<meta property="og:image" content="http://7xn7zc.com1.z0.glb.clouddn.com/18-2-4/54072201.jpg">
-<meta property="og:updated_time" content="2018-02-04T08:31:07.000Z">
+<meta property="og:image" content="http://image.runjf.com/18-2-4/77007025.jpg">
+<meta property="og:image" content="http://image.runjf.com/18-2-4/54072201.jpg">
+<meta property="og:updated_time" content="2018-12-22T04:06:15.188Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从windows资源管理器启动Python脚本">
 <meta name="twitter:description" content="有时想给windows的资源管理器增加一些自定义的功能，比如创建目录联接到某个目录。
@@ -121,7 +121,7 @@
 <p><strong>修改注册表,添加右键菜单</strong></p>
 <p>复制这段保存为 add_to_share.reg 双击执行导入</p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line"><span class="special">[</span>HKEY_CLASSES_ROOT<span class="command">\Directory</span><span class="command">\shell</span><span class="command">\share</span><span class="special">]</span></span><br><span class="line">@="添加到共享文件夹"</span><br><span class="line"></span><br><span class="line"><span class="special">[</span>HKEY_CLASSES_ROOT<span class="command">\Directory</span><span class="command">\shell</span><span class="command">\share</span><span class="command">\command</span><span class="special">]</span></span><br><span class="line">@="<span class="command">\"</span>D:<span class="command">\\</span>lib<span class="command">\\</span>python3<span class="command">\\</span>pythonw.exe<span class="command">\"</span> <span class="command">\"</span>D:<span class="command">\\</span>Scripts<span class="command">\\</span>link_to_share.py<span class="command">\"</span> <span class="command">\"</span><span class="comment">%1\""</span></span><br><span class="line">; D:<span class="command">\\</span>lib<span class="command">\\</span>python3<span class="command">\\</span>pythonw.exe 这是python解释器路径, pythonw.exe 执行时不会有解释器窗口</span><br><span class="line">; D:<span class="command">\\</span>Scripts<span class="command">\\</span>link_to_share.py 脚本路径</span><br><span class="line">; <span class="comment">%1 选中的文件夹全路径</span></span><br></pre></td></tr></table></figure>
-<h3 id="效果">效果</h3><p><img src="http://7xn7zc.com1.z0.glb.clouddn.com/18-2-4/77007025.jpg" alt=""><br><img src="http://7xn7zc.com1.z0.glb.clouddn.com/18-2-4/54072201.jpg" alt=""></p>
+<h3 id="效果">效果</h3><p><img src="http://image.runjf.com/18-2-4/77007025.jpg" alt=""><br><img src="http://image.runjf.com/18-2-4/54072201.jpg" alt=""></p>
   
 	</div>
 		<footer class="article-footer clearfix">

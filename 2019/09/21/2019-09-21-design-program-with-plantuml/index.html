@@ -73,7 +73,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/15690396911033.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/15690411434468.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/15690445125047.jpg">
-<meta property="og:updated_time" content="2019-09-21T05:49:46.000Z">
+<meta property="og:updated_time" content="2019-09-21T05:51:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用PlantUML做软件设计">
 <meta name="twitter:description" content="一、Plantuml 是什么？首先得说一下UML，统一建模语言（英语：Unified Modeling Language，缩写 UML）是非专利的第三代和规约语言。 UML涵盖了很多类型的图，主要都是应用于软件开发行业。 在UML系统开发中有三个主要的模型：  功能模型：从用户的角度展示系统的功能，包括用例图。  对象模型：采用对象，属性，操作，关联等概念展示系统的结构和基础，包括类别图、对象图。">
@@ -271,7 +271,7 @@
                 
               
 
-              <time title="创建时间：2019-09-21 09:48:00 / 修改时间：13:49:46" itemprop="dateCreated datePublished" datetime="2019-09-21T09:48:00+08:00">2019-09-21</time>
+              <time title="创建时间：2019-09-21 09:48:00 / 修改时间：13:51:47" itemprop="dateCreated datePublished" datetime="2019-09-21T09:48:00+08:00">2019-09-21</time>
             </span>
           
             
@@ -337,6 +337,7 @@
 </ul>
 <p>而PlantUML是一个开源项目，除了支持快速绘制上面这些类型的图表之外，还支持很多图表，具体查看<a href="http://plantuml.com/zh/index" target="_blank" rel="noopener">官方网站</a>。</p>
 <p>PlantUML通过编写文本的方式来定义UML图表，有点类似markdown，然后生成图表</p>
+<a id="more"></a>
 <p>示例：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">' Split <span class="keyword">into</span> <span class="number">4</span> pages</span><br><span class="line">page <span class="number">2</span>x2</span><br><span class="line">skinparam pageMargin <span class="number">10</span></span><br><span class="line">skinparam pageExternalColor gray</span><br><span class="line">skinparam pageBorderColor black</span><br><span class="line"></span><br><span class="line"><span class="built_in">class</span> BaseClass</span><br><span class="line"></span><br><span class="line">namespace net.dummy <span class="comment">#DDDDDD &#123;</span></span><br><span class="line">	.BaseClass &lt;|<span class="comment">-- Person</span></span><br><span class="line">	Meeting o<span class="comment">-- Person</span></span><br><span class="line">	</span><br><span class="line">	.BaseClass &lt;|- Meeting</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace net.foo &#123;</span><br><span class="line">  net.dummy.Person  &lt;|- Person  </span><br><span class="line">  .BaseClass &lt;|<span class="comment">-- Person</span></span><br><span class="line"></span><br><span class="line">  net.dummy.Meeting o<span class="comment">-- Person</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BaseClass &lt;|<span class="comment">-- net.unused.Person</span></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure></p>
 <p>输出效果<br><img src="http://image.runjf.com/mweb/15690347198367.jpg" alt></p>
 <h2 id="二、环境搭建"><a href="#二、环境搭建" class="headerlink" title="二、环境搭建"></a>二、环境搭建</h2><p>我们需要一个编辑器/IDE来编辑和预览UML图表，这里使用<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">vscode</a></p>

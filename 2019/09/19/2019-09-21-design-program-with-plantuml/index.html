@@ -56,19 +56,19 @@
   };
 </script>
 
-  <meta name="description" content="例子1234567891011121314taskman├── db.sqlite3├── manage.py├── task│   ├── __init__.py│   ├── admin.py│   ├── models.py│   ├── urls.py│   └── views.py└── man    ├── __init__.py     ├── settings.py     ├──">
+  <meta name="description" content="学习 思考 行动 Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python项目中包的导入">
-<meta property="og:url" content="http://ponder.work/2016/04/25/Python包导入/index.html">
+<meta property="og:title" content="使用Plantuml做软件设计">
+<meta property="og:url" content="http://ponder.work/2019/09/19/2019-09-21-design-program-with-plantuml/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="例子1234567891011121314taskman├── db.sqlite3├── manage.py├── task│   ├── __init__.py│   ├── admin.py│   ├── models.py│   ├── urls.py│   └── views.py└── man    ├── __init__.py     ├── settings.py     ├──">
+<meta property="og:description" content="学习 思考 行动 Python">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2016-04-25T13:21:01.000Z">
+<meta property="og:updated_time" content="2019-09-21T02:32:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python项目中包的导入">
-<meta name="twitter:description" content="例子1234567891011121314taskman├── db.sqlite3├── manage.py├── task│   ├── __init__.py│   ├── admin.py│   ├── models.py│   ├── urls.py│   └── views.py└── man    ├── __init__.py     ├── settings.py     ├──">
+<meta name="twitter:title" content="使用Plantuml做软件设计">
+<meta name="twitter:description" content="学习 思考 行动 Python">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
-  <link rel="canonical" href="http://ponder.work/2016/04/25/Python包导入/">
+  <link rel="canonical" href="http://ponder.work/2019/09/19/2019-09-21-design-program-with-plantuml/">
 
 
 <script id="page-configurations">
@@ -82,7 +82,7 @@
   };
 </script>
 
-  <title>Python项目中包的导入 | 逸思杂陈</title>
+  <title>使用Plantuml做软件设计 | 逸思杂陈</title>
   <meta name="generator" content="Hexo 3.9.0">
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134911454-2"></script>
@@ -232,7 +232,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/04/25/Python包导入/">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2019/09/19/2019-09-21-design-program-with-plantuml/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jay.Run">
@@ -244,7 +244,7 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">Python项目中包的导入
+        <h2 class="post-title" itemprop="name headline">使用Plantuml做软件设计
 
           
         </h2>
@@ -260,11 +260,19 @@
                 
               
 
-              <time title="创建时间：2016-04-25 21:00:00 / 修改时间：21:21:01" itemprop="dateCreated datePublished" datetime="2016-04-25T21:00:00+08:00">2016-04-25</time>
+              <time title="创建时间：2019-09-19 21:48:00" itemprop="dateCreated datePublished" datetime="2019-09-19T21:48:00+08:00">2019-09-19</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-21 10:32:09" itemprop="dateModified" datetime="2019-09-21T10:32:09+08:00">2019-09-21</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -273,7 +281,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/随笔/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a></span>
 
                 
                 
@@ -290,7 +298,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>600</span>
+              <span>0</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -313,15 +321,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">taskman</span><br><span class="line">├── db.sqlite3</span><br><span class="line">├── manage.py</span><br><span class="line">├── task</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── admin.py</span><br><span class="line">│   ├── models.py</span><br><span class="line">│   ├── urls.py</span><br><span class="line">│   └── views.py</span><br><span class="line">└── man</span><br><span class="line">    ├── __init__<span class="selector-class">.py</span> </span><br><span class="line">    ├── settings<span class="selector-class">.py</span> </span><br><span class="line">    ├── urls<span class="selector-class">.py</span> </span><br><span class="line">    └── wsgi.py</span><br></pre></td></tr></table></figure>
-<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>上面的例子是一个Django项目，Python包的导入都是相对于<code>主程序</code>来说的。<br>这个项目的主程序就是<code>manage.py</code>，跟manage.py同级的文件夹（含有<code>__init__.py</code>）如<code>task</code>,<code>man</code>就称之为包，若同级有文件就称之为顶级模块。<br>在这个项目里所有Python包的导入，都应该写完整路径。</p>
-<p>例如在文件<code>/taskman/task/views.py</code>中，想要导入<code>/taskman/man/setting.py</code>，就得这样。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> man.setting <span class="keyword">import</span> some_setting</span><br><span class="line"><span class="comment"># or </span></span><br><span class="line"><span class="keyword">from</span> man <span class="keyword">import</span> setting</span><br></pre></td></tr></table></figure></p>
-<p><b>记住：</b></p>
-<ol>
-<li>所有导入都是根据主程序的路径，然后从完整路径导入包</li>
-<li>主程序应该位于包的最顶层，否则发生<code>ValueError: Attempted relative import in non-package</code></li>
-</ol>
-
+        
     </div>
 
     
@@ -337,8 +337,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/" rel="next" title="Python2中UnicodeDecodeError的几种解决办法">
-                  <i class="fa fa-chevron-left"></i> Python2中UnicodeDecodeError的几种解决办法
+                <a href="/2019/09/19/start-again/" rel="next" title="全新出发">
+                  <i class="fa fa-chevron-left"></i> 全新出发
                 </a>
               
             </div>
@@ -346,10 +346,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2016/04/27/python中的装饰器/" rel="prev" title="Python中的装饰器（decorator）">
-                  Python中的装饰器（decorator） <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -401,8 +397,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-number">1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-number">2.</span> <span class="nav-text">说明</span></a></li></ol></div>
-        
       </div>
       <!--/noindex-->
 
@@ -641,7 +635,7 @@ window.addEventListener('pjax:success', () => {
       repo: 'ruanima.github.io',
       owner: 'ruanima',
       admin: ['ruanima'],
-      id: '75169c0fd1f962cf3425bc43502f1ece',
+      id: '45502248a4fa9492124e2477c0ddae46',
         language: window.navigator.language || window.navigator.userLanguage,
       
       distractionFreeMode: 'true'

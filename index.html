@@ -449,7 +449,7 @@
                 
               
 
-              <time title="创建时间：2019-11-02 09:48:00 / 修改时间：23:22:42" itemprop="dateCreated datePublished" datetime="2019-11-02T09:48:00+08:00">2019-11-02</time>
+              <time title="创建时间：2019-11-02 09:48:00 / 修改时间：23:26:30" itemprop="dateCreated datePublished" datetime="2019-11-02T09:48:00+08:00">2019-11-02</time>
             </span>
           
             
@@ -479,7 +479,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>3.6k</span>
+              <span>3.7k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -502,7 +502,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="一次简单的日志记录"><a href="#一次简单的日志记录" class="headerlink" title="一次简单的日志记录"></a>一次简单的日志记录</h3><figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">except <span class="type">Exception</span> <span class="keyword">as</span> e:</span><br><span class="line">    logger.debug(<span class="symbol">'debug</span> %s', e)</span><br><span class="line">    logger.info(<span class="symbol">'info</span> %s', e)</span><br><span class="line">    logger.warning(<span class="symbol">'warning</span> %s', e)</span><br><span class="line">    logger.error(<span class="symbol">'error</span> %s', e)</span><br><span class="line">    logger.<span class="keyword">exception</span>(<span class="symbol">'exception</span> %s', e)</span><br></pre></td></tr></table></figure>
+          <h2 id="一、原理"><a href="#一、原理" class="headerlink" title="一、原理"></a>一、原理</h2><h3 id="1-1-一次简单的日志记录"><a href="#1-1-一次简单的日志记录" class="headerlink" title="1.1 一次简单的日志记录"></a>1.1 一次简单的日志记录</h3><figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">except <span class="type">Exception</span> <span class="keyword">as</span> e:</span><br><span class="line">    logger.debug(<span class="symbol">'debug</span> %s', e)</span><br><span class="line">    logger.info(<span class="symbol">'info</span> %s', e)</span><br><span class="line">    logger.warning(<span class="symbol">'warning</span> %s', e)</span><br><span class="line">    logger.error(<span class="symbol">'error</span> %s', e)</span><br><span class="line">    logger.<span class="keyword">exception</span>(<span class="symbol">'exception</span> %s', e)</span><br></pre></td></tr></table></figure>
 <p>output<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">warning division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">error division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">exception division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">Traceback (most recent call <span class="keyword">last</span>):</span><br><span class="line">  File <span class="string">"test.py"</span>, <span class="built_in">line</span> <span class="number">5</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">ZeroDivisionError: division <span class="keyword">by</span> <span class="literal">zero</span></span><br></pre></td></tr></table></figure></p>
 <ol>
 <li><code>logging.getLogger</code> 获取一个记录器, 一般以模块名称命名</li>

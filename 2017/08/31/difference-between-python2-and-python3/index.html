@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=7.4.0">
+  <link rel="mask-icon" href="/favicon.ico?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="unicodePython2  字符串分 str(‘’) 和 unicode(u’’) str，就是以’xxx’形式输入的字符，实际储存的值是xxx经过系统默认字符集encode过的字节串（bytes），如’\xe8\x86\x9c’ unicode，就是以u’xxx’形式输入的字符，实际储存的值是xxx对应的unicode码， 如u’\u819c’ str，其实等于python3中的字节串（by">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python2 与 Python3 的一些区别（未完待续）">
+<meta property="og:url" content="http://ponder.work/2017/08/31/difference-between-python2-and-python3/index.html">
+<meta property="og:site_name" content="逸思杂陈">
+<meta property="og:description" content="unicodePython2  字符串分 str(‘’) 和 unicode(u’’) str，就是以’xxx’形式输入的字符，实际储存的值是xxx经过系统默认字符集encode过的字节串（bytes），如’\xe8\x86\x9c’ unicode，就是以u’xxx’形式输入的字符，实际储存的值是xxx对应的unicode码， 如u’\u819c’ str，其实等于python3中的字节串（by">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-21T05:54:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python2 与 Python3 的一些区别（未完待续）">
+<meta name="twitter:description" content="unicodePython2  字符串分 str(‘’) 和 unicode(u’’) str，就是以’xxx’形式输入的字符，实际储存的值是xxx经过系统默认字符集encode过的字节串（bytes），如’\xe8\x86\x9c’ unicode，就是以u’xxx’形式输入的字符，实际储存的值是xxx对应的unicode码， 如u’\u819c’ str，其实等于python3中的字节串（by">
+  <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
+  <link rel="canonical" href="http://ponder.work/2017/08/31/difference-between-python2-and-python3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Python2 与 Python3 的一些区别（未完待续） | 逸思杂陈</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134911454-2"></script>
+  <script pjax>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-134911454-2');
+    }
+  </script>
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">逸思杂陈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">人类一思考，上帝就发笑。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-编程">
+      
+    
+
+    <a href="/categories/编程/" rel="section"><i class="menu-item-icon fa fa-fw fa-code"></i> <br>编程</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读">
+      
+    
+
+    <a href="/categories/阅读/" rel="section"><i class="menu-item-icon fa fa-fw fa-book"></i> <br>阅读</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/ruanima" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2017/08/31/difference-between-python2-and-python3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">Python2 与 Python3 的一些区别（未完待续）
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-31 01:03:00" itemprop="dateCreated datePublished" datetime="2017-08-31T01:03:00+08:00">2017-08-31</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-21 13:54:20" itemprop="dateModified" datetime="2019-09-21T13:54:20+08:00">2019-09-21</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>5.4k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>7 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="unicode"><a href="#unicode" class="headerlink" title="unicode"></a>unicode</h3><p>Python2</p>
+<ul>
+<li>字符串分 str(‘’) 和 unicode(u’’)</li>
+<li>str，就是以’xxx’形式输入的字符，实际储存的值是xxx经过系统默认字符集encode过的字节串（bytes），如’\xe8\x86\x9c’</li>
+<li>unicode，就是以u’xxx’形式输入的字符，实际储存的值是xxx对应的unicode码， 如u’\u819c’</li>
+<li>str，其实等于python3中的字节串（bytes）</li>
+<li>unicode，其实等于python3中的字符串（str）</li>
+<li>在python2中unicode才是真正的字符串</li>
+</ul>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'膜法'</span></span><br><span class="line"><span class="string">'\xe8\x86\x9c\xe6\xb3\x95'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">u'膜法'</span></span><br><span class="line"><span class="string">u'\u819c\u6cd5'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'膜法'</span>.decode(<span class="string">'utf8'</span>)</span><br><span class="line"><span class="string">u'\u819c\u6cd5'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> <span class="string">u'\u819c\u6cd5'</span></span><br><span class="line">膜法</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> <span class="string">'\xe8\x86\x9c\xe6\xb3\x95'</span></span><br><span class="line">膜法</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">u'膜法'</span></span><br><span class="line"><span class="string">u'\u819c\u6cd5'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(<span class="string">'膜法'</span>)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(<span class="string">u'膜法'</span>)</span><br><span class="line">&lt;type <span class="string">'unicode'</span>&gt;</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>Python3</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'膜法'</span></span><br><span class="line"><span class="string">'膜法'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'\u819c\u6cd5'</span></span><br><span class="line"><span class="string">'膜法'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'膜法'</span>.encode(<span class="string">'utf8'</span>)</span><br><span class="line"><span class="string">b'\xe8\x86\x9c\xe6\xb3\x95'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(<span class="string">'膜法'</span>)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">str</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">type</span><span class="params">(<span class="string">b'\xe8\x86\x9c\xe6\xb3\x95'</span>)</span></span></span><br><span class="line"><span class="class">&lt;<span class="title">class</span> '<span class="title">bytes</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">print</span><span class="params">(<span class="string">'\xe8\x86\x9c\xe6\xb3\x95'</span>)</span></span></span><br><span class="line"><span class="class">èæ³</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">print</span><span class="params">(<span class="string">b'\xe8\x86\x9c\xe6\xb3\x95'</span>)</span></span></span><br><span class="line"><span class="class"><span class="title">b</span>'\<span class="title">xe8</span>\<span class="title">x86</span>\<span class="title">x9c</span>\<span class="title">xe6</span>\<span class="title">xb3</span>\<span class="title">x95</span>'</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">print</span><span class="params">(<span class="string">b'\xe8\x86\x9c\xe6\xb3\x95'</span>.decode<span class="params">(<span class="string">'utf8'</span>)</span>)</span></span></span><br><span class="line"><span class="class">膜法</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">print</span><span class="params">(<span class="string">'\xe8\x86\x9c\xe6\xb3\x95'</span>)</span></span></span><br><span class="line"><span class="class">èæ³</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">print</span><span class="params">(<span class="string">b'\xe8\x86\x9c\xe6\xb3\x95'</span>.decode<span class="params">(<span class="string">'utf8'</span>)</span>)</span></span></span><br><span class="line"><span class="class">膜法</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; '\<span class="title">xe8</span>\<span class="title">x86</span>\<span class="title">x9c</span>\<span class="title">xe6</span>\<span class="title">xb3</span>\<span class="title">x95</span>'.<span class="title">encode</span><span class="params">(<span class="string">'latin-1'</span>)</span></span></span><br><span class="line"><span class="class"><span class="title">b</span>'\<span class="title">xe8</span>\<span class="title">x86</span>\<span class="title">x9c</span>\<span class="title">xe6</span>\<span class="title">xb3</span>\<span class="title">x95</span>'</span></span><br></pre></td></tr></table></figure>
+<h3 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h3><p>python2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>subprocess.check_output([<span class="string">'ls'</span>, <span class="string">'/mnt/d'</span>])</span><br><span class="line"><span class="string">'11\n11.txt\n1C63638E19E9\n360\xe6\x9e\x81\xe9\x80\x9f\xe6\xb5\x8f\xe8\xa7\x88\xe5\x99\xa8\xe4\xb8\x8                                                                                                                                          b\xe8\xbd\xbd\nBaiduNetdiskDownload\nBOOTICEx64.exe\nChrome\nDesktop.tar.gz\nDriverGenius\nGames\nJav                                                                                                                                          a\nModOrganizer\nmsys64\nmsys64.7z\nMy Documents\nMyDrivers\nNexus Mod Manager\nnodejs\nNVIDIA\npagef                                                                                                                                          ile.sys\nPortableApps\nProgram Files (x86)\nProjects\nreadme.png\n$RECYCLE.BIN\nSystem Volume Informa                                                                                                                                          tion\ntables.zip\nubuntu\nUsers\nVirtualBox VMs\n\xe6\x96\xb0\xe5\xbb\xba\xe6\x96\x87\xe4\xbb\xb6\xe5                                                                                                                                          \xa4\xb9\n\xe8\xbf\x85\xe9\x9b\xb7\xe4\xb8\x8b\xe8\xbd\xbd\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>_.decode(<span class="string">'utf8'</span>)</span><br><span class="line"><span class="string">u'11\n11.txt\n1C63638E19E9\n360\u6781\u901f\u6d4f\u89c8\u5668\u4e0b\u8f7d\nBaiduNetdiskDownload\nBOOT                                                                                                                                          ICEx64.exe\nChrome\nDesktop.tar.gz\nDriverGenius\nGames\nJava\nModOrganizer\nmsys64\nmsys64.7z\nMy Do                                                                                                                                          cuments\nMyDrivers\nNexus Mod Manager\nnodejs\nNVIDIA\npagefile.sys\nPortableApps\nProgram Files (x86                                                                                                                                          )\nProjects\nreadme.png\n$RECYCLE.BIN\nSystem Volume Information\ntables.zip\nubuntu\nUsers\nVirtualB                                                                                                                                          ox VMs\n\u65b0\u5efa\u6587\u4ef6\u5939\n\u8fc5\u96f7\u4e0b\u8f7d\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa = open(<span class="string">'/mnt/d/11.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa.readline()</span><br><span class="line"><span class="string">' \xe9\xa9\xb1\xe5\x8a\xa8\xe5\x99\xa8 F \xe4\xb8\xad\xe7\x9a\x84\xe5\x8d\xb7\xe6\x98\xaf 20090108_171210\r\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bb = open(<span class="string">'/mnt/d/11.txt'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bb.readline()</span><br><span class="line"><span class="string">' \xe9\xa9\xb1\xe5\x8a\xa8\xe5\x99\xa8 F \xe4\xb8\xad\xe7\x9a\x84\xe5\x8d\xb7\xe6\x98\xaf 20090108_171210\r\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cc =  open(<span class="string">'/mnt/d/11_gbk.txt'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cc.readline()</span><br><span class="line"><span class="string">' \xc7\xfd\xb6\xaf\xc6\xf7 F \xd6\xd0\xb5\xc4\xbe\xed\xca\xc7 20090108_171210'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dd =  open(<span class="string">'/mnt/d/11_gbk.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dd.readline()</span><br><span class="line"><span class="string">' \xc7\xfd\xb6\xaf\xc6\xf7 F \xd6\xd0\xb5\xc4\xbe\xed\xca\xc7 20090108_171210'</span></span><br></pre></td></tr></table></figure>
+<p>python3</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span> aa = open(<span class="string">'/mnt/d/11.txt'</span>, <span class="string">'r'</span>)  <span class="comment"># 11.txt is saved as utf8</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa.readline()</span><br><span class="line"><span class="string">' 驱动器 F 中的卷是 20090108_171210\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bb = open(<span class="string">'/mnt/d/11.txt'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bb.readline()</span><br><span class="line"><span class="string">b' \xe9\xa9\xb1\xe5\x8a\xa8\xe5\x99\xa8 F \xe4\xb8\xad\xe7\x9a\x84\xe5\x8d\xb7\xe6\x98\xaf 20090108_171210\r\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cc =  open(<span class="string">'/mnt/d/11_gbk.txt'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cc.readline()</span><br><span class="line"><span class="string">b' \xc7\xfd\xb6\xaf\xc6\xf7 F \xd6\xd0\xb5\xc4\xbe\xed\xca\xc7 20090108_171210'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dd = open(<span class="string">'/mnt/d/11_gbk.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dd.readline()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;ipython-input-10-ba8f5810b020&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    dd.readline()</span><br><span class="line">  File <span class="string">"/home/jayruan/.pyenv/versions/3.6.1/lib/python3.6/codecs.py"</span>, line <span class="number">321</span>, <span class="keyword">in</span> decode</span><br><span class="line">    (result, consumed) = self._buffer_decode(data, self.errors, final)</span><br><span class="line">UnicodeDecodeError: <span class="string">'utf-8'</span> codec can<span class="string">'t decode byte 0xc7 in position 1: invalid continuation byte</span></span><br></pre></td></tr></table></figure>
+<h3 id="语法上区别"><a href="#语法上区别" class="headerlink" title="语法上区别"></a>语法上区别</h3><h4 id="print"><a href="#print" class="headerlink" title="print"></a>print</h4><p>print 由内置关键字转变为print函数</p>
+<h3 id="一些库的区别"><a href="#一些库的区别" class="headerlink" title="一些库的区别"></a>一些库的区别</h3><h4 id="commands"><a href="#commands" class="headerlink" title="commands"></a>commands</h4><p>commands是python2中用来执行shell命令的一个内置库</p>
+<p>python3 中已移除</p>
+<h4 id="supervisor"><a href="#supervisor" class="headerlink" title="supervisor"></a>supervisor</h4><p>用于进程管理，只支持Python2</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2017/03/13/movie-huozhe/" rel="next" title="电影《活着》随感">
+                  <i class="fa fa-chevron-left"></i> 电影《活着》随感
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2017/08/31/杂感-1/" rel="prev" title="杂感（1）">
+                  杂感（1） <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#unicode"><span class="nav-number">1.</span> <span class="nav-text">unicode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件读写"><span class="nav-number">2.</span> <span class="nav-text">文件读写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法上区别"><span class="nav-number">3.</span> <span class="nav-text">语法上区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#print"><span class="nav-number">3.1.</span> <span class="nav-text">print</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些库的区别"><span class="nav-number">4.</span> <span class="nav-text">一些库的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#commands"><span class="nav-number">4.1.</span> <span class="nav-text">commands</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#supervisor"><span class="nav-number">4.2.</span> <span class="nav-text">supervisor</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jay.Run</p>
+  <div class="site-description" itemprop="description">学习 思考 行动 Python</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/ruanima" title="GitHub &rarr; https://github.com/ruanima" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jay.Run</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">119k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:28</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="/lib/pjax/pjax.min.js?v=0.2.8"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var id = element.id || '';
+    var src = element.src || '';
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (id !=='') {
+      script.id = element.id;
+    }
+    if (src !== '') {
+      script.src = src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '6a903e3db839fa7a1f0f',
+      clientSecret: 'c19ebb77db2f0e162961d60afaa89d0f4ed5f3ad',
+      repo: 'ruanima.github.io',
+      owner: 'ruanima',
+      admin: ['ruanima'],
+      id: '43e78011b82b47243e75f801770fb201',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+    </div>
+</body>
+</html>

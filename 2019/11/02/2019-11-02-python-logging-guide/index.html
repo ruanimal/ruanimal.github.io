@@ -69,7 +69,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2019-11-02-15441892815553.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2019-11-02-15441892888667.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2019-11-02-15393262305519.jpg">
-<meta property="og:updated_time" content="2019-11-02T15:19:12.002Z">
+<meta property="og:updated_time" content="2019-11-02T15:22:42.954Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python日志原理及实践">
 <meta name="twitter:description" content="原理一次简单的日志记录1234567891011import logginglogger = logging.getLogger(__name__)try:    1/0except Exception as e:    logger.debug(&apos;debug %s&apos;, e)    logger.info(&apos;info %s&apos;, e)    logger.warning(&apos;warning %s&apos;,">
@@ -300,7 +300,7 @@
                 
               
 
-              <time title="创建时间：2019-11-02 09:48:00 / 修改时间：23:19:12" itemprop="dateCreated datePublished" datetime="2019-11-02T09:48:00+08:00">2019-11-02</time>
+              <time title="创建时间：2019-11-02 09:48:00 / 修改时间：23:22:42" itemprop="dateCreated datePublished" datetime="2019-11-02T09:48:00+08:00">2019-11-02</time>
             </span>
           
             
@@ -485,7 +485,7 @@
 <li>必要的描述信息: 如request xxx failed</li>
 <li>异常相关信息, 调用trace info</li>
 </ul>
-<h3 id="日志级别"><a href="#日志级别" class="headerlink" title="日志级别"></a>日志级别</h3><p>正确地使用日志级别, 不要乱用级别<br>ERROR — 该级别的错误也需要马上被处理。当ERROR错误发生时，已经影响了用户的正常访问，是需要马上得到人工介入并处理的。<br>WARN — 该日志表示系统可能出现问题，也可能没有，这种情况如网络的波动等。对于WARN级别的日志，虽然不需要系统管理员马上处理，也是需要及时查看并处理的。因此此种级别的日志也不应太多，能不打WARN级别的日志，就尽量不要打；<br>INFO — 该种日志记录系统的正常运行状态, 占日志的大部分；<br>DEBUG — 开发过程中的调试信息。</p>
+<h3 id="日志级别"><a href="#日志级别" class="headerlink" title="日志级别"></a>日志级别</h3><p>正确地使用日志级别, 不要乱用级别<br>ERROR — 该级别的错误也需要马上被处理。当ERROR错误发生时，已经影响了用户的正常访问，是需要马上得到人工介入并处理的。<br>WARNING — 该日志表示系统可能出现问题，也可能没有，这种情况如网络的波动等。对于WARN级别的日志，虽然不需要系统管理员马上处理，也是需要及时查看并处理的。因此此种级别的日志也不应太多，能不打WARNING级别的日志，就尽量不要打；<br>INFO — 该种日志记录系统的正常运行状态, 占日志的大部分；<br>DEBUG — 开发过程中的调试信息。</p>
 <h3 id="日志存储"><a href="#日志存储" class="headerlink" title="日志存储"></a>日志存储</h3><h4 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h4><ul>
 <li>日志滚动: 按时间或按大小滚动. 同时配置最大保存的数目</li>
 <li>存储路径: 放到空间比较大目录</li>

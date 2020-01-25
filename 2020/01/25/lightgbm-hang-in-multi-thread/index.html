@@ -66,7 +66,7 @@
 <meta property="og:description" content="症状最近在开发的lightgbm树模型，发现服务在处理了一定量请求后会卡死，请求无响应。 pstack之后发现, 进程卡在libgomp.so这个动态库的函数中. 证实确实是卡死 123Thread 8 (Thread 0x7f8eb7900700 (LWP 1859)):#0  0x00007f8e9def4af1 in ?? () from /usr/lib64/libgomp.so.1#1">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-01-25-15799334551032.jpg">
-<meta property="og:updated_time" content="2020-01-25T06:49:24.624Z">
+<meta property="og:updated_time" content="2020-01-25T06:51:55.686Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="lightgbm多线程卡死问题定位">
 <meta name="twitter:description" content="症状最近在开发的lightgbm树模型，发现服务在处理了一定量请求后会卡死，请求无响应。 pstack之后发现, 进程卡在libgomp.so这个动态库的函数中. 证实确实是卡死 123Thread 8 (Thread 0x7f8eb7900700 (LWP 1859)):#0  0x00007f8e9def4af1 in ?? () from /usr/lib64/libgomp.so.1#1">
@@ -297,7 +297,7 @@
                 
               
 
-              <time title="创建时间：2020-01-25 17:03:00 / 修改时间：14:49:24" itemprop="dateCreated datePublished" datetime="2020-01-25T17:03:00+08:00">2020-01-25</time>
+              <time title="创建时间：2020-01-25 17:03:00 / 修改时间：14:51:55" itemprop="dateCreated datePublished" datetime="2020-01-25T17:03:00+08:00">2020-01-25</time>
             </span>
           
             
@@ -355,6 +355,7 @@
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Thread <span class="number">8</span> (Thread <span class="number">0x7f8eb7900700</span> (LWP <span class="number">1859</span>)):</span><br><span class="line">#<span class="number">0</span>  <span class="number">0x00007f8e9def4af1</span> <span class="keyword">in</span> ?? () from /usr/lib64/libgomp.so<span class="meta">.1</span></span><br><span class="line">#<span class="number">1</span>  <span class="number">0x00007f8e9def23a0</span> <span class="keyword">in</span> ?? () from /usr/lib64/libgomp.so<span class="meta">.1</span></span><br></pre></td></tr></table></figure>
 <h2 id="尝试"><a href="#尝试" class="headerlink" title="尝试"></a>尝试</h2><p>首先尝试google <code>lightgbm hang</code>, 看了前几条记录. </p>
 <p>发现,github上的一个<a href="https://github.com/microsoft/LightGBM/issues/2217#issuecomment-501233873" target="_blank" rel="noopener">issue</a>, 顺着发现官网文档上早就记录里这个问题, 并且提供了解决办法.</p>
+<a id="more"></a>
 <p><img src="http://image.runjf.com/mweb/2020-01-25-15799334551032.jpg" alt></p>
 <p>意思是说,OpenMP这个库在多线程fork的时候, 存在bug, 对于C/C++程序必须在fork完成之后再使用OpenMP的功能.</p>
 <p>所以解决方法有两个</p>

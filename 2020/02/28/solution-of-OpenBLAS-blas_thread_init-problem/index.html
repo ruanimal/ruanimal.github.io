@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="症状最近在在一台服务器上发现, 一个服务的工作进程会异常退出, 但部署有相同代码的其他服务却没有类似的情况. 查看日志发现以下错误 1234567891011121314151617Traceback (most recent call last):	...  File &quot;/home/q/hawkeye_mid_dev/src/model/b_card_model.py&quot;, line 5, in">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-28T09:16:35.784Z">
+<meta property="og:updated_time" content="2020-02-28T09:25:46.207Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenBLAS blas_thread_init pthread_creat Resource temporarily unavailable 问题分析与解决">
 <meta name="twitter:description" content="症状最近在在一台服务器上发现, 一个服务的工作进程会异常退出, 但部署有相同代码的其他服务却没有类似的情况. 查看日志发现以下错误 1234567891011121314151617Traceback (most recent call last):	...  File &quot;/home/q/hawkeye_mid_dev/src/model/b_card_model.py&quot;, line 5, in">
@@ -295,7 +295,7 @@
                 
               
 
-              <time title="创建时间：2020-02-28 09:48:00 / 修改时间：17:16:35" itemprop="dateCreated datePublished" datetime="2020-02-28T09:48:00+08:00">2020-02-28</time>
+              <time title="创建时间：2020-02-28 09:48:00 / 修改时间：17:25:46" itemprop="dateCreated datePublished" datetime="2020-02-28T09:48:00+08:00">2020-02-28</time>
             </span>
           
             
@@ -371,7 +371,7 @@
 <p>增加以下内容, 将RLIMIT_NPROC设置为10240<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">*    </span>soft    nproc    10240</span><br></pre></td></tr></table></figure></p>
 <p>执行<code>ulimit -u</code>, 确认已经生效<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">ulimit</span> -u</span></span><br><span class="line">10240</span><br></pre></td></tr></table></figure></p>
 <h3 id="重启进程问题依然存在"><a href="#重启进程问题依然存在" class="headerlink" title="重启进程问题依然存在"></a>重启进程问题依然存在</h3><p>但是问题依然存在, 不能解决. </p>
-<p>再次查看进程的<code>RLIMIT_NPROC</code>, 发现并没有并变化.<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span> cat /proc/<span class="number">13839</span>/limits   |grep <span class="string">'Max processes'</span></span><br><span class="line"><span class="built-in">Max</span> processes             <span class="number">1024</span>                 <span class="number">516033</span>               processes</span><br></pre></td></tr></table></figure></p>
+<p>再次查看进程的<code>RLIMIT_NPROC</code>, 发现并没有变化.<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span> cat /proc/<span class="number">13839</span>/limits   |grep <span class="string">'Max processes'</span></span><br><span class="line"><span class="built-in">Max</span> processes             <span class="number">1024</span>                 <span class="number">516033</span>               processes</span><br></pre></td></tr></table></figure></p>
 <p>但是从终端启动新服务, 其<code>RLIMIT_NPROC</code>数值已经是10240了. </p>
 <p>由此初步判断, 应该是修改limits配置文件, 只对新启动的进程生效.</p>
 <p>由于工作进程都是由supervisor托管的, 查看了supervisord进程的<code>RLIMIT_NPROC</code>, 发现也是1024.<br>由supervisord启动的所有进程的父进程都是supervisord进程, 都继承了它的<code>RLIMIT_NPROC</code>数值.</p>

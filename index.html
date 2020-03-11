@@ -264,6 +264,135 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2020/03/11/python-type-hints-guide/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/03/11/python-type-hints-guide/" class="post-title-link" itemprop="url">Python 类型标记(Type Hints) 初探</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-11 09:48:00" itemprop="dateCreated datePublished" datetime="2020-03-11T09:48:00+08:00">2020-03-11</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-12 00:37:26" itemprop="dateModified" datetime="2020-03-12T00:37:26+08:00">2020-03-12</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.6k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>4 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>Python是一门动态强类型语言, 动态性是它鲜明的特点. </p>
+<p>但是动态性在给程序员充分的自由的同时, 也带来了一些不好的负面效应. 特别是在团队协作的时候, 不好的队友会引发许多难以定位的问题.</p>
+<p>同时动态性也大大削弱了ide的作用, 代码提示, 重构等一些功能远不如静态语言来得可靠.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, age)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">introduce_someone</span><span class="params">(person)</span>:</span></span><br><span class="line">    print(<span class="string">'&#123;&#125; is &#123;&#125; years old'</span>.format(person.name, person.age))</span><br></pre></td></tr></table></figure>
+<p>比如这个代码片段, ide很难准确识别<code>introduce_someone</code>的参数应该是<code>Person</code>类的实例, 它只能单纯地从文本上分析, 并把所有可能的单词都提示出来. </p>
+<p>而且当调用<code>introduce_someone</code>, 传入了不合适的对象, 也很难通过静态检查发现.</p>
+<p>类型标记的出现就解决了这些问题.</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/03/11/python-type-hints-guide/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="http://ponder.work/2020/02/29/build-python-program-to-standalone-binary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2004,126 +2133,6 @@
   </article>
 
     
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2019/11/02/2019-11-02-python-logging-guide/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jay.Run">
-      <meta itemprop="description" content="学习 思考 行动 Python">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="逸思杂陈">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/11/02/2019-11-02-python-logging-guide/" class="post-title-link" itemprop="url">Python日志原理及实践</a>
-          
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-02 09:48:00 / 修改时间：23:26:30" itemprop="dateCreated datePublished" datetime="2019-11-02T09:48:00+08:00">2019-11-02</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>3.7k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>5 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、原理"><a href="#一、原理" class="headerlink" title="一、原理"></a>一、原理</h2><h3 id="1-1-一次简单的日志记录"><a href="#1-1-一次简单的日志记录" class="headerlink" title="1.1 一次简单的日志记录"></a>1.1 一次简单的日志记录</h3><figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">except <span class="type">Exception</span> <span class="keyword">as</span> e:</span><br><span class="line">    logger.debug(<span class="symbol">'debug</span> %s', e)</span><br><span class="line">    logger.info(<span class="symbol">'info</span> %s', e)</span><br><span class="line">    logger.warning(<span class="symbol">'warning</span> %s', e)</span><br><span class="line">    logger.error(<span class="symbol">'error</span> %s', e)</span><br><span class="line">    logger.<span class="keyword">exception</span>(<span class="symbol">'exception</span> %s', e)</span><br></pre></td></tr></table></figure>
-<p>output<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">warning division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">error division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">exception division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">Traceback (most recent call <span class="keyword">last</span>):</span><br><span class="line">  File <span class="string">"test.py"</span>, <span class="built_in">line</span> <span class="number">5</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">ZeroDivisionError: division <span class="keyword">by</span> <span class="literal">zero</span></span><br></pre></td></tr></table></figure></p>
-<ol>
-<li><code>logging.getLogger</code> 获取一个记录器, 一般以模块名称命名</li>
-<li>调用日志记录器的相应方法记录日志</li>
-</ol>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/11/02/2019-11-02-python-logging-guide/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </div>
 
   
@@ -2173,7 +2182,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2337,12 +2346,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">141k</span>
+    <span title="站点总字数">144k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:56</span>
+    <span title="站点阅读时长">3:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

@@ -14,6 +14,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=7.4.0">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=7.4.0">
   <link rel="mask-icon" href="/favicon.ico?v=7.4.0" color="#222">
+  <meta name="baidu-site-verification" content="K0iqERgnmF">
 
 <link rel="stylesheet" href="/css/main.css?v=7.4.0">
 
@@ -64,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="装饰器应该是Python最富有表现力的语法结构之一了，基于装饰器很多功能可以实现得比较优雅。Python中的装饰器，来源于设计模式中的装饰器模式。顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。 简易装饰器装饰器本质上是函数替换. 装饰器被调用会返回一个函数, 被装饰函数会被返回的这个函数替换.要使用装饰器，先得定义一个装饰器函数，然后在需要装饰的函数的前一行使用@">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-23T14:52:53.000Z">
+<meta property="og:updated_time" content="2019-11-04T13:49:24.632Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python装饰器详解">
 <meta name="twitter:description" content="装饰器应该是Python最富有表现力的语法结构之一了，基于装饰器很多功能可以实现得比较优雅。Python中的装饰器，来源于设计模式中的装饰器模式。顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。 简易装饰器装饰器本质上是函数替换. 装饰器被调用会返回一个函数, 被装饰函数会被返回的这个函数替换.要使用装饰器，先得定义一个装饰器函数，然后在需要装饰的函数的前一行使用@">
@@ -294,11 +295,19 @@
                 
               
 
-              <time title="创建时间：2019-09-23 09:48:00 / 修改时间：22:52:53" itemprop="dateCreated datePublished" datetime="2019-09-23T09:48:00+08:00">2019-09-23</time>
+              <time title="创建时间：2019-09-23 09:48:00" itemprop="dateCreated datePublished" datetime="2019-09-23T09:48:00+08:00">2019-09-23</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-04 21:49:24" itemprop="dateModified" datetime="2019-11-04T21:49:24+08:00">2019-11-04</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -374,9 +383,9 @@
 <p>output</p>
 <figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">`hello` is running at mac</span><br><span class="line">run `hello` takes <span class="number">3.910064697265625</span>e-<span class="number">05</span> seconds</span><br><span class="line"><span class="built_in">hello,</span> foo!</span><br></pre></td></tr></table></figure>
 <h2 id="可选带参数的装饰器"><a href="#可选带参数的装饰器" class="headerlink" title="可选带参数的装饰器"></a>可选带参数的装饰器</h2><p>有时我们希望装饰器更为通用, 适用于带参数和不带参数的场景</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(*running_args, system=<span class="string">'mac'</span>, **running_kwargs)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">        @functools.wraps(func)</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">            start = time.time()</span><br><span class="line">            print(<span class="string">'`%s` is running at %s'</span> % (func.__name__, system))</span><br><span class="line">            _result = func(*args, **kwargs)</span><br><span class="line">            print(<span class="string">'run `%s` takes %s seconds'</span> % (func.__name__, time.time()-start))</span><br><span class="line">            <span class="keyword">return</span> _result</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> len(running_args) == <span class="number">1</span> <span class="keyword">and</span> callable(running_args[<span class="number">0</span>]):</span><br><span class="line">        <span class="keyword">return</span> decorator(running_args[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> decorator</span><br><span class="line"></span><br><span class="line"><span class="meta">@running('linux')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line"><span class="meta">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello2</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line">print(hello(<span class="string">'foo'</span>))</span><br><span class="line">print(hello2(<span class="string">'bar'</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(*running_args, system=<span class="string">'mac'</span>, **running_kwargs)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">        @functools.wraps(func)</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">            start = time.time()</span><br><span class="line">            print(<span class="string">'`%s` is running at %s'</span> % (func.__name__, system))</span><br><span class="line">            _result = func(*args, **kwargs)</span><br><span class="line">            print(<span class="string">'run `%s` takes %s seconds'</span> % (func.__name__, time.time()-start))</span><br><span class="line">            <span class="keyword">return</span> _result</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> len(running_args) == <span class="number">1</span> <span class="keyword">and</span> callable(running_args[<span class="number">0</span>]):</span><br><span class="line">        <span class="keyword">return</span> decorator(running_args[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> decorator</span><br><span class="line"></span><br><span class="line"><span class="meta">@running(system='linux')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line"><span class="meta">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello2</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line">print(hello(<span class="string">'foo'</span>))</span><br><span class="line">print(hello2(<span class="string">'bar'</span>))</span><br></pre></td></tr></table></figure>
 <p>output</p>
-<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">`hello` is running at mac</span><br><span class="line">run `hello` takes <span class="number">4.00543212890625</span>e-<span class="number">05</span> seconds</span><br><span class="line"><span class="built_in">hello,</span> foo!</span><br><span class="line">`hello2` is running at mac</span><br><span class="line">run `hello2` takes <span class="number">5.0067901611328125</span>e-<span class="number">06</span> seconds</span><br><span class="line"><span class="built_in">hello,</span> bar!</span><br></pre></td></tr></table></figure>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">`hello` is running at linux</span><br><span class="line">run `hello` takes <span class="number">2.5033950805664062</span>e-<span class="number">05</span> seconds</span><br><span class="line"><span class="built_in">hello,</span> foo!</span><br><span class="line">`hello2` is running at mac</span><br><span class="line">run `hello2` takes <span class="number">3.814697265625</span>e-<span class="number">06</span> seconds</span><br><span class="line"><span class="built_in">hello,</span> bar!</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -483,7 +492,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">99</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -555,7 +564,57 @@
         
           
         
-        <span class="site-state-item-count">17</span>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -594,7 +653,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -603,12 +662,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">111k</span>
+    <span title="站点总字数">161k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:19</span>
+    <span title="站点阅读时长">3:21</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

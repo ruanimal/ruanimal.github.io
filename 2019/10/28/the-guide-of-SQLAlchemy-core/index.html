@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="SQLAlchemy core 是SQLAlchemy的核心部件，主要负责生成sql查询和具体的数据库操作，SQLAlchemy 就是构建在core之上的。 在不需要对象映射的时候，使用core而不是orm，可以降低数据库操作成本，提高性能。 Table映射创建数据库连接12from sqlalchemy import create_engineengine = create_engine(&apos;sq">
+  <meta name="description" content="SQLAlchemy core 是SQLAlchemy的核心部件，主要负责生成sql查询和具体的数据库操作，SQLAlchemy orm 就是构建在core之上的。 在不需要对象映射的时候，使用core而不是orm，可以降低数据库操作成本，提高性能。 Table映射创建数据库连接12from sqlalchemy import create_engineengine = create_engine">
 <meta name="keywords" content="Python,SQLAlchemy,ORM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQLAlchemy Core 使用教程">
 <meta property="og:url" content="http://ponder.work/2019/10/28/the-guide-of-SQLAlchemy-core/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="SQLAlchemy core 是SQLAlchemy的核心部件，主要负责生成sql查询和具体的数据库操作，SQLAlchemy 就是构建在core之上的。 在不需要对象映射的时候，使用core而不是orm，可以降低数据库操作成本，提高性能。 Table映射创建数据库连接12from sqlalchemy import create_engineengine = create_engine(&apos;sq">
+<meta property="og:description" content="SQLAlchemy core 是SQLAlchemy的核心部件，主要负责生成sql查询和具体的数据库操作，SQLAlchemy orm 就是构建在core之上的。 在不需要对象映射的时候，使用core而不是orm，可以降低数据库操作成本，提高性能。 Table映射创建数据库连接12from sqlalchemy import create_engineengine = create_engine">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-20T15:32:01.000Z">
+<meta property="og:updated_time" content="2020-04-20T15:32:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQLAlchemy Core 使用教程">
-<meta name="twitter:description" content="SQLAlchemy core 是SQLAlchemy的核心部件，主要负责生成sql查询和具体的数据库操作，SQLAlchemy 就是构建在core之上的。 在不需要对象映射的时候，使用core而不是orm，可以降低数据库操作成本，提高性能。 Table映射创建数据库连接12from sqlalchemy import create_engineengine = create_engine(&apos;sq">
+<meta name="twitter:description" content="SQLAlchemy core 是SQLAlchemy的核心部件，主要负责生成sql查询和具体的数据库操作，SQLAlchemy orm 就是构建在core之上的。 在不需要对象映射的时候，使用core而不是orm，可以降低数据库操作成本，提高性能。 Table映射创建数据库连接12from sqlalchemy import create_engineengine = create_engine">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2019/10/28/the-guide-of-SQLAlchemy-core/">
 
@@ -306,7 +306,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-20 23:32:01" itemprop="dateModified" datetime="2020-04-20T23:32:01+08:00">2020-04-20</time>
+                <time title="修改时间：2020-04-20 23:32:36" itemprop="dateModified" datetime="2020-04-20T23:32:36+08:00">2020-04-20</time>
               </span>
             
           
@@ -356,7 +356,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>SQLAlchemy core 是SQLAlchemy的核心部件，主要负责生成sql查询和具体的数据库操作，SQLAlchemy 就是构建在core之上的。</p>
+        <p>SQLAlchemy core 是SQLAlchemy的核心部件，主要负责生成sql查询和具体的数据库操作，SQLAlchemy orm 就是构建在core之上的。</p>
 <p>在不需要对象映射的时候，使用core而不是orm，可以降低数据库操作成本，提高性能。</p>
 <h2 id="Table映射"><a href="#Table映射" class="headerlink" title="Table映射"></a>Table映射</h2><h3 id="创建数据库连接"><a href="#创建数据库连接" class="headerlink" title="创建数据库连接"></a>创建数据库连接</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine</span><br><span class="line">engine = create_engine(<span class="string">'sqlite:///test.sqlite3'</span>, echo=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 <h3 id="表结构定义"><a href="#表结构定义" class="headerlink" title="表结构定义"></a>表结构定义</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> Table, Column, Integer, String, MetaData, ForeignKey, Index</span><br><span class="line">metadata = MetaData()</span><br><span class="line">users = Table(<span class="string">'users'</span>, metadata,</span><br><span class="line">    Column(<span class="string">'id'</span>, Integer, primary_key=<span class="literal">True</span>),</span><br><span class="line">    Column(<span class="string">'name'</span>, String),</span><br><span class="line">    Column(<span class="string">'fullname'</span>, String),</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># place an index on col1, col2</span></span><br><span class="line">    Index(<span class="string">'idx_col12'</span>, <span class="string">'name'</span>, <span class="string">'fullname'</span>),   <span class="comment"># 添加索引</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">addresses = Table(<span class="string">'addresses'</span>, metadata,</span><br><span class="line">    Column(<span class="string">'id'</span>, Integer, primary_key=<span class="literal">True</span>),</span><br><span class="line">    Column(<span class="string">'user_id'</span>, <span class="literal">None</span>, ForeignKey(<span class="string">'users.id'</span>)),</span><br><span class="line">    Column(<span class="string">'email_address'</span>, String, nullable=<span class="literal">False</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>

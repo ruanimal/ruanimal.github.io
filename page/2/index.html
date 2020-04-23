@@ -264,6 +264,253 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2020/03/12/python-test-suit-pytest/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/03/12/python-test-suit-pytest/" class="post-title-link" itemprop="url">用Pytest测试Python代码</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-12 09:48:00 / 修改时间：21:53:22" itemprop="dateCreated datePublished" datetime="2020-03-12T09:48:00+08:00">2020-03-12</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>6k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>8 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>pytest是一个非常成熟的全功能的Python测试框架, 简单灵活, 容易上手, 具有很多第三方插件，并且可以自定义扩展.</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> pytest</span><br></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="简单例子"><a href="#简单例子" class="headerlink" title="简单例子"></a>简单例子</h3><p>先写个测试代码<code>tmp.py</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> a + b </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_add</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">assert</span> add(<span class="number">1</span>, <span class="number">1</span>) == <span class="number">2</span></span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_add_fail</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">assert</span> add(<span class="number">1</span>, <span class="number">2</span>) == <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<p>使用方法<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">usage</span>: <span class="selector-tag">py</span><span class="selector-class">.test</span> <span class="selector-attr">[options]</span> <span class="selector-attr">[file_or_dir]</span> <span class="selector-attr">[file_or_dir]</span> <span class="selector-attr">[...]</span></span><br></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/03/12/python-test-suit-pytest/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2020/03/11/python-type-hints-guide/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/03/11/python-type-hints-guide/" class="post-title-link" itemprop="url">Python 类型标记(Type Hints) 初探</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-11 09:48:00" itemprop="dateCreated datePublished" datetime="2020-03-11T09:48:00+08:00">2020-03-11</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-12 00:36:57" itemprop="dateModified" datetime="2020-03-12T00:36:57+08:00">2020-03-12</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.6k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>4 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>Python是一门动态强类型语言, 动态性是它鲜明的特点. </p>
+<p>但是动态性在给程序员充分的自由的同时, 也带来了一些不好的负面效应. 特别是在团队协作的时候, 不好的队友会引发许多难以定位的问题.</p>
+<p>同时动态性也大大削弱了ide的作用, 代码提示, 重构等一些功能远不如静态语言来得可靠.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, age)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">introduce_someone</span><span class="params">(person)</span>:</span></span><br><span class="line">    print(<span class="string">'&#123;&#125; is &#123;&#125; years old'</span>.format(person.name, person.age))</span><br></pre></td></tr></table></figure>
+<p>比如这个代码片段, ide很难准确识别<code>introduce_someone</code>的参数应该是<code>Person</code>类的实例, 它只能单纯地从文本上分析, 并把所有可能的单词都提示出来. </p>
+<p>而且当调用<code>introduce_someone</code>, 传入了不合适的对象, 也很难通过静态检查发现.</p>
+<p>类型标记的出现就解决了这些问题.</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/03/11/python-type-hints-guide/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="http://ponder.work/2020/02/29/build-python-program-to-standalone-binary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -304,7 +551,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-01 11:33:19" itemprop="dateModified" datetime="2020-03-01T11:33:19+08:00">2020-03-01</time>
+                <time title="修改时间：2020-03-05 15:08:17" itemprop="dateModified" datetime="2020-03-05T15:08:17+08:00">2020-03-05</time>
               </span>
             
           
@@ -430,7 +677,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-21 09:56:47" itemprop="dateModified" datetime="2020-03-21T09:56:47+08:00">2020-03-21</time>
+                <time title="修改时间：2020-03-13 15:04:17" itemprop="dateModified" datetime="2020-03-13T15:04:17+08:00">2020-03-13</time>
               </span>
             
           
@@ -546,19 +793,11 @@
                 
               
 
-              <time title="创建时间：2020-01-25 17:03:00" itemprop="dateCreated datePublished" datetime="2020-01-25T17:03:00+08:00">2020-01-25</time>
+              <time title="创建时间：2020-01-25 17:03:00 / 修改时间：14:51:37" itemprop="dateCreated datePublished" datetime="2020-01-25T17:03:00+08:00">2020-01-25</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-01 10:03:43" itemprop="dateModified" datetime="2020-03-01T10:03:43+08:00">2020-03-01</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -673,11 +912,19 @@
                 
               
 
-              <time title="创建时间：2019-12-31 20:14:00 / 修改时间：23:35:17" itemprop="dateCreated datePublished" datetime="2019-12-31T20:14:00+08:00">2019-12-31</time>
+              <time title="创建时间：2019-12-31 20:14:00" itemprop="dateCreated datePublished" datetime="2019-12-31T20:14:00+08:00">2019-12-31</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-08 18:44:30" itemprop="dateModified" datetime="2020-01-08T18:44:30+08:00">2020-01-08</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -800,7 +1047,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-31 23:31:29" itemprop="dateModified" datetime="2019-12-31T23:31:29+08:00">2019-12-31</time>
+                <time title="修改时间：2019-12-22 23:59:14" itemprop="dateModified" datetime="2019-12-22T23:59:14+08:00">2019-12-22</time>
               </span>
             
           
@@ -915,11 +1162,19 @@
                 
               
 
-              <time title="创建时间：2019-12-16 18:17:00 / 修改时间：23:42:31" itemprop="dateCreated datePublished" datetime="2019-12-16T18:17:00+08:00">2019-12-16</time>
+              <time title="创建时间：2019-12-16 18:17:00" itemprop="dateCreated datePublished" datetime="2019-12-16T18:17:00+08:00">2019-12-16</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-22 23:58:22" itemprop="dateModified" datetime="2019-12-22T23:58:22+08:00">2019-12-22</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -1045,7 +1300,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-16 23:42:30" itemprop="dateModified" datetime="2019-12-16T23:42:30+08:00">2019-12-16</time>
+                <time title="修改时间：2019-12-22 23:58:22" itemprop="dateModified" datetime="2019-12-22T23:58:22+08:00">2019-12-22</time>
               </span>
             
           
@@ -1172,7 +1427,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-07 11:17:03" itemprop="dateModified" datetime="2019-12-07T11:17:03+08:00">2019-12-07</time>
+                <time title="修改时间：2019-12-15 20:14:05" itemprop="dateModified" datetime="2019-12-15T20:14:05+08:00">2019-12-15</time>
               </span>
             
           
@@ -1298,7 +1553,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-07 10:39:00" itemprop="dateModified" datetime="2019-12-07T10:39:00+08:00">2019-12-07</time>
+                <time title="修改时间：2019-12-02 16:22:35" itemprop="dateModified" datetime="2019-12-02T16:22:35+08:00">2019-12-02</time>
               </span>
             
           
@@ -1411,11 +1666,19 @@
                 
               
 
-              <time title="创建时间：2019-12-01 20:17:00 / 修改时间：21:57:13" itemprop="dateCreated datePublished" datetime="2019-12-01T20:17:00+08:00">2019-12-01</time>
+              <time title="创建时间：2019-12-01 20:17:00" itemprop="dateCreated datePublished" datetime="2019-12-01T20:17:00+08:00">2019-12-01</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-02 11:13:09" itemprop="dateModified" datetime="2019-12-02T11:13:09+08:00">2019-12-02</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -1542,7 +1805,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-01 21:49:26" itemprop="dateModified" datetime="2019-12-01T21:49:26+08:00">2019-12-01</time>
+                <time title="修改时间：2019-12-02 11:13:09" itemprop="dateModified" datetime="2019-12-02T11:13:09+08:00">2019-12-02</time>
               </span>
             
           
@@ -1675,7 +1938,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-22 01:16:24" itemprop="dateModified" datetime="2019-11-22T01:16:24+08:00">2019-11-22</time>
+                <time title="修改时间：2019-12-02 11:13:09" itemprop="dateModified" datetime="2019-12-02T11:13:09+08:00">2019-12-02</time>
               </span>
             
           
@@ -1788,19 +2051,11 @@
                 
               
 
-              <time title="创建时间：2019-11-07 09:48:00" itemprop="dateCreated datePublished" datetime="2019-11-07T09:48:00+08:00">2019-11-07</time>
+              <time title="创建时间：2019-11-07 09:48:00 / 修改时间：21:43:32" itemprop="dateCreated datePublished" datetime="2019-11-07T09:48:00+08:00">2019-11-07</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-08 21:13:08" itemprop="dateModified" datetime="2019-11-08T21:13:08+08:00">2019-11-08</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -1879,267 +2134,6 @@
   </article>
 
     
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2019/11/02/2019-11-02-《浮生六记》读书笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jay.Run">
-      <meta itemprop="description" content="学习 思考 行动 Python">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="逸思杂陈">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/11/02/2019-11-02-《浮生六记》读书笔记/" class="post-title-link" itemprop="url">《浮生六记》笔记</a>
-          
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-02 21:30:00" itemprop="dateCreated datePublished" datetime="2019-11-02T21:30:00+08:00">2019-11-02</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-07 11:16:42" itemprop="dateModified" datetime="2019-12-07T11:16:42+08:00">2019-12-07</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>874</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>1 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="http://image.runjf.com/mweb/2019-12-07-15756871927995.jpg?300x" alt></p>
-<p>浮生六记算是沈复的自传吧，其人才情虽好，德行却是没什么称道的地方。当然他前半生神仙眷侣般的生活，也不知惹多少人羡慕，红袖添香夜读书大概就是如此吧。</p>
-<p>名为六记，只余其四，也是人生一大憾事</p>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><h3 id="卷一-闺房记乐"><a href="#卷一-闺房记乐" class="headerlink" title="卷一 闺房记乐"></a>卷一 闺房记乐</h3><p>其形削肩长项，瘦不露骨，眉弯目秀，顾盼神飞，唯两齿微露，似非佳相。</p>
-<blockquote>
-<p>阮云：一会儿就该说真香了</p>
-</blockquote>
-<p>余镌“愿生生世世为夫妇”图章二方，余执朱文，芸执白文，以为往来书信之用。</p>
-<blockquote>
-<p>阮云：此生能得一良侣已是奢望，又怎么敢求生生世世。 </p>
-</blockquote>
-<p>山果收获，必借猴力，果然。</p>
-<p>余调其言，如蟋蟀之用纤草，渐能发议。其每日饭必用茶泡，喜食芥卤乳腐，吴俗呼为臭乳腐，又喜食虾卤瓜。</p>
-<blockquote>
-<p>阮云：喜欢饭后喝茶，腌制食品，早夭有因</p>
-</blockquote>
-<p>情之所钟，虽丑不嫌。</p>
-<p>其癖好与余同，且能察眼意，懂眉语，一举一动，示之以色，无不头头是道。</p>
-<p>于是相挽登舟，返棹至万年桥下，阳乌犹未落山。舟窗尽落，清风徐来，绒扇罗衫，剖瓜解暑。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/11/02/2019-11-02-《浮生六记》读书笔记/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2019/11/02/2019-11-02-python-logging-guide/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jay.Run">
-      <meta itemprop="description" content="学习 思考 行动 Python">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="逸思杂陈">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/11/02/2019-11-02-python-logging-guide/" class="post-title-link" itemprop="url">Python日志原理及实践</a>
-          
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-02 09:48:00 / 修改时间：23:26:17" itemprop="dateCreated datePublished" datetime="2019-11-02T09:48:00+08:00">2019-11-02</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>3.7k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>5 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、原理"><a href="#一、原理" class="headerlink" title="一、原理"></a>一、原理</h2><h3 id="1-1-一次简单的日志记录"><a href="#1-1-一次简单的日志记录" class="headerlink" title="1.1 一次简单的日志记录"></a>1.1 一次简单的日志记录</h3><figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">except <span class="type">Exception</span> <span class="keyword">as</span> e:</span><br><span class="line">    logger.debug(<span class="symbol">'debug</span> %s', e)</span><br><span class="line">    logger.info(<span class="symbol">'info</span> %s', e)</span><br><span class="line">    logger.warning(<span class="symbol">'warning</span> %s', e)</span><br><span class="line">    logger.error(<span class="symbol">'error</span> %s', e)</span><br><span class="line">    logger.<span class="keyword">exception</span>(<span class="symbol">'exception</span> %s', e)</span><br></pre></td></tr></table></figure>
-<p>output<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">warning division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">error division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">exception division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">Traceback (most recent call <span class="keyword">last</span>):</span><br><span class="line">  File <span class="string">"test.py"</span>, <span class="built_in">line</span> <span class="number">5</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">ZeroDivisionError: division <span class="keyword">by</span> <span class="literal">zero</span></span><br></pre></td></tr></table></figure></p>
-<ol>
-<li><code>logging.getLogger</code> 获取一个记录器, 一般以模块名称命名</li>
-<li>调用日志记录器的相应方法记录日志</li>
-</ol>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/11/02/2019-11-02-python-logging-guide/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </div>
 
   
@@ -2189,7 +2183,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">100</span>
+          <span class="site-state-item-count">102</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2361,12 +2355,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">162k</span>
+    <span title="站点总字数">164k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:22</span>
+    <span title="站点阅读时长">3:25</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

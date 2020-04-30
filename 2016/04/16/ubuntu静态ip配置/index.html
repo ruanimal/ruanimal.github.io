@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="以vmware虚拟机为例   设置IP运行 sudo nano /etc/network/interfaces将文件修改成如下：12345auto eth0  # eth0是网卡名称，你的不一定是这个，可通过ifconfig查看iface eth0 inet staticaddress 192.168.157.129   # 地址gateway 192.168.157.2    # 网关netma">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-30T17:13:49.000Z">
+<meta property="og:updated_time" content="2020-04-30T13:52:12.722Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu静态ip配置">
 <meta name="twitter:description" content="以vmware虚拟机为例   设置IP运行 sudo nano /etc/network/interfaces将文件修改成如下：12345auto eth0  # eth0是网卡名称，你的不一定是这个，可通过ifconfig查看iface eth0 inet staticaddress 192.168.157.129   # 地址gateway 192.168.157.2    # 网关netma">
@@ -155,7 +155,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <h1 class="site-subtitle" itemprop="description">人类一思考，上帝就发笑。</h1>
+        <p class="site-subtitle">人类一思考，上帝就发笑。</p>
       
   </div>
 
@@ -279,10 +279,10 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">ubuntu静态ip配置
+        <h1 class="post-title" itemprop="name headline">ubuntu静态ip配置
 
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -306,7 +306,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-01 01:13:49" itemprop="dateModified" datetime="2019-12-01T01:13:49+08:00">2019-12-01</time>
+                <time title="修改时间：2020-04-30 21:52:12" itemprop="dateModified" datetime="2020-04-30T21:52:12+08:00">2020-04-30</time>
               </span>
             
           
@@ -357,8 +357,8 @@
 
       
         <p>以vmware虚拟机为例  </p>
-<h4 id="设置IP"><a href="#设置IP" class="headerlink" title="设置IP"></a>设置IP</h4><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">auto eth0  # eth0是网卡名称，你的不一定是这个，可通过ifconfig查看</span><br><span class="line">iface eth0 inet static</span><br><span class="line">address 192.168.157.129   # 地址</span><br><span class="line">gateway 192.168.157.2    # 网关</span><br><span class="line">netmask 255.255.255.0   # 掩码</span><br></pre></td></tr></table></figure></p>
-<h4 id="修改DNS"><a href="#修改DNS" class="headerlink" title="修改DNS"></a>修改DNS</h4><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
+<h2 id="设置IP"><a href="#设置IP" class="headerlink" title="设置IP"></a>设置IP</h2><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">auto eth0  # eth0是网卡名称，你的不一定是这个，可通过ifconfig查看</span><br><span class="line">iface eth0 inet static</span><br><span class="line">address 192.168.157.129   # 地址</span><br><span class="line">gateway 192.168.157.2    # 网关</span><br><span class="line">netmask 255.255.255.0   # 掩码</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改DNS"><a href="#修改DNS" class="headerlink" title="修改DNS"></a>修改DNS</h2><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
 
     </div>
 
@@ -450,7 +450,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置IP"><span class="nav-number">1.</span> <span class="nav-text">设置IP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改DNS"><span class="nav-number">2.</span> <span class="nav-text">修改DNS</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置IP"><span class="nav-number">1.</span> <span class="nav-text">设置IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改DNS"><span class="nav-number">2.</span> <span class="nav-text">修改DNS</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->

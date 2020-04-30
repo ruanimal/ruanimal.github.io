@@ -66,7 +66,7 @@
 <meta property="og:description" content="读完了重构，感觉受益匪浅，准备写一个系列的文章。  这篇讲代码的坏味道，学习它是为了提升我们的眼力，为找到对应的重构方法做准备">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-03-21-%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93.png">
-<meta property="og:updated_time" content="2020-03-21T10:25:37.000Z">
+<meta property="og:updated_time" content="2020-04-30T06:34:15.263Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习重构：代码的坏味道">
 <meta name="twitter:description" content="读完了重构，感觉受益匪浅，准备写一个系列的文章。  这篇讲代码的坏味道，学习它是为了提升我们的眼力，为找到对应的重构方法做准备">
@@ -157,7 +157,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <h1 class="site-subtitle" itemprop="description">人类一思考，上帝就发笑。</h1>
+        <p class="site-subtitle">人类一思考，上帝就发笑。</p>
       
   </div>
 
@@ -281,10 +281,10 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">学习重构：代码的坏味道
+        <h1 class="post-title" itemprop="name headline">学习重构：代码的坏味道
 
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -297,11 +297,19 @@
                 
               
 
-              <time title="创建时间：2020-03-21 21:48:00 / 修改时间：18:25:37" itemprop="dateCreated datePublished" datetime="2020-03-21T21:48:00+08:00">2020-03-21</time>
+              <time title="创建时间：2020-03-21 21:48:00" itemprop="dateCreated datePublished" datetime="2020-03-21T21:48:00+08:00">2020-03-21</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-30 14:34:15" itemprop="dateModified" datetime="2020-04-30T14:34:15+08:00">2020-04-30</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -353,56 +361,56 @@
         <p>读完了<a href="https://book.douban.com/subject/30468597/" target="_blank" rel="noopener">重构</a>，感觉受益匪浅，准备写一个系列的文章。 </p>
 <p>这篇讲代码的坏味道，学习它是为了提升我们的眼力，为找到对应的重构方法做准备</p>
 <a id="more"></a>
-<h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><h2 id="缺少封装"><a href="#缺少封装" class="headerlink" title="缺少封装"></a>缺少封装</h2><h3 id="全局数据（Global-Data）"><a href="#全局数据（Global-Data）" class="headerlink" title="全局数据（Global Data）"></a>全局数据（Global Data）</h3><p>症状: 全局作用域的变量, 类变量, 单例</p>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><h3 id="缺少封装"><a href="#缺少封装" class="headerlink" title="缺少封装"></a>缺少封装</h3><h4 id="全局数据（Global-Data）"><a href="#全局数据（Global-Data）" class="headerlink" title="全局数据（Global Data）"></a>全局数据（Global Data）</h4><p>症状: 全局作用域的变量, 类变量, 单例</p>
 <p>分析: 从代码库的任何一个角落都可以修改它，而且没有任何机制可以探测出到底哪段代码做出了修改。最刺鼻的坏味道之一。</p>
-<h3 id="可变数据（Mutable-Data）"><a href="#可变数据（Mutable-Data）" class="headerlink" title="可变数据（Mutable Data）"></a>可变数据（Mutable Data）</h3><p>症状: 将可变对象作为函数参数</p>
+<h4 id="可变数据（Mutable-Data）"><a href="#可变数据（Mutable-Data）" class="headerlink" title="可变数据（Mutable Data）"></a>可变数据（Mutable Data）</h4><p>症状: 将可变对象作为函数参数</p>
 <p>分析: 难以追踪数据变更, 定位故障</p>
-<h3 id="过长参数列表（Long-Parameter-List）"><a href="#过长参数列表（Long-Parameter-List）" class="headerlink" title="过长参数列表（Long Parameter List）"></a>过长参数列表（Long Parameter List）</h3><p>症状: 函数需要的参数很多, 如4个以上的必填参数</p>
+<h4 id="过长参数列表（Long-Parameter-List）"><a href="#过长参数列表（Long-Parameter-List）" class="headerlink" title="过长参数列表（Long Parameter List）"></a>过长参数列表（Long Parameter List）</h4><p>症状: 函数需要的参数很多, 如4个以上的必填参数</p>
 <p>分析: 额外损耗调用者的心智, 也是函数违背了单一职责的征兆.</p>
-<h3 id="基本类型偏执（Primitive-Obsession）"><a href="#基本类型偏执（Primitive-Obsession）" class="headerlink" title="基本类型偏执（Primitive Obsession）"></a>基本类型偏执（Primitive Obsession）</h3><p>症状: 用基本类型来代表业务对象, 如钱、坐标、范围、人名等;</p>
+<h4 id="基本类型偏执（Primitive-Obsession）"><a href="#基本类型偏执（Primitive-Obsession）" class="headerlink" title="基本类型偏执（Primitive Obsession）"></a>基本类型偏执（Primitive Obsession）</h4><p>症状: 用基本类型来代表业务对象, 如钱、坐标、范围、人名等;</p>
 <p>分析: 缺少必要的抽象, 容易诱发数据泥团, 也容易产生重复代码.</p>
-<h3 id="过长的消息链（Message-Chains）"><a href="#过长的消息链（Message-Chains）" class="headerlink" title="过长的消息链（Message Chains）"></a>过长的消息链（Message Chains）</h3><p>症状: 超长的链式调用, 或者一长串取值函数, 或一长串临时变量.</p>
+<h4 id="过长的消息链（Message-Chains）"><a href="#过长的消息链（Message-Chains）" class="headerlink" title="过长的消息链（Message Chains）"></a>过长的消息链（Message Chains）</h4><p>症状: 超长的链式调用, 或者一长串取值函数, 或一长串临时变量.</p>
 <p>分析: 系统难理解和维护, 客户端代码将与查找过程中的导航结构紧密耦合。一旦对象间的关系发生任何变化，客户端就不得不做出相应修改。</p>
-<h2 id="不当封装"><a href="#不当封装" class="headerlink" title="不当封装"></a>不当封装</h2><h3 id="发散式变化（Divergent-Change）"><a href="#发散式变化（Divergent-Change）" class="headerlink" title="发散式变化（Divergent Change）"></a>发散式变化（Divergent Change）</h3><p>症状: 一处代码包含了多个上下文, 也就是承担了多个职责.</p>
+<h3 id="不当封装"><a href="#不当封装" class="headerlink" title="不当封装"></a>不当封装</h3><h4 id="发散式变化（Divergent-Change）"><a href="#发散式变化（Divergent-Change）" class="headerlink" title="发散式变化（Divergent Change）"></a>发散式变化（Divergent Change）</h4><p>症状: 一处代码包含了多个上下文, 也就是承担了多个职责.</p>
 <p>分析: 难以测试; 增大修改的难度, 因为要关注多个上下文.</p>
-<h3 id="霰弹式修改（Shotgun-Surgery）"><a href="#霰弹式修改（Shotgun-Surgery）" class="headerlink" title="霰弹式修改（Shotgun Surgery）"></a>霰弹式修改（Shotgun Surgery）</h3><p>症状: 一个上下文, 被分散在多处, 每遇到某种变化，你都必须在许多不同的类\函数\模块内做出许多小修改.</p>
+<h4 id="霰弹式修改（Shotgun-Surgery）"><a href="#霰弹式修改（Shotgun-Surgery）" class="headerlink" title="霰弹式修改（Shotgun Surgery）"></a>霰弹式修改（Shotgun Surgery）</h4><p>症状: 一个上下文, 被分散在多处, 每遇到某种变化，你都必须在许多不同的类\函数\模块内做出许多小修改.</p>
 <p>分析: 与发散式变化类似, 难以测试, 难以修改.</p>
-<h3 id="依恋情结（Feature-Envy）"><a href="#依恋情结（Feature-Envy）" class="headerlink" title="依恋情结（Feature Envy）"></a>依恋情结（Feature Envy）</h3><p>症状: 一个函数跟另一个模块中的函数或者数据交流格外频繁，远胜于在自己所处模块内部的交流.</p>
+<h4 id="依恋情结（Feature-Envy）"><a href="#依恋情结（Feature-Envy）" class="headerlink" title="依恋情结（Feature Envy）"></a>依恋情结（Feature Envy）</h4><p>症状: 一个函数跟另一个模块中的函数或者数据交流格外频繁，远胜于在自己所处模块内部的交流.</p>
 <p>分析: 错误的抽象, 导致不同上下文的交汇, 难以测试.</p>
-<h3 id="内幕交易（Insider-Trading）"><a href="#内幕交易（Insider-Trading）" class="headerlink" title="内幕交易（Insider Trading）"></a>内幕交易（Insider Trading）</h3><p>症状: 不同模块之间互相调用过多</p>
+<h4 id="内幕交易（Insider-Trading）"><a href="#内幕交易（Insider-Trading）" class="headerlink" title="内幕交易（Insider Trading）"></a>内幕交易（Insider Trading）</h4><p>症状: 不同模块之间互相调用过多</p>
 <p>分析: 说明这两个模块的封装不恰当, 模块的函数或者数据放错地方了.</p>
-<h2 id="缺少抽象"><a href="#缺少抽象" class="headerlink" title="缺少抽象"></a>缺少抽象</h2><h3 id="重复代码（Duplicated-Code）"><a href="#重复代码（Duplicated-Code）" class="headerlink" title="重复代码（Duplicated Code）"></a>重复代码（Duplicated Code）</h3><p>症状: 在一个以上的地点看到相同的代码结构</p>
+<h3 id="缺少抽象"><a href="#缺少抽象" class="headerlink" title="缺少抽象"></a>缺少抽象</h3><h4 id="重复代码（Duplicated-Code）"><a href="#重复代码（Duplicated-Code）" class="headerlink" title="重复代码（Duplicated Code）"></a>重复代码（Duplicated Code）</h4><p>症状: 在一个以上的地点看到相同的代码结构</p>
 <p>分析: 影响可读性, 阅读时需要花额外的精力，比较多个地方是否存在差异。</p>
-<h3 id="过长函数（Long-Function）"><a href="#过长函数（Long-Function）" class="headerlink" title="过长函数（Long Function）"></a>过长函数（Long Function）</h3><p>症状: 函数很长(超过100行), 大量的参数和临时变量, 复杂的循环和分支</p>
+<h4 id="过长函数（Long-Function）"><a href="#过长函数（Long-Function）" class="headerlink" title="过长函数（Long Function）"></a>过长函数（Long Function）</h4><p>症状: 函数很长(超过100行), 大量的参数和临时变量, 复杂的循环和分支</p>
 <p>分析: 影响可读性, 逻辑复杂难以测试</p>
-<h3 id="数据泥团（Data-Clumps）"><a href="#数据泥团（Data-Clumps）" class="headerlink" title="数据泥团（Data Clumps）"></a>数据泥团（Data Clumps）</h3><p>症状: 扎堆出现的多个数据项, 删掉众多数据中的一项, 其他数据就失去了意义; 例如: 多个类的相似属性, 多个函数的多个相同参数.</p>
+<h4 id="数据泥团（Data-Clumps）"><a href="#数据泥团（Data-Clumps）" class="headerlink" title="数据泥团（Data Clumps）"></a>数据泥团（Data Clumps）</h4><p>症状: 扎堆出现的多个数据项, 删掉众多数据中的一项, 其他数据就失去了意义; 例如: 多个类的相似属性, 多个函数的多个相同参数.</p>
 <p>分析: 缺少必要的抽象, 开发者关注了过多细节; 难以修改</p>
-<h3 id="重复的switch-（Repeated-Switches）"><a href="#重复的switch-（Repeated-Switches）" class="headerlink" title="重复的switch （Repeated Switches）"></a>重复的switch （Repeated Switches）</h3><p>症状: 出现在多个地方的相同switch语句, 或者连续的if\else.</p>
+<h4 id="重复的switch-（Repeated-Switches）"><a href="#重复的switch-（Repeated-Switches）" class="headerlink" title="重复的switch （Repeated Switches）"></a>重复的switch （Repeated Switches）</h4><p>症状: 出现在多个地方的相同switch语句, 或者连续的if\else.</p>
 <p>分析: 是重复代码的一种, 也会引发霰弹式修改; 容易引发bug</p>
-<h3 id="循环语句（Loops）"><a href="#循环语句（Loops）" class="headerlink" title="循环语句（Loops）"></a>循环语句（Loops）</h3><p>症状: 过多的循环, 嵌套的循环</p>
+<h4 id="循环语句（Loops）"><a href="#循环语句（Loops）" class="headerlink" title="循环语句（Loops）"></a>循环语句（Loops）</h4><p>症状: 过多的循环, 嵌套的循环</p>
 <p>分析: 难以一眼看出循环代码的意图, 常演变成在一个循环里做多件事情.</p>
-<h3 id="过大的类（Large-Class"><a href="#过大的类（Large-Class" class="headerlink" title="过大的类（Large Class"></a>过大的类（Large Class</h3><p>症状: 单个类做太多事情, 有些字段或者函数关联性不高</p>
+<h4 id="过大的类（Large-Class"><a href="#过大的类（Large-Class" class="headerlink" title="过大的类（Large Class"></a>过大的类（Large Class</h4><p>症状: 单个类做太多事情, 有些字段或者函数关联性不高</p>
 <p>分析: 与过长函数类似, 违背了单一职责原则.</p>
-<h2 id="过度抽象"><a href="#过度抽象" class="headerlink" title="过度抽象"></a>过度抽象</h2><h3 id="冗赘的元素（Lazy-Element）"><a href="#冗赘的元素（Lazy-Element）" class="headerlink" title="冗赘的元素（Lazy Element）"></a>冗赘的元素（Lazy Element）</h3><p>症状: 可有可无的代码元素; 如: 只有一个方法的类, 只有一个子类的父类.</p>
+<h3 id="过度抽象"><a href="#过度抽象" class="headerlink" title="过度抽象"></a>过度抽象</h3><h4 id="冗赘的元素（Lazy-Element）"><a href="#冗赘的元素（Lazy-Element）" class="headerlink" title="冗赘的元素（Lazy Element）"></a>冗赘的元素（Lazy Element）</h4><p>症状: 可有可无的代码元素; 如: 只有一个方法的类, 只有一个子类的父类.</p>
 <p>分析: 过度设计的典型, 难以应对变化. 如无必要, 勿增实体.</p>
-<h3 id="夸夸其谈通用性（Speculative-Generality）"><a href="#夸夸其谈通用性（Speculative-Generality）" class="headerlink" title="夸夸其谈通用性（Speculative Generality）"></a>夸夸其谈通用性（Speculative Generality）</h3><p>症状: 为了通用性而预先设计的代码结构, 实际上去很少用到; 如: 预留许多钩子处理各种非必要的事情, 无实际意义的多层继承体系.</p>
+<h4 id="夸夸其谈通用性（Speculative-Generality）"><a href="#夸夸其谈通用性（Speculative-Generality）" class="headerlink" title="夸夸其谈通用性（Speculative Generality）"></a>夸夸其谈通用性（Speculative Generality）</h4><p>症状: 为了通用性而预先设计的代码结构, 实际上去很少用到; 如: 预留许多钩子处理各种非必要的事情, 无实际意义的多层继承体系.</p>
 <p>分析: 过度设计, 系统更难理解和维护。</p>
-<h3 id="临时字段（Temporary-Field）"><a href="#临时字段（Temporary-Field）" class="headerlink" title="临时字段（Temporary Field）"></a>临时字段（Temporary Field）</h3><p>症状: 预留的字段或者变量, 仅为某种特定情况而设.</p>
+<h4 id="临时字段（Temporary-Field）"><a href="#临时字段（Temporary-Field）" class="headerlink" title="临时字段（Temporary Field）"></a>临时字段（Temporary Field）</h4><p>症状: 预留的字段或者变量, 仅为某种特定情况而设.</p>
 <p>分析: 过度设计, 代码让人不易理解，因为你通常认为对象在所有时候都需要它的所有字段。</p>
-<h3 id="中间人（Middle-Man）"><a href="#中间人（Middle-Man）" class="headerlink" title="中间人（Middle Man）"></a>中间人（Middle Man）</h3><p>症状: 没有必要的中间人对象, 过度使用委托. 如: 某个类的接口有一半的函数都委托给其他类.</p>
+<h4 id="中间人（Middle-Man）"><a href="#中间人（Middle-Man）" class="headerlink" title="中间人（Middle Man）"></a>中间人（Middle Man）</h4><p>症状: 没有必要的中间人对象, 过度使用委托. 如: 某个类的接口有一半的函数都委托给其他类.</p>
 <p>分析: 过度设计</p>
-<h2 id="不当抽象"><a href="#不当抽象" class="headerlink" title="不当抽象"></a>不当抽象</h2><h3 id="异曲同工的类（Alternative-Classes-with-Different-Interfaces）"><a href="#异曲同工的类（Alternative-Classes-with-Different-Interfaces）" class="headerlink" title="异曲同工的类（Alternative Classes with Different Interfaces）"></a>异曲同工的类（Alternative Classes with Different Interfaces）</h3><p>症状: 在不同继承体系的类, 做的事情却大同小异</p>
+<h3 id="不当抽象"><a href="#不当抽象" class="headerlink" title="不当抽象"></a>不当抽象</h3><h4 id="异曲同工的类（Alternative-Classes-with-Different-Interfaces）"><a href="#异曲同工的类（Alternative-Classes-with-Different-Interfaces）" class="headerlink" title="异曲同工的类（Alternative Classes with Different Interfaces）"></a>异曲同工的类（Alternative Classes with Different Interfaces）</h4><p>症状: 在不同继承体系的类, 做的事情却大同小异</p>
 <p>分析: 重复代码的一种类型</p>
-<h3 id="纯数据类（Data-Class）"><a href="#纯数据类（Data-Class）" class="headerlink" title="纯数据类（Data Class）"></a>纯数据类（Data Class）</h3><p>症状: 只有数据字段和读写函数的类</p>
+<h4 id="纯数据类（Data-Class）"><a href="#纯数据类（Data-Class）" class="headerlink" title="纯数据类（Data Class）"></a>纯数据类（Data Class）</h4><p>症状: 只有数据字段和读写函数的类</p>
 <p>分析: 纯数据类常常意味着行为被放在了错误的地方, 使得难以追踪数据的修改.</p>
-<h3 id="被拒绝的遗赠（Refused-Bequest）"><a href="#被拒绝的遗赠（Refused-Bequest）" class="headerlink" title="被拒绝的遗赠（Refused Bequest）"></a>被拒绝的遗赠（Refused Bequest）</h3><p>症状: 子类和父类的相似度很低; 如: 子类只需要父类的一个方法, 却继承了整个类.</p>
+<h4 id="被拒绝的遗赠（Refused-Bequest）"><a href="#被拒绝的遗赠（Refused-Bequest）" class="headerlink" title="被拒绝的遗赠（Refused Bequest）"></a>被拒绝的遗赠（Refused Bequest）</h4><p>症状: 子类和父类的相似度很低; 如: 子类只需要父类的一个方法, 却继承了整个类.</p>
 <p>分析: 意味着继承体系设计错误</p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="神秘命名（Mysterious-Name）"><a href="#神秘命名（Mysterious-Name）" class="headerlink" title="神秘命名（Mysterious Name）"></a>神秘命名（Mysterious Name）</h3><p>症状: 不能清晰地表明自己的功能和用法, 或者随意地取无意义的名称.</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="神秘命名（Mysterious-Name）"><a href="#神秘命名（Mysterious-Name）" class="headerlink" title="神秘命名（Mysterious Name）"></a>神秘命名（Mysterious Name）</h4><p>症状: 不能清晰地表明自己的功能和用法, 或者随意地取无意义的名称.</p>
 <p>分析: 对可读性有很大影响, 如果你想不出一个好名字，说明背后很可能潜藏着更深的设计问题。</p>
-<h3 id="注释（Comments）"><a href="#注释（Comments）" class="headerlink" title="注释（Comments）"></a>注释（Comments）</h3><p>症状: 超长的的注释</p>
+<h4 id="注释（Comments）"><a href="#注释（Comments）" class="headerlink" title="注释（Comments）"></a>注释（Comments）</h4><p>症状: 超长的的注释</p>
 <p>分析: 意味着相关代码实现难以理解</p>
-<h1 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h1><p><img src="http://image.runjf.com/mweb/2020-03-21-%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93.png" alt="代码的坏味道"></p>
-<h1 id="坏味道与重构手法速查表"><a href="#坏味道与重构手法速查表" class="headerlink" title="坏味道与重构手法速查表"></a>坏味道与重构手法速查表</h1><table>
+<h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img src="http://image.runjf.com/mweb/2020-03-21-%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93.png" alt="代码的坏味道"></p>
+<h2 id="坏味道与重构手法速查表"><a href="#坏味道与重构手法速查表" class="headerlink" title="坏味道与重构手法速查表"></a>坏味道与重构手法速查表</h2><table>
 <thead>
 <tr>
 <th>坏味道（英文）</th>
@@ -647,7 +655,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#笔记"><span class="nav-number">1.</span> <span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缺少封装"><span class="nav-number">1.1.</span> <span class="nav-text">缺少封装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全局数据（Global-Data）"><span class="nav-number">1.1.1.</span> <span class="nav-text">全局数据（Global Data）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可变数据（Mutable-Data）"><span class="nav-number">1.1.2.</span> <span class="nav-text">可变数据（Mutable Data）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过长参数列表（Long-Parameter-List）"><span class="nav-number">1.1.3.</span> <span class="nav-text">过长参数列表（Long Parameter List）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本类型偏执（Primitive-Obsession）"><span class="nav-number">1.1.4.</span> <span class="nav-text">基本类型偏执（Primitive Obsession）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过长的消息链（Message-Chains）"><span class="nav-number">1.1.5.</span> <span class="nav-text">过长的消息链（Message Chains）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不当封装"><span class="nav-number">1.2.</span> <span class="nav-text">不当封装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#发散式变化（Divergent-Change）"><span class="nav-number">1.2.1.</span> <span class="nav-text">发散式变化（Divergent Change）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#霰弹式修改（Shotgun-Surgery）"><span class="nav-number">1.2.2.</span> <span class="nav-text">霰弹式修改（Shotgun Surgery）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依恋情结（Feature-Envy）"><span class="nav-number">1.2.3.</span> <span class="nav-text">依恋情结（Feature Envy）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内幕交易（Insider-Trading）"><span class="nav-number">1.2.4.</span> <span class="nav-text">内幕交易（Insider Trading）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺少抽象"><span class="nav-number">1.3.</span> <span class="nav-text">缺少抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重复代码（Duplicated-Code）"><span class="nav-number">1.3.1.</span> <span class="nav-text">重复代码（Duplicated Code）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过长函数（Long-Function）"><span class="nav-number">1.3.2.</span> <span class="nav-text">过长函数（Long Function）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据泥团（Data-Clumps）"><span class="nav-number">1.3.3.</span> <span class="nav-text">数据泥团（Data Clumps）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重复的switch-（Repeated-Switches）"><span class="nav-number">1.3.4.</span> <span class="nav-text">重复的switch （Repeated Switches）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环语句（Loops）"><span class="nav-number">1.3.5.</span> <span class="nav-text">循环语句（Loops）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过大的类（Large-Class"><span class="nav-number">1.3.6.</span> <span class="nav-text">过大的类（Large Class</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过度抽象"><span class="nav-number">1.4.</span> <span class="nav-text">过度抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#冗赘的元素（Lazy-Element）"><span class="nav-number">1.4.1.</span> <span class="nav-text">冗赘的元素（Lazy Element）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#夸夸其谈通用性（Speculative-Generality）"><span class="nav-number">1.4.2.</span> <span class="nav-text">夸夸其谈通用性（Speculative Generality）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#临时字段（Temporary-Field）"><span class="nav-number">1.4.3.</span> <span class="nav-text">临时字段（Temporary Field）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间人（Middle-Man）"><span class="nav-number">1.4.4.</span> <span class="nav-text">中间人（Middle Man）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不当抽象"><span class="nav-number">1.5.</span> <span class="nav-text">不当抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异曲同工的类（Alternative-Classes-with-Different-Interfaces）"><span class="nav-number">1.5.1.</span> <span class="nav-text">异曲同工的类（Alternative Classes with Different Interfaces）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纯数据类（Data-Class）"><span class="nav-number">1.5.2.</span> <span class="nav-text">纯数据类（Data Class）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#被拒绝的遗赠（Refused-Bequest）"><span class="nav-number">1.5.3.</span> <span class="nav-text">被拒绝的遗赠（Refused Bequest）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">1.6.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#神秘命名（Mysterious-Name）"><span class="nav-number">1.6.1.</span> <span class="nav-text">神秘命名（Mysterious Name）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注释（Comments）"><span class="nav-number">1.6.2.</span> <span class="nav-text">注释（Comments）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思维导图"><span class="nav-number">2.</span> <span class="nav-text">思维导图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#坏味道与重构手法速查表"><span class="nav-number">3.</span> <span class="nav-text">坏味道与重构手法速查表</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#笔记"><span class="nav-number">1.</span> <span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缺少封装"><span class="nav-number">1.1.</span> <span class="nav-text">缺少封装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全局数据（Global-Data）"><span class="nav-number">1.1.1.</span> <span class="nav-text">全局数据（Global Data）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可变数据（Mutable-Data）"><span class="nav-number">1.1.2.</span> <span class="nav-text">可变数据（Mutable Data）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过长参数列表（Long-Parameter-List）"><span class="nav-number">1.1.3.</span> <span class="nav-text">过长参数列表（Long Parameter List）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本类型偏执（Primitive-Obsession）"><span class="nav-number">1.1.4.</span> <span class="nav-text">基本类型偏执（Primitive Obsession）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过长的消息链（Message-Chains）"><span class="nav-number">1.1.5.</span> <span class="nav-text">过长的消息链（Message Chains）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不当封装"><span class="nav-number">1.2.</span> <span class="nav-text">不当封装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发散式变化（Divergent-Change）"><span class="nav-number">1.2.1.</span> <span class="nav-text">发散式变化（Divergent Change）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#霰弹式修改（Shotgun-Surgery）"><span class="nav-number">1.2.2.</span> <span class="nav-text">霰弹式修改（Shotgun Surgery）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依恋情结（Feature-Envy）"><span class="nav-number">1.2.3.</span> <span class="nav-text">依恋情结（Feature Envy）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内幕交易（Insider-Trading）"><span class="nav-number">1.2.4.</span> <span class="nav-text">内幕交易（Insider Trading）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺少抽象"><span class="nav-number">1.3.</span> <span class="nav-text">缺少抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重复代码（Duplicated-Code）"><span class="nav-number">1.3.1.</span> <span class="nav-text">重复代码（Duplicated Code）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过长函数（Long-Function）"><span class="nav-number">1.3.2.</span> <span class="nav-text">过长函数（Long Function）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据泥团（Data-Clumps）"><span class="nav-number">1.3.3.</span> <span class="nav-text">数据泥团（Data Clumps）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重复的switch-（Repeated-Switches）"><span class="nav-number">1.3.4.</span> <span class="nav-text">重复的switch （Repeated Switches）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环语句（Loops）"><span class="nav-number">1.3.5.</span> <span class="nav-text">循环语句（Loops）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过大的类（Large-Class"><span class="nav-number">1.3.6.</span> <span class="nav-text">过大的类（Large Class</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过度抽象"><span class="nav-number">1.4.</span> <span class="nav-text">过度抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#冗赘的元素（Lazy-Element）"><span class="nav-number">1.4.1.</span> <span class="nav-text">冗赘的元素（Lazy Element）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#夸夸其谈通用性（Speculative-Generality）"><span class="nav-number">1.4.2.</span> <span class="nav-text">夸夸其谈通用性（Speculative Generality）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#临时字段（Temporary-Field）"><span class="nav-number">1.4.3.</span> <span class="nav-text">临时字段（Temporary Field）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中间人（Middle-Man）"><span class="nav-number">1.4.4.</span> <span class="nav-text">中间人（Middle Man）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不当抽象"><span class="nav-number">1.5.</span> <span class="nav-text">不当抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#异曲同工的类（Alternative-Classes-with-Different-Interfaces）"><span class="nav-number">1.5.1.</span> <span class="nav-text">异曲同工的类（Alternative Classes with Different Interfaces）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#纯数据类（Data-Class）"><span class="nav-number">1.5.2.</span> <span class="nav-text">纯数据类（Data Class）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#被拒绝的遗赠（Refused-Bequest）"><span class="nav-number">1.5.3.</span> <span class="nav-text">被拒绝的遗赠（Refused Bequest）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">1.6.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#神秘命名（Mysterious-Name）"><span class="nav-number">1.6.1.</span> <span class="nav-text">神秘命名（Mysterious Name）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注释（Comments）"><span class="nav-number">1.6.2.</span> <span class="nav-text">注释（Comments）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思维导图"><span class="nav-number">2.</span> <span class="nav-text">思维导图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#坏味道与重构手法速查表"><span class="nav-number">3.</span> <span class="nav-text">坏味道与重构手法速查表</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->

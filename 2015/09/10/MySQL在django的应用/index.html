@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="MySQL安装 检查MySQL是否安装 sudo netstat -tap | grep mysql 如果没有 sudo apt-get install mysql-server mysql-client 设置mysql的root用户的密码   MySQL的python模块 MySQL-Python 123$ wget https://pypi.python.org/packages/source">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-26T14:38:36.000Z">
+<meta property="og:updated_time" content="2020-04-30T14:34:46.464Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL在django的应用与设置">
 <meta name="twitter:description" content="MySQL安装 检查MySQL是否安装 sudo netstat -tap | grep mysql 如果没有 sudo apt-get install mysql-server mysql-client 设置mysql的root用户的密码   MySQL的python模块 MySQL-Python 123$ wget https://pypi.python.org/packages/source">
@@ -155,7 +155,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <h1 class="site-subtitle" itemprop="description">人类一思考，上帝就发笑。</h1>
+        <p class="site-subtitle">人类一思考，上帝就发笑。</p>
       
   </div>
 
@@ -279,10 +279,10 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">MySQL在django的应用与设置
+        <h1 class="post-title" itemprop="name headline">MySQL在django的应用与设置
 
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -306,7 +306,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-26 22:38:36" itemprop="dateModified" datetime="2019-10-26T22:38:36+08:00">2019-10-26</time>
+                <time title="修改时间：2020-04-30 22:34:46" itemprop="dateModified" datetime="2020-04-30T22:34:46+08:00">2020-04-30</time>
               </span>
             
           
@@ -356,12 +356,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="MySQL安装"><a href="#MySQL安装" class="headerlink" title="MySQL安装"></a>MySQL安装</h3><ul>
+        <h2 id="MySQL安装"><a href="#MySQL安装" class="headerlink" title="MySQL安装"></a>MySQL安装</h2><ul>
 <li>检查MySQL是否安装 sudo netstat -tap | grep mysql</li>
 <li>如果没有 sudo apt-get install mysql-server mysql-client</li>
 <li>设置mysql的root用户的密码 </li>
 </ul>
-<h3 id="MySQL的python模块"><a href="#MySQL的python模块" class="headerlink" title="MySQL的python模块"></a>MySQL的python模块</h3><ul>
+<h2 id="MySQL的python模块"><a href="#MySQL的python模块" class="headerlink" title="MySQL的python模块"></a>MySQL的python模块</h2><ul>
 <li><p>MySQL-Python</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ wget http<span class="variable">s:</span>//pypi.<span class="keyword">python</span>.org/packages/<span class="keyword">source</span>/M/MySQL-<span class="keyword">python</span>/MySQL-<span class="keyword">python</span>-<span class="number">1.2</span>.<span class="number">5</span>.zip</span><br><span class="line">$ unzip MySQL-<span class="keyword">python</span>-<span class="number">1.2</span>.<span class="number">5</span>.zip</span><br><span class="line">$ sudo <span class="keyword">python</span> setup.<span class="keyword">py</span> install</span><br></pre></td></tr></table></figure>
 </li>
@@ -369,18 +369,20 @@
 </li>
 </ul>
 <a id="more"></a>
-<h3 id="django中的设置"><a href="#django中的设置" class="headerlink" title="django中的设置"></a>django中的设置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.mysql'</span>, <span class="comment">#设置为mysql数据库</span></span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'dmyz'</span>,  <span class="comment">#mysql数据库名</span></span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'root'</span>,  <span class="comment">#mysql用户名，留空则默认为当前linux用户名</span></span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">'root'</span>,   <span class="comment">#mysql密码(怀疑有安全性问题)</span></span><br><span class="line">        <span class="string">'HOST'</span>: <span class="string">''</span>,  <span class="comment">#留空默认为localhost</span></span><br><span class="line">        <span class="string">'PORT'</span>: <span class="string">''</span>,  <span class="comment">#留空默认为3306端口</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="django中的设置"><a href="#django中的设置" class="headerlink" title="django中的设置"></a>django中的设置</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.mysql'</span>, <span class="comment">#设置为mysql数据库</span></span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'dmyz'</span>,  <span class="comment">#mysql数据库名</span></span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'root'</span>,  <span class="comment">#mysql用户名，留空则默认为当前linux用户名</span></span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">'root'</span>,   <span class="comment">#mysql密码(怀疑有安全性问题)</span></span><br><span class="line">        <span class="string">'HOST'</span>: <span class="string">''</span>,  <span class="comment">#留空默认为localhost</span></span><br><span class="line">        <span class="string">'PORT'</span>: <span class="string">''</span>,  <span class="comment">#留空默认为3306端口</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>另一种方法是使用mysql配置文件，参看<a href="https://docs.djangoproject.com/en/1.9/ref/databases/#mysql-notes" target="_blank" rel="noopener"></a></p>
-<h3 id="MySQL-数据库操作"><a href="#MySQL-数据库操作" class="headerlink" title="MySQL 数据库操作"></a>MySQL 数据库操作</h3><ul>
+<h2 id="MySQL-数据库操作"><a href="#MySQL-数据库操作" class="headerlink" title="MySQL 数据库操作"></a>MySQL 数据库操作</h2><ul>
 <li>进入mysql命令行 <code>mysql -uroot -p[密码]</code></li>
 <li>新建数据库 <code>create database name</code></li>
 <li>使用数据库 <code>use name</code></li>
 <li>(可选)导入sql备份文件 <code>mysql –uroot –p[密码] -Dtest&lt; .sql</code></li>
 </ul>
-<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><ul>
-<li><h4 id="django1-6环境加south"><a href="#django1-6环境加south" class="headerlink" title="django1.6环境加south"></a>django1.6环境加south</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">python</span> manage.<span class="keyword">py</span> syncdb  # 创建表</span><br><span class="line"><span class="keyword">python</span> manage.<span class="keyword">py</span> migrate  # 数据迁移可选</span><br><span class="line"><span class="keyword">python</span> manage.<span class="keyword">py</span> runserver</span><br></pre></td></tr></table></figure>
+<h2 id="django初始化数据库"><a href="#django初始化数据库" class="headerlink" title="django初始化数据库"></a>django初始化数据库</h2><ul>
+<li><p>django1.6环境加south</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">python</span> manage.<span class="keyword">py</span> syncdb  # 创建表</span><br><span class="line"><span class="keyword">python</span> manage.<span class="keyword">py</span> migrate  # 数据迁移可选</span><br><span class="line"><span class="keyword">python</span> manage.<span class="keyword">py</span> runserver</span><br></pre></td></tr></table></figure>
 </li>
-<li><h4 id="django1-8"><a href="#django1-8" class="headerlink" title="django1.8+"></a>django1.8+</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">python</span> manage.<span class="keyword">py</span> makemigrations appname  # 建立迁移脚本 </span><br><span class="line"><span class="keyword">python</span> manage.<span class="keyword">py</span> migrate  # 数据迁移可选</span><br><span class="line"><span class="keyword">python</span> manage.<span class="keyword">py</span> runserver</span><br></pre></td></tr></table></figure>
+<li><p>django1.8+</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">python</span> manage.<span class="keyword">py</span> makemigrations appname  # 建立迁移脚本 </span><br><span class="line"><span class="keyword">python</span> manage.<span class="keyword">py</span> migrate  # 数据迁移可选</span><br><span class="line"><span class="keyword">python</span> manage.<span class="keyword">py</span> runserver</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 
@@ -476,7 +478,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL安装"><span class="nav-number">1.</span> <span class="nav-text">MySQL安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL的python模块"><span class="nav-number">2.</span> <span class="nav-text">MySQL的python模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django中的设置"><span class="nav-number">3.</span> <span class="nav-text">django中的设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-数据库操作"><span class="nav-number">4.</span> <span class="nav-text">MySQL 数据库操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行"><span class="nav-number">5.</span> <span class="nav-text">运行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#django1-6环境加south"><span class="nav-number">5.1.</span> <span class="nav-text">django1.6环境加south</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#django1-8"><span class="nav-number">5.2.</span> <span class="nav-text">django1.8+</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL安装"><span class="nav-number">1.</span> <span class="nav-text">MySQL安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL的python模块"><span class="nav-number">2.</span> <span class="nav-text">MySQL的python模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django中的设置"><span class="nav-number">3.</span> <span class="nav-text">django中的设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-数据库操作"><span class="nav-number">4.</span> <span class="nav-text">MySQL 数据库操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#django初始化数据库"><span class="nav-number">5.</span> <span class="nav-text">django初始化数据库</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->

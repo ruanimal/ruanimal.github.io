@@ -153,7 +153,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <h1 class="site-subtitle" itemprop="description">人类一思考，上帝就发笑。</h1>
+        <p class="site-subtitle">人类一思考，上帝就发笑。</p>
       
   </div>
 
@@ -276,11 +276,11 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
             
             <a href="/2016/04/27/python中的装饰器/" class="post-title-link" itemprop="url">Python中的装饰器（decorator）</a>
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -304,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-02 20:38:48" itemprop="dateModified" datetime="2019-11-02T20:38:48+08:00">2019-11-02</time>
+                <time title="修改时间：2020-04-30 21:48:24" itemprop="dateModified" datetime="2020-04-30T21:48:24+08:00">2020-04-30</time>
               </span>
             
           
@@ -354,12 +354,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。</p>
+          <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。</p>
 <p>假如我现在想在函数运行时输出一些信息</p>
-<h3 id="小学水平"><a href="#小学水平" class="headerlink" title="小学水平"></a>小学水平</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'`%s` is running...'</span> % func.__name__</span><br><span class="line">    <span class="keyword">return</span> func</span><br><span class="line">    </span><br><span class="line"><span class="meta">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_sum</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"I cat't sum right now!"</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">print</span> my_sum()</span><br></pre></td></tr></table></figure>
+<h2 id="小学水平"><a href="#小学水平" class="headerlink" title="小学水平"></a>小学水平</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'`%s` is running...'</span> % func.__name__</span><br><span class="line">    <span class="keyword">return</span> func</span><br><span class="line">    </span><br><span class="line"><span class="meta">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_sum</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"I cat't sum right now!"</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">print</span> my_sum()</span><br></pre></td></tr></table></figure>
 <p>输出<br><figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">`my_sum` is running...</span><br><span class="line">I cat'<span class="built_in">t</span> <span class="built_in">sum</span> <span class="built_in">right</span> <span class="built_in">now</span>!</span><br></pre></td></tr></table></figure></p>
 <p>要使用装饰器，先得定义一个装饰器函数，然后在需要装饰的函数的前一行使用<code>@</code>符号加上<code>装饰器名称</code>。<br>在这里的效果等效于running(my_sum)()，不过看起来有点别扭。<br><strong>注意：一旦通过<code>@running</code>装饰了函数，不管被装饰函数是否运行，python解释器都会执行一遍<code>running</code>函数。</strong></p>
-<h3 id="中学水平"><a href="#中学水平" class="headerlink" title="中学水平"></a>中学水平</h3><p>上一个装饰器用起来还行，但是有一个致命的问题，它不能装饰带参数的函数。所以我们在装饰器内部定义<code>_wrapper</code>函数，并返回它。这个函数接收所有位置参数<code>*args</code>，和关键字参数<code>*kwargs</code>，在<code>_wrapper</code>内部执行<code>func(*args, **kwargs)</code>。</p>
+<h2 id="中学水平"><a href="#中学水平" class="headerlink" title="中学水平"></a>中学水平</h2><p>上一个装饰器用起来还行，但是有一个致命的问题，它不能装饰带参数的函数。所以我们在装饰器内部定义<code>_wrapper</code>函数，并返回它。这个函数接收所有位置参数<code>*args</code>，和关键字参数<code>*kwargs</code>，在<code>_wrapper</code>内部执行<code>func(*args, **kwargs)</code>。</p>
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -404,11 +404,11 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
             
             <a href="/2016/04/25/Python包导入/" class="post-title-link" itemprop="url">Python项目中包的导入</a>
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -432,7 +432,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-26 22:38:36" itemprop="dateModified" datetime="2019-10-26T22:38:36+08:00">2019-10-26</time>
+                <time title="修改时间：2020-04-30 21:49:21" itemprop="dateModified" datetime="2020-04-30T21:49:21+08:00">2020-04-30</time>
               </span>
             
           
@@ -482,8 +482,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">taskman</span><br><span class="line">├── db.sqlite3</span><br><span class="line">├── manage.py</span><br><span class="line">├── task</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── admin.py</span><br><span class="line">│   ├── models.py</span><br><span class="line">│   ├── urls.py</span><br><span class="line">│   └── views.py</span><br><span class="line">└── man</span><br><span class="line">    ├── __init__<span class="selector-class">.py</span> </span><br><span class="line">    ├── settings<span class="selector-class">.py</span> </span><br><span class="line">    ├── urls<span class="selector-class">.py</span> </span><br><span class="line">    └── wsgi.py</span><br></pre></td></tr></table></figure>
-<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>上面的例子是一个Django项目，Python包的导入都是相对于<code>主程序</code>来说的。<br>这个项目的主程序就是<code>manage.py</code>，跟manage.py同级的文件夹（含有<code>__init__.py</code>）如<code>task</code>,<code>man</code>就称之为包，若同级有文件就称之为顶级模块。<br>在这个项目里所有Python包的导入，都应该写完整路径。</p>
+          <h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">taskman</span><br><span class="line">├── db.sqlite3</span><br><span class="line">├── manage.py</span><br><span class="line">├── task</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── admin.py</span><br><span class="line">│   ├── models.py</span><br><span class="line">│   ├── urls.py</span><br><span class="line">│   └── views.py</span><br><span class="line">└── man</span><br><span class="line">    ├── __init__<span class="selector-class">.py</span> </span><br><span class="line">    ├── settings<span class="selector-class">.py</span> </span><br><span class="line">    ├── urls<span class="selector-class">.py</span> </span><br><span class="line">    └── wsgi.py</span><br></pre></td></tr></table></figure>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>上面的例子是一个Django项目，Python包的导入都是相对于<code>主程序</code>来说的。<br>这个项目的主程序就是<code>manage.py</code>，跟manage.py同级的文件夹（含有<code>__init__.py</code>）如<code>task</code>,<code>man</code>就称之为包，若同级有文件就称之为顶级模块。<br>在这个项目里所有Python包的导入，都应该写完整路径。</p>
 <p>例如在文件<code>/taskman/task/views.py</code>中，想要导入<code>/taskman/man/setting.py</code>，就得这样。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> man.setting <span class="keyword">import</span> some_setting</span><br><span class="line"><span class="comment"># or </span></span><br><span class="line"><span class="keyword">from</span> man <span class="keyword">import</span> setting</span><br></pre></td></tr></table></figure></p>
 <p><b>记住：</b></p>
 <ol>
@@ -526,11 +526,11 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
             
             <a href="/2016/04/16/Python中UnicodeDecodeError的几种解决办法/" class="post-title-link" itemprop="url">Python2中UnicodeDecodeError的几种解决办法</a>
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -554,7 +554,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-26 22:38:36" itemprop="dateModified" datetime="2019-10-26T22:38:36+08:00">2019-10-26</time>
+                <time title="修改时间：2020-04-30 21:51:34" itemprop="dateModified" datetime="2020-04-30T21:51:34+08:00">2020-04-30</time>
               </span>
             
           
@@ -604,9 +604,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>由于在Python2中字符串有两种类型<code>str</code>和<code>unicode</code>，他们都是<code>basestring</code>的子类。<br>str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。<br>而unicode包含了256个ascii码之外还包含其他各个国家的文字的编码，所以unicode的一个字符占用2个字节，这样理论上一共最多可以表示2^16（即65536）个字符，远大于256。<br>utf-8是unicode的一中实现，是unicode的一种编码方式。而且utf-8的编码方式，包含了ascii码的内容，也就是utf-8兼容ascii。<br>打个比方，unicode是商品，utf-8就是打包好的一个个包裹(encode)，打包是为了传输和储存的方便。而不同的编码之间不能直接互相转换，都需要转成unicode，也就是decode。<br>所以碰到一个str，你就得明白它是encode过的，你得调用相应的decode方法才不会乱码。<br>python2解释器的默认编码方式是ascii，如果我们给系统的输入是非ascii编码的字符，系统在尝试解码时就会出现<code>UnicodeDecodeError</code></p>
+          <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>由于在Python2中字符串有两种类型<code>str</code>和<code>unicode</code>，他们都是<code>basestring</code>的子类。</p>
+<p>str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。</p>
+<p>而unicode包含了256个ascii码之外还包含其他各个国家的文字的编码，所以unicode的一个字符占用2个字节，这样理论上一共最多可以表示2^16（即65536）个字符，远大于256。</p>
+<p>utf-8是unicode的一中实现，是unicode的一种编码方式。而且utf-8的编码方式，包含了ascii码的内容，也就是utf-8兼容ascii。</p>
+<p>打个比方，unicode是商品，utf-8就是打包好的一个个包裹(encode)，打包是为了传输和储存的方便。而不同的编码之间不能直接互相转换，都需要转成unicode，也就是decode。</p>
+<p>所以碰到一个str，你就得明白它是encode过的，你得调用相应的decode方法才不会乱码。</p>
+<p>python2解释器的默认编码方式是ascii，如果我们给系统的输入是非ascii编码的字符，系统在尝试解码时就会出现<code>UnicodeDecodeError</code></p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; s = <span class="string">'2'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; u = u<span class="string">'2'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; type(s)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; type(u)</span><br><span class="line">&lt;type <span class="string">'unicode'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; issubclass(str,basestring)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; issubclass(unicode,basestring)</span><br><span class="line">True</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="string">'啊'</span>.decode(<span class="string">'ascii'</span>)</span><br><span class="line">Traceback (most recent call last)<span class="symbol">:</span></span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;<span class="class"><span class="keyword">module</span>&gt;</span></span><br><span class="line"><span class="symbol">UnicodeDecodeError:</span> <span class="string">'ascii'</span> codec can<span class="string">'t decode byte 0xe5 in position 0: ordinal not in range(128)</span></span><br><span class="line"><span class="string">'</span>ascii<span class="string">' codec can'</span>t decode byte <span class="number">0xe5</span> <span class="keyword">in</span> position <span class="number">0</span>: ordinal <span class="keyword">not</span> <span class="keyword">in</span> range(<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="几种解决方法"><a href="#几种解决方法" class="headerlink" title="几种解决方法"></a>几种解决方法</h3>
+<h2 id="几种解决方法"><a href="#几种解决方法" class="headerlink" title="几种解决方法"></a>几种解决方法</h2>
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -651,11 +657,11 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
             
             <a href="/2016/04/16/ubuntu静态ip配置/" class="post-title-link" itemprop="url">ubuntu静态ip配置</a>
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -679,7 +685,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-01 01:13:49" itemprop="dateModified" datetime="2019-12-01T01:13:49+08:00">2019-12-01</time>
+                <time title="修改时间：2020-04-30 21:52:12" itemprop="dateModified" datetime="2020-04-30T21:52:12+08:00">2020-04-30</time>
               </span>
             
           
@@ -730,8 +736,8 @@
 
       
           <p>以vmware虚拟机为例  </p>
-<h4 id="设置IP"><a href="#设置IP" class="headerlink" title="设置IP"></a>设置IP</h4><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">auto eth0  # eth0是网卡名称，你的不一定是这个，可通过ifconfig查看</span><br><span class="line">iface eth0 inet static</span><br><span class="line">address 192.168.157.129   # 地址</span><br><span class="line">gateway 192.168.157.2    # 网关</span><br><span class="line">netmask 255.255.255.0   # 掩码</span><br></pre></td></tr></table></figure></p>
-<h4 id="修改DNS"><a href="#修改DNS" class="headerlink" title="修改DNS"></a>修改DNS</h4><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
+<h2 id="设置IP"><a href="#设置IP" class="headerlink" title="设置IP"></a>设置IP</h2><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">auto eth0  # eth0是网卡名称，你的不一定是这个，可通过ifconfig查看</span><br><span class="line">iface eth0 inet static</span><br><span class="line">address 192.168.157.129   # 地址</span><br><span class="line">gateway 192.168.157.2    # 网关</span><br><span class="line">netmask 255.255.255.0   # 掩码</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改DNS"><a href="#修改DNS" class="headerlink" title="修改DNS"></a>修改DNS</h2><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
 
         
       
@@ -768,11 +774,11 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
             
             <a href="/2016/04/16/python中yield语句的运行机制/" class="post-title-link" itemprop="url">Python中yield语句的运行机制</a>
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -796,7 +802,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-02 20:38:33" itemprop="dateModified" datetime="2019-11-02T20:38:33+08:00">2019-11-02</time>
+                <time title="修改时间：2020-04-30 21:52:59" itemprop="dateModified" datetime="2020-04-30T21:52:59+08:00">2020-04-30</time>
               </span>
             
           
@@ -846,11 +852,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>如果一个在函数中存在yield关键字，那么这个函数就构成了生成器。生成器是一个函数，它生成一个序列，以便在迭代中使用。<br>调用这个函数，并不会马上开始执行函数体中的代码，而是返回一个生成器对象，通过调用生成器对象的<code>next()</code>方法（python3中是<code>__netx__()</code>）执行函数。</p>
+          <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>如果一个在函数中存在yield关键字，那么这个函数就构成了生成器。生成器是一个函数，它生成一个序列，以便在迭代中使用。<br>调用这个函数，并不会马上开始执行函数体中的代码，而是返回一个生成器对象，通过调用生成器对象的<code>next()</code>方法（python3中是<code>__netx__()</code>）执行函数。</p>
 <p>那么，具体的函数中语句的执行顺序是怎么样的呢？</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'the beginning of function'</span></span><br><span class="line">    <span class="keyword">if</span> x &lt;= <span class="number">0</span> <span class="keyword">or</span> <span class="keyword">not</span> isinstance(x, int):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(x):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'before yield'</span>, i</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'after yield'</span>, i</span><br><span class="line"></span><br><span class="line">gen = func(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br></pre></td></tr></table></figure>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'the beginning of function'</span></span><br><span class="line">    <span class="keyword">if</span> x &lt;= <span class="number">0</span> <span class="keyword">or</span> <span class="keyword">not</span> isinstance(x, int):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(x):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'before yield'</span>, i</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'after yield'</span>, i</span><br><span class="line"></span><br><span class="line">gen = func(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br></pre></td></tr></table></figure>
 <p>输出<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">********************</span><br><span class="line"><span class="keyword">the</span> beginning <span class="keyword">of</span> <span class="function"><span class="keyword">function</span></span></span><br><span class="line"><span class="keyword">before</span> yield <span class="number">0</span></span><br><span class="line">-&gt; yielding: <span class="number">0</span></span><br><span class="line">********************</span><br><span class="line"><span class="keyword">after</span> yield <span class="number">0</span></span><br><span class="line"><span class="keyword">before</span> yield <span class="number">1</span></span><br><span class="line">-&gt; yielding: <span class="number">1</span></span><br><span class="line">********************</span><br><span class="line"><span class="keyword">after</span> yield <span class="number">1</span></span><br><span class="line">Traceback (most recent call <span class="keyword">last</span>):</span><br><span class="line">  File <span class="string">"D:\Projects\test.py"</span>, <span class="built_in">line</span> <span class="number">28</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    print <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ol>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><ol>
 <li>首先运行<code>func(2)</code>，这时函数的所有语句都没有执行，返回一个生成器赋值给<code>gen</code>。</li>
 <li>第一次执行<code>gen.next()</code>，函数从头开始执行，运行完yield语句暂停住了。</li>
 <li>再次运行<code>gen.next()</code>，从停下的地方继续，直到遇到遇到下一个yield，运行完yield语句又暂停住了。</li>
@@ -880,7 +886,7 @@
   
   
   <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/04/16/git代码自动同步/">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/04/16/使用git的hooks自动同步代码/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jay.Run">
@@ -892,11 +898,11 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2016/04/16/git代码自动同步/" class="post-title-link" itemprop="url">git代码自动同步</a>
+            <a href="/2016/04/16/使用git的hooks自动同步代码/" class="post-title-link" itemprop="url">使用git的hooks自动同步代码</a>
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -920,7 +926,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-02 20:47:09" itemprop="dateModified" datetime="2019-11-02T20:47:09+08:00">2019-11-02</time>
+                <time title="修改时间：2020-04-30 21:56:38" itemprop="dateModified" datetime="2020-04-30T21:56:38+08:00">2020-04-30</time>
               </span>
             
           
@@ -947,7 +953,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>910</span>
+              <span>902</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -970,11 +976,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>由于最近做Python的linux服务器脚本，经常要同步代码到测试服务器，又不想直接ssh登录到服务器，所以萌生了用git自动同步代码的想法。<br>具体的要求是：测试机是服务器，需要本地一push代码，测试机能实时更新。<br>查阅相关资料发现可以用git的hooks来实现。</p>
+          <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>由于最近做Python的linux服务器脚本，经常要同步代码到测试服务器，又不想直接ssh登录到服务器，所以萌生了用git自动同步代码的想法。<br>具体的要求是：测试机是服务器，需要本地一push代码，测试机能实时更新。<br>查阅相关资料发现可以用git的hooks来实现。</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2016/04/16/git代码自动同步/#more" rel="contents">
+              <a class="btn" href="/2016/04/16/使用git的hooks自动同步代码/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1015,11 +1021,11 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
             
             <a href="/2016/04/16/lightdm自动登录root账户/" class="post-title-link" itemprop="url">xubuntu自动登录root账户</a>
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -1043,7 +1049,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2016-07-02 15:33:56" itemprop="dateModified" datetime="2016-07-02T15:33:56+08:00">2016-07-02</time>
+                <time title="修改时间：2020-04-30 21:58:03" itemprop="dateModified" datetime="2020-04-30T21:58:03+08:00">2020-04-30</time>
               </span>
             
           
@@ -1070,7 +1076,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>755</span>
+              <span>749</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -1093,10 +1099,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="一、设置root密码"><a href="#一、设置root密码" class="headerlink" title="一、设置root密码"></a>一、设置root密码</h3><p>运行 <code>sudo passwd</code><br>根据提示输入root帐户密码。</p>
-<h3 id="二、修改lightdm配置文件"><a href="#二、修改lightdm配置文件" class="headerlink" title="二、修改lightdm配置文件"></a>二、修改lightdm配置文件</h3><p>运行 <code>ls /usr/share/lightdm/lightdm.conf.d/ -al</code><br>-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf<br>-rw-r–r– 1 root root   68 12月  3 03:57 50-guest-wrapper.conf<br>-rw-r–r– 1 root root   51 12月  3 03:57 50-xserver-command.conf<br>-rw-r–r– 1 root root  118  4月 16 17:08 <b>60-lightdm-gtk-greeter.conf</b></p>
+          <h2 id="设置root密码"><a href="#设置root密码" class="headerlink" title="设置root密码"></a>设置root密码</h2><p>运行 <code>sudo passwd</code><br>根据提示输入root帐户密码。</p>
+<h2 id="修改lightdm配置文件"><a href="#修改lightdm配置文件" class="headerlink" title="修改lightdm配置文件"></a>修改lightdm配置文件</h2><p>运行 <code>ls /usr/share/lightdm/lightdm.conf.d/ -al</code><br>-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf<br>-rw-r–r– 1 root root   68 12月  3 03:57 50-guest-wrapper.conf<br>-rw-r–r– 1 root root   51 12月  3 03:57 50-xserver-command.conf<br>-rw-r–r– 1 root root  118  4月 16 17:08 <b>60-lightdm-gtk-greeter.conf</b></p>
 <p>就是greeter这个文件，不同的发行版可能名字不同。<br>运行 <code>sudo gedit /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf</code><br>改完以后是这样<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[SeatDefaults]</span></span><br><span class="line"><span class="attr">autologin-user</span>=root</span><br><span class="line"><span class="attr">greeter-session</span>=lightdm-gtk-greeter</span><br><span class="line"><span class="attr">greeter-show-manual-login</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">all-guest</span>=<span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="三、修改-root-profile"><a href="#三、修改-root-profile" class="headerlink" title="三、修改 /root/.profile"></a>三、修改 <code>/root/.profile</code></h3><p>在刚修改完root权限自动登录后，发现可能开机出现以下提示：</p>
+<h2 id="修改-root-profile"><a href="#修改-root-profile" class="headerlink" title="修改 /root/.profile"></a>修改 <code>/root/.profile</code></h2><p>在刚修改完root权限自动登录后，发现可能开机出现以下提示：</p>
 <figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Error </span>found when loading /root/.profile</span><br><span class="line">stdin:is not a tty</span><br><span class="line">…………</span><br></pre></td></tr></table></figure>
 <p>运行 <code>gedit /root/.profile</code><br>打开文件后找到<code>mesg n</code>，将其更改为<code>tty -s &amp;&amp; mesg n</code>。</p>
 
@@ -1123,7 +1129,7 @@
   
   
   <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/02/28/python中关于继承/">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/02/28/关于python类的继承/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jay.Run">
@@ -1135,11 +1141,11 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2016/02/28/python中关于继承/" class="post-title-link" itemprop="url">关于Python的继承</a>
+            <a href="/2016/02/28/关于python类的继承/" class="post-title-link" itemprop="url">关于Python类的继承</a>
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -1163,7 +1169,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-02 20:38:44" itemprop="dateModified" datetime="2019-11-02T20:38:44+08:00">2019-11-02</time>
+                <time title="修改时间：2020-04-30 22:03:48" itemprop="dateModified" datetime="2020-04-30T22:03:48+08:00">2020-04-30</time>
               </span>
             
           
@@ -1213,14 +1219,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h3><p>童话里经常会看到英雄打败恶人的故事，而且故事里总会有一个类似黑暗森林的场景——要么是一个山洞，要么是一篇森林，要么是另一个星球，反正是英雄不该去的某个地方。当然，一旦反面角色在剧情中出现，你就会发现英雄非得去那片破森林去杀掉坏人。当英雄的总是不得不冒着生命危险进到邪恶森林中去。</p>
-<p>在面向对象编程中，“继承”就是那片邪恶森林。有经验的程序员知道如何躲开这个恶魔，因为他们知道，在丛林深处的“继承”，其实是邪恶女皇“多重继承”。她喜欢用自己的巨口尖牙吃掉程序员和软件，咀嚼这些堕落者的血肉。不过这片丛林的吸引力是如此的强大，几乎每一个程序员都会进去探险，梦想着提着邪恶女皇的头颅走出丛林，从而声称自己是真正的程序员。你就是无法阻止丛林的魔力，于是你深入其中，而等你冒险结束，九死一生之后，你唯一学到的，就是远远躲开这片破森林，而如果你不得不再进去一次，你会带一支军队。</p>
+          <h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>童话里经常会看到英雄打败恶人的故事，而且故事里总会有一个类似黑暗森林的场景——要么是一个山洞，要么是一篇森林，要么是另一个星球，反正是英雄不该去的某个地方。<br>当然，一旦反面角色在剧情中出现，你就会发现英雄非得去那片破森林去杀掉坏人。当英雄的总是不得不冒着生命危险进到邪恶森林中去。</p>
+<p>在面向对象编程中，“继承”就是那片邪恶森林。<br>有经验的程序员知道如何躲开这个恶魔，因为他们知道，在丛林深处的“继承”，其实是邪恶女皇“多重继承”。她喜欢用自己的巨口尖牙吃掉程序员和软件，咀嚼这些堕落者的血肉。<br>不过这片丛林的吸引力是如此的强大，几乎每一个程序员都会进去探险，梦想着提着邪恶女皇的头颅走出丛林，从而声称自己是真正的程序员。你就是无法阻止丛林的魔力，于是你深入其中，而等你冒险结束，九死一生之后，你唯一学到的，就是远远躲开这片破森林，而如果你不得不再进去一次，你会带一支军队。</p>
 <p>有的程序员现在正在丛林里跟邪恶女皇作战，他会对你说你必须进到森林里去。他们这样说其实是因为他们需要你的帮助，因为他们已经无法承受他们自己创建的东西了。</p>
 <p>而对于你来说，你只要记住这一条：<br>大部分使用继承的场合都可以用合成取代，而多级继承则需要不惜一切地避免之。</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2016/02/28/python中关于继承/#more" rel="contents">
+              <a class="btn" href="/2016/02/28/关于python类的继承/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1261,11 +1267,11 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
             
             <a href="/2016/02/11/番茄工作法工具推荐/" class="post-title-link" itemprop="url">番茄工作法工具推荐</a>
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -1289,7 +1295,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-21 09:56:47" itemprop="dateModified" datetime="2020-03-21T09:56:47+08:00">2020-03-21</time>
+                <time title="修改时间：2020-04-30 22:04:19" itemprop="dateModified" datetime="2020-04-30T22:04:19+08:00">2020-04-30</time>
               </span>
             
           
@@ -1316,7 +1322,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>764</span>
+              <span>754</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -1339,7 +1345,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="1-番茄工作法简介"><a href="#1-番茄工作法简介" class="headerlink" title="1. 番茄工作法简介"></a>1. 番茄工作法简介</h2><p>番茄工作法（英语：Pomodoro Technique）是一种时间管理法方法，在上世纪八十年代由Francesco Cirillo创立。 该方法使用一个定时器来分割出一个一般为25分钟的工作时间和5分钟的休息时间，而那些时间段被称为pomodori，为意大利语单词 pomodoro（中文：番茄）之复数。</p>
+          <h2 id="番茄工作法简介"><a href="#番茄工作法简介" class="headerlink" title="番茄工作法简介"></a>番茄工作法简介</h2><p>番茄工作法（英语：Pomodoro Technique）是一种时间管理法方法，在上世纪八十年代由Francesco Cirillo创立。 该方法使用一个定时器来分割出一个一般为25分钟的工作时间和5分钟的休息时间，而那些时间段被称为pomodori，为意大利语单词 pomodoro（中文：番茄）之复数。</p>
 <p>番茄工作法有五个基本步骤：</p>
 <ol>
 <li>决定待完成的任务</li>
@@ -1350,14 +1356,14 @@
 </ol>
 <p>番茄工作法的关键是规划，追踪，记录，处理，以及可视化。在规划阶段，任务被根据优先级排入”To Do Today” list。 这允许用户预计每个任务的工作量。当每个番茄时结束后，成果会被记录下来以提高参与者的成就感并为未来的自我观察和改进提供原始数据。</p>
 <p>番茄工作法一般与<a href="http://baike.baidu.com/link?url=ZlEFP9gdzCBmRrqAGqClmdyQ3_1t4Op33-tTyXbN_Gw3LRRqU3zmpwowPhW8VSKLriuLGsq8gJD-TJBO40ez_q" target="_blank" rel="noopener"><code>GTD</code></a>相结合，能取得事半功倍的效果。</p>
-<h2 id="2-工具推荐"><a href="#2-工具推荐" class="headerlink" title="2. 工具推荐"></a>2. 工具推荐</h2><ol>
+<h2 id="工具推荐"><a href="#工具推荐" class="headerlink" title="工具推荐"></a>工具推荐</h2><ol>
 <li>GTD软件，用于任务规划和记录，推荐<a href="https://www.dida365.com/" target="_blank" rel="noopener"><code>滴答清单</code></a>或<a href="http://doitim.com/cn/" target="_blank" rel="noopener"><code>Doit.im</code></a></li>
 <li>小米手环，震动提醒防止打扰别人。</li>
 <li>米环工具 Mi Band Tools, 百度网盘: <a href="https://pan.baidu.com/s/1qZ54Rr2" target="_blank" rel="noopener">https://pan.baidu.com/s/1qZ54Rr2</a> 密码: pcqh</li>
 <li>极简番茄, 百度网盘: <a href="https://pan.baidu.com/s/1smZUZxj" target="_blank" rel="noopener">https://pan.baidu.com/s/1smZUZxj</a> 密码: 8fff</li>
 </ol>
 <p>小米手环本来没有番茄钟的功能，通过<code>Mi Band Tools</code>和<code>极简番茄</code>这两个应用，在米环工具的“应用”中添加 极简番茄，可以实现手环震动提醒番茄钟。<br>当然你也可以直接使用<code>极简番茄</code>，通过手机震动或是响铃提醒，或者买一个计时器。</p>
-<h3 id="2-1-小米手环和极简番茄结合方法"><a href="#2-1-小米手环和极简番茄结合方法" class="headerlink" title="2.1 小米手环和极简番茄结合方法"></a>2.1 小米手环和极简番茄结合方法</h3><p>在米环工具的“应用”中添加 极简番茄。</p>
+<h3 id="小米手环和极简番茄结合方法"><a href="#小米手环和极简番茄结合方法" class="headerlink" title="小米手环和极简番茄结合方法"></a>小米手环和极简番茄结合方法</h3><p>在米环工具的“应用”中添加 极简番茄。</p>
 <p>具体的应用配置可以参考截图，一般只修改震动次数、忽略不可清除的通知，其他默认即可</p>
 <p><img src="http://image.runjf.com/mweb/2020-03-05-15833917724588.jpg" alt><br><img src="http://image.runjf.com/mweb/2020-03-05-15833917804538.jpg" alt><br><img src="http://image.runjf.com/mweb/2020-03-05-15833917911022.jpg" alt></p>
 
@@ -1396,11 +1402,11 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
             
             <a href="/2016/01/21/Git常用命令备忘录/" class="post-title-link" itemprop="url">Git 常用命令备忘录</a>
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -1424,7 +1430,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-18 10:01:34" itemprop="dateModified" datetime="2020-01-18T10:01:34+08:00">2020-01-18</time>
+                <time title="修改时间：2020-04-30 22:05:50" itemprop="dateModified" datetime="2020-04-30T22:05:50+08:00">2020-04-30</time>
               </span>
             
           
@@ -1474,8 +1480,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="git-简介"><a href="#git-简介" class="headerlink" title="git 简介"></a>git 简介</h3><p>git是一个分散式版本控制软件，最初由林纳斯·托瓦兹（Linus Torvalds）創作，於2005年以GPL釋出。最初目的是为更好地管理Linux内核开发而设计。<br>初始版本由Linus大神在两个星期内写出来，之后基本一统文件版本控制的天下。</p>
-<h3 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h3><p>工作区：就是你在电脑里能看到的目录。<br>暂存区：英文叫stage, 或index。一般存放在”git目录”下的index文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。<br>版本库：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。<br>branch：分支，相当于不同的平行世界<br>remote：远程仓库<br>origin：默认的远程仓库名词<br>HEAD：一个指向当前版本号的指针</p>
+          <h2 id="git-简介"><a href="#git-简介" class="headerlink" title="git 简介"></a>git 简介</h2><p>git是一个分散式版本控制软件，最初由林纳斯·托瓦兹（Linus Torvalds）創作，於2005年以GPL釋出。最初目的是为更好地管理Linux内核开发而设计。<br>初始版本由Linus大神在两个星期内写出来，之后基本一统文件版本控制的天下。</p>
+<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p>工作区：就是你在电脑里能看到的目录。<br>暂存区：英文叫stage, 或index。一般存放在”git目录”下的index文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。<br>版本库：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。<br>branch：分支，相当于不同的平行世界<br>remote：远程仓库<br>origin：默认的远程仓库名词<br>HEAD：一个指向当前版本号的指针</p>
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -1520,11 +1526,11 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
             
             <a href="/2016/01/20/python-sort-algorithms/" class="post-title-link" itemprop="url">Python排序算法总结</a>
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -1548,7 +1554,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-02 20:38:23" itemprop="dateModified" datetime="2019-11-02T20:38:23+08:00">2019-11-02</time>
+                <time title="修改时间：2020-04-30 22:07:01" itemprop="dateModified" datetime="2020-04-30T22:07:01+08:00">2020-04-30</time>
               </span>
             
           
@@ -1598,7 +1604,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="一、冒泡排序-BubbleSort"><a href="#一、冒泡排序-BubbleSort" class="headerlink" title="一、冒泡排序 BubbleSort"></a>一、冒泡排序 BubbleSort</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>遍历序列，比较两个元素，如果前面的大于后面的就交换两者的位置。其实称之为冒泡排序不如加沉底排序，因为每一轮比较，这一轮轮最大都会被排到序列末尾，其实沉底更为贴切。</p>
+          <h2 id="冒泡排序-BubbleSort"><a href="#冒泡排序-BubbleSort" class="headerlink" title="冒泡排序 BubbleSort"></a>冒泡排序 BubbleSort</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>遍历序列，比较两个元素，如果前面的大于后面的就交换两者的位置。其实称之为冒泡排序不如加沉底排序，因为每一轮比较，这一轮轮最大都会被排到序列末尾，其实沉底更为贴切。</p>
 <h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
 <li>遍历序列，比较序列的相邻元素，比较n-1次，如果前面的大于后面的就交换两者的位置。</li>
 <li>比较次数减一，重复步骤1</li>
@@ -1644,7 +1650,7 @@
   
   
   <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/01/10/除法在python2和python3中的区别/">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/01/10/python赋值语句小坑/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jay.Run">
@@ -1656,11 +1662,11 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2016/01/10/除法在python2和python3中的区别/" class="post-title-link" itemprop="url">除法在 python2 和 python3 中的区别</a>
+            <a href="/2016/01/10/python赋值语句小坑/" class="post-title-link" itemprop="url">python赋值语句小坑</a>
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -1684,7 +1690,125 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-01 22:29:26" itemprop="dateModified" datetime="2019-12-01T22:29:26+08:00">2019-12-01</time>
+                <time title="修改时间：2020-04-30 22:08:38" itemprop="dateModified" datetime="2020-04-30T22:08:38+08:00">2020-04-30</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>359</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>说到python赋值语句，大家想必一个念头——so easy，不是<code>lz = &#39;dashabi&#39;</code>吗。<br>确实，easy是easy，里面却有个小坑，虽小，却不易发现。在代码量多的时候，就有点恶心了。</p>
+<p><strong>正常的语句是这样</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa </span><br><span class="line"><span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>坑在这里</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span>,</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa </span><br><span class="line">(<span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span>,)</span><br></pre></td></tr></table></figure></p>
+<p>看出区别没有，坑的后面有个逗号，平时这逗号没什么卵用，但在赋值语句的末尾会将原来的对象转化为tuple。<br>和<code>aa = (u&#39;这是一个坑&#39;,)</code>是一样的效果。</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/01/10/除法在python2和python3中的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/01/10/除法在python2和python3中的区别/" class="post-title-link" itemprop="url">除法在 Python2 和 Python3 中的区别</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-01-10 17:03:00" itemprop="dateCreated datePublished" datetime="2016-01-10T17:03:00+08:00">2016-01-10</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-30 22:10:30" itemprop="dateModified" datetime="2020-04-30T22:10:30+08:00">2020-04-30</time>
               </span>
             
           
@@ -1734,14 +1858,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
-<li>python2 中使用<code>from __future__ import division</code>就可以使用python3的除法。</li>
-<li>python2 中<code>/</code>与操作数有关，<code>x / y</code>中x、y都为整型的话，为<code>floor除法</code>，否则为<code>true除法</code>也是日常的除法。</li>
-<li>python3 中<code>/</code>为<code>true除法</code>， 与操作数无关。</li>
-<li><code>//</code>在 python2 与 python3 中并无差别， 都代表<code>floor除法</code></li>
+          <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>Python2 中使用<code>from __future__ import division</code>就可以使用python3的除法。</li>
+<li>Python2 中<code>/</code>与操作数有关，<code>x / y</code>中x、y都为整型的话，为<code>floor除法</code>，否则为<code>true除法</code>也是日常的除法。</li>
+<li>Python3 中<code>/</code>为<code>true除法</code>， 与操作数无关。</li>
+<li><code>//</code>在 Python2 与 Python3 中并无差别， 都代表<code>floor除法</code></li>
 </ol>
-<h3 id="python3"><a href="#python3" class="headerlink" title="python3"></a>python3</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2.0</span></span><br></pre></td></tr></table></figure>
-<h3 id="python2"><a href="#python2" class="headerlink" title="python2"></a>python2</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2.0</span></span><br></pre></td></tr></table></figure>
+<h2 id="Python3"><a href="#Python3" class="headerlink" title="Python3"></a>Python3</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2.0</span></span><br></pre></td></tr></table></figure>
+<h2 id="Python2"><a href="#Python2" class="headerlink" title="Python2"></a>Python2</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2.0</span></span><br></pre></td></tr></table></figure>
 
         
       
@@ -1766,7 +1890,7 @@
   
   
   <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/01/10/python赋值语句小坑/">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jay.Run">
@@ -1778,135 +1902,11 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2016/01/10/python赋值语句小坑/" class="post-title-link" itemprop="url">python赋值语句小坑</a>
+            <a href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/" class="post-title-link" itemprop="url">【Chrome扩展】谷歌百度一键搜索修改版</a>
           
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2016-01-10 17:03:00" itemprop="dateCreated datePublished" datetime="2016-01-10T17:03:00+08:00">2016-01-10</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-02 20:39:04" itemprop="dateModified" datetime="2019-11-02T20:39:04+08:00">2019-11-02</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>367</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>1 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <pre><code>说到python赋值语句，大家想必一个念头——so easy，不是`lz = &apos;dashabi&apos;`吗。
-确实，easy是easy，里面却有个小坑，虽小，却不易发现。在代码量多的时候，就有点恶心了。
-</code></pre><ul>
-<li><h5 id="正常的语句是这样"><a href="#正常的语句是这样" class="headerlink" title="正常的语句是这样"></a>正常的语句是这样</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa </span><br><span class="line"><span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><h5 id="坑在这里"><a href="#坑在这里" class="headerlink" title="坑在这里"></a>坑在这里</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span>,</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa </span><br><span class="line">(<span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span>,)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<pre><code>看出区别没有，坑的后面有个逗号，平时这逗号没什么卵用，但在赋值语句的末尾会将原来的对象转化为tuple。
-和`aa = (u&apos;这是一个坑&apos;,)`是一样的效果。
-</code></pre>
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2015/11/25/django-admin过滤foreignkey值/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jay.Run">
-      <meta itemprop="description" content="学习 思考 行动 Python">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="逸思杂陈">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-            
-            <a href="/2015/11/25/django-admin过滤foreignkey值/" class="post-title-link" itemprop="url">django-admin过滤foreignkey值</a>
-          
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -1930,7 +1930,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-02 20:37:14" itemprop="dateModified" datetime="2019-11-02T20:37:14+08:00">2019-11-02</time>
+                <time title="修改时间：2020-04-30 22:13:28" itemprop="dateModified" datetime="2020-04-30T22:13:28+08:00">2020-04-30</time>
               </span>
             
           
@@ -1957,7 +1957,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>711</span>
+              <span>425</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -1980,9 +1980,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h3><pre><code>在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。
-当然，也可通过自定义form解决该问题。
-</code></pre><h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactoryOrderItemInline</span><span class="params">(admin.TabularInline)</span>:</span></span><br><span class="line">    model = FactoryOrderItem</span><br><span class="line">    fields = (<span class="string">'order_item'</span>, <span class="string">'product_sn'</span>, <span class="string">'style'</span>, <span class="string">'size'</span>, <span class="string">'factory_sn'</span>, <span class="string">'price'</span>, <span class="string">'quantity'</span>, <span class="string">'amount'</span>)</span><br><span class="line">    extra = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">formfield_for_foreignkey</span><span class="params">(self, db_field, request, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> db_field.name == <span class="string">'order_item'</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                parent_obj_id = request.resolver_match.args[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">except</span> IndexError: <span class="comment">#仅在新建状态过滤</span></span><br><span class="line">                kwargs[<span class="string">'queryset'</span>] = OrderItem.objects.filter(order__status=<span class="string">'2'</span>)</span><br><span class="line">        <span class="keyword">return</span> super(FactoryOrderItemInline, self).formfield_for_foreignkey(db_field, request, **kwargs)</span><br></pre></td></tr></table></figure>
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。</p>
+<p>详细描述：<br>虽然谷歌比较好用，结果也准确，但搜索中文这方面却也弱了点，百度还是有点用。谷歌百度一键搜索， 在谷歌的页面上搜索百度，在百度页面上搜谷歌，无需切换，无需重新输入搜索词。<br>目前支持http(s)://<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a>, http(s)://<a href="http://www.google.com.hk" target="_blank" rel="noopener">www.google.com.hk</a>, http(s)://<a href="http://www.google.com" target="_blank" rel="noopener">www.google.com</a></p>
+<p>创建：2015.11.25<br>作者：ponder.work<br>反馈：<a href="mailto:190127701@qq.com" target="_blank" rel="noopener">190127701@qq.com</a><br>forked from: raywill/BaiGoogleDu</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2015/11/25/[Chrome扩展] 谷歌百度一键搜索修改版/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2018,11 +2027,11 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
             
             <a href="/2015/11/25/django 登录后的跳转问题/" class="post-title-link" itemprop="url">django 登录后的跳转到之前的页面</a>
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -2046,7 +2055,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-02 20:37:01" itemprop="dateModified" datetime="2019-11-02T20:37:01+08:00">2019-11-02</time>
+                <time title="修改时间：2020-04-30 22:18:08" itemprop="dateModified" datetime="2020-04-30T22:18:08+08:00">2020-04-30</time>
               </span>
             
           
@@ -2073,7 +2082,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>799</span>
+              <span>826</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -2096,11 +2105,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <pre><code>在开发django网站时发现，用户登录后不能跳转到之前的页面，google了很多答案，讲得也不清楚。
-自己琢磨解决了，以下干货。
-</code></pre><h4 id="1-登录链接"><a href="#1-登录链接" class="headerlink" title="1. 登录链接"></a>1. 登录链接</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span>  <span class="attr">href</span>=<span class="string">"/account/login/?next=&#123;&#123;request.path&#125;&#125;"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-view"><a href="#2-view" class="headerlink" title="2. view"></a>2. view</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(request)</span>:</span></span><br><span class="line">    next_url = request.REQUEST.get(<span class="string">'next'</span>, <span class="string">'/'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        <span class="keyword">return</span> render_to_response(<span class="string">'account/login.html'</span>, &#123;<span class="string">'next_url'</span>: next_url&#125;, context_instance=RequestContext(request))</span><br><span class="line"></span><br><span class="line">    django_login(request, user)</span><br><span class="line">    <span class="keyword">return</span> redirect(next_url)</span><br></pre></td></tr></table></figure>
-<h4 id="3-登录表单"><a href="#3-登录表单" class="headerlink" title="3. 登录表单"></a>3. 登录表单</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/account/login/?next=&#123;&#123;next_url&#125;&#125;"</span> <span class="attr">method</span>=<span class="string">"post"</span> &gt;</span></span><br><span class="line">&#123;% csrf_token %&#125;</span><br><span class="line">    用户名<span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"username"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>  <span class="attr">required</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">br</span>&gt;</span></span><br><span class="line">    密码<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">required</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"登  录"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在开发django网站时发现，用户登录后不能跳转到之前的页面，google了很多答案，讲得也不清楚。</p>
+<p>其实就是渲染登陆表单时，将原链接带到action参数里，view函数接收到参数后进行重定向。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="登录链接"><a href="#登录链接" class="headerlink" title="登录链接"></a>登录链接</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/account/login/?next=&#123;&#123;request.path&#125;&#125;"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="view"><a href="#view" class="headerlink" title="view"></a>view</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(request)</span>:</span></span><br><span class="line">    next_url = request.REQUEST.get(<span class="string">'next'</span>, <span class="string">'/'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        <span class="keyword">return</span> render_to_response(<span class="string">'account/login.html'</span>, &#123;<span class="string">'next_url'</span>: next_url&#125;, context_instance=RequestContext(request))</span><br><span class="line"></span><br><span class="line">    django_login(request, user)</span><br><span class="line">    <span class="keyword">return</span> redirect(next_url)</span><br></pre></td></tr></table></figure>
+<h3 id="登录表单"><a href="#登录表单" class="headerlink" title="登录表单"></a>登录表单</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/account/login/?next=&#123;&#123;next_url&#125;&#125;"</span> <span class="attr">method</span>=<span class="string">"post"</span> &gt;</span></span><br><span class="line">&#123;% csrf_token %&#125;</span><br><span class="line">    用户名<span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"username"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>  <span class="attr">required</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">br</span>&gt;</span></span><br><span class="line">    密码<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">required</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"登  录"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
         
       

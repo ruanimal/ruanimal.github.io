@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="re是python中的正则表达式处理模块，本文是为了总结re模块的用法。至于正则表达式的写法可以看正则表达式30分钟入门教程 re.compilere.complie(pattern, flags=0)把正则编译为_sre.SRE_Pattern object对象，在多次匹配的时候可提高运行效率。123456789&amp;gt;&amp;gt;&amp;gt; pattern = re.compile(r&apos;\w(o)&apos;">
+  <meta name="description" content="概述re是python中的正则表达式处理模块，本文是为了总结re模块的用法。 至于正则表达式的写法可以看正则表达式30分钟入门教程 用法re.compilere.complie(pattern, flags=0)把正则编译为_sre.SRE_Pattern object对象，在多次匹配的时候可提高运行效率。123456789&amp;gt;&amp;gt;&amp;gt; pattern = re.compile(r&apos;\">
 <meta name="keywords" content="Python,正则表达式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python中re模块的用法">
 <meta property="og:url" content="http://ponder.work/2016/05/08/Python中re模块的用法/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="re是python中的正则表达式处理模块，本文是为了总结re模块的用法。至于正则表达式的写法可以看正则表达式30分钟入门教程 re.compilere.complie(pattern, flags=0)把正则编译为_sre.SRE_Pattern object对象，在多次匹配的时候可提高运行效率。123456789&amp;gt;&amp;gt;&amp;gt; pattern = re.compile(r&apos;\w(o)&apos;">
+<meta property="og:description" content="概述re是python中的正则表达式处理模块，本文是为了总结re模块的用法。 至于正则表达式的写法可以看正则表达式30分钟入门教程 用法re.compilere.complie(pattern, flags=0)把正则编译为_sre.SRE_Pattern object对象，在多次匹配的时候可提高运行效率。123456789&amp;gt;&amp;gt;&amp;gt; pattern = re.compile(r&apos;\">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-02T12:39:26.000Z">
+<meta property="og:updated_time" content="2020-04-30T13:46:10.864Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python中re模块的用法">
-<meta name="twitter:description" content="re是python中的正则表达式处理模块，本文是为了总结re模块的用法。至于正则表达式的写法可以看正则表达式30分钟入门教程 re.compilere.complie(pattern, flags=0)把正则编译为_sre.SRE_Pattern object对象，在多次匹配的时候可提高运行效率。123456789&amp;gt;&amp;gt;&amp;gt; pattern = re.compile(r&apos;\w(o)&apos;">
+<meta name="twitter:description" content="概述re是python中的正则表达式处理模块，本文是为了总结re模块的用法。 至于正则表达式的写法可以看正则表达式30分钟入门教程 用法re.compilere.complie(pattern, flags=0)把正则编译为_sre.SRE_Pattern object对象，在多次匹配的时候可提高运行效率。123456789&amp;gt;&amp;gt;&amp;gt; pattern = re.compile(r&apos;\">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2016/05/08/Python中re模块的用法/">
 
@@ -155,7 +155,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <h1 class="site-subtitle" itemprop="description">人类一思考，上帝就发笑。</h1>
+        <p class="site-subtitle">人类一思考，上帝就发笑。</p>
       
   </div>
 
@@ -279,10 +279,10 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">Python中re模块的用法
+        <h1 class="post-title" itemprop="name headline">Python中re模块的用法
 
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -306,7 +306,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-02 20:39:26" itemprop="dateModified" datetime="2019-11-02T20:39:26+08:00">2019-11-02</time>
+                <time title="修改时间：2020-04-30 21:46:10" itemprop="dateModified" datetime="2020-04-30T21:46:10+08:00">2020-04-30</time>
               </span>
             
           
@@ -356,8 +356,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>re是python中的正则表达式处理模块，本文是为了总结re模块的用法。<br>至于正则表达式的写法可以看<a href="http://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="noopener">正则表达式30分钟入门教程</a></strong></p>
-<h3 id="re-compile"><a href="#re-compile" class="headerlink" title="re.compile"></a>re.compile</h3><p><code>re.complie(pattern, flags=0)</code><br>把正则编译为<code>_sre.SRE_Pattern object</code>对象，在多次匹配的时候可提高运行效率。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern = re.compile(<span class="string">r'\w(o)'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>)</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45fc3d9990</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>).group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'o'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>)</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45ec0be0a8</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>).group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'o'</span></span><br></pre></td></tr></table></figure></p>
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>re是python中的正则表达式处理模块，本文是为了总结re模块的用法。</p>
+<p>至于正则表达式的写法可以看<a href="http://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="noopener">正则表达式30分钟入门教程</a></p>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><h3 id="re-compile"><a href="#re-compile" class="headerlink" title="re.compile"></a>re.compile</h3><p><code>re.complie(pattern, flags=0)</code><br>把正则编译为<code>_sre.SRE_Pattern object</code>对象，在多次匹配的时候可提高运行效率。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern = re.compile(<span class="string">r'\w(o)'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>)</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45fc3d9990</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern.match(<span class="string">'doooo'</span>).group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'o'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>)</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x7f45ec0be0a8</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'\w(o)'</span>, <span class="string">'doooo'</span>).group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'o'</span></span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <h3 id="re-search"><a href="#re-search" class="headerlink" title="re.search"></a>re.search</h3><p><code>re.search(pattern, string, flags=0)</code><br>寻找整个文本，直到发现一个匹配的位置，返回MatchObject，未找到返回None</p>
 <h3 id="re-match"><a href="#re-match" class="headerlink" title="re.match"></a>re.match</h3><p><code>re.match(pattern, string, flags=0)</code><br>检查文本的开头是否匹配，返回MatchObject，未找到返回None</p>
@@ -471,7 +472,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#re-compile"><span class="nav-number">1.</span> <span class="nav-text">re.compile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-search"><span class="nav-number">2.</span> <span class="nav-text">re.search</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-match"><span class="nav-number">3.</span> <span class="nav-text">re.match</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-split"><span class="nav-number">4.</span> <span class="nav-text">re.split</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-findall"><span class="nav-number">5.</span> <span class="nav-text">re.findall</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-sub"><span class="nav-number">6.</span> <span class="nav-text">re.sub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配可选项-flags"><span class="nav-number">7.</span> <span class="nav-text">匹配可选项 flags</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-compile对匹配效率的影响"><span class="nav-number">8.</span> <span class="nav-text">re.compile对匹配效率的影响</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用法"><span class="nav-number">2.</span> <span class="nav-text">用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#re-compile"><span class="nav-number">2.1.</span> <span class="nav-text">re.compile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-search"><span class="nav-number">2.2.</span> <span class="nav-text">re.search</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-match"><span class="nav-number">2.3.</span> <span class="nav-text">re.match</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-split"><span class="nav-number">2.4.</span> <span class="nav-text">re.split</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-findall"><span class="nav-number">2.5.</span> <span class="nav-text">re.findall</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-sub"><span class="nav-number">2.6.</span> <span class="nav-text">re.sub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配可选项-flags"><span class="nav-number">2.7.</span> <span class="nav-text">匹配可选项 flags</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-compile对匹配效率的影响"><span class="nav-number">2.8.</span> <span class="nav-text">re.compile对匹配效率的影响</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->

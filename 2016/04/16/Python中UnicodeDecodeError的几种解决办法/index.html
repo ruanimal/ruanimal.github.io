@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="原理由于在Python2中字符串有两种类型str和unicode，他们都是basestring的子类。str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。而unicode包含了256个ascii码之外还包含其他各个国家">
+  <meta name="description" content="原理由于在Python2中字符串有两种类型str和unicode，他们都是basestring的子类。 str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。 而unicode包含了256个ascii码之外还包含其他各个">
 <meta name="keywords" content="Python,编码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python2中UnicodeDecodeError的几种解决办法">
 <meta property="og:url" content="http://ponder.work/2016/04/16/Python中UnicodeDecodeError的几种解决办法/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="原理由于在Python2中字符串有两种类型str和unicode，他们都是basestring的子类。str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。而unicode包含了256个ascii码之外还包含其他各个国家">
+<meta property="og:description" content="原理由于在Python2中字符串有两种类型str和unicode，他们都是basestring的子类。 str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。 而unicode包含了256个ascii码之外还包含其他各个">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-26T14:38:36.000Z">
+<meta property="og:updated_time" content="2020-04-30T13:51:34.133Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python2中UnicodeDecodeError的几种解决办法">
-<meta name="twitter:description" content="原理由于在Python2中字符串有两种类型str和unicode，他们都是basestring的子类。str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。而unicode包含了256个ascii码之外还包含其他各个国家">
+<meta name="twitter:description" content="原理由于在Python2中字符串有两种类型str和unicode，他们都是basestring的子类。 str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。 而unicode包含了256个ascii码之外还包含其他各个">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2016/04/16/Python中UnicodeDecodeError的几种解决办法/">
 
@@ -155,7 +155,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <h1 class="site-subtitle" itemprop="description">人类一思考，上帝就发笑。</h1>
+        <p class="site-subtitle">人类一思考，上帝就发笑。</p>
       
   </div>
 
@@ -279,10 +279,10 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">Python2中UnicodeDecodeError的几种解决办法
+        <h1 class="post-title" itemprop="name headline">Python2中UnicodeDecodeError的几种解决办法
 
           
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -306,7 +306,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-26 22:38:36" itemprop="dateModified" datetime="2019-10-26T22:38:36+08:00">2019-10-26</time>
+                <time title="修改时间：2020-04-30 21:51:34" itemprop="dateModified" datetime="2020-04-30T21:51:34+08:00">2020-04-30</time>
               </span>
             
           
@@ -356,12 +356,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>由于在Python2中字符串有两种类型<code>str</code>和<code>unicode</code>，他们都是<code>basestring</code>的子类。<br>str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。<br>而unicode包含了256个ascii码之外还包含其他各个国家的文字的编码，所以unicode的一个字符占用2个字节，这样理论上一共最多可以表示2^16（即65536）个字符，远大于256。<br>utf-8是unicode的一中实现，是unicode的一种编码方式。而且utf-8的编码方式，包含了ascii码的内容，也就是utf-8兼容ascii。<br>打个比方，unicode是商品，utf-8就是打包好的一个个包裹(encode)，打包是为了传输和储存的方便。而不同的编码之间不能直接互相转换，都需要转成unicode，也就是decode。<br>所以碰到一个str，你就得明白它是encode过的，你得调用相应的decode方法才不会乱码。<br>python2解释器的默认编码方式是ascii，如果我们给系统的输入是非ascii编码的字符，系统在尝试解码时就会出现<code>UnicodeDecodeError</code></p>
+        <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>由于在Python2中字符串有两种类型<code>str</code>和<code>unicode</code>，他们都是<code>basestring</code>的子类。</p>
+<p>str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。</p>
+<p>而unicode包含了256个ascii码之外还包含其他各个国家的文字的编码，所以unicode的一个字符占用2个字节，这样理论上一共最多可以表示2^16（即65536）个字符，远大于256。</p>
+<p>utf-8是unicode的一中实现，是unicode的一种编码方式。而且utf-8的编码方式，包含了ascii码的内容，也就是utf-8兼容ascii。</p>
+<p>打个比方，unicode是商品，utf-8就是打包好的一个个包裹(encode)，打包是为了传输和储存的方便。而不同的编码之间不能直接互相转换，都需要转成unicode，也就是decode。</p>
+<p>所以碰到一个str，你就得明白它是encode过的，你得调用相应的decode方法才不会乱码。</p>
+<p>python2解释器的默认编码方式是ascii，如果我们给系统的输入是非ascii编码的字符，系统在尝试解码时就会出现<code>UnicodeDecodeError</code></p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; s = <span class="string">'2'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; u = u<span class="string">'2'</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; type(s)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; type(u)</span><br><span class="line">&lt;type <span class="string">'unicode'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; issubclass(str,basestring)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; issubclass(unicode,basestring)</span><br><span class="line">True</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; <span class="string">'啊'</span>.decode(<span class="string">'ascii'</span>)</span><br><span class="line">Traceback (most recent call last)<span class="symbol">:</span></span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;<span class="class"><span class="keyword">module</span>&gt;</span></span><br><span class="line"><span class="symbol">UnicodeDecodeError:</span> <span class="string">'ascii'</span> codec can<span class="string">'t decode byte 0xe5 in position 0: ordinal not in range(128)</span></span><br><span class="line"><span class="string">'</span>ascii<span class="string">' codec can'</span>t decode byte <span class="number">0xe5</span> <span class="keyword">in</span> position <span class="number">0</span>: ordinal <span class="keyword">not</span> <span class="keyword">in</span> range(<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="几种解决方法"><a href="#几种解决方法" class="headerlink" title="几种解决方法"></a>几种解决方法</h3><a id="more"></a>
-<h4 id="一、修改系统编码"><a href="#一、修改系统编码" class="headerlink" title="一、修改系统编码"></a>一、修改系统编码</h4><p>这种方法较为普遍<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">reload(sys)</span><br><span class="line">sys.setdefaultencoding(<span class="string">'utf-8'</span>)</span><br></pre></td></tr></table></figure></p>
-<h4 id="二、使用codec模块"><a href="#二、使用codec模块" class="headerlink" title="二、使用codec模块"></a>二、使用codec模块</h4><p>常用于文本文件操作<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> codecs</span><br><span class="line"><span class="keyword">with</span> codecs.open(<span class="string">'somefile.txt'</span>, <span class="string">'r'</span>, <span class="string">'utf-8'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="三、改用Python3"><a href="#三、改用Python3" class="headerlink" title="三、改用Python3"></a>三、改用Python3</h4><p>此乃釜底抽薪，一劳永逸的办法。</p>
+<h2 id="几种解决方法"><a href="#几种解决方法" class="headerlink" title="几种解决方法"></a>几种解决方法</h2><a id="more"></a>
+<h3 id="修改系统编码"><a href="#修改系统编码" class="headerlink" title="修改系统编码"></a>修改系统编码</h3><p>这种方法较为普遍<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">reload(sys)</span><br><span class="line">sys.setdefaultencoding(<span class="string">'utf-8'</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用codec模块"><a href="#使用codec模块" class="headerlink" title="使用codec模块"></a>使用codec模块</h3><p>常用于文本文件操作<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> codecs</span><br><span class="line"><span class="keyword">with</span> codecs.open(<span class="string">'somefile.txt'</span>, <span class="string">'r'</span>, <span class="string">'utf-8'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="改用Python3"><a href="#改用Python3" class="headerlink" title="改用Python3"></a>改用Python3</h3><p>此乃釜底抽薪，一劳永逸的办法。</p>
 
     </div>
 
@@ -453,7 +459,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#几种解决方法"><span class="nav-number">2.</span> <span class="nav-text">几种解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、修改系统编码"><span class="nav-number">2.1.</span> <span class="nav-text">一、修改系统编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、使用codec模块"><span class="nav-number">2.2.</span> <span class="nav-text">二、使用codec模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、改用Python3"><span class="nav-number">2.3.</span> <span class="nav-text">三、改用Python3</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几种解决方法"><span class="nav-number">2.</span> <span class="nav-text">几种解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改系统编码"><span class="nav-number">2.1.</span> <span class="nav-text">修改系统编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用codec模块"><span class="nav-number">2.2.</span> <span class="nav-text">使用codec模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改用Python3"><span class="nav-number">2.3.</span> <span class="nav-text">改用Python3</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->

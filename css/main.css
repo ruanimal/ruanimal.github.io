@@ -1768,7 +1768,7 @@ article:last-child .post-eof {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #87d45d;
+  background: #b6ff55;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2419,47 +2419,47 @@ embed {
 body {
   counter-reset: h1;
 }
-.posts-expand h2 {
+.post-body h2 {
   counter-reset: h2;
 }
-.posts-expand h3 {
+.post-body h3 {
   counter-reset: h3;
 }
-.posts-expand h4 {
+.post-body h4 {
   counter-reset: h4;
 }
-.posts-expand h5 {
+.post-body h5 {
   counter-reset: h5;
 }
-.posts-expand h6 {
+.post-body h6 {
   counter-reset: h6;
 }
-.posts-expand h2:before {
+.post-body h2:before {
   counter-increment: h1;
   content: counter(h1) ". ";
 }
-.posts-expand h3:before {
+.post-body h3:before {
   counter-increment: h2;
   content: counter(h1) "." counter(h2) " ";
 }
-.posts-expand h4:before {
+.post-body h4:before {
   counter-increment: h3;
   content: counter(h1) "." counter(h2) "." counter(h3) " ";
 }
-.posts-expand h5:before {
+.post-body h5:before {
   counter-increment: h4;
   content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) " ";
 }
-.posts-expand h6:before {
+.post-body h6:before {
   counter-increment: h5;
   content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) " ";
 }
-h1.nocount:before,
-h2.nocount:before,
-h3.nocount:before,
-h4.nocount:before,
-h5.nocount:before,
-h6.nocount:before {
+.post-body h1.nocount:before,
+.post-body h2.nocount:before,
+.post-body h3.nocount:before,
+.post-body h4.nocount:before,
+.post-body h5.nocount:before,
+.post-body h6.nocount:before {
   content: "";
   counter-increment: none;
 }

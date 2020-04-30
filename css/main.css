@@ -1768,7 +1768,7 @@ article:last-child .post-eof {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #87b9dd;
+  background: #057d3b;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2416,22 +2416,22 @@ embed {
   transition: all 0.4s;
   width: 320px;
 }
-body {
+.posts-expand body {
   counter-reset: h1;
 }
-h2 {
+.posts-expand h2 {
   counter-reset: h2;
 }
-h3 {
+.posts-expand h3 {
   counter-reset: h3;
 }
-h4 {
+.posts-expand h4 {
   counter-reset: h4;
 }
-h5 {
+.posts-expand h5 {
   counter-reset: h5;
 }
-h6 {
+.posts-expand h6 {
   counter-reset: h6;
 }
 .posts-expand h2:before {

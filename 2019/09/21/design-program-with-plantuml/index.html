@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=7.4.0">
+  <link rel="mask-icon" href="/favicon.ico?v=7.4.0" color="#222">
+  <meta name="baidu-site-verification" content="K0iqERgnmF">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Plantuml 是什么？首先得说一下UML，统一建模语言（英语：Unified Modeling Language，缩写 UML）是非专利的第三代和规约语言。 UML涵盖了很多类型的图，主要都是应用于软件开发行业。 在UML系统开发中有三个主要的模型：  功能模型：从用户的角度展示系统的功能，包括用例图。  对象模型：采用对象，属性，操作，关联等概念展示系统的结构和基础，包括类别图、对象图。">
+<meta name="keywords" content="UML,软件架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用PlantUML做软件设计">
+<meta property="og:url" content="http://ponder.work/2019/09/21/design-program-with-plantuml/index.html">
+<meta property="og:site_name" content="逸思杂陈">
+<meta property="og:description" content="Plantuml 是什么？首先得说一下UML，统一建模语言（英语：Unified Modeling Language，缩写 UML）是非专利的第三代和规约语言。 UML涵盖了很多类型的图，主要都是应用于软件开发行业。 在UML系统开发中有三个主要的模型：  功能模型：从用户的角度展示系统的功能，包括用例图。  对象模型：采用对象，属性，操作，关联等概念展示系统的结构和基础，包括类别图、对象图。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://image.runjf.com/mweb/15690347198367.jpg">
+<meta property="og:image" content="http://image.runjf.com/mweb/15690363185298.jpg">
+<meta property="og:image" content="http://image.runjf.com/mweb/15690367077023.jpg">
+<meta property="og:image" content="http://image.runjf.com/mweb/15690369832230.jpg">
+<meta property="og:image" content="http://image.runjf.com/mweb/15690376853589.jpg">
+<meta property="og:image" content="http://image.runjf.com/mweb/15690390104495.jpg">
+<meta property="og:image" content="http://image.runjf.com/mweb/15690396911033.jpg">
+<meta property="og:image" content="http://image.runjf.com/mweb/15690411434468.jpg">
+<meta property="og:image" content="http://image.runjf.com/mweb/15690445125047.jpg">
+<meta property="og:updated_time" content="2020-05-02T03:24:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用PlantUML做软件设计">
+<meta name="twitter:description" content="Plantuml 是什么？首先得说一下UML，统一建模语言（英语：Unified Modeling Language，缩写 UML）是非专利的第三代和规约语言。 UML涵盖了很多类型的图，主要都是应用于软件开发行业。 在UML系统开发中有三个主要的模型：  功能模型：从用户的角度展示系统的功能，包括用例图。  对象模型：采用对象，属性，操作，关联等概念展示系统的结构和基础，包括类别图、对象图。">
+<meta name="twitter:image" content="http://image.runjf.com/mweb/15690347198367.jpg">
+  <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
+  <link rel="canonical" href="http://ponder.work/2019/09/21/design-program-with-plantuml/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>使用PlantUML做软件设计 | 逸思杂陈</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134911454-2"></script>
+  <script pjax>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-134911454-2');
+    }
+  </script>
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">逸思杂陈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人类一思考，上帝就发笑。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-编程">
+      
+    
+
+    <a href="/categories/编程/" rel="section"><i class="menu-item-icon fa fa-fw fa-code"></i> <br>编程</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-阅读">
+      
+    
+
+    <a href="/categories/阅读/" rel="section"><i class="menu-item-icon fa fa-fw fa-book"></i> <br>阅读</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/ruanima" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2019/09/21/design-program-with-plantuml/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">使用PlantUML做软件设计
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-21 09:48:00" itemprop="dateCreated datePublished" datetime="2019-09-21T09:48:00+08:00">2019-09-21</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-02 11:24:38" itemprop="dateModified" datetime="2020-05-02T11:24:38+08:00">2020-05-02</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.1k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>4 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Plantuml-是什么？"><a href="#Plantuml-是什么？" class="headerlink" title="Plantuml 是什么？"></a>Plantuml 是什么？</h2><p>首先得说一下UML，<strong>统一建模语言</strong>（英语：Unified Modeling Language，缩写 UML）是非专利的第三代和规约语言。</p>
+<p>UML涵盖了很多类型的图，主要都是应用于软件开发行业。</p>
+<p>在UML系统开发中有三个主要的模型：</p>
+<ul>
+<li><p><strong>功能模型</strong>：从用户的角度展示系统的功能，包括用例图。</p>
+</li>
+<li><p><strong>对象模型</strong>：采用对象，属性，操作，关联等概念展示系统的结构和基础，包括类别图、对象图。</p>
+</li>
+<li><p><strong>动态模型</strong>：展现系统的内部行为。包括序列图，活动图，状态图。</p>
+</li>
+</ul>
+<p>而PlantUML是一个开源项目，除了支持快速绘制上面这些类型的图表之外，还支持很多图表，具体查看<a href="http://plantuml.com/zh/index" target="_blank" rel="noopener">官方网站</a>。</p>
+<p>PlantUML通过编写文本的方式来定义UML图表，有点类似markdown，然后生成图表</p>
+<a id="more"></a>
+<p>示例：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">' Split <span class="keyword">into</span> <span class="number">4</span> pages</span><br><span class="line">page <span class="number">2</span>x2</span><br><span class="line">skinparam pageMargin <span class="number">10</span></span><br><span class="line">skinparam pageExternalColor gray</span><br><span class="line">skinparam pageBorderColor black</span><br><span class="line"></span><br><span class="line"><span class="built_in">class</span> BaseClass</span><br><span class="line"></span><br><span class="line">namespace net.dummy <span class="comment">#DDDDDD &#123;</span></span><br><span class="line">	.BaseClass &lt;|<span class="comment">-- Person</span></span><br><span class="line">	Meeting o<span class="comment">-- Person</span></span><br><span class="line">	</span><br><span class="line">	.BaseClass &lt;|- Meeting</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace net.foo &#123;</span><br><span class="line">  net.dummy.Person  &lt;|- Person  </span><br><span class="line">  .BaseClass &lt;|<span class="comment">-- Person</span></span><br><span class="line"></span><br><span class="line">  net.dummy.Meeting o<span class="comment">-- Person</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BaseClass &lt;|<span class="comment">-- net.unused.Person</span></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure></p>
+<p>输出效果<br><img src="http://image.runjf.com/mweb/15690347198367.jpg" alt></p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>我们需要一个编辑器/IDE来编辑和预览UML图表，这里使用<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">vscode</a></p>
+<h3 id="安装PlantUML插件"><a href="#安装PlantUML插件" class="headerlink" title="安装PlantUML插件"></a>安装PlantUML插件</h3><p><img src="http://image.runjf.com/mweb/15690363185298.jpg" alt="-w1151"></p>
+<h3 id="配置插件渲染方式"><a href="#配置插件渲染方式" class="headerlink" title="配置插件渲染方式"></a>配置插件渲染方式</h3><p>渲染方式有两种</p>
+<ul>
+<li>local 本地的Java渲染服务，需要Java运行环境及Graphviz</li>
+<li>PlantUMLServer 远程渲染服务器</li>
+</ul>
+<p>方便起见，我们直接用官方的服务器<br><img src="http://image.runjf.com/mweb/15690367077023.jpg" alt="-w1151"></p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><ol>
+<li>新建 test.puml <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@startuml</span></span><br><span class="line">' Split into <span class="number">4</span> pages</span><br><span class="line">class BaseClass</span><br><span class="line"></span><br><span class="line"><span class="variable">@enduml</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="2">
+<li>预览图表<br><img src="http://image.runjf.com/mweb/15690369832230.jpg" alt="-w1151"></li>
+</ol>
+<h2 id="PlantUML基础语法"><a href="#PlantUML基础语法" class="headerlink" title="PlantUML基础语法"></a>PlantUML基础语法</h2><p>由于PlantUML支持的图表类型比较多，每种图表的语法还不太一致，这里只简单介绍通用的语法，具体的图表还是建议查看官方文档。</p>
+<p>也建议大家，在使用过程中记录适合自己的每种图表的模板，作图效率大大提高。</p>
+<p><strong>注意</strong>：语句类型是和图关联的，也就是说某些语句只能在某个图表用，而且PlantUML会根据你用到的语句猜测你是什么图表，然后进行渲染。</p>
+<h3 id="图表块"><a href="#图表块" class="headerlink" title="图表块"></a>图表块</h3><p>以<code>@startuml</code>和<code>@enduml</code>标记一个图表，还可以在开始处记录图表的名称（这里是hello-world）</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@startuml</span> hello-world</span><br><span class="line">You -&gt; <span class="attribute">World</span>: Hello</span><br><span class="line"><span class="variable">@enduml</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://image.runjf.com/mweb/15690376853589.jpg" alt="-w315"></p>
+<h3 id="注释和标记"><a href="#注释和标记" class="headerlink" title="注释和标记"></a>注释和标记</h3><ul>
+<li>单行注释：单引号 <code>&#39;</code> 在行首</li>
+<li>多行注释：以<code>/&#39;</code> 开始， 以 <code>/&#39;</code> 结束</li>
+<li>图表标记：<code>note left|right|top|bottom of XXX</code></li>
+</ul>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@startuml</span> hello-world</span><br><span class="line">' You -&gt; <span class="attribute">World</span>: Hello 单行注释</span><br><span class="line"></span><br><span class="line">/'</span><br><span class="line">you can not 多行注释</span><br><span class="line">see me </span><br><span class="line">'/</span><br><span class="line"></span><br><span class="line">You &lt;-&gt; <span class="attribute">World</span>: Hello </span><br><span class="line">note left of <span class="attribute">You</span>: yoyoyo</span><br><span class="line">' 标记</span><br><span class="line"><span class="variable">@enduml</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://image.runjf.com/mweb/15690390104495.jpg" alt="-w254"></p>
+<h3 id="对象和关系"><a href="#对象和关系" class="headerlink" title="对象和关系"></a>对象和关系</h3><p><strong>对象</strong>： 图表中的方块，一般出现才关系的两端，有些需要额外定义（如接口，类）<br><strong>关系</strong>：一般用形如箭头的字符来表示对象之间的关系，字符不同样式不同</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@startuml</span> hello-world1</span><br><span class="line">You -&gt; <span class="attribute">World</span>: Hello</span><br><span class="line">You &lt;- <span class="attribute">World</span>: also Hello </span><br><span class="line">You &lt;-&gt; <span class="attribute">World</span>: Hololo </span><br><span class="line">You &lt;--&gt; <span class="attribute">World</span>: Hololo </span><br><span class="line"><span class="variable">@enduml</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://image.runjf.com/mweb/15690396911033.jpg" alt="-w260"></p>
+<h2 id="一些例子"><a href="#一些例子" class="headerlink" title="一些例子"></a>一些例子</h2><h3 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h3><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">participant 用户</span><br><span class="line">用户 -&gt; 店长: 询问：iphone11 有吗？</span><br><span class="line">activate 店长</span><br><span class="line"></span><br><span class="line">note <span class="built_in">left</span> of 用户: 我很暴躁</span><br><span class="line">note <span class="built_in">left</span> of 店长: 巧了，我也是</span><br><span class="line"></span><br><span class="line">店长 -&gt; 服务员: 命令：去查下库存</span><br><span class="line">activate 服务员</span><br><span class="line">服务员 -&gt; 库存系统: 查询库存</span><br><span class="line">activate 库存系统</span><br><span class="line"><span class="keyword">return</span> 库存量</span><br><span class="line">deactivate 库存系统</span><br><span class="line">alt <span class="string">"库存量 &gt; 0"</span></span><br><span class="line">	服务员 -&gt; 店长: 通知：货多得很</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	服务员 -&gt; 店长: 通知：没货了</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">deactivate 服务员</span><br><span class="line"></span><br><span class="line">alt <span class="string">"库存量 &lt;= 0"</span></span><br><span class="line">	店长 -&gt; 用户: 不凑巧，买完了</span><br><span class="line">    用户 -&gt; 店长: 没货还挂着商品，耍人吗???</span><br><span class="line">    用户 -&gt; 店长: 愉快地打了一架</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">店长 -&gt; 用户: Done</span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p><img src="http://image.runjf.com/mweb/15690411434468.jpg" alt="-w765"></p>
+<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">Head</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">Body</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">Animal</span> &#123;</span></span><br><span class="line"><span class="class">    head</span></span><br><span class="line"><span class="class">    body</span></span><br><span class="line"><span class="class">    eye_num = 2</span></span><br><span class="line"><span class="class">    hand_num = 0</span></span><br><span class="line"><span class="class">    leg_num = 4</span></span><br><span class="line"><span class="class">    tail_num = 1</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    run()</span></span><br><span class="line"><span class="class">    shout()</span></span><br><span class="line"><span class="class">&#125;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">Cat</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">Fish</span> &#123;</span></span><br><span class="line"><span class="class">    hand_num = 0</span></span><br><span class="line"><span class="class">    leg_num = 0</span></span><br><span class="line"><span class="class">    tail_num = 1</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    swim()</span></span><br><span class="line"><span class="class">&#125;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">FishShoal</span> &#123;</span></span><br><span class="line"><span class="class">    shoal_size</span></span><br><span class="line"><span class="class">    fish_type</span></span><br><span class="line"><span class="class">    fish_array</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    migrate()</span></span><br><span class="line"><span class="class">&#125;</span></span><br><span class="line"><span class="class">note left of <span class="type">FishShoal</span>: 鱼群</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">Human</span> &#123;</span></span><br><span class="line"><span class="class">    hand_num = 2</span></span><br><span class="line"><span class="class">    leg_num = 2</span></span><br><span class="line"><span class="class">    tail_num = 0</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    speak()</span></span><br><span class="line"><span class="class">    work()</span></span><br><span class="line"><span class="class">&#125;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">Sutdent</span> &#123;</span></span><br><span class="line"><span class="class">    study()</span></span><br><span class="line"><span class="class">&#125;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">School</span> &#123;</span></span><br><span class="line"><span class="class">    location</span></span><br><span class="line"><span class="class">    level</span></span><br><span class="line"><span class="class">    student_num</span></span><br><span class="line"><span class="class">    student_array</span></span><br><span class="line"><span class="class">&#125;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">' 组合</span></span><br><span class="line"><span class="class"><span class="type">Animal</span> *<span class="comment">-- Head</span></span></span><br><span class="line"><span class="class"><span class="type">Animal</span> *<span class="comment">-- Body</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">' 继承、扩展</span></span><br><span class="line"><span class="class"><span class="type">Animal</span> &lt;|<span class="comment">-- Cat</span></span></span><br><span class="line"><span class="class"><span class="type">Animal</span> &lt;|<span class="comment">-- Fish</span></span></span><br><span class="line"><span class="class"><span class="type">Animal</span> &lt;|<span class="comment">-- Human</span></span></span><br><span class="line"><span class="class"><span class="type">Human</span> &lt;|<span class="comment">-- Sutdent</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">' 聚合</span></span><br><span class="line"><span class="class"><span class="type">School</span> o<span class="comment">-- Sutdent: contains &gt;</span></span></span><br><span class="line"><span class="class"><span class="type">FishShoal</span> o<span class="comment">-- Fish: contains &gt;</span></span></span><br><span class="line"><span class="class">@enduml</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://image.runjf.com/mweb/15690445125047.jpg" alt="-w1253"></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/UML/" rel="tag"># UML</a>
+            
+              <a href="/tags/软件架构/" rel="tag"># 软件架构</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/19/start-again/" rel="next" title="全新出发">
+                  <i class="fa fa-chevron-left"></i> 全新出发
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/09/22/《在细雨中呼喊》读书笔记/" rel="prev" title="读《在细雨中呼喊》感悟">
+                  读《在细雨中呼喊》感悟 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Plantuml-是什么？"><span class="nav-number">1.</span> <span class="nav-text">Plantuml 是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境搭建"><span class="nav-number">2.</span> <span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装PlantUML插件"><span class="nav-number">2.1.</span> <span class="nav-text">安装PlantUML插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置插件渲染方式"><span class="nav-number">2.2.</span> <span class="nav-text">配置插件渲染方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证"><span class="nav-number">2.3.</span> <span class="nav-text">验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PlantUML基础语法"><span class="nav-number">3.</span> <span class="nav-text">PlantUML基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图表块"><span class="nav-number">3.1.</span> <span class="nav-text">图表块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注释和标记"><span class="nav-number">3.2.</span> <span class="nav-text">注释和标记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象和关系"><span class="nav-number">3.3.</span> <span class="nav-text">对象和关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些例子"><span class="nav-number">4.</span> <span class="nav-text">一些例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时序图"><span class="nav-number">4.1.</span> <span class="nav-text">时序图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类图"><span class="nav-number">4.2.</span> <span class="nav-text">类图</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jay.Run</p>
+  <div class="site-description" itemprop="description">学习 思考 行动 Python</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/ruanima" title="GitHub &rarr; https://github.com/ruanima" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jay.Run</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">166k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:28</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="/lib/pjax/pjax.min.js?v=0.2.8"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var id = element.id || '';
+    var src = element.src || '';
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (id !=='') {
+      script.id = element.id;
+    }
+    if (src !== '') {
+      script.src = src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '6a903e3db839fa7a1f0f',
+      clientSecret: 'c19ebb77db2f0e162961d60afaa89d0f4ed5f3ad',
+      repo: 'ruanima.github.io',
+      owner: 'ruanima',
+      admin: ['ruanima'],
+      id: '422d1ff50bf12a1cc65659c4cb404dd0',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+    </div>
+</body>
+</html>

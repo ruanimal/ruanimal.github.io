@@ -264,6 +264,138 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/05/10/Python中的类变量与实例变量/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/05/10/Python中的类变量与实例变量/" class="post-title-link" itemprop="url">Python中的类变量与实例变量</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-05-10 22:27:00" itemprop="dateCreated datePublished" datetime="2016-05-10T22:27:00+08:00">2016-05-10</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-02 11:24:38" itemprop="dateModified" datetime="2020-05-02T11:24:38+08:00">2020-05-02</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>2.4k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　对于初学者来说，python的类变量（也就是java中的静态变量）和实例变量（也就是属性）有一些很容易混淆的地方，同时对这些特性深入了解有助于理解python的面向对象思想。</p>
+<h2 id="类变量与实例变量区分"><a href="#类变量与实例变量区分" class="headerlink" title="类变量与实例变量区分"></a>类变量与实例变量区分</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">ClassA</span><span class="params">(object)</span>:</span>  <span class="comment"># 1</span></span><br><span class="line"><span class="meta">... </span>    num1 = <span class="number">1</span>  <span class="comment"># 类变量</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self.num2 = <span class="number">2</span>  <span class="comment"># 实例变量，或者说属性</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1 = ClassA()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ClassA.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 2</span></span><br><span class="line"><span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1 = <span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 3</span></span><br><span class="line"><span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.__class__.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.__class__.num1 = <span class="number">4</span>  <span class="comment"># 4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ClassA.num1</span><br><span class="line"><span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a2 = ClassA()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a2.num1</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>这里我们定义了<code>ClassA</code>类，它有一个类变量<code>num1</code>，还有一个实例变量<code>num2</code>。  </li>
+<li>a1是ClassA的一个实例，当我们写下<code>a1.num1</code>的时候，实际上是引用类变量num1，因此<code>a1.num1 is ClassA.num1</code>值为<code>True</code>。  </li>
+<li>运行<code>a1.num1 = 3</code>的时候，其实给a1绑定了一个属性num1，这是动态语言的特性，此时<code>a1.num1 is ClassA.num1</code>值为<code>False</code>。<br><strong>因此我不建议通过实例的名称来引用类变量，这样容易引起混淆，你以为改变了ClassA.num1，其实没有。</strong><br>这里就扯到了Python的作用域与命名空间，运行<code>a1.num1</code>的时候，先是在a1自己的命名空间内查找num1，没找到就在所属类的命名空间找，还没有就抛出<code>AttributeError: &#39;ClassA&#39; object has no attribute &#39;num3&#39;</code>.<br>运行<code>a1.num1 = 3</code>之后，a1自己的命名空间内找到了num1，就不继续往上查找了。</li>
+<li>如果此时还想通过a1访问和改变类变量num1，可以通过<code>a1.__class__.num1</code>来访问。</li>
+</ol>
+<p>以上这些，也适用于<code>staticmethod</code>和<code>classmethod</code>。</p>
+<h2 id="如果ClassA还有父类"><a href="#如果ClassA还有父类" class="headerlink" title="如果ClassA还有父类"></a>如果ClassA还有父类</h2>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/05/10/Python中的类变量与实例变量/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/05/08/图书馆见闻/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1892,124 +2024,6 @@
   
   
   <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/01/10/python赋值语句小坑/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jay.Run">
-      <meta itemprop="description" content="学习 思考 行动 Python">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="逸思杂陈">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2016/01/10/python赋值语句小坑/" class="post-title-link" itemprop="url">python赋值语句小坑</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2016-01-10 17:03:00" itemprop="dateCreated datePublished" datetime="2016-01-10T17:03:00+08:00">2016-01-10</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-02 11:24:38" itemprop="dateModified" datetime="2020-05-02T11:24:38+08:00">2020-05-02</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>359</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>1 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>说到python赋值语句，大家想必一个念头——so easy，不是<code>lz = &#39;dashabi&#39;</code>吗。<br>确实，easy是easy，里面却有个小坑，虽小，却不易发现。在代码量多的时候，就有点恶心了。</p>
-<p><strong>正常的语句是这样</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa </span><br><span class="line"><span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>坑在这里</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u'这是一个坑'</span>,</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa </span><br><span class="line">(<span class="string">u'\u8fd9\u662f\u4e00\u4e2a\u5751'</span>,)</span><br></pre></td></tr></table></figure></p>
-<p>看出区别没有，坑的后面有个逗号，平时这逗号没什么卵用，但在赋值语句的末尾会将原来的对象转化为tuple。<br>和<code>aa = (u&#39;这是一个坑&#39;,)</code>是一样的效果。</p>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/01/10/除法在python2和python3中的区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2131,7 +2145,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2176,7 +2190,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2361,7 +2375,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:27</span>
+    <span title="站点阅读时长">3:28</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

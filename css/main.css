@@ -1688,6 +1688,13 @@ article:last-child .post-eof {
   align-self: center;
   height: 30px;
 }
+.post-copyright {
+  background-color: #f9f9f9;
+  border-left: 3px solid #ff1700;
+  list-style: none;
+  margin: 2em 0 0;
+  padding: 0.5em 1em;
+}
 .sidebar {
   background: #222;
   bottom: 0;
@@ -1768,7 +1775,7 @@ article:last-child .post-eof {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff05ff;
+  background: #ffebfc;
   border-radius: 50%;
   content: ' ';
   display: inline-block;

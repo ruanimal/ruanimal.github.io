@@ -66,7 +66,7 @@
 <meta property="og:description" content="asyncio是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。 asyncio的编程模型就是一个消息循环。我们从asyncio模块中直接获取一个EventLoop的引用，然后把需要执行的协程扔到EventLoop中执行，就实现了异步IO。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-05-24-15903277834535.jpg">
-<meta property="og:updated_time" content="2020-05-24T14:05:05.000Z">
+<meta property="og:updated_time" content="2020-05-24T14:13:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python asyncio 简易教程">
 <meta name="twitter:description" content="asyncio是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。 asyncio的编程模型就是一个消息循环。我们从asyncio模块中直接获取一个EventLoop的引用，然后把需要执行的协程扔到EventLoop中执行，就实现了异步IO。">
@@ -297,7 +297,7 @@
                 
               
 
-              <time title="创建时间：2020-05-24 09:48:00 / 修改时间：22:05:05" itemprop="dateCreated datePublished" datetime="2020-05-24T09:48:00+08:00">2020-05-24</time>
+              <time title="创建时间：2020-05-24 09:48:00 / 修改时间：22:13:58" itemprop="dateCreated datePublished" datetime="2020-05-24T09:48:00+08:00">2020-05-24</time>
             </span>
           
             
@@ -354,7 +354,8 @@
 <p><code>asyncio</code>的编程模型就是一个消息循环。我们从<code>asyncio</code>模块中直接获取一个<code>EventLoop</code>的引用，然后把需要执行的协程扔到<code>EventLoop</code>中执行，就实现了异步IO。</p>
 <a id="more"></a>
 <h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'hello'</span>)</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>)</span><br><span class="line">    print(<span class="string">' world'</span>)</span><br><span class="line">    </span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">loop.run_until_complete(hello_world())</span><br><span class="line">loop.close()</span><br></pre></td></tr></table></figure>
-<h2 id="执行逻辑"><a href="#执行逻辑" class="headerlink" title="执行逻辑"></a>执行逻辑</h2><p><code>async def</code> 定义的每一个函数, 本质上是一个协程.<br>当await调用一个函数时, 程序就切换到该函数中执行了, 当执行完成时, 程序又回到await调用处继续执行.<br>当该函数是系统io相关函数时，eventloop就会去执行别的函数，等到该函数的io就绪时，再从该函数暂停的地方继续执行。</p>
+<h2 id="执行逻辑"><a href="#执行逻辑" class="headerlink" title="执行逻辑"></a>执行逻辑</h2><p><code>async def</code> 定义的每一个函数, 本质上是一个协程.<br>当await调用一个函数时, 程序就切换到该函数中执行了, 当执行完成时, 程序又回到await调用处继续执行. </p>
+<p>当函数的调用链上碰到系统io相关函数时，程序执行的控制权就会回到eventloop主循环，eventloop就会调度执行别的函数，等到该函数的io就绪时，再从该函数暂停的地方继续执行。</p>
 <p>再搭配上支持非阻塞io的异步库, 这样就实现了高效的异步编程.</p>
 <p>所有异步函数是在同一个线程中执行的, 在该进程内我们还可启用其他线程, 执行其他同步代码. 下图展示了Python中协程、线程、进程的逻辑关系。</p>
 <p><img src="http://image.runjf.com/mweb/2020-05-24-15903277834535.jpg" alt></p>

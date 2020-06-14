@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ponder.work/"/>
-  <updated>2020-05-24T14:13:58.000Z</updated>
+  <updated>2020-06-14T01:23:15.000Z</updated>
   <id>http://ponder.work/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>简明双标指南</title>
+    <link href="http://ponder.work/2020/06/13/%E7%AE%80%E6%98%8E%E5%8F%8C%E6%A0%87%E6%8C%87%E5%8D%97/"/>
+    <id>http://ponder.work/2020/06/13/%E7%AE%80%E6%98%8E%E5%8F%8C%E6%A0%87%E6%8C%87%E5%8D%97/</id>
+    <published>2020-06-13T14:39:38.000Z</published>
+    <updated>2020-06-14T01:23:15.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近一段时期有很多事情发生，也颠覆了我们的认知（如I cannot breathe），同时也发现了很多双标事件。</p><p>下面就简单地总结下，如何双标。</p><p>双标的核心是，定性的看问题，不要就事论事具体分析。</p><p>双标的要点之一，选取部分真相进行概括定性。<br>这里的选取非常关键，我们应该选择性地看见我们想看见的东西。假如B捡了地上的一块钱并据为己有，贪小便宜不是君子所为，这人肯定是品行不端。假如A也这么干了，对不起我没有看见。假如A捡了垃圾放垃圾桶了，这时我们就可以说，从一件微不足道的事情上就可以看出A真是道德高尚。</p><p>双标的要点之二，定性之后的上纲上线。<br>由于第一步我们已经定性了A和B，以后再发生事情就很好处理了。假如都做了好事，A就是好人性质的体现，B因为他是坏人肯定是另有目的的，是伪装的。假如都做了坏事，反过来处理就好了。比如，你认定A是好人，B是坏人，假设他们都随地吐痰了。这时就可以说A肯定是不小心的，大善人怎么可能做这种事；可以说B真是狗改不了吃屎，连基本的公德心都没有。假设都做了好事，扶老奶奶过马路，A就是一以贯之的道德楷模，值得学习；B肯定是装的，为了方便自己做坏事。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近一段时期有很多事情发生，也颠覆了我们的认知（如I cannot breathe），同时也发现了很多双标事件。&lt;/p&gt;
+&lt;p&gt;下面就简单地总结下，如何双标。&lt;/p&gt;
+&lt;p&gt;双标的核心是，定性的看问题，不要就事论事具体分析。&lt;/p&gt;
+&lt;p&gt;双标的要点之一，选取部分真相进行概
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="http://ponder.work/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="随笔" scheme="http://ponder.work/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
   
   <entry>
     <title>Python asyncio 简易教程</title>
@@ -555,40 +584,6 @@
       <category term="读书笔记" scheme="http://ponder.work/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
       <category term="历史" scheme="http://ponder.work/tags/%E5%8E%86%E5%8F%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《胡适口述自传》读书笔记</title>
-    <link href="http://ponder.work/2020/03/22/%E8%83%A1%E9%80%82%E5%8F%A3%E8%BF%B0%E8%87%AA%E4%BC%A0-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
-    <id>http://ponder.work/2020/03/22/%E8%83%A1%E9%80%82%E5%8F%A3%E8%BF%B0%E8%87%AA%E4%BC%A0-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</id>
-    <published>2020-03-22T14:17:00.000Z</published>
-    <updated>2020-03-28T15:24:04.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>杜威有系统的思想, 五个阶段:</p><ol><li>前奏: 困惑, 疑虑</li><li>决定困惑疑虑在何处</li><li>假设解决方法</li><li>选择方法其一</li><li>证明假设</li></ol><p>实用主义, 实为 “实验主义”</p><p>苏格拉底: 天下任何事物和概念都有其 “普遍界说”, 比如说，猫的“普遍界说”就是“捉老鼠”。</p><p>胡适有好疑问的信条, 唯有对这一信条不疑问</p><p>诸公茶余溺后, 伸缩乎竹椅之上, 打桥牌则 “金刚钻”, “克鲁伯”, 纸声飕飕, 下象棋则过河卒子, 拼命向前, 无牌无棋, 则张家山前, 李家山后, 饮食男女, 政治时事, 粪土当朝万户侯! 乖乖, 真是身在茶馆, 心有邦国, 眼观世界, 牛皮无边</p><blockquote><p>阮云: 怎一个颓废了得</p></blockquote><p>我们政学两界都害了过分依赖权威的毛病.</p><blockquote><p>阮云: 让人个个人又想成为权威</p></blockquote><blockquote><p>阮云: 革命一定要年轻而冲动, 你想革他人之命, 须先将已命悬于腰间, 故革命言论一定要偏激而富有煽动性. 过于理性的人做不出革命之举(后又读吴思的书, 又有些不同看法)</p></blockquote><p>朱熹: “格物”是, “格”, 至也, “物”, 犹事也.</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;杜威有系统的思想, 五个阶段:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;前奏: 困惑, 疑虑&lt;/li&gt;
-&lt;li&gt;决定困惑疑虑在何处&lt;/li&gt;
-&lt;li&gt;假设解决方法&lt;/li&gt;
-&lt;li&gt;选择方法其一&lt;/li&gt;
-&lt;li&gt;证明假设&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;实用主义, 实为 “实验主义”&lt;/p
-      
-    
-    </summary>
-    
-    
-      <category term="阅读" scheme="http://ponder.work/categories/%E9%98%85%E8%AF%BB/"/>
-    
-    
-      <category term="读书笔记" scheme="http://ponder.work/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   

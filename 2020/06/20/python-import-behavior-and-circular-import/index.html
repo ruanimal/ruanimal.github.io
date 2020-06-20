@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="缘起循环import是很多Python初学者都会遇到问题，网上有也有很多文章讲解决方法，比如这篇，不清楚的可以自行查阅，这里就不赘述了。 那么，为啥老司机也会遇到这个问题呢？这段时间一直在搞把redis复刻一个python版本，在复刻代码时就遇到了这个问题。而且我也使用了延迟import，却没能解决。 下面我们来详细分析下">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-20T03:55:41.000Z">
+<meta property="og:updated_time" content="2020-06-20T04:03:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="循环import导致的模块被多次import">
 <meta name="twitter:description" content="缘起循环import是很多Python初学者都会遇到问题，网上有也有很多文章讲解决方法，比如这篇，不清楚的可以自行查阅，这里就不赘述了。 那么，为啥老司机也会遇到这个问题呢？这段时间一直在搞把redis复刻一个python版本，在复刻代码时就遇到了这个问题。而且我也使用了延迟import，却没能解决。 下面我们来详细分析下">
@@ -295,7 +295,7 @@
                 
               
 
-              <time title="创建时间：2020-06-20 09:48:00 / 修改时间：11:55:41" itemprop="dateCreated datePublished" datetime="2020-06-20T09:48:00+08:00">2020-06-20</time>
+              <time title="创建时间：2020-06-20 09:48:00 / 修改时间：12:03:54" itemprop="dateCreated datePublished" datetime="2020-06-20T09:48:00+08:00">2020-06-20</time>
             </span>
           
             
@@ -377,7 +377,8 @@
 <figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">2020-06-20</span> <span class="number">11</span>:<span class="number">43:31,508</span> run.&lt;module&gt;   ] begin load</span><br><span class="line">[<span class="number">2020-06-20</span> <span class="number">11</span>:<span class="number">43:31,508</span> run.&lt;module&gt;   ] end load</span><br><span class="line">[<span class="number">2020-06-20</span> <span class="number">11</span>:<span class="number">43:31,509</span> foo.&lt;module&gt;   ] begin load</span><br><span class="line">[<span class="number">2020-06-20</span> <span class="number">11</span>:<span class="number">43:31,509</span> foo.&lt;module&gt;   ] end load</span><br><span class="line">[<span class="number">2020-06-20</span> <span class="number">11</span>:<span class="number">43:31,509</span> run.start      ] call</span><br><span class="line">[<span class="number">2020-06-20</span> <span class="number">11</span>:<span class="number">43:31,509</span> run.start      ] &lt;run.Server object at <span class="number">0</span>x10f542fa0&gt;</span><br><span class="line">[<span class="number">2020-06-20</span> <span class="number">11</span>:<span class="number">43:31,509</span> run.start      ] &lt;class 'run.Server'&gt;  <span class="number">140660950954304</span></span><br><span class="line">[<span class="number">2020-06-20</span> <span class="number">11</span>:<span class="number">43:31,509</span> foo.do_someting] begin call</span><br><span class="line">[<span class="number">2020-06-20</span> <span class="number">11</span>:<span class="number">43:31,509</span> foo.do_someting] &lt;run.Server object at <span class="number">0</span>x10f542fa0&gt;</span><br><span class="line">[<span class="number">2020-06-20</span> <span class="number">11</span>:<span class="number">43:31,509</span> foo.do_someting] &lt;class 'run.Server'&gt;  <span class="number">140660950954304</span></span><br><span class="line">[<span class="number">2020-06-20</span> <span class="number">11</span>:<span class="number">43:31,509</span> foo.do_someting] found attr name</span><br><span class="line">[<span class="number">2020-06-20</span> <span class="number">11</span>:<span class="number">43:31,509</span> foo.do_someting] end call</span><br></pre></td></tr></table></figure>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>因为C是编译型语言，可以理解为模块的导入在编译期就完成了，也就不会出现模块的循环依赖，而且全局对象的内存位置也在编译期就固定了。</p>
 <p>而Python作为解释型语言，模块的导入加载和执行是混在一起的，所有对象都是可以更改的，也就容易出现这种问题。</p>
-<p>切记：<strong>复杂Python程序的入口文件最好保持单一的文件，不要混入其他对象定义，谨慎使用<code>if __name__ == &#39;__main__&#39;</code>写法。</strong></p>
+<p>切记：</p>
+<p><strong>复杂Python程序的入口文件最好保持单一的文件，不要混入其他对象定义，谨慎使用<code>if __name__ == &#39;__main__&#39;</code>写法。</strong></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://docs.python.org/zh-cn/3/reference/import.html" target="_blank" rel="noopener">https://docs.python.org/zh-cn/3/reference/import.html</a></li>
 <li><a href="https://docs.python.org/zh-cn/3/library/sys.html?#sys.modules" target="_blank" rel="noopener">https://docs.python.org/zh-cn/3/library/sys.html?#sys.modules</a></li>
@@ -685,6 +686,10 @@
       
         <li class="links-of-blogroll-item">
           <a href="http://www.ruanyifeng.com/" title="http://www.ruanyifeng.com/" rel="noopener" target="_blank">阮一峰的个人网站</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://cse.google.com/cse?cx=006975008861986536211:lpx3qasaiom" title="https://cse.google.com/cse?cx=006975008861986536211:lpx3qasaiom" rel="noopener" target="_blank">mac软件搜索引擎</a>
         </li>
       
     </ul>

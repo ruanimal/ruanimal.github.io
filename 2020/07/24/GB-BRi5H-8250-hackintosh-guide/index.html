@@ -73,7 +73,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-07-25-15955842564825.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-07-25-15955861876823.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-07-25-15956404767924.jpg">
-<meta property="og:updated_time" content="2020-07-25T01:30:58.970Z">
+<meta property="og:updated_time" content="2020-07-25T01:42:49.684Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="技嘉GB-BRi5H-8250黑苹果安装指南">
 <meta name="twitter:description" content="硬件信息GB-BRi5H-8250 准系统">
@@ -315,7 +315,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-25 09:30:58" itemprop="dateModified" datetime="2020-07-25T09:30:58+08:00">2020-07-25</time>
+                <time title="修改时间：2020-07-25 09:42:49" itemprop="dateModified" datetime="2020-07-25T09:42:49+08:00">2020-07-25</time>
               </span>
             
           
@@ -342,7 +342,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>4.6k</span>
+              <span>4.7k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -425,7 +425,7 @@
 <li>硬盘：Samsung 850 EVO M.2 SATA 250G</li>
 <li>无线网卡：DW1820A (08PKF4)</li>
 </ul>
-<h2 id="黑苹果总体情况"><a href="#黑苹果总体情况" class="headerlink" title="黑苹果总体情况"></a>黑苹果总体情况</h2><h3 id="正常工作项目"><a href="#正常工作项目" class="headerlink" title="正常工作项目"></a>正常工作项目</h3><ul>
+<h2 id="总体成果"><a href="#总体成果" class="headerlink" title="总体成果"></a>总体成果</h2><h3 id="正常工作项目"><a href="#正常工作项目" class="headerlink" title="正常工作项目"></a>正常工作项目</h3><ul>
 <li>CPU，变频</li>
 <li>显卡，硬件加速</li>
 <li>HDMI输出，MiniDP输出，HDMI音频，双屏</li>
@@ -439,10 +439,8 @@
 <li>睡眠，关机，唤醒</li>
 </ul>
 <h3 id="不正常工作项目"><a href="#不正常工作项目" class="headerlink" title="不正常工作项目"></a>不正常工作项目</h3><ul>
-<li><p>系统偏好设置-节能（错误识别为有电池）<br>  <img src="http://image.runjf.com/mweb/2020-07-25-15956404046858.jpg" alt></p>
-</li>
-<li><p>HDMI睡眠唤醒，有时屏幕黑屏，需要按一下屏幕开关；DP睡眠正常</p>
-</li>
+<li>系统偏好设置-节能（错误识别为有电池）<br>  <img src="http://image.runjf.com/mweb/2020-07-25-15956404046858.jpg" alt></li>
+<li>HDMI睡眠唤醒，有时屏幕黑屏，需要按一下屏幕开关；DP睡眠正常</li>
 <li>显示器音响开机时不正常，拔插接口后或者开关屏幕电源后正常。</li>
 </ul>
 <h2 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h2><p>安装过程大部分参考<a href="https://dortania.github.io/OpenCore-Install-Guide/" target="_blank" rel="noopener">dortania</a>，这里采用的是双系统安装方法。</p>
@@ -523,7 +521,7 @@
 <li>配置准确性校验 <a href="https://opencore.slowgeek.com/" target="_blank" rel="noopener">https://opencore.slowgeek.com/</a></li>
 </ol>
 <p><strong>注意</strong>：配置文件中kext的顺序是有影响的，建议前两个是lilu和virtualsmc</p>
-<h3 id="Bios设置"><a href="#Bios设置" class="headerlink" title="Bios设置"></a>Bios设置</h3><p>如果bios没用相关设置项，可以跳过</p>
+<h3 id="Bios设置"><a href="#Bios设置" class="headerlink" title="Bios设置"></a>Bios设置</h3><p>如果bios没有相关设置项，可以跳过</p>
 <h4 id="禁用项"><a href="#禁用项" class="headerlink" title="禁用项"></a>禁用项</h4><ul>
 <li>Fast Boot</li>
 <li>Secure Boot</li>
@@ -556,17 +554,17 @@
 <p>内置显卡的驱动，注意做的是以下几个点</p>
 <ul>
 <li>选择合适的缓冲帧<code>AAPL,ig-platform-id</code>，必要时仿冒设备id<code>device-id</code></li>
-<li>定制正确的显示输出接口</li>
+<li>定制正确的显示输出接口，将物理接口和PCI设备正确对应</li>
 <li>显存，HDMI相关补丁</li>
 </ul>
 <p>这一步使用hackintool的应用补丁功能可以完成，详细步骤参考<a href="https://blog.daliansky.net/Tutorial-Using-Hackintool-to-open-the-correct-pose-of-the-8th-generation-core-display-HDMI-or-DVI-output.html" target="_blank" rel="noopener">这个</a></p>
 <p><strong>注意</strong>：hackintool在配置过程中，有时改动会被重置，应用补丁时注意二次确认</p>
-<h4 id="声卡驱动"><a href="#声卡驱动" class="headerlink" title="声卡驱动"></a>声卡驱动</h4><p>声卡驱动大部分工作由AppleALC自动完成，我们需要的是选择正确的layout-id.<br>建议先去github的release日志上查看，是否在某次release添加了你主板的layout-id。如果没有相关记录，那就只能尝试wiki中对应声卡信号的所有可能的layout-id</p>
+<h4 id="声卡驱动"><a href="#声卡驱动" class="headerlink" title="声卡驱动"></a>声卡驱动</h4><p>声卡驱动大部分工作由AppleALC自动完成，我们需要的是选择正确的layout-id.<br>建议先去github的release日志上查看，是否在某次release添加了你主板的layout-id。如果没有相关记录，那就只能尝试wiki中对应声卡型号的所有可能的layout-id</p>
 <p>详细步骤参考<a href="https://dortania.github.io/OpenCore-Post-Install/universal/audio.html" target="_blank" rel="noopener">这个</a></p>
 <h4 id="USB定制"><a href="#USB定制" class="headerlink" title="USB定制"></a>USB定制</h4><p>USB定制直接影响睡眠是否正常</p>
 <p>使用hackintool完成USB定制，主要过程</p>
 <ol>
-<li>SSDT-EC-USBX定制</li>
+<li>SSDT-EC-USBX定制（前面已经完成）</li>
 <li>加载USBInjectAll.kext驱动，重启，注入所有接口。</li>
 <li>分别使用USB2.0，USB3.0，Type-C设备拔插所有USB接口，找到物理接口和PCI设备的映射关系，并删除没有用到的USB接口。</li>
 <li>生成USBPorts.kext驱动，加载。</li>
@@ -589,18 +587,18 @@
 <h4 id="CPU变频"><a href="#CPU变频" class="headerlink" title="CPU变频"></a>CPU变频</h4><p>使CPU的变频挡位更多，台式机不是特别必要。</p>
 <p>可以使用<code>CPU-S</code>软件来查看变频状态</p>
 <p>详细步骤参考<a href="https://dortania.github.io/OpenCore-Post-Install/universal/pm.html#using-cpu-friend" target="_blank" rel="noopener">这个</a></p>
-<h4 id="睡眠修复"><a href="#睡眠修复" class="headerlink" title="睡眠修复"></a>睡眠修复</h4><p>如果上面的SSDT和驱动都做好了，睡眠的问题基本不打了</p>
+<h4 id="睡眠修复"><a href="#睡眠修复" class="headerlink" title="睡眠修复"></a>睡眠修复</h4><p>如果上面的SSDT和驱动都做好了，睡眠的问题基本不大了</p>
 <p>详细步骤参考<a href="https://dortania.github.io/OpenCore-Post-Install/universal/sleep.html" target="_blank" rel="noopener">这个</a></p>
 <h4 id="启动项，图形化界面"><a href="#启动项，图形化界面" class="headerlink" title="启动项，图形化界面"></a>启动项，图形化界面</h4><p>到此黑苹果配置基本完成了，我们可以去除<code>boot-args</code>中的<code>-v</code>等debug启动参数，添加相关声音和图片资源，配置config.plist启动OpenCore图形界面。（在开机中启用声音，个人觉得不太不要）</p>
 <p>详细步骤参考<a href="https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui.html#setting-up-opencore-s-gui" target="_blank" rel="noopener">这个</a></p>
 <h3 id="其他注意事项"><a href="#其他注意事项" class="headerlink" title="其他注意事项"></a>其他注意事项</h3><ul>
 <li>每个SSDT基本都可以用手动修改和自动修改，如果某种方法不生效建议尝试另外一种。</li>
 <li>如果不是配置完全一样，不要自己使用别人的EFI文件</li>
-<li>FakePCIID相关驱动会改动PCI设备信息，可能导致USB定制失效</li>
+<li>FakePCIID相关驱动会改动PCI设备信息，可能导致USB设备地址变化，导致USB定制失效，需要重新定制</li>
 <li>不同的SMBios机型会影响驱动成功率</li>
 <li>修改序列号会影响iCloud账户识别</li>
 </ul>
-<h2 id="参考-amp-感谢"><a href="#参考-amp-感谢" class="headerlink" title="参考&amp;感谢"></a>参考&amp;感谢</h2><ul>
+<h2 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h2><ul>
 <li><a href="https://dortania.github.io" target="_blank" rel="noopener">https://dortania.github.io</a></li>
 <li><a href="https://github.com/acidanthera" target="_blank" rel="noopener">https://github.com/acidanthera</a></li>
 <li><a href="https://blog.daliansky.net" target="_blank" rel="noopener">https://blog.daliansky.net</a></li>
@@ -708,7 +706,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件信息"><span class="nav-number">1.</span> <span class="nav-text">硬件信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GB-BRi5H-8250-准系统"><span class="nav-number">1.1.</span> <span class="nav-text">GB-BRi5H-8250 准系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他配件"><span class="nav-number">1.2.</span> <span class="nav-text">其他配件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#黑苹果总体情况"><span class="nav-number">2.</span> <span class="nav-text">黑苹果总体情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正常工作项目"><span class="nav-number">2.1.</span> <span class="nav-text">正常工作项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不正常工作项目"><span class="nav-number">2.2.</span> <span class="nav-text">不正常工作项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装教程"><span class="nav-number">3.</span> <span class="nav-text">安装教程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">3.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows安装和分区"><span class="nav-number">3.2.</span> <span class="nav-text">Windows安装和分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#macOS安装U盘制作"><span class="nav-number">3.3.</span> <span class="nav-text">macOS安装U盘制作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#macOS准备"><span class="nav-number">3.3.1.</span> <span class="nav-text">macOS准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OpenCore文件准备"><span class="nav-number">3.3.2.</span> <span class="nav-text">OpenCore文件准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kexts驱动准备"><span class="nav-number">3.3.3.</span> <span class="nav-text">Kexts驱动准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSDT准备"><span class="nav-number">3.3.4.</span> <span class="nav-text">SSDT准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OpenCore配置文件准备"><span class="nav-number">3.3.5.</span> <span class="nav-text">OpenCore配置文件准备</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bios设置"><span class="nav-number">3.4.</span> <span class="nav-text">Bios设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#禁用项"><span class="nav-number">3.4.1.</span> <span class="nav-text">禁用项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启用项"><span class="nav-number">3.4.2.</span> <span class="nav-text">启用项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#macOS安装"><span class="nav-number">3.5.</span> <span class="nav-text">macOS安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#驱动安装及优化"><span class="nav-number">3.6.</span> <span class="nav-text">驱动安装及优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显卡驱动优化"><span class="nav-number">3.6.1.</span> <span class="nav-text">显卡驱动优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#声卡驱动"><span class="nav-number">3.6.2.</span> <span class="nav-text">声卡驱动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#USB定制"><span class="nav-number">3.6.3.</span> <span class="nav-text">USB定制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DW1820A无线网卡"><span class="nav-number">3.6.4.</span> <span class="nav-text">DW1820A无线网卡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#电源管理"><span class="nav-number">3.6.5.</span> <span class="nav-text">电源管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU变频"><span class="nav-number">3.6.6.</span> <span class="nav-text">CPU变频</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#睡眠修复"><span class="nav-number">3.6.7.</span> <span class="nav-text">睡眠修复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动项，图形化界面"><span class="nav-number">3.6.8.</span> <span class="nav-text">启动项，图形化界面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他注意事项"><span class="nav-number">3.7.</span> <span class="nav-text">其他注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-amp-感谢"><span class="nav-number">4.</span> <span class="nav-text">参考&amp;感谢</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件信息"><span class="nav-number">1.</span> <span class="nav-text">硬件信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GB-BRi5H-8250-准系统"><span class="nav-number">1.1.</span> <span class="nav-text">GB-BRi5H-8250 准系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他配件"><span class="nav-number">1.2.</span> <span class="nav-text">其他配件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总体成果"><span class="nav-number">2.</span> <span class="nav-text">总体成果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正常工作项目"><span class="nav-number">2.1.</span> <span class="nav-text">正常工作项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不正常工作项目"><span class="nav-number">2.2.</span> <span class="nav-text">不正常工作项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装教程"><span class="nav-number">3.</span> <span class="nav-text">安装教程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">3.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows安装和分区"><span class="nav-number">3.2.</span> <span class="nav-text">Windows安装和分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#macOS安装U盘制作"><span class="nav-number">3.3.</span> <span class="nav-text">macOS安装U盘制作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#macOS准备"><span class="nav-number">3.3.1.</span> <span class="nav-text">macOS准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OpenCore文件准备"><span class="nav-number">3.3.2.</span> <span class="nav-text">OpenCore文件准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kexts驱动准备"><span class="nav-number">3.3.3.</span> <span class="nav-text">Kexts驱动准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSDT准备"><span class="nav-number">3.3.4.</span> <span class="nav-text">SSDT准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OpenCore配置文件准备"><span class="nav-number">3.3.5.</span> <span class="nav-text">OpenCore配置文件准备</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bios设置"><span class="nav-number">3.4.</span> <span class="nav-text">Bios设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#禁用项"><span class="nav-number">3.4.1.</span> <span class="nav-text">禁用项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启用项"><span class="nav-number">3.4.2.</span> <span class="nav-text">启用项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#macOS安装"><span class="nav-number">3.5.</span> <span class="nav-text">macOS安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#驱动安装及优化"><span class="nav-number">3.6.</span> <span class="nav-text">驱动安装及优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显卡驱动优化"><span class="nav-number">3.6.1.</span> <span class="nav-text">显卡驱动优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#声卡驱动"><span class="nav-number">3.6.2.</span> <span class="nav-text">声卡驱动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#USB定制"><span class="nav-number">3.6.3.</span> <span class="nav-text">USB定制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DW1820A无线网卡"><span class="nav-number">3.6.4.</span> <span class="nav-text">DW1820A无线网卡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#电源管理"><span class="nav-number">3.6.5.</span> <span class="nav-text">电源管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU变频"><span class="nav-number">3.6.6.</span> <span class="nav-text">CPU变频</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#睡眠修复"><span class="nav-number">3.6.7.</span> <span class="nav-text">睡眠修复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动项，图形化界面"><span class="nav-number">3.6.8.</span> <span class="nav-text">启动项，图形化界面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他注意事项"><span class="nav-number">3.7.</span> <span class="nav-text">其他注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#感谢"><span class="nav-number">4.</span> <span class="nav-text">感谢</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->

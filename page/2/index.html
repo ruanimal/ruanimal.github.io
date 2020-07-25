@@ -264,6 +264,135 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2020/04/10/convent-xgboost-model-to-pmml-guide/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/04/10/convent-xgboost-model-to-pmml-guide/" class="post-title-link" itemprop="url">在Java环境中使用PMML执行xgboost模型</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-10 21:48:00" itemprop="dateCreated datePublished" datetime="2020-04-10T21:48:00+08:00">2020-04-10</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-01 11:41:33" itemprop="dateModified" datetime="2020-07-01T11:41:33+08:00">2020-07-01</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>2.7k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近有个需求, 在Java环境环境运行xgboost模型, 查询资料后发现PMML可以解决这个问题.</p>
+<p>PMML是数据挖掘的一种通用的规范，它用统一的XML格式来描述我们生成的机器学习模型。这样无论你的模型是sklearn,R还是Spark MLlib生成的，我们都可以将其转化为标准的XML格式来存储。当我们需要将这个PMML的模型用于部署的时候，可以使用目标环境的解析PMML模型的库来加载模型，并做预测。</p>
+<p>可以看出，要使用PMML，需要两步的工作:</p>
+<ul>
+<li>第一块是将离线训练得到的模型转化为PMML模型文件</li>
+<li>第二块是将PMML模型文件载入在线预测环境，进行预测</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/04/10/convent-xgboost-model-to-pmml-guide/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="http://ponder.work/2020/04/10/《怪诞行为学2》读书笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -304,7 +433,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-25 18:12:02" itemprop="dateModified" datetime="2020-04-25T18:12:02+08:00">2020-04-25</time>
+                <time title="修改时间：2020-04-11 16:35:34" itemprop="dateModified" datetime="2020-04-11T16:35:34+08:00">2020-04-11</time>
               </span>
             
           
@@ -439,7 +568,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-30 00:23:45" itemprop="dateModified" datetime="2020-03-30T00:23:45+08:00">2020-03-30</time>
+                <time title="修改时间：2020-03-30 10:07:09" itemprop="dateModified" datetime="2020-03-30T10:07:09+08:00">2020-03-30</time>
               </span>
             
           
@@ -565,7 +694,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-30 00:04:25" itemprop="dateModified" datetime="2020-03-30T00:04:25+08:00">2020-03-30</time>
+                <time title="修改时间：2020-03-30 10:07:09" itemprop="dateModified" datetime="2020-03-30T10:07:09+08:00">2020-03-30</time>
               </span>
             
           
@@ -680,11 +809,19 @@
                 
               
 
-              <time title="创建时间：2020-03-29 16:37:00 / 修改时间：17:09:26" itemprop="dateCreated datePublished" datetime="2020-03-29T16:37:00+08:00">2020-03-29</time>
+              <time title="创建时间：2020-03-29 16:37:00" itemprop="dateCreated datePublished" datetime="2020-03-29T16:37:00+08:00">2020-03-29</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-30 10:07:09" itemprop="dateModified" datetime="2020-03-30T10:07:09+08:00">2020-03-30</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -798,11 +935,19 @@
                 
               
 
-              <time title="创建时间：2020-03-29 16:17:00 / 修改时间：16:39:25" itemprop="dateCreated datePublished" datetime="2020-03-29T16:17:00+08:00">2020-03-29</time>
+              <time title="创建时间：2020-03-29 16:17:00" itemprop="dateCreated datePublished" datetime="2020-03-29T16:17:00+08:00">2020-03-29</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-30 10:07:09" itemprop="dateModified" datetime="2020-03-30T10:07:09+08:00">2020-03-30</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -915,11 +1060,19 @@
                 
               
 
-              <time title="创建时间：2020-03-29 15:17:00 / 修改时间：16:21:56" itemprop="dateCreated datePublished" datetime="2020-03-29T15:17:00+08:00">2020-03-29</time>
+              <time title="创建时间：2020-03-29 15:17:00" itemprop="dateCreated datePublished" datetime="2020-03-29T15:17:00+08:00">2020-03-29</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-30 10:07:09" itemprop="dateModified" datetime="2020-03-30T10:07:09+08:00">2020-03-30</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -1042,7 +1195,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-29 10:10:58" itemprop="dateModified" datetime="2020-03-29T10:10:58+08:00">2020-03-29</time>
+                <time title="修改时间：2020-03-30 10:07:09" itemprop="dateModified" datetime="2020-03-30T10:07:09+08:00">2020-03-30</time>
               </span>
             
           
@@ -1169,7 +1322,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-28 23:24:04" itemprop="dateModified" datetime="2020-03-28T23:24:04+08:00">2020-03-28</time>
+                <time title="修改时间：2020-03-24 21:59:57" itemprop="dateModified" datetime="2020-03-24T21:59:57+08:00">2020-03-24</time>
               </span>
             
           
@@ -1306,7 +1459,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-28 23:24:04" itemprop="dateModified" datetime="2020-03-28T23:24:04+08:00">2020-03-28</time>
+                <time title="修改时间：2020-03-24 11:59:52" itemprop="dateModified" datetime="2020-03-24T11:59:52+08:00">2020-03-24</time>
               </span>
             
           
@@ -1429,7 +1582,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-02 11:24:38" itemprop="dateModified" datetime="2020-05-02T11:24:38+08:00">2020-05-02</time>
+                <time title="修改时间：2020-04-30 14:34:15" itemprop="dateModified" datetime="2020-04-30T14:34:15+08:00">2020-04-30</time>
               </span>
             
           
@@ -1542,11 +1695,19 @@
                 
               
 
-              <time title="创建时间：2020-03-21 21:17:00 / 修改时间：23:24:18" itemprop="dateCreated datePublished" datetime="2020-03-21T21:17:00+08:00">2020-03-21</time>
+              <time title="创建时间：2020-03-21 21:17:00" itemprop="dateCreated datePublished" datetime="2020-03-21T21:17:00+08:00">2020-03-21</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-24 11:23:12" itemprop="dateModified" datetime="2020-03-24T11:23:12+08:00">2020-03-24</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -1664,11 +1825,19 @@
                 
               
 
-              <time title="创建时间：2020-03-21 20:17:00 / 修改时间：22:55:01" itemprop="dateCreated datePublished" datetime="2020-03-21T20:17:00+08:00">2020-03-21</time>
+              <time title="创建时间：2020-03-21 20:17:00" itemprop="dateCreated datePublished" datetime="2020-03-21T20:17:00+08:00">2020-03-21</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-24 11:23:12" itemprop="dateModified" datetime="2020-03-24T11:23:12+08:00">2020-03-24</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -1775,19 +1944,11 @@
                 
               
 
-              <time title="创建时间：2020-03-12 09:48:00" itemprop="dateCreated datePublished" datetime="2020-03-12T09:48:00+08:00">2020-03-12</time>
+              <time title="创建时间：2020-03-12 09:48:00 / 修改时间：21:53:22" itemprop="dateCreated datePublished" datetime="2020-03-12T09:48:00+08:00">2020-03-12</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-21 09:56:47" itemprop="dateModified" datetime="2020-03-21T09:56:47+08:00">2020-03-21</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -1912,7 +2073,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-21 09:56:47" itemprop="dateModified" datetime="2020-03-21T09:56:47+08:00">2020-03-21</time>
+                <time title="修改时间：2020-03-12 00:36:57" itemprop="dateModified" datetime="2020-03-12T00:36:57+08:00">2020-03-12</time>
               </span>
             
           
@@ -1996,132 +2157,6 @@
   </article>
 
     
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2020/02/29/build-python-program-to-standalone-binary/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jay.Run">
-      <meta itemprop="description" content="学习 思考 行动 Python">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="逸思杂陈">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2020/02/29/build-python-program-to-standalone-binary/" class="post-title-link" itemprop="url">用exxo将Python程序编译成单一可执行文件</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2020-02-29 09:48:00" itemprop="dateCreated datePublished" datetime="2020-02-29T09:48:00+08:00">2020-02-29</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-01 11:33:19" itemprop="dateModified" datetime="2020-03-01T11:33:19+08:00">2020-03-01</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>1.2k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>2 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>golang将程序编译成一个可执行文件，部署起来特别方便。</p>
-<p>那么Python是否也有类似解决方案呢？单一可执行文件，免去安装Python环境的麻烦，也避免了直接暴露源码程序。</p>
-<p>经过多次搜索之后找到解决方案 <a href="https://github.com/mbachry/exxo" target="_blank" rel="noopener">exxo</a></p>
-<p><em>注意：exxo只支持linux64平台</em></p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/02/29/build-python-program-to-standalone-binary/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </div>
 
   
@@ -2171,7 +2206,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">114</span>
+          <span class="site-state-item-count">115</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2311,7 +2346,11 @@
         
           
         
-        <span class="site-state-item-count">51</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">53</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -2394,12 +2433,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">165k</span>
+    <span title="站点总字数">170k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:27</span>
+    <span title="站点阅读时长">3:32</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

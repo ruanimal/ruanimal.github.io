@@ -57,20 +57,24 @@
   };
 </script>
 
-  <meta name="description" content="概述 这本书是野夫关于他个人对几十年前那动荡而又荒诞不经的时代的感悟，真实的过去往往没有历史书上写的那么伟光正、那么云淡风轻。 抑郁症、愤青不可读此书，恐加重病情。">
-<meta name="keywords" content="读书笔记">
+  <meta name="description" content="简介在学习redis源码时，发现BITCOUNT命令实现用到了variable-precision SWAR 算法。 BITCOUNT命令要解决的问题：统计一个位数组中非0二进制位的数量。在数学上被称为“计算汉明重量（Hamming Weight)”  目前已知效率最好的通用算法为variable-precision SWAR 算法。该算法通过一系列位移和位运算操作，可以在常数时间内计算多个字节的">
+<meta name="keywords" content="算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《乡关何处》读书笔记">
-<meta property="og:url" content="http://ponder.work/2015/09/29/《乡关何处》读书笔记/index.html">
+<meta property="og:title" content="variable-precision SWAR 算法详解">
+<meta property="og:url" content="http://ponder.work/2020/08/01/variable-precision-SWAR-algorithm/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="概述 这本书是野夫关于他个人对几十年前那动荡而又荒诞不经的时代的感悟，真实的过去往往没有历史书上写的那么伟光正、那么云淡风轻。 抑郁症、愤青不可读此书，恐加重病情。">
+<meta property="og:description" content="简介在学习redis源码时，发现BITCOUNT命令实现用到了variable-precision SWAR 算法。 BITCOUNT命令要解决的问题：统计一个位数组中非0二进制位的数量。在数学上被称为“计算汉明重量（Hamming Weight)”  目前已知效率最好的通用算法为variable-precision SWAR 算法。该算法通过一系列位移和位运算操作，可以在常数时间内计算多个字节的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-02T03:24:38.000Z">
+<meta property="og:image" content="http://image.runjf.com/mweb/2020-08-01-15962704953270.jpg">
+<meta property="og:image" content="http://image.runjf.com/mweb/2020-08-01-15962705553725.jpg">
+<meta property="og:image" content="http://image.runjf.com/mweb/2020-08-01-15962660065367.jpg">
+<meta property="og:updated_time" content="2020-08-01T08:32:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《乡关何处》读书笔记">
-<meta name="twitter:description" content="概述 这本书是野夫关于他个人对几十年前那动荡而又荒诞不经的时代的感悟，真实的过去往往没有历史书上写的那么伟光正、那么云淡风轻。 抑郁症、愤青不可读此书，恐加重病情。">
+<meta name="twitter:title" content="variable-precision SWAR 算法详解">
+<meta name="twitter:description" content="简介在学习redis源码时，发现BITCOUNT命令实现用到了variable-precision SWAR 算法。 BITCOUNT命令要解决的问题：统计一个位数组中非0二进制位的数量。在数学上被称为“计算汉明重量（Hamming Weight)”  目前已知效率最好的通用算法为variable-precision SWAR 算法。该算法通过一系列位移和位运算操作，可以在常数时间内计算多个字节的">
+<meta name="twitter:image" content="http://image.runjf.com/mweb/2020-08-01-15962704953270.jpg">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
-  <link rel="canonical" href="http://ponder.work/2015/09/29/《乡关何处》读书笔记/">
+  <link rel="canonical" href="http://ponder.work/2020/08/01/variable-precision-SWAR-algorithm/">
 
 
 <script id="page-configurations">
@@ -84,7 +88,7 @@
   };
 </script>
 
-  <title>《乡关何处》读书笔记 | 逸思杂陈</title>
+  <title>variable-precision SWAR 算法详解 | 逸思杂陈</title>
   <meta name="generator" content="Hexo 3.9.0">
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134911454-2"></script>
@@ -267,7 +271,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2015/09/29/《乡关何处》读书笔记/">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2020/08/01/variable-precision-SWAR-algorithm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jay.Run">
@@ -279,7 +283,7 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">《乡关何处》读书笔记
+        <h1 class="post-title" itemprop="name headline">variable-precision SWAR 算法详解
 
           
         </h1>
@@ -295,19 +299,11 @@
                 
               
 
-              <time title="创建时间：2015-09-29 00:00:00" itemprop="dateCreated datePublished" datetime="2015-09-29T00:00:00+08:00">2015-09-29</time>
+              <time title="创建时间：2020-08-01 14:03:00 / 修改时间：16:32:49" itemprop="dateCreated datePublished" datetime="2020-08-01T14:03:00+08:00">2020-08-01</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-02 11:24:38" itemprop="dateModified" datetime="2020-05-02T11:24:38+08:00">2020-05-02</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -316,7 +312,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
 
                 
                 
@@ -333,7 +329,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>917</span>
+              <span>2.4k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -343,7 +339,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
           
 
@@ -356,30 +352,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
-<li>这本书是野夫关于他个人对几十年前那动荡而又荒诞不经的时代的感悟，真实的过去往往没有历史书上写的那么伟光正、那么云淡风轻。</li>
-<li>抑郁症、愤青不可读此书，恐加重病情。</li>
-</ul>
-<a id="more"></a>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ol>
-<li><p>事实上，组织中只有细胞，是不再有人的。发明组织的人，是按机器原理设计的，个体的人在组织中，类似某个螺丝、刀片一般的部件。任何个人主义和自由主义，都是组织所不允许的；组织只会冠冕堂皇地提倡集体主义，会用无数教条来帮助你遗忘作为人的个性。</p>
-</li>
-<li><p>我们那一代人，许多是真正的理想主义者，而蒋介石从孙中山那里继承而来的国家体制，是违背现代宪政的“三一律”——一个领袖，一个主义，一个政党。当基本的人权都要被这个政府所钳制时，如果有另外一个党打出“要自由民主，要结社言论自由”的口号时，你说它能不吸引我们这些爱国哀民而又轻身躁进企图改造社会的理想青年吗？</p>
-<pre><code>博主云：所以我说从来不看好学生运动的，改造社会这种事情从来不是光靠满腔热情所能做到的，作为领袖没有一点的手腕是很难成就的。而那些政客更不用说了，他们永远是利益至上的，不知理想为何物。最好的状态是有个理想残存的野心家，然而毕竟是奢望。
-</code></pre></li>
-<li><p>生命不是话剧，可以彩排一次再正式登台。他们的悲剧一次性上演，就挥霍完了他们的一生。</p>
-<pre><code>博主云：我们从未踏入同一条河流，人生之无奈正出于此。
-</code></pre></li>
-<li><p>迅翁尝云：人最痛苦的莫过于梦醒之后无路可走。于我，则常是中宵酒醒之后，无路可走而深陷回忆，牵出无数往事的余痛。</p>
-</li>
-<li><p>老李认为——红卫兵的造反初衷源于那一代的神圣使命感，他们并不单纯，至少不像我们今天想象的那么幼稚。但动机不错的行动并不能保证结果的正确。他认为，知识分子应该为此首先承担罪责，全国各地的“文革”之火并非文盲引起，主要的“纵火犯”都是书生，他们只是没想到“革命最后会革到自己头上”。而在此之前，整个知识群体的道义缺失，客观上默许和纵容了暴政的为所欲为</p>
-</li>
-<li><p>捡粪的孩子多，牲口的遗矢有限，便不免有人终日碌碌而仅仅捡得几十粒羊矢。也有的持之以恒地跟踪一群牛，焦急地守望牛翘起尾巴，端起撮箕去抢接，甚至为此掀起混战。</p>
-<pre><code>博主云：现在看来甚是可笑，但这就是真实的生活，唏嘘！
-</code></pre></li>
-<li><p>他说世界上总有一些走投无路的人，需要花点小钱买个安慰；而我们这些废人也是生灵，也要活命，这叫天生人必养人。</p>
-</li>
-</ol>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在学习redis源码时，发现<code>BITCOUNT</code>命令实现用到了variable-precision SWAR 算法。</p>
+<p><code>BITCOUNT</code>命令要解决的问题：<strong>统计一个位数组中非0二进制位的数量</strong>。在数学上被称为“计算汉明重量（Hamming Weight)” </p>
+<p>目前已知效率最好的通用算法为variable-precision SWAR 算法。<br>该算法通过一系列位移和位运算操作，可以在常数时间内计算多个字节的汉明重量，并且不需要使用任何额外的内存。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>以下是一个处理32位长度位数组的算法实现，一共分4步。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">uint32_t</span> swar(<span class="keyword">uint32_t</span> i)&#123;</span><br><span class="line">    i = (i &amp; <span class="number">0x55555555</span>) + ((i&gt;&gt;<span class="number">1</span>) &amp; <span class="number">0x55555555</span>);  <span class="comment">// 步骤1</span></span><br><span class="line">    i = (i &amp; <span class="number">0x33333333</span>) + ((i&gt;&gt;<span class="number">2</span>) &amp; <span class="number">0x33333333</span>);  <span class="comment">// 步骤2</span></span><br><span class="line">    i = (i &amp; <span class="number">0x0F0F0F0F</span>) + ((i&gt;&gt;<span class="number">4</span>) &amp; <span class="number">0x0F0F0F0F</span>);  <span class="comment">// 步骤3</span></span><br><span class="line">    i = (i * <span class="number">0x01010101</span>) &gt;&gt; <span class="number">24</span>;                    <span class="comment">// 步骤4</span></span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>这里我们以<code>i=0x12345678</code>(二进制位为<code>00010010001101000101011001111000</code>)为例，讲解算法过程<br>我们可以把i的二进制位理解成：长度为32的数组，每个元素取值区间[0,1]，每个元素正好能代表这个位是不是1.</p>
+<p>所以，问题就可以转化为，求这个数组的和。<br>根据分治法的思想，我们可以把相邻的两个数字相加，得到长度为16的数组，每个元素取值区间[0,2]。<br>并以此类推，最终求出总和。</p>
+<p><img src="http://image.runjf.com/mweb/2020-08-01-15962704953270.jpg" alt="-w2121"><br><img src="http://image.runjf.com/mweb/2020-08-01-15962705553725.jpg" alt="-w2127"></p>
+<h3 id="步骤1"><a href="#步骤1" class="headerlink" title="步骤1"></a>步骤1</h3><p>这一步用到<code>0x55555555</code>作为掩码，其二进制表示为<code>01010101010101010101010101010101</code><br>通过<code>i &amp; 0x55555555</code>运算，取得了i（表示为长度为32的数组，每个元素取值区间[0,1]）的奇数位置元素，存储为16个2bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x55555555</code>运算，取得了i（表示为长度为32的数组，每个元素取值区间[0,1]）的偶数位置元素，存储为16个2bit整数；</p>
+<p>两者相加，相当于16组2bit整数按位相加，问题就转化成了1bit的二进制加法，。由于原数组每个元素取值区间[0,1]所以每组相加的结果会在<code>[0,2]</code>区间内，2bit刚好足够存储，最终得到长度为16的数组，每个元素取值区间[0,2]。<br><img src="http://image.runjf.com/mweb/2020-08-01-15962660065367.jpg" alt="-w2155"></p>
+<h3 id="步骤2"><a href="#步骤2" class="headerlink" title="步骤2"></a>步骤2</h3><p>这一步用到<code>0x33333333</code>作为掩码，其二进制表示为<code>00110011001100110011001100110011</code><br>通过<code>i &amp; 0x33333333</code>运算，取得了i（表示为长度为16的数组，每个元素取值区间[0,2]）的奇数位置元素，存储为8个4bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x33333333</code>运算，取得了i（表示为长度为16的数组，每个元素取值区间[0,2]）的偶数位置元素，存储为8个4bit整数；</p>
+<p>两者相加，相当于8组4bit整数按位相加，问题就转化成了2bit的二进制加法。由于原数组每个元素取值区间[0,2]，所以每组相加的结果会在<code>[0,4]</code>区间内，4bit刚好足够存储，最终得到长度为8的数组，每个元素取值区间[0,4]。</p>
+<h3 id="步骤3"><a href="#步骤3" class="headerlink" title="步骤3"></a>步骤3</h3><p>这一步用到<code>0x0F0F0F0F</code>作为掩码，其二进制表示为<code>00001111000011110000111100001111</code><br>通过<code>i &amp; 0x0F0F0F0F</code>运算，取得了i（表示为长度为8的数组，每个元素取值区间[0,4]）的奇数位置元素，存储为4个8bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x33333333</code>运算，取得了i（表示为长度为8的数组，每个元素取值区间[0,4]）的偶数位置元素，存储为4个8bit整数；</p>
+<p>两者相加，相当于4组8bit整数按位相加, 问题就转化成了8bit的二进制加法，。由于原数组每个元素取值区间[0,4]，所以每组相加的结果会在<code>[0,8]</code>区间内，8bit刚好足够存储，最终得到长度为4的数组，每个元素取值区间[0,8]。</p>
+<h3 id="步骤4"><a href="#步骤4" class="headerlink" title="步骤4"></a>步骤4</h3><p>按照上面的思路，本来应该继续将长度为4的数组转换为长度为2的数组。<br>但是这里由于4个8bit整数相加存在简便运算，这里就直接运算得出最终结果了。</p>
+<p>到这一步是时<code>i=0x02030404</code>，为了求出最终结果，我们可以想到位移的办法将每8bit取出，然后再依次相加。<br>最终结果也就是 <code>(i &amp; 0xFF) + ((i&gt;&gt;8) &amp; 0xFF) + ((i&gt;&gt;16) &amp; 0xFF) + ((i&gt;&gt;24) &amp; 0xFF)</code></p>
+<p>为了理解算法里的做法，这里需要简单的数学推导<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将0x01010101转化成多项式表达</span></span><br><span class="line">          <span class="number">0x01010101</span> == <span class="number">2</span>**<span class="number">24</span> + <span class="number">2</span>**<span class="number">16</span> + <span class="number">2</span>**<span class="number">8</span> + <span class="number">2</span>**<span class="number">0</span> </span><br><span class="line"><span class="comment">// 两边同乘以i</span></span><br><span class="line">      i * <span class="number">0x01010101</span> == i * <span class="number">2</span>**<span class="number">24</span> + i * <span class="number">2</span>**<span class="number">16</span> + i * <span class="number">2</span>**<span class="number">8</span> + i * <span class="number">2</span>**<span class="number">0</span></span><br><span class="line"><span class="comment">// 2的乘方运算转化为位移运算</span></span><br><span class="line">      i * <span class="number">0x01010101</span> == (i&lt;&lt;<span class="number">24</span>) + (i&lt;&lt;<span class="number">16</span>) + (i&lt;&lt;<span class="number">8</span>) + (i&lt;&lt;<span class="number">0</span>)</span><br><span class="line"><span class="comment">// 两边同时右移24位</span></span><br><span class="line">(i * <span class="number">0x01010101</span>)&gt;&gt;<span class="number">24</span> == ((i&lt;&lt;<span class="number">24</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">16</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">8</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">0</span>)&gt;&gt;<span class="number">24</span>)</span><br><span class="line"><span class="comment">// 将左移和右移合并，并考虑溢出，最终结果一致</span></span><br><span class="line">(i * <span class="number">0x01010101</span>)&gt;&gt;<span class="number">24</span> == (i &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">8</span>) &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">16</span>) &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">24</span>) &amp; <span class="number">0xFF</span>)</span><br></pre></td></tr></table></figure></p>
 
     </div>
 
@@ -396,7 +384,7 @@
     <strong>本文作者： </strong>Jay.Run</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://ponder.work/2015/09/29/《乡关何处》读书笔记/" title="《乡关何处》读书笔记">http://ponder.work/2015/09/29/《乡关何处》读书笔记/</a>
+    <a href="http://ponder.work/2020/08/01/variable-precision-SWAR-algorithm/" title="variable-precision SWAR 算法详解">http://ponder.work/2020/08/01/variable-precision-SWAR-algorithm/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-SA</a> 许可协议。转载请注明出处！</li>
@@ -411,7 +399,7 @@
           
           <div class="post-tags">
             
-              <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+              <a href="/tags/算法/" rel="tag"># 算法</a>
             
           </div>
         
@@ -421,8 +409,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2015/09/10/MySQL在django的应用/" rel="next" title="MySQL在django的应用与设置">
-                  <i class="fa fa-chevron-left"></i> MySQL在django的应用与设置
+                <a href="/2020/08/01/庄子諵哗-读书笔记/" rel="next" title="《庄子諵哗》读书笔记">
+                  <i class="fa fa-chevron-left"></i> 《庄子諵哗》读书笔记
                 </a>
               
             </div>
@@ -430,10 +418,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2015/09/29/《社会契约论》读书笔记/" rel="prev" title="《社会契约论》读书笔记">
-                  《社会契约论》读书笔记 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -485,7 +469,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#笔记"><span class="nav-number">2.</span> <span class="nav-text">笔记</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析"><span class="nav-number">3.</span> <span class="nav-text">解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤1"><span class="nav-number">3.1.</span> <span class="nav-text">步骤1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤2"><span class="nav-number">3.2.</span> <span class="nav-text">步骤2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤3"><span class="nav-number">3.3.</span> <span class="nav-text">步骤3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤4"><span class="nav-number">3.4.</span> <span class="nav-text">步骤4</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -873,7 +857,7 @@ window.addEventListener('pjax:success', () => {
       repo: 'ruanima.github.io',
       owner: 'ruanima',
       admin: ['ruanima'],
-      id: 'df1af87e3487bc7f6e91399e9d8c83fc',
+      id: '1b9c2936a9554fc0042ab28767e952f1',
         language: window.navigator.language || window.navigator.userLanguage,
       
       distractionFreeMode: 'true'

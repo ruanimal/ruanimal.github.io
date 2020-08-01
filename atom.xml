@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ponder.work/"/>
-  <updated>2020-08-01T02:45:16.000Z</updated>
+  <updated>2020-08-01T08:32:49.000Z</updated>
   <id>http://ponder.work/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>variable-precision SWAR 算法详解</title>
+    <link href="http://ponder.work/2020/08/01/variable-precision-SWAR-algorithm/"/>
+    <id>http://ponder.work/2020/08/01/variable-precision-SWAR-algorithm/</id>
+    <published>2020-08-01T06:03:00.000Z</published>
+    <updated>2020-08-01T08:32:49.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在学习redis源码时，发现<code>BITCOUNT</code>命令实现用到了variable-precision SWAR 算法。</p><p><code>BITCOUNT</code>命令要解决的问题：<strong>统计一个位数组中非0二进制位的数量</strong>。在数学上被称为“计算汉明重量（Hamming Weight)” </p><p>目前已知效率最好的通用算法为variable-precision SWAR 算法。<br>该算法通过一系列位移和位运算操作，可以在常数时间内计算多个字节的汉明重量，并且不需要使用任何额外的内存。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>以下是一个处理32位长度位数组的算法实现，一共分4步。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">uint32_t</span> swar(<span class="keyword">uint32_t</span> i)&#123;</span><br><span class="line">    i = (i &amp; <span class="number">0x55555555</span>) + ((i&gt;&gt;<span class="number">1</span>) &amp; <span class="number">0x55555555</span>);  <span class="comment">// 步骤1</span></span><br><span class="line">    i = (i &amp; <span class="number">0x33333333</span>) + ((i&gt;&gt;<span class="number">2</span>) &amp; <span class="number">0x33333333</span>);  <span class="comment">// 步骤2</span></span><br><span class="line">    i = (i &amp; <span class="number">0x0F0F0F0F</span>) + ((i&gt;&gt;<span class="number">4</span>) &amp; <span class="number">0x0F0F0F0F</span>);  <span class="comment">// 步骤3</span></span><br><span class="line">    i = (i * <span class="number">0x01010101</span>) &gt;&gt; <span class="number">24</span>;                    <span class="comment">// 步骤4</span></span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>这里我们以<code>i=0x12345678</code>(二进制位为<code>00010010001101000101011001111000</code>)为例，讲解算法过程<br>我们可以把i的二进制位理解成：长度为32的数组，每个元素取值区间[0,1]，每个元素正好能代表这个位是不是1.</p><p>所以，问题就可以转化为，求这个数组的和。<br>根据分治法的思想，我们可以把相邻的两个数字相加，得到长度为16的数组，每个元素取值区间[0,2]。<br>并以此类推，最终求出总和。</p><p><img src="http://image.runjf.com/mweb/2020-08-01-15962704953270.jpg" alt="-w2121"><br><img src="http://image.runjf.com/mweb/2020-08-01-15962705553725.jpg" alt="-w2127"></p><h3 id="步骤1"><a href="#步骤1" class="headerlink" title="步骤1"></a>步骤1</h3><p>这一步用到<code>0x55555555</code>作为掩码，其二进制表示为<code>01010101010101010101010101010101</code><br>通过<code>i &amp; 0x55555555</code>运算，取得了i（表示为长度为32的数组，每个元素取值区间[0,1]）的奇数位置元素，存储为16个2bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x55555555</code>运算，取得了i（表示为长度为32的数组，每个元素取值区间[0,1]）的偶数位置元素，存储为16个2bit整数；</p><p>两者相加，相当于16组2bit整数按位相加，问题就转化成了1bit的二进制加法，。由于原数组每个元素取值区间[0,1]所以每组相加的结果会在<code>[0,2]</code>区间内，2bit刚好足够存储，最终得到长度为16的数组，每个元素取值区间[0,2]。<br><img src="http://image.runjf.com/mweb/2020-08-01-15962660065367.jpg" alt="-w2155"></p><h3 id="步骤2"><a href="#步骤2" class="headerlink" title="步骤2"></a>步骤2</h3><p>这一步用到<code>0x33333333</code>作为掩码，其二进制表示为<code>00110011001100110011001100110011</code><br>通过<code>i &amp; 0x33333333</code>运算，取得了i（表示为长度为16的数组，每个元素取值区间[0,2]）的奇数位置元素，存储为8个4bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x33333333</code>运算，取得了i（表示为长度为16的数组，每个元素取值区间[0,2]）的偶数位置元素，存储为8个4bit整数；</p><p>两者相加，相当于8组4bit整数按位相加，问题就转化成了2bit的二进制加法。由于原数组每个元素取值区间[0,2]，所以每组相加的结果会在<code>[0,4]</code>区间内，4bit刚好足够存储，最终得到长度为8的数组，每个元素取值区间[0,4]。</p><h3 id="步骤3"><a href="#步骤3" class="headerlink" title="步骤3"></a>步骤3</h3><p>这一步用到<code>0x0F0F0F0F</code>作为掩码，其二进制表示为<code>00001111000011110000111100001111</code><br>通过<code>i &amp; 0x0F0F0F0F</code>运算，取得了i（表示为长度为8的数组，每个元素取值区间[0,4]）的奇数位置元素，存储为4个8bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x33333333</code>运算，取得了i（表示为长度为8的数组，每个元素取值区间[0,4]）的偶数位置元素，存储为4个8bit整数；</p><p>两者相加，相当于4组8bit整数按位相加, 问题就转化成了8bit的二进制加法，。由于原数组每个元素取值区间[0,4]，所以每组相加的结果会在<code>[0,8]</code>区间内，8bit刚好足够存储，最终得到长度为4的数组，每个元素取值区间[0,8]。</p><h3 id="步骤4"><a href="#步骤4" class="headerlink" title="步骤4"></a>步骤4</h3><p>按照上面的思路，本来应该继续将长度为4的数组转换为长度为2的数组。<br>但是这里由于4个8bit整数相加存在简便运算，这里就直接运算得出最终结果了。</p><p>到这一步是时<code>i=0x02030404</code>，为了求出最终结果，我们可以想到位移的办法将每8bit取出，然后再依次相加。<br>最终结果也就是 <code>(i &amp; 0xFF) + ((i&gt;&gt;8) &amp; 0xFF) + ((i&gt;&gt;16) &amp; 0xFF) + ((i&gt;&gt;24) &amp; 0xFF)</code></p><p>为了理解算法里的做法，这里需要简单的数学推导<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将0x01010101转化成多项式表达</span></span><br><span class="line">          <span class="number">0x01010101</span> == <span class="number">2</span>**<span class="number">24</span> + <span class="number">2</span>**<span class="number">16</span> + <span class="number">2</span>**<span class="number">8</span> + <span class="number">2</span>**<span class="number">0</span> </span><br><span class="line"><span class="comment">// 两边同乘以i</span></span><br><span class="line">      i * <span class="number">0x01010101</span> == i * <span class="number">2</span>**<span class="number">24</span> + i * <span class="number">2</span>**<span class="number">16</span> + i * <span class="number">2</span>**<span class="number">8</span> + i * <span class="number">2</span>**<span class="number">0</span></span><br><span class="line"><span class="comment">// 2的乘方运算转化为位移运算</span></span><br><span class="line">      i * <span class="number">0x01010101</span> == (i&lt;&lt;<span class="number">24</span>) + (i&lt;&lt;<span class="number">16</span>) + (i&lt;&lt;<span class="number">8</span>) + (i&lt;&lt;<span class="number">0</span>)</span><br><span class="line"><span class="comment">// 两边同时右移24位</span></span><br><span class="line">(i * <span class="number">0x01010101</span>)&gt;&gt;<span class="number">24</span> == ((i&lt;&lt;<span class="number">24</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">16</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">8</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">0</span>)&gt;&gt;<span class="number">24</span>)</span><br><span class="line"><span class="comment">// 将左移和右移合并，并考虑溢出，最终结果一致</span></span><br><span class="line">(i * <span class="number">0x01010101</span>)&gt;&gt;<span class="number">24</span> == (i &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">8</span>) &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">16</span>) &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">24</span>) &amp; <span class="number">0xFF</span>)</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;在学习redis源码时，发现&lt;code&gt;BITCOUNT&lt;/code&gt;命令实现用到了variable-precision SWAR 算法。&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="编程" scheme="http://ponder.work/categories/%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="算法" scheme="http://ponder.work/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>《庄子諵哗》读书笔记</title>
@@ -553,32 +579,6 @@
       <category term="读书笔记" scheme="http://ponder.work/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
       <category term="心理学" scheme="http://ponder.work/tags/%E5%BF%83%E7%90%86%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《十万小时天才理论》摘录</title>
-    <link href="http://ponder.work/2020/03/29/%E3%80%8A%E5%8D%81%E4%B8%87%E5%B0%8F%E6%97%B6%E5%A4%A9%E6%89%8D%E7%90%86%E8%AE%BA%E3%80%8B%E6%91%98%E5%BD%95/"/>
-    <id>http://ponder.work/2020/03/29/%E3%80%8A%E5%8D%81%E4%B8%87%E5%B0%8F%E6%97%B6%E5%A4%A9%E6%89%8D%E7%90%86%E8%AE%BA%E3%80%8B%E6%91%98%E5%BD%95/</id>
-    <published>2020-03-29T12:37:00.000Z</published>
-    <updated>2020-03-29T16:04:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><em>本文为整理以前的读书笔记</em></p><p>精深练习：朝着既定目标挣扎前进，挑战自己的能力极限，不断放错，这让你更聪明</p><p>设定一个稍微超过自己现有能力的目标，盲目受挫毫无帮助，实现目标才能突破原有水平。</p><p>专业选手与普通人之间的差别是懂这种语言与不懂的区别</p><a id="more"></a><p>精深练习</p><ol><li>组块化：整体了解；分解成基础组块；慢动作练习，加速，了解内在结构</li><li>重复练习</li><li>尝试体会</li></ol><p>练习就是每天弹奏同样的音符，人类基本的姿态 —— 为一个想法努力，为你渴望的伟大成就努力争取，然后感觉它与你失之交臂。</p><p>激情的工作原理：是那些让我们意识到“我就想成为那样的人”的时刻。</p><p>激情的原始信号：未来归属感；不活不再安全；稀缺性</p><p>激情不是为遵守规则而存在的，它的存在只是为了工作，为了给自己选择的任务提供能量。</p><p>人才温床：肯定努力的价值，以及缓慢的进步，而不是天生的才华和智慧。</p><p>良好的性格是在外而内的，而且可以由动机和练习综合创造。</p><p><strong>不要期望一下子取得大幅度的进步</strong>，试着每天进步一小点，这是必经之路，而一旦开始进步，就会持续进步。</p><p>髓鞘质回路不仅需要精深练习，也需要激情。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;em&gt;本文为整理以前的读书笔记&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;精深练习：朝着既定目标挣扎前进，挑战自己的能力极限，不断放错，这让你更聪明&lt;/p&gt;
-&lt;p&gt;设定一个稍微超过自己现有能力的目标，盲目受挫毫无帮助，实现目标才能突破原有水平。&lt;/p&gt;
-&lt;p&gt;专业选手与普通人之间的差别是懂这种语言与不懂的区别&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="阅读" scheme="http://ponder.work/categories/%E9%98%85%E8%AF%BB/"/>
-    
-    
-      <category term="读书笔记" scheme="http://ponder.work/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   

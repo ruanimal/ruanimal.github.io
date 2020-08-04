@@ -1100,7 +1100,7 @@
 
       
           <h2 id="设置root密码"><a href="#设置root密码" class="headerlink" title="设置root密码"></a>设置root密码</h2><p>运行 <code>sudo passwd</code><br>根据提示输入root帐户密码。</p>
-<h2 id="修改lightdm配置文件"><a href="#修改lightdm配置文件" class="headerlink" title="修改lightdm配置文件"></a>修改lightdm配置文件</h2><p>运行 <code>ls /usr/share/lightdm/lightdm.conf.d/ -al</code><br>-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf<br>-rw-r–r– 1 root root   68 12月  3 03:57 50-guest-wrapper.conf<br>-rw-r–r– 1 root root   51 12月  3 03:57 50-xserver-command.conf<br>-rw-r–r– 1 root root  118  4月 16 17:08 <b>60-lightdm-gtk-greeter.conf</b></p>
+<h2 id="修改lightdm配置文件"><a href="#修改lightdm配置文件" class="headerlink" title="修改lightdm配置文件"></a>修改lightdm配置文件</h2><p>运行 <code>ls /usr/share/lightdm/lightdm.conf.d/ -al</code><br>-rw-r—r— 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf<br>-rw-r—r— 1 root root   68 12月  3 03:57 50-guest-wrapper.conf<br>-rw-r—r— 1 root root   51 12月  3 03:57 50-xserver-command.conf<br>-rw-r—r— 1 root root  118  4月 16 17:08 <b>60-lightdm-gtk-greeter.conf</b></p>
 <p>就是greeter这个文件，不同的发行版可能名字不同。<br>运行 <code>sudo gedit /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf</code><br>改完以后是这样<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[SeatDefaults]</span></span><br><span class="line"><span class="attr">autologin-user</span>=root</span><br><span class="line"><span class="attr">greeter-session</span>=lightdm-gtk-greeter</span><br><span class="line"><span class="attr">greeter-show-manual-login</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">all-guest</span>=<span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="修改-root-profile"><a href="#修改-root-profile" class="headerlink" title="修改 /root/.profile"></a>修改 <code>/root/.profile</code></h2><p>在刚修改完root权限自动登录后，发现可能开机出现以下提示：</p>
 <figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Error </span>found when loading /root/.profile</span><br><span class="line">stdin:is not a tty</span><br><span class="line">…………</span><br></pre></td></tr></table></figure>
@@ -1981,8 +1981,8 @@
 
       
           <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。</p>
-<p>详细描述：<br>虽然谷歌比较好用，结果也准确，但搜索中文这方面却也弱了点，百度还是有点用。谷歌百度一键搜索， 在谷歌的页面上搜索百度，在百度页面上搜谷歌，无需切换，无需重新输入搜索词。<br>目前支持http(s)://<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a>, http(s)://<a href="http://www.google.com.hk" target="_blank" rel="noopener">www.google.com.hk</a>, http(s)://<a href="http://www.google.com" target="_blank" rel="noopener">www.google.com</a></p>
-<p>创建：2015.11.25<br>作者：ponder.work<br>反馈：<a href="mailto:190127701@qq.com" target="_blank" rel="noopener">190127701@qq.com</a><br>forked from: raywill/BaiGoogleDu</p>
+<p>详细描述：<br>虽然谷歌比较好用，结果也准确，但搜索中文这方面却也弱了点，百度还是有点用。谷歌百度一键搜索， 在谷歌的页面上搜索百度，在百度页面上搜谷歌，无需切换，无需重新输入搜索词。<br>目前支持http(s)://www.baidu.com, http(s)://www.google.com.hk, http(s)://www.google.com</p>
+<p>创建：2015.11.25<br>作者：ponder.work<br>反馈：190127701@qq.com<br>forked from: raywill/BaiGoogleDu</p>
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -2326,7 +2326,9 @@
         
           
         
-        <span class="site-state-item-count">55</span>
+          
+        
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -2535,6 +2537,40 @@ window.addEventListener('pjax:success', () => {
 
     <div id="pjax">
 
+  
+
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
   
 
   

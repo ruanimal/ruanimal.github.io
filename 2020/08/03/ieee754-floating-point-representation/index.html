@@ -66,7 +66,7 @@
 <meta property="og:description" content="在计算机科学中，浮点（英语：floating point，缩写为FP）是一种对于实数的近似值数值表现法, 类似于十进制的科学计数法.">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-08-04-15965370742818.jpg">
-<meta property="og:updated_time" content="2020-08-04T10:54:09.932Z">
+<meta property="og:updated_time" content="2020-08-04T11:00:01.527Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IEEE 754 与浮点数的二进制表示">
 <meta name="twitter:description" content="在计算机科学中，浮点（英语：floating point，缩写为FP）是一种对于实数的近似值数值表现法, 类似于十进制的科学计数法.">
@@ -308,7 +308,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-04 18:54:09" itemprop="dateModified" datetime="2020-08-04T18:54:09+08:00">2020-08-04</time>
+                <time title="修改时间：2020-08-04 19:00:01" itemprop="dateModified" datetime="2020-08-04T19:00:01+08:00">2020-08-04</time>
               </span>
             
           
@@ -366,9 +366,9 @@
 <li>$a$ 必须是<code>[1, 10)</code>区间内的实数，可称为有效数或尾数。</li>
 </ul>
 <p>类似的，二进制的科学计数法则是 $\pm a \times 2 ^ n$ ，不同的是 $a$ 必须是<code>[1, 2)</code>区间内的实数。</p>
-<p>所以浮点数的二进制表示，就是用二进制位表示出 $\pm a \times 2 ^ n$ 。</p>
-<p>我们可以将一定长度的二进制位分成三个部分，用来分别表示 $\pm$、$n$、$a$ 。</p>
-<h2 id="IEEE-754浮点数表示"><a href="#IEEE-754浮点数表示" class="headerlink" title="IEEE 754浮点数表示"></a>IEEE 754浮点数表示</h2><p>IEEE二进制浮点数算术标准（IEEE 754）是20世纪80年代以来最广泛使用的浮点数运算标准，为许多CPU与浮点运算器所采用。</p>
+<p>所以浮点数的二进制表示，就是用二进制位表示为 $\pm a \times 2 ^ n$ 。</p>
+<h2 id="IEEE-754浮点数表示"><a href="#IEEE-754浮点数表示" class="headerlink" title="IEEE 754浮点数表示"></a>IEEE 754浮点数表示</h2><p>所以，我们可以将一定长度的二进制位分成三个部分，用来分别表示 $\pm$、$n$、$a$ ，而IEEE 754就是具体实现的标准。</p>
+<p>IEEE二进制浮点数算术标准（IEEE 754）是20世纪80年代以来最广泛使用的浮点数运算标准，为许多CPU与浮点运算器所采用。</p>
 <p>IEEE 754规定，对于32位的浮点数，最高的1位表示符号 $\pm$ 记为<code>s</code>(sign)，接着的8位有符号整数表示指数 $n$ 记为<code>E</code>(exponent)，剩下的23位为有效数 $a$ 记为<code>M</code>(fraction)。</p>
 <p>由于M的整数部分永远是1，我们可以只表示其小数部分，记为<code>N</code>，也就是最终可表示为 $s \times 2 ^ E \times (1+N)$ 。</p>
 <p>具体各部分拆解如下，其中 $a<em>0$ 到 $a</em>{31}$ 对应32个二进制位的值，为<code>0</code>或者<code>1</code>。</p>

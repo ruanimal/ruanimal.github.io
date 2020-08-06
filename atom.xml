@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ponder.work/"/>
-  <updated>2020-08-05T06:51:02.412Z</updated>
+  <updated>2020-08-06T09:39:33.149Z</updated>
   <id>http://ponder.work/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用SWIG实现Python调用c++</title>
+    <link href="http://ponder.work/2020/08/05/python-connecct-cpp-programs-with-SWIG/"/>
+    <id>http://ponder.work/2020/08/05/python-connecct-cpp-programs-with-SWIG/</id>
+    <published>2020-08-05T12:17:00.000Z</published>
+    <updated>2020-08-06T09:39:33.149Z</updated>
+    
+    <content type="html"><![CDATA[<p> <strong><a href="http://www.swig.org" target="_blank" rel="noopener">SWIG</a></strong> (Simplified Wrapper and Interface Generator) 是一个开源工具，用于让C/C++的程序和库可以被其他语言调用。</p><p>支持的非常多语言，有Lua, Perl, PHP, Python, R, Ruby, C#, Java, JavaScript, Go, Scheme 等。<br><a id="more"></a></p><h2 id="大致流程"><a href="#大致流程" class="headerlink" title="大致流程"></a>大致流程</h2><ol><li>定义SWIG接口文件</li><li>生成C/C++和目标语言的包装代码</li><li>编译位置无关的C/C++包装代码和功能代码，并链接为动态库</li></ol><p><img src="http://image.runjf.com/mweb/2020-08-06-Untitled%20Diagram.svg" alt="Untitled Diagram"></p><h2 id="c-示例代码"><a href="#c-示例代码" class="headerlink" title="c++示例代码"></a>c++示例代码</h2><p>下面用到的C++代码</p><p>头文件<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* utils.h */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _H_UTILS_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _H_UTILS_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Utils</span> &#123;</span></span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    Utils();</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">Float2String</span><span class="params">(<span class="keyword">float</span> Num)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure></p><p>实现代码<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* utils.cpp */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"utils.h"</span></span></span><br><span class="line"></span><br><span class="line">Utils::Utils() &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">string</span> Utils::Float2String(<span class="keyword">float</span> Num)</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">ostringstream</span> oss;</span><br><span class="line">oss&lt;&lt;Num;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">str</span><span class="params">(oss.str())</span></span>;</span><br><span class="line"><span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h2 id="SWIG-接口文件"><a href="#SWIG-接口文件" class="headerlink" title="SWIG 接口文件"></a>SWIG 接口文件</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/* example.i */</span></span><br><span class="line"> %<span class="keyword">module</span> model_engine</span><br><span class="line"> %include <span class="string">"std_string.i"</span></span><br><span class="line"> %&#123;</span><br><span class="line"> <span class="comment">/* Put header files here or function declarations like below */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"utils.h"</span></span></span><br><span class="line"> %&#125;</span><br><span class="line"></span><br><span class="line">%include <span class="string">"utils.h"</span></span><br></pre></td></tr></table></figure><p>其中<code>%include &quot;std_string.i&quot;</code>, 实现了c++的string自动转python的str</p><h2 id="生成动态库"><a href="#生成动态库" class="headerlink" title="生成动态库"></a>生成动态库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">swig -c++ -python  example.i</span><br><span class="line">g++ -O2 -fPIC -std=c++0x -c utils.cpp</span><br><span class="line">g++ -O2 -fPIC -std=c++0x -c example_wrap.cxx -I/usr/include/python3.8/</span><br><span class="line">g++ -shared utils.o example_wrap.o -o _example.so</span><br></pre></td></tr></table></figure><p>注意编译<code>example_wrap.cxx</code>时引入对应版本的python头文件，不同系统的路径可能有所不同。</p><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; import example</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; ul = example.Utils()</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; ul.Float2String(<span class="number">1.111</span>)</span><br><span class="line"><span class="string">'1.111'</span></span><br></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol><li><a href="https://segmentfault.com/a/1190000013219667" target="_blank" rel="noopener">https://segmentfault.com/a/1190000013219667</a></li><li><a href="http://www.swig.org/Doc4.0/SWIGDocumentation.html#Python" target="_blank" rel="noopener">http://www.swig.org/Doc4.0/SWIGDocumentation.html#Python</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt; &lt;strong&gt;&lt;a href=&quot;http://www.swig.org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;SWIG&lt;/a&gt;&lt;/strong&gt; (Simplified Wrapper and Interface Generator) 是一个开源工具，用于让C/C++的程序和库可以被其他语言调用。&lt;/p&gt;
+&lt;p&gt;支持的非常多语言，有Lua, Perl, PHP, Python, R, Ruby, C#, Java, JavaScript, Go, Scheme 等。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="编程" scheme="http://ponder.work/categories/%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="Python" scheme="http://ponder.work/tags/Python/"/>
+    
+      <category term="SWIG" scheme="http://ponder.work/tags/SWIG/"/>
+    
+      <category term="c++" scheme="http://ponder.work/tags/c/"/>
+    
+  </entry>
   
   <entry>
     <title>IEEE 754 与浮点数的二进制表示</title>
@@ -536,43 +564,6 @@
       <category term="机器学习" scheme="http://ponder.work/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="Java" scheme="http://ponder.work/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《怪诞行为学2》读书笔记</title>
-    <link href="http://ponder.work/2020/04/10/%E3%80%8A%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A62%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
-    <id>http://ponder.work/2020/04/10/%E3%80%8A%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A62%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</id>
-    <published>2020-04-10T13:17:00.000Z</published>
-    <updated>2020-04-11T08:35:34.572Z</updated>
-    
-    <content type="html"><![CDATA[<p><em>本文为整理以前的读书笔记</em><br><em>本书解析一系列不合常理的行为, 分析背后的原因. 难度较小, 属于入门读物</em></p><p>发放高额奖金对简单机械操作类工作可以提高成绩, 如果需要动脑, 则适得其反.</p><!--薪水与工作成果哪个更重要?--><!--"反寄生", 动物不愿不劳而食--><p>如果你找的人喜欢某一事物，你把他们放在有意义的工作条件下，他们从这个活动中得到的快乐会成为影响他们努力程度的主要动力。</p><p>相反，如果你把有同样热情和欲望的人放到无意义的工作条件下，就非常容易扼杀这项活动在他们心中引发的快乐。</p><p>劳动异化:</p><ol><li>劳动者同自己的劳动产品相异化。</li><li>劳动者同自己的劳动活动相异化。</li><li>人同自己的类本质相异化，即人同自由自觉的活动及其创造的对象世界相异化。</li><li>人同人相异化。因为当人同自己的劳动产品、自己的劳动活动以及自己的类本质相对立的时候，也必然同他人相对立。</li></ol><a id="more"></a><p>“孩子是自己的好”效应: 如果不是我发明的, 那就没什么价值.</p><p>惩罚冲动: 这一切说明实行报复—即使需要付出代价也要报复，这种欲望是有生物学基础的，而且这种行为事实上能获得快感（或者起码引发类似快感的反应）</p><p>快感适应: 这种情绪上的逐渐稳固现象—原有的正面感觉淡化，负面感觉也减弱—我们把这一过程称做快感适应。</p><p>中断厌恶的体验感是有害的, 中断愉悦感的体验过程有益.</p><p>真正的进步, 与真正的愉悦一样, 来自冒险和对不同事物的尝试.</p><p>我们的适应过程, 一定程度上受周围环境影响.</p><p>我们一旦感情用事, 救会做出短期决定, 而它却会改变我们很多的长期决定.</p><p>禀赋效应: 是指当个人一旦拥有某项物品，那么他对该物品价值的评价要比未拥有之前大大增加。</p><p>损失厌恶是一个简单的概念，人们失去自认为是属于自己的东西时会产生痛苦—比如钱—而这一痛苦要大于得到同样数量的钱所产生的愉悦感。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;em&gt;本文为整理以前的读书笔记&lt;/em&gt;&lt;br&gt;&lt;em&gt;本书解析一系列不合常理的行为, 分析背后的原因. 难度较小, 属于入门读物&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;发放高额奖金对简单机械操作类工作可以提高成绩, 如果需要动脑, 则适得其反.&lt;/p&gt;
-&lt;!--薪水与工作成果哪个更重要?--&gt;
-&lt;!--&quot;反寄生&quot;, 动物不愿不劳而食--&gt;
-&lt;p&gt;如果你找的人喜欢某一事物，你把他们放在有意义的工作条件下，他们从这个活动中得到的快乐会成为影响他们努力程度的主要动力。&lt;/p&gt;
-&lt;p&gt;相反，如果你把有同样热情和欲望的人放到无意义的工作条件下，就非常容易扼杀这项活动在他们心中引发的快乐。&lt;/p&gt;
-&lt;p&gt;劳动异化:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;劳动者同自己的劳动产品相异化。&lt;/li&gt;
-&lt;li&gt;劳动者同自己的劳动活动相异化。&lt;/li&gt;
-&lt;li&gt;人同自己的类本质相异化，即人同自由自觉的活动及其创造的对象世界相异化。&lt;/li&gt;
-&lt;li&gt;人同人相异化。因为当人同自己的劳动产品、自己的劳动活动以及自己的类本质相对立的时候，也必然同他人相对立。&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-    
-      <category term="阅读" scheme="http://ponder.work/categories/%E9%98%85%E8%AF%BB/"/>
-    
-    
-      <category term="读书笔记" scheme="http://ponder.work/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
-    
-      <category term="心理学" scheme="http://ponder.work/tags/%E5%BF%83%E7%90%86%E5%AD%A6/"/>
     
   </entry>
   

@@ -73,7 +73,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-07-25-15955842564825.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-07-25-15955861876823.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-07-25-15956404767924.jpg">
-<meta property="og:updated_time" content="2020-09-07T02:13:30.292Z">
+<meta property="og:updated_time" content="2020-09-07T02:21:51.232Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="技嘉GB-BRi5H-8250黑苹果安装指南">
 <meta name="twitter:description" content="硬件信息GB-BRi5H-8250 准系统">
@@ -315,7 +315,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-07 10:13:30" itemprop="dateModified" datetime="2020-09-07T10:13:30+08:00">2020-09-07</time>
+                <time title="修改时间：2020-09-07 10:21:51" itemprop="dateModified" datetime="2020-09-07T10:21:51+08:00">2020-09-07</time>
               </span>
             
           
@@ -443,7 +443,7 @@
 <h3 id="不正常工作项目"><a href="#不正常工作项目" class="headerlink" title="不正常工作项目"></a>不正常工作项目</h3><ul>
 <li>系统偏好设置-节能（错误识别为有电池）<br>  <img src="http://image.runjf.com/mweb/2020-07-25-15956404046858.jpg" alt></li>
 <li>HDMI睡眠唤醒，有时屏幕黑屏，需要按一下屏幕开关；DP睡眠正常</li>
-<li>显示器音响开机时不正常，拔插接口后或者开关屏幕电源后正常。</li>
+<li>显示器喇叭开机时不正常，拔插接口后或者开关屏幕电源后正常。</li>
 </ul>
 <h2 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h2><p>安装过程大部分参考<a href="https://dortania.github.io/OpenCore-Install-Guide/" target="_blank" rel="noopener">dortania</a>，这里采用的是双系统安装方法。</p>
 <p>先安装Windows10, 然后在Windows10下配置OpenCore，制作macOS安装镜像。</p>
@@ -475,7 +475,7 @@
 <li>制作Windows安装U盘</li>
 <li>开机安装Delete键进入bios，选择从U盘启动</li>
 <li>安装Windows系统，具体安装过程可以参考<a href="https://zhuanlan.zhihu.com/p/49181786" target="_blank" rel="noopener">这个教程</a>，注意安装时不要Windows分区不要占用所有空间，建议50G就好了。</li>
-<li>安装完成后，新建一个分区，后续作为macOS的安装分区，建议预留100G意思</li>
+<li>安装完成后，新建一个分区，后续作为macOS的安装分区，建议预留100G以上</li>
 </ol>
 <h3 id="macOS安装U盘制作"><a href="#macOS安装U盘制作" class="headerlink" title="macOS安装U盘制作"></a>macOS安装U盘制作</h3><h4 id="macOS准备"><a href="#macOS准备" class="headerlink" title="macOS准备"></a>macOS准备</h4><p>具体步骤参考<a href="https://dortania.github.io/OpenCore-Install-Guide/installer-guide/winblows-install.html#downloading-macos" target="_blank" rel="noopener">这个</a></p>
 <ol>
@@ -544,7 +544,7 @@
 <li>DVMT Pre-Allocated(iGPU Memory): 64MB</li>
 <li>SATA Mode: AHCI</li>
 </ul>
-<h3 id="macOS安装"><a href="#macOS安装" class="headerlink" title="macOS安装"></a>macOS安装</h3><p>注意，这时我们先不要替换无线网卡为DW1820A</p>
+<h3 id="macOS安装"><a href="#macOS安装" class="headerlink" title="macOS安装"></a>macOS安装</h3><p><strong>注意</strong>：这时我们先不要替换无线网卡为DW1820A，可能会导致系统安装失败或者卡死。</p>
 <ol>
 <li>重启电脑，从macOS安装U盘启动</li>
 <li>从OpenCore启动菜单选择macOS安装启动项</li>

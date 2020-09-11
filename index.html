@@ -264,6 +264,170 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2020/09/10/develop-python-library-and-upload-it-to-pypi-guide/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/09/10/develop-python-library-and-upload-it-to-pypi-guide/" class="post-title-link" itemprop="url">开发Python库并发布到PyPI指南</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-09-10 20:03:00" itemprop="dateCreated datePublished" datetime="2020-09-10T20:03:00+08:00">2020-09-10</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-11 14:31:06" itemprop="dateModified" datetime="2020-09-11T14:31:06+08:00">2020-09-11</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>4 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="PyPI"><a href="#PyPI" class="headerlink" title="PyPI"></a>PyPI</h2><p><a href="https://pypi.org/" target="_blank" rel="noopener">PyPI</a>（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI</p>
+<p>而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。</p>
+<h2 id="用到的库代码"><a href="#用到的库代码" class="headerlink" title="用到的库代码"></a>用到的库代码</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── MANIFEST.<span class="keyword">in</span></span><br><span class="line">├── README.md</span><br><span class="line">├── dingtalk_log_handler</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">├── setup.py</span><br></pre></td></tr></table></figure>
+<p>整体代码结构，其中<a href="https://github.com/ruanima/dingtalk-log-handler" target="_blank" rel="noopener">dingtalk_log_handler</a>是我写的一个用于发日志到钉钉群的库，也是这次要发布的库。</p>
+<p>先看下库的主体代码<code>dingtalk_log_handler/__init__.py</code>, 由于功能比较简单，逻辑就都写在<code>__init__.py</code>里了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="comment"># 其他import略去</span></span><br><span class="line"></span><br><span class="line">__author__ = <span class="string">'ruan.lj'</span></span><br><span class="line">__version__ = <span class="string">'0.0.2'</span></span><br><span class="line">__all__ = (</span><br><span class="line">    <span class="string">'OAPI_DOMAIN'</span>,</span><br><span class="line">    <span class="string">'DingTalkHandler'</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">OAPI_DOMAIN = <span class="string">'oapi.dingtalk.com'</span>   <span class="comment"># dingtalk open api domain</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DingdingApiError</span><span class="params">(RuntimeError)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DingTalkHandler</span><span class="params">(logging.Handler)</span>:</span></span><br><span class="line">    <span class="string">"""Handler for logging message to dingtalk"""</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    <span class="comment"># 略去逻辑代码</span></span><br></pre></td></tr></table></figure>
+<h2 id="编写-setup-py"><a href="#编写-setup-py" class="headerlink" title="编写 setup.py"></a>编写 setup.py</h2><p>setup.py指引了打包工具如何打包我们的库，功能与类似Makefile</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup, find_packages</span><br><span class="line"><span class="keyword">from</span> dingtalk_log_handler <span class="keyword">import</span> __author__, __version__</span><br><span class="line"></span><br><span class="line"><span class="comment"># read the contents of your README file</span></span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> path</span><br><span class="line">this_directory = path.abspath(path.dirname(__file__))</span><br><span class="line"><span class="keyword">with</span> open(path.join(this_directory, <span class="string">'README.md'</span>), encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    long_description = f.read()</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">'dingtalk-log-handler'</span>,</span><br><span class="line">    version=__version__,</span><br><span class="line">    author=__author__,</span><br><span class="line">    author_email=<span class="string">'xxx@foxmail.com'</span>,</span><br><span class="line">    description=<span class="string">'log handler for send message to dingtalk'</span>,</span><br><span class="line">    long_description=long_description,</span><br><span class="line">    long_description_content_type=<span class="string">'text/markdown'</span>,</span><br><span class="line">    classifiers=[</span><br><span class="line">        <span class="string">'Development Status :: 4 - Beta'</span>,</span><br><span class="line">        <span class="string">'Intended Audience :: Developers'</span>,</span><br><span class="line">        <span class="string">'Topic :: Software Development :: Libraries'</span>,</span><br><span class="line">        <span class="string">'Programming Language :: Python :: 3'</span>,</span><br><span class="line">        <span class="comment"># 省略一下</span></span><br><span class="line">    ],</span><br><span class="line">    packages=find_packages(),</span><br><span class="line">    python_requires=<span class="string">'&gt;=3.5'</span>,</span><br><span class="line">    install_requires=[],</span><br><span class="line">    project_urls=&#123;</span><br><span class="line">        <span class="string">'Source'</span>: <span class="string">'https://github.com/ruanima/dingtalk-log-handler'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>具体打包的功能由<code>setuptools.setup</code>函数实现，我们只需要修改对应的参数即可</p>
+<p>这些参数影响打包的行为，以及在PyPI页面上显示的信息</p>
+<p>主要的参数说明，详细信息参考<a href="https://packaging.python.org/guides/distributing-packages-using-setuptools" target="_blank" rel="noopener">文档</a></p>
+<ul>
+<li>name: 库名，也就是<code>pip install xxx</code>时的名称</li>
+<li>version: 版本，我们这里是复用了库代码里的版本号</li>
+<li>author: 作者，同上</li>
+<li>author_email: 作者邮箱</li>
+<li>description: 库说明，在<code>pip search xxx</code>的时候可以看到</li>
+<li>long_description: 库详细说明，显示在PyPI完整上，我们这里从<code>README.md</code>文件中读取具体内容</li>
+<li>long_description: 库详细说明的格式，这里使用markdown</li>
+<li>classifiers: 库的类别信息，<a href="https://pypi.org/classifiers/" target="_blank" rel="noopener">所有可选值参考</a></li>
+<li>packages: 库包含的python包，通过find_packages自动添加</li>
+<li>py_modules: 库包含的顶级Python模块，我们这里没有</li>
+<li>python_requires: 支持的Python版本</li>
+<li>install_requires: 依赖的其他库，格式与<code>pip freeze</code>输出的格式相同</li>
+<li>project_urls: 项目的一些链接信息，<a href="https://packaging.python.org/guides/distributing-packages-using-setuptools/?#project-urls" target="_blank" rel="noopener">可选值列表</a></li>
+</ul>
+<h2 id="编写-MANIFEST-in"><a href="#编写-MANIFEST-in" class="headerlink" title="编写 MANIFEST.in"></a>编写 MANIFEST.in</h2><p>打包时默认只会包含包代码和一些必要的文件，见<a href="https://packaging.python.org/guides/using-manifest-in/#how-files-are-included-in-an-sdist" target="_blank" rel="noopener">列表</a><br>如果要包含其他资源文件，必须编写<code>MANIFEST.in</code>来说明说明</p>
+<p>MANIFEST.in<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">include</span> README.md</span><br><span class="line">recursive-<span class="keyword">include</span> dingtalk_log_handler *</span><br><span class="line">global-<span class="keyword">exclude</span> __pycache__</span><br><span class="line">global-<span class="keyword">exclude</span> tmp</span><br><span class="line">global-<span class="keyword">exclude</span> *.py[co]</span><br></pre></td></tr></table></figure></p>
+<p>语法和shell的通配符语法类似</p>
+<ul>
+<li><code>include &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 包含项目根目录匹配通配符的文件</li>
+<li><code>recursive-include &lt;dir-pattern&gt; &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 递归地包含指定目录匹配通配符的文件</li>
+<li><code>global-exclude &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 递归地排除匹配通配符的文件</li>
+</ul>
+<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><p>执行: <code>python3 setup.py sdist bdist_wheel</code></p>
+<p>输出文件<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">dist</span></span><br><span class="line">├── <span class="selector-tag">dingtalk-log-handler-0</span><span class="selector-class">.0</span><span class="selector-class">.2</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br><span class="line">└── <span class="selector-tag">dingtalk_log_handler-0</span><span class="selector-class">.0</span><span class="selector-class">.2-py3-none-any</span><span class="selector-class">.whl</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>我们可以通过<a href="https://test.pypi.org" target="_blank" rel="noopener">PyPI的测试站点</a> 来练习库文件的上传，并测试效果</p>
+<ol>
+<li><a href="https://test.pypi.org/account/register/" target="_blank" rel="noopener">注册账户</a> </li>
+<li>安装上传工具：<code>pip install twine -U</code></li>
+<li>上传文件：<code>twine upload --repository testpypi dist/*</code> </li>
+</ol>
+<p>熟悉流程之后，就可以换成<a href="https://pypi.org" target="_blank" rel="noopener">正式站点</a>，指定正式仓库(—repository pypi)上传文件</p>
+<p>这样全世界的人都能看到你的库了。</p>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>可以在<a href="https://pypi.org/project/dingtalk-log-handler/" target="_blank" rel="noopener">这里</a>找到我这次上传的库</p>
+<p>可以看到 setup.py 文件里的很多信息会对应体现在PyPI网页上<br><img src="http://image.runjf.com/mweb/2020-09-11-15997969319299.jpg" alt></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://packaging.python.org/guides/distributing-packages-using-setuptools" target="_blank" rel="noopener">https://packaging.python.org/guides/distributing-packages-using-setuptools</a></li>
+<li><a href="https://packaging.python.org/guides/using-manifest-in/" target="_blank" rel="noopener">https://packaging.python.org/guides/using-manifest-in/</a></li>
+</ol>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="http://ponder.work/2020/08/05/python-connect-cpp-programs-with-SWIG/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2001,130 +2165,6 @@
   </article>
 
     
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2020/05/02/《历史深处的忧虑》摘录/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jay.Run">
-      <meta itemprop="description" content="学习 思考 行动 Python">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="逸思杂陈">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2020/05/02/《历史深处的忧虑》摘录/" class="post-title-link" itemprop="url">《历史深处的忧虑》摘录</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2020-05-02 09:17:00" itemprop="dateCreated datePublished" datetime="2020-05-02T09:17:00+08:00">2020-05-02</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-08 19:02:17" itemprop="dateModified" datetime="2020-05-08T19:02:17+08:00">2020-05-08</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>368</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>1 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><em>本文为整理以前的读书笔记</em></p>
-<p>如果你追求阳光，你就躲不开身后的阴影。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/05/02/《历史深处的忧虑》摘录/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </div>
 
   
@@ -2174,7 +2214,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2328,7 +2368,9 @@
         
           
         
-        <span class="site-state-item-count">58</span>
+          
+        
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -2411,12 +2453,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">181k</span>
+    <span title="站点总字数">183k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:46</span>
+    <span title="站点阅读时长">3:49</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -2544,9 +2586,9 @@ window.addEventListener('pjax:success', () => {
       
     
       
-        
-      
     
+      
+        
       
     
       

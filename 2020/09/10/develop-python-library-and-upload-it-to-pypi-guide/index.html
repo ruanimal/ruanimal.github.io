@@ -57,19 +57,19 @@
   };
 </script>
 
-  <meta name="description" content="PyPIPyPI（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI 而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。 用到的库代码12345├── MANIFEST.in├── README.md├── dingtalk_log_handler│   ├── __">
+  <meta name="description" content="PyPIPyPI（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI 而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。">
 <meta name="keywords" content="Python,PyPI">
 <meta property="og:type" content="article">
 <meta property="og:title" content="开发Python库并发布到PyPI指南">
 <meta property="og:url" content="http://ponder.work/2020/09/10/develop-python-library-and-upload-it-to-pypi-guide/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="PyPIPyPI（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI 而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。 用到的库代码12345├── MANIFEST.in├── README.md├── dingtalk_log_handler│   ├── __">
+<meta property="og:description" content="PyPIPyPI（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI 而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-09-11-15997969319299.jpg">
-<meta property="og:updated_time" content="2020-09-11T06:31:06.666Z">
+<meta property="og:updated_time" content="2020-09-11T07:36:34.865Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发Python库并发布到PyPI指南">
-<meta name="twitter:description" content="PyPIPyPI（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI 而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。 用到的库代码12345├── MANIFEST.in├── README.md├── dingtalk_log_handler│   ├── __">
+<meta name="twitter:description" content="PyPIPyPI（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI 而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。">
 <meta name="twitter:image" content="http://image.runjf.com/mweb/2020-09-11-15997969319299.jpg">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2020/09/10/develop-python-library-and-upload-it-to-pypi-guide/">
@@ -308,7 +308,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-11 14:31:06" itemprop="dateModified" datetime="2020-09-11T14:31:06+08:00">2020-09-11</time>
+                <time title="修改时间：2020-09-11 15:36:34" itemprop="dateModified" datetime="2020-09-11T15:36:34+08:00">2020-09-11</time>
               </span>
             
           
@@ -359,7 +359,7 @@
 
       
         <h2 id="PyPI"><a href="#PyPI" class="headerlink" title="PyPI"></a>PyPI</h2><p><a href="https://pypi.org/" target="_blank" rel="noopener">PyPI</a>（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI</p>
-<p>而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。</p>
+<p>而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。<br><a id="more"></a></p>
 <h2 id="用到的库代码"><a href="#用到的库代码" class="headerlink" title="用到的库代码"></a>用到的库代码</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── MANIFEST.<span class="keyword">in</span></span><br><span class="line">├── README.md</span><br><span class="line">├── dingtalk_log_handler</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">├── setup.py</span><br></pre></td></tr></table></figure>
 <p>整体代码结构，其中<a href="https://github.com/ruanima/dingtalk-log-handler" target="_blank" rel="noopener">dingtalk_log_handler</a>是我写的一个用于发日志到钉钉群的库，也是这次要发布的库。</p>
 <p>先看下库的主体代码<code>dingtalk_log_handler/__init__.py</code>, 由于功能比较简单，逻辑就都写在<code>__init__.py</code>里了</p>

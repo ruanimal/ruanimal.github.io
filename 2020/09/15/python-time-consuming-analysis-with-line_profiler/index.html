@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="缘起最近一个同事改动了日志处理服务，服务的耗时就变大了很多，导致数据积压。观察服务器的监控，发现最近一次上线后，CPU使用率大幅增加，基本处于满载状态。所以，赶紧回滚了服务，然后服务恢复正常了。但是根本问题还没有找到，所以我请出了line_profiler来分析程序的具体耗时情况。 line_profiler是个代码耗时分析器，可以逐行分析代码的耗时情况。">
+  <meta name="description" content="缘起最近发生了一个服务故障，在一个同事对日志服务做了改动后，服务的耗时就变大了很多，数据大量积压。通过观察监控报表，我们发现从他的改动上线后，服务器的CPU使用率大幅增加，基本处于满载状态。粗略审查代码并没有发现问题，我们只能紧急回滚了服务，日志消费也恢复到正常状态了。但是根本问题还没有找到，所以我请出了line_profiler来分析程序的具体耗时情况。 line_profiler是个代码耗时分">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用line_profiler分析Python程序耗时情况">
 <meta property="og:url" content="http://ponder.work/2020/09/15/python-time-consuming-analysis-with-line_profiler/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="缘起最近一个同事改动了日志处理服务，服务的耗时就变大了很多，导致数据积压。观察服务器的监控，发现最近一次上线后，CPU使用率大幅增加，基本处于满载状态。所以，赶紧回滚了服务，然后服务恢复正常了。但是根本问题还没有找到，所以我请出了line_profiler来分析程序的具体耗时情况。 line_profiler是个代码耗时分析器，可以逐行分析代码的耗时情况。">
+<meta property="og:description" content="缘起最近发生了一个服务故障，在一个同事对日志服务做了改动后，服务的耗时就变大了很多，数据大量积压。通过观察监控报表，我们发现从他的改动上线后，服务器的CPU使用率大幅增加，基本处于满载状态。粗略审查代码并没有发现问题，我们只能紧急回滚了服务，日志消费也恢复到正常状态了。但是根本问题还没有找到，所以我请出了line_profiler来分析程序的具体耗时情况。 line_profiler是个代码耗时分">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-09-16T13:34:12.000Z">
+<meta property="og:updated_time" content="2020-09-16T13:43:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用line_profiler分析Python程序耗时情况">
-<meta name="twitter:description" content="缘起最近一个同事改动了日志处理服务，服务的耗时就变大了很多，导致数据积压。观察服务器的监控，发现最近一次上线后，CPU使用率大幅增加，基本处于满载状态。所以，赶紧回滚了服务，然后服务恢复正常了。但是根本问题还没有找到，所以我请出了line_profiler来分析程序的具体耗时情况。 line_profiler是个代码耗时分析器，可以逐行分析代码的耗时情况。">
+<meta name="twitter:description" content="缘起最近发生了一个服务故障，在一个同事对日志服务做了改动后，服务的耗时就变大了很多，数据大量积压。通过观察监控报表，我们发现从他的改动上线后，服务器的CPU使用率大幅增加，基本处于满载状态。粗略审查代码并没有发现问题，我们只能紧急回滚了服务，日志消费也恢复到正常状态了。但是根本问题还没有找到，所以我请出了line_profiler来分析程序的具体耗时情况。 line_profiler是个代码耗时分">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2020/09/15/python-time-consuming-analysis-with-line_profiler/">
 
@@ -306,7 +306,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-16 21:34:12" itemprop="dateModified" datetime="2020-09-16T21:34:12+08:00">2020-09-16</time>
+                <time title="修改时间：2020-09-16 21:43:21" itemprop="dateModified" datetime="2020-09-16T21:43:21+08:00">2020-09-16</time>
               </span>
             
           
@@ -343,7 +343,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>3 分钟</span>
+              <span>4 分钟</span>
             </span>
           
 
@@ -356,7 +356,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近一个同事改动了日志处理服务，服务的耗时就变大了很多，导致数据积压。<br>观察服务器的监控，发现最近一次上线后，CPU使用率大幅增加，基本处于满载状态。所以，赶紧回滚了服务，然后服务恢复正常了。<br>但是根本问题还没有找到，所以我请出了line_profiler来分析程序的具体耗时情况。</p>
+        <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近发生了一个服务故障，在一个同事对日志服务做了改动后，服务的耗时就变大了很多，数据大量积压。<br>通过观察监控报表，我们发现从他的改动上线后，服务器的CPU使用率大幅增加，基本处于满载状态。<br>粗略审查代码并没有发现问题，我们只能紧急回滚了服务，日志消费也恢复到正常状态了。<br>但是根本问题还没有找到，所以我请出了line_profiler来分析程序的具体耗时情况。</p>
 <p><a href="https://github.com/pyutils/line_profiler" target="_blank" rel="noopener">line_profiler</a>是个代码耗时分析器，可以逐行分析代码的耗时情况。<br><a id="more"></a></p>
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>line_profiler包含两个部分</p>
 <ul>

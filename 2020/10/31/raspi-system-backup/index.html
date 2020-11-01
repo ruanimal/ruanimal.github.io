@@ -71,7 +71,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-11-01-16041167579651.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-11-01-16041167920279.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-11-01-16041169311741.jpg">
-<meta property="og:updated_time" content="2020-11-01T03:32:59.000Z">
+<meta property="og:updated_time" content="2020-11-01T03:35:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树莓派系统备份">
 <meta name="twitter:description" content="在玩树莓派的过程中难免会碰到如何高效的备份系统的问题。 由于树莓派用的是Linux系统，所以常见的有两种备份方式  基于文件的备份，比如tar，rsync 基于磁盘的备份，比如dd  这两种备份方式各有利弊：基于文件的备份占用空间小，而且可以在系统在线时操作，比较方便，但是当要还原整个系统时就会比较麻烦（引导重建等等）。基于磁盘的备份就比较简单粗暴了，直接克隆硬盘，恢复时直接还原映像文件就好了，但">
@@ -313,7 +313,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-01 11:32:59" itemprop="dateModified" datetime="2020-11-01T11:32:59+08:00">2020-11-01</time>
+                <time title="修改时间：2020-11-01 11:35:26" itemprop="dateModified" datetime="2020-11-01T11:35:26+08:00">2020-11-01</time>
               </span>
             
           
@@ -375,8 +375,8 @@
 <h2 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h2><p>首先需要将树莓派的SD取下，插入到一台Linux机器上。</p>
 <h3 id="使用Gparted缩小分区"><a href="#使用Gparted缩小分区" class="headerlink" title="使用Gparted缩小分区"></a>使用Gparted缩小分区</h3><p><img src="http://image.runjf.com/mweb/2020-11-01-16041166087052.jpg" alt="-w761"><br><img src="http://image.runjf.com/mweb/2020-11-01-16041166419441.jpg" alt="-w764"><br><img src="http://image.runjf.com/mweb/2020-11-01-16041167175534.jpg" alt="-w760"><br><img src="http://image.runjf.com/mweb/2020-11-01-16041167579651.jpg" alt="-w756"><br><img src="http://image.runjf.com/mweb/2020-11-01-16041167920279.jpg" alt="-w764"><br><img src="http://image.runjf.com/mweb/2020-11-01-16041169311741.jpg" alt="-w708"></p>
 <h3 id="挂载网络存储"><a href="#挂载网络存储" class="headerlink" title="挂载网络存储"></a>挂载网络存储</h3><p>如果不想把备份文件存到网络存储上，该步骤可以忽略</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo  mount.cifs -o vers=<span class="number">2.0</span>,user=<span class="variable">$&#123;</span>nas_user&#125;,password=<span class="variable">$&#123;</span>nas_password&#125;,uid=<span class="variable">$(</span>id -u),gid=<span class="variable">$(</span>id -g) \</span><br><span class="line">	/<span class="regexp">/192.168.123.100/</span>D-soft/ <span class="regexp">/mnt/</span></span><br></pre></td></tr></table></figure>
-<h3 id="使用DD备份硬盘"><a href="#使用DD备份硬盘" class="headerlink" title="使用DD备份硬盘"></a>使用DD备份硬盘</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dd <span class="attribute">if</span>=/dev/sda <span class="attribute">of</span>=/mnt/backup.img <span class="attribute">bs</span>=1M <span class="attribute">count</span>=6000 <span class="attribute">status</span>=progress</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo  mount.cifs -o vers=2.0,user=$&#123;nas_user&#125;,password=$&#123;nas_password&#125;,uid=$(id -u),gid=$(id -g) \</span><br><span class="line">	//192.168.123.100/D-soft/ /mnt/</span><br></pre></td></tr></table></figure>
+<h3 id="使用DD备份硬盘"><a href="#使用DD备份硬盘" class="headerlink" title="使用DD备份硬盘"></a>使用DD备份硬盘</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dd if=/dev/sda of=/mnt/backup.img bs=1M count=6000 status=progress</span><br></pre></td></tr></table></figure>
 <p>bs参数代表备份文件大小的单位，这里是1M</p>
 <p>count代表有多少bs，也就是备份大小是<code>count*bs=6000M</code><br>这个数值需要根据你磁盘使用空间来计算，取一个大于已使用空间的值就好了。</p>
 <p>例如，我这个SD卡已使用的空间是 <code>4M + 256M + 5.24GiB = 5625.76M</code>，则备份大小取6000M</p>

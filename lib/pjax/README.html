@@ -136,7 +136,7 @@ npm run build
 
   <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"onDomReadystuff.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
   <span class="tag">&lt;<span class="name">script</span>&gt;</span>
-    // analytics
+<span class="actionscript">    <span class="comment">// analytics</span></span>
   <span class="tag">&lt;/<span class="name">script</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">body</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">html</span>&gt;</span>
@@ -509,40 +509,40 @@ whenContainerReady()
 </li>
 </ul>
 <h4 id="Disqus-snippet-before-Pjax-integration"><a href="#Disqus-snippet-before-Pjax-integration" class="headerlink" title="Disqus snippet before Pjax integration"></a>Disqus snippet <em>before</em> Pjax integration</h4><pre><code class="html"><span class="tag">&lt;<span class="name">script</span>&gt;</span>
-<span class="javascript">  <span class="keyword">var</span> disqus_shortname = <span class="string">'YOURSHORTNAME'</span></span>
-<span class="javascript">  <span class="keyword">var</span> disqus_identifier = <span class="string">'PAGEID'</span></span>
-<span class="javascript">  <span class="keyword">var</span> disqus_url = <span class="string">'PAGEURL'</span></span>
-<span class="javascript">  <span class="keyword">var</span> disqus_script = <span class="string">'embed.js'</span></span>
+<span class="actionscript">  <span class="keyword">var</span> disqus_shortname = <span class="string">'YOURSHORTNAME'</span></span>
+<span class="actionscript">  <span class="keyword">var</span> disqus_identifier = <span class="string">'PAGEID'</span></span>
+<span class="actionscript">  <span class="keyword">var</span> disqus_url = <span class="string">'PAGEURL'</span></span>
+<span class="actionscript">  <span class="keyword">var</span> disqus_script = <span class="string">'embed.js'</span></span>
 
-<span class="javascript">  (<span class="function"><span class="keyword">function</span>(<span class="params">d,s</span>) </span>{</span>
-<span class="javascript">  s = d.createElement(<span class="string">'script'</span>);s.async=<span class="number">1</span>;s.src = <span class="string">'//'</span> + disqus_shortname + <span class="string">'.disqus.com/'</span>+disqus_script;</span>
-<span class="javascript">  (d.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>]).appendChild(s);</span>
+<span class="actionscript">  (<span class="function"><span class="keyword">function</span><span class="params">(d,s)</span> </span>{</span>
+<span class="actionscript">  s = d.createElement(<span class="string">'script'</span>);s.async=<span class="number">1</span>;s.src = <span class="string">'//'</span> + disqus_shortname + <span class="string">'.disqus.com/'</span>+disqus_script;</span>
+<span class="actionscript">  (d.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>]).appendChild(s);</span>
 <span class="javascript">  })(<span class="built_in">document</span>)</span>
 <span class="tag">&lt;/<span class="name">script</span>&gt;</span>
 </code></pre>
 <h4 id="Disqus-snippet-after-Pjax-integration"><a href="#Disqus-snippet-after-Pjax-integration" class="headerlink" title="Disqus snippet after Pjax integration"></a>Disqus snippet <em>after</em> Pjax integration</h4><pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"js-Pjax"</span>&gt;</span><span class="comment">&lt;!-- needs to be here on every Pjax-ified page, even if empty --&gt;</span>
 <span class="comment">&lt;!-- if (some condition) { // eventual server-side test to know whether or not you include this script --&gt;</span>
   <span class="tag">&lt;<span class="name">script</span>&gt;</span>
-<span class="javascript">    <span class="keyword">var</span> disqus_shortname = <span class="string">'YOURSHORTNAME'</span></span>
-<span class="javascript">    <span class="keyword">var</span> disqus_identifier = <span class="string">'PAGEID'</span></span>
-<span class="javascript">    <span class="keyword">var</span> disqus_url = <span class="string">'PAGEURL'</span></span>
-<span class="javascript">    <span class="keyword">var</span> disqus_script = <span class="string">'embed.js'</span></span>
+<span class="actionscript">    <span class="keyword">var</span> disqus_shortname = <span class="string">'YOURSHORTNAME'</span></span>
+<span class="actionscript">    <span class="keyword">var</span> disqus_identifier = <span class="string">'PAGEID'</span></span>
+<span class="actionscript">    <span class="keyword">var</span> disqus_url = <span class="string">'PAGEURL'</span></span>
+<span class="actionscript">    <span class="keyword">var</span> disqus_script = <span class="string">'embed.js'</span></span>
 
-<span class="javascript">    <span class="comment">// here we will only load the disqus &lt;script&gt; if not already loaded</span></span>
+<span class="handlebars"><span class="xml">    // here we will only load the disqus <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="vbscript"> <span class="keyword">if</span> <span class="keyword">not</span> already loaded</span></span></span>
 <span class="javascript">    <span class="keyword">if</span> (!<span class="built_in">window</span>.DISQUS) {</span>
-<span class="javascript">      (<span class="function"><span class="keyword">function</span>(<span class="params">d,s</span>) </span>{</span>
-<span class="javascript">      s = d.createElement(<span class="string">'script'</span>);s.async=<span class="number">1</span>;s.src = <span class="string">'//'</span> + disqus_shortname + <span class="string">'.disqus.com/'</span>+disqus_script;</span>
-<span class="javascript">      (d.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>]).appendChild(s);</span>
+<span class="actionscript">      (<span class="function"><span class="keyword">function</span><span class="params">(d,s)</span> </span>{</span>
+<span class="actionscript">      s = d.createElement(<span class="string">'script'</span>);s.async=<span class="number">1</span>;s.src = <span class="string">'//'</span> + disqus_shortname + <span class="string">'.disqus.com/'</span>+disqus_script;</span>
+<span class="actionscript">      (d.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>]).appendChild(s);</span>
 <span class="javascript">      })(<span class="built_in">document</span>)</span>
     }
-<span class="javascript">    <span class="comment">// if disqus &lt;script&gt; is already loaded, we just reset disqus the right way</span></span>
-<span class="javascript">    <span class="comment">// see https://help.disqus.com/developer/using-disqus-on-ajax-sites</span></span>
-<span class="javascript">    <span class="keyword">else</span> {</span>
+<span class="handlebars"><span class="xml">    // if disqus <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="vbscript"> <span class="keyword">is</span> already loaded, we just reset disqus the <span class="built_in">right</span> way</span></span></span>
+<span class="actionscript">    <span class="comment">// see https://help.disqus.com/developer/using-disqus-on-ajax-sites</span></span>
+<span class="actionscript">    <span class="keyword">else</span> {</span>
       DISQUS.reset({
-<span class="javascript">        reload: <span class="literal">true</span>,</span>
-<span class="javascript">        config: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{</span>
-<span class="javascript">          <span class="keyword">this</span>.page.identifier = disqus_identifier</span>
-<span class="javascript">          <span class="keyword">this</span>.page.url = disqus_url</span>
+<span class="actionscript">        reload: <span class="literal">true</span>,</span>
+<span class="actionscript">        config: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</span>
+<span class="actionscript">          <span class="keyword">this</span>.page.identifier = disqus_identifier</span>
+<span class="actionscript">          <span class="keyword">this</span>.page.url = disqus_url</span>
         }
       })
     }

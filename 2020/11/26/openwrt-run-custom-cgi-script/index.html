@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="缘起我家里的路由器是矿渣newifi3, 刷了OpenWrt系统，可玩性还是非常强的。而且路由器作为24小时在线的设备，很适合作为网络设备的控制中心，比如使用WOL唤醒其他设备。之前就写过一个Python服务，用来控制其他设备的唤醒和睡眠。但是由于newifi3的rom空间十分有限，usb又十分不稳定，Python环境在路由器上还是太重了。所以就想到了利用路由器默认的uhttpd网页服务器，自己编">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-12-30T13:09:42.333Z">
+<meta property="og:updated_time" content="2020-11-26T15:29:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenWrt执行自定义CGI脚本">
 <meta name="twitter:description" content="缘起我家里的路由器是矿渣newifi3, 刷了OpenWrt系统，可玩性还是非常强的。而且路由器作为24小时在线的设备，很适合作为网络设备的控制中心，比如使用WOL唤醒其他设备。之前就写过一个Python服务，用来控制其他设备的唤醒和睡眠。但是由于newifi3的rom空间十分有限，usb又十分不稳定，Python环境在路由器上还是太重了。所以就想到了利用路由器默认的uhttpd网页服务器，自己编">
@@ -295,19 +295,11 @@
                 
               
 
-              <time title="创建时间：2020-11-26 20:17:00" itemprop="dateCreated datePublished" datetime="2020-11-26T20:17:00+08:00">2020-11-26</time>
+              <time title="创建时间：2020-11-26 20:17:00 / 修改时间：23:29:49" itemprop="dateCreated datePublished" datetime="2020-11-26T20:17:00+08:00">2020-11-26</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-30 21:09:42" itemprop="dateModified" datetime="2020-12-30T21:09:42+08:00">2020-12-30</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -364,7 +356,7 @@
 <h3 id="添加CGI脚本"><a href="#添加CGI脚本" class="headerlink" title="添加CGI脚本"></a>添加CGI脚本</h3><p>从上面的配置可以看到，web的默认路径在<code>/www</code><br>我们就在这里新建一个文件夹<code>ctl</code>，来存放我们的CGI脚本, 用于实现NAS的睡眠和唤醒。</p>
 <p>目录信息如下<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/www/</span><br><span class="line">├── cgi-bin</span><br><span class="line">│   └── luci</span><br><span class="line">├── ctl</span><br><span class="line">│   ├── sleep.lua</span><br><span class="line">│   └── wakeup.lua</span><br><span class="line">├── index.html</span><br></pre></td></tr></table></figure></p>
 <p>下面开始编写CGI脚本，需要复习以下CGI协议，可以参考<a href="http://ponder.work/2019/09/28/python-web-development/#CGI">本人的文章</a><br>再花几分钟熟悉一下<a href="https://www.runoob.com/lua/lua-tutorial.html" target="_blank" rel="noopener">lua语法</a></p>
-<h4 id="NAS睡眠脚本"><a href="#NAS睡眠脚本" class="headerlink" title="NAS睡眠脚本"></a>NAS睡眠脚本</h4><p>睡眠的实现是在NAS上写了个简单的Web服务，基于<code>systemctl suspend</code>来实现睡眠<br>然后访问Web服务，触发NAS的睡眠。这里为了和下面的唤醒统一处理，所以通过CGI转发了一道。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/lua</span><br><span class="line"><span class="comment">-- /www/ctl/sleep.lua</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"Content-Type: text/plain\r\n\r\n"</span>)</span><br><span class="line"><span class="keyword">local</span> <span class="built_in">status</span> = <span class="built_in">os</span>.<span class="built_in">execute</span>(<span class="string">"wget -q -O - --timeout 1 -t 1  http://192.168.123.100:8888/ctl/sleep &gt; /dev/null"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">status</span> == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"sleep succ\n"</span>)</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"sleep fail, already sleep?\n"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="NAS睡眠脚本"><a href="#NAS睡眠脚本" class="headerlink" title="NAS睡眠脚本"></a>NAS睡眠脚本</h4><p>睡眠的实现是在NAS上写了个简单的Web服务，基于<code>systemctl suspend</code>来实现睡眠<br>然后访问Web服务，触发NAS的睡眠。这里为了和下面的唤醒统一处理，所以通过路由器的CGI转发了一道，直接访问也是可以的。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/lua</span><br><span class="line"><span class="comment">-- /www/ctl/sleep.lua</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"Content-Type: text/plain\r\n\r\n"</span>)</span><br><span class="line"><span class="keyword">local</span> <span class="built_in">status</span> = <span class="built_in">os</span>.<span class="built_in">execute</span>(<span class="string">"wget -q -O - --timeout 1 -t 1  http://192.168.123.100:8888/ctl/sleep &gt; /dev/null"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">status</span> == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"sleep succ\n"</span>)</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"sleep fail, already sleep?\n"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
 <p>使用：<code>curl http://192.168.123.1/ctl/sleep.lua</code></p>
 <h4 id="NAS唤醒脚本"><a href="#NAS唤醒脚本" class="headerlink" title="NAS唤醒脚本"></a>NAS唤醒脚本</h4><p>唤醒是基于WOL，原理是在网络上广播特定格式的网络包，目标机器的网卡接受到以后唤醒机器。</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/lua</span><br><span class="line"></span><br><span class="line"><span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"Content-Type: text/plain\r\n\r\n"</span>)</span><br><span class="line"><span class="comment">-- /usr/bin/etherwake -i &lt;网口&gt; &lt;MAC&gt;</span></span><br><span class="line"><span class="comment">-- 网口需要是和目标机器同网段的接口，在OpenWrt中通常是br-lan</span></span><br><span class="line"><span class="keyword">local</span> <span class="built_in">status</span> = <span class="built_in">os</span>.<span class="built_in">execute</span>(<span class="string">"/usr/bin/etherwake -i br-lan 00:12:34:56:78:90"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">status</span> == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"wakeup succ\n"</span>)</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"wakeup fail\n"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
@@ -497,7 +489,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">126</span>
+          <span class="site-state-item-count">127</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -741,7 +733,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -750,12 +742,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">215k</span>
+    <span title="站点总字数">216k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:29</span>
+    <span title="站点阅读时长">4:30</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

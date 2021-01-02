@@ -69,7 +69,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-01-02-2021-01-02_181342.png">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-01-02-2021-01-02_183349.png">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-01-02-2021-01-02_183046.png">
-<meta property="og:updated_time" content="2021-01-02T15:13:06.545Z">
+<meta property="og:updated_time" content="2021-01-02T15:16:51.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在WSL2中安装openmediavault(OMV)">
 <meta name="twitter:description" content="NAS的文件系统一直是我比较纠结的一个点。NAS的系统基本上是基于Linux(Unix)，文件系统不是ntfs，数据迁移不方便，数据恢复工具也没那么全。 WSL就完美解决了这个问题，用Linux提供服务，数据最终还是落在ntfs上，而且重要的是everything也能用上。 openmediavault(OMV)是一个基于Debian的NAS系统，而且能在原生Debian系统上自行安装，正好能够实">
@@ -300,7 +300,7 @@
                 
               
 
-              <time title="创建时间：2021-01-02 17:00:00 / 修改时间：23:13:06" itemprop="dateCreated datePublished" datetime="2021-01-02T17:00:00+08:00">2021-01-02</time>
+              <time title="创建时间：2021-01-02 17:00:00 / 修改时间：23:16:51" itemprop="dateCreated datePublished" datetime="2021-01-02T17:00:00+08:00">2021-01-02</time>
             </span>
           
             
@@ -388,7 +388,7 @@
 </li>
 </ol>
 <h3 id="共享文件夹配置"><a href="#共享文件夹配置" class="headerlink" title="共享文件夹配置"></a>共享文件夹配置</h3><p>由于WSL2读写本机硬盘是使用的微软的驱动，OMV并不支持，默认只能识别到根目录的虚拟硬盘。</p>
-<p>又因为WSL2的本地硬盘多都挂载在<code>/mnt/</code>路径下，所以只要能将<code>/mnt/</code>目录共享就ok了</p>
+<p>又因为WSL2的本地硬盘都挂载在<code>/mnt/</code>路径下，所以只要能将<code>/mnt/</code>目录共享就ok了</p>
 <p>这里参考<a href="https://github.com/openmediavault/openmediavault/blob/master/deb/openmediavault-sharerootfs/debian/openmediavault-sharerootfs.postinst" target="_blank" rel="noopener">openmediavault-sharerootfs</a>的实现</p>
 <p>修改<code>/etc/openmediavault/config.xml</code>配置文件， 在<code>fstab</code>标签下增加<code>mntent</code>挂载点配置，修改完如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--省略其他部分--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">fstab</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mntent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uuid</span>&gt;</span>79684322-3eac-11ea-a974-63a080abab18<span class="tag">&lt;/<span class="name">uuid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fsname</span>&gt;</span>/dev/sdb<span class="tag">&lt;/<span class="name">fsname</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dir</span>&gt;</span>/<span class="tag">&lt;/<span class="name">dir</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>ext4<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">opts</span>&gt;</span>errors=remount-ro<span class="tag">&lt;/<span class="name">opts</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">freq</span>&gt;</span>0<span class="tag">&lt;/<span class="name">freq</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">passno</span>&gt;</span>1<span class="tag">&lt;/<span class="name">passno</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hidden</span>&gt;</span>1<span class="tag">&lt;/<span class="name">hidden</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">mntent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">fstab</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>打开<code>访问权限管理 -&gt; 共享文件夹 -&gt; 添加</code>，添加D盘（/mnt/d）作为共享文件夹，然后在samba服务中就能引用这个共享文件夹了<br><img src="http://image.runjf.com/mweb/2021-01-02-2021-01-02_183349.png" alt="2021-01-02_183349"></p>

@@ -66,7 +66,7 @@
 <meta property="og:description" content="Windows Subsystem for Linux(WSL)从Version 1 (WSL1)升级到Version 2 (WSL2) 之后，底层实现方式发生了改变。 由于使用Hyper-V来实现WSL2，使得WSL更像虚拟机，一个能访问硬盘的虚拟机。这带来一些便利，能够把它当做独立服务器来使用，可玩性就增强很多。当然，这也导致WSL上的端口不能从外部访问到，总之有利有弊。 虽然能够配置端口转发">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-01-02-2021-01-02_171339.png">
-<meta property="og:updated_time" content="2021-01-02T15:06:57.612Z">
+<meta property="og:updated_time" content="2021-01-02T15:16:40.555Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WSL2开启桥接网络">
 <meta name="twitter:description" content="Windows Subsystem for Linux(WSL)从Version 1 (WSL1)升级到Version 2 (WSL2) 之后，底层实现方式发生了改变。 由于使用Hyper-V来实现WSL2，使得WSL更像虚拟机，一个能访问硬盘的虚拟机。这带来一些便利，能够把它当做独立服务器来使用，可玩性就增强很多。当然，这也导致WSL上的端口不能从外部访问到，总之有利有弊。 虽然能够配置端口转发">
@@ -297,7 +297,7 @@
                 
               
 
-              <time title="创建时间：2021-01-02 15:00:00 / 修改时间：23:06:57" itemprop="dateCreated datePublished" datetime="2021-01-02T15:00:00+08:00">2021-01-02</time>
+              <time title="创建时间：2021-01-02 15:00:00 / 修改时间：23:16:40" itemprop="dateCreated datePublished" datetime="2021-01-02T15:00:00+08:00">2021-01-02</time>
             </span>
           
             
@@ -391,7 +391,7 @@
 <li>清除原默认路由 <code>ip route delete default</code></li>
 <li>添加默认路由 <code>ip route add default via 192.168.123.1 dev eth0</code></li>
 </ol>
-<p>这些操作在重启WSL2虚拟机后会失效，如果永久修改，请配置静态ip</p>
+<p>这些操作在重启WSL2虚拟机后会失效，如果需要永久修改，请配置静态ip</p>
 <h3 id="修复DNS解析"><a href="#修复DNS解析" class="headerlink" title="修复DNS解析"></a>修复DNS解析</h3><ol>
 <li><p>新建<code>/etc/wsl.conf</code>，防止WSL2覆盖DNS配置文件</p>
  <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[network]</span></span><br><span class="line"><span class="attr">generateResolvConf</span> = <span class="literal">false</span></span><br></pre></td></tr></table></figure>

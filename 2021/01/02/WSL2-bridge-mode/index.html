@@ -65,12 +65,12 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="Windows Subsystem for Linux(WSL)从Version 1 (WSL1)升级到Version 2 (WSL2) 之后，底层实现方式发生了改变。 由于使用Hyper-V来实现WSL2，使得WSL更像虚拟机，一个能访问硬盘的虚拟机。这带来一些便利，能够把它当做独立服务器来使用，可玩性就增强很多。当然，这也导致WSL上的端口不能从外部访问到，总之有利有弊。 虽然能够配置端口转发">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ponder.work/2021/01/02/WSL2-bridge-mode/media/2021-01-02_171339.png">
-<meta property="og:updated_time" content="2021-01-02T13:02:39.068Z">
+<meta property="og:image" content="http://image.runjf.com/mweb/2021-01-02-2021-01-02_171339.png">
+<meta property="og:updated_time" content="2021-01-02T15:06:57.612Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WSL2开启桥接网络">
 <meta name="twitter:description" content="Windows Subsystem for Linux(WSL)从Version 1 (WSL1)升级到Version 2 (WSL2) 之后，底层实现方式发生了改变。 由于使用Hyper-V来实现WSL2，使得WSL更像虚拟机，一个能访问硬盘的虚拟机。这带来一些便利，能够把它当做独立服务器来使用，可玩性就增强很多。当然，这也导致WSL上的端口不能从外部访问到，总之有利有弊。 虽然能够配置端口转发">
-<meta name="twitter:image" content="http://ponder.work/2021/01/02/WSL2-bridge-mode/media/2021-01-02_171339.png">
+<meta name="twitter:image" content="http://image.runjf.com/mweb/2021-01-02-2021-01-02_171339.png">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2021/01/02/WSL2-bridge-mode/">
 
@@ -297,7 +297,7 @@
                 
               
 
-              <time title="创建时间：2021-01-02 15:00:00 / 修改时间：21:02:39" itemprop="dateCreated datePublished" datetime="2021-01-02T15:00:00+08:00">2021-01-02</time>
+              <time title="创建时间：2021-01-02 15:00:00 / 修改时间：23:06:57" itemprop="dateCreated datePublished" datetime="2021-01-02T15:00:00+08:00">2021-01-02</time>
             </span>
           
             
@@ -352,15 +352,24 @@
       
         <p>Windows Subsystem for Linux(WSL)从<code>Version 1 (WSL1)</code>升级到<code>Version 2 (WSL2)</code> 之后，底层实现方式发生了改变。</p>
 <p>由于使用Hyper-V来实现WSL2，使得WSL更像虚拟机，一个能访问硬盘的虚拟机。<br>这带来一些便利，能够把它当做独立服务器来使用，可玩性就增强很多。当然，这也导致WSL上的端口不能从外部访问到，总之有利有弊。</p>
-<p>虽然能够配置端口转发，曲线救国突破这个缺陷，但是有些服务的端口是约定俗成的（比如samba），更换端口号（原端口号被windows占用）之后其他设备可能识别不到服务。<br>经过一番思考后，觉得给WSL2开启桥接模式，直接连接物理网络才是相对最好的方案。</p>
+<p>虽然能够配置端口转发，曲线救国突破这个缺陷，但是有些服务的端口是约定俗成的（比如samba），更换端口号（原端口号被windows占用）之后其他设备可能识别不到服务。</p>
+<p>经过一番思考后，觉得给WSL2开启桥接模式，直接连接物理网络才是相对最好的方案。</p>
 <a id="more"></a>
 <h2 id="安装WSL2"><a href="#安装WSL2" class="headerlink" title="安装WSL2"></a>安装WSL2</h2><p>参考<a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-win10#manual-installation-steps" target="_blank" rel="noopener">官方文档</a>安装WSL2</p>
 <p>在PowerShell中执行以下命令</p>
 <ol>
-<li>启用WSL2 <code>dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</code></li>
-<li>启用虚拟机平台 <code>dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</code></li>
-<li>启用Hyper-V <code>dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</code></li>
-<li>设置WSL2为默认 <code>wsl --set-default-version 2</code></li>
+<li><p>启用WSL2 </p>
+ <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe <span class="string">/online</span> <span class="string">/enable-feature</span> <span class="string">/featurename</span><span class="function">:Microsoft-Windows-Subsystem-Linux</span> <span class="string">/all</span> <span class="string">/norestart</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启用虚拟机平台 </p>
+ <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe <span class="string">/online</span> <span class="string">/enable-feature</span> <span class="string">/featurename</span><span class="function">:VirtualMachinePlatform</span> <span class="string">/all</span> <span class="string">/norestart</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启用Hyper-V </p>
+ <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe <span class="string">/online</span> <span class="string">/enable-feature</span> <span class="string">/featurename</span><span class="function">:VirtualMachinePlatform</span> <span class="string">/all</span> <span class="string">/norestart</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置WSL2为默认 </p>
+ <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --<span class="keyword">set</span>-<span class="keyword">default</span>-version <span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <p>然后重启系统, 安装<a href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi" target="_blank" rel="noopener">适用于 x64 计算机的 WSL2 Linux 内核更新包</a></p>
 <h2 id="安装Linux发行版"><a href="#安装Linux发行版" class="headerlink" title="安装Linux发行版"></a>安装Linux发行版</h2><p>这里选择Debian作为示例</p>
@@ -373,7 +382,7 @@
 <li><p>如果VERSION不为为2，在PowerShell执行<code>wsl --set-version Debian 2</code>进行升级</p>
 </li>
 </ol>
-<h2 id="修改WSL2默认网络为桥接"><a href="#修改WSL2默认网络为桥接" class="headerlink" title="修改WSL2默认网络为桥接"></a>修改WSL2默认网络为桥接</h2><p>由于WSL2底层使用的是Hyper-V虚拟机，所以我们可以修改虚拟交换机的类型，来启用桥接网络<br>打开<code>Hyper-V管理器 -&gt; 操作 -&gt; 虚拟交换机管理器</code>， 修改WSL的连接类型为“外部网络”<br><img src="media/2021-01-02_171339.png" alt="2021-01-02_171339"></p>
+<h2 id="修改WSL2默认网络为桥接"><a href="#修改WSL2默认网络为桥接" class="headerlink" title="修改WSL2默认网络为桥接"></a>修改WSL2默认网络为桥接</h2><p>由于WSL2底层使用的是Hyper-V虚拟机，所以我们可以修改虚拟交换机的类型，来启用桥接网络<br>打开<code>Hyper-V管理器 -&gt; 操作 -&gt; 虚拟交换机管理器</code>， 修改WSL的连接类型为“外部网络”<br><img src="http://image.runjf.com/mweb/2021-01-02-2021-01-02_171339.png" alt="2021-01-02_171339"></p>
 <h2 id="修复Debian网络"><a href="#修复Debian网络" class="headerlink" title="修复Debian网络"></a>修复Debian网络</h2><p>由于WSL2默认网络模式是NAT，我们把虚拟交换机改为桥接后，默认的ip和路由以及DNS解析将会失效</p>
 <p>以下操作在Debian系统内执行</p>
 <h3 id="修复ip和路由"><a href="#修复ip和路由" class="headerlink" title="修复ip和路由"></a>修复ip和路由</h3><ol>
@@ -439,8 +448,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2021/01/02/install-openmediavault-in-WSL2/" rel="next" title="在WSL2中安装openmediavault(OMV)">
-                  <i class="fa fa-chevron-left"></i> 在WSL2中安装openmediavault(OMV)
+                <a href="/2020/12/31/summary-of-year-2020/" rel="next" title="2020年终总结">
+                  <i class="fa fa-chevron-left"></i> 2020年终总结
                 </a>
               
             </div>
@@ -448,6 +457,10 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2021/01/02/install-openmediavault-in-WSL2/" rel="prev" title="在WSL2中安装openmediavault(OMV)">
+                  在WSL2中安装openmediavault(OMV) <i class="fa fa-chevron-right"></i>
+                </a>
               
             </div>
           </div>

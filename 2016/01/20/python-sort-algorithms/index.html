@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="冒泡排序 BubbleSort介绍遍历序列，比较两个元素，如果前面的大于后面的就交换两者的位置。其实称之为冒泡排序不如加沉底排序，因为每一轮比较，这一轮轮最大都会被排到序列末尾，其实沉底更为贴切。 步骤 遍历序列，比较序列的相邻元素，比较n-1次，如果前面的大于后面的就交换两者的位置。 比较次数减一，重复步骤1 共遍历n-1次  代码 原始版本 12345678def bubble_sort(ar">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-30T14:07:01.484Z">
+<meta property="og:updated_time" content="2020-05-02T03:24:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python排序算法总结">
 <meta name="twitter:description" content="冒泡排序 BubbleSort介绍遍历序列，比较两个元素，如果前面的大于后面的就交换两者的位置。其实称之为冒泡排序不如加沉底排序，因为每一轮比较，这一轮轮最大都会被排到序列末尾，其实沉底更为贴切。 步骤 遍历序列，比较序列的相邻元素，比较n-1次，如果前面的大于后面的就交换两者的位置。 比较次数减一，重复步骤1 共遍历n-1次  代码 原始版本 12345678def bubble_sort(ar">
@@ -306,7 +306,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-30 22:07:01" itemprop="dateModified" datetime="2020-04-30T22:07:01+08:00">2020-04-30</time>
+                <time title="修改时间：2020-05-02 11:24:38" itemprop="dateModified" datetime="2020-05-02T11:24:38+08:00">2020-05-02</time>
               </span>
             
           
@@ -431,7 +431,6 @@
 </ol>
 <h3 id="代码-7"><a href="#代码-7" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heap_sort</span><span class="params">(array)</span>:</span></span><br><span class="line">    <span class="comment"># 此处用最大堆</span></span><br><span class="line">    n = len(array)</span><br><span class="line">    pq = [<span class="literal">None</span>] + array</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sink</span><span class="params">(k)</span>:</span>  <span class="comment"># 下沉</span></span><br><span class="line">        <span class="keyword">while</span> <span class="number">2</span>*k &lt;= n:</span><br><span class="line">            j = <span class="number">2</span>*k </span><br><span class="line">            <span class="keyword">if</span> j &lt; n <span class="keyword">and</span> pq[j] &lt; pq[j+<span class="number">1</span>]:</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> pq[k] &gt;= pq[j]:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            pq[k], pq[j] = pq[j], pq[k]</span><br><span class="line">            k = j</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> xrange(n/<span class="number">2</span>, <span class="number">0</span>, <span class="number">-1</span>):</span><br><span class="line">        sink(k)</span><br><span class="line">    <span class="keyword">while</span> n &gt; <span class="number">1</span>:</span><br><span class="line">        pq[<span class="number">1</span>], pq[n] = pq[n], pq[<span class="number">1</span>]</span><br><span class="line">        n -= <span class="number">1</span></span><br><span class="line">        sink(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> pq[<span class="number">1</span>:]</span><br></pre></td></tr></table></figure>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>下面为以上八种排序算法指标对比情况：</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -510,7 +509,6 @@
 </tr>
 </tbody>
 </table>
-</div>
 
     </div>
 
@@ -886,7 +884,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">221k</span>
+    <span title="站点总字数">222k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

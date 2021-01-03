@@ -69,7 +69,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-01-02-2021-01-02_181342.png">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-01-02-2021-01-02_183349.png">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-01-02-2021-01-02_183046.png">
-<meta property="og:updated_time" content="2021-01-02T15:16:51.325Z">
+<meta property="og:updated_time" content="2021-01-03T10:32:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在WSL2中安装openmediavault(OMV)">
 <meta name="twitter:description" content="NAS的文件系统一直是我比较纠结的一个点。NAS的系统基本上是基于Linux(Unix)，文件系统不是ntfs，数据迁移不方便，数据恢复工具也没那么全。 WSL就完美解决了这个问题，用Linux提供服务，数据最终还是落在ntfs上，而且重要的是everything也能用上。 openmediavault(OMV)是一个基于Debian的NAS系统，而且能在原生Debian系统上自行安装，正好能够实">
@@ -300,11 +300,19 @@
                 
               
 
-              <time title="创建时间：2021-01-02 17:00:00 / 修改时间：23:16:51" itemprop="dateCreated datePublished" datetime="2021-01-02T17:00:00+08:00">2021-01-02</time>
+              <time title="创建时间：2021-01-02 17:00:00" itemprop="dateCreated datePublished" datetime="2021-01-02T17:00:00+08:00">2021-01-02</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-03 18:32:33" itemprop="dateModified" datetime="2021-01-03T18:32:33+08:00">2021-01-03</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -330,7 +338,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>4k</span>
+              <span>4.7k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -340,7 +348,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>5 分钟</span>
+              <span>6 分钟</span>
             </span>
           
 
@@ -365,6 +373,10 @@
 <h3 id="安装-systemd-genie"><a href="#安装-systemd-genie" class="headerlink" title="安装 systemd-genie"></a>安装 systemd-genie</h3><p>官网提供了安装脚本, 执行完会配置好systemd-genie源并安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -s https://packagecloud.io/install/repositories/arkane-systems/wsl-translinux/script.deb.sh | sudo bash</span><br></pre></td></tr></table></figure></p>
 <p>但是安装过程中，发现systemd-genie源的访问有些问题，所以只能从gitbub下载安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /tmp &amp;&amp; wget https://github.com/arkane-systems/genie/releases/download/1.30/systemd-genie_1.30_amd64.deb</span><br><span class="line">dpkg -i systemd-genie_1.30_amd64.deb</span><br><span class="line">apt --fix-broken install</span><br></pre></td></tr></table></figure></p>
 <h3 id="默认启动-systemd-genie"><a href="#默认启动-systemd-genie" class="headerlink" title="默认启动 systemd-genie"></a>默认启动 systemd-genie</h3><p>修改<code>/root/.bashrc</code>, 添加以下内容<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="string">[[ ! -v INSIDE_GENIE ]]</span>; <span class="keyword">then</span></span><br><span class="line">    echo <span class="string">"Starting genie"</span></span><br><span class="line">    exec /usr/bin/genie -s</span><br><span class="line">fi</span><br></pre></td></tr></table></figure></p>
+<h2 id="网络相关配置"><a href="#网络相关配置" class="headerlink" title="网络相关配置"></a>网络相关配置</h2><p>主机名和网口配置重启WSL后可能会失效，建议修改配置文件来实现</p>
+<h3 id="主机名"><a href="#主机名" class="headerlink" title="主机名"></a>主机名</h3><p>修改<code>/etc/wsl.conf</code>，增加<code>hostname = openmediavault</code><br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[network]</span></span><br><span class="line"><span class="attr">hostname</span> = openmediavault</span><br><span class="line"><span class="attr">generateResolvConf</span> = <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>修改<code>/etc/genie.ini</code>，设置<code>update-hostname</code>为false<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[genie]</span><br><span class="line">secure-path=<span class="regexp">/lib/</span><span class="string">systemd:</span><span class="regexp">/usr/</span>local<span class="regexp">/sbin:/</span>usr<span class="regexp">/local/</span><span class="string">bin:</span><span class="regexp">/usr/</span><span class="string">sbin:</span><span class="regexp">/usr/</span><span class="string">bin:</span><span class="regexp">/sbin:/</span>bin</span><br><span class="line">unshare=<span class="regexp">/usr/</span>bin/unshare</span><br><span class="line">update-hostname=<span class="literal">false</span></span><br><span class="line">clone-path=<span class="literal">false</span></span><br><span class="line">clone-env=WSL_DISTRO_NAME,WSL_INTEROP,WSLENV</span><br></pre></td></tr></table></figure></p>
+<h3 id="ip地址"><a href="#ip地址" class="headerlink" title="ip地址"></a>ip地址</h3><p>注意，由于WSL的mac地址每次重启都会变，该问题暂时无法解决，参考<a href="https://github.com/microsoft/WSL/issues/5352" target="_blank" rel="noopener">issue</a><br>所以这里采用静态IPv4地址和DHCPv6来配置网络地址<br>新建<code>/etc/systemd/network/lan.network</code>，内容如下，完成后执行<code>systemctl enable systemd-networkd</code><br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Match]</span></span><br><span class="line"><span class="attr">Name</span>=eth0</span><br><span class="line"></span><br><span class="line"><span class="section">[Network]</span></span><br><span class="line"><span class="attr">Description</span>=lan</span><br><span class="line"><span class="attr">DHCP</span>=ipv6</span><br><span class="line"><span class="attr">Address</span>=<span class="number">192.168</span>.<span class="number">123.31</span>/<span class="number">24</span></span><br><span class="line"><span class="attr">Gateway</span>=<span class="number">192.168</span>.<span class="number">123.1</span></span><br><span class="line"><span class="attr">DNS</span>=<span class="number">192.168</span>.<span class="number">123.1</span></span><br><span class="line"><span class="attr">LLDP</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">EmitLLDP</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="安装-openmediavault"><a href="#安装-openmediavault" class="headerlink" title="安装 openmediavault"></a>安装 openmediavault</h2><p>参考<a href="https://openmediavault.readthedocs.io/en/5.x/installation/on_debian.html" target="_blank" rel="noopener">官方文档</a></p>
 <p>由于要安装的包比较多，建议先把Debian软件源替换成国内镜像，参考<a href="https://mirrors.tuna.tsinghua.edu.cn/help/debian/" target="_blank" rel="noopener">这个</a></p>
 <ol>
@@ -379,7 +391,8 @@
 </li>
 </ol>
 <h2 id="安装-omv-extras（可选）"><a href="#安装-omv-extras（可选）" class="headerlink" title="安装 omv-extras（可选）"></a>安装 omv-extras（可选）</h2><p>参考<a href="https://forum.openmediavault.org/index.php?thread/5549-omv-extras-org-plugin/" target="_blank" rel="noopener">官方文档</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash</span><br></pre></td></tr></table></figure></p>
-<h2 id="配置-openmediavault"><a href="#配置-openmediavault" class="headerlink" title="配置 openmediavault"></a>配置 openmediavault</h2><h3 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h3><ol>
+<h2 id="配置-openmediavault"><a href="#配置-openmediavault" class="headerlink" title="配置 openmediavault"></a>配置 openmediavault</h2><h3 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h3><p>OMV里的主机名和网络配置就配置成和上面配置文件里的一样，防止OMV的服务工作异常</p>
+<ol>
 <li><p>修改主机名，防止WSL默认主机名过长（必须小于15位），导致samba配置失败<br> <img src="http://image.runjf.com/mweb/2021-01-02-2021-01-02_180911.png" alt="2021-01-02_180911"></p>
 </li>
 <li><p>打开<code>系统 -&gt; 网络 -&gt; 添加 -&gt; 以太网</code>，配置网口ip，这里配置为DHCP自动获取<br> <img src="http://image.runjf.com/mweb/2021-01-02-2021-01-02_181342.png" alt="2021-01-02_181342"></p>
@@ -505,7 +518,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#WSL2-相关准备工作"><span class="nav-number">1.</span> <span class="nav-text">WSL2 相关准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-systemd"><span class="nav-number">2.</span> <span class="nav-text">安装 systemd</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-dotnet-源"><span class="nav-number">2.1.</span> <span class="nav-text">安装 dotnet 源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-systemd-genie"><span class="nav-number">2.2.</span> <span class="nav-text">安装 systemd-genie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认启动-systemd-genie"><span class="nav-number">2.3.</span> <span class="nav-text">默认启动 systemd-genie</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-openmediavault"><span class="nav-number">3.</span> <span class="nav-text">安装 openmediavault</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-omv-extras（可选）"><span class="nav-number">4.</span> <span class="nav-text">安装 omv-extras（可选）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-openmediavault"><span class="nav-number">5.</span> <span class="nav-text">配置 openmediavault</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统配置"><span class="nav-number">5.1.</span> <span class="nav-text">系统配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共享文件夹配置"><span class="nav-number">5.2.</span> <span class="nav-text">共享文件夹配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#WSL2-相关准备工作"><span class="nav-number">1.</span> <span class="nav-text">WSL2 相关准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-systemd"><span class="nav-number">2.</span> <span class="nav-text">安装 systemd</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-dotnet-源"><span class="nav-number">2.1.</span> <span class="nav-text">安装 dotnet 源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-systemd-genie"><span class="nav-number">2.2.</span> <span class="nav-text">安装 systemd-genie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认启动-systemd-genie"><span class="nav-number">2.3.</span> <span class="nav-text">默认启动 systemd-genie</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络相关配置"><span class="nav-number">3.</span> <span class="nav-text">网络相关配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主机名"><span class="nav-number">3.1.</span> <span class="nav-text">主机名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ip地址"><span class="nav-number">3.2.</span> <span class="nav-text">ip地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-openmediavault"><span class="nav-number">4.</span> <span class="nav-text">安装 openmediavault</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-omv-extras（可选）"><span class="nav-number">5.</span> <span class="nav-text">安装 omv-extras（可选）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-openmediavault"><span class="nav-number">6.</span> <span class="nav-text">配置 openmediavault</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统配置"><span class="nav-number">6.1.</span> <span class="nav-text">系统配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共享文件夹配置"><span class="nav-number">6.2.</span> <span class="nav-text">共享文件夹配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -775,7 +788,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">221k</span>
+    <span title="站点总字数">222k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

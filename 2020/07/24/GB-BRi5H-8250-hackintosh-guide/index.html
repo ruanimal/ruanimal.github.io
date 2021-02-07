@@ -76,7 +76,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-09-19-16004770939670.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-09-19-16004775381948.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-09-19-16004776841057.jpg">
-<meta property="og:updated_time" content="2020-09-28T02:13:54.324Z">
+<meta property="og:updated_time" content="2021-02-07T06:18:28.897Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="技嘉GB-BRi5H-8250黑苹果安装指南">
 <meta name="twitter:description" content="硬件信息GB-BRi5H-8250 准系统">
@@ -318,7 +318,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-28 10:13:54" itemprop="dateModified" datetime="2020-09-28T10:13:54+08:00">2020-09-28</time>
+                <time title="修改时间：2021-02-07 14:18:28" itemprop="dateModified" datetime="2021-02-07T14:18:28+08:00">2021-02-07</time>
               </span>
             
           
@@ -462,7 +462,7 @@
 <li><a href="https://github.com/corpnewt/ProperTree" target="_blank" rel="noopener">ProperTree</a>: 编辑OpenCore配置</li>
 <li><a href="https://github.com/corpnewt/GenSMBIOS" target="_blank" rel="noopener">GenSMBIOS</a>：用于生成苹果设备序列号信息</li>
 <li><a href="https://github.com/acidanthera/OpenCorePkg/releases" target="_blank" rel="noopener">OpenCorePkg</a>: OpenCore引导文件，注意下载release版本</li>
-<li><a href="https://github.com/corpnewt/gibMacOS" target="_blank" rel="noopener">gibMacOS</a>: 下载，制作macOS安装镜像</li>
+<li><del><a href="https://github.com/corpnewt/gibMacOS" target="_blank" rel="noopener">gibMacOS</a>: 下载，制作macOS安装镜像</del></li>
 <li><a href="https://www.ccleaner.com/speccy/download" target="_blank" rel="noopener">speccy</a>: 查看电脑硬件信息</li>
 </ul>
 <p>其他</p>
@@ -481,11 +481,7 @@
 <li>安装Windows系统，具体安装过程可以参考<a href="https://zhuanlan.zhihu.com/p/49181786" target="_blank" rel="noopener">这个教程</a>，注意安装时不要Windows分区不要占用所有空间，建议50G就好了。</li>
 <li>安装完成后，新建一个分区，后续作为macOS的安装分区，建议预留100G以上</li>
 </ol>
-<h3 id="macOS安装U盘制作"><a href="#macOS安装U盘制作" class="headerlink" title="macOS安装U盘制作"></a>macOS安装U盘制作</h3><h4 id="macOS准备"><a href="#macOS准备" class="headerlink" title="macOS准备"></a>macOS准备</h4><p>具体步骤参考<a href="https://dortania.github.io/OpenCore-Install-Guide/installer-guide/winblows-install.html#downloading-macos" target="_blank" rel="noopener">这个</a></p>
-<ol>
-<li>使用gibMacOS的gibMacOS.bat，下载最新macOS</li>
-<li>使用gibMacOS的MakeInstall.bat，制作安装U盘</li>
-</ol>
+<h3 id="macOS安装U盘制作"><a href="#macOS安装U盘制作" class="headerlink" title="macOS安装U盘制作"></a>macOS安装U盘制作</h3><h4 id="macOS准备"><a href="#macOS准备" class="headerlink" title="macOS准备"></a>macOS准备</h4><p>具体步骤参考<a href="https://dortania.github.io/OpenCore-Install-Guide/installer-guide/winblows-install.html#downloading-macos" target="_blank" rel="noopener">这个</a>，gibMacOS已被官方教程废弃<br><del>1. 使用gibMacOS的gibMacOS.bat，下载最新macOS</del><br><del>2. 使用gibMacOS的MakeInstall.bat，制作安装U盘</del></p>
 <h4 id="OpenCore文件准备"><a href="#OpenCore文件准备" class="headerlink" title="OpenCore文件准备"></a>OpenCore文件准备</h4><ol>
 <li>将下载的OpenCorePkg解压，复制EFI文件夹到U盘</li>
 <li>删除EFI文件夹中多余的文件，只保留以下内容<br> <img src="http://image.runjf.com/mweb/2020-07-25-15955829462860.png" alt></li>

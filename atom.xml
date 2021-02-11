@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ponder.work/"/>
-  <updated>2021-01-04T06:16:18.081Z</updated>
+  <updated>2021-02-11T13:20:32.227Z</updated>
   <id>http://ponder.work/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>优雅地使用 Pizza Boy GBA 金手指</title>
+    <link href="http://ponder.work/2021/02/11/pizza-boy-gba-cheat/"/>
+    <id>http://ponder.work/2021/02/11/pizza-boy-gba-cheat/</id>
+    <published>2021-02-11T10:00:00.000Z</published>
+    <updated>2021-02-11T13:20:32.227Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近偶然又玩起了GBA游戏，瞬间又像是回到了儿时的时光。也碰到了许久以来的老问题，如何作弊，毕竟游戏里刷资源和练级实在是体力劳动，年龄大了毕竟肝不动了。</p><p>先说一下，我现在玩GBA的平台是安卓的<code>Pizza Boy GBA</code>模拟器加游戏手柄，总体游戏体验感觉比GBA真机还好，毕竟现在的设备机能放在这，而且还有倍速播放相关功能。<br><a id="more"></a></p><h2 id="寻找金手指"><a href="#寻找金手指" class="headerlink" title="寻找金手指"></a>寻找金手指</h2><p>我这次玩的是<code>口袋妖怪叶绿386</code>改版，在网上找的金手指虽然说是386版本金手指，但是经过实际测试都是叶绿原版并不支持386，比如<a href="https://zhidao.baidu.com/question/445579878.html" target="_blank" rel="noopener">这个</a>。</p><p>金手指的原理其实和通用的单机游戏作弊工具（cheat engine, 金山游侠等）相同，都是修改游戏内存数据。其关键就是找到我们想改的数据的内存地址，所以常规方法都是通过工具搜索相关数值，比如金钱数量，一般要经过多次搜索，可以参考这个<a href="https://jingyan.baidu.com/article/67508eb45a30699cca1ce43d.html" target="_blank" rel="noopener">教程</a>。</p><p>但GBA好像有些不同，我也曾用cheat engine搜索过，并不能找到相关的内存地址，可能是模拟器的机制导致数值并不能被直接搜索。而且安卓手机上由于权限的问题，类似cheat engine这种读内存的机制肯定是需要root的，这条路就行不通了</p><p>最后还是只能走金手指的路子了，毕竟模拟器原生支持，所以又回到了最初的问题，怎么找到正确的金手指。</p><h3 id="VBA查找金手指功能"><a href="#VBA查找金手指功能" class="headerlink" title="VBA查找金手指功能"></a>VBA查找金手指功能</h3><p>幸好，Windows平台常用的GBA模拟器<a href="https://dl.3dmgame.com/patch/43400.html" target="_blank" rel="noopener">Visual Boy Advance（VBA）</a>带有金手指查找功能，所以先用VBA找到正确的金手指，然后再转换成<code>Piaaz Boy GBA</code>支持的金手指格式。</p><p>网上能找到的金手指一般是类似<code>03005102:63</code>格式的，冒号前后表示的是16进制表示的地址和对应的值。而网上找的金手指不对，肯定是因为前面的地址不对。</p><p>用VBA加载口袋妖怪叶绿386，先过一段剧情，来到第一个城市（常磐市）的商店，查看商品列表，并选择一个商品。<br><img src="media/16130438912515.jpg" alt="-w719"></p><p>打开菜单：金手指 -&gt; 查找金手指，点击开始，然后输入<code>21</code>，点击查找，可以看到有几十个变量。<br><img src="media/16130439513943.jpg" alt="-w415"></p><p>增加想购买的数量到<code>23</code>，然后再次输入23，点击查找，可以看到就剩余一个地址了，显然这个就是我们想要的，如果还有多个地址，就重复这两个流程，再次修改数量再查找。<br><img src="media/16130440969581.jpg" alt="-w1145"></p><p>选择这条地址记录，添加金手指，把数字设置为98，就会自动添加到金手指列表，并启用该金手指。<br><img src="media/16130443147566.jpg" alt="-w417"></p><p>金手指列表，我们添加的处于启用状态<br><img src="media/16130443911952.jpg" alt="-w417"></p><p>在游戏中确认购买，可以看到购买的数量变成98了，但是总价没有变，金手指生效了。<br><img src="media/16130443619423.jpg" alt="-w720"></p><h3 id="VBA内存查看器功能"><a href="#VBA内存查看器功能" class="headerlink" title="VBA内存查看器功能"></a>VBA内存查看器功能</h3><p>但是这金手指只能修改购买数量，不在商店列表里的商品并不能购买，所以我们必须找到当前选中商品对应的地址，再添加一条相关的金手指。</p><p>网上查到的金手指虽然地址不对，但是对应的值（道具的id）应该是对的，下面是口袋妖怪的一些道具id。<br><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">0001 </span>大师球</span><br><span class="line"><span class="symbol">0002 </span>超力怪兽球</span><br><span class="line"><span class="symbol">0003 </span>超级球（比怪兽球更厉害些）</span><br><span class="line"><span class="symbol">0004 </span>怪兽球（普通的球）</span><br><span class="line"><span class="symbol">0005 </span>砂狐球（砂狐乐园专用球）</span><br><span class="line"><span class="symbol">0006 </span>触网球（容易抓水和虫类的怪兽）</span><br><span class="line"><span class="symbol">0007 </span>大布斯球（容易抓海底的怪兽）</span><br><span class="line"><span class="symbol">0008 </span>尼斯道球（怪兽越弱越容易抓）</span><br><span class="line"><span class="symbol">0009 </span>利比道球（容易抓抓过的球）</span><br><span class="line"><span class="number">000</span>a 达伊玛球（回合数越长越容易抓）</span><br><span class="line"><span class="number">000</span>b 高基石球（抓到的怪兽变亲密）</span><br><span class="line"><span class="number">000</span>c 布雷密球（珍惜怪兽球）</span><br><span class="line"><span class="number">000d</span> 伤药（体力恢复<span class="number">20</span>）</span><br><span class="line"><span class="number">000e</span> 解毒药（恢复毒状态）</span><br></pre></td></tr></table></figure></p><p>由于已经找到了购买数量的地址，根据编程的常识，选中商品的地址应该也在这个地址附近。<br>所以打开<code>工具 -&gt; 内存查看器</code>定位到地址<code>030050C2</code><br><img src="media/16130463098787.jpg" alt="-w567"></p><p>在游戏中，分别选中“解毒药”和“伤药”，并观察内存变化（每次改动完点刷新）。<br><img src="media/16130465441636.jpg" alt="-w573"><br><img src="media/16130465892741.jpg" alt="-w569"></p><p>由上两张图可以看到，有个地址的值由<code>000E</code>变为<code>000D</code>，正好等于这两个道具的id。<br>所以该地址<code>030050CA</code>就是我们想要的商品地址，我们就增加一条金手指<code>030050CA:0001</code>将购买的商品改为大师球。<br><img src="media/16130466584391.jpg" alt="-w573"><br><img src="media/16130467943629.jpg" alt="-w419"></p><p>启用这两条金手指，在游戏中点击购买，可以看到生效了。<br><img src="media/16130468908224.jpg" alt="-w477"></p><h2 id="在Pizza-Boy-GBA上使用金手指"><a href="#在Pizza-Boy-GBA上使用金手指" class="headerlink" title="在Pizza Boy GBA上使用金手指"></a>在Pizza Boy GBA上使用金手指</h2><p>Pizza Boy GBA并不支持VBA格式的金手指，所以必须进行格式转换，由于VBA格式金手指和CodeBreaker格式金手指转换起来比较接近，只要将地址首位的<code>0</code>替换为<code>8</code>就行了。</p><p>转换前<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">030050<span class="selector-tag">C2</span><span class="selector-pseudo">:0062</span></span><br><span class="line">030050<span class="selector-tag">CA</span><span class="selector-pseudo">:0001</span></span><br></pre></td></tr></table></figure></p><p>转换后<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">830050</span>C2 <span class="number">0062</span></span><br><span class="line"><span class="number">830050</span>CA <span class="number">0001</span></span><br></pre></td></tr></table></figure></p><p><img src="media/16130489630989.jpg" alt><br><img src="media/16130489739025.jpg" alt></p><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>以上查找方法理论上对所有GBA游戏都适用，祝大家玩得愉快！！！</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol><li><a href="https://zhidao.baidu.com/question/445579878.html" target="_blank" rel="noopener">https://zhidao.baidu.com/question/445579878.html</a></li><li><a href="https://zhidao.baidu.com/question/1690370269971489228.html" target="_blank" rel="noopener">https://zhidao.baidu.com/question/1690370269971489228.html</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近偶然又玩起了GBA游戏，瞬间又像是回到了儿时的时光。也碰到了许久以来的老问题，如何作弊，毕竟游戏里刷资源和练级实在是体力劳动，年龄大了毕竟肝不动了。&lt;/p&gt;
+&lt;p&gt;先说一下，我现在玩GBA的平台是安卓的&lt;code&gt;Pizza Boy GBA&lt;/code&gt;模拟器加游戏手柄，总体游戏体验感觉比GBA真机还好，毕竟现在的设备机能放在这，而且还有倍速播放相关功能。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="工作生活" scheme="http://ponder.work/categories/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="游戏" scheme="http://ponder.work/tags/%E6%B8%B8%E6%88%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>在WSL2中安装openmediavault(OMV)</title>
@@ -513,31 +537,6 @@
       <category term="Python" scheme="http://ponder.work/tags/Python/"/>
     
       <category term="异步" scheme="http://ponder.work/tags/%E5%BC%82%E6%AD%A5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>自学的陷阱</title>
-    <link href="http://ponder.work/2020/05/17/%E8%87%AA%E5%AD%A6%E7%9A%84%E9%99%B7%E9%98%B1/"/>
-    <id>http://ponder.work/2020/05/17/%E8%87%AA%E5%AD%A6%E7%9A%84%E9%99%B7%E9%98%B1/</id>
-    <published>2020-05-17T03:17:00.000Z</published>
-    <updated>2020-06-23T08:00:41.782Z</updated>
-    
-    <content type="html"><![CDATA[<p>自己常年都在自学，在自学的路上走了很多弯路，到最后发现很多时候走的都是最艰难的或者是错误的道路，抑或是一直在尝试各种道路，从未选择一条坚持走下去。</p><a id="more"></a><p>举最熟悉的编程来说，它应该是最适合自学的领域了。网络上相关的学习资源也数不胜数，但是为何很多人最后进步很慢或者是干脆“从入门到放弃了”，究其原因大抵是走了错误的道路。</p><p>打开知乎，类似“如何学习编程”的问题数不胜数，也有很多人善意地给了自己的回答。记得我当年也问过类似的问题，有人说先从SICP入手吧，有人说直接LeetCode刷题，有人说学C，有人说学Python。或许一千个人就有一千种答案，但是到底哪个能帮助到你呢？每个人的答案，其实都是他过往经验的总结。</p><p>由于每个人的资质、禀赋、基础（下面统称为资质）并不相同，每个方法也有其适应人群和局限，照搬别人的路子只能是失败。越高资质的人（利根人），对于各种方法的兼容性越好，当然效果是有区别的。低资质的人（钝根人），越发体现方法的重要性。这里的方法就是学习的路径，佛家称之为法门。一切法门都是手段而已，都是为了最终能学到东西。</p><p>譬如爬山，有盘山公路，也有直接的楼梯，也有索道，并无绝对高下之分，只有合适与不合适。<br>体力不同能承受的坡度就不同，超出限度最后只能半途而废，所以得从这些路径上选择自己恰好能接受的那条路。当自学的时候，由于没有老师，我们很容易步入错误的道路，从而落入陷阱。</p><p>那么，如何适合自己的道路呢？首先要了解自己的的优劣势，明确目标，然后了解每条路径的特点（要求、效率、产出等）。<br>具体来说，逐条尝试路径，评估投入产出，做记录，并对比当前的目标（为了欣赏风景，还是锻炼身体），选择相对合适的路径。而且选择不应该是僵化的，应该持续地评估，因为的你会变、路会变、你和路之间还会变。当然不要去尝试所有的路径，一则时间精力有限，二则我们也不是路径测评师。</p><p>有朝一日学有所得，能够为人导师时，记得随人讲法。</p><p>最后，学习使我快乐。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;自己常年都在自学，在自学的路上走了很多弯路，到最后发现很多时候走的都是最艰难的或者是错误的道路，抑或是一直在尝试各种道路，从未选择一条坚持走下去。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="http://ponder.work/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-      <category term="随笔" scheme="http://ponder.work/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="学习方法" scheme="http://ponder.work/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"/>
     
   </entry>
   

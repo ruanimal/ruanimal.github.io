@@ -76,7 +76,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-09-19-16004770939670.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-09-19-16004775381948.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-09-19-16004776841057.jpg">
-<meta property="og:updated_time" content="2021-02-07T06:18:28.897Z">
+<meta property="og:updated_time" content="2021-03-10T08:41:13.579Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="技嘉GB-BRi5H-8250黑苹果安装指南">
 <meta name="twitter:description" content="硬件信息GB-BRi5H-8250 准系统">
@@ -318,7 +318,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-07 14:18:28" itemprop="dateModified" datetime="2021-02-07T14:18:28+08:00">2021-02-07</time>
+                <time title="修改时间：2021-03-10 16:41:13" itemprop="dateModified" datetime="2021-03-10T16:41:13+08:00">2021-03-10</time>
               </span>
             
           
@@ -345,7 +345,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>5.1k</span>
+              <span>5.2k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -446,8 +446,8 @@
 </ul>
 <h3 id="不正常工作项目"><a href="#不正常工作项目" class="headerlink" title="不正常工作项目"></a>不正常工作项目</h3><ul>
 <li>系统偏好设置-节能（错误识别为有电池）<br>  <img src="http://image.runjf.com/mweb/2020-07-25-15956404046858.jpg" alt></li>
-<li>HDMI睡眠唤醒，有时屏幕黑屏，需要按一下屏幕开关；DP睡眠正常</li>
-<li>显示器喇叭开机时不正常，拔插接口后或者开关屏幕电源后正常。</li>
+<li>HDMI睡眠唤醒，有时屏幕黑屏，需要按一下屏幕开关；DP睡眠正常 (添加启动参数<code>igfxonln=1</code>应该可以解决)</li>
+<li>显示器喇叭开机时不正常，拔插接口后或者开关屏幕电源后正常。(添加启动参数<code>igfxonln=1</code>应该可以解决)</li>
 </ul>
 <h2 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h2><p>安装过程大部分参考<a href="https://dortania.github.io/OpenCore-Install-Guide/" target="_blank" rel="noopener">dortania</a>，这里采用的是双系统安装方法。</p>
 <p>先安装Windows10, 然后在Windows10下配置OpenCore，制作macOS安装镜像。</p>

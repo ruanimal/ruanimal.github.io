@@ -45,8 +45,8 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
       copy_button: '复制',
@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="以vmware虚拟机为例   设置IP运行 sudo nano /etc/network/interfaces将文件修改成如下：12345auto eth0  # eth0是网卡名称，你的不一定是这个，可通过ifconfig查看iface eth0 inet staticaddress 192.168.157.129   # 地址gateway 192.168.157.2    # 网关netma">
-<meta name="keywords" content="linux,ubuntu">
+  <meta name="description" content="以vmware虚拟机为例 设置IP运行 sudo nano /etc/network/interfaces将文件修改成如下：12345auto eth0  # eth0是网卡名称，你的不一定是这个，可通过ifconfig查看iface eth0 inet staticaddress 192.168.157.129   # 地址gateway 192.168.157.2    # 网关netmask">
+<meta name="keywords" content="Linux,Ubuntu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ubuntu静态ip配置">
 <meta property="og:url" content="http://ponder.work/2016/04/16/ubuntu静态ip配置/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="以vmware虚拟机为例   设置IP运行 sudo nano /etc/network/interfaces将文件修改成如下：12345auto eth0  # eth0是网卡名称，你的不一定是这个，可通过ifconfig查看iface eth0 inet staticaddress 192.168.157.129   # 地址gateway 192.168.157.2    # 网关netma">
+<meta property="og:description" content="以vmware虚拟机为例 设置IP运行 sudo nano /etc/network/interfaces将文件修改成如下：12345auto eth0  # eth0是网卡名称，你的不一定是这个，可通过ifconfig查看iface eth0 inet staticaddress 192.168.157.129   # 地址gateway 192.168.157.2    # 网关netmask">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-30T13:52:12.722Z">
+<meta property="og:updated_time" content="2021-03-25T11:56:15.197Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu静态ip配置">
-<meta name="twitter:description" content="以vmware虚拟机为例   设置IP运行 sudo nano /etc/network/interfaces将文件修改成如下：12345auto eth0  # eth0是网卡名称，你的不一定是这个，可通过ifconfig查看iface eth0 inet staticaddress 192.168.157.129   # 地址gateway 192.168.157.2    # 网关netma">
+<meta name="twitter:description" content="以vmware虚拟机为例 设置IP运行 sudo nano /etc/network/interfaces将文件修改成如下：12345auto eth0  # eth0是网卡名称，你的不一定是这个，可通过ifconfig查看iface eth0 inet staticaddress 192.168.157.129   # 地址gateway 192.168.157.2    # 网关netmask">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2016/04/16/ubuntu静态ip配置/">
 
@@ -238,11 +238,38 @@
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
   </ul>
 
     
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -306,7 +333,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-30 21:52:12" itemprop="dateModified" datetime="2020-04-30T21:52:12+08:00">2020-04-30</time>
+                <time title="修改时间：2021-03-25 19:56:15" itemprop="dateModified" datetime="2021-03-25T19:56:15+08:00">2021-03-25</time>
               </span>
             
           
@@ -356,7 +383,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>以vmware虚拟机为例  </p>
+        <p>以vmware虚拟机为例</p>
 <h2 id="设置IP"><a href="#设置IP" class="headerlink" title="设置IP"></a>设置IP</h2><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">auto eth0  # eth0是网卡名称，你的不一定是这个，可通过ifconfig查看</span><br><span class="line">iface eth0 inet static</span><br><span class="line">address 192.168.157.129   # 地址</span><br><span class="line">gateway 192.168.157.2    # 网关</span><br><span class="line">netmask 255.255.255.0   # 掩码</span><br></pre></td></tr></table></figure></p>
 <h2 id="修改DNS"><a href="#修改DNS" class="headerlink" title="修改DNS"></a>修改DNS</h2><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
 
@@ -390,9 +417,9 @@
           
           <div class="post-tags">
             
-              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
             
-              <a href="/tags/ubuntu/" rel="tag"># ubuntu</a>
+              <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
             
           </div>
         
@@ -481,7 +508,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -651,7 +678,21 @@
         
           
         
-        <span class="site-state-item-count">66</span>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -738,12 +779,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">224k</span>
+    <span title="站点总字数">227k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:40</span>
+    <span title="站点阅读时长">4:44</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -849,6 +890,8 @@ window.addEventListener('pjax:success', () => {
 
 
 
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
 
 
 

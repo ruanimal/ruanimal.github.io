@@ -45,8 +45,8 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
       copy_button: '复制',
@@ -58,7 +58,7 @@
 </script>
 
   <meta name="description" content="硬件信息GB-BRi5H-8250 准系统">
-<meta name="keywords" content="hackintosh,电子产品">
+<meta name="keywords" content="电子产品,Hackintosh">
 <meta property="og:type" content="article">
 <meta property="og:title" content="技嘉GB-BRi5H-8250黑苹果安装指南">
 <meta property="og:url" content="http://ponder.work/2020/07/24/GB-BRi5H-8250-hackintosh-guide/index.html">
@@ -76,7 +76,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-09-19-16004770939670.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-09-19-16004775381948.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-09-19-16004776841057.jpg">
-<meta property="og:updated_time" content="2021-03-10T08:41:13.579Z">
+<meta property="og:updated_time" content="2021-03-25T11:53:53.809Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="技嘉GB-BRi5H-8250黑苹果安装指南">
 <meta name="twitter:description" content="硬件信息GB-BRi5H-8250 准系统">
@@ -250,11 +250,38 @@
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
   </ul>
 
     
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -318,7 +345,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-10 16:41:13" itemprop="dateModified" datetime="2021-03-10T16:41:13+08:00">2021-03-10</time>
+                <time title="修改时间：2021-03-25 19:53:53" itemprop="dateModified" datetime="2021-03-25T19:53:53+08:00">2021-03-25</time>
               </span>
             
           
@@ -345,7 +372,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>5.2k</span>
+              <span>5.1k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -446,8 +473,8 @@
 </ul>
 <h3 id="不正常工作项目"><a href="#不正常工作项目" class="headerlink" title="不正常工作项目"></a>不正常工作项目</h3><ul>
 <li>系统偏好设置-节能（错误识别为有电池）<br>  <img src="http://image.runjf.com/mweb/2020-07-25-15956404046858.jpg" alt></li>
-<li>HDMI睡眠唤醒，有时屏幕黑屏，需要按一下屏幕开关；DP睡眠正常 (添加启动参数<code>igfxonln=1</code>应该可以解决)</li>
-<li>显示器喇叭开机时不正常，拔插接口后或者开关屏幕电源后正常。(添加启动参数<code>igfxonln=1</code>应该可以解决)</li>
+<li>HDMI睡眠唤醒，有时屏幕黑屏，需要按一下屏幕开关；DP睡眠正常</li>
+<li>显示器喇叭开机时不正常，拔插接口后或者开关屏幕电源后正常。</li>
 </ul>
 <h2 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h2><p>安装过程大部分参考<a href="https://dortania.github.io/OpenCore-Install-Guide/" target="_blank" rel="noopener">dortania</a>，这里采用的是双系统安装方法。</p>
 <p>先安装Windows10, 然后在Windows10下配置OpenCore，制作macOS安装镜像。</p>
@@ -643,9 +670,9 @@
           
           <div class="post-tags">
             
-              <a href="/tags/hackintosh/" rel="tag"># hackintosh</a>
-            
               <a href="/tags/电子产品/" rel="tag"># 电子产品</a>
+            
+              <a href="/tags/Hackintosh/" rel="tag"># Hackintosh</a>
             
           </div>
         
@@ -734,7 +761,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -904,7 +931,21 @@
         
           
         
-        <span class="site-state-item-count">66</span>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -991,12 +1032,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">224k</span>
+    <span title="站点总字数">227k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:40</span>
+    <span title="站点阅读时长">4:44</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -1102,6 +1143,8 @@ window.addEventListener('pjax:success', () => {
 
 
 
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
 
 
 

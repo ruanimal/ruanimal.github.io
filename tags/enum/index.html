@@ -45,8 +45,8 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
       copy_button: '复制',
@@ -60,7 +60,7 @@
   <meta name="description" content="学习 思考 行动 Python">
 <meta property="og:type" content="website">
 <meta property="og:title" content="逸思杂陈">
-<meta property="og:url" content="http://ponder.work/tags/enum/index.html">
+<meta property="og:url" content="http://ponder.work/tags/Enum/index.html">
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="学习 思考 行动 Python">
 <meta property="og:locale" content="zh-CN">
@@ -68,7 +68,7 @@
 <meta name="twitter:title" content="逸思杂陈">
 <meta name="twitter:description" content="学习 思考 行动 Python">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
-  <link rel="canonical" href="http://ponder.work/tags/enum/">
+  <link rel="canonical" href="http://ponder.work/tags/Enum/">
 
 
 <script id="page-configurations">
@@ -82,7 +82,7 @@
   };
 </script>
 
-  <title>标签: enum | 逸思杂陈</title>
+  <title>标签: Enum | 逸思杂陈</title>
   <meta name="generator" content="Hexo 3.9.0">
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134911454-2"></script>
@@ -236,6 +236,12 @@
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
   </ul>
 
     
@@ -265,6 +271,27 @@
   
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -289,7 +316,7 @@
   <div class="post-block tag">
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1 class="collection-header">enum<small>标签</small>
+        <h1 class="collection-header">Enum<small>标签</small>
         </h1>
       </div>
 
@@ -380,7 +407,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -550,7 +577,21 @@
         
           
         
-        <span class="site-state-item-count">66</span>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -637,12 +678,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">224k</span>
+    <span title="站点总字数">227k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:40</span>
+    <span title="站点阅读时长">4:44</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -748,6 +789,8 @@ window.addEventListener('pjax:success', () => {
 
 
 
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
 
 
 

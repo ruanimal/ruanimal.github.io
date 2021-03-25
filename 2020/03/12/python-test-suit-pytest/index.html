@@ -45,8 +45,8 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
       copy_button: '复制',
@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="简介pytest是一个非常成熟的全功能的Python测试框架, 简单灵活, 容易上手, 具有很多第三方插件，并且可以自定义扩展. 安装1pip install pytest 使用简单例子先写个测试代码tmp.py12345678def add(a, b):    return a + b def test_add():    assert add(1, 1) == 2    def test_ad">
-<meta name="keywords" content="Python,pytest">
+  <meta name="description" content="简介pytest是一个非常成熟的全功能的Python测试框架, 简单灵活, 容易上手, 具有很多第三方插件，并且可以自定义扩展. 安装1pip install pytest 使用简单例子先写个测试代码tmp.py12345678def add(a, b):    return a + bdef test_add():    assert add(1, 1) == 2def test_add_fai">
+<meta name="keywords" content="Python,Pytest">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用Pytest测试Python代码">
 <meta property="og:url" content="http://ponder.work/2020/03/12/python-test-suit-pytest/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="简介pytest是一个非常成熟的全功能的Python测试框架, 简单灵活, 容易上手, 具有很多第三方插件，并且可以自定义扩展. 安装1pip install pytest 使用简单例子先写个测试代码tmp.py12345678def add(a, b):    return a + b def test_add():    assert add(1, 1) == 2    def test_ad">
+<meta property="og:description" content="简介pytest是一个非常成熟的全功能的Python测试框架, 简单灵活, 容易上手, 具有很多第三方插件，并且可以自定义扩展. 安装1pip install pytest 使用简单例子先写个测试代码tmp.py12345678def add(a, b):    return a + bdef test_add():    assert add(1, 1) == 2def test_add_fai">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-12T13:53:22.137Z">
+<meta property="og:updated_time" content="2021-03-25T11:55:50.197Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用Pytest测试Python代码">
-<meta name="twitter:description" content="简介pytest是一个非常成熟的全功能的Python测试框架, 简单灵活, 容易上手, 具有很多第三方插件，并且可以自定义扩展. 安装1pip install pytest 使用简单例子先写个测试代码tmp.py12345678def add(a, b):    return a + b def test_add():    assert add(1, 1) == 2    def test_ad">
+<meta name="twitter:description" content="简介pytest是一个非常成熟的全功能的Python测试框架, 简单灵活, 容易上手, 具有很多第三方插件，并且可以自定义扩展. 安装1pip install pytest 使用简单例子先写个测试代码tmp.py12345678def add(a, b):    return a + bdef test_add():    assert add(1, 1) == 2def test_add_fai">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2020/03/12/python-test-suit-pytest/">
 
@@ -238,11 +238,38 @@
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
   </ul>
 
     
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -295,11 +322,19 @@
                 
               
 
-              <time title="创建时间：2020-03-12 09:48:00 / 修改时间：21:53:22" itemprop="dateCreated datePublished" datetime="2020-03-12T09:48:00+08:00">2020-03-12</time>
+              <time title="创建时间：2020-03-12 09:48:00" itemprop="dateCreated datePublished" datetime="2020-03-12T09:48:00+08:00">2020-03-12</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-25 19:55:50" itemprop="dateModified" datetime="2021-03-25T19:55:50+08:00">2021-03-25</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -350,14 +385,14 @@
       
         <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>pytest是一个非常成熟的全功能的Python测试框架, 简单灵活, 容易上手, 具有很多第三方插件，并且可以自定义扩展.</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> pytest</span><br></pre></td></tr></table></figure>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="简单例子"><a href="#简单例子" class="headerlink" title="简单例子"></a>简单例子</h3><p>先写个测试代码<code>tmp.py</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> a + b </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_add</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">assert</span> add(<span class="number">1</span>, <span class="number">1</span>) == <span class="number">2</span></span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_add_fail</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">assert</span> add(<span class="number">1</span>, <span class="number">2</span>) == <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="简单例子"><a href="#简单例子" class="headerlink" title="简单例子"></a>简单例子</h3><p>先写个测试代码<code>tmp.py</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_add</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">assert</span> add(<span class="number">1</span>, <span class="number">1</span>) == <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_add_fail</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">assert</span> add(<span class="number">1</span>, <span class="number">2</span>) == <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
 <p>使用方法<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">usage</span>: <span class="selector-tag">py</span><span class="selector-class">.test</span> <span class="selector-attr">[options]</span> <span class="selector-attr">[file_or_dir]</span> <span class="selector-attr">[file_or_dir]</span> <span class="selector-attr">[...]</span></span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <p>所以我们执行 <code>pytest tmp.py</code></p>
 <p>输出结果, 两个测试用例一个通过一个失败, 通过用绿色 <font color="green">.</font> 表示, 失败红色 <font color="red">F</font> 表示.<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">=============================== test session starts ===============================</span><br><span class="line">platform darwin -- Python 3.6.9, pytest-5.2.0, py-1.8.0, pluggy-0.13.0</span><br><span class="line">rootdir: /Users/ruan/projects</span><br><span class="line">plugins: pylint-0.15.1, mypy-0.5.0, celery-4.3.0</span><br><span class="line">collected 2 items</span><br><span class="line"></span><br><span class="line">tmp.py .F                                                                   [100%]</span><br><span class="line"></span><br><span class="line">==================================== FAILURES =====================================</span><br><span class="line"><span class="strong">_____</span><span class="strong">_____</span><span class="strong">_____</span><span class="strong">_____</span><span class="strong">_____</span><span class="strong">_____</span><span class="strong">____ test_add_fail __</span><span class="strong">_____</span><span class="strong">_____</span><span class="strong">_____</span><span class="strong">_____</span><span class="strong">_____</span><span class="strong">_____</span>__</span><br><span class="line"></span><br><span class="line"><span class="code">    def test_add_fail():</span></span><br><span class="line"><span class="quote">&gt;       assert add(1, 2) == 2</span></span><br><span class="line">E       assert 3 == 2</span><br><span class="line">E        +  where 3 = add(1, 2)</span><br><span class="line"></span><br><span class="line">tmp.py:92: AssertionError</span><br><span class="line">=========================== 1 failed, 1 passed in 0.10s ===========================</span><br></pre></td></tr></table></figure></p>
-<h3 id="用例查找规则"><a href="#用例查找规则" class="headerlink" title="用例查找规则"></a>用例查找规则</h3><p>测试用例目录优先级: <code>命令行参数目录 &gt; 配置文件中的testpaths配置项 &gt; 当前目录</code> </p>
+<h3 id="用例查找规则"><a href="#用例查找规则" class="headerlink" title="用例查找规则"></a>用例查找规则</h3><p>测试用例目录优先级: <code>命令行参数目录 &gt; 配置文件中的testpaths配置项 &gt; 当前目录</code></p>
 <p>支持的配置文件: pytest.ini，tox.ini，setup.cfg</p>
-<p>测试用例查找规则: </p>
+<p>测试用例查找规则:</p>
 <ul>
 <li>如果当前目录在包中, 则以该包的顶级目录作为工作目录(向上查找, 第一个不包含<code>__init__.py</code>的目录)</li>
 <li>递归遍历目录，除非目录指定了不递归参数<code>norecursedirs</code></li>
@@ -382,7 +417,7 @@
 </li>
 </ul>
 <h3 id="编写测试用例"><a href="#编写测试用例" class="headerlink" title="编写测试用例"></a>编写测试用例</h3><h4 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h4><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">import</span> pytest</span><br><span class="line"></span><br><span class="line"><span class="comment"># 简单断言</span></span><br><span class="line"><span class="keyword">assert</span> <span class="number">1</span> + <span class="number">1</span> == <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 断言发生异常</span></span><br><span class="line"><span class="keyword">with</span> pytest.raises(ZeroDivisionError):</span><br><span class="line">    <span class="number">1</span> / <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<h4 id="Fixtures"><a href="#Fixtures" class="headerlink" title="Fixtures"></a>Fixtures</h4><p><code>fixture</code> 是 pytest 特有的功能，它用 pytest.fixture 标识，定义在函数前面, 起到依赖注入的作用. </p>
+<h4 id="Fixtures"><a href="#Fixtures" class="headerlink" title="Fixtures"></a>Fixtures</h4><p><code>fixture</code> 是 pytest 特有的功能，它用 pytest.fixture 标识，定义在函数前面, 起到依赖注入的作用.</p>
 <p>在编写测试函数的时候，可以将此函数名称做为传入参数，pytest 将会以依赖注入方式，将该函数的返回值作为测试函数的传入参数。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"></span><br><span class="line"><span class="comment"># fixtures documentation order example</span></span><br><span class="line">order = []</span><br><span class="line"></span><br><span class="line"><span class="meta">@pytest.fixture(scope="session")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">s1</span><span class="params">()</span>:</span></span><br><span class="line">    order.append(<span class="string">"s1"</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@pytest.fixture(scope="module")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">m1</span><span class="params">()</span>:</span></span><br><span class="line">    order.append(<span class="string">"m1"</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@pytest.fixture</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">(f3)</span>:</span></span><br><span class="line">    order.append(<span class="string">"f1"</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@pytest.fixture</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f3</span><span class="params">()</span>:</span></span><br><span class="line">    order.append(<span class="string">"f3"</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@pytest.fixture(autouse=True)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">a1</span><span class="params">()</span>:</span></span><br><span class="line">    order.append(<span class="string">"a1"</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@pytest.fixture</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">()</span>:</span></span><br><span class="line">    order.append(<span class="string">"f2"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_order</span><span class="params">(f1, m1, f2, s1)</span>:</span></span><br><span class="line">    <span class="keyword">assert</span> order == [<span class="string">"s1"</span>, <span class="string">"m1"</span>, <span class="string">"a1"</span>, <span class="string">"f3"</span>, <span class="string">"f1"</span>, <span class="string">"f2"</span>]</span><br></pre></td></tr></table></figure>
 <p>fixture接收<code>scope</code>和<code>autouse</code>参数<br>不同的scope表明了fixture的作用访问和执行先后顺序, 以下fixture执行顺序从上到下依次执行. 同级别是fixture按照依赖关系决定先后次序.<br>autouse参数决定了fixture是自动执行, 还是在被用做参数传入时才执行</p>
@@ -395,11 +430,11 @@
 <h4 id="setUp-amp-tearDown"><a href="#setUp-amp-tearDown" class="headerlink" title="setUp &amp; tearDown"></a>setUp &amp; tearDown</h4><p><code>setup\teardown</code> 是指在模块、函数、类开始运行以及结束运行时执行一些动作。</p>
 <p>例如: 数据库连接管理, 临时文件清理.</p>
 <p>pytest支持的<code>setup\teardown</code>钩子</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模块级别</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setup_module</span><span class="params">(module)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">teardown_module</span><span class="params">(module)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 类级别</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestA</span>:</span></span><br><span class="line"><span class="meta">	@classmethod</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">setup_class</span><span class="params">(cls)</span>:</span></span><br><span class="line">	    <span class="keyword">pass</span></span><br><span class="line">	</span><br><span class="line"><span class="meta">	@classmethod</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">teardown_class</span><span class="params">(cls)</span>:</span></span><br><span class="line">	    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># 方法级别</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">setup_method</span><span class="params">(self, method)</span>:</span></span><br><span class="line">	    <span class="keyword">pass</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">teardown_method</span><span class="params">(self, method)</span>:</span></span><br><span class="line">	    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数级别</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setup_function</span><span class="params">(function)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">teardown_function</span><span class="params">(function)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line"><span class="comment"># 会话级别</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pytest_sessionstart</span><span class="params">(session)</span>:</span></span><br><span class="line">    <span class="comment"># setup_stuff</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pytest_sessionfinish</span><span class="params">(session, exitstatus)</span>:</span></span><br><span class="line">    <span class="comment"># teardown_stuff</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模块级别</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setup_module</span><span class="params">(module)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">teardown_module</span><span class="params">(module)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 类级别</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestA</span>:</span></span><br><span class="line"><span class="meta">	@classmethod</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">setup_class</span><span class="params">(cls)</span>:</span></span><br><span class="line">	    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="meta">	@classmethod</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">teardown_class</span><span class="params">(cls)</span>:</span></span><br><span class="line">	    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># 方法级别</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">setup_method</span><span class="params">(self, method)</span>:</span></span><br><span class="line">	    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">teardown_method</span><span class="params">(self, method)</span>:</span></span><br><span class="line">	    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数级别</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setup_function</span><span class="params">(function)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">teardown_function</span><span class="params">(function)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 会话级别</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pytest_sessionstart</span><span class="params">(session)</span>:</span></span><br><span class="line">    <span class="comment"># setup_stuff</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pytest_sessionfinish</span><span class="params">(session, exitstatus)</span>:</span></span><br><span class="line">    <span class="comment"># teardown_stuff</span></span><br></pre></td></tr></table></figure>
 <p>以上这些钩子, 也都可以用 fixture 的方式等效实现, 例如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@fixture(scope='session', autouse=True)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_fixture</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># setup_stuff</span></span><br><span class="line">    <span class="keyword">yield</span></span><br><span class="line">    <span class="comment"># teardown_stuff</span></span><br></pre></td></tr></table></figure>
 <h4 id="conftest-py"><a href="#conftest-py" class="headerlink" title="conftest.py"></a>conftest.py</h4><p>从广义理解，<code>conftest.py</code> 是一个本地的 <code>per-directory</code> 插件，在该文件中可以定义目录特定的 hooks 和 fixtures。</p>
-<p><code>pytest</code> 框架会在它测试的项目中寻找 conftest.py 文件，然后在这个文件中寻找针对整个目录的测试选项. </p>
+<p><code>pytest</code> 框架会在它测试的项目中寻找 conftest.py 文件，然后在这个文件中寻找针对整个目录的测试选项.</p>
 <p>总结起来，<code>conftest.py</code> 文件大致有如下几种功能：</p>
 <ul>
 <li><p><strong>Fixtures:</strong> 用于给测试用例提供静态的测试数据，其可以被所有的测试用于访问，除非指定了范围</p>
@@ -430,7 +465,7 @@
 <li>pytest-mypy: type hints 检查</li>
 </ul>
 <h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>可以在项目根目录放置<code>pytest.ini</code>来控制pytest的行为</p>
-<p>例如:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[pytest]</span></span><br><span class="line"><span class="attr">addopts</span> = --pylint --mypy <span class="comment">; 指定默认追加的参数</span></span><br><span class="line"><span class="comment">; testpaths = /home/test/ ; 测试用例路径</span></span><br><span class="line"><span class="comment">; minversion = 1.1 ; 依赖的pytest的最低版本</span></span><br><span class="line"><span class="comment">; norecursedirs = xx ; 不搜索测试用例的路径</span></span><br><span class="line"><span class="comment">; console_output_style ; 控制台测试报告格式</span></span><br><span class="line"><span class="comment">; 记录测试用例中用到的markers, 通过--markers参数可以显示出来</span></span><br><span class="line"><span class="comment">; markers = </span></span><br><span class="line"><span class="comment">;   webtest:  Run the webtest case</span></span><br><span class="line"><span class="comment">;   hello: Run the hello case</span></span><br></pre></td></tr></table></figure></p>
+<p>例如:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[pytest]</span></span><br><span class="line"><span class="attr">addopts</span> = --pylint --mypy <span class="comment">; 指定默认追加的参数</span></span><br><span class="line"><span class="comment">; testpaths = /home/test/ ; 测试用例路径</span></span><br><span class="line"><span class="comment">; minversion = 1.1 ; 依赖的pytest的最低版本</span></span><br><span class="line"><span class="comment">; norecursedirs = xx ; 不搜索测试用例的路径</span></span><br><span class="line"><span class="comment">; console_output_style ; 控制台测试报告格式</span></span><br><span class="line"><span class="comment">; 记录测试用例中用到的markers, 通过--markers参数可以显示出来</span></span><br><span class="line"><span class="comment">; markers =</span></span><br><span class="line"><span class="comment">;   webtest:  Run the webtest case</span></span><br><span class="line"><span class="comment">;   hello: Run the hello case</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://docs.pytest.org/en/latest/" target="_blank" rel="noopener">https://docs.pytest.org/en/latest/</a></li>
 <li><a href="http://blog.konghy.cn/2018/05/08/pytest/" target="_blank" rel="noopener">http://blog.konghy.cn/2018/05/08/pytest/</a></li>
@@ -469,7 +504,7 @@
             
               <a href="/tags/Python/" rel="tag"># Python</a>
             
-              <a href="/tags/pytest/" rel="tag"># pytest</a>
+              <a href="/tags/Pytest/" rel="tag"># Pytest</a>
             
           </div>
         
@@ -558,7 +593,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -728,7 +763,21 @@
         
           
         
-        <span class="site-state-item-count">66</span>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -815,12 +864,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">224k</span>
+    <span title="站点总字数">227k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:40</span>
+    <span title="站点阅读时长">4:44</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -926,6 +975,8 @@ window.addEventListener('pjax:success', () => {
 
 
 
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
 
 
 

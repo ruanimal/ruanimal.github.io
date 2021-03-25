@@ -45,8 +45,8 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
       copy_button: '复制',
@@ -58,7 +58,7 @@
 </script>
 
   <meta name="description" content="Windows Subsystem for Linux(WSL)从Version 1 (WSL1)升级到Version 2 (WSL2) 之后，底层实现方式发生了改变。 由于使用Hyper-V来实现WSL2，使得WSL更像虚拟机，一个能访问本地硬盘的虚拟机。这带来一些便利，能够把它当做独立服务器来使用，可玩性就增强很多。当然，这也导致WSL上的端口不能从外部访问到，总之有利有弊。 虽然能够配置端口">
-<meta name="keywords" content="linux,WSL">
+<meta name="keywords" content="WSL,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WSL2开启桥接网络">
 <meta property="og:url" content="http://ponder.work/2021/01/02/WSL2-bridge-mode/index.html">
@@ -67,7 +67,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-01-02-2021-01-02_171339.png">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-01-11-%E6%8D%95%E8%8E%B71.png">
-<meta property="og:updated_time" content="2021-01-11T03:05:45.892Z">
+<meta property="og:updated_time" content="2021-03-25T11:55:09.345Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WSL2开启桥接网络">
 <meta name="twitter:description" content="Windows Subsystem for Linux(WSL)从Version 1 (WSL1)升级到Version 2 (WSL2) 之后，底层实现方式发生了改变。 由于使用Hyper-V来实现WSL2，使得WSL更像虚拟机，一个能访问本地硬盘的虚拟机。这带来一些便利，能够把它当做独立服务器来使用，可玩性就增强很多。当然，这也导致WSL上的端口不能从外部访问到，总之有利有弊。 虽然能够配置端口">
@@ -241,11 +241,38 @@
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
   </ul>
 
     
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -309,7 +336,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-11 11:05:45" itemprop="dateModified" datetime="2021-01-11T11:05:45+08:00">2021-01-11</time>
+                <time title="修改时间：2021-03-25 19:55:09" itemprop="dateModified" datetime="2021-03-25T19:55:09+08:00">2021-03-25</time>
               </span>
             
           
@@ -367,16 +394,16 @@
 <h2 id="安装WSL2"><a href="#安装WSL2" class="headerlink" title="安装WSL2"></a>安装WSL2</h2><p>参考<a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-win10#manual-installation-steps" target="_blank" rel="noopener">官方文档</a>安装WSL2</p>
 <p>在PowerShell中执行以下命令</p>
 <ol>
-<li><p>启用WSL2 </p>
+<li><p>启用WSL2</p>
  <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe <span class="string">/online</span> <span class="string">/enable-feature</span> <span class="string">/featurename</span><span class="function">:Microsoft-Windows-Subsystem-Linux</span> <span class="string">/all</span> <span class="string">/norestart</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>启用虚拟机平台 </p>
+<li><p>启用虚拟机平台</p>
  <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe <span class="string">/online</span> <span class="string">/enable-feature</span> <span class="string">/featurename</span><span class="function">:VirtualMachinePlatform</span> <span class="string">/all</span> <span class="string">/norestart</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>启用Hyper-V </p>
+<li><p>启用Hyper-V</p>
  <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe <span class="string">/online</span> <span class="string">/enable-feature</span> <span class="string">/featurename</span><span class="function">:VirtualMachinePlatform</span> <span class="string">/all</span> <span class="string">/norestart</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>设置WSL2为默认 </p>
+<li><p>设置WSL2为默认</p>
  <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --<span class="keyword">set</span>-<span class="keyword">default</span>-version <span class="number">2</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
@@ -448,9 +475,9 @@
           
           <div class="post-tags">
             
-              <a href="/tags/linux/" rel="tag"># linux</a>
-            
               <a href="/tags/WSL/" rel="tag"># WSL</a>
+            
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
             
           </div>
         
@@ -539,7 +566,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -709,7 +736,21 @@
         
           
         
-        <span class="site-state-item-count">66</span>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -796,12 +837,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">224k</span>
+    <span title="站点总字数">227k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:40</span>
+    <span title="站点阅读时长">4:44</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -907,6 +948,8 @@ window.addEventListener('pjax:success', () => {
 
 
 
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
 
 
 

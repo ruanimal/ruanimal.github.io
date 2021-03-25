@@ -45,8 +45,8 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
       copy_button: '复制',
@@ -240,11 +240,38 @@
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
   </ul>
 
     
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -373,7 +400,7 @@
 <p>8位二进制位，能表示的256个数值，由于指数有正有负，标准规定从-127开始计数，也就是-127到128（与有符号数的实现不同），而且-127和128被用作特殊值处理，见下方<a href="#特殊值">特殊值</a>。</p>
 <p>同时，由于M的整数部分永远是1，我们可以只表示其小数部分，记为<code>N</code>。</p>
 <p>也就是最终可表示为 $s \times 2 ^ E \times (1+N)$ 。</p>
-<p>具体各部分拆解如下，其中 $a_0$ 到 $a_{31}$ 对应32个二进制位的值，为<code>0</code>或者<code>1</code>。</p>
+<p>具体各部分拆解如下，其中 $a<em>0$ 到 $a</em>{31}$ 对应32个二进制位的值，为<code>0</code>或者<code>1</code>。</p>
 <script type="math/tex; mode=display">s = (-1)^{a_{0}}</script><script type="math/tex; mode=display">E = -127 + a_{1}\times 2^{7} + a_{2}\times 2^{6} + \dots + a_{8}\times2^0</script><script type="math/tex; mode=display">N = a_{9}\times 2^{-1} + a_{10}\times 2^{-2} + \dots + a_{31}\times2^{-23}</script><p>以十进制的 $-5.0$ 为例，可表示为 $-1.25 \times 2 ^ 2$。那么，s=1，N=0.25，E=2。<br>具体来说</p>
 <script type="math/tex; mode=display">s=(-1)^1=-1</script><script type="math/tex; mode=display">E=-127 + 2^7 + 2^0 = 2</script><script type="math/tex; mode=display">N=2^{-2}=0.25</script><p><img src="http://image.runjf.com/mweb/2020-08-04-15965370742818.jpg" alt></p>
 <h2 id="特殊值"><a href="#特殊值" class="headerlink" title="特殊值"></a>特殊值</h2><p>这里有三个特殊值需要指出：</p>
@@ -638,7 +665,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -808,7 +835,21 @@
         
           
         
-        <span class="site-state-item-count">66</span>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -895,12 +936,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">224k</span>
+    <span title="站点总字数">227k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:40</span>
+    <span title="站点阅读时长">4:44</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -1006,6 +1047,8 @@ window.addEventListener('pjax:success', () => {
 
 
 
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
 
 
 

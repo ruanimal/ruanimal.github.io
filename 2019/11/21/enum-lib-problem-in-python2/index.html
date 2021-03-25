@@ -45,8 +45,8 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
       copy_button: '复制',
@@ -58,14 +58,14 @@
 </script>
 
   <meta name="description" content="缘起最近接手了一个82年的拉菲Python项目，简直酸爽。Python版本用的是2.7.5，里面用的第三方库各种老旧，潜藏了不少深坑。这次我们就先讲enum库的坑，其他有空再聊。 enum是一个枚举类型的第三方库，在Python3.4以后就作为官方库存在了，使用参考。所以如果用新版本的Python就不会存在这个问题了，版本老旧害死人啊。">
-<meta name="keywords" content="Python,enum">
+<meta name="keywords" content="Python,Enum">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python2 中 enum 枚举库诡异行为探究">
 <meta property="og:url" content="http://ponder.work/2019/11/21/enum-lib-problem-in-python2/index.html">
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="缘起最近接手了一个82年的拉菲Python项目，简直酸爽。Python版本用的是2.7.5，里面用的第三方库各种老旧，潜藏了不少深坑。这次我们就先讲enum库的坑，其他有空再聊。 enum是一个枚举类型的第三方库，在Python3.4以后就作为官方库存在了，使用参考。所以如果用新版本的Python就不会存在这个问题了，版本老旧害死人啊。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-12T09:35:41.285Z">
+<meta property="og:updated_time" content="2021-03-25T11:53:29.817Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python2 中 enum 枚举库诡异行为探究">
 <meta name="twitter:description" content="缘起最近接手了一个82年的拉菲Python项目，简直酸爽。Python版本用的是2.7.5，里面用的第三方库各种老旧，潜藏了不少深坑。这次我们就先讲enum库的坑，其他有空再聊。 enum是一个枚举类型的第三方库，在Python3.4以后就作为官方库存在了，使用参考。所以如果用新版本的Python就不会存在这个问题了，版本老旧害死人啊。">
@@ -238,11 +238,38 @@
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
   </ul>
 
     
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -306,7 +333,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-12 17:35:41" itemprop="dateModified" datetime="2021-01-12T17:35:41+08:00">2021-01-12</time>
+                <time title="修改时间：2021-03-25 19:53:29" itemprop="dateModified" datetime="2021-03-25T19:53:29+08:00">2021-03-25</time>
               </span>
             
           
@@ -362,7 +389,7 @@
 <h2 id="症状"><a href="#症状" class="headerlink" title="症状"></a>症状</h2><p>刚接手这个项目，在搭建环境的时候，装完依赖发现enum库不能按照预期工作（没有完善的requirements.txt是个坑）</p>
 <p><strong>正式环境</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.version</span><br><span class="line"><span class="string">'2.7.5 (default, Nov  2 2019, 14:10:22) \n[GCC 4.4.7 20120313 (Red Hat 4.4.7-23)]'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> enum <span class="keyword">import</span> Enum</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Weekday</span><span class="params">(Enum)</span>:</span></span><br><span class="line"><span class="meta">... </span>    Sun = <span class="number">0</span> <span class="comment"># Sun的value被设定为0</span></span><br><span class="line"><span class="meta">... </span>    Mon = <span class="number">1</span></span><br><span class="line"><span class="meta">... </span>    Tue = <span class="number">2</span></span><br><span class="line"><span class="meta">... </span>    Wed = <span class="number">3</span></span><br><span class="line"><span class="meta">... </span>    Thu = <span class="number">4</span></span><br><span class="line"><span class="meta">... </span>    Fri = <span class="number">5</span></span><br><span class="line"><span class="meta">... </span>    Sat = <span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(Weekday.Sun)</span><br><span class="line">&lt;type <span class="string">'int'</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Weekday.Sun</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>开发环境</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys </span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.version </span><br><span class="line"><span class="string">'2.7.16 (default, Oct 31 2019, 06:57:54) \n[GCC 4.4.7 20120313 (Red Hat 4.4.7-23)]'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> enum <span class="keyword">import</span> Enum                                                                                                         </span><br><span class="line"><span class="meta">... </span><span class="class"><span class="keyword">class</span> <span class="title">Weekday</span><span class="params">(Enum)</span>:</span></span><br><span class="line"><span class="meta">... </span>    Sun = <span class="number">0</span> <span class="comment"># Sun的value被设定为0</span></span><br><span class="line"><span class="meta">... </span>    Mon = <span class="number">1</span></span><br><span class="line"><span class="meta">... </span>    Tue = <span class="number">2</span></span><br><span class="line"><span class="meta">... </span>    Wed = <span class="number">3</span></span><br><span class="line"><span class="meta">... </span>    Thu = <span class="number">4</span></span><br><span class="line"><span class="meta">... </span>    Fri = <span class="number">5</span></span><br><span class="line"><span class="meta">... </span>    Sat = <span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(Weekday.Sun) </span><br><span class="line">&lt;enum <span class="string">'Weekday'</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Weekday.Sun.value</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.version</span><br><span class="line"><span class="string">'2.7.16 (default, Oct 31 2019, 06:57:54) \n[GCC 4.4.7 20120313 (Red Hat 4.4.7-23)]'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> enum <span class="keyword">import</span> Enum</span><br><span class="line"><span class="meta">... </span><span class="class"><span class="keyword">class</span> <span class="title">Weekday</span><span class="params">(Enum)</span>:</span></span><br><span class="line"><span class="meta">... </span>    Sun = <span class="number">0</span> <span class="comment"># Sun的value被设定为0</span></span><br><span class="line"><span class="meta">... </span>    Mon = <span class="number">1</span></span><br><span class="line"><span class="meta">... </span>    Tue = <span class="number">2</span></span><br><span class="line"><span class="meta">... </span>    Wed = <span class="number">3</span></span><br><span class="line"><span class="meta">... </span>    Thu = <span class="number">4</span></span><br><span class="line"><span class="meta">... </span>    Fri = <span class="number">5</span></span><br><span class="line"><span class="meta">... </span>    Sat = <span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(Weekday.Sun)</span><br><span class="line">&lt;enum <span class="string">'Weekday'</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Weekday.Sun.value</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
 <p>很明显可以看到，<code>Weekday.Sun</code>的行为在两个环境不一致（其实第一个库用法不对）。</p>
 <ul>
 <li>正式环境：<code>Weekday.Sun</code>的类型是<code>int</code></li>
@@ -420,7 +447,7 @@
             
               <a href="/tags/Python/" rel="tag"># Python</a>
             
-              <a href="/tags/enum/" rel="tag"># enum</a>
+              <a href="/tags/Enum/" rel="tag"># Enum</a>
             
           </div>
         
@@ -509,7 +536,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -679,7 +706,21 @@
         
           
         
-        <span class="site-state-item-count">66</span>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -766,12 +807,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">224k</span>
+    <span title="站点总字数">227k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:40</span>
+    <span title="站点阅读时长">4:44</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -877,6 +918,8 @@ window.addEventListener('pjax:success', () => {
 
 
 
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
 
 
 

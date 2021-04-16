@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ponder.work/"/>
-  <updated>2021-03-25T13:48:32.263Z</updated>
+  <updated>2021-04-16T09:49:58.141Z</updated>
   <id>http://ponder.work/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>gmtime 在多线程环境使用引发的 bug</title>
+    <link href="http://ponder.work/2021/04/15/gmtime-multi-thread-problem/"/>
+    <id>http://ponder.work/2021/04/15/gmtime-multi-thread-problem/</id>
+    <published>2021-04-15T13:48:00.000Z</published>
+    <updated>2021-04-16T09:49:58.141Z</updated>
+    
+    <content type="html"><![CDATA[<p>话接<a href="/2021/03/25/xgboost-multi-thread-problem-debug-and-fix/">上文</a>，还是这个 C++ 模型服务，在并发请求的情况下，大概有0.01%的请求部分模型分数不对。定位这种问题，对一个Python程序员来说，真是苦手。还好，经过调整代码不断测试，最终完美解决了问题。</p><a id="more"></a><h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>对比数据，可以发现和请求中的某个时间字段有关。关键逻辑代码如下，主要是一个时间差的计算。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// string date_str = "2019-01-01 00:00:00";</span></span><br><span class="line"><span class="comment">// string date_appl = "2012-01-01 00:00:00";</span></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">test_a</span><span class="params">(<span class="built_in">string</span>&amp; date_str, <span class="built_in">string</span>&amp; date_appl, tm&amp; tm_appl)</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">stringstream</span> <span class="title">ss</span><span class="params">(date_str.substr(<span class="number">0</span>,<span class="number">10</span>))</span></span>;</span><br><span class="line">    <span class="keyword">int</span> date_sec;</span><br><span class="line">    ss &gt;&gt; date_sec;  <span class="comment">// stringstream to int </span></span><br><span class="line">    <span class="keyword">time_t</span> ts_date_1 = date_sec + <span class="number">8</span>*<span class="number">3600</span>;</span><br><span class="line">    tm* tm_date = gmtime(&amp;ts_date_1);  <span class="comment">// timestemp to tm </span></span><br><span class="line">    tm_date-&gt;tm_hour = <span class="number">0</span>;</span><br><span class="line">    tm_date-&gt;tm_min = <span class="number">0</span>;</span><br><span class="line">    tm_date-&gt;tm_sec = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">double</span> seconds = difftime(mktime(&amp;tm_appl), mktime(tm_date)); <span class="comment">// diff timestemp</span></span><br><span class="line">    <span class="keyword">return</span> seconds;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>根据之前的经验，肯定是该函数内部某些操作非线程安全的, 通过google搜索（关键词: gmtime thread safe）和询问朋友，得到以下信息。</p><ul><li>stringstream to int: 这里date_sec变量不存在竞争条件，所以安全</li><li>gmtime: 不安全</li><li>mktime: 时区不变的情况下安全</li><li>difftime: 安全</li></ul><p>bug应该是来自<code>gmtime</code>，该函数返回的是tm结构体指针，指向的是一个 static 结构体，所以不是线程安全，可以用<code>gmtime_r</code>函数替换。</p><p>修改之后<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">test_a</span><span class="params">(<span class="built_in">string</span>&amp; date_str, <span class="built_in">string</span>&amp; date_appl, tm&amp; tm_appl)</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">stringstream</span> <span class="title">ss</span><span class="params">(date_str.substr(<span class="number">0</span>,<span class="number">10</span>))</span></span>;</span><br><span class="line">    <span class="keyword">int</span> date_sec;</span><br><span class="line">    ss &gt;&gt; date_sec;  <span class="comment">// stringstream to int </span></span><br><span class="line">    <span class="keyword">time_t</span> ts_date_1 = date_sec + <span class="number">8</span>*<span class="number">3600</span>;</span><br><span class="line">    tm tm_date;</span><br><span class="line">    gmtime_r(&amp;ts_date_1, &amp;tm_date);</span><br><span class="line">    tm_date.tm_hour = <span class="number">0</span>;</span><br><span class="line">    tm_date.tm_min = <span class="number">0</span>;</span><br><span class="line">    tm_date.tm_sec = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">double</span> seconds = difftime(mktime(&amp;tm_appl), mktime(&amp;tm_date));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>经过测试，bug得以解决。但是同时发现一个问题，程序的qps下降了1/3。</p><h2 id="QPS下降"><a href="#QPS下降" class="headerlink" title="QPS下降"></a>QPS下降</h2><p>编程测试代码测试对比<code>gmtime_r</code>和<code>gmtime</code>耗时上并没有显著差别。而且如果不调用<code>gmtime_r</code>只声明<code>tm tm_date</code>，qps也是一样下降。</p><p>考虑到这个函数，在服务中调用次数比较多，而且自动变量的栈空间在函数调用时就会分配, tm结构体又比较大，应该对耗时有影响。</p><p>尝试修改<code>tm tm_date</code>为<code>static tm tm_date</code>静态分配内存, qps恢复正常了。<br>但是由于我们需要在多线程环境中使用，最终修改为<code>static thread_local tm tm_date</code>。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://man7.org/linux/man-pages/man3/gmtime.3p.html#DESCRIPTION" target="_blank" rel="noopener">https://man7.org/linux/man-pages/man3/gmtime.3p.html#DESCRIPTION</a></li><li><a href="https://stackoverflow.com/questions/18355101/is-standard-c-mktime-thread-safe-on-linux#answer-18355323" target="_blank" rel="noopener">https://stackoverflow.com/questions/18355101/is-standard-c-mktime-thread-safe-on-linux#answer-18355323</a></li><li><a href="https://man7.org/linux/man-pages/man3/difftime.3.html#ATTRIBUTES" target="_blank" rel="noopener">https://man7.org/linux/man-pages/man3/difftime.3.html#ATTRIBUTES</a></li><li><a href="https://softwareengineering.stackexchange.com/questions/195385/understanding-stack-frame-of-function-call-in-c-c#answer-195406" target="_blank" rel="noopener">https://softwareengineering.stackexchange.com/questions/195385/understanding-stack-frame-of-function-call-in-c-c#answer-195406</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;话接&lt;a href=&quot;/2021/03/25/xgboost-multi-thread-problem-debug-and-fix/&quot;&gt;上文&lt;/a&gt;，还是这个 C++ 模型服务，在并发请求的情况下，大概有0.01%的请求部分模型分数不对。定位这种问题，对一个Python程序员来说，真是苦手。还好，经过调整代码不断测试，最终完美解决了问题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="编程" scheme="http://ponder.work/categories/%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="C++" scheme="http://ponder.work/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>xgboost C++线程安全问题定位与修复</title>
@@ -357,9 +380,9 @@
     
       <category term="Python" scheme="http://ponder.work/tags/Python/"/>
     
-      <category term="SWIG" scheme="http://ponder.work/tags/SWIG/"/>
-    
       <category term="C++" scheme="http://ponder.work/tags/C/"/>
+    
+      <category term="SWIG" scheme="http://ponder.work/tags/SWIG/"/>
     
   </entry>
   
@@ -511,35 +534,6 @@
     
     
       <category term="Python" scheme="http://ponder.work/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>简明双标指南</title>
-    <link href="http://ponder.work/2020/06/13/%E7%AE%80%E6%98%8E%E5%8F%8C%E6%A0%87%E6%8C%87%E5%8D%97/"/>
-    <id>http://ponder.work/2020/06/13/%E7%AE%80%E6%98%8E%E5%8F%8C%E6%A0%87%E6%8C%87%E5%8D%97/</id>
-    <published>2020-06-13T14:39:38.000Z</published>
-    <updated>2020-06-23T08:00:41.782Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近一段时期有很多事情发生，也颠覆了我们的认知（如I cannot breathe），同时也发现了很多双标事件。</p><p>下面就简单地总结下，如何双标。</p><p>双标的核心是，定性的看问题，不要就事论事具体分析。</p><p>双标的要点之一，选取部分真相进行概括定性。<br>这里的选取非常关键，我们应该选择性地看见我们想看见的东西。假如B捡了地上的一块钱并据为己有，贪小便宜不是君子所为，这人肯定是品行不端。假如A也这么干了，对不起我没有看见。假如A捡了垃圾放垃圾桶了，这时我们就可以说，从一件微不足道的事情上就可以看出A真是道德高尚。</p><p>双标的要点之二，定性之后的上纲上线。<br>由于第一步我们已经定性了A和B，以后再发生事情就很好处理了。假如都做了好事，A就是好人性质的体现，B因为他是坏人肯定是另有目的的，是伪装的。假如都做了坏事，反过来处理就好了。比如，你认定A是好人，B是坏人，假设他们都随地吐痰了。这时就可以说A肯定是不小心的，大善人怎么可能做这种事；可以说B真是狗改不了吃屎，连基本的公德心都没有。假设都做了好事，扶老奶奶过马路，A就是一以贯之的道德楷模，值得学习；B肯定是装的，为了方便自己做坏事。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;最近一段时期有很多事情发生，也颠覆了我们的认知（如I cannot breathe），同时也发现了很多双标事件。&lt;/p&gt;
-&lt;p&gt;下面就简单地总结下，如何双标。&lt;/p&gt;
-&lt;p&gt;双标的核心是，定性的看问题，不要就事论事具体分析。&lt;/p&gt;
-&lt;p&gt;双标的要点之一，选取部分真相进行概
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="http://ponder.work/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-      <category term="随笔" scheme="http://ponder.work/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   

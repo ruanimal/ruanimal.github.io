@@ -57,20 +57,23 @@
   };
 </script>
 
-  <meta name="description" content="哈希表元素节点123456789101112typedef struct dictEntry &amp;#123;    // 键，指向SDS(Redis字符串实现)    void *key;    // 值, 联合值, 可以是整数或者指针    union &amp;#123;        void *val;        uint64_t u64;        int64_t s64;    &amp;#12">
+  <meta name="description" content="这是Redis源码阅读系列第一篇文章。 dict 是 redis 最重要的数据结构，db、hash、以及服务器内部需要用到hashmap的场景都是用dict来实现的。学习 dict 的源码，我们可以学到hashmap的原理及实现。">
 <meta name="keywords" content="Redis,C">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis原理 —— dict 数据结构">
-<meta property="og:url" content="http://ponder.work/2021/04/17/redis-soure-code-data-structure-dict/index.html">
+<meta property="og:url" content="http://ponder.work/2021/04/17/redis-soure-code-dict/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="哈希表元素节点123456789101112typedef struct dictEntry &amp;#123;    // 键，指向SDS(Redis字符串实现)    void *key;    // 值, 联合值, 可以是整数或者指针    union &amp;#123;        void *val;        uint64_t u64;        int64_t s64;    &amp;#12">
+<meta property="og:description" content="这是Redis源码阅读系列第一篇文章。 dict 是 redis 最重要的数据结构，db、hash、以及服务器内部需要用到hashmap的场景都是用dict来实现的。学习 dict 的源码，我们可以学到hashmap的原理及实现。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-04-19T01:27:32.768Z">
+<meta property="og:image" content="http://image.runjf.com/mweb/2021-04-18-16187320239054.jpg">
+<meta property="og:image" content="http://image.runjf.com/mweb/2021-04-18-16187328149108.jpg">
+<meta property="og:updated_time" content="2021-04-18T08:48:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis原理 —— dict 数据结构">
-<meta name="twitter:description" content="哈希表元素节点123456789101112typedef struct dictEntry &amp;#123;    // 键，指向SDS(Redis字符串实现)    void *key;    // 值, 联合值, 可以是整数或者指针    union &amp;#123;        void *val;        uint64_t u64;        int64_t s64;    &amp;#12">
+<meta name="twitter:description" content="这是Redis源码阅读系列第一篇文章。 dict 是 redis 最重要的数据结构，db、hash、以及服务器内部需要用到hashmap的场景都是用dict来实现的。学习 dict 的源码，我们可以学到hashmap的原理及实现。">
+<meta name="twitter:image" content="http://image.runjf.com/mweb/2021-04-18-16187320239054.jpg">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
-  <link rel="canonical" href="http://ponder.work/2021/04/17/redis-soure-code-data-structure-dict/">
+  <link rel="canonical" href="http://ponder.work/2021/04/17/redis-soure-code-dict/">
 
 
 <script id="page-configurations">
@@ -294,7 +297,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2021/04/17/redis-soure-code-data-structure-dict/">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2021/04/17/redis-soure-code-dict/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jay.Run">
@@ -333,7 +336,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-19 09:27:32" itemprop="dateModified" datetime="2021-04-19T09:27:32+08:00">2021-04-19</time>
+                <time title="修改时间：2021-04-18 16:48:05" itemprop="dateModified" datetime="2021-04-18T16:48:05+08:00">2021-04-18</time>
               </span>
             
           
@@ -360,7 +363,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>654</span>
+              <span>3k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -370,7 +373,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>4 分钟</span>
             </span>
           
 
@@ -383,9 +386,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>哈希表元素节点<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> &#123;</span></span><br><span class="line">    <span class="comment">// 键，指向SDS(Redis字符串实现)</span></span><br><span class="line">    <span class="keyword">void</span> *key;</span><br><span class="line">    <span class="comment">// 值, 联合值, 可以是整数或者指针</span></span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        <span class="keyword">void</span> *val;</span><br><span class="line">        <span class="keyword">uint64_t</span> u64;</span><br><span class="line">        <span class="keyword">int64_t</span> s64;</span><br><span class="line">    &#125; v;</span><br><span class="line">    <span class="comment">// 指向下个哈希表节点，形成链表</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125; dictEntry;</span><br></pre></td></tr></table></figure></p>
+        <p>这是Redis源码阅读系列第一篇文章。</p>
+<p>dict 是 redis 最重要的数据结构，db、hash、以及服务器内部需要用到hashmap的场景都是用dict来实现的。学习 dict 的源码，我们可以学到hashmap的原理及实现。<br><a id="more"></a></p>
+<h2 id="dict-数据结构"><a href="#dict-数据结构" class="headerlink" title="dict 数据结构"></a>dict 数据结构</h2><p>哈希表元素节点<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> &#123;</span></span><br><span class="line">    <span class="comment">// 键，指向SDS(Redis字符串实现)</span></span><br><span class="line">    <span class="keyword">void</span> *key;</span><br><span class="line">    <span class="comment">// 值, 联合值, 可以是整数或者指针</span></span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        <span class="keyword">void</span> *val;</span><br><span class="line">        <span class="keyword">uint64_t</span> u64;</span><br><span class="line">        <span class="keyword">int64_t</span> s64;</span><br><span class="line">    &#125; v;</span><br><span class="line">    <span class="comment">// 指向下个哈希表节点，形成链表</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125; dictEntry;</span><br></pre></td></tr></table></figure></p>
 <p>哈希表<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictht</span> &#123;</span></span><br><span class="line">    <span class="comment">// 哈希表元素数组</span></span><br><span class="line">    dictEntry **table;</span><br><span class="line">    <span class="comment">// 哈希表大小，初始值为4</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> size;</span><br><span class="line">    <span class="comment">// 哈希表大小掩码，用于计算索引值，总是等于 size - 1</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> sizemask;</span><br><span class="line">    <span class="comment">// 该哈希表已有节点的数量</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> used;</span><br><span class="line">&#125; dictht;</span><br></pre></td></tr></table></figure></p>
-<p>字典<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dict</span> &#123;</span></span><br><span class="line">    <span class="comment">// 类型特定函数</span></span><br><span class="line">    dictType *type;</span><br><span class="line">    <span class="comment">// 私有数据</span></span><br><span class="line">    <span class="keyword">void</span> *privdata;</span><br><span class="line">    <span class="comment">// 哈希表</span></span><br><span class="line">    dictht ht[<span class="number">2</span>];</span><br><span class="line">    <span class="comment">// rehash 索引</span></span><br><span class="line">    <span class="comment">// 当 rehash 不在进行时，值为 -1</span></span><br><span class="line">    <span class="keyword">int</span> rehashidx; <span class="comment">/* rehashing not in progress if rehashidx == -1 */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 目前正在运行的安全迭代器的数量</span></span><br><span class="line">    <span class="keyword">int</span> iterators; <span class="comment">/* number of iterators currently running */</span></span><br><span class="line"></span><br><span class="line">&#125; dict;</span><br></pre></td></tr></table></figure></p>
+<p>字典<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dict</span> &#123;</span></span><br><span class="line">    <span class="comment">// 类型特定操作函数</span></span><br><span class="line">    dictType *type;</span><br><span class="line">    <span class="comment">// 私有数据，保存了需要传给那些类型特定函数的可选参数</span></span><br><span class="line">    <span class="keyword">void</span> *privdata;</span><br><span class="line">    <span class="comment">// 哈希表，ht[1]在rehash的时候使用</span></span><br><span class="line">    dictht ht[<span class="number">2</span>];</span><br><span class="line">    <span class="comment">// rehash 索引，当 rehash 不在进行时，值为 -1</span></span><br><span class="line">    <span class="keyword">int</span> rehashidx; </span><br><span class="line">    <span class="comment">// 目前正在运行的安全迭代器的数量</span></span><br><span class="line">    <span class="keyword">int</span> iterators;</span><br><span class="line">&#125; dict;</span><br></pre></td></tr></table></figure></p>
+<p>结构体，储存不同类型字典的操作函数指针，实现了多态<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictType</span> &#123;</span></span><br><span class="line">    <span class="comment">// 计算哈希值的函数</span></span><br><span class="line">    <span class="function"><span class="keyword">unsigned</span> <span class="title">int</span> <span class="params">(*hashFunction)</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *key)</span></span>;</span><br><span class="line">    <span class="comment">// 复制键的函数</span></span><br><span class="line">    <span class="keyword">void</span> *(*keyDup)(<span class="keyword">void</span> *privdata, <span class="keyword">const</span> <span class="keyword">void</span> *key);</span><br><span class="line">    <span class="comment">// 复制值的函数</span></span><br><span class="line">    <span class="keyword">void</span> *(*valDup)(<span class="keyword">void</span> *privdata, <span class="keyword">const</span> <span class="keyword">void</span> *obj);</span><br><span class="line">    <span class="comment">// 对比键的函数</span></span><br><span class="line">    <span class="keyword">int</span> (*keyCompare)(<span class="keyword">void</span> *privdata, <span class="keyword">const</span> <span class="keyword">void</span> *key1, <span class="keyword">const</span> <span class="keyword">void</span> *key2);</span><br><span class="line">    <span class="comment">// 销毁键的函数</span></span><br><span class="line">    <span class="keyword">void</span> (*keyDestructor)(<span class="keyword">void</span> *privdata, <span class="keyword">void</span> *key);</span><br><span class="line">    <span class="comment">// 销毁值的函数</span></span><br><span class="line">    <span class="keyword">void</span> (*valDestructor)(<span class="keyword">void</span> *privdata, <span class="keyword">void</span> *obj);</span><br><span class="line">&#125; dictType;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://image.runjf.com/mweb/2021-04-18-16187320239054.jpg" alt="-w789"></p>
+<h2 id="哈希算法"><a href="#哈希算法" class="headerlink" title="哈希算法"></a>哈希算法</h2><p>redis 的 dict 本质上就是个hashmap，其中的关键是哈希算法。</p>
+<p>哈希函数（英语：Hash function）又称散列算法、散列函数，是一种从任何一种数据中创建小的数字“指纹”的方法。散列函数把消息或数据压缩成摘要，使得数据量变小，将数据的格式固定下来。该函数将数据打乱混合，重新创建一个叫做散列值的指纹。</p>
+<p>比如取模函数就是一种最简单的对整数的哈希算法。</p>
+<p>当字典被用作数据库的底层实现，或者哈希键的底层实现时，Redis使用 <a href="https://zh.wikipedia.org/wiki/Murmur%E5%93%88%E5%B8%8C" target="_blank" rel="noopener">MurmurHash2</a> 算法来计算键的哈希值。</p>
+<p>具体求索引的过程</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求哈希值</span></span><br><span class="line">hash = dict-&gt;type-&gt;hashFunction(kO);</span><br><span class="line"><span class="comment">// 根据哈希值和掩码计算出元素节点索引</span></span><br><span class="line">index = hash &amp; dict-&gt;ht[<span class="number">0</span>].sizemask</span><br></pre></td></tr></table></figure>
+<h2 id="冲突解决"><a href="#冲突解决" class="headerlink" title="冲突解决"></a>冲突解决</h2><p>当有两个或以上数量的键被分配到了哈希表数组的同一个索引上面时，我们称这些键发生了冲突。</p>
+<p>Redis的哈希表使用链地址法（separate chaining) 来解决键冲突，每个哈希表节点都有一个next指针，多个哈希表节点可以用 next指针构成一个单向链表，被分配到同一个索 引上的多个节点可以用这个单向链表连接起来，这就解决了键冲突的问题。</p>
+<p><img src="http://image.runjf.com/mweb/2021-04-18-16187328149108.jpg" alt="-w722"></p>
+<p>还有一种常用的冲突解决办法是再哈希法，就是同时构造多个不同的哈希函数。<br>当H1 = hashfunc1(key) 发生冲突时，再用H2 = hashfunc1(key) 进行计算，直到冲突不再产生，这种方法不易产生聚集，但是增加了计算时间。</p>
+<h2 id="rehash"><a href="#rehash" class="headerlink" title="rehash"></a>rehash</h2><p>随着操作的不断执行，哈希表保存的键值对会逐渐地增多或者减少，为了让哈希表的负载因子（used/size)维持在一个合理的范围之内，程序需要对哈希表的大小进行相应的扩展或者收缩, 这个过程就是rehash。</p>
+<p>Redis对字典的哈希表执行rehash的步骤如下：</p>
+<ol>
+<li>为字典的<code>ht[1]</code>哈希表分配空间</li>
+<li>将保存在<code>ht[0]</code>中的所有键值对rehash到<code>ht[1]</code>上面：rehash指的是重新计算键的哈希值和索引值，然后将键值对放置到<code>ht[1]</code>哈希表的指定位置上</li>
+<li>全部复制完成后，释放<code>ht[0]</code>，将<code>ht[1]</code>设置为<code>ht[0]</code>，重置<code>ht[1]</code></li>
+</ol>
+<h3 id="渐进式-rehash"><a href="#渐进式-rehash" class="headerlink" title="渐进式 rehash"></a>渐进式 rehash</h3><p>所谓渐进式，是指rehash动作并不是一次性、集中式地完成的，而是分多次、渐进式地完成的。</p>
+<p>由于redis是单线程的, 哈希表里保存的键值对又可能非常多，一次性将这些键值对全部rehash到ht[1]，会导致服务器在一段时间内停止服务。</p>
+<p>所以需要渐进式 rehash，在字典的每个添加、删除 、查找和更新操作的时候，顺便进行部分元素的 rehash（目前实现是rehash一个元素），避免了集中式rehash而带来的庞大计算量。</p>
+<p>rehash 示例代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dictRehash</span><span class="params">(d: rDict, n: int)</span> -&gt; int:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> dictIsRehashing(d):  </span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">while</span> (n):</span><br><span class="line">        n -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> d.ht[<span class="number">0</span>].used == <span class="number">0</span>:  <span class="comment"># rehash 完成了</span></span><br><span class="line">            <span class="keyword">del</span> d.ht[<span class="number">0</span>].table</span><br><span class="line">            d.ht[<span class="number">0</span>] = c_assignment(d.ht[<span class="number">1</span>])</span><br><span class="line">            _dictReset(d.ht[<span class="number">1</span>])</span><br><span class="line">            d.rehashidx = <span class="number">-1</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">assert</span> d.ht[<span class="number">0</span>].size &gt; d.rehashidx</span><br><span class="line">        <span class="comment"># 找到第一个需要移动的元素</span></span><br><span class="line">        <span class="keyword">while</span> d.ht[<span class="number">0</span>].table[d.rehashidx] <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            d.rehashidx += <span class="number">1</span></span><br><span class="line">        de = d.ht[<span class="number">0</span>].table[d.rehashidx]</span><br><span class="line">        <span class="keyword">while</span> de:  <span class="comment"># 移动该元素（包含整个冲突链表）到ht[1]</span></span><br><span class="line">            nextde = de.next</span><br><span class="line">            h = dictHashKey(d, de.key) &amp; d.ht[<span class="number">1</span>].sizemask</span><br><span class="line">            de.next = d.ht[<span class="number">1</span>].table[h]</span><br><span class="line">            d.ht[<span class="number">1</span>].table[h] = de  <span class="comment"># 复制dictEntry元素</span></span><br><span class="line">            d.ht[<span class="number">0</span>].used -= <span class="number">1</span></span><br><span class="line">            d.ht[<span class="number">1</span>].used += <span class="number">1</span></span><br><span class="line">            de = nextde</span><br><span class="line">        d.ht[<span class="number">0</span>].table[d.rehashidx] = <span class="literal">None</span></span><br><span class="line">        d.rehashidx += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>除了渐进式rehash，对于redis的多个db，也会有定时任务进行主动rehash，防止服务器长期没有执行命令时，数据库字典的 rehash 一直没办法完成。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>redis 3.0 源码</li>
+<li>redis 设计与实现</li>
+</ul>
 
     </div>
 
@@ -402,7 +435,7 @@
     <strong>本文作者： </strong>Jay.Run</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://ponder.work/2021/04/17/redis-soure-code-data-structure-dict/" title="Redis原理 —— dict 数据结构">http://ponder.work/2021/04/17/redis-soure-code-data-structure-dict/</a>
+    <a href="http://ponder.work/2021/04/17/redis-soure-code-dict/" title="Redis原理 —— dict 数据结构">http://ponder.work/2021/04/17/redis-soure-code-dict/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-SA</a> 许可协议。转载请注明出处！</li>
@@ -489,6 +522,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#dict-数据结构"><span class="nav-number">1.</span> <span class="nav-text">dict 数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希算法"><span class="nav-number">2.</span> <span class="nav-text">哈希算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冲突解决"><span class="nav-number">3.</span> <span class="nav-text">冲突解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rehash"><span class="nav-number">4.</span> <span class="nav-text">rehash</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#渐进式-rehash"><span class="nav-number">4.1.</span> <span class="nav-text">渐进式 rehash</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
@@ -761,12 +796,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">230k</span>
+    <span title="站点总字数">233k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:48</span>
+    <span title="站点阅读时长">4:51</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -907,7 +942,7 @@ window.addEventListener('pjax:success', () => {
       repo: 'ruanima.github.io',
       owner: 'ruanima',
       admin: ['ruanima'],
-      id: '28af440d7b9b129f4d5196573fd9fb10',
+      id: '8666364e86bef45f02fcc6188f385b5f',
         language: window.navigator.language || window.navigator.userLanguage,
       
       distractionFreeMode: 'true'

@@ -60,15 +60,15 @@
   <meta name="description" content="Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种名为简单动态字符串SD S(simple dynamic string)的数据结构 ，并将SDS用作Redis的默认字符串表示。 Redis内部所有字符串都由SDS来表示，其本质就是动态字节数组，和python的bytearray类似。">
 <meta name="keywords" content="Redis,C">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis原理 —— SDS 数据结构">
+<meta property="og:title" content="Redis原理 —— SDS 简单动态字符串">
 <meta property="og:url" content="http://ponder.work/2021/05/07/redis-soure-code-data-structure-sds/index.html">
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种名为简单动态字符串SD S(simple dynamic string)的数据结构 ，并将SDS用作Redis的默认字符串表示。 Redis内部所有字符串都由SDS来表示，其本质就是动态字节数组，和python的bytearray类似。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-05-07-16203880544303.jpg">
-<meta property="og:updated_time" content="2021-05-07T11:49:22.499Z">
+<meta property="og:updated_time" content="2021-05-07T11:51:58.633Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis原理 —— SDS 数据结构">
+<meta name="twitter:title" content="Redis原理 —— SDS 简单动态字符串">
 <meta name="twitter:description" content="Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种名为简单动态字符串SD S(simple dynamic string)的数据结构 ，并将SDS用作Redis的默认字符串表示。 Redis内部所有字符串都由SDS来表示，其本质就是动态字节数组，和python的bytearray类似。">
 <meta name="twitter:image" content="http://image.runjf.com/mweb/2021-05-07-16203880544303.jpg">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
@@ -86,7 +86,7 @@
   };
 </script>
 
-  <title>Redis原理 —— SDS 数据结构 | 逸思杂陈</title>
+  <title>Redis原理 —— SDS 简单动态字符串 | 逸思杂陈</title>
   <meta name="generator" content="Hexo 3.9.0">
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134911454-2"></script>
@@ -308,7 +308,7 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">Redis原理 —— SDS 数据结构
+        <h1 class="post-title" itemprop="name headline">Redis原理 —— SDS 简单动态字符串
 
           
         </h1>
@@ -324,7 +324,7 @@
                 
               
 
-              <time title="创建时间：2021-05-07 19:48:00 / 修改时间：19:49:22" itemprop="dateCreated datePublished" datetime="2021-05-07T19:48:00+08:00">2021-05-07</time>
+              <time title="创建时间：2021-05-07 19:48:00 / 修改时间：19:51:58" itemprop="dateCreated datePublished" datetime="2021-05-07T19:48:00+08:00">2021-05-07</time>
             </span>
           
             
@@ -405,7 +405,7 @@
     <strong>本文作者： </strong>Jay.Run</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://ponder.work/2021/05/07/redis-soure-code-data-structure-sds/" title="Redis原理 —— SDS 数据结构">http://ponder.work/2021/05/07/redis-soure-code-data-structure-sds/</a>
+    <a href="http://ponder.work/2021/05/07/redis-soure-code-data-structure-sds/" title="Redis原理 —— SDS 简单动态字符串">http://ponder.work/2021/05/07/redis-soure-code-data-structure-sds/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-SA</a> 许可协议。转载请注明出处！</li>

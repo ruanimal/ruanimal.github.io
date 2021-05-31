@@ -418,6 +418,7 @@
 <h3 id="encoding"><a href="#encoding" class="headerlink" title="encoding"></a>encoding</h3><p>encoding 记录了当前节点的编码类型，编码时先尝试将内容转成数字，失败则当做字符串处理。</p>
 <p>个人觉得ziplist的精华就在entry的encoding，对让内存的每一个bit都重复表示了信息。</p>
 <p>下表中的0和1表示具体的二进制位, b表示该位置可能为0或者1</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -484,6 +485,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>可以看到ziplist为了节省内存空间，表示信息时真是细扣到每一个bit，非常高效。<br>但是也有个不足，就是代码变得复杂了。</p>
 <p>由于prelen和encoding和content这3个部分都是变长的，每一次插入和删除元素都得计算列表内存长度的变化。</p>
 <p>而且由于prelen的变长，可能会触发后面所有节点连锁更新prelen的值.<br>本来节点插入时只需要复制一次该节点以后所有节点的内存，这时复杂度为O(n), 触发连锁更新之后，这时候列表的插入复杂度就会变为O(n^2)。</p>
@@ -617,7 +619,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-count">139</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -878,12 +880,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">247k</span>
+    <span title="站点总字数">248k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:09</span>
+    <span title="站点阅读时长">5:10</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

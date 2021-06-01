@@ -68,7 +68,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-06-01-16225142545801.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-06-01-16225146416983.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-06-01-16225149337703.jpg">
-<meta property="og:updated_time" content="2021-06-01T06:22:25.093Z">
+<meta property="og:updated_time" content="2021-06-01T06:23:55.997Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="布隆过滤器原理及实现">
 <meta name="twitter:description" content="布隆过滤器（英语：Bloom Filter）是1970年由布隆提出的。它实际上是一个很长的二进制向量和一系列随机映射函数。布隆过滤器可以用于检索一个元素是否在一个集合中。 它的优点是空间效率和查询时间都远远超过一般的算法，缺点是有一定的误识别率和删除困难。">
@@ -326,7 +326,7 @@
                 
               
 
-              <time title="创建时间：2021-06-01 09:48:00 / 修改时间：14:22:25" itemprop="dateCreated datePublished" datetime="2021-06-01T09:48:00+08:00">2021-06-01</time>
+              <time title="创建时间：2021-06-01 09:48:00 / 修改时间：14:23:55" itemprop="dateCreated datePublished" datetime="2021-06-01T09:48:00+08:00">2021-06-01</time>
             </span>
           
             
@@ -356,7 +356,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>1.7k</span>
+              <span>1.8k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -391,6 +391,10 @@
 <p>以上方案还有一个问题，单词中每个字母的分布是很不均匀的，导致准确率对不同的单词也不稳定。<br>可以不直接记录字母，而是对单词应用哈希函数，并将结果按一个数值（比如26）取模，如<code>hash(&#39;apple&#39;) % 26</code>，当做一个单词的一个字母来记录。<br>同时应用多个不同的哈希函数，并记录取模后的值，相当于记录该单词的多个字母。</p>
 <h2 id="Python实现"><a href="#Python实现" class="headerlink" title="Python实现"></a>Python实现</h2><p>根据上文的分析，可以实现Python版本的布隆过滤器。<br>用<a href="/2021/05/31/bitmap-python-edition/">bitmap</a>代替dict，节省空间占用。<br>使用Python内置的<code>hash</code>函数作为哈希函数。<br>哈希前对元素增加不同的后缀再调用，替代理论里的多个不同哈希函数。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">BIT_SIZE = <span class="number">5000000</span></span><br><span class="line">BYTE_WIDTH = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BitMap</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, size, fill=<span class="number">0</span>)</span>:</span></span><br><span class="line">        self._array = bytearray((fill <span class="keyword">for</span> _ <span class="keyword">in</span> range(size//BYTE_WIDTH+<span class="number">1</span>)))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        major, minor = divmod(index, BYTE_WIDTH)</span><br><span class="line">        self._array[major] |= (<span class="number">0b10000000</span> &gt;&gt; minor)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        major, minor = divmod(index, BYTE_WIDTH)</span><br><span class="line">        mask = <span class="number">0b10000000</span> &gt;&gt; minor</span><br><span class="line">        <span class="keyword">return</span> int(self._array[major] &amp; mask == mask)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BloomFilter</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.bit_array = BitMap(BIT_SIZE)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(self, url)</span>:</span></span><br><span class="line">        point_list = self.get_postions(url)</span><br><span class="line">        <span class="keyword">for</span> b <span class="keyword">in</span> point_list:</span><br><span class="line">            self.bit_array.set(b)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">contains</span><span class="params">(self, url)</span>:</span></span><br><span class="line">        point_list = self.get_postions(url)</span><br><span class="line">        <span class="keyword">return</span> all(self.bit_array.get(i) <span class="keyword">for</span> i <span class="keyword">in</span> point_list)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_postions</span><span class="params">(self, url)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> [hash(<span class="string">'&#123;&#125;-&#123;&#125;'</span>.format(url, i)) % BIT_SIZE <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">41</span>, <span class="number">48</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    bf = BloomFilter()</span><br><span class="line">    bf.add(<span class="string">'1'</span>)</span><br><span class="line">    print(bf.contains(<span class="string">'1'</span>))</span><br><span class="line">    print(bf.contains(<span class="string">'2'</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://zh.wikipedia.org/wiki/布隆过滤器" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/布隆过滤器</a></li>
+<li><a href="https://www.cnblogs.com/cpselvis/p/6265825.html" target="_blank" rel="noopener">https://www.cnblogs.com/cpselvis/p/6265825.html</a></li>
+</ul>
 
     </div>
 
@@ -494,7 +498,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#布隆过滤器原理"><span class="nav-number">1.</span> <span class="nav-text">布隆过滤器原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python实现"><span class="nav-number">2.</span> <span class="nav-text">Python实现</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#布隆过滤器原理"><span class="nav-number">1.</span> <span class="nav-text">布隆过滤器原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python实现"><span class="nav-number">2.</span> <span class="nav-text">Python实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->

@@ -386,8 +386,7 @@
 
       
         <p>在计算机科学中，浮点（英语：floating point，缩写为FP）是一种对于实数的近似值数值表现法, 类似于十进制的<a href="https://zh.wikipedia.org/wiki/%E7%A7%91%E5%AD%A6%E8%AE%B0%E6%95%B0%E6%B3%95" target="_blank" rel="noopener">科学计数法</a>.<br><a id="more"></a></p>
-<h2 id="科学记数法"><a href="#科学记数法" class="headerlink" title="科学记数法"></a>科学记数法</h2><p>在科学记数法中，一个数被写成一个”实数”与一个10的<code>n</code>次幂的积</p>
-<script type="math/tex; mode=display">\pm a \times 10 ^ n</script><p>其中：</p>
+<h2 id="科学记数法"><a href="#科学记数法" class="headerlink" title="科学记数法"></a>科学记数法</h2><p>在科学记数法中，一个数被写成一个”实数”与一个10的<code>n</code>次幂的积<br>$$\pm a \times 10 ^ n$$<br>其中：</p>
 <ul>
 <li>$n$ 必须是一个整数, 可称之为指数。</li>
 <li>$a$ 必须是<code>[1, 10)</code>区间内的实数，可称为有效数或尾数。</li>
@@ -400,9 +399,10 @@
 <p>8位二进制位，能表示的256个数值，由于指数有正有负，标准规定从-127开始计数，也就是-127到128（与有符号数的实现不同），而且-127和128被用作特殊值处理，见下方<a href="#特殊值">特殊值</a>。</p>
 <p>同时，由于M的整数部分永远是1，我们可以只表示其小数部分，记为<code>N</code>。</p>
 <p>也就是最终可表示为 $s \times 2 ^ E \times (1+N)$ 。</p>
-<p>具体各部分拆解如下，其中 $a<em>0$ 到 $a</em>{31}$ 对应32个二进制位的值，为<code>0</code>或者<code>1</code>。</p>
-<script type="math/tex; mode=display">s = (-1)^{a_{0}}</script><script type="math/tex; mode=display">E = -127 + a_{1}\times 2^{7} + a_{2}\times 2^{6} + \dots + a_{8}\times2^0</script><script type="math/tex; mode=display">N = a_{9}\times 2^{-1} + a_{10}\times 2^{-2} + \dots + a_{31}\times2^{-23}</script><p>以十进制的 $-5.0$ 为例，可表示为 $-1.25 \times 2 ^ 2$。那么，s=1，N=0.25，E=2。<br>具体来说</p>
-<script type="math/tex; mode=display">s=(-1)^1=-1</script><script type="math/tex; mode=display">E=-127 + 2^7 + 2^0 = 2</script><script type="math/tex; mode=display">N=2^{-2}=0.25</script><p><img src="http://image.runjf.com/mweb/2020-08-04-15965370742818.jpg" alt></p>
+<p>具体各部分拆解如下，其中 $a_0$ 到 $a_{31}$ 对应32个二进制位的值，为<code>0</code>或者<code>1</code>。</p>
+<p>$$s = (-1)^{a_{0}}$$<br>$$E = -127 + a_{1}\times 2^{7} + a_{2}\times 2^{6} + \dots + a_{8}\times2^0$$<br>$$N = a_{9}\times 2^{-1} + a_{10}\times 2^{-2} + \dots + a_{31}\times2^{-23}$$</p>
+<p>以十进制的 $-5.0$ 为例，可表示为 $-1.25 \times 2 ^ 2$。那么，s=1，N=0.25，E=2。<br>具体来说<br>$$s=(-1)^1=-1$$<br>$$E=-127 + 2^7 + 2^0 = 2$$<br>$$N=2^{-2}=0.25$$</p>
+<p><img src="http://image.runjf.com/mweb/2020-08-04-15965370742818.jpg" alt></p>
 <h2 id="特殊值"><a href="#特殊值" class="headerlink" title="特殊值"></a>特殊值</h2><p>这里有三个特殊值需要指出：</p>
 <ul>
 <li>如果指数是0并且尾数的小数部分是0，这个数±0（和符号位相关）</li>
@@ -410,7 +410,6 @@
 <li>如果指数的二进制位<code>全为1</code>并且尾数的小数部分非0，这个数表示为非数（NaN）。</li>
 </ul>
 <p>单精度浮点数各种极值情况：</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -537,7 +536,6 @@
 </tr>
 </tbody>
 </table>
-</div>
 <h2 id="浮点数与二进制字符串转换"><a href="#浮点数与二进制字符串转换" class="headerlink" title="浮点数与二进制字符串转换"></a>浮点数与二进制字符串转换</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binary_to_float</span><span class="params">(data)</span>:</span></span><br><span class="line">    <span class="keyword">assert</span> len(data) == <span class="number">32</span></span><br><span class="line">    sign = (<span class="number">-1</span>) ** int(data[<span class="number">0</span>])</span><br><span class="line">    exponent = <span class="number">2</span> ** (<span class="number">-127</span> + sum(int(a) * <span class="number">2</span> ** b <span class="keyword">for</span> a, b <span class="keyword">in</span> zip(data[<span class="number">1</span>:<span class="number">9</span>], range(<span class="number">7</span>, <span class="number">-1</span>, <span class="number">-1</span>))))</span><br><span class="line">    fraction = <span class="number">1</span> + sum(int(a) * <span class="number">2</span> ** b <span class="keyword">for</span> a, b <span class="keyword">in</span> zip(data[<span class="number">9</span>:], range(<span class="number">-1</span>, <span class="number">-24</span>, <span class="number">-1</span>)))</span><br><span class="line">    <span class="keyword">return</span> sign * exponent * fraction</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">float_to_binary</span><span class="params">(data)</span>:</span></span><br><span class="line">    <span class="keyword">import</span> struct</span><br><span class="line">    bins = struct.pack(<span class="string">'&gt;f'</span>, data)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">''</span>.join(<span class="string">'&#123;:0&gt;8&#125;'</span>.format(bin(i)[<span class="number">2</span>:]) <span class="keyword">for</span> i <span class="keyword">in</span> bins)</span><br></pre></td></tr></table></figure>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://zh.wikipedia.org/wiki/IEEE_754" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/IEEE_754</a></li>
@@ -665,7 +663,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-count">141</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -841,7 +839,9 @@
         
           
         
-        <span class="site-state-item-count">69</span>
+          
+        
+        <span class="site-state-item-count">70</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -928,12 +928,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">250k</span>
+    <span title="站点总字数">252k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:12</span>
+    <span title="站点阅读时长">5:15</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

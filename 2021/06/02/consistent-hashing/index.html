@@ -58,7 +58,7 @@
 </script>
 
   <meta name="description" content="一致性哈希是一种特殊的哈希算法。在使用一致哈希算法后，哈希表槽位(slots)数的改变平均只需要对 K/n 个key需要重新映射，其中K是key的数量，n是槽位数量。然而在传统的哈希表中，添加或删除一个槽位的几乎需要对所有关键字进行重新映射。 谈到一致性哈希（Consistent hashing），就得先讲一下分布式存储。比如我们有2000w条数据，一台机器存不下，那么我们可以把分成10份每份20">
-<meta name="keywords" content="Python,算法,分布式">
+<meta name="keywords" content="Python,分布式,算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一致性哈希原理及实现">
 <meta property="og:url" content="http://ponder.work/2021/06/02/consistent-hashing/index.html">
@@ -71,7 +71,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-06-03-16226416942953.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-06-03-16226421634795.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-06-03-16226908837252.jpg">
-<meta property="og:updated_time" content="2021-06-03T03:50:52.061Z">
+<meta property="og:updated_time" content="2021-06-03T06:57:18.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一致性哈希原理及实现">
 <meta name="twitter:description" content="一致性哈希是一种特殊的哈希算法。在使用一致哈希算法后，哈希表槽位(slots)数的改变平均只需要对 K/n 个key需要重新映射，其中K是key的数量，n是槽位数量。然而在传统的哈希表中，添加或删除一个槽位的几乎需要对所有关键字进行重新映射。 谈到一致性哈希（Consistent hashing），就得先讲一下分布式存储。比如我们有2000w条数据，一台机器存不下，那么我们可以把分成10份每份20">
@@ -340,7 +340,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-03 11:50:52" itemprop="dateModified" datetime="2021-06-03T11:50:52+08:00">2021-06-03</time>
+                <time title="修改时间：2021-06-03 14:57:18" itemprop="dateModified" datetime="2021-06-03T14:57:18+08:00">2021-06-03</time>
               </span>
             
           
@@ -391,7 +391,7 @@
 
       
         <p>一致性哈希是一种特殊的哈希算法。在使用一致哈希算法后，哈希表槽位(slots)数的改变平均只需要对 K/n 个key需要重新映射，其中K是key的数量，n是槽位数量。然而在传统的哈希表中，添加或删除一个槽位的几乎需要对所有关键字进行重新映射。</p>
-<p>谈到一致性哈希（Consistent hashing），就得先讲一下分布式存储。<br>比如我们有2000w条数据，一台机器存不下，那么我们可以把分成10份每份200w条存到10台机器上。<br>这样存储就不成问题了，但是查询效率就很低了，查一条数据要每台机器都查一遍。<br>如果这些数据能够分类，每一类存到一台机器上，查询前先知道数据的类别，就可以直接定位到某台机器，效率就高了。<br><a id="more"></a></p>
+<p>谈到一致性哈希（Consistent hashing），就得先讲一下分布式存储。<br>比如我们有2000w条数据，一台机器存不下，那么我们可以把分成10份每份200w条存到10台机器上。<br>这样存储就不成问题，但是查询效率很低，查一条数据要每台机器都查一遍。<br>如果这些数据能够分类，每一类存到一台机器上，查询前先知道数据的类别，就可以直接定位到某台机器，效率就高了。<br><a id="more"></a></p>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>那么就得找到一个通用而且均匀的分类方法，可以想到先哈希再取模<code>hash(data) % N</code></p>
 <p>现有这几个数据apple, banana, cherry，durian，希望存储到有3台机器的服务.<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 假设自定义了hash函数，有以下返回</span><br><span class="line">hash(<span class="string">"apple"</span>) % <span class="number">3</span> == <span class="number">30</span> % <span class="number">3</span> == <span class="number">0</span></span><br><span class="line">hash(<span class="string">"banada"</span>) % <span class="number">3</span> == <span class="number">31</span> % <span class="number">3</span> == <span class="number">1</span></span><br><span class="line">hash(<span class="string">"cherry"</span>) % <span class="number">3</span> == <span class="number">32</span> % <span class="number">3</span> == <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
 <p><img src="http://image.runjf.com/mweb/2021-06-03-16226066038043.jpg" alt></p>
@@ -446,9 +446,9 @@
             
               <a href="/tags/Python/" rel="tag"># Python</a>
             
-              <a href="/tags/算法/" rel="tag"># 算法</a>
-            
               <a href="/tags/分布式/" rel="tag"># 分布式</a>
+            
+              <a href="/tags/算法/" rel="tag"># 算法</a>
             
           </div>
         

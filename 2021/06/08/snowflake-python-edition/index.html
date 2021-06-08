@@ -65,12 +65,12 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="分布式系统中，全局唯一id的生成是个常见的问题。在互联网的业务系统中，涉及到各种各样的ID，如在支付系统中就会有支付ID、退款ID等。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ponder.work/2021/06/08/snowflake-python-edition/media/16231545423727.jpg">
-<meta property="og:updated_time" content="2021-06-08T12:33:01.898Z">
+<meta property="og:image" content="http://image.runjf.com/mweb/2021-06-08-16231545423727.jpg">
+<meta property="og:updated_time" content="2021-06-08T12:47:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="雪花算法原理及实现">
 <meta name="twitter:description" content="分布式系统中，全局唯一id的生成是个常见的问题。在互联网的业务系统中，涉及到各种各样的ID，如在支付系统中就会有支付ID、退款ID等。">
-<meta name="twitter:image" content="http://ponder.work/2021/06/08/snowflake-python-edition/media/16231545423727.jpg">
+<meta name="twitter:image" content="http://image.runjf.com/mweb/2021-06-08-16231545423727.jpg">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2021/06/08/snowflake-python-edition/">
 
@@ -324,7 +324,7 @@
                 
               
 
-              <time title="创建时间：2021-06-08 19:48:00 / 修改时间：20:33:01" itemprop="dateCreated datePublished" datetime="2021-06-08T19:48:00+08:00">2021-06-08</time>
+              <time title="创建时间：2021-06-08 19:48:00 / 修改时间：20:47:55" itemprop="dateCreated datePublished" datetime="2021-06-08T19:48:00+08:00">2021-06-08</time>
             </span>
           
             
@@ -354,7 +354,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>1.6k</span>
+              <span>1.7k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -395,7 +395,7 @@
 </ul>
 <h2 id="雪花算法原理"><a href="#雪花算法原理" class="headerlink" title="雪花算法原理"></a>雪花算法原理</h2><p>SnowFlake 算法，是 Twitter 开源的分布式 id 生成算法。</p>
 <p>其核心思想就是：使用一个 64 bit 的 long 型的数字作为全局唯一 id。在分布式系统中的应用十分广泛，且ID 引入了时间戳，保持自增性且不重复。</p>
-<p><img src="media/16231545423727.jpg" alt></p>
+<p><img src="http://image.runjf.com/mweb/2021-06-08-16231545423727.jpg" alt></p>
 <p>主要分为 5 个部分：</p>
 <ol>
 <li>1 个 bit：0，无特殊意义，主要是为防止歧义，因为负数的第一位是1。</li>
@@ -405,6 +405,11 @@
 </ol>
 <p>所以理论上每秒可以生成 <code>1000 * 1024 * 4096 = 4194304000</code>个id，完全足够使用</p>
 <h2 id="Python-实现"><a href="#Python-实现" class="headerlink" title="Python 实现"></a>Python 实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">MAX_WORKER = <span class="number">2</span> ** <span class="number">10</span> - <span class="number">1</span></span><br><span class="line">MAX_SEQ = <span class="number">2</span> ** <span class="number">12</span> - <span class="number">1</span></span><br><span class="line">TIME_OFFSET = <span class="number">1577808000000</span>  <span class="comment"># datetime.datetime(2020, 1, 1, 0, 0)</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SnowFlake</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, worker_id)</span>:</span></span><br><span class="line">        <span class="keyword">assert</span> <span class="number">0</span> &lt;= worker_id &lt; MAX_WORKER</span><br><span class="line">        self._worker_id = int(worker_id)</span><br><span class="line">        self._timestamp = int(time() * <span class="number">1000</span>)</span><br><span class="line">        self._seq = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_id</span><span class="params">(self)</span>:</span></span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        res |= self._seq</span><br><span class="line">        res |= (self._worker_id &lt;&lt; <span class="number">12</span>)</span><br><span class="line">        res |= ((self._timestamp - TIME_OFFSET) &lt;&lt; <span class="number">22</span>)</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">next_id</span><span class="params">(self)</span>:</span></span><br><span class="line">        t = int(time() * <span class="number">1000</span>)</span><br><span class="line">        <span class="keyword">assert</span> t &gt;= self._timestamp</span><br><span class="line">        <span class="keyword">assert</span> self._seq &lt; MAX_SEQ</span><br><span class="line">        <span class="keyword">if</span> t &gt; self._timestamp:</span><br><span class="line">            self._timestamp = t</span><br><span class="line">            self._seq = <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self._seq += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> self.get_id()</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_bin</span><span class="params">(val)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&#123;:0&gt;64&#125;'</span>.format(bin(val)[<span class="number">2</span>:])</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    sf = SnowFlake(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">        print(sf.get_bin(sf.next_id()), sf._timestamp, sf._seq)</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://juejin.cn/post/6844903631137800200" target="_blank" rel="noopener">https://juejin.cn/post/6844903631137800200</a></li>
+<li><a href="https://www.cnblogs.com/wuzhenzhao/p/13295382.html" target="_blank" rel="noopener">https://www.cnblogs.com/wuzhenzhao/p/13295382.html</a></li>
+</ol>
+
     </div>
 
     
@@ -509,7 +514,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见ID生成方案"><span class="nav-number">1.</span> <span class="nav-text">常见ID生成方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UUID"><span class="nav-number">1.1.</span> <span class="nav-text">UUID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库自增ID"><span class="nav-number">1.2.</span> <span class="nav-text">数据库自增ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis生成ID"><span class="nav-number">1.3.</span> <span class="nav-text">Redis生成ID</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#雪花算法原理"><span class="nav-number">2.</span> <span class="nav-text">雪花算法原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-实现"><span class="nav-number">3.</span> <span class="nav-text">Python 实现</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见ID生成方案"><span class="nav-number">1.</span> <span class="nav-text">常见ID生成方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UUID"><span class="nav-number">1.1.</span> <span class="nav-text">UUID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库自增ID"><span class="nav-number">1.2.</span> <span class="nav-text">数据库自增ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis生成ID"><span class="nav-number">1.3.</span> <span class="nav-text">Redis生成ID</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#雪花算法原理"><span class="nav-number">2.</span> <span class="nav-text">雪花算法原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-实现"><span class="nav-number">3.</span> <span class="nav-text">Python 实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->

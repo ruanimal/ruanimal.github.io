@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://ponder.work/2020/06/20/learning-method/</loc>
+    <loc>http://ponder.work/2021/06/20/learning-method/</loc>
     
     <lastmod>2021-06-20</lastmod>
     
@@ -401,14 +401,14 @@
   </url>
   
   <url>
-    <loc>http://ponder.work/2020/05/17/%E8%87%AA%E5%AD%A6%E7%9A%84%E9%99%B7%E9%98%B1/</loc>
+    <loc>http://ponder.work/2020/06/13/%E7%AE%80%E6%98%8E%E5%8F%8C%E6%A0%87%E6%8C%87%E5%8D%97/</loc>
     
     <lastmod>2020-06-23</lastmod>
     
   </url>
   
   <url>
-    <loc>http://ponder.work/2020/06/13/%E7%AE%80%E6%98%8E%E5%8F%8C%E6%A0%87%E6%8C%87%E5%8D%97/</loc>
+    <loc>http://ponder.work/2020/05/17/%E8%87%AA%E5%AD%A6%E7%9A%84%E9%99%B7%E9%98%B1/</loc>
     
     <lastmod>2020-06-23</lastmod>
     
@@ -457,14 +457,14 @@
   </url>
   
   <url>
-    <loc>http://ponder.work/2019/09/22/%E3%80%8A%E5%9C%A8%E7%BB%86%E9%9B%A8%E4%B8%AD%E5%91%BC%E5%96%8A%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://ponder.work/2019/10/01/%E3%80%8A%E5%9C%A8%E5%8D%8E%E4%BA%94%E5%8D%81%E5%B9%B4%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2020-05-08</lastmod>
     
   </url>
   
   <url>
-    <loc>http://ponder.work/2019/10/01/%E3%80%8A%E5%9C%A8%E5%8D%8E%E4%BA%94%E5%8D%81%E5%B9%B4%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://ponder.work/2019/09/22/%E3%80%8A%E5%9C%A8%E7%BB%86%E9%9B%A8%E4%B8%AD%E5%91%BC%E5%96%8A%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2020-05-08</lastmod>
     
@@ -1047,20 +1047,6 @@
 
   
   <url>
-    <loc>http://ponder.work/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2021-06-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://ponder.work/tags/%E6%8B%96%E5%BB%B6%E7%97%87/</loc>
-    <lastmod>2021-06-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://ponder.work/tags/Hackintosh/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
@@ -1075,14 +1061,14 @@
   </url>
   
   <url>
-    <loc>http://ponder.work/tags/Python/</loc>
+    <loc>http://ponder.work/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://ponder.work/tags/%E7%BC%96%E7%A0%81/</loc>
+    <loc>http://ponder.work/tags/%E6%8B%96%E5%BB%B6%E7%97%87/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1090,6 +1076,13 @@
   
   <url>
     <loc>http://ponder.work/tags/Git/</loc>
+    <lastmod>2021-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://ponder.work/tags/Python/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1104,6 +1097,13 @@
   
   <url>
     <loc>http://ponder.work/tags/MySQL/</loc>
+    <lastmod>2021-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://ponder.work/tags/%E7%BC%96%E7%A0%81/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1159,27 +1159,6 @@
   </url>
   
   <url>
-    <loc>http://ponder.work/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2021-06-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://ponder.work/tags/Java/</loc>
-    <lastmod>2021-06-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://ponder.work/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/</loc>
-    <lastmod>2021-06-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://ponder.work/tags/%E5%88%86%E5%B8%83%E5%BC%8F/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
@@ -1194,6 +1173,20 @@
   </url>
   
   <url>
+    <loc>http://ponder.work/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2021-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://ponder.work/tags/Java/</loc>
+    <lastmod>2021-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://ponder.work/tags/%E5%81%A5%E8%BA%AB/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
@@ -1202,6 +1195,13 @@
   
   <url>
     <loc>http://ponder.work/tags/GTD/</loc>
+    <lastmod>2021-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://ponder.work/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1250,28 +1250,7 @@
   </url>
   
   <url>
-    <loc>http://ponder.work/tags/%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2021-06-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://ponder.work/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</loc>
-    <lastmod>2021-06-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://ponder.work/tags/%E9%99%90%E6%B5%81/</loc>
-    <lastmod>2021-06-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://ponder.work/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</loc>
+    <loc>http://ponder.work/tags/%E6%B5%AE%E7%82%B9%E6%95%B0/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1285,7 +1264,28 @@
   </url>
   
   <url>
-    <loc>http://ponder.work/tags/%E6%B5%AE%E7%82%B9%E6%95%B0/</loc>
+    <loc>http://ponder.work/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2021-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://ponder.work/tags/%E9%99%90%E6%B5%81/</loc>
+    <lastmod>2021-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://ponder.work/tags/%E9%9A%8F%E7%AC%94/</loc>
+    <lastmod>2021-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://ponder.work/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1334,14 +1334,14 @@
   </url>
   
   <url>
-    <loc>http://ponder.work/tags/%E5%BC%82%E6%AD%A5/</loc>
+    <loc>http://ponder.work/tags/2to3/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://ponder.work/tags/2to3/</loc>
+    <loc>http://ponder.work/tags/%E5%BC%82%E6%AD%A5/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1432,13 +1432,6 @@
   </url>
   
   <url>
-    <loc>http://ponder.work/tags/%E9%9A%8F%E6%84%9F/</loc>
-    <lastmod>2021-06-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://ponder.work/tags/%E5%BF%83%E5%AD%A6/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
@@ -1447,6 +1440,13 @@
   
   <url>
     <loc>http://ponder.work/tags/%E7%8E%8B%E9%98%B3%E6%98%8E/</loc>
+    <lastmod>2021-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://ponder.work/tags/%E9%9A%8F%E6%84%9F/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1502,14 +1502,14 @@
   </url>
   
   <url>
-    <loc>http://ponder.work/tags/%E4%B8%96%E7%95%8C%E8%A7%82/</loc>
+    <loc>http://ponder.work/tags/%E6%91%98%E5%BD%95/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://ponder.work/tags/%E6%91%98%E5%BD%95/</loc>
+    <loc>http://ponder.work/tags/%E4%B8%96%E7%95%8C%E8%A7%82/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1530,14 +1530,14 @@
   </url>
   
   <url>
-    <loc>http://ponder.work/tags/%E5%93%B2%E5%AD%A6/</loc>
+    <loc>http://ponder.work/tags/%E9%87%8D%E6%9E%84/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://ponder.work/tags/%E9%87%8D%E6%9E%84/</loc>
+    <loc>http://ponder.work/tags/%E5%93%B2%E5%AD%A6/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1553,14 +1553,14 @@
 
   
   <url>
-    <loc>http://ponder.work/categories/%E9%98%85%E8%AF%BB/</loc>
+    <loc>http://ponder.work/categories/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://ponder.work/categories/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/</loc>
+    <loc>http://ponder.work/categories/%E9%98%85%E8%AF%BB/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

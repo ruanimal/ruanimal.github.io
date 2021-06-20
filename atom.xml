@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ponder.work/"/>
-  <updated>2021-06-20T08:45:11.648Z</updated>
+  <updated>2021-06-20T14:28:04.814Z</updated>
   <id>http://ponder.work/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>学海屠魔录</title>
+    <link href="http://ponder.work/2021/06/20/learning-method/"/>
+    <id>http://ponder.work/2021/06/20/learning-method/</id>
+    <published>2021-06-20T03:17:00.000Z</published>
+    <updated>2021-06-20T14:28:04.814Z</updated>
+    
+    <content type="html"><![CDATA[<p>英彦有云，魔鬼在细节之中（The devil is in the details），其意义在于提醒人们，不要忽视细节，即使是微不足道的小处也可以影响大局。</p><p>换个角度思考，这句话用在学习上，是再贴切不过了。当我们接触一个新领域时，其中的每个知识细节，都是魔鬼，稍有不慎就会被魔鬼击败，产生厌学情绪，再起不能。只有除尽这些魔鬼，才能攀上知识的高峰。<br><a id="more"></a></p><p>但光学会这些细节的点还远远不够，你的知识都是僵化的，是零散不成体系的的，难以真正应用。<br>就如将英语单词表背得滚瓜烂熟，倘若不识得语法与文法，断然是写不出文章的。</p><p>总地来说，学习分为两个阶段，“为学日益”和“为道日损”，也就是积累具体细节知识点，然后再将这些知识点进行归纳总结整理，将知识抽象并构建体系。</p><blockquote><p>注：此处的“为学日益”和“为道日损”与道德经中原义不同</p></blockquote><p>华罗庚教授曾把读书的过程归纳为“由薄到厚”与“由厚到薄”两个阶段，也是异曲同工；硅谷钢铁侠马斯克常说的“第一性原理”，就是第二步“为道日损”所得到的结果；再进一步，禅宗所说的“渐修”和“顿悟”也是一样的。</p><p>这两个阶段总体上是同等重要的，但在学习的不同阶段又该有所侧重。</p><p>下面将理论展开论述，我们又能引申出一些结论，得到一些新的看法。</p><h2 id="为学日益"><a href="#为学日益" class="headerlink" title="为学日益"></a>为学日益</h2><p>先讲第一阶段，这一阶段积累具体细节知识点，那么多大规模的知识点可以成为一个细节呢？</p><p>这点因人而异，因当前知识储备而异，评判标准就是能否说出该知识点的定义和用途，如若不能应该继续往下看构成该知识点的子知识点，直至满足标准为止。</p><p>由此可知，学习是有极限的，当最小的知识点都不能领会时，继续学习就无从谈起了。<br>就如数学，当不能理解<code>1 + 1 = 2</code>时，在这之上构建的一切都与你无缘了。</p><p>所以学习还是要靠智商的，只不过要求极低。</p><p>在这个阶段比较有效的方法有</p><ul><li>不同体系的知识类比迁移，跟已学会的知识联系，便于记忆</li><li>费曼学习法，通过输出的方式，对学会的知识点的掌握程度进行确认。</li></ul><h2 id="为道日损"><a href="#为道日损" class="headerlink" title="为道日损"></a>为道日损</h2><p>当学习到达一定的阶段，就该对知识进行归纳整理，以便进入下一阶段的学习。</p><p>因为人脑所能同时关注的知识点是有上限的，如果不加以归纳整理进行抽象，体现出来就是学了新的忘了旧的。</p><p>日常生活的很多场景都与这个有关，比如人们在争辩的时候经常会扣帽子，这就是一种抽象，降低了受众的认知难度，在传播中是有利的。“xx人偷井盖”，这就是典型的扣帽子，一个地方人何其多，每个人又不一样，贴切地描述出这个整体是非常难的，扣帽子就是舍弃了其他特征，用某几个特征来概括整体，这样带了的坏处就是不准确，失之偏颇。</p><p>这一阶段影响的是对知识的应用，也就是将一系列知识点抽象成一个整体，用于构造其他知识。</p><p>抽象有好的有坏的，知识点的名称就是对其内涵的一种抽象，好的抽象应该是可以望文生义的。就像写代码，好的函数命名应该是表达了函数的用途，也就是对具体实现该函数语句的抽象。</p><p>类比也是一种抽象，而且是一种极其高效的抽象，将具体的细节和已有的知识点关联起来。但类比也是危险的，很容易做出不合适的类比，也就是引喻失义。所以类比更像是方便法门，一条通向“第一性原理”的捷径，有其适用场景，不应该作为“第一性原理”本身牢记。</p><h2 id="歧路"><a href="#歧路" class="headerlink" title="歧路"></a>歧路</h2><p>由此可以看出很多学习的方法其实都走在歧路上。</p><p>如学英语，一味在单词和例句中深挖，最终还是不能流畅的写作交流，这是第二阶段缺失造成的。<br>又如罗辑思维，听他灌输各种大而无当的大道理，只会显得很轻浮，除了增加谈资之外无有用处，这是第一阶段缺失造成的。</p><p>最后，希望我这胡言乱语对读者有些微帮助。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;英彦有云，魔鬼在细节之中（The devil is in the details），其意义在于提醒人们，不要忽视细节，即使是微不足道的小处也可以影响大局。&lt;/p&gt;
+&lt;p&gt;换个角度思考，这句话用在学习上，是再贴切不过了。当我们接触一个新领域时，其中的每个知识细节，都是魔鬼，稍有不慎就会被魔鬼击败，产生厌学情绪，再起不能。只有除尽这些魔鬼，才能攀上知识的高峰。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="http://ponder.work/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="随笔" scheme="http://ponder.work/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="学习方法" scheme="http://ponder.work/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>缓存淘汰算法之LRU</title>
@@ -526,31 +552,6 @@ img[alt=&quot;-w350&quot;] {
     
     
       <category term="Python" scheme="http://ponder.work/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>OpenWrt执行自定义CGI脚本</title>
-    <link href="http://ponder.work/2020/11/26/openwrt-run-custom-cgi-script/"/>
-    <id>http://ponder.work/2020/11/26/openwrt-run-custom-cgi-script/</id>
-    <published>2020-11-26T12:17:00.000Z</published>
-    <updated>2021-01-02T12:42:30.915Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>我家里的路由器是矿渣newifi3, 刷了OpenWrt系统，可玩性还是非常强的。<br>而且路由器作为24小时在线的设备，很适合作为网络设备的控制中心，比如使用<a href="https://zh.wikipedia.org/wiki/%E7%B6%B2%E8%B7%AF%E5%96%9A%E9%86%92" target="_blank" rel="noopener">WOL</a>唤醒其他设备。<br>之前就写过一个Python服务，用来控制其他设备的唤醒和睡眠。但是由于newifi3的rom空间十分有限，usb又十分不稳定，Python环境在路由器上还是太重了。<br>所以就想到了利用路由器默认的uhttpd网页服务器，自己编写CGI脚本来实现相应功能。<br><a id="more"></a></p><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>以下操作均需要ssh登陆到路由器后台</p><h3 id="uhttpd添加lua执行功能"><a href="#uhttpd添加lua执行功能" class="headerlink" title="uhttpd添加lua执行功能"></a>uhttpd添加lua执行功能</h3><p>编辑<code>/etc/config/uhttpd</code>文件<br>在<code>config uhttpd main</code>部分添加<code>list interpreter &quot;.lua=/usr/bin/lua&quot;</code>， 使uhttpd能够执行lua文件</p><p>重启uhttp服务：<code>/etc/init.d/uhttpd restart</code></p><p>修改后的配置大致如下<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Server configuration</span></span><br><span class="line">config uhttpd main</span><br><span class="line"></span><br><span class="line"># HTTP listen addresses, multiple allowed</span><br><span class="line">list listen_http0.0.0.0:80</span><br><span class="line">list listen_http[::]:80</span><br><span class="line"></span><br><span class="line"># HTTPS listen addresses, multiple allowed</span><br><span class="line">list listen_https0.0.0.0:443</span><br><span class="line">list listen_https[::]:443</span><br><span class="line"></span><br><span class="line"># Redirect HTTP requests <span class="keyword">to</span> HTTPS <span class="keyword">if</span> possible</span><br><span class="line">option redirect_https1</span><br><span class="line"></span><br><span class="line">#<span class="built_in"> Server </span>document root</span><br><span class="line">option home/www</span><br><span class="line"></span><br><span class="line"># 此处省略其他配置</span><br><span class="line"></span><br><span class="line"># List of extension-&gt;interpreter mappings.</span><br><span class="line"># Files with an associated interpreter can</span><br><span class="line"># be called outside of the CGI<span class="built_in"> prefix </span><span class="keyword">and</span> <span class="keyword">do</span></span><br><span class="line"># <span class="keyword">not</span> need <span class="keyword">to</span> be executable.</span><br><span class="line"><span class="comment">#list interpreter".php=/usr/bin/php-cgi"</span></span><br><span class="line"><span class="comment">#list interpreter".cgi=/usr/bin/perl"</span></span><br><span class="line">list interpreter <span class="string">".lua=/usr/bin/lua"</span>  # 我们添加的内容</span><br><span class="line"></span><br><span class="line"><span class="comment"># 此处省略其他配置</span></span><br></pre></td></tr></table></figure></p><h3 id="添加CGI脚本"><a href="#添加CGI脚本" class="headerlink" title="添加CGI脚本"></a>添加CGI脚本</h3><p>从上面的配置可以看到，web的默认路径在<code>/www</code><br>我们就在这里新建一个文件夹<code>ctl</code>，来存放我们的CGI脚本, 用于实现NAS的睡眠和唤醒。</p><p>目录信息如下<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/www/</span><br><span class="line">├── cgi-bin</span><br><span class="line">│   └── luci</span><br><span class="line">├── ctl</span><br><span class="line">│   ├── sleep.lua</span><br><span class="line">│   └── wakeup.lua</span><br><span class="line">├── index.html</span><br></pre></td></tr></table></figure></p><p>下面开始编写CGI脚本，需要复习以下CGI协议，可以参考<a href="http://ponder.work/2019/09/28/python-web-development/#CGI">本人的文章</a><br>再花几分钟熟悉一下<a href="https://www.runoob.com/lua/lua-tutorial.html" target="_blank" rel="noopener">lua语法</a></p><h4 id="NAS睡眠脚本"><a href="#NAS睡眠脚本" class="headerlink" title="NAS睡眠脚本"></a>NAS睡眠脚本</h4><p>睡眠的实现是在NAS上写了个简单的Web服务，基于<code>systemctl suspend</code>来实现睡眠<br>然后访问Web服务，触发NAS的睡眠。这里为了和下面的唤醒统一处理，所以通过路由器的CGI转发了一道，直接访问也是可以的。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/lua</span><br><span class="line"><span class="comment">-- /www/ctl/sleep.lua</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"Content-Type: text/plain\r\n\r\n"</span>)</span><br><span class="line"><span class="keyword">local</span> <span class="built_in">status</span> = <span class="built_in">os</span>.<span class="built_in">execute</span>(<span class="string">"wget -q -O - --timeout 1 -t 1  http://192.168.123.100:8888/ctl/sleep &gt; /dev/null"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">status</span> == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line"><span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"sleep succ\n"</span>)</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"sleep fail, already sleep?\n"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p><p>使用：<code>curl http://192.168.123.1/ctl/sleep.lua</code></p><h4 id="NAS唤醒脚本"><a href="#NAS唤醒脚本" class="headerlink" title="NAS唤醒脚本"></a>NAS唤醒脚本</h4><p>唤醒是基于WOL，原理是在网络上广播特定格式的网络包，目标机器的网卡接受到以后唤醒机器。</p><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/lua</span><br><span class="line"></span><br><span class="line"><span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"Content-Type: text/plain\r\n\r\n"</span>)</span><br><span class="line"><span class="comment">-- /usr/bin/etherwake -i &lt;网口&gt; &lt;MAC&gt;</span></span><br><span class="line"><span class="comment">-- 网口需要是和目标机器同网段的接口，在OpenWrt中通常是br-lan</span></span><br><span class="line"><span class="keyword">local</span> <span class="built_in">status</span> = <span class="built_in">os</span>.<span class="built_in">execute</span>(<span class="string">"/usr/bin/etherwake -i br-lan 00:12:34:56:78:90"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">status</span> == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line"><span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"wakeup succ\n"</span>)</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"wakeup fail\n"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure><p>使用：<code>curl http://192.168.123.1/ctl/wakeup.lua</code></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol><li><a href="https://zh.wikipedia.org/wiki/%E7%B6%B2%E8%B7%AF%E5%96%9A%E9%86%92" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E7%B6%B2%E8%B7%AF%E5%96%9A%E9%86%92</a></li><li><a href="https://www.zhihu.com/question/31579325/answer/283425839" target="_blank" rel="noopener">https://www.zhihu.com/question/31579325/answer/283425839</a></li><li><a href="https://www.runoob.com/lua/lua-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/lua/lua-tutorial.html</a></li><li><a href="https://openwrt.org/docs/guide-user/services/webserver/uhttpd" target="_blank" rel="noopener">https://openwrt.org/docs/guide-user/services/webserver/uhttpd</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;缘起&quot;&gt;&lt;a href=&quot;#缘起&quot; class=&quot;headerlink&quot; title=&quot;缘起&quot;&gt;&lt;/a&gt;缘起&lt;/h2&gt;&lt;p&gt;我家里的路由器是矿渣newifi3, 刷了OpenWrt系统，可玩性还是非常强的。&lt;br&gt;而且路由器作为24小时在线的设备，很适合作为网络设备的控制中心，比如使用&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E7%B6%B2%E8%B7%AF%E5%96%9A%E9%86%92&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;WOL&lt;/a&gt;唤醒其他设备。&lt;br&gt;之前就写过一个Python服务，用来控制其他设备的唤醒和睡眠。但是由于newifi3的rom空间十分有限，usb又十分不稳定，Python环境在路由器上还是太重了。&lt;br&gt;所以就想到了利用路由器默认的uhttpd网页服务器，自己编写CGI脚本来实现相应功能。&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="编程" scheme="http://ponder.work/categories/%E7%BC%96%E7%A8%8B/"/>
-    
-    
-      <category term="CGI" scheme="http://ponder.work/tags/CGI/"/>
-    
-      <category term="OpenWrt" scheme="http://ponder.work/tags/OpenWrt/"/>
     
   </entry>
   

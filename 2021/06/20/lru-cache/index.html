@@ -66,7 +66,7 @@
 <meta property="og:description" content="说到缓存，就必须先了解下计算机的存储器层次结构。 存储器层次结构的主要思想是上一层的存储器作为低一层存储器的高速缓存。 计算机系统中的存储设备都被组织成了一个存储器层次结构，从上至下，设备的访问速度越来越慢、容量越来越大，并且越便宜。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-06-20-16241743798154.jpg">
-<meta property="og:updated_time" content="2021-06-23T10:29:37.645Z">
+<meta property="og:updated_time" content="2021-06-24T01:39:04.108Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="缓存淘汰算法之LRU">
 <meta name="twitter:description" content="说到缓存，就必须先了解下计算机的存储器层次结构。 存储器层次结构的主要思想是上一层的存储器作为低一层存储器的高速缓存。 计算机系统中的存储设备都被组织成了一个存储器层次结构，从上至下，设备的访问速度越来越慢、容量越来越大，并且越便宜。">
@@ -335,7 +335,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-23 18:29:37" itemprop="dateModified" datetime="2021-06-23T18:29:37+08:00">2021-06-23</time>
+                <time title="修改时间：2021-06-24 09:39:04" itemprop="dateModified" datetime="2021-06-24T09:39:04+08:00">2021-06-24</time>
               </span>
             
           
@@ -398,7 +398,7 @@
 <li>最久未使用算法（LRU）：最久没有访问的内容作为替换对象</li>
 <li>非最近使用算法（NMRU）：在最近没有使用的内容中随机选择一个作为替换对象</li>
 </ul>
-<h2 id="LRU-原理"><a href="#LRU-原理" class="headerlink" title="LRU 原理"></a>LRU 原理</h2><p>Least Recently used(LRU) 是最常用的缓存淘汰算法， 直译为“最近最少使用”，也就是将最近一次访问时间最远的数据淘汰掉。</p>
+<h2 id="LRU-原理"><a href="#LRU-原理" class="headerlink" title="LRU 原理"></a>LRU 原理</h2><p>Least Recently used(LRU) 是最常用的缓存淘汰算法，一般译为“最近最少使用”，不太贴切，其实应该是“最不是最近使用”，也就是将最近一次访问时间最远的数据淘汰掉。</p>
 <p>LRU正好体现了时间局部性，也就是，如果一个信息项正在被访问，那么在近期它很可能还会被再次访问。</p>
 <p>既然是缓存自然需要数据结构记录key和value，可以使用hashmap来存储，查询和设置的复杂度为O(1)。</p>
 <p>同时还需要记录数据最近一次访问时间的次序，可以想到用线性结构存储，由于频繁插入删除，可以用链表实现，新数据在头部，老数据在尾部。<br>由于需要频繁删除数据，而单向链表没有记录前驱节点信息，需要遍历链表，复杂度为O(N)，所以使用双向链表。</p>
@@ -544,7 +544,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -813,12 +813,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">260k</span>
+    <span title="站点总字数">262k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:25</span>
+    <span title="站点阅读时长">5:28</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="设置root密码运行 sudo passwd根据提示输入root帐户密码。 修改lightdm配置文件运行 ls /usr/share/lightdm/lightdm.conf.d/ -al-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf-rw-r–r– 1 root root   68 12月  3 03:57 50-g">
+  <meta name="description" content="设置root密码运行 sudo passwd根据提示输入root帐户密码。 修改lightdm配置文件运行 ls /usr/share/lightdm/lightdm.conf.d/ -al-rw-r—r— 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf-rw-r—r— 1 root root   68 12月  3 03:57 50-g">
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="xubuntu自动登录root账户">
 <meta property="og:url" content="http://ponder.work/2016/04/16/lightdm自动登录root账户/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="设置root密码运行 sudo passwd根据提示输入root帐户密码。 修改lightdm配置文件运行 ls /usr/share/lightdm/lightdm.conf.d/ -al-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf-rw-r–r– 1 root root   68 12月  3 03:57 50-g">
+<meta property="og:description" content="设置root密码运行 sudo passwd根据提示输入root帐户密码。 修改lightdm配置文件运行 ls /usr/share/lightdm/lightdm.conf.d/ -al-rw-r—r— 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf-rw-r—r— 1 root root   68 12月  3 03:57 50-g">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2021-04-17T03:09:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xubuntu自动登录root账户">
-<meta name="twitter:description" content="设置root密码运行 sudo passwd根据提示输入root帐户密码。 修改lightdm配置文件运行 ls /usr/share/lightdm/lightdm.conf.d/ -al-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf-rw-r–r– 1 root root   68 12月  3 03:57 50-g">
+<meta name="twitter:description" content="设置root密码运行 sudo passwd根据提示输入root帐户密码。 修改lightdm配置文件运行 ls /usr/share/lightdm/lightdm.conf.d/ -al-rw-r—r— 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf-rw-r—r— 1 root root   68 12月  3 03:57 50-g">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2016/04/16/lightdm自动登录root账户/">
 
@@ -384,7 +384,7 @@
 
       
         <h2 id="设置root密码"><a href="#设置root密码" class="headerlink" title="设置root密码"></a>设置root密码</h2><p>运行 <code>sudo passwd</code><br>根据提示输入root帐户密码。</p>
-<h2 id="修改lightdm配置文件"><a href="#修改lightdm配置文件" class="headerlink" title="修改lightdm配置文件"></a>修改lightdm配置文件</h2><p>运行 <code>ls /usr/share/lightdm/lightdm.conf.d/ -al</code><br>-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf<br>-rw-r–r– 1 root root   68 12月  3 03:57 50-guest-wrapper.conf<br>-rw-r–r– 1 root root   51 12月  3 03:57 50-xserver-command.conf<br>-rw-r–r– 1 root root  118  4月 16 17:08 <b>60-lightdm-gtk-greeter.conf</b></p>
+<h2 id="修改lightdm配置文件"><a href="#修改lightdm配置文件" class="headerlink" title="修改lightdm配置文件"></a>修改lightdm配置文件</h2><p>运行 <code>ls /usr/share/lightdm/lightdm.conf.d/ -al</code><br>-rw-r—r— 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf<br>-rw-r—r— 1 root root   68 12月  3 03:57 50-guest-wrapper.conf<br>-rw-r—r— 1 root root   51 12月  3 03:57 50-xserver-command.conf<br>-rw-r—r— 1 root root  118  4月 16 17:08 <b>60-lightdm-gtk-greeter.conf</b></p>
 <p>就是greeter这个文件，不同的发行版可能名字不同。<br>运行 <code>sudo gedit /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf</code><br>改完以后是这样<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[SeatDefaults]</span></span><br><span class="line"><span class="attr">autologin-user</span>=root</span><br><span class="line"><span class="attr">greeter-session</span>=lightdm-gtk-greeter</span><br><span class="line"><span class="attr">greeter-show-manual-login</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">all-guest</span>=<span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="修改-root-profile"><a href="#修改-root-profile" class="headerlink" title="修改 /root/.profile"></a>修改 <code>/root/.profile</code></h2><p>在刚修改完root权限自动登录后，发现可能开机出现以下提示：</p>
 <figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Error </span>found when loading /root/.profile</span><br><span class="line">stdin:is not a tty</span><br><span class="line">…………</span><br></pre></td></tr></table></figure>

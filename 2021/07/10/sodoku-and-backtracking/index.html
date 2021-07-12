@@ -67,7 +67,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-07-11-16259930856620.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-07-11-16260036519609.jpg">
-<meta property="og:updated_time" content="2021-07-11T12:17:29.000Z">
+<meta property="og:updated_time" content="2021-07-12T03:04:59.398Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数独与回溯法">
 <meta name="twitter:description" content="数独是一种数学逻辑游戏，游戏由9×9个格子组成，玩家需要根据格子提供的数字推理出其他格子的数字。游戏设计者会提供最少17个数字使得解答谜题只有一个答案。 数独的解法需 遵循如下规则：  数字 1-9 在每一行只能出现一次。 数字 1-9 在每一列只能出现一次。 数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。">
@@ -336,7 +336,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-11 20:17:29" itemprop="dateModified" datetime="2021-07-11T20:17:29+08:00">2021-07-11</time>
+                <time title="修改时间：2021-07-12 11:04:59" itemprop="dateModified" datetime="2021-07-12T11:04:59+08:00">2021-07-12</time>
               </span>
             
           
@@ -398,7 +398,7 @@
 <p>类似这种需要穷举的问题一般采用回溯法，也就是暴力求解，在最坏的情况下时间复杂度为指数。</p>
 <h2 id="回溯法"><a href="#回溯法" class="headerlink" title="回溯法"></a>回溯法</h2><p>回溯法采用试错的思想，它尝试分步的去解决一个问题。在解决问题的过程中，如果现有的分步答案不能得到有效的正确的解答的时候，它将取消上一步甚至是上几步的计算，再通过其它的可能的分步解答再次尝试寻找问题的答案。</p>
 <p>回溯法通常用最简单的递归方法来实现，下面是回溯法的一般结构。<br>理解回溯法首先要理解递归，理解递归的过程，以及递归的返回值。可以通过查看斐波那契数列的递归实现的调用栈来理解递归的过程。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">backtracking</span><span class="params">(args)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> can_stop(args):  <span class="comment"># 判断是否终止，限制了递归深度</span></span><br><span class="line">        <span class="keyword">if</span> need():   <span class="comment"># 必要时收集叶子节点的结果</span></span><br><span class="line">            collect_result()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> choice <span class="keyword">in</span> get_all_choices(args):  <span class="comment"># 针对每一种情况, 情况的个数也就是每一层的广度</span></span><br><span class="line">        set_state(args, choice)  <span class="comment"># 暂时选择该项</span></span><br><span class="line">        res = process(args)   <span class="comment"># 该节点数据加工</span></span><br><span class="line">        <span class="keyword">if</span> need():   <span class="comment"># 必要时收集该节点的结果</span></span><br><span class="line">            collect_result()</span><br><span class="line">        backtracking(args)   <span class="comment"># 递归进入下一层次</span></span><br><span class="line">        revert_state(args, choice)   <span class="comment"># 撤销当前选择</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">backtracking</span><span class="params">(args)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> can_stop(args):  <span class="comment"># 判断是否终止，限制了递归深度</span></span><br><span class="line">        <span class="keyword">if</span> need():   <span class="comment"># 必要时收集递归子树的叶子节点的结果</span></span><br><span class="line">            collect_result()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> choice <span class="keyword">in</span> get_all_choices(args):  <span class="comment"># 针对每一种情况, 情况的个数也就是每一层的广度</span></span><br><span class="line">        set_state(args, choice)  <span class="comment"># 暂时选择该项</span></span><br><span class="line">        process(args)   <span class="comment"># 该节点数据加工</span></span><br><span class="line">        backtracking(args)   <span class="comment"># 递归进入下一层次</span></span><br><span class="line">        revert_state(args, choice)   <span class="comment"># 撤销当前选择</span></span><br></pre></td></tr></table></figure>
 <h2 id="暴力解法"><a href="#暴力解法" class="headerlink" title="暴力解法"></a>暴力解法</h2><p>回到数独解法上来</p>
 <p>首先看最简单的暴力解法</p>
 <p>这里有几个点和模板不一样</p>

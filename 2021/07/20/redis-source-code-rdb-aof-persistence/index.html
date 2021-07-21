@@ -57,21 +57,21 @@
   };
 </script>
 
-  <meta name="description" content="Redis是内存型数据库，所有数据都存储在内存中。而内存是易失型存储，一旦进程退出所有数据都会丢失。 所谓，持久化就是将Redis在内存中的数据库状态以某次格式保存到磁盘里面，避免数据意外丢失。 Redis有两种持久化方式：RDB (Redis Database)、AOF (Append Only File)">
+  <meta name="description" content="Redis是内存型数据库，所有数据都存储在内存中。而内存是易失型存储，一旦进程退出所有数据都会丢失。 所谓持久化，就是将Redis在内存中的数据库状态以某次格式保存到磁盘里面，避免数据意外丢失。 Redis有两种持久化方式：RDB (Redis Database)、AOF (Append Only File)">
 <meta name="keywords" content="Redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis持久化：RDB与AOF">
 <meta property="og:url" content="http://ponder.work/2021/07/20/redis-source-code-rdb-aof-persistence/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="Redis是内存型数据库，所有数据都存储在内存中。而内存是易失型存储，一旦进程退出所有数据都会丢失。 所谓，持久化就是将Redis在内存中的数据库状态以某次格式保存到磁盘里面，避免数据意外丢失。 Redis有两种持久化方式：RDB (Redis Database)、AOF (Append Only File)">
+<meta property="og:description" content="Redis是内存型数据库，所有数据都存储在内存中。而内存是易失型存储，一旦进程退出所有数据都会丢失。 所谓持久化，就是将Redis在内存中的数据库状态以某次格式保存到磁盘里面，避免数据意外丢失。 Redis有两种持久化方式：RDB (Redis Database)、AOF (Append Only File)">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-07-21-16268563558568.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-07-21-16268637141893.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-07-21-16268635658876.jpg">
-<meta property="og:updated_time" content="2021-07-21T10:43:25.119Z">
+<meta property="og:updated_time" content="2021-07-21T11:13:54.281Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis持久化：RDB与AOF">
-<meta name="twitter:description" content="Redis是内存型数据库，所有数据都存储在内存中。而内存是易失型存储，一旦进程退出所有数据都会丢失。 所谓，持久化就是将Redis在内存中的数据库状态以某次格式保存到磁盘里面，避免数据意外丢失。 Redis有两种持久化方式：RDB (Redis Database)、AOF (Append Only File)">
+<meta name="twitter:description" content="Redis是内存型数据库，所有数据都存储在内存中。而内存是易失型存储，一旦进程退出所有数据都会丢失。 所谓持久化，就是将Redis在内存中的数据库状态以某次格式保存到磁盘里面，避免数据意外丢失。 Redis有两种持久化方式：RDB (Redis Database)、AOF (Append Only File)">
 <meta name="twitter:image" content="http://image.runjf.com/mweb/2021-07-21-16268563558568.jpg">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2021/07/20/redis-source-code-rdb-aof-persistence/">
@@ -337,7 +337,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-21 18:43:25" itemprop="dateModified" datetime="2021-07-21T18:43:25+08:00">2021-07-21</time>
+                <time title="修改时间：2021-07-21 19:13:54" itemprop="dateModified" datetime="2021-07-21T19:13:54+08:00">2021-07-21</time>
               </span>
             
           
@@ -388,7 +388,7 @@
 
       
         <p>Redis是内存型数据库，所有数据都存储在内存中。而内存是易失型存储，一旦进程退出所有数据都会丢失。</p>
-<p>所谓，持久化就是将Redis在内存中的数据库状态以某次格式保存到磁盘里面，避免数据意外丢失。</p>
+<p>所谓持久化，就是将Redis在内存中的数据库状态以某次格式保存到磁盘里面，避免数据意外丢失。</p>
 <p>Redis有两种持久化方式：RDB (Redis Database)、AOF (Append Only File)<br><a id="more"></a></p>
 <h2 id="RDB持久化"><a href="#RDB持久化" class="headerlink" title="RDB持久化"></a>RDB持久化</h2><p>RDB持久化功能所生成的RDB文件是一个经过压缩的二进制文件，包含了Redis数据库的所有数据。</p>
 <p>RDB是将redis中所有db中的所有键值对以如下格式进行储存</p>
@@ -406,7 +406,7 @@
 <li>文件写入：将aof_buf的内容写入文件，并清空aof_buf</li>
 <li>文件同步：清空完aof_buf之后，根据appendfsync配置的策略，决定如何刷新文件缓存到硬盘。</li>
 </ol>
-<p>appendfsync决定如何刷新文件缓存到硬盘，该选项的值直接影响的效率和安全性。<br>当故障停机时，未文件缓冲区内的数据会丢失。<br>appendfsync有以下选项</p>
+<p>appendfsync决定如何刷新文件缓存到硬盘，该选项的值直接影响的效率和安全性。<br>当故障停机时，文件缓冲区内的数据会丢失。<br>appendfsync有以下选项</p>
 <ul>
 <li>always: 每次都会进行文件缓冲区刷新，最安全，效率也最低。</li>
 <li>no: 不主动刷新文件缓冲区，由系统决定刷新时机，安全性最低，效率最高</li>

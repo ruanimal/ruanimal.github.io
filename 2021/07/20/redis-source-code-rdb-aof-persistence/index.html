@@ -65,14 +65,14 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="Redis是内存型数据库，所有数据都存储在内存中。而内存是易失型存储，一旦进程退出所有数据都会丢失。 所谓，持久化就是将Redis在内存中的数据库状态以某次格式保存到磁盘里面，避免数据意外丢失。 Redis有两种持久化方式：RDB (Redis Database)、AOF (Append Only File)">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ponder.work/2021/07/20/redis-source-code-rdb-aof-persistence/media/16268563558568.jpg">
-<meta property="og:image" content="http://ponder.work/2021/07/20/redis-source-code-rdb-aof-persistence/media/16268637141893.jpg">
-<meta property="og:image" content="http://ponder.work/2021/07/20/redis-source-code-rdb-aof-persistence/media/16268635658876.jpg">
-<meta property="og:updated_time" content="2021-07-21T10:40:10.882Z">
+<meta property="og:image" content="http://image.runjf.com/mweb/2021-07-21-16268563558568.jpg">
+<meta property="og:image" content="http://image.runjf.com/mweb/2021-07-21-16268637141893.jpg">
+<meta property="og:image" content="http://image.runjf.com/mweb/2021-07-21-16268635658876.jpg">
+<meta property="og:updated_time" content="2021-07-21T10:43:25.119Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis持久化：RDB与AOF">
 <meta name="twitter:description" content="Redis是内存型数据库，所有数据都存储在内存中。而内存是易失型存储，一旦进程退出所有数据都会丢失。 所谓，持久化就是将Redis在内存中的数据库状态以某次格式保存到磁盘里面，避免数据意外丢失。 Redis有两种持久化方式：RDB (Redis Database)、AOF (Append Only File)">
-<meta name="twitter:image" content="http://ponder.work/2021/07/20/redis-source-code-rdb-aof-persistence/media/16268563558568.jpg">
+<meta name="twitter:image" content="http://image.runjf.com/mweb/2021-07-21-16268563558568.jpg">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2021/07/20/redis-source-code-rdb-aof-persistence/">
 
@@ -337,7 +337,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-21 18:40:10" itemprop="dateModified" datetime="2021-07-21T18:40:10+08:00">2021-07-21</time>
+                <time title="修改时间：2021-07-21 18:43:25" itemprop="dateModified" datetime="2021-07-21T18:43:25+08:00">2021-07-21</time>
               </span>
             
           
@@ -392,7 +392,7 @@
 <p>Redis有两种持久化方式：RDB (Redis Database)、AOF (Append Only File)<br><a id="more"></a></p>
 <h2 id="RDB持久化"><a href="#RDB持久化" class="headerlink" title="RDB持久化"></a>RDB持久化</h2><p>RDB持久化功能所生成的RDB文件是一个经过压缩的二进制文件，包含了Redis数据库的所有数据。</p>
 <p>RDB是将redis中所有db中的所有键值对以如下格式进行储存</p>
-<p><img src="media/16268563558568.jpg" alt></p>
+<p><img src="http://image.runjf.com/mweb/2021-07-21-16268563558568.jpg" alt></p>
 <h3 id="RDB文件创建"><a href="#RDB文件创建" class="headerlink" title="RDB文件创建"></a>RDB文件创建</h3><p>有两个命令可以生成RDB文件，<code>SAVE</code> 和 <code>BGSAVE</code>。生成RDB文件时，redis会遍历所有非空db的所有键值对按一定格式存储到RDB文件中。</p>
 <p><code>SAVE</code> 命令会在当前进程进行，期间服务器会阻塞，不能处理任何请求。<br><code>BGSAVE</code> 命令会fork一个子进程来创建RDB（利用Copy-on-write），服务继续处理命令请求。</p>
 <p>为了避免竞争条件和性能问题，<code>SAVE</code> 和 <code>BGSAVE</code>任意时刻只能有一个在执行。</p>
@@ -400,7 +400,7 @@
 <h3 id="RDB文件读取"><a href="#RDB文件读取" class="headerlink" title="RDB文件读取"></a>RDB文件读取</h3><p>服务器启动时会自动载入RDB文件，Redis并没有专门用于载人RDB文件的命令。</p>
 <p>如果服务器开启了AOF持久化功能，那么服务器会优先使用AOF文件来还原数据库状态。</p>
 <h2 id="AOF持久化"><a href="#AOF持久化" class="headerlink" title="AOF持久化"></a>AOF持久化</h2><p>由于RDB生成的机制决定了，RDB文件总是会和redis内存有部分不一致，<strong>RDB文件会缺少从上次BGSAVE开始到当前时刻的所有改动</strong>。AOF持久化的存在就是为了解决该问题。</p>
-<p>AOF持久化是通过保存Redis服务器所执行的写命令来记录数据库状态。<br>因为Redis的命令请求协议是纯文本格式，所以AOF文件类似如下格式<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*2<span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">n</span></span><span class="formula">$6<span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">nSELECT</span></span><span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">n</span></span>$</span>l<span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">nO</span></span><span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">n</span></span> </span><br><span class="line">*3<span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">n</span></span><span class="formula">$3<span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">nSET</span></span><span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">n</span></span>$</span>3<span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">nmsg</span></span><span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">n</span></span><span class="formula">$5<span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">nhello</span></span><span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">n</span></span></span></span><br></pre></td></tr></table></figure></p>
+<p>AOF持久化是通过保存执行的写命令来记录数据库状态。<br>因为Redis的命令请求协议是纯文本格式，所以AOF文件类似如下。<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*2<span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">n</span></span><span class="formula">$6<span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">nSELECT</span></span><span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">n</span></span>$</span>l<span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">nO</span></span><span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">n</span></span> </span><br><span class="line">*3<span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">n</span></span><span class="formula">$3<span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">nSET</span></span><span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">n</span></span>$</span>3<span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">nmsg</span></span><span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">n</span></span><span class="formula">$5<span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">nhello</span></span><span class="tag">\<span class="name">r</span></span><span class="tag">\<span class="name">n</span></span></span></span><br></pre></td></tr></table></figure></p>
 <h3 id="AOF持久化实现"><a href="#AOF持久化实现" class="headerlink" title="AOF持久化实现"></a>AOF持久化实现</h3><ol>
 <li>命令追加：执行完命令，将所有<strong>写命令</strong>追加到aof_buf缓冲区末尾</li>
 <li>文件写入：将aof_buf的内容写入文件，并清空aof_buf</li>
@@ -431,9 +431,9 @@
 <li>子进程带有服务器进程的数据副本，可以在避免使用锁的情况下，保证数据的安全性（Copy-on-write）。</li>
 </ul>
 <p>在AOF重新过程中，所有命令会额外会写一份到<strong>AOF重写缓冲区</strong>中，当新AOF文件生成时，父进程会将AOF重写缓冲区的内容追加到新AOF文件中，并替换旧AOF文件。</p>
-<p><img src="media/16268637141893.jpg" alt></p>
-<p>为防止AOF重新失败，AOF缓冲区在重写过程中依然正常工作。</p>
-<p><img src="media/16268635658876.jpg" alt></p>
+<p><img src="http://image.runjf.com/mweb/2021-07-21-16268637141893.jpg" alt></p>
+<p>为防止AOF重写失败，AOF缓冲区在重写过程中依然正常工作。</p>
+<p><img src="http://image.runjf.com/mweb/2021-07-21-16268635658876.jpg" alt></p>
 <p><strong>注意</strong>：redis主从是基于<code>RDB + 命令传播</code>，并没有利用AOF文件，与MySQL的binlog不同。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li>redis 3.0 源码</li>

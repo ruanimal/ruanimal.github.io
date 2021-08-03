@@ -71,7 +71,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-08-03-16279791270158.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-08-03-16279791503013.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-08-03-16279775548246.jpg">
-<meta property="og:updated_time" content="2021-08-03T08:29:43.102Z">
+<meta property="og:updated_time" content="2021-08-03T08:39:44.024Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 iTerm2 管理 Tmux 会话">
 <meta name="twitter:description" content="Tmux 是一个终端复用器（terminal multiplexer），非常有用，属于常用的开发工具。 Tmux 可以维持和管理我们的远程终端会话，和服务断线重连后也不会丢失工作状态, 同时可以在一个终端连接中开启多个窗口（window）和窗格（pane）。 一个典型的例子就是，SSH 登录远程计算机，打开一个远程窗口执行命令。这时，网络突然断线，再次登录的时候，是找不回上一次执行的命令的。因为上">
@@ -350,9 +350,11 @@
 <ol>
 <li>窗口和会话管理默认是全键盘操作，需要记比较多快捷键</li>
 <li>由于窗口是 Tmux 虚拟的, 不支持文本回滚（scrollback），文本复制不完美</li>
+<li>在 mouse mode 下，无法复制文本，非 mouse mode，调整窗格比较麻烦</li>
 <li>不支持rzsz</li>
 </ol>
-<p>而 iTerm2 内置了 Tmux 绑定功能，可以将 tmux 的窗口和窗格映射成原生的窗口和窗格，可以用 iTerm2 的菜单和快捷键来操作窗口。<br>rzsz 由于 tmux 的实现机制决定了是无解的。</p>
+<p>而 iTerm2 内置了 Tmux 绑定功能，可以将 tmux 的窗口和窗格映射成原生的窗口和窗格，可以用 iTerm2 的菜单和快捷键来操作窗口，解决了前3点问题。</p>
+<p>至于第4点，rzsz 由于 tmux 的实现机制决定了是无解的。</p>
 <h2 id="iTerm2-配置"><a href="#iTerm2-配置" class="headerlink" title="iTerm2 配置"></a>iTerm2 配置</h2><p>可以对 tmux 窗口的映射进行一些定制</p>
 <p>iTerm2 对于 tmux 会话有一个profile，建议对终端颜色和外观进行一些定制化，将原生窗口和 tmux 窗口区分开来。</p>
 <p><img src="http://image.runjf.com/mweb/2021-08-03-16279767130639.jpg" alt><br><img src="http://image.runjf.com/mweb/2021-08-03-16279767560503.jpg" alt></p>
@@ -714,7 +716,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">269k</span>
+    <span title="站点总字数">270k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

@@ -67,7 +67,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-09-21-16322275739423.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-09-21-16322277511161.jpg">
-<meta property="og:updated_time" content="2021-09-21T13:05:01.164Z">
+<meta property="og:updated_time" content="2021-09-21T13:11:57.662Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hyper-V 中安装 openmediavault(OMV) 实现完美 NAS 文件共享">
 <meta name="twitter:description" content="一直在寻找适合自己的 NAS 存储方案，也做过一些尝试，可总有些不完美的点。 最近终于找到一个接近完美的方案：Hyper-V + NFS + openmediavault">
@@ -325,7 +325,7 @@
                 
               
 
-              <time title="创建时间：2021-09-21 17:00:00 / 修改时间：21:05:01" itemprop="dateCreated datePublished" datetime="2021-09-21T17:00:00+08:00">2021-09-21</time>
+              <time title="创建时间：2021-09-21 17:00:00 / 修改时间：21:11:57" itemprop="dateCreated datePublished" datetime="2021-09-21T17:00:00+08:00">2021-09-21</time>
             </span>
           
             
@@ -454,7 +454,7 @@
 <h3 id="openmediavault-安装及配置"><a href="#openmediavault-安装及配置" class="headerlink" title="openmediavault 安装及配置"></a>openmediavault 安装及配置</h3><ol>
 <li>创建 Hyper-V 虚拟机：选择第一代，选择桥接网卡，虚拟硬盘需挂载到 IDE 控制器</li>
 <li>挂载安装镜像，安装 openmediavault 系统</li>
-<li>安装 omv-extras: <code>wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash</code></li>
+<li>安装 omv-extras<br> <code>wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash</code></li>
 <li>安装插件：openmediavault-sharerootfs(共享系统分区的文件夹) openmediavault-remotemount(远程挂载)</li>
 <li>挂载 NFS 共享：存储器 -&gt; 远程挂载</li>
 <li>建立共享文件夹: 选择系统分区上的 NFS 挂载文件夹</li>

@@ -66,7 +66,7 @@
 <meta property="og:description" content="对程序员来说，macOS 就是一个桌面支持比较好的 Linux/Unix，给日常开发带来了许多便利 本文记录一些日常使用中的小技巧。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-10-10-16338756772783.jpg">
-<meta property="og:updated_time" content="2021-10-10T15:15:49.607Z">
+<meta property="og:updated_time" content="2021-10-10T15:34:02.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="macOS 使用技巧">
 <meta name="twitter:description" content="对程序员来说，macOS 就是一个桌面支持比较好的 Linux/Unix，给日常开发带来了许多便利 本文记录一些日常使用中的小技巧。">
@@ -324,7 +324,7 @@
                 
               
 
-              <time title="创建时间：2021-10-10 15:00:00 / 修改时间：23:15:49" itemprop="dateCreated datePublished" datetime="2021-10-10T15:00:00+08:00">2021-10-10</time>
+              <time title="创建时间：2021-10-10 15:00:00 / 修改时间：23:34:02" itemprop="dateCreated datePublished" datetime="2021-10-10T15:00:00+08:00">2021-10-10</time>
             </span>
           
             
@@ -398,7 +398,7 @@
 <p><img src="http://image.runjf.com/mweb/2021-10-10-16338756772783.jpg" alt></p>
 <h2 id="键位修改"><a href="#键位修改" class="headerlink" title="键位修改"></a>键位修改</h2><p>使用 <a href="https://karabiner-elements.pqrs.org/" target="_blank" rel="noopener">karabiner</a> 可以对系统全局快捷键和应用快捷键进行修改。</p>
 <p>通过配置 karabiner 将 command，control，option 按键进行重映射，可以让 macOS 的键位 和 Windows/Linux 接近。</p>
-<h2 id="使-macOS-的命令风格与Linux相同"><a href="#使-macOS-的命令风格与Linux相同" class="headerlink" title="使 macOS 的命令风格与Linux相同"></a>使 macOS 的命令风格与Linux相同</h2><p>macOS 的命令应该是 Unix 风格的，和 Linux 有些不同，可选参数必须放在前面，会有些不方便。<br>比如<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># mac</span><br><span class="line">➜  ~ /bin/<span class="keyword">ls</span> /tmp -<span class="keyword">al</span></span><br><span class="line"><span class="keyword">l</span><span class="variable">s:</span> -<span class="keyword">a</span><span class="variable">l:</span> No such <span class="keyword">file</span> <span class="built_in">or</span> directory</span><br></pre></td></tr></table></figure></p>
+<h2 id="使-macOS-的命令风格与Linux相同"><a href="#使-macOS-的命令风格与Linux相同" class="headerlink" title="使 macOS 的命令风格与Linux相同"></a>使 macOS 的命令风格与Linux相同</h2><p>macOS 的命令应该是 Unix 风格的，和 Linux 有些不同，可选参数必须放在前面，会有些不方便。<br>比如<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> mac</span></span><br><span class="line">➜  ~ /bin/ls /tmp -al</span><br><span class="line">ls: -al: No such file or directory</span><br></pre></td></tr></table></figure></p>
 <p>可以安装 gnu 工具，覆盖这些命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install coreutils findutils gnu-tar htop</span><br><span class="line"><span class="built_in">export</span>   PATH=<span class="string">"/usr/local/opt/coreutils/libexec/gnubin:<span class="variable">$PATH</span>"</span></span><br><span class="line"><span class="built_in">export</span>  MANPATH=<span class="string">"/usr/local/opt/coreutils/libexec/gnuman:<span class="variable">$MANPATH</span>"</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="清除一些-macOS-系统默认快捷键"><a href="#清除一些-macOS-系统默认快捷键" class="headerlink" title="清除一些 macOS 系统默认快捷键"></a>清除一些 macOS 系统默认快捷键</h2><p>创建文件 ~/Library/KeyBindings/DefaultKeyBinding.dict<br>这里是清除了默认的 <code>Control + Command + 方向键</code>的行为<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="string">"^@\UF701"</span> = <span class="string">"noop:"</span><span class="comment">;</span></span><br><span class="line"><span class="string">"^@\UF702"</span> = <span class="string">"noop:"</span><span class="comment">;</span></span><br><span class="line"><span class="string">"^@\UF703"</span> = <span class="string">"noop:"</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>字符含义<br>| Prefix | Meaning |<br>| — | — |<br>| <code>~</code> | ⌥ Option key |<br>| <code>$</code> | ⇧ Shift key |<br>| <code>^</code> | ^ Control key |<br>| <code>@</code> | ⌘ Command key |<br>| <code>#</code> | keys on number pad |</p>

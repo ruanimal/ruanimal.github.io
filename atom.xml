@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ponder.work/"/>
-  <updated>2021-10-11T18:30:42.564Z</updated>
+  <updated>2021-10-11T19:14:31.168Z</updated>
   <id>http://ponder.work/</id>
   
   <author>
@@ -17,25 +17,26 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="http://ponder.work/2021/10/12/hexo-local-search-not-complete-fix/"/>
-    <id>http://ponder.work/2021/10/12/hexo-local-search-not-complete-fix/</id>
-    <published>2021-10-11T18:30:27.285Z</published>
-    <updated>2021-10-11T18:30:42.564Z</updated>
+    <title>hexo 站内搜索内容不完全问题修复</title>
+    <link href="http://ponder.work/2021/10/11/hexo-local-search-not-complete-fix/"/>
+    <id>http://ponder.work/2021/10/11/hexo-local-search-not-complete-fix/</id>
+    <published>2021-10-11T12:00:00.000Z</published>
+    <updated>2021-10-11T19:14:31.168Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="media/16339770374988.jpg" alt></p>]]></content>
+    <content type="html"><![CDATA[<p>在使用 Hexo 的站内搜索时，发现搜索的内容不全。单步调试发现xml解析不完整，有部分内容被截断了。</p><p>在浏览器中打开<a href="/search.xml">/search.xml</a>发现以下错误。显然xml中有非法字符，xml解析产生了错误。<br><a id="more"></a><br><img src="http://image.runjf.com/mweb/2021-10-12-16339770374988.jpg" alt></p><p>将search.xml文件保存，并用python打开，找到具体出错的位置。<br>utf8解码之后可以发现<code>\x10</code>非法字符，将其删除，重新生成文章问题解决。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx = open(<span class="string">'./tmp.xml'</span>, <span class="string">'rb'</span>).read()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx.index(<span class="string">b'\x10\xE7\x84\xB6'</span>)</span><br><span class="line"><span class="number">923278</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx[<span class="number">923278</span>:<span class="number">923278</span>+<span class="number">31</span>]</span><br><span class="line"><span class="string">b'\x10\xe7\x84\xb6\xe5\x88\x99\xef\xbc\x8c\xe4\xbb\x8a\xe4\xb9\x8b\xe4\xb8\x96\xe4\xba\xba\xef\xbc\x8c\xe7\xb1\xbb\xe6\xad\xa4'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx[<span class="number">923278</span>:<span class="number">923278</span>+<span class="number">31</span>].decode()</span><br><span class="line"><span class="string">'\x10然则，今之世人，类此'</span></span><br></pre></td></tr></table></figure><p><img src="http://image.runjf.com/mweb/2021-10-12-16339793845815.jpg" alt></p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;&lt;img src=&quot;media/16339770374988.jpg&quot; alt&gt;&lt;/p&gt;
-
-      
+      &lt;p&gt;在使用 Hexo 的站内搜索时，发现搜索的内容不全。单步调试发现xml解析不完整，有部分内容被截断了。&lt;/p&gt;
+&lt;p&gt;在浏览器中打开&lt;a href=&quot;/search.xml&quot;&gt;/search.xml&lt;/a&gt;发现以下错误。显然xml中有非法字符，xml解析产生了错误。&lt;br&gt;
     
     </summary>
     
     
+      <category term="编程" scheme="http://ponder.work/categories/%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="XML" scheme="http://ponder.work/tags/XML/"/>
     
   </entry>
   

@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="背景　　当你维护旧项目的时候，可能要优化一些原有的代码，又不想大改特改。毕竟设计模式的原则是对更改关闭，对扩展开放。假如大改特改势必会引入新的bug，增加测试的工作量。优化代码的目的是提高稳定性和效率，如果引入了新bug就得不偿失了。 　　这时我们可使用适配器或装饰器，在不改变调用的情况下，优化代码。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-07-15T07:27:48.000Z">
+<meta property="og:updated_time" content="2021-07-15T07:27:48.909Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通过适配器模式优化Python代码">
 <meta name="twitter:description" content="背景　　当你维护旧项目的时候，可能要优化一些原有的代码，又不想大改特改。毕竟设计模式的原则是对更改关闭，对扩展开放。假如大改特改势必会引入新的bug，增加测试的工作量。优化代码的目的是提高稳定性和效率，如果引入了新bug就得不偿失了。 　　这时我们可使用适配器或装饰器，在不改变调用的情况下，优化代码。">
@@ -793,7 +793,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">279k</span>
+    <span title="站点总字数">280k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -923,56 +923,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

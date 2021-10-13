@@ -71,7 +71,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-11-01-16041167579651.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-11-01-16041167920279.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-11-01-16041169311741.jpg">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.050Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树莓派系统备份">
 <meta name="twitter:description" content="在玩树莓派的过程中难免会碰到如何高效的备份系统的问题。 由于树莓派用的是Linux系统，所以常见的有两种备份方式  基于文件的备份，比如tar，rsync 基于磁盘的备份，比如dd  这两种备份方式各有利弊：基于文件的备份占用空间小，而且可以在系统在线时操作，比较方便，但是当要还原整个系统时就会比较麻烦（引导重建等等）。基于磁盘的备份就比较简单粗暴了，直接克隆硬盘，恢复时直接还原映像文件就好了，但">
@@ -819,7 +819,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">279k</span>
+    <span title="站点总字数">280k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -949,56 +949,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

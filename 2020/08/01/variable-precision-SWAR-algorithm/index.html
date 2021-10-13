@@ -68,7 +68,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-08-01-15962704953270.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-08-01-15962705553725.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-08-01-15962660065367.jpg">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.056Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="variable-precision SWAR 算法详解">
 <meta name="twitter:description" content="在学习redis源码时，发现BITCOUNT命令实现用到了variable-precision SWAR 算法。 BITCOUNT命令要解决的问题：统计一个位数组中非0二进制位的数量。在数学上被称为“计算汉明重量（Hamming Weight)”  目前已知效率最好的通用算法为variable-precision SWAR 算法。该算法通过一系列位移和位运算操作，可以在常数时间内计算多个字节的汉明">
@@ -811,7 +811,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">279k</span>
+    <span title="站点总字数">280k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -941,56 +941,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

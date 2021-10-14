@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="最近在搞 torch 的工程化，基于 brpc 和 libtorch，将两者编译在一起的过程也是坑深，容下次再表。 为了简化部署，brpc 服务在 Docker 容器中运行。本地测试时功能一切正常，上到预发布环境时请求全部超时。 由于业务代码，brpc，docker环境，机房都是新的，在排查问题的过程中简直一头雾水。（当然根本原因还是水平不足）">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-09-29T07:04:31.283Z">
+<meta property="og:updated_time" content="2021-09-29T07:04:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker mtu 引发的加班血案">
 <meta name="twitter:description" content="最近在搞 torch 的工程化，基于 brpc 和 libtorch，将两者编译在一起的过程也是坑深，容下次再表。 为了简化部署，brpc 服务在 Docker 容器中运行。本地测试时功能一切正常，上到预发布环境时请求全部超时。 由于业务代码，brpc，docker环境，机房都是新的，在排查问题的过程中简直一头雾水。（当然根本原因还是水平不足）">
@@ -533,7 +533,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">156</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -823,7 +823,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:49</span>
+    <span title="站点阅读时长">5:50</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -948,6 +948,56 @@ window.addEventListener('pjax:success', () => {
 
   
 
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
   
 
   

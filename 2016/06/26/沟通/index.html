@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="no man is a island.  　　西谚有云“没有人是个孤岛”，人是社会性动物，很多自我价值都在社交中实现，自是离不开沟通。 　　但真正的沟通又是何其难？某种意义上，你永远都不能知道对方真正的意思。当然，有时你连自己是什么意思都不甚了解。 　　在聊天中经常出现的是，表面上相谈甚欢，背地里很可能是呵呵一笑。毕竟不同价值观，你不能奢望别人能完全理解你，不然怎么老说知音难觅呢？ 　　叔本华曾">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.073Z">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="沟通">
 <meta name="twitter:description" content="no man is a island.  　　西谚有云“没有人是个孤岛”，人是社会性动物，很多自我价值都在社交中实现，自是离不开沟通。 　　但真正的沟通又是何其难？某种意义上，你永远都不能知道对方真正的意思。当然，有时你连自己是什么意思都不甚了解。 　　在聊天中经常出现的是，表面上相谈甚欢，背地里很可能是呵呵一笑。毕竟不同价值观，你不能奢望别人能完全理解你，不然怎么老说知音难觅呢？ 　　叔本华曾">
@@ -515,7 +515,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">156</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -805,7 +805,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:49</span>
+    <span title="站点阅读时长">5:50</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -930,6 +930,56 @@ window.addEventListener('pjax:success', () => {
 
   
 
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
   
 
   

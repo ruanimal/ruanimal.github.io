@@ -305,28 +305,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Git 常用命令备忘录</title>
-    <url>/2016/01/21/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/</url>
-    <content><![CDATA[<h2 id="git-简介"><a href="#git-简介" class="headerlink" title="git 简介"></a>git 简介</h2><p>git是一个分散式版本控制软件，最初由林纳斯·托瓦兹（Linus Torvalds）創作，於2005年以GPL釋出。最初目的是为更好地管理Linux内核开发而设计。<br>初始版本由Linus大神在两个星期内写出来，之后基本一统文件版本控制的天下。</p>
-<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p>工作区：就是你在电脑里能看到的目录。<br>暂存区：英文叫stage, 或index。一般存放在”git目录”下的index文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。<br>版本库：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。<br>branch：分支，相当于不同的平行世界<br>remote：远程仓库<br>origin：默认的远程仓库名词<br>HEAD：一个指向当前版本号的指针</p>
-<a id="more"></a>
-<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p><code>git config --global user.name yourname</code>   设置用户名，如果不加<code>--global</code>则只对当前项目生效<br><code>git config --global user.email youremail</code>    设置邮箱<br><code>git config --global core.editor vim</code>     设置默认编辑器为vim，可替换为你自己喜欢的<br><code>git config --global core.quotepath false</code>   显示中文路径名</p>
-<h2 id="开始项目"><a href="#开始项目" class="headerlink" title="开始项目"></a>开始项目</h2><p><code>git init</code>    初始化git仓库<br><code>git clone &lt;repository&gt; [&lt;directory&gt;]</code>    复制项目</p>
-<h2 id="管理修改"><a href="#管理修改" class="headerlink" title="管理修改"></a>管理修改</h2><p><code>git status</code>  查看当前仓库状态，绿色为未commit的stage内容，红色为未stage、为添加到版本库内容<br><code>git show &lt;commit-hash-id|tag_name&gt;</code>   查看某次commit的修改内容<br><code>git add filename</code>    保存文件修改到暂存区<br><code>git rm filename</code>     删除工作区的文件和git记录<br><code>git rm --cached filename</code>    删除暂存区的新文件<br><code>git diff</code>    查看工作区和暂存区(stage)的不同<br><code>git diff --cached</code>   比较的是暂存区和版本库的差别<br><code>git diff HEAD</code> 可以查看工作区和版本库的差别<br><code>git diff commit1 commit2</code>    比较不同commit<br><code>git diff commit1 commit2 -- filepath</code> 比较不同commit指定文件更改<br><code>git commit</code>  提交暂存区内容到当前分支，会新加一个commit<br><code>git commit  --amend</code>     追加暂存区内容到当前分支的最近一个commit<br><code>git rebase -i HEAD~4</code>   合并最近4个commit<br><code>git rebase 目标分支名称</code>   把本分支改动放到目标分支之后</p>
-<h2 id="分支与Tag"><a href="#分支与Tag" class="headerlink" title="分支与Tag"></a>分支与Tag</h2><p><code>git branch -a</code>   查看所有分支信息<br><code>git branch new_branch_name</code>      新建分支<br><code>git branch -d branch_name</code>      删除分支<br><code>git branch --set-upstream dev origin/dev</code>   指定本地dev分支与远程origin/dev分支的链接<br><code>git checkout branch_name</code>      切换到分支头部<br><code>git checkout tags/tag_name</code>      切换到某个tag对应的版本<br><code>git checkout -b new_branch_name</code>    新建分支，并切换到新分支<br><code>git checkout -b dev origin/dev</code>  创建远程origin的dev分支到本地，并切换到新分支<br><code>git merge dev</code> 合并dev到当前分支，保留commit信息<br><code>git merge --squash dev</code>  合并dev分枝代码到暂存区，不保留commit信息<br><code>git tag</code>     查看tag列表<br><code>git tag tag_name</code>    打tag<br><code>git tag -d tag_name</code>     删除tag</p>
-<h2 id="仓库操作"><a href="#仓库操作" class="headerlink" title="仓库操作"></a>仓库操作</h2><p><code>git remote -v</code>   查看远程仓库详细信息<br><code>git remote add &lt;name&gt; &lt;url&gt;</code>     添加远程仓库<br><code>git remote rename &lt;old&gt; &lt;new&gt;</code>   重命名远程仓库<br><code>git remote remove &lt;name&gt;</code>    删除远程仓库<br><code>git remote set-url [--push] &lt;name&gt; &lt;newurl&gt;</code>     设置远程仓库链接<br><code>git remote prune origin</code>     清除本地无用remote<br><code>git pull</code>      &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;    从远程仓库更新<br><code>git fetch git@github.com:ruanima/Mysite.git</code>    从其他仓库获取代码，但不更新到本地分支<br><code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code>    提交到远程仓库<br><code>git push origin &lt;本地分支名&gt;</code>     将本地分支推送与之存在“追踪关系”的远程分支(通常两者同名)<br><code>git push</code>    如果当前分支只有一个追踪分支，那么主机名都可以省略。<br><code>git push -f</code>     强制提交</p>
-<h2 id="子模块"><a href="#子模块" class="headerlink" title="子模块"></a>子模块</h2><p><code>git submodule add -b branch {url} [module_name]</code>.  已有仓库，添加子模块<br><code>git submodule set-branch --branch master module_name</code>   子模块切换追踪分支到master<br><code>git submodule update --remote</code> 更新子模块代码, 分支和代码与.gitmodules中的配置同步<br><code>git clone --recursive {url}</code>. clone代码时，拉取子模块代码<br><code>git submodule update --init</code>  克隆项目后, 首次拉取子模块代码<br><code>git rm {submodule_folder}</code>   删除子模块</p>
-<h2 id="怎么吃后悔药"><a href="#怎么吃后悔药" class="headerlink" title="怎么吃后悔药"></a>怎么吃后悔药</h2><p><code>git log</code>     查看commit的历史<br><code>git log -p</code>      <filename>查看某个文件的修改历史<br><code>git log -p -2</code>   查看最近2次的更新内容<br><code>git log --graph</code>     命令可以看到分支合并图。<br><code>git whatchanged filename</code>    显示文件更改的相关commit<br><code>git checkout [commit id] -- file</code>      丢弃工作区文件修改<br><code>git restore filename</code>  丢弃工作区文件修改<br><code>git reset HEAD filename</code>    可以把暂存区的修改撤销掉（unstage），重新放回工作区<br><code>git restore --staged filename</code>    可以把暂存区的修改撤销掉（unstage），重新放回工作区<br><code>git reset –mixed</code>      此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息<br><code>git reset –soft</code>       回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可<br><code>git reset –hard</code>       彻底回退到某个版本，本地的源码也会变为上一个版本的内容，若无版本号则回退到最新的版本。<br><code>git reset [commit-id] -- filename</code>   以commit的版本替换stage的文件<br><code>git revert [commit-id]</code>      是用一次新的commit来逆向操作之前的commit</filename></p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><code>git gc</code>      压缩历史信息来节约磁盘和内存空间<br><code>git &lt;command&gt; --abort</code>   一般用于中断某次操作<br><code>git cherry-pick &lt;commit_id&gt;</code>       捡取某一个commit到当前分支（包含commit变更的内容和注释）<br><code>git filter-branch --tree-filter &#39;rm -f testme.txt&#39; HEAD</code>       从git仓库中永久删除某个文件的历史</p>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MySQL在django的应用与设置</title>
     <url>/2015/09/10/MySQL%E5%9C%A8django%E7%9A%84%E5%BA%94%E7%94%A8/</url>
     <content><![CDATA[<h2 id="MySQL安装"><a href="#MySQL安装" class="headerlink" title="MySQL安装"></a>MySQL安装</h2><ul>
@@ -366,6 +344,28 @@
         <tag>Python</tag>
         <tag>Django</tag>
         <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 常用命令备忘录</title>
+    <url>/2016/01/21/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/</url>
+    <content><![CDATA[<h2 id="git-简介"><a href="#git-简介" class="headerlink" title="git 简介"></a>git 简介</h2><p>git是一个分散式版本控制软件，最初由林纳斯·托瓦兹（Linus Torvalds）創作，於2005年以GPL釋出。最初目的是为更好地管理Linux内核开发而设计。<br>初始版本由Linus大神在两个星期内写出来，之后基本一统文件版本控制的天下。</p>
+<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p>工作区：就是你在电脑里能看到的目录。<br>暂存区：英文叫stage, 或index。一般存放在”git目录”下的index文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。<br>版本库：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。<br>branch：分支，相当于不同的平行世界<br>remote：远程仓库<br>origin：默认的远程仓库名词<br>HEAD：一个指向当前版本号的指针</p>
+<a id="more"></a>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p><code>git config --global user.name yourname</code>   设置用户名，如果不加<code>--global</code>则只对当前项目生效<br><code>git config --global user.email youremail</code>    设置邮箱<br><code>git config --global core.editor vim</code>     设置默认编辑器为vim，可替换为你自己喜欢的<br><code>git config --global core.quotepath false</code>   显示中文路径名</p>
+<h2 id="开始项目"><a href="#开始项目" class="headerlink" title="开始项目"></a>开始项目</h2><p><code>git init</code>    初始化git仓库<br><code>git clone &lt;repository&gt; [&lt;directory&gt;]</code>    复制项目</p>
+<h2 id="管理修改"><a href="#管理修改" class="headerlink" title="管理修改"></a>管理修改</h2><p><code>git status</code>  查看当前仓库状态，绿色为未commit的stage内容，红色为未stage、为添加到版本库内容<br><code>git show &lt;commit-hash-id|tag_name&gt;</code>   查看某次commit的修改内容<br><code>git add filename</code>    保存文件修改到暂存区<br><code>git rm filename</code>     删除工作区的文件和git记录<br><code>git rm --cached filename</code>    删除暂存区的新文件<br><code>git diff</code>    查看工作区和暂存区(stage)的不同<br><code>git diff --cached</code>   比较的是暂存区和版本库的差别<br><code>git diff HEAD</code> 可以查看工作区和版本库的差别<br><code>git diff commit1 commit2</code>    比较不同commit<br><code>git diff commit1 commit2 -- filepath</code> 比较不同commit指定文件更改<br><code>git commit</code>  提交暂存区内容到当前分支，会新加一个commit<br><code>git commit  --amend</code>     追加暂存区内容到当前分支的最近一个commit<br><code>git rebase -i HEAD~4</code>   合并最近4个commit<br><code>git rebase 目标分支名称</code>   把本分支改动放到目标分支之后</p>
+<h2 id="分支与Tag"><a href="#分支与Tag" class="headerlink" title="分支与Tag"></a>分支与Tag</h2><p><code>git branch -a</code>   查看所有分支信息<br><code>git branch new_branch_name</code>      新建分支<br><code>git branch -d branch_name</code>      删除分支<br><code>git branch --set-upstream dev origin/dev</code>   指定本地dev分支与远程origin/dev分支的链接<br><code>git checkout branch_name</code>      切换到分支头部<br><code>git checkout tags/tag_name</code>      切换到某个tag对应的版本<br><code>git checkout -b new_branch_name</code>    新建分支，并切换到新分支<br><code>git checkout -b dev origin/dev</code>  创建远程origin的dev分支到本地，并切换到新分支<br><code>git merge dev</code> 合并dev到当前分支，保留commit信息<br><code>git merge --squash dev</code>  合并dev分枝代码到暂存区，不保留commit信息<br><code>git tag</code>     查看tag列表<br><code>git tag tag_name</code>    打tag<br><code>git tag -d tag_name</code>     删除tag</p>
+<h2 id="仓库操作"><a href="#仓库操作" class="headerlink" title="仓库操作"></a>仓库操作</h2><p><code>git remote -v</code>   查看远程仓库详细信息<br><code>git remote add &lt;name&gt; &lt;url&gt;</code>     添加远程仓库<br><code>git remote rename &lt;old&gt; &lt;new&gt;</code>   重命名远程仓库<br><code>git remote remove &lt;name&gt;</code>    删除远程仓库<br><code>git remote set-url [--push] &lt;name&gt; &lt;newurl&gt;</code>     设置远程仓库链接<br><code>git remote prune origin</code>     清除本地无用remote<br><code>git pull</code>      &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;    从远程仓库更新<br><code>git fetch git@github.com:ruanima/Mysite.git</code>    从其他仓库获取代码，但不更新到本地分支<br><code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code>    提交到远程仓库<br><code>git push origin &lt;本地分支名&gt;</code>     将本地分支推送与之存在“追踪关系”的远程分支(通常两者同名)<br><code>git push</code>    如果当前分支只有一个追踪分支，那么主机名都可以省略。<br><code>git push -f</code>     强制提交</p>
+<h2 id="子模块"><a href="#子模块" class="headerlink" title="子模块"></a>子模块</h2><p><code>git submodule add -b branch {url} [module_name]</code>.  已有仓库，添加子模块<br><code>git submodule set-branch --branch master module_name</code>   子模块切换追踪分支到master<br><code>git submodule update --remote</code> 更新子模块代码, 分支和代码与.gitmodules中的配置同步<br><code>git clone --recursive {url}</code>. clone代码时，拉取子模块代码<br><code>git submodule update --init</code>  克隆项目后, 首次拉取子模块代码<br><code>git rm {submodule_folder}</code>   删除子模块</p>
+<h2 id="怎么吃后悔药"><a href="#怎么吃后悔药" class="headerlink" title="怎么吃后悔药"></a>怎么吃后悔药</h2><p><code>git log</code>     查看commit的历史<br><code>git log -p</code>      <filename>查看某个文件的修改历史<br><code>git log -p -2</code>   查看最近2次的更新内容<br><code>git log --graph</code>     命令可以看到分支合并图。<br><code>git whatchanged filename</code>    显示文件更改的相关commit<br><code>git checkout [commit id] -- file</code>      丢弃工作区文件修改<br><code>git restore filename</code>  丢弃工作区文件修改<br><code>git reset HEAD filename</code>    可以把暂存区的修改撤销掉（unstage），重新放回工作区<br><code>git restore --staged filename</code>    可以把暂存区的修改撤销掉（unstage），重新放回工作区<br><code>git reset –mixed</code>      此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息<br><code>git reset –soft</code>       回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可<br><code>git reset –hard</code>       彻底回退到某个版本，本地的源码也会变为上一个版本的内容，若无版本号则回退到最新的版本。<br><code>git reset [commit-id] -- filename</code>   以commit的版本替换stage的文件<br><code>git revert [commit-id]</code>      是用一次新的commit来逆向操作之前的commit</filename></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><code>git gc</code>      压缩历史信息来节约磁盘和内存空间<br><code>git &lt;command&gt; --abort</code>   一般用于中断某次操作<br><code>git cherry-pick &lt;commit_id&gt;</code>       捡取某一个commit到当前分支（包含commit变更的内容和注释）<br><code>git filter-branch --tree-filter &#39;rm -f testme.txt&#39; HEAD</code>       从git仓库中永久删除某个文件的历史</p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -548,29 +548,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【软件】下载链接提取器</title>
-    <url>/2015/07/25/%5B%E8%BD%AF%E4%BB%B6%5D%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E6%8F%90%E5%8F%96%E5%99%A8/</url>
-    <content><![CDATA[<h2 id="软件简介"><a href="#软件简介" class="headerlink" title="软件简介"></a>软件简介</h2><p>提取文本中的电驴、磁力、迅雷、旋风、快车链接。也可作为一个简易的文本编辑器。<br>功能采用python和正则表达式实现，界面采用wxPython类库，并通过py2exe打包。</p>
-<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><ol>
-<li>粘贴文本到程序窗口，或打开txt文件，或者打开网址。</li>
-<li>点击相应的按钮实现相应的功能</li>
-<li>复制或者保存结果到文件，默认路径问程序当前目录（否则请使用完整路径）</li>
-<li>请保证当前路径为英文</li>
-</ol>
-<h2 id="下载链接"><a href="#下载链接" class="headerlink" title="下载链接"></a>下载链接</h2><p><a href="http://pan.baidu.com/s/1sjP1KBj" target="_blank" rel="noopener">http://pan.baidu.com/s/1sjP1KBj</a></p>
-<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><ul>
-<li><p>2015.09.13          V2.4<br>  增加直接提取网址源码功能</p>
-</li>
-<li><p>2015.09.12          V2.3<br>  修正不能正确提取部分迅雷链接</p>
-</li>
-</ul>
-<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>这个小工具是本人Python的一个习作，水平有限，如有bug可以在这里留言，或者给我发邮件<a href="mailto:&#97;&#100;&#109;&#x69;&#110;&#64;&#x70;&#111;&#x6e;&#x64;&#x65;&#x72;&#46;&#119;&#111;&#x72;&#x6b;" target="_blank" rel="noopener">&#97;&#100;&#109;&#x69;&#110;&#64;&#x70;&#111;&#x6e;&#x64;&#x65;&#x72;&#46;&#119;&#111;&#x72;&#x6b;</a>。</p>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-  </entry>
-  <entry>
     <title>【Chrome扩展】谷歌百度一键搜索修改版</title>
     <url>/2015/11/25/%5BChrome%E6%89%A9%E5%B1%95%5D%20%E8%B0%B7%E6%AD%8C%E7%99%BE%E5%BA%A6%E4%B8%80%E9%94%AE%E6%90%9C%E7%B4%A2%E4%BF%AE%E6%94%B9%E7%89%88/</url>
     <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。</p>
@@ -594,6 +571,29 @@
       <tags>
         <tag>浏览器扩展</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>【软件】下载链接提取器</title>
+    <url>/2015/07/25/%5B%E8%BD%AF%E4%BB%B6%5D%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E6%8F%90%E5%8F%96%E5%99%A8/</url>
+    <content><![CDATA[<h2 id="软件简介"><a href="#软件简介" class="headerlink" title="软件简介"></a>软件简介</h2><p>提取文本中的电驴、磁力、迅雷、旋风、快车链接。也可作为一个简易的文本编辑器。<br>功能采用python和正则表达式实现，界面采用wxPython类库，并通过py2exe打包。</p>
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><ol>
+<li>粘贴文本到程序窗口，或打开txt文件，或者打开网址。</li>
+<li>点击相应的按钮实现相应的功能</li>
+<li>复制或者保存结果到文件，默认路径问程序当前目录（否则请使用完整路径）</li>
+<li>请保证当前路径为英文</li>
+</ol>
+<h2 id="下载链接"><a href="#下载链接" class="headerlink" title="下载链接"></a>下载链接</h2><p><a href="http://pan.baidu.com/s/1sjP1KBj" target="_blank" rel="noopener">http://pan.baidu.com/s/1sjP1KBj</a></p>
+<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><ul>
+<li><p>2015.09.13          V2.4<br>  增加直接提取网址源码功能</p>
+</li>
+<li><p>2015.09.12          V2.3<br>  修正不能正确提取部分迅雷链接</p>
+</li>
+</ul>
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>这个小工具是本人Python的一个习作，水平有限，如有bug可以在这里留言，或者给我发邮件<a href="mailto:&#x61;&#x64;&#x6d;&#x69;&#110;&#64;&#112;&#111;&#x6e;&#100;&#x65;&#x72;&#46;&#x77;&#111;&#114;&#x6b;" target="_blank" rel="noopener">&#x61;&#x64;&#x6d;&#x69;&#110;&#64;&#112;&#111;&#x6e;&#100;&#x65;&#x72;&#46;&#x77;&#111;&#114;&#x6b;</a>。</p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
   </entry>
   <entry>
     <title>Bitmap 原理及实现</title>
@@ -821,6 +821,43 @@
       </tags>
   </entry>
   <entry>
+    <title>一致性哈希原理及实现</title>
+    <url>/2021/06/02/consistent-hashing/</url>
+    <content><![CDATA[<p>一致性哈希是一种特殊的哈希算法。在使用一致哈希算法后，哈希表槽位(slots)数的改变平均只需要对 K/n 个key需要重新映射，其中K是key的数量，n是槽位数量。然而在传统的哈希表中，添加或删除一个槽位的几乎需要对所有关键字进行重新映射。</p>
+<p>谈到一致性哈希（Consistent hashing），就得先讲一下分布式存储。<br>比如我们有2000w条数据，一台机器存不下，那么我们可以把分成10份每份200w条存到10台机器上。<br>这样存储就不成问题，但是查询效率很低，查一条数据要每台机器都查一遍。<br>如果这些数据能够分类，每一类存到一台机器上，查询前先知道数据的类别，就可以直接定位到某台机器，效率就高了。<br><a id="more"></a></p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>那么就得找到一个通用而且均匀的分类方法，可以想到先哈希再取模<code>hash(data) % N</code></p>
+<p>现有这几个数据apple, banana, cherry，durian，希望存储到有3台机器的服务.<br><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"># 假设自定义了hash函数，有以下返回</span><br><span class="line">hash(<span class="string">"apple"</span>) % <span class="number">3</span> == <span class="number">30</span> % <span class="number">3</span> == <span class="number">0</span></span><br><span class="line">hash(<span class="string">"banada"</span>) % <span class="number">3</span> == <span class="number">31</span> % <span class="number">3</span> == <span class="number">1</span></span><br><span class="line">hash(<span class="string">"cherry"</span>) % <span class="number">3</span> == <span class="number">32</span> % <span class="number">3</span> == <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="http://image.runjf.com/mweb/2021-06-03-16226066038043.jpg" alt></p>
+<p>如果B机器宕机了，需要将取模余数和机器重新映射，这时发现3/4的数据都需要迁移<br><img src="http://image.runjf.com/mweb/2021-06-03-16226068389571.jpg" alt></p>
+<p>其实当B机器宕机时，取模的除数可以不改成2，依然是<code>hash(data) % 3</code>，这样余数就不会变，只需要把余数和机器的映射改一下，将原先B机器的映射到A机器上，这样只需要迁移1/4的数据.<br><img src="http://image.runjf.com/mweb/2021-06-03-16226412563166.jpg" alt></p>
+<p>但是现在取模的除数和机器数目相等，只能应对机器减少的情况，增加机器就没法处理了。<br>这时可以<strong>用一个比较大的数作为除数</strong>（比如3000），把除数在一定范围内的都映射到某台机器，增加机器只需要调整余数和机器的映射就行了。<br><img src="http://image.runjf.com/mweb/2021-06-03-16226416942953.jpg" alt></p>
+<p>到这里一致性哈希的基本原理已经介绍完了，但对于新增服务器的情况还存在一些问题。<br>新增的服务器D只分担了C服务器的负载，服务器 A 和 B 并没有因为 D 服务器的加入而减少负载压力。<br>针对这个问题，可以把D当做多台机器，均匀地放置，这样所有机器的负载都得到分担，也就是所谓的引入虚拟节点。<br><img src="http://image.runjf.com/mweb/2021-06-03-16226421634795.jpg" alt></p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>下面用Python来实现一致性哈希，这里实现不带虚拟节点的版本。</p>
+<p>代码实现和上文分析，有几点细节有些不同</p>
+<ul>
+<li>简化实现，使用<code>hashlib.sha1</code>作为哈希函数</li>
+<li>取模的除数设置为<code>2^32 - 1</code>，这是C语言中<code>unsiged int</code>的最大取值。</li>
+<li>根据我们的除数，余数的取值空间就是[0, 2^32 - 1], 可以看成一个首位相连的环。</li>
+<li>余数和机器的映射不需要单独维护，只要将机器也哈希和取模，就得到机器在环上的位置。</li>
+<li>机器分布在环上，将余数的取值范围分割成多个区间，每个区间对应一台机器，每台机器负责上一个机器位置到当前机器位置的数据。<br><img src="http://image.runjf.com/mweb/2021-06-03-16226908837252.jpg" alt></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line">MASK = <span class="number">2</span> ** <span class="number">32</span> - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">myhash</span><span class="params">(string)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> int(hashlib.sha1(string.encode(<span class="string">"utf-8"</span>)).hexdigest(), <span class="number">16</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_pos</span><span class="params">(obj)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> myhash(obj) % MASK</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Server</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, addr)</span>:</span></span><br><span class="line">        self.addr = addr</span><br><span class="line">        self.pos = get_pos(self.addr)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__hash__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> myhash(self.addr)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;Server &#123;&#125;; &#123;:,&#125;&gt;'</span>.format(self.addr, self.pos)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConsistentHashing</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.servers = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_server</span><span class="params">(self, server)</span>:</span></span><br><span class="line">        <span class="keyword">assert</span> server <span class="keyword">not</span> <span class="keyword">in</span> self.servers</span><br><span class="line">        self.servers.append(server)</span><br><span class="line">        self.servers.sort(key=<span class="keyword">lambda</span> i: i.pos)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_server</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="keyword">assert</span> len(self.servers) &gt; <span class="number">0</span></span><br><span class="line">        pos = get_pos(key)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> self.servers:</span><br><span class="line">            <span class="keyword">if</span> i.pos &gt;= pos:</span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line">        <span class="keyword">return</span> self.servers[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    ch = ConsistentHashing()</span><br><span class="line">    ch.add_server(Server(<span class="string">'192.168.1.1:80'</span>))</span><br><span class="line">    ch.add_server(Server(<span class="string">'192.168.1.2:80'</span>))</span><br><span class="line">    ch.add_server(Server(<span class="string">'192.168.1.3:80'</span>))</span><br><span class="line">    print(ch.servers)</span><br><span class="line">    print(<span class="string">'&#123;:,&#125;'</span>.format(get_pos(<span class="string">'123'</span>)), ch.get_server(<span class="string">'123'</span>))</span><br><span class="line">    print(<span class="string">'&#123;:,&#125;'</span>.format(get_pos(<span class="string">'xxx'</span>)), ch.get_server(<span class="string">'xxx'</span>))</span><br><span class="line">    print(<span class="string">'&#123;:,&#125;'</span>.format(get_pos(<span class="string">'1'</span>)), ch.get_server(<span class="string">'1'</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://segmentfault.com/a/1190000021199728" target="_blank" rel="noopener">https://segmentfault.com/a/1190000021199728</a></li>
+<li><a href="https://www.jianshu.com/p/528ce5cd7e8f" target="_blank" rel="noopener">https://www.jianshu.com/p/528ce5cd7e8f</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Consistent_hashing" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Consistent_hashing</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>分布式</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>在Java环境中使用PMML执行xgboost模型</title>
     <url>/2020/04/10/convent-xgboost-model-to-pmml-guide/</url>
     <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近有个需求, 在Java环境环境运行xgboost模型, 查询资料后发现PMML可以解决这个问题.</p>
@@ -858,43 +895,6 @@
         <tag>Python</tag>
         <tag>机器学习</tag>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一致性哈希原理及实现</title>
-    <url>/2021/06/02/consistent-hashing/</url>
-    <content><![CDATA[<p>一致性哈希是一种特殊的哈希算法。在使用一致哈希算法后，哈希表槽位(slots)数的改变平均只需要对 K/n 个key需要重新映射，其中K是key的数量，n是槽位数量。然而在传统的哈希表中，添加或删除一个槽位的几乎需要对所有关键字进行重新映射。</p>
-<p>谈到一致性哈希（Consistent hashing），就得先讲一下分布式存储。<br>比如我们有2000w条数据，一台机器存不下，那么我们可以把分成10份每份200w条存到10台机器上。<br>这样存储就不成问题，但是查询效率很低，查一条数据要每台机器都查一遍。<br>如果这些数据能够分类，每一类存到一台机器上，查询前先知道数据的类别，就可以直接定位到某台机器，效率就高了。<br><a id="more"></a></p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>那么就得找到一个通用而且均匀的分类方法，可以想到先哈希再取模<code>hash(data) % N</code></p>
-<p>现有这几个数据apple, banana, cherry，durian，希望存储到有3台机器的服务.<br><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"># 假设自定义了hash函数，有以下返回</span><br><span class="line">hash(<span class="string">"apple"</span>) % <span class="number">3</span> == <span class="number">30</span> % <span class="number">3</span> == <span class="number">0</span></span><br><span class="line">hash(<span class="string">"banada"</span>) % <span class="number">3</span> == <span class="number">31</span> % <span class="number">3</span> == <span class="number">1</span></span><br><span class="line">hash(<span class="string">"cherry"</span>) % <span class="number">3</span> == <span class="number">32</span> % <span class="number">3</span> == <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="http://image.runjf.com/mweb/2021-06-03-16226066038043.jpg" alt></p>
-<p>如果B机器宕机了，需要将取模余数和机器重新映射，这时发现3/4的数据都需要迁移<br><img src="http://image.runjf.com/mweb/2021-06-03-16226068389571.jpg" alt></p>
-<p>其实当B机器宕机时，取模的除数可以不改成2，依然是<code>hash(data) % 3</code>，这样余数就不会变，只需要把余数和机器的映射改一下，将原先B机器的映射到A机器上，这样只需要迁移1/4的数据.<br><img src="http://image.runjf.com/mweb/2021-06-03-16226412563166.jpg" alt></p>
-<p>但是现在取模的除数和机器数目相等，只能应对机器减少的情况，增加机器就没法处理了。<br>这时可以<strong>用一个比较大的数作为除数</strong>（比如3000），把除数在一定范围内的都映射到某台机器，增加机器只需要调整余数和机器的映射就行了。<br><img src="http://image.runjf.com/mweb/2021-06-03-16226416942953.jpg" alt></p>
-<p>到这里一致性哈希的基本原理已经介绍完了，但对于新增服务器的情况还存在一些问题。<br>新增的服务器D只分担了C服务器的负载，服务器 A 和 B 并没有因为 D 服务器的加入而减少负载压力。<br>针对这个问题，可以把D当做多台机器，均匀地放置，这样所有机器的负载都得到分担，也就是所谓的引入虚拟节点。<br><img src="http://image.runjf.com/mweb/2021-06-03-16226421634795.jpg" alt></p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>下面用Python来实现一致性哈希，这里实现不带虚拟节点的版本。</p>
-<p>代码实现和上文分析，有几点细节有些不同</p>
-<ul>
-<li>简化实现，使用<code>hashlib.sha1</code>作为哈希函数</li>
-<li>取模的除数设置为<code>2^32 - 1</code>，这是C语言中<code>unsiged int</code>的最大取值。</li>
-<li>根据我们的除数，余数的取值空间就是[0, 2^32 - 1], 可以看成一个首位相连的环。</li>
-<li>余数和机器的映射不需要单独维护，只要将机器也哈希和取模，就得到机器在环上的位置。</li>
-<li>机器分布在环上，将余数的取值范围分割成多个区间，每个区间对应一台机器，每台机器负责上一个机器位置到当前机器位置的数据。<br><img src="http://image.runjf.com/mweb/2021-06-03-16226908837252.jpg" alt></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line">MASK = <span class="number">2</span> ** <span class="number">32</span> - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">myhash</span><span class="params">(string)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> int(hashlib.sha1(string.encode(<span class="string">"utf-8"</span>)).hexdigest(), <span class="number">16</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_pos</span><span class="params">(obj)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> myhash(obj) % MASK</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Server</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, addr)</span>:</span></span><br><span class="line">        self.addr = addr</span><br><span class="line">        self.pos = get_pos(self.addr)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__hash__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> myhash(self.addr)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;Server &#123;&#125;; &#123;:,&#125;&gt;'</span>.format(self.addr, self.pos)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConsistentHashing</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.servers = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_server</span><span class="params">(self, server)</span>:</span></span><br><span class="line">        <span class="keyword">assert</span> server <span class="keyword">not</span> <span class="keyword">in</span> self.servers</span><br><span class="line">        self.servers.append(server)</span><br><span class="line">        self.servers.sort(key=<span class="keyword">lambda</span> i: i.pos)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_server</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="keyword">assert</span> len(self.servers) &gt; <span class="number">0</span></span><br><span class="line">        pos = get_pos(key)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> self.servers:</span><br><span class="line">            <span class="keyword">if</span> i.pos &gt;= pos:</span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line">        <span class="keyword">return</span> self.servers[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    ch = ConsistentHashing()</span><br><span class="line">    ch.add_server(Server(<span class="string">'192.168.1.1:80'</span>))</span><br><span class="line">    ch.add_server(Server(<span class="string">'192.168.1.2:80'</span>))</span><br><span class="line">    ch.add_server(Server(<span class="string">'192.168.1.3:80'</span>))</span><br><span class="line">    print(ch.servers)</span><br><span class="line">    print(<span class="string">'&#123;:,&#125;'</span>.format(get_pos(<span class="string">'123'</span>)), ch.get_server(<span class="string">'123'</span>))</span><br><span class="line">    print(<span class="string">'&#123;:,&#125;'</span>.format(get_pos(<span class="string">'xxx'</span>)), ch.get_server(<span class="string">'xxx'</span>))</span><br><span class="line">    print(<span class="string">'&#123;:,&#125;'</span>.format(get_pos(<span class="string">'1'</span>)), ch.get_server(<span class="string">'1'</span>))</span><br></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://segmentfault.com/a/1190000021199728" target="_blank" rel="noopener">https://segmentfault.com/a/1190000021199728</a></li>
-<li><a href="https://www.jianshu.com/p/528ce5cd7e8f" target="_blank" rel="noopener">https://www.jianshu.com/p/528ce5cd7e8f</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Consistent_hashing" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Consistent_hashing</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>分布式</tag>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -1373,6 +1373,48 @@
       </tags>
   </entry>
   <entry>
+    <title>Python装饰器详解</title>
+    <url>/2019/09/23/decorator-in-python/</url>
+    <content><![CDATA[<p>装饰器应该是Python最富有表现力的语法结构之一了，基于装饰器很多功能可以实现得比较优雅。<br>Python中的装饰器，来源于设计模式中的装饰器模式。顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。</p>
+<h2 id="简易装饰器"><a href="#简易装饰器" class="headerlink" title="简易装饰器"></a>简易装饰器</h2><p>装饰器本质上是函数替换. 装饰器被调用会返回一个函数, 被装饰函数会被返回的这个函数替换.<br>要使用装饰器，先得定义一个装饰器函数，然后在需要装饰的函数的前一行使用<code>@</code>符号加上装饰器名称。<br>下面是一个简单是例子, <code>hello</code>函数被<code>running</code>装饰器装饰, <code>running</code>返回了<code>fuck</code>函数, 此时调用<code>hello</code>就变成了调用<code>fuck</code>, 实现了函数功能的改变.</p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fuck</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"fuck, %s!"</span> % who</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(function)</span>:</span></span><br><span class="line">    print(<span class="string">'replace %r to %r'</span> % (function, fuck))</span><br><span class="line">    <span class="keyword">return</span> fuck</span><br><span class="line"></span><br><span class="line"><span class="meta">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line">print(<span class="string">'--- before call hello ---'</span>)</span><br><span class="line">print(hello())</span><br><span class="line">print(hello(<span class="string">'foo'</span>))</span><br></pre></td></tr></table></figure>
+<p>output</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">replace</span> &lt;<span class="keyword">function</span> hello <span class="keyword">at</span> <span class="number">0x1052e98c8</span>&gt; <span class="keyword">to</span> &lt;<span class="keyword">function</span> fuck <span class="keyword">at</span> <span class="number">0x104d15f28</span>&gt;</span><br><span class="line"><span class="comment">--- before call hello ---</span></span><br><span class="line">fuck, nobody!</span><br><span class="line">fuck, foo!</span><br></pre></td></tr></table></figure>
+<p>装饰器在这里的效果等效于函数嵌套，不过看起来有点别扭。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fuck</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"fuck, %s!"</span> % who</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(function)</span>:</span></span><br><span class="line">    print(<span class="string">'replace %r to %r'</span> % (function, fuck))</span><br><span class="line">    <span class="keyword">return</span> fuck</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">hello = running(hello)</span><br><span class="line">print(hello())</span><br><span class="line">print(hello(<span class="string">'foo'</span>))</span><br></pre></td></tr></table></figure>
+<p><strong>注意：一旦通过<code>@running</code>装饰了函数，不管被装饰函数是否运行，python解释器都会执行一遍running函数。</strong></p>
+<h2 id="普通装饰器"><a href="#普通装饰器" class="headerlink" title="普通装饰器"></a>普通装饰器</h2><p>前面这个装饰器将hello函数替换成fuck函数之外就没有别的功能了, 只是为了演示装饰器的原理, 并没有什么实际用处</p>
+<p>现在我们写一个计时器装饰器.<br>还是将hello函数替换成fuck, 这里我们将fuck函数的定义移动到runing内部, fuck函数在调用hello的同时, 实现计时功能.<br>这样有一个好处, 这个fuck函数就不是全局可见的, 不会污染全局环境, 还可以用到闭包的一些特性.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fuck</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        print(<span class="string">'`%s` is running...'</span> % func.__name__)</span><br><span class="line">        _result = func(*args, **kwargs)</span><br><span class="line">        print(<span class="string">'run `%s` takes %s seconds'</span> % (func.__name__, time.time()-start))</span><br><span class="line">        <span class="keyword">return</span> _result</span><br><span class="line">    <span class="keyword">return</span> fuck</span><br><span class="line"></span><br><span class="line"><span class="meta">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(hello(<span class="string">'foo'</span>))</span><br><span class="line">print(hello(<span class="string">'bar'</span>))</span><br><span class="line">print(hello.__name__)</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight autohotkey"><table><tr><td class="code"><pre><span class="line">`hello` is running...</span><br><span class="line">run `hello` takes <span class="number">3.981590270996094</span>e-<span class="number">05</span> seconds</span><br><span class="line"><span class="built_in">hello,</span> foo!</span><br><span class="line">`hello` is running...</span><br><span class="line">run `hello` takes <span class="number">3.814697265625</span>e-<span class="number">06</span> seconds</span><br><span class="line"><span class="built_in">hello,</span> bar!</span><br><span class="line">fuck</span><br></pre></td></tr></table></figure>
+<h2 id="消除装饰器的副作用"><a href="#消除装饰器的副作用" class="headerlink" title="消除装饰器的副作用"></a>消除装饰器的副作用</h2><p>上一个装饰器也有一个问题，因为装饰器本质上是函数替换. 就是经过装饰的函数一些属性变了, 比如<code>hello.__name__</code>变成了<code>fuck</code>。</p>
+<p>所以我们要将这些属性复制到新函数上, 同时由于fuck函数已经没有fuck功能了, 我们将它重命名为wrapper</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        print(<span class="string">'`%s` is running...'</span> % func.__name__)</span><br><span class="line">        _result = func(*args, **kwargs)</span><br><span class="line">        print(<span class="string">'run `%s` takes %s seconds'</span> % (func.__name__, time.time()-start))</span><br><span class="line">        <span class="keyword">return</span> _result</span><br><span class="line"></span><br><span class="line">    wrapper.__name__ = func.__name__</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line">print(hello.__name__)</span><br></pre></td></tr></table></figure>
+<p>output</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">hello</span></span><br></pre></td></tr></table></figure>
+<p>这个问题也可以通过python内置的<code>functools.wraps</code>装饰器解决，这个装饰器对原函数的一些属性进行了复制。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">    @functools.wraps(func)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        print(<span class="string">'`%s` is running...'</span> % func.__name__)</span><br><span class="line">        _result = func(*args, **kwargs)</span><br><span class="line">        print(<span class="string">'run `%s` takes %s seconds'</span> % (func.__name__, time.time()-start))</span><br><span class="line">        <span class="keyword">return</span> _result</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br></pre></td></tr></table></figure>
+<h2 id="带参数的装饰器"><a href="#带参数的装饰器" class="headerlink" title="带参数的装饰器"></a>带参数的装饰器</h2><p>上一个装饰器还有一个缺点是, 装饰器不能接受参数, 现在我们来实现带参数的装饰器</p>
+<p>带参数的装饰器其实就是多嵌套一层函数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(system)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">        @functools.wraps(func)</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">            start = time.time()</span><br><span class="line">            print(<span class="string">'`%s` is running at %s'</span> % (func.__name__, system))</span><br><span class="line">            _result = func(*args, **kwargs)</span><br><span class="line">            print(<span class="string">'run `%s` takes %s seconds'</span> % (func.__name__, time.time()-start))</span><br><span class="line">            <span class="keyword">return</span> _result</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    <span class="keyword">return</span> decorator</span><br><span class="line"></span><br><span class="line"><span class="meta">@running('mac')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line">print(hello(<span class="string">'foo'</span>))</span><br></pre></td></tr></table></figure>
+<p>output</p>
+<figure class="highlight autohotkey"><table><tr><td class="code"><pre><span class="line">`hello` is running at mac</span><br><span class="line">run `hello` takes <span class="number">3.910064697265625</span>e-<span class="number">05</span> seconds</span><br><span class="line"><span class="built_in">hello,</span> foo!</span><br></pre></td></tr></table></figure>
+<h2 id="可选带参数的装饰器"><a href="#可选带参数的装饰器" class="headerlink" title="可选带参数的装饰器"></a>可选带参数的装饰器</h2><p>有时我们希望装饰器更为通用, 适用于带参数和不带参数的场景</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(*running_args, system=<span class="string">'mac'</span>, **running_kwargs)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">        @functools.wraps(func)</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">            start = time.time()</span><br><span class="line">            print(<span class="string">'`%s` is running at %s'</span> % (func.__name__, system))</span><br><span class="line">            _result = func(*args, **kwargs)</span><br><span class="line">            print(<span class="string">'run `%s` takes %s seconds'</span> % (func.__name__, time.time()-start))</span><br><span class="line">            <span class="keyword">return</span> _result</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> len(running_args) == <span class="number">1</span> <span class="keyword">and</span> callable(running_args[<span class="number">0</span>]):</span><br><span class="line">        <span class="keyword">return</span> decorator(running_args[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> decorator</span><br><span class="line"></span><br><span class="line"><span class="meta">@running(system='linux')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line"><span class="meta">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello2</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line">print(hello(<span class="string">'foo'</span>))</span><br><span class="line">print(hello2(<span class="string">'bar'</span>))</span><br></pre></td></tr></table></figure>
+<p>output</p>
+<figure class="highlight autohotkey"><table><tr><td class="code"><pre><span class="line">`hello` is running at linux</span><br><span class="line">run `hello` takes <span class="number">2.5033950805664062</span>e-<span class="number">05</span> seconds</span><br><span class="line"><span class="built_in">hello,</span> foo!</span><br><span class="line">`hello2` is running at mac</span><br><span class="line">run `hello2` takes <span class="number">3.814697265625</span>e-<span class="number">06</span> seconds</span><br><span class="line"><span class="built_in">hello,</span> bar!</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>装饰器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用PlantUML做软件设计</title>
     <url>/2019/09/21/design-program-with-plantuml/</url>
     <content><![CDATA[<h2 id="Plantuml-是什么？"><a href="#Plantuml-是什么？" class="headerlink" title="Plantuml 是什么？"></a>Plantuml 是什么？</h2><p>首先得说一下UML，<strong>统一建模语言</strong>（英语：Unified Modeling Language，缩写 UML）是非专利的第三代和规约语言。</p>
@@ -1433,48 +1475,6 @@
       <tags>
         <tag>UML</tag>
         <tag>软件架构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python装饰器详解</title>
-    <url>/2019/09/23/decorator-in-python/</url>
-    <content><![CDATA[<p>装饰器应该是Python最富有表现力的语法结构之一了，基于装饰器很多功能可以实现得比较优雅。<br>Python中的装饰器，来源于设计模式中的装饰器模式。顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。</p>
-<h2 id="简易装饰器"><a href="#简易装饰器" class="headerlink" title="简易装饰器"></a>简易装饰器</h2><p>装饰器本质上是函数替换. 装饰器被调用会返回一个函数, 被装饰函数会被返回的这个函数替换.<br>要使用装饰器，先得定义一个装饰器函数，然后在需要装饰的函数的前一行使用<code>@</code>符号加上装饰器名称。<br>下面是一个简单是例子, <code>hello</code>函数被<code>running</code>装饰器装饰, <code>running</code>返回了<code>fuck</code>函数, 此时调用<code>hello</code>就变成了调用<code>fuck</code>, 实现了函数功能的改变.</p>
-<a id="more"></a>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fuck</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"fuck, %s!"</span> % who</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(function)</span>:</span></span><br><span class="line">    print(<span class="string">'replace %r to %r'</span> % (function, fuck))</span><br><span class="line">    <span class="keyword">return</span> fuck</span><br><span class="line"></span><br><span class="line"><span class="meta">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line">print(<span class="string">'--- before call hello ---'</span>)</span><br><span class="line">print(hello())</span><br><span class="line">print(hello(<span class="string">'foo'</span>))</span><br></pre></td></tr></table></figure>
-<p>output</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">replace</span> &lt;<span class="keyword">function</span> hello <span class="keyword">at</span> <span class="number">0x1052e98c8</span>&gt; <span class="keyword">to</span> &lt;<span class="keyword">function</span> fuck <span class="keyword">at</span> <span class="number">0x104d15f28</span>&gt;</span><br><span class="line"><span class="comment">--- before call hello ---</span></span><br><span class="line">fuck, nobody!</span><br><span class="line">fuck, foo!</span><br></pre></td></tr></table></figure>
-<p>装饰器在这里的效果等效于函数嵌套，不过看起来有点别扭。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fuck</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"fuck, %s!"</span> % who</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(function)</span>:</span></span><br><span class="line">    print(<span class="string">'replace %r to %r'</span> % (function, fuck))</span><br><span class="line">    <span class="keyword">return</span> fuck</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">hello = running(hello)</span><br><span class="line">print(hello())</span><br><span class="line">print(hello(<span class="string">'foo'</span>))</span><br></pre></td></tr></table></figure>
-<p><strong>注意：一旦通过<code>@running</code>装饰了函数，不管被装饰函数是否运行，python解释器都会执行一遍running函数。</strong></p>
-<h2 id="普通装饰器"><a href="#普通装饰器" class="headerlink" title="普通装饰器"></a>普通装饰器</h2><p>前面这个装饰器将hello函数替换成fuck函数之外就没有别的功能了, 只是为了演示装饰器的原理, 并没有什么实际用处</p>
-<p>现在我们写一个计时器装饰器.<br>还是将hello函数替换成fuck, 这里我们将fuck函数的定义移动到runing内部, fuck函数在调用hello的同时, 实现计时功能.<br>这样有一个好处, 这个fuck函数就不是全局可见的, 不会污染全局环境, 还可以用到闭包的一些特性.</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fuck</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        print(<span class="string">'`%s` is running...'</span> % func.__name__)</span><br><span class="line">        _result = func(*args, **kwargs)</span><br><span class="line">        print(<span class="string">'run `%s` takes %s seconds'</span> % (func.__name__, time.time()-start))</span><br><span class="line">        <span class="keyword">return</span> _result</span><br><span class="line">    <span class="keyword">return</span> fuck</span><br><span class="line"></span><br><span class="line"><span class="meta">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(hello(<span class="string">'foo'</span>))</span><br><span class="line">print(hello(<span class="string">'bar'</span>))</span><br><span class="line">print(hello.__name__)</span><br></pre></td></tr></table></figure>
-<p>输出</p>
-<figure class="highlight autohotkey"><table><tr><td class="code"><pre><span class="line">`hello` is running...</span><br><span class="line">run `hello` takes <span class="number">3.981590270996094</span>e-<span class="number">05</span> seconds</span><br><span class="line"><span class="built_in">hello,</span> foo!</span><br><span class="line">`hello` is running...</span><br><span class="line">run `hello` takes <span class="number">3.814697265625</span>e-<span class="number">06</span> seconds</span><br><span class="line"><span class="built_in">hello,</span> bar!</span><br><span class="line">fuck</span><br></pre></td></tr></table></figure>
-<h2 id="消除装饰器的副作用"><a href="#消除装饰器的副作用" class="headerlink" title="消除装饰器的副作用"></a>消除装饰器的副作用</h2><p>上一个装饰器也有一个问题，因为装饰器本质上是函数替换. 就是经过装饰的函数一些属性变了, 比如<code>hello.__name__</code>变成了<code>fuck</code>。</p>
-<p>所以我们要将这些属性复制到新函数上, 同时由于fuck函数已经没有fuck功能了, 我们将它重命名为wrapper</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        print(<span class="string">'`%s` is running...'</span> % func.__name__)</span><br><span class="line">        _result = func(*args, **kwargs)</span><br><span class="line">        print(<span class="string">'run `%s` takes %s seconds'</span> % (func.__name__, time.time()-start))</span><br><span class="line">        <span class="keyword">return</span> _result</span><br><span class="line"></span><br><span class="line">    wrapper.__name__ = func.__name__</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line">print(hello.__name__)</span><br></pre></td></tr></table></figure>
-<p>output</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">hello</span></span><br></pre></td></tr></table></figure>
-<p>这个问题也可以通过python内置的<code>functools.wraps</code>装饰器解决，这个装饰器对原函数的一些属性进行了复制。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">    @functools.wraps(func)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        start = time.time()</span><br><span class="line">        print(<span class="string">'`%s` is running...'</span> % func.__name__)</span><br><span class="line">        _result = func(*args, **kwargs)</span><br><span class="line">        print(<span class="string">'run `%s` takes %s seconds'</span> % (func.__name__, time.time()-start))</span><br><span class="line">        <span class="keyword">return</span> _result</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br></pre></td></tr></table></figure>
-<h2 id="带参数的装饰器"><a href="#带参数的装饰器" class="headerlink" title="带参数的装饰器"></a>带参数的装饰器</h2><p>上一个装饰器还有一个缺点是, 装饰器不能接受参数, 现在我们来实现带参数的装饰器</p>
-<p>带参数的装饰器其实就是多嵌套一层函数</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(system)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">        @functools.wraps(func)</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">            start = time.time()</span><br><span class="line">            print(<span class="string">'`%s` is running at %s'</span> % (func.__name__, system))</span><br><span class="line">            _result = func(*args, **kwargs)</span><br><span class="line">            print(<span class="string">'run `%s` takes %s seconds'</span> % (func.__name__, time.time()-start))</span><br><span class="line">            <span class="keyword">return</span> _result</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    <span class="keyword">return</span> decorator</span><br><span class="line"></span><br><span class="line"><span class="meta">@running('mac')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line">print(hello(<span class="string">'foo'</span>))</span><br></pre></td></tr></table></figure>
-<p>output</p>
-<figure class="highlight autohotkey"><table><tr><td class="code"><pre><span class="line">`hello` is running at mac</span><br><span class="line">run `hello` takes <span class="number">3.910064697265625</span>e-<span class="number">05</span> seconds</span><br><span class="line"><span class="built_in">hello,</span> foo!</span><br></pre></td></tr></table></figure>
-<h2 id="可选带参数的装饰器"><a href="#可选带参数的装饰器" class="headerlink" title="可选带参数的装饰器"></a>可选带参数的装饰器</h2><p>有时我们希望装饰器更为通用, 适用于带参数和不带参数的场景</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(*running_args, system=<span class="string">'mac'</span>, **running_kwargs)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">        @functools.wraps(func)</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">            start = time.time()</span><br><span class="line">            print(<span class="string">'`%s` is running at %s'</span> % (func.__name__, system))</span><br><span class="line">            _result = func(*args, **kwargs)</span><br><span class="line">            print(<span class="string">'run `%s` takes %s seconds'</span> % (func.__name__, time.time()-start))</span><br><span class="line">            <span class="keyword">return</span> _result</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> len(running_args) == <span class="number">1</span> <span class="keyword">and</span> callable(running_args[<span class="number">0</span>]):</span><br><span class="line">        <span class="keyword">return</span> decorator(running_args[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> decorator</span><br><span class="line"></span><br><span class="line"><span class="meta">@running(system='linux')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line"><span class="meta">@running</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello2</span><span class="params">(who=<span class="string">'nobody'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello, %s!"</span> % who</span><br><span class="line"></span><br><span class="line">print(hello(<span class="string">'foo'</span>))</span><br><span class="line">print(hello2(<span class="string">'bar'</span>))</span><br></pre></td></tr></table></figure>
-<p>output</p>
-<figure class="highlight autohotkey"><table><tr><td class="code"><pre><span class="line">`hello` is running at linux</span><br><span class="line">run `hello` takes <span class="number">2.5033950805664062</span>e-<span class="number">05</span> seconds</span><br><span class="line"><span class="built_in">hello,</span> foo!</span><br><span class="line">`hello2` is running at mac</span><br><span class="line">run `hello2` takes <span class="number">3.814697265625</span>e-<span class="number">06</span> seconds</span><br><span class="line"><span class="built_in">hello,</span> bar!</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>装饰器</tag>
       </tags>
   </entry>
   <entry>
@@ -1742,6 +1742,47 @@
       </tags>
   </entry>
   <entry>
+    <title>Docker mtu 引发的加班血案</title>
+    <url>/2021/09/21/docker-mtu-issues/</url>
+    <content><![CDATA[<p>最近在搞 torch 的工程化，基于 brpc 和 libtorch，将两者编译在一起的过程也是坑深，容下次再表。</p>
+<p>为了简化部署，brpc 服务在 Docker 容器中运行。本地测试时功能一切正常，上到预发布环境时请求全部超时。</p>
+<p>由于业务代码，brpc，docker环境，机房都是新的，在排查问题的过程中简直一头雾水。（当然根本原因还是水平不足）<br><a id="more"></a></p>
+<h2 id="使尽浑身解数定位"><a href="#使尽浑身解数定位" class="headerlink" title="使尽浑身解数定位"></a>使尽浑身解数定位</h2><p>发现请求超时后，开始用CURL测试接口，用真实数据验证发现请求都耗时1s，这和用c++的预期完全不符。</p>
+<h3 id="我代码不应该有bug"><a href="#我代码不应该有bug" class="headerlink" title="我代码不应该有bug!!"></a>我代码不应该有bug!!</h3><p>首先是怀疑业务代码有问题，逐行统计业务代码耗时，发现业务代码仅耗时10+ms。</p>
+<h3 id="curl-不应该-Expect"><a href="#curl-不应该-Expect" class="headerlink" title="curl 不应该 Expect"></a>curl 不应该 Expect</h3><p>用空数据访问接口，发现耗时也只有20+ms，这时开始怀疑brpc是不是编译得有问题，或者说和libtorch编译到一起不兼容。<br>这时我请教了一位同事，他对brpc比较熟悉，然后他说是curl实现的问题，和brpc没关系, 参考<a href="https://github.com/apache/incubator-brpc/issues/1075" target="_blank" rel="noopener"> brpc issue</a></p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">curl传输的时候，会设置 <span class="string">Expect:</span> <span class="number">100</span>-<span class="keyword">continue</span>, 这个协议brpc本身没有实现, 所以curl会等待一个超时。</span><br><span class="line">加上 -H <span class="string">'Expect:'</span> 可以解决这个问题</span><br></pre></td></tr></table></figure>
+<p>所以这个1s超时是个烟雾弹，线上client是Python，不会有这个问题。</p>
+<h3 id="难道是-lvs"><a href="#难道是-lvs" class="headerlink" title="难道是 lvs ?"></a>难道是 lvs ?</h3><p>接着又是一通疯狂测试，各种角度体位测试。发现本机测试是ok的，透过lvs请求（跨机房）就会卡住直到超时，而且小body请求一切正常，大body请求卡住。</p>
+<p>这时又开始怀疑brpc编译的不对，导致这个超时（brpc编译过程比较曲折，导致我不太有信心）。</p>
+<p>于是我在这个服务器Docker中运行了另一个brpc服务，发现是一样的问题。</p>
+<p>为了确认是否是brpc的问题，又写了个Python 的 echo server 进行测试，发现在docker中是一样的问题，但是不在docker中运行有一切正常。</p>
+<p>这是时就可以确定，与代码无关，是docker或者lvs的问题，一度陷入僵局。</p>
+<h3 id="docker-才是罪魁祸首"><a href="#docker-才是罪魁祸首" class="headerlink" title="docker 才是罪魁祸首"></a>docker 才是罪魁祸首</h3><p>完全没思路，于是找来了运维的同学，这时运维提了一下，这个机房的mtu会小一点，于是一切串起来了。</p>
+<p>马上测试，发现机房的mtu只有1450，而docker0网桥的默认mtu是1500，这就很能解释小body没问题，大body卡死。</p>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">~# netstat -i</span><br><span class="line">Kernel Interface table</span><br><span class="line">Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg</span><br><span class="line">docker0   <span class="number">1500</span>        <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>             <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMU</span><br><span class="line">eth0      <span class="number">1450</span>  <span class="number">1023246</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>        <span class="number">110268</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMRU</span><br><span class="line">lo       <span class="number">65536</span>     <span class="number">1967</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>          <span class="number">1967</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> LRU</span><br><span class="line">wlan0     <span class="number">1500</span>        <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>             <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMU</span><br></pre></td></tr></table></figure>
+<p>修改docker0的mtu，重启docker.service，一切问题都解决了。</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">cat <span class="params">&lt;&lt; EOF &gt;</span> <span class="meta-keyword">/etc/</span>docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"mtu"</span>: <span class="number">1450</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h2 id="事后诸葛"><a href="#事后诸葛" class="headerlink" title="事后诸葛"></a>事后诸葛</h2><h3 id="找到问题等于解决了一半"><a href="#找到问题等于解决了一半" class="headerlink" title="找到问题等于解决了一半"></a>找到问题等于解决了一半</h3><p>这句话说得并不太懂，应该是“找到问题等于解决了90%”。<br>在互联网时代，找到了具体问题，在一通Google，基本等于解决了问题。你始终要确信，这个问题不应该只有你遇到。</p>
+<p>在这个例子上，curl的误导大概花了一半的时间去定位。所以，定位问题首先得明天问题，如医生看病一样，确认问题发生的现象（卡住），位置(docker容器中)、程度（永久）、触发原因（大请求body）。</p>
+<h3 id="要善于运用他人的经验和知识"><a href="#要善于运用他人的经验和知识" class="headerlink" title="要善于运用他人的经验和知识"></a>要善于运用他人的经验和知识</h3><p>找专业人士寻求帮助是非常高效的，会大大缩短定位问题的时间，因为他们会运用经验和知识快速排除错误选项。</p>
+<h3 id="知识可能会误导你"><a href="#知识可能会误导你" class="headerlink" title="知识可能会误导你"></a>知识可能会误导你</h3><p>你所拥有的知识，并不是究竟的知识，也就是它所能应用的范围并不适应当前的场景，还有可能误导你。<br>你所缺失的知识，让你看不清前方正确的道路。</p>
+<p>按我的知识，docker0是网桥，等价于交换机，除了性能问题，不应该导致丢包，就一直没往这个方向考虑（当然这块的知识也不扎实）。<br>MTU也不应该导致丢包，交换机应该会进行IP分片。但忽略了一个点，虚拟的网桥并不是硬件网桥，可能并没有实现IP分片的逻辑（仅丢弃）。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://github.com/apache/incubator-brpc/issues/1075" target="_blank" rel="noopener">https://github.com/apache/incubator-brpc/issues/1075</a></li>
+<li><a href="https://mp.weixin.qq.com/s/-Q1AkxUr9xzGKwUMV-FQhQ" target="_blank" rel="noopener">云网络丢包故障定位全景指南</a></li>
+<li><a href="https://mlohr.com/docker-mtu/" target="_blank" rel="noopener">https://mlohr.com/docker-mtu/</a></li>
+<li><a href="https://github.com/docker/for-win/issues/1144" target="_blank" rel="noopener">https://github.com/docker/for-win/issues/1144</a></li>
+<li><a href="https://www.cnblogs.com/sammyliu/p/5079898.html" target="_blank" rel="noopener">https://www.cnblogs.com/sammyliu/p/5079898.html</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python2 中 enum 枚举库诡异行为探究</title>
     <url>/2019/11/21/enum-lib-problem-in-python2/</url>
     <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近接手了一个82年的<del>拉菲</del>Python项目，简直酸爽。<br>Python版本用的是2.7.5，里面用的第三方库各种老旧，潜藏了不少深坑。这次我们就先讲enum库的坑，其他有空再聊。</p>
@@ -1864,47 +1905,6 @@
       <tags>
         <tag>Git</tag>
         <tag>SVN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Docker mtu 引发的加班血案</title>
-    <url>/2021/09/21/docker-mtu-issues/</url>
-    <content><![CDATA[<p>最近在搞 torch 的工程化，基于 brpc 和 libtorch，将两者编译在一起的过程也是坑深，容下次再表。</p>
-<p>为了简化部署，brpc 服务在 Docker 容器中运行。本地测试时功能一切正常，上到预发布环境时请求全部超时。</p>
-<p>由于业务代码，brpc，docker环境，机房都是新的，在排查问题的过程中简直一头雾水。（当然根本原因还是水平不足）<br><a id="more"></a></p>
-<h2 id="使尽浑身解数定位"><a href="#使尽浑身解数定位" class="headerlink" title="使尽浑身解数定位"></a>使尽浑身解数定位</h2><p>发现请求超时后，开始用CURL测试接口，用真实数据验证发现请求都耗时1s，这和用c++的预期完全不符。</p>
-<h3 id="我代码不应该有bug"><a href="#我代码不应该有bug" class="headerlink" title="我代码不应该有bug!!"></a>我代码不应该有bug!!</h3><p>首先是怀疑业务代码有问题，逐行统计业务代码耗时，发现业务代码仅耗时10+ms。</p>
-<h3 id="curl-不应该-Expect"><a href="#curl-不应该-Expect" class="headerlink" title="curl 不应该 Expect"></a>curl 不应该 Expect</h3><p>用空数据访问接口，发现耗时也只有20+ms，这时开始怀疑brpc是不是编译得有问题，或者说和libtorch编译到一起不兼容。<br>这时我请教了一位同事，他对brpc比较熟悉，然后他说是curl实现的问题，和brpc没关系, 参考<a href="https://github.com/apache/incubator-brpc/issues/1075" target="_blank" rel="noopener"> brpc issue</a></p>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">curl传输的时候，会设置 <span class="string">Expect:</span> <span class="number">100</span>-<span class="keyword">continue</span>, 这个协议brpc本身没有实现, 所以curl会等待一个超时。</span><br><span class="line">加上 -H <span class="string">'Expect:'</span> 可以解决这个问题</span><br></pre></td></tr></table></figure>
-<p>所以这个1s超时是个烟雾弹，线上client是Python，不会有这个问题。</p>
-<h3 id="难道是-lvs"><a href="#难道是-lvs" class="headerlink" title="难道是 lvs ?"></a>难道是 lvs ?</h3><p>接着又是一通疯狂测试，各种角度体位测试。发现本机测试是ok的，透过lvs请求（跨机房）就会卡住直到超时，而且小body请求一切正常，大body请求卡住。</p>
-<p>这时又开始怀疑brpc编译的不对，导致这个超时（brpc编译过程比较曲折，导致我不太有信心）。</p>
-<p>于是我在这个服务器Docker中运行了另一个brpc服务，发现是一样的问题。</p>
-<p>为了确认是否是brpc的问题，又写了个Python 的 echo server 进行测试，发现在docker中是一样的问题，但是不在docker中运行有一切正常。</p>
-<p>这是时就可以确定，与代码无关，是docker或者lvs的问题，一度陷入僵局。</p>
-<h3 id="docker-才是罪魁祸首"><a href="#docker-才是罪魁祸首" class="headerlink" title="docker 才是罪魁祸首"></a>docker 才是罪魁祸首</h3><p>完全没思路，于是找来了运维的同学，这时运维提了一下，这个机房的mtu会小一点，于是一切串起来了。</p>
-<p>马上测试，发现机房的mtu只有1450，而docker0网桥的默认mtu是1500，这就很能解释小body没问题，大body卡死。</p>
-<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">~# netstat -i</span><br><span class="line">Kernel Interface table</span><br><span class="line">Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg</span><br><span class="line">docker0   <span class="number">1500</span>        <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>             <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMU</span><br><span class="line">eth0      <span class="number">1450</span>  <span class="number">1023246</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>        <span class="number">110268</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMRU</span><br><span class="line">lo       <span class="number">65536</span>     <span class="number">1967</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>          <span class="number">1967</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> LRU</span><br><span class="line">wlan0     <span class="number">1500</span>        <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>             <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMU</span><br></pre></td></tr></table></figure>
-<p>修改docker0的mtu，重启docker.service，一切问题都解决了。</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">cat <span class="params">&lt;&lt; EOF &gt;</span> <span class="meta-keyword">/etc/</span>docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"mtu"</span>: <span class="number">1450</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-<h2 id="事后诸葛"><a href="#事后诸葛" class="headerlink" title="事后诸葛"></a>事后诸葛</h2><h3 id="找到问题等于解决了一半"><a href="#找到问题等于解决了一半" class="headerlink" title="找到问题等于解决了一半"></a>找到问题等于解决了一半</h3><p>这句话说得并不太懂，应该是“找到问题等于解决了90%”。<br>在互联网时代，找到了具体问题，在一通Google，基本等于解决了问题。你始终要确信，这个问题不应该只有你遇到。</p>
-<p>在这个例子上，curl的误导大概花了一半的时间去定位。所以，定位问题首先得明天问题，如医生看病一样，确认问题发生的现象（卡住），位置(docker容器中)、程度（永久）、触发原因（大请求body）。</p>
-<h3 id="要善于运用他人的经验和知识"><a href="#要善于运用他人的经验和知识" class="headerlink" title="要善于运用他人的经验和知识"></a>要善于运用他人的经验和知识</h3><p>找专业人士寻求帮助是非常高效的，会大大缩短定位问题的时间，因为他们会运用经验和知识快速排除错误选项。</p>
-<h3 id="知识可能会误导你"><a href="#知识可能会误导你" class="headerlink" title="知识可能会误导你"></a>知识可能会误导你</h3><p>你所拥有的知识，并不是究竟的知识，也就是它所能应用的范围并不适应当前的场景，还有可能误导你。<br>你所缺失的知识，让你看不清前方正确的道路。</p>
-<p>按我的知识，docker0是网桥，等价于交换机，除了性能问题，不应该导致丢包，就一直没往这个方向考虑（当然这块的知识也不扎实）。<br>MTU也不应该导致丢包，交换机应该会进行IP分片。但忽略了一个点，虚拟的网桥并不是硬件网桥，可能并没有实现IP分片的逻辑（仅丢弃）。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://github.com/apache/incubator-brpc/issues/1075" target="_blank" rel="noopener">https://github.com/apache/incubator-brpc/issues/1075</a></li>
-<li><a href="https://mp.weixin.qq.com/s/-Q1AkxUr9xzGKwUMV-FQhQ" target="_blank" rel="noopener">云网络丢包故障定位全景指南</a></li>
-<li><a href="https://mlohr.com/docker-mtu/" target="_blank" rel="noopener">https://mlohr.com/docker-mtu/</a></li>
-<li><a href="https://github.com/docker/for-win/issues/1144" target="_blank" rel="noopener">https://github.com/docker/for-win/issues/1144</a></li>
-<li><a href="https://www.cnblogs.com/sammyliu/p/5079898.html" target="_blank" rel="noopener">https://www.cnblogs.com/sammyliu/p/5079898.html</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -2415,55 +2415,6 @@
       </tags>
   </entry>
   <entry>
-    <title>缓存淘汰算法之LRU</title>
-    <url>/2021/06/20/lru-cache/</url>
-    <content><![CDATA[<p>说到缓存，就必须先了解下计算机的<strong>存储器层次结构</strong>。</p>
-<p>存储器层次结构的主要思想是上一层的存储器作为低一层存储器的高速缓存。</p>
-<p>计算机系统中的存储设备都被组织成了一个存储器层次结构，从上至下，设备的访问速度越来越慢、容量越来越大，并且越便宜。</p>
-<a id="more"></a>
-<p><img src="http://image.runjf.com/mweb/2021-06-20-16241743798154.jpg" alt="-w727"></p>
-<p>高层的空间速度快容量小，为了充分利用，就必须有个数据替换的规则，决定数据的去留。这就是所谓的<strong>缓存淘汰算法</strong>。</p>
-<p>常见的方法</p>
-<ul>
-<li>先进先出算法（FIFO）：最先进入的内容作为替换对象</li>
-<li>最近最少使用算法（LFU）：最近最少使用的内容作为替换对象</li>
-<li>最久未使用算法（LRU）：最久没有访问的内容作为替换对象</li>
-<li>非最近使用算法（NMRU）：在最近没有使用的内容中随机选择一个作为替换对象</li>
-</ul>
-<h2 id="LRU-原理"><a href="#LRU-原理" class="headerlink" title="LRU 原理"></a>LRU 原理</h2><p>Least Recently used(LRU) 是最常用的缓存淘汰算法，一般译为“最近最少使用”，不太贴切，其实应该是“最不是最近使用”，也就是将最近一次访问时间最远的数据淘汰掉。</p>
-<p>LRU正好体现了时间局部性，也就是，如果一个信息项正在被访问，那么在近期它很可能还会被再次访问。</p>
-<p>既然是缓存自然需要数据结构记录key和value，可以使用hashmap来存储，查询和设置的复杂度为O(1)。</p>
-<p>同时还需要记录数据最近一次访问时间的次序，可以想到用线性结构存储，由于频繁插入删除，可以用链表实现，新数据在头部，老数据在尾部。<br>由于需要频繁删除数据，而单向链表没有记录前驱节点信息，需要遍历链表，复杂度为O(N)，所以使用双向链表。</p>
-<p>具体的原则</p>
-<ul>
-<li>新数据插入到链表头部，并存入hashmap（value为链表节点指针）；</li>
-<li>查找hashmap，当key命中，则将数据移到链表头部；</li>
-<li>当链表满的时候，将链表尾部的数据丢弃，删除hashmap对应key；</li>
-</ul>
-<h3 id="LRU的不足"><a href="#LRU的不足" class="headerlink" title="LRU的不足"></a>LRU的不足</h3><p>当存在热点数据时，LRU的效率很好，但偶发性的、周期性的批量操作会导致LRU命中率急剧下降，缓存污染情况比较严重。</p>
-<p><strong>缓存污染</strong>，是指系统将不常用的数据从内存移到缓存，造成常用数据的挤出，降低了缓存效率的现象。</p>
-<p>常见改进算法有LFU，LRU-K</p>
-<h2 id="Python-实现"><a href="#Python-实现" class="headerlink" title="Python 实现"></a>Python 实现</h2><p>首先需要实现双向链表，引入头节点，并将链表首未连在一起，这样插入和删除的时候就不需要额外判断链表的头部和尾部，简化了实现。</p>
-<p>hashmap则使用Python的dict</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key, val=None)</span>:</span></span><br><span class="line">        self.key = key</span><br><span class="line">        self.val = val</span><br><span class="line">        self.next = <span class="literal">None</span></span><br><span class="line">        self.prev = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Node(&#123;!r&#125;, &#123;!r&#125;)'</span>.format(self.key, self.val)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DoublyLink</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.root = Node(<span class="string">'root'</span>)</span><br><span class="line">        self.root.prev = self.root</span><br><span class="line">        self.root.next = self.root</span><br><span class="line">        self.length = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tail</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.root.prev</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">append_head</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.insert_after(self.root, node)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">append_tail</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.insert_after(self.tail, node)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert_after</span><span class="params">(self, pos: Node, node)</span>:</span></span><br><span class="line">        pos.next.prev = node</span><br><span class="line">        node.next = pos.next</span><br><span class="line">        pos.next = node</span><br><span class="line">        node.prev = pos</span><br><span class="line">        self.length += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        ptr = self.root</span><br><span class="line">        <span class="keyword">while</span> ptr.next != self.root:</span><br><span class="line">            <span class="keyword">if</span> ptr.next.key == key:</span><br><span class="line">                <span class="keyword">return</span> ptr.next</span><br><span class="line">            ptr = ptr.next</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> node == self.root:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        node.next.prev = node.prev</span><br><span class="line">        node.prev.next = node.next</span><br><span class="line">        self.length -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">del</span> node</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        tmp = [<span class="string">'Link(len=&#123;&#125;):'</span>.format(self.length)]</span><br><span class="line">        ptr = self.root</span><br><span class="line">        <span class="keyword">while</span> ptr.next != self.root:</span><br><span class="line">            tmp.append(repr(ptr.next))</span><br><span class="line">            ptr = ptr.next</span><br><span class="line">        <span class="keyword">return</span> <span class="string">' -&gt; '</span>.join(tmp)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, size)</span>:</span></span><br><span class="line">        self.cache = &#123;&#125;</span><br><span class="line">        self.dl = DoublyLink()</span><br><span class="line">        self.size = size</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">check_expired</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.dl.length == self.size:</span><br><span class="line">            self.cache.pop(self.dl.tail.key)</span><br><span class="line">            self.dl.remove(self.dl.tail)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">move_to_head</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        self.dl.remove(node)</span><br><span class="line">        self.dl.append_head(node)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        node = self.cache.get(key, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> node:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.move_to_head(node)</span><br><span class="line">        <span class="keyword">return</span> node.val</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set</span><span class="params">(self, key, val)</span>:</span></span><br><span class="line">        node = self.cache.get(key, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> node:</span><br><span class="line">            node.val = val</span><br><span class="line">            self.move_to_head(node)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.check_expired()</span><br><span class="line">        self.cache[key] = self.dl.append_head(Node(key, val))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;LRU maxsize=&#123;&#125;, len=&#123;&#125;&gt; &#123;!r&#125;'</span>.format(self.size, self.dl.length, self.cache)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    c = LRUCache(<span class="number">2</span>)</span><br><span class="line">    c.set(<span class="string">'a'</span>, <span class="number">1</span>)</span><br><span class="line">    print(c, c.dl)</span><br><span class="line">    c.set(<span class="string">'b'</span>, <span class="number">2</span>)</span><br><span class="line">    print(c, c.dl)</span><br><span class="line">    c.get(<span class="string">'a'</span>)</span><br><span class="line">    print(c, c.dl)</span><br><span class="line">    c.set(<span class="string">'c'</span>, <span class="number">3</span>)</span><br><span class="line">    print(c, c.dl)</span><br></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li>深入理解计算机系统</li>
-<li><a href="https://en.wikipedia.org/wiki/Cache_replacement_policies" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Cache_replacement_policies</a></li>
-<li><a href="https://github.com/python/cpython/blob/7247f6f433846c6e37308a550e8e5eb6be379856/Lib/functools.py#L525" target="_blank" rel="noopener">https://github.com/python/cpython/blob/7247f6f433846c6e37308a550e8e5eb6be379856/Lib/functools.py#L525</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/76553221" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/76553221</a></li>
-<li><a href="https://melonshell.github.io/2020/02/07/ds_cache_eli/" target="_blank" rel="noopener">https://melonshell.github.io/2020/02/07/ds_cache_eli/</a></li>
-<li><a href="https://segmentfault.com/a/1190000018810255" target="_blank" rel="noopener">https://segmentfault.com/a/1190000018810255</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>缓存</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux添加回收站功能</title>
     <url>/2016/06/12/linux%E6%B7%BB%E5%8A%A0%E5%9B%9E%E6%94%B6%E7%AB%99%E5%8A%9F%E8%83%BD/</url>
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在linux服务器上工作，常常和<code>rm</code>打交道，难免手滑删除了重要的东西。而且linux又没有回收站功能，一旦删错东西真是欲哭无泪。别问我为什么知道，说多了都是泪。<br><strong>主要思路是用<code>mv</code>命令代替<code>rm</code>，将要删除的东西移动到回收站目录。</strong></p>
@@ -2553,6 +2504,55 @@
       </tags>
   </entry>
   <entry>
+    <title>缓存淘汰算法之LRU</title>
+    <url>/2021/06/20/lru-cache/</url>
+    <content><![CDATA[<p>说到缓存，就必须先了解下计算机的<strong>存储器层次结构</strong>。</p>
+<p>存储器层次结构的主要思想是上一层的存储器作为低一层存储器的高速缓存。</p>
+<p>计算机系统中的存储设备都被组织成了一个存储器层次结构，从上至下，设备的访问速度越来越慢、容量越来越大，并且越便宜。</p>
+<a id="more"></a>
+<p><img src="http://image.runjf.com/mweb/2021-06-20-16241743798154.jpg" alt="-w727"></p>
+<p>高层的空间速度快容量小，为了充分利用，就必须有个数据替换的规则，决定数据的去留。这就是所谓的<strong>缓存淘汰算法</strong>。</p>
+<p>常见的方法</p>
+<ul>
+<li>先进先出算法（FIFO）：最先进入的内容作为替换对象</li>
+<li>最近最少使用算法（LFU）：最近最少使用的内容作为替换对象</li>
+<li>最久未使用算法（LRU）：最久没有访问的内容作为替换对象</li>
+<li>非最近使用算法（NMRU）：在最近没有使用的内容中随机选择一个作为替换对象</li>
+</ul>
+<h2 id="LRU-原理"><a href="#LRU-原理" class="headerlink" title="LRU 原理"></a>LRU 原理</h2><p>Least Recently used(LRU) 是最常用的缓存淘汰算法，一般译为“最近最少使用”，不太贴切，其实应该是“最不是最近使用”，也就是将最近一次访问时间最远的数据淘汰掉。</p>
+<p>LRU正好体现了时间局部性，也就是，如果一个信息项正在被访问，那么在近期它很可能还会被再次访问。</p>
+<p>既然是缓存自然需要数据结构记录key和value，可以使用hashmap来存储，查询和设置的复杂度为O(1)。</p>
+<p>同时还需要记录数据最近一次访问时间的次序，可以想到用线性结构存储，由于频繁插入删除，可以用链表实现，新数据在头部，老数据在尾部。<br>由于需要频繁删除数据，而单向链表没有记录前驱节点信息，需要遍历链表，复杂度为O(N)，所以使用双向链表。</p>
+<p>具体的原则</p>
+<ul>
+<li>新数据插入到链表头部，并存入hashmap（value为链表节点指针）；</li>
+<li>查找hashmap，当key命中，则将数据移到链表头部；</li>
+<li>当链表满的时候，将链表尾部的数据丢弃，删除hashmap对应key；</li>
+</ul>
+<h3 id="LRU的不足"><a href="#LRU的不足" class="headerlink" title="LRU的不足"></a>LRU的不足</h3><p>当存在热点数据时，LRU的效率很好，但偶发性的、周期性的批量操作会导致LRU命中率急剧下降，缓存污染情况比较严重。</p>
+<p><strong>缓存污染</strong>，是指系统将不常用的数据从内存移到缓存，造成常用数据的挤出，降低了缓存效率的现象。</p>
+<p>常见改进算法有LFU，LRU-K</p>
+<h2 id="Python-实现"><a href="#Python-实现" class="headerlink" title="Python 实现"></a>Python 实现</h2><p>首先需要实现双向链表，引入头节点，并将链表首未连在一起，这样插入和删除的时候就不需要额外判断链表的头部和尾部，简化了实现。</p>
+<p>hashmap则使用Python的dict</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key, val=None)</span>:</span></span><br><span class="line">        self.key = key</span><br><span class="line">        self.val = val</span><br><span class="line">        self.next = <span class="literal">None</span></span><br><span class="line">        self.prev = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Node(&#123;!r&#125;, &#123;!r&#125;)'</span>.format(self.key, self.val)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DoublyLink</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.root = Node(<span class="string">'root'</span>)</span><br><span class="line">        self.root.prev = self.root</span><br><span class="line">        self.root.next = self.root</span><br><span class="line">        self.length = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tail</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.root.prev</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">append_head</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.insert_after(self.root, node)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">append_tail</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.insert_after(self.tail, node)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert_after</span><span class="params">(self, pos: Node, node)</span>:</span></span><br><span class="line">        pos.next.prev = node</span><br><span class="line">        node.next = pos.next</span><br><span class="line">        pos.next = node</span><br><span class="line">        node.prev = pos</span><br><span class="line">        self.length += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        ptr = self.root</span><br><span class="line">        <span class="keyword">while</span> ptr.next != self.root:</span><br><span class="line">            <span class="keyword">if</span> ptr.next.key == key:</span><br><span class="line">                <span class="keyword">return</span> ptr.next</span><br><span class="line">            ptr = ptr.next</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> node == self.root:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        node.next.prev = node.prev</span><br><span class="line">        node.prev.next = node.next</span><br><span class="line">        self.length -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">del</span> node</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        tmp = [<span class="string">'Link(len=&#123;&#125;):'</span>.format(self.length)]</span><br><span class="line">        ptr = self.root</span><br><span class="line">        <span class="keyword">while</span> ptr.next != self.root:</span><br><span class="line">            tmp.append(repr(ptr.next))</span><br><span class="line">            ptr = ptr.next</span><br><span class="line">        <span class="keyword">return</span> <span class="string">' -&gt; '</span>.join(tmp)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, size)</span>:</span></span><br><span class="line">        self.cache = &#123;&#125;</span><br><span class="line">        self.dl = DoublyLink()</span><br><span class="line">        self.size = size</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">check_expired</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.dl.length == self.size:</span><br><span class="line">            self.cache.pop(self.dl.tail.key)</span><br><span class="line">            self.dl.remove(self.dl.tail)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">move_to_head</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        self.dl.remove(node)</span><br><span class="line">        self.dl.append_head(node)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        node = self.cache.get(key, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> node:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.move_to_head(node)</span><br><span class="line">        <span class="keyword">return</span> node.val</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set</span><span class="params">(self, key, val)</span>:</span></span><br><span class="line">        node = self.cache.get(key, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> node:</span><br><span class="line">            node.val = val</span><br><span class="line">            self.move_to_head(node)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.check_expired()</span><br><span class="line">        self.cache[key] = self.dl.append_head(Node(key, val))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;LRU maxsize=&#123;&#125;, len=&#123;&#125;&gt; &#123;!r&#125;'</span>.format(self.size, self.dl.length, self.cache)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    c = LRUCache(<span class="number">2</span>)</span><br><span class="line">    c.set(<span class="string">'a'</span>, <span class="number">1</span>)</span><br><span class="line">    print(c, c.dl)</span><br><span class="line">    c.set(<span class="string">'b'</span>, <span class="number">2</span>)</span><br><span class="line">    print(c, c.dl)</span><br><span class="line">    c.get(<span class="string">'a'</span>)</span><br><span class="line">    print(c, c.dl)</span><br><span class="line">    c.set(<span class="string">'c'</span>, <span class="number">3</span>)</span><br><span class="line">    print(c, c.dl)</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>深入理解计算机系统</li>
+<li><a href="https://en.wikipedia.org/wiki/Cache_replacement_policies" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Cache_replacement_policies</a></li>
+<li><a href="https://github.com/python/cpython/blob/7247f6f433846c6e37308a550e8e5eb6be379856/Lib/functools.py#L525" target="_blank" rel="noopener">https://github.com/python/cpython/blob/7247f6f433846c6e37308a550e8e5eb6be379856/Lib/functools.py#L525</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/76553221" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/76553221</a></li>
+<li><a href="https://melonshell.github.io/2020/02/07/ds_cache_eli/" target="_blank" rel="noopener">https://melonshell.github.io/2020/02/07/ds_cache_eli/</a></li>
+<li><a href="https://segmentfault.com/a/1190000018810255" target="_blank" rel="noopener">https://segmentfault.com/a/1190000018810255</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>缓存</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>电影《活着》随感</title>
     <url>/2017/03/12/movie-huozhe/</url>
     <content><![CDATA[<p>　　几年前看过小说，情节都早已淡忘，回想起来只留着忧伤的感觉。偶然看到这电影，虽然情节与原著有些不同，但都让人百感交集。因为其实活着的故事就是父辈人的故事，里面的很多类似的事都听老一辈讲过。</p>
@@ -2564,21 +2564,6 @@
       <categories>
         <category>随笔</category>
       </categories>
-  </entry>
-  <entry>
-    <title>MySQL 自定义数据库路径</title>
-    <url>/2020/10/14/mysql-custom-location/</url>
-    <content><![CDATA[<p><em>最近的一些文章是整理以前的笔记</em><br>MySQL 是最常用的数据，有时希望将数据库文件存放在自定义路径，或者在系统中启动多个 MySQL服务。<br><a id="more"></a><br>当然，如果条件允许，建议直接使用 docker </p>
-<h2 id="创建-my-cnf-配置文件"><a href="#创建-my-cnf-配置文件" class="headerlink" title="创建 my.cnf 配置文件"></a>创建 my.cnf 配置文件</h2><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="attr">datadir</span>=/home/ruan/data/mysql_data</span><br><span class="line"><span class="attr">socket</span>=/home/ruan/data/mysql.sock</span><br><span class="line"><span class="attr">user</span>=ruan</span><br><span class="line"><span class="comment"># Disabling symbolic-links is recommended to prevent assorted security risks</span></span><br><span class="line"><span class="attr">symbolic-links</span>=<span class="number">0</span></span><br><span class="line"><span class="attr">bind-address</span>=<span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">port</span> = <span class="number">12345</span></span><br><span class="line"></span><br><span class="line"><span class="attr">character-set-server</span>=utf8</span><br><span class="line"><span class="attr">collation-server</span>=utf8_general_ci</span><br><span class="line"></span><br><span class="line"><span class="section">[mysqld_safe]</span></span><br><span class="line"><span class="attr">log-error</span>=/home/ruan/data/mysqld.log</span><br><span class="line"><span class="attr">pid-file</span>=/home/ruan/data/mysqld.pid</span><br></pre></td></tr></table></figure>
-<h2 id="启动和初始化"><a href="#启动和初始化" class="headerlink" title="启动和初始化"></a>启动和初始化</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动MySQL</span></span><br><span class="line">mysqld_safe --defaults-file=my.cnf --user=ruan</span><br><span class="line"><span class="meta">#</span><span class="bash"> 初始化数据库</span></span><br><span class="line">mysql_install_db --defaults-file=my.cnf --user=ruan</span><br></pre></td></tr></table></figure>
-<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">$ tree data</span><br><span class="line">data</span><br><span class="line">├── my.cnf</span><br><span class="line">├── mysql_data</span><br><span class="line">│   ├── ibdata1</span><br><span class="line">│   ├── ib_logfile0</span><br><span class="line">│   ├── ib_logfile1</span><br><span class="line">├── mysqld.log</span><br><span class="line">├── mysqld.pid</span><br><span class="line">└── mysql.sock</span><br></pre></td></tr></table></figure>
-<h2 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h2><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">mysql&gt; use mysql; update<span class="built_in"> user </span><span class="builtin-name">set</span> <span class="attribute">password</span>=password('m654321') where <span class="attribute">user</span>=<span class="string">'root'</span>; flush privileges;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>MySQL</tag>
-      </tags>
   </entry>
   <entry>
     <title>MySQL 表分区使用</title>
@@ -2593,6 +2578,21 @@
 <h2 id="生成测试数据"><a href="#生成测试数据" class="headerlink" title="生成测试数据"></a>生成测试数据</h2><p>创建储存过程<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">PROCEDURE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> proc1;</span><br><span class="line">DELIMITER $$</span><br><span class="line"><span class="keyword">SET</span> AUTOCOMMIT = <span class="number">0</span>$$</span><br><span class="line"><span class="keyword">CREATE</span>  <span class="keyword">PROCEDURE</span> proc1()</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"><span class="keyword">DECLARE</span> v_cnt <span class="built_in">DECIMAL</span> (<span class="number">10</span>)  <span class="keyword">DEFAULT</span> <span class="number">0</span> ;</span><br><span class="line">dd:LOOP</span><br><span class="line">    <span class="keyword">INSERT</span>  <span class="keyword">INTO</span> test_part <span class="keyword">VALUES</span> (</span><br><span class="line">        <span class="keyword">FLOOR</span>(<span class="keyword">RAND</span>()*<span class="number">100</span>), </span><br><span class="line">        <span class="keyword">FLOOR</span>(<span class="keyword">RAND</span>()*<span class="number">1000</span>), </span><br><span class="line">        <span class="keyword">UUID</span>(), </span><br><span class="line">        <span class="keyword">DATE_ADD</span>(<span class="string">'2019-03-04 00:00:00'</span>, <span class="built_in">INTERVAL</span> <span class="keyword">FLOOR</span>(v_cnt / <span class="number">5000</span>) <span class="keyword">MINUTE</span>)</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">COMMIT</span>;</span><br><span class="line">    <span class="keyword">SET</span> v_cnt = v_cnt+<span class="number">1</span> ;</span><br><span class="line">        IF  v_cnt = 10000000 THEN LEAVE dd;</span><br><span class="line">        <span class="keyword">END</span> <span class="keyword">IF</span>;</span><br><span class="line">    <span class="keyword">END</span> <span class="keyword">LOOP</span> dd ;</span><br><span class="line"><span class="keyword">END</span>;$$</span><br><span class="line">DELIMITER ;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">调用储存过程</span><br></pre></td></tr></table></figure></p>
 <p> call proc1;<br><code>`</code></p>
 ]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL 自定义数据库路径</title>
+    <url>/2021/10/14/mysql-custom-location/</url>
+    <content><![CDATA[<p><em>最近的一些文章是整理以前的笔记</em><br>MySQL 是最常用的数据，有时希望将数据库文件存放在自定义路径，或者在系统中启动多个 MySQL服务。<br><a id="more"></a><br>当然，如果条件允许，建议直接使用 docker </p>
+<h2 id="创建-my-cnf-配置文件"><a href="#创建-my-cnf-配置文件" class="headerlink" title="创建 my.cnf 配置文件"></a>创建 my.cnf 配置文件</h2><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="attr">datadir</span>=/home/ruan/data/mysql_data</span><br><span class="line"><span class="attr">socket</span>=/home/ruan/data/mysql.sock</span><br><span class="line"><span class="attr">user</span>=ruan</span><br><span class="line"><span class="comment"># Disabling symbolic-links is recommended to prevent assorted security risks</span></span><br><span class="line"><span class="attr">symbolic-links</span>=<span class="number">0</span></span><br><span class="line"><span class="attr">bind-address</span>=<span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">port</span> = <span class="number">12345</span></span><br><span class="line"></span><br><span class="line"><span class="attr">character-set-server</span>=utf8</span><br><span class="line"><span class="attr">collation-server</span>=utf8_general_ci</span><br><span class="line"></span><br><span class="line"><span class="section">[mysqld_safe]</span></span><br><span class="line"><span class="attr">log-error</span>=/home/ruan/data/mysqld.log</span><br><span class="line"><span class="attr">pid-file</span>=/home/ruan/data/mysqld.pid</span><br></pre></td></tr></table></figure>
+<h2 id="启动和初始化"><a href="#启动和初始化" class="headerlink" title="启动和初始化"></a>启动和初始化</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动MySQL</span></span><br><span class="line">mysqld_safe --defaults-file=my.cnf --user=ruan</span><br><span class="line"><span class="meta">#</span><span class="bash"> 初始化数据库</span></span><br><span class="line">mysql_install_db --defaults-file=my.cnf --user=ruan</span><br></pre></td></tr></table></figure>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">$ tree data</span><br><span class="line">data</span><br><span class="line">├── my.cnf</span><br><span class="line">├── mysql_data</span><br><span class="line">│   ├── ibdata1</span><br><span class="line">│   ├── ib_logfile0</span><br><span class="line">│   ├── ib_logfile1</span><br><span class="line">├── mysqld.log</span><br><span class="line">├── mysqld.pid</span><br><span class="line">└── mysql.sock</span><br></pre></td></tr></table></figure>
+<h2 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h2><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">mysql&gt; use mysql; update<span class="built_in"> user </span><span class="builtin-name">set</span> <span class="attribute">password</span>=password('m654321') where <span class="attribute">user</span>=<span class="string">'root'</span>; flush privileges;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>编程</category>
       </categories>
@@ -2743,6 +2743,41 @@
       </tags>
   </entry>
   <entry>
+    <title>滴答清单与小米手环6 —— 近乎完美的番茄工作法方案</title>
+    <url>/2021/04/16/pomodoro-technique-and-mi-band-6/</url>
+    <content><![CDATA[<style type="text/css" rel="stylesheet">
+img[alt="-w350"] { 
+    width: 350px
+}
+</style>
+
+<p>一直在寻找比较好的番茄工作法工具，但是都不那么满意。</p>
+<p>物理番茄钟，主要问题是不够灵活，比如调整番茄时长，而且不能和GTD清单同步。</p>
+<p>手机app的话，番茄钟结束的提醒声音过于吵闹，特别在公共场合，比如公司或者图书馆；如果静音或者震动的话，又常常感知不到，导致经常关注番茄钟时间，不能集中精力。</p>
+<p>也用过安卓智能手表，但目前番茄工作法相关应用还是很少，没有找到合适的，而且手表续航太短，高强度使用基本得每天充电，心智负担大。</p>
+<p>之前也用过手机番茄app配合手环，通过手环震动提醒番茄钟结束，方法可行，但是通知经常触达不到，体验不好。</p>
+<p>最近<strong>小米手环6</strong>上市了，经过几天摸索，发现配合<strong>滴答清单</strong>的专注功能，以及<strong>小米穿戴</strong>的通知提醒，总体体验挺好，通知也准确，应当是目前最好的番茄工作法方案了。<br><a id="more"></a></p>
+<p>下面讲一下具体如何配置</p>
+<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><ol>
+<li><p>小米穿戴app - 我的 - 开启通知相关权限<br><img src="http://image.runjf.com/mweb/2021-04-17-v2-083dc66a6eac131538658e0718197f8a_1440w.jpg" alt="-w350"></p>
+</li>
+<li><p>小米穿戴app - 我的 - 消息通知<br><img src="http://image.runjf.com/mweb/2021-04-17-v2-1456fe9137371ebec9f71507c539893d_1440w.jpg" alt="-w350"></p>
+</li>
+<li><p>小米穿戴app - 我的 - 设备更多设置 - 震动模式 - App通知提醒 - 添加震动模式（可选）<br><img src="http://image.runjf.com/mweb/2021-04-17-v2-ff6418a487908a51642bec98c7a17179_1440w.jpg" alt="-w350"></p>
+</li>
+<li><p>滴答清单app - 番茄专注 - 开始<br><img src="http://image.runjf.com/mweb/2021-04-17-v2-32488091b7f87efd080108626d1f9d1f_1440w.jpg" alt="-w350"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>工作生活</category>
+      </categories>
+      <tags>
+        <tag>GTD</tag>
+        <tag>番茄工作法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>优雅地使用 Pizza Boy GBA 金手指</title>
     <url>/2021/02/11/pizza-boy-gba-cheat/</url>
     <content><![CDATA[<p>最近偶然又玩起了GBA游戏，瞬间又像是回到了儿时的时光。也碰到了许久以来的老问题，如何作弊，毕竟游戏里刷资源和练级实在是体力劳动，年龄大了毕竟肝不动了。</p>
@@ -2780,41 +2815,6 @@
       </categories>
       <tags>
         <tag>游戏</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>滴答清单与小米手环6 —— 近乎完美的番茄工作法方案</title>
-    <url>/2021/04/16/pomodoro-technique-and-mi-band-6/</url>
-    <content><![CDATA[<style type="text/css" rel="stylesheet">
-img[alt="-w350"] { 
-    width: 350px
-}
-</style>
-
-<p>一直在寻找比较好的番茄工作法工具，但是都不那么满意。</p>
-<p>物理番茄钟，主要问题是不够灵活，比如调整番茄时长，而且不能和GTD清单同步。</p>
-<p>手机app的话，番茄钟结束的提醒声音过于吵闹，特别在公共场合，比如公司或者图书馆；如果静音或者震动的话，又常常感知不到，导致经常关注番茄钟时间，不能集中精力。</p>
-<p>也用过安卓智能手表，但目前番茄工作法相关应用还是很少，没有找到合适的，而且手表续航太短，高强度使用基本得每天充电，心智负担大。</p>
-<p>之前也用过手机番茄app配合手环，通过手环震动提醒番茄钟结束，方法可行，但是通知经常触达不到，体验不好。</p>
-<p>最近<strong>小米手环6</strong>上市了，经过几天摸索，发现配合<strong>滴答清单</strong>的专注功能，以及<strong>小米穿戴</strong>的通知提醒，总体体验挺好，通知也准确，应当是目前最好的番茄工作法方案了。<br><a id="more"></a></p>
-<p>下面讲一下具体如何配置</p>
-<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><ol>
-<li><p>小米穿戴app - 我的 - 开启通知相关权限<br><img src="http://image.runjf.com/mweb/2021-04-17-v2-083dc66a6eac131538658e0718197f8a_1440w.jpg" alt="-w350"></p>
-</li>
-<li><p>小米穿戴app - 我的 - 消息通知<br><img src="http://image.runjf.com/mweb/2021-04-17-v2-1456fe9137371ebec9f71507c539893d_1440w.jpg" alt="-w350"></p>
-</li>
-<li><p>小米穿戴app - 我的 - 设备更多设置 - 震动模式 - App通知提醒 - 添加震动模式（可选）<br><img src="http://image.runjf.com/mweb/2021-04-17-v2-ff6418a487908a51642bec98c7a17179_1440w.jpg" alt="-w350"></p>
-</li>
-<li><p>滴答清单app - 番茄专注 - 开始<br><img src="http://image.runjf.com/mweb/2021-04-17-v2-32488091b7f87efd080108626d1f9d1f_1440w.jpg" alt="-w350"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>工作生活</category>
-      </categories>
-      <tags>
-        <tag>GTD</tag>
-        <tag>番茄工作法</tag>
       </tags>
   </entry>
   <entry>
@@ -3654,6 +3654,45 @@ img[alt="-w350"] {
       </tags>
   </entry>
   <entry>
+    <title>使用line_profiler分析Python程序耗时情况</title>
+    <url>/2020/09/15/python-time-consuming-analysis-with-line_profiler/</url>
+    <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近发生了一个服务故障，在一个同事对日志服务做了改动后，服务的耗时就变大了很多，数据大量积压。<br>通过观察监控报表，我们发现从他的改动上线后，服务器的CPU使用率大幅增加，基本处于满载状态。<br>粗略审查代码并没有发现问题，我们只能紧急回滚了服务，日志消费也恢复到正常状态了。<br>但是根本问题还没有找到，所以我请出了line_profiler来分析程序的具体耗时情况。</p>
+<p><a href="https://github.com/pyutils/line_profiler" target="_blank" rel="noopener">line_profiler</a>是个代码耗时分析器，可以逐行分析代码的耗时情况。<br><a id="more"></a></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>line_profiler包含两个部分</p>
+<ul>
+<li>kernprof：代码执行和耗时记录</li>
+<li>line_profiler：耗时报告解析和展示</li>
+</ul>
+<p>首先，安装：<code>pip install line_profiler -U</code></p>
+<p>给需要分析的代码加上<code>@profile</code>装饰器, <code>@profile</code>装饰器不需要被import，kernprof在运行时会注入依赖，kernprof会记录被装饰函数的耗时情况，有多个函数也可以都加上装饰器。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@profile</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(run_type)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'data.txt'</span>,<span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        data=f.readline()</span><br><span class="line">    input_data = json.loads(data)</span><br><span class="line">    source = input_data.get(<span class="string">'source'</span>, <span class="string">''</span>)</span><br><span class="line">    service = input_data.get(<span class="string">'service'</span>, <span class="number">0</span>)</span><br><span class="line">    apply_no = input_data.get(<span class="string">'applyNo'</span>, <span class="number">0</span>)</span><br><span class="line">    info = input_data.get(<span class="string">'info'</span>, <span class="string">''</span>)</span><br><span class="line"></span><br><span class="line">    cust_no = input_data.get(<span class="string">'cust_no'</span>, <span class="number">0</span>)</span><br><span class="line">    job.run(source, service, apply_no, info, run_type)</span><br></pre></td></tr></table></figure></p>
+<p>然后，运行代码：<code>kernprof -l service.py</code>, 统计耗时情况, 执行完成后生成耗时报告文件<code>service.py.lprof</code></p>
+<p>最后，耗时报告解析：<code>python -m line_profiler service.py.lprof</code>，会生成可阅读的耗时报告。</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>耗时报告示例<br><figure class="highlight tap"><table><tr><td class="code"><pre><span class="line">Timer unit: 1e-06 s</span><br><span class="line"></span><br><span class="line">Total time: 4.18908 s</span><br><span class="line">File: service.py</span><br><span class="line">Function: main at line 38</span><br><span class="line"></span><br><span class="line">Line <span class="comment">#      Hits         Time  Per Hit   % Time  Line Contents</span></span><br><span class="line">==============================================================</span><br><span class="line">   <span class="number"> 38 </span>                                              @profile</span><br><span class="line">   <span class="number"> 39 </span>                                              def main(run_type):</span><br><span class="line">   <span class="number"> 40 </span>       <span class="number"> 1 </span>        45.0     45.0      0.0          with open('data.txt','r') as f:</span><br><span class="line">   <span class="number"> 41 </span>       <span class="number"> 1 </span>       517.0    517.0      0.0              data=f.readline()</span><br><span class="line">   <span class="number"> 42 </span>       <span class="number"> 1 </span>      6564.0   6564.0      0.2          input_data = json.loads(data)</span><br><span class="line">   <span class="number"> 43 </span>       <span class="number"> 1 </span>        20.0     20.0      0.0          source = input_data.get('source', '')</span><br><span class="line">   <span class="number"> 44 </span>       <span class="number"> 1 </span>         6.0      6.0      0.0          service = input_data.get('service', 0</span><br><span class="line">   <span class="number"> 45 </span>       <span class="number"> 1 </span>         5.0      5.0      0.0          apply_no = input_data.get('applyNo', </span><br><span class="line">   <span class="number"> 46 </span>       <span class="number"> 1 </span>         5.0      5.0      0.0          info = input_data.get('info', '')</span><br><span class="line">    47</span><br><span class="line">   <span class="number"> 48 </span>       <span class="number"> 1 </span>         1.0      1.0      0.0          cust_no = input_data.get('cust_no', 0)</span><br><span class="line">   <span class="number"> 49 </span>                                                  </span><br><span class="line">   <span class="number"> 50 </span>       <span class="number"> 1 </span>   4181914.0 4181914.0     99.8         job.run(source, service, apply_no, info, run_type)</span><br></pre></td></tr></table></figure></p>
+<p>耗时报告会逐行显示代码耗时和调用情况</p>
+<ul>
+<li>Timer unit: 耗时单位，这里是微秒</li>
+<li>Total time：总耗时</li>
+<li>Line #：行号</li>
+<li>Hits：函数被调用次数</li>
+<li>Time：函数总耗时</li>
+<li>Per Hit：函数每次调用耗时</li>
+<li>% Time：耗时占比</li>
+</ul>
+<p>可以看到，总耗时4.18908秒，<code>job.run</code>占用了<code>99.8%</code>的时间。</p>
+<p>接下来我们分析下<code>job.run</code>的耗时情况<br><figure class="highlight vhdl"><table><tr><td class="code"><pre><span class="line">Timer unit: <span class="number">1e-06</span> s</span><br><span class="line"></span><br><span class="line">Total <span class="built_in">time</span>: <span class="number">4.16909</span> s</span><br><span class="line"><span class="keyword">File</span>: job.py</span><br><span class="line"><span class="keyword">Function</span>: <span class="keyword">inout</span> at <span class="literal">line</span> <span class="number">69</span></span><br><span class="line"></span><br><span class="line"><span class="literal">Line</span> #      Hits         <span class="built_in">Time</span>  Per Hit   % <span class="built_in">Time</span>  <span class="literal">Line</span> Contents</span><br><span class="line">==============================================================</span><br><span class="line">    <span class="number">69</span>                                               @profile</span><br><span class="line">    <span class="number">70</span>                                               def run(self, apply_no, info, req_type, run_type):</span><br><span class="line">    ... 省略部分逻辑</span><br><span class="line">   <span class="number">112</span>         <span class="number">1</span>          <span class="number">2.0</span>      <span class="number">2.0</span>      <span class="number">0.0</span>          <span class="keyword">if</span> req_type == <span class="symbol">'credit</span>':</span><br><span class="line">   <span class="number">113</span>         <span class="number">1</span>    <span class="number">3370673.0</span> <span class="number">3370673.0</span>     <span class="number">80.8</span>              sql = db_utils.generate_sql(info1, sql, val, columns)</span><br><span class="line">   <span class="number">114</span>                                                   <span class="keyword">else</span>:</span><br><span class="line">   <span class="number">115</span>                                                       sql = db_utils.generate_sql(info1, sql, val, columns)</span><br><span class="line">   <span class="number">116</span>         <span class="number">1</span>       <span class="number">6948.0</span>   <span class="number">6948.0</span>      <span class="number">0.2</span>          safe3_db.executor(sql)</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，113行的生成SQL语句占用了80%的时间，SQL反倒不怎么耗时，显然是不正常的。</p>
+<p>再看下<code>db_utils.generate_sql</code>函数的具体代码<br>可以发现遍历字段列表(item_list)的时候，调用了<code>get_json_value</code>，该函数每次都会调用<code>copy.deepcopy</code>。<br>众所周知，对象的深拷贝是十分消耗cpu资源的，并且这里深拷贝的次数会随着字段数的增加而线性增长。</p>
+<p>把深拷贝行为去除后，服务耗时和cpu占用都回归到了正常水准。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_sql</span><span class="params">(info, sql, val, item_list)</span>:</span></span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    length = len(item_list)</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> item_list:</span><br><span class="line">        index += <span class="number">1</span></span><br><span class="line">        buf = get_json_value(info,item)</span><br><span class="line">        <span class="keyword">if</span> index &lt; length:</span><br><span class="line">            sql = sql + <span class="string">', `'</span> + str(item) + <span class="string">'`'</span></span><br><span class="line">            val = val + <span class="string">', \''</span> + MySQLdb.escape_string(str(buf)) + <span class="string">'\''</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            sql = sql + <span class="string">', `'</span> + str(item) + <span class="string">'`) '</span></span><br><span class="line">            val = val + <span class="string">', \''</span> + MySQLdb.escape_string(str(buf)) + <span class="string">'\')'</span></span><br><span class="line">    <span class="keyword">return</span> sql + val</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_json_value</span><span class="params">(js,term)</span>:</span></span><br><span class="line">    tsplit=term.split(<span class="string">'|'</span>)</span><br><span class="line">    result=<span class="string">''</span></span><br><span class="line">    buf=copy.deepcopy(js)</span><br><span class="line">    <span class="comment"># 省略逻辑代码</span></span><br><span class="line">    <span class="keyword">return</span> value</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python 类型标记(Type Hints) 初探</title>
     <url>/2020/03/11/python-type-hints-guide/</url>
     <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>Python是一门动态强类型语言, 动态性是它鲜明的特点. </p>
@@ -3688,45 +3727,6 @@ img[alt="-w350"] {
 <p>静态类型检查器将所有类型视为与 Any 兼容，反之亦然， Any 也与所有类型相兼容。</p>
 <p>所有返回值无类型或形参无类型的函数将隐式地默认使用 Any 类型(没有类型标记的代码, 模式标记就是Any)</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> Any</span><br><span class="line"></span><br><span class="line">a = <span class="literal">None</span>    <span class="comment"># type: Any</span></span><br><span class="line">a = []      <span class="comment"># OK</span></span><br><span class="line">a = <span class="number">2</span>       <span class="comment"># OK</span></span><br><span class="line"></span><br><span class="line">s = <span class="string">''</span>      <span class="comment"># type: str</span></span><br><span class="line">s = a       <span class="comment"># OK</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(item: Any)</span> -&gt; int:</span></span><br><span class="line">    <span class="comment"># Typechecks; 'item' could be any type,</span></span><br><span class="line">    <span class="comment"># and that type might have a 'bar' method</span></span><br><span class="line">    item.bar()</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用line_profiler分析Python程序耗时情况</title>
-    <url>/2020/09/15/python-time-consuming-analysis-with-line_profiler/</url>
-    <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近发生了一个服务故障，在一个同事对日志服务做了改动后，服务的耗时就变大了很多，数据大量积压。<br>通过观察监控报表，我们发现从他的改动上线后，服务器的CPU使用率大幅增加，基本处于满载状态。<br>粗略审查代码并没有发现问题，我们只能紧急回滚了服务，日志消费也恢复到正常状态了。<br>但是根本问题还没有找到，所以我请出了line_profiler来分析程序的具体耗时情况。</p>
-<p><a href="https://github.com/pyutils/line_profiler" target="_blank" rel="noopener">line_profiler</a>是个代码耗时分析器，可以逐行分析代码的耗时情况。<br><a id="more"></a></p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>line_profiler包含两个部分</p>
-<ul>
-<li>kernprof：代码执行和耗时记录</li>
-<li>line_profiler：耗时报告解析和展示</li>
-</ul>
-<p>首先，安装：<code>pip install line_profiler -U</code></p>
-<p>给需要分析的代码加上<code>@profile</code>装饰器, <code>@profile</code>装饰器不需要被import，kernprof在运行时会注入依赖，kernprof会记录被装饰函数的耗时情况，有多个函数也可以都加上装饰器。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@profile</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(run_type)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'data.txt'</span>,<span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        data=f.readline()</span><br><span class="line">    input_data = json.loads(data)</span><br><span class="line">    source = input_data.get(<span class="string">'source'</span>, <span class="string">''</span>)</span><br><span class="line">    service = input_data.get(<span class="string">'service'</span>, <span class="number">0</span>)</span><br><span class="line">    apply_no = input_data.get(<span class="string">'applyNo'</span>, <span class="number">0</span>)</span><br><span class="line">    info = input_data.get(<span class="string">'info'</span>, <span class="string">''</span>)</span><br><span class="line"></span><br><span class="line">    cust_no = input_data.get(<span class="string">'cust_no'</span>, <span class="number">0</span>)</span><br><span class="line">    job.run(source, service, apply_no, info, run_type)</span><br></pre></td></tr></table></figure></p>
-<p>然后，运行代码：<code>kernprof -l service.py</code>, 统计耗时情况, 执行完成后生成耗时报告文件<code>service.py.lprof</code></p>
-<p>最后，耗时报告解析：<code>python -m line_profiler service.py.lprof</code>，会生成可阅读的耗时报告。</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>耗时报告示例<br><figure class="highlight tap"><table><tr><td class="code"><pre><span class="line">Timer unit: 1e-06 s</span><br><span class="line"></span><br><span class="line">Total time: 4.18908 s</span><br><span class="line">File: service.py</span><br><span class="line">Function: main at line 38</span><br><span class="line"></span><br><span class="line">Line <span class="comment">#      Hits         Time  Per Hit   % Time  Line Contents</span></span><br><span class="line">==============================================================</span><br><span class="line">   <span class="number"> 38 </span>                                              @profile</span><br><span class="line">   <span class="number"> 39 </span>                                              def main(run_type):</span><br><span class="line">   <span class="number"> 40 </span>       <span class="number"> 1 </span>        45.0     45.0      0.0          with open('data.txt','r') as f:</span><br><span class="line">   <span class="number"> 41 </span>       <span class="number"> 1 </span>       517.0    517.0      0.0              data=f.readline()</span><br><span class="line">   <span class="number"> 42 </span>       <span class="number"> 1 </span>      6564.0   6564.0      0.2          input_data = json.loads(data)</span><br><span class="line">   <span class="number"> 43 </span>       <span class="number"> 1 </span>        20.0     20.0      0.0          source = input_data.get('source', '')</span><br><span class="line">   <span class="number"> 44 </span>       <span class="number"> 1 </span>         6.0      6.0      0.0          service = input_data.get('service', 0</span><br><span class="line">   <span class="number"> 45 </span>       <span class="number"> 1 </span>         5.0      5.0      0.0          apply_no = input_data.get('applyNo', </span><br><span class="line">   <span class="number"> 46 </span>       <span class="number"> 1 </span>         5.0      5.0      0.0          info = input_data.get('info', '')</span><br><span class="line">    47</span><br><span class="line">   <span class="number"> 48 </span>       <span class="number"> 1 </span>         1.0      1.0      0.0          cust_no = input_data.get('cust_no', 0)</span><br><span class="line">   <span class="number"> 49 </span>                                                  </span><br><span class="line">   <span class="number"> 50 </span>       <span class="number"> 1 </span>   4181914.0 4181914.0     99.8         job.run(source, service, apply_no, info, run_type)</span><br></pre></td></tr></table></figure></p>
-<p>耗时报告会逐行显示代码耗时和调用情况</p>
-<ul>
-<li>Timer unit: 耗时单位，这里是微秒</li>
-<li>Total time：总耗时</li>
-<li>Line #：行号</li>
-<li>Hits：函数被调用次数</li>
-<li>Time：函数总耗时</li>
-<li>Per Hit：函数每次调用耗时</li>
-<li>% Time：耗时占比</li>
-</ul>
-<p>可以看到，总耗时4.18908秒，<code>job.run</code>占用了<code>99.8%</code>的时间。</p>
-<p>接下来我们分析下<code>job.run</code>的耗时情况<br><figure class="highlight vhdl"><table><tr><td class="code"><pre><span class="line">Timer unit: <span class="number">1e-06</span> s</span><br><span class="line"></span><br><span class="line">Total <span class="built_in">time</span>: <span class="number">4.16909</span> s</span><br><span class="line"><span class="keyword">File</span>: job.py</span><br><span class="line"><span class="keyword">Function</span>: <span class="keyword">inout</span> at <span class="literal">line</span> <span class="number">69</span></span><br><span class="line"></span><br><span class="line"><span class="literal">Line</span> #      Hits         <span class="built_in">Time</span>  Per Hit   % <span class="built_in">Time</span>  <span class="literal">Line</span> Contents</span><br><span class="line">==============================================================</span><br><span class="line">    <span class="number">69</span>                                               @profile</span><br><span class="line">    <span class="number">70</span>                                               def run(self, apply_no, info, req_type, run_type):</span><br><span class="line">    ... 省略部分逻辑</span><br><span class="line">   <span class="number">112</span>         <span class="number">1</span>          <span class="number">2.0</span>      <span class="number">2.0</span>      <span class="number">0.0</span>          <span class="keyword">if</span> req_type == <span class="symbol">'credit</span>':</span><br><span class="line">   <span class="number">113</span>         <span class="number">1</span>    <span class="number">3370673.0</span> <span class="number">3370673.0</span>     <span class="number">80.8</span>              sql = db_utils.generate_sql(info1, sql, val, columns)</span><br><span class="line">   <span class="number">114</span>                                                   <span class="keyword">else</span>:</span><br><span class="line">   <span class="number">115</span>                                                       sql = db_utils.generate_sql(info1, sql, val, columns)</span><br><span class="line">   <span class="number">116</span>         <span class="number">1</span>       <span class="number">6948.0</span>   <span class="number">6948.0</span>      <span class="number">0.2</span>          safe3_db.executor(sql)</span><br></pre></td></tr></table></figure></p>
-<p>可以看到，113行的生成SQL语句占用了80%的时间，SQL反倒不怎么耗时，显然是不正常的。</p>
-<p>再看下<code>db_utils.generate_sql</code>函数的具体代码<br>可以发现遍历字段列表(item_list)的时候，调用了<code>get_json_value</code>，该函数每次都会调用<code>copy.deepcopy</code>。<br>众所周知，对象的深拷贝是十分消耗cpu资源的，并且这里深拷贝的次数会随着字段数的增加而线性增长。</p>
-<p>把深拷贝行为去除后，服务耗时和cpu占用都回归到了正常水准。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_sql</span><span class="params">(info, sql, val, item_list)</span>:</span></span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    length = len(item_list)</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> item_list:</span><br><span class="line">        index += <span class="number">1</span></span><br><span class="line">        buf = get_json_value(info,item)</span><br><span class="line">        <span class="keyword">if</span> index &lt; length:</span><br><span class="line">            sql = sql + <span class="string">', `'</span> + str(item) + <span class="string">'`'</span></span><br><span class="line">            val = val + <span class="string">', \''</span> + MySQLdb.escape_string(str(buf)) + <span class="string">'\''</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            sql = sql + <span class="string">', `'</span> + str(item) + <span class="string">'`) '</span></span><br><span class="line">            val = val + <span class="string">', \''</span> + MySQLdb.escape_string(str(buf)) + <span class="string">'\')'</span></span><br><span class="line">    <span class="keyword">return</span> sql + val</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_json_value</span><span class="params">(js,term)</span>:</span></span><br><span class="line">    tsplit=term.split(<span class="string">'|'</span>)</span><br><span class="line">    result=<span class="string">''</span></span><br><span class="line">    buf=copy.deepcopy(js)</span><br><span class="line">    <span class="comment"># 省略逻辑代码</span></span><br><span class="line">    <span class="keyword">return</span> value</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>编程</category>
@@ -4717,6 +4717,32 @@ img[alt="-w350"] {
       </tags>
   </entry>
   <entry>
+    <title>SQLAlchemy Core 使用教程</title>
+    <url>/2019/10/28/the-guide-of-SQLAlchemy-core/</url>
+    <content><![CDATA[<p>SQLAlchemy core 是SQLAlchemy的核心部件，主要负责生成sql查询和具体的数据库操作，SQLAlchemy orm 就是构建在core之上的。</p>
+<p>在不需要对象映射的时候，使用core而不是orm，可以降低数据库操作成本，提高性能。</p>
+<h2 id="Table映射"><a href="#Table映射" class="headerlink" title="Table映射"></a>Table映射</h2><h3 id="创建数据库连接"><a href="#创建数据库连接" class="headerlink" title="创建数据库连接"></a>创建数据库连接</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine</span><br><span class="line">engine = create_engine(<span class="string">'sqlite:///test.sqlite3'</span>, echo=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="表结构定义"><a href="#表结构定义" class="headerlink" title="表结构定义"></a>表结构定义</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> Table, Column, Integer, String, MetaData, ForeignKey, Index</span><br><span class="line">metadata = MetaData()</span><br><span class="line">users = Table(<span class="string">'users'</span>, metadata,</span><br><span class="line">    Column(<span class="string">'id'</span>, Integer, primary_key=<span class="literal">True</span>),</span><br><span class="line">    Column(<span class="string">'name'</span>, String),</span><br><span class="line">    Column(<span class="string">'fullname'</span>, String),</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># place an index on col1, col2</span></span><br><span class="line">    Index(<span class="string">'idx_col12'</span>, <span class="string">'name'</span>, <span class="string">'fullname'</span>),   <span class="comment"># 添加索引</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">addresses = Table(<span class="string">'addresses'</span>, metadata,</span><br><span class="line">    Column(<span class="string">'id'</span>, Integer, primary_key=<span class="literal">True</span>),</span><br><span class="line">    Column(<span class="string">'user_id'</span>, <span class="literal">None</span>, ForeignKey(<span class="string">'users.id'</span>)),</span><br><span class="line">    Column(<span class="string">'email_address'</span>, String, nullable=<span class="literal">False</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="映射已存在的数据表"><a href="#映射已存在的数据表" class="headerlink" title="映射已存在的数据表"></a>映射已存在的数据表</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 单个表</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> Table , MetaData</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>metadata = MetaData(engine)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>users = Table(<span class="string">'users'</span>, metadata, autoload=<span class="literal">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>users.c.keys()</span><br><span class="line">[<span class="string">'id'</span>, <span class="string">'name'</span>, <span class="string">'fullname'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 整个数据库</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>metadata.reflect()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>addresses = metadata.tables[<span class="string">'addresses'</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> MetaData</span><br><span class="line"></span><br><span class="line">metadata = MetaData()</span><br><span class="line">metadata.create_all(engine)</span><br></pre></td></tr></table></figure>
+<h2 id="增删查改"><a href="#增删查改" class="headerlink" title="增删查改"></a>增删查改</h2><h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 获得连接对象</span></span><br><span class="line">conn = engine.connect()</span><br><span class="line"></span><br><span class="line"><span class="comment">## 插入一条</span></span><br><span class="line">ins = users.insert().values(name=<span class="string">'jack'</span>, fullname=<span class="string">'Jack Jones'</span>)</span><br><span class="line">conn.execute(ins)</span><br><span class="line"></span><br><span class="line">ins = users.insert()</span><br><span class="line">conn.execute(ins, name=<span class="string">'wendy'</span>, fullname=<span class="string">'Wendy Williams'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">## 批量插入</span></span><br><span class="line">conn.execute(addresses.insert(), [</span><br><span class="line">    &#123;<span class="string">'user_id'</span>: <span class="number">1</span>, <span class="string">'email_address'</span> : <span class="string">'jack@yahoo.com'</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'user_id'</span>: <span class="number">1</span>, <span class="string">'email_address'</span> : <span class="string">'jack@msn.com'</span>&#125;,</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>基本查询示例，复杂过滤条件查看<a href="https://docs.sqlalchemy.org/en/13/core/tutorial.html#operators" target="_blank" rel="noopener">文档</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># select * from users</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy.sql <span class="keyword">import</span> select</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur = conn.execute(select([users]))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur.fetchall()</span><br><span class="line">[(<span class="number">1</span>, <span class="string">'jack'</span>, <span class="string">'Jack Jones'</span>), (<span class="number">2</span>, <span class="string">'wendy'</span>, <span class="string">'Wendy Williams'</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># select name, fullname from users</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur = conn.execute(select([users.c.name, users.c.fullname]))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur.fetchall()</span><br><span class="line">[(<span class="string">'jack'</span>, <span class="string">'Jack Jones'</span>), (<span class="string">'wendy'</span>, <span class="string">'Wendy Williams'</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># select name, fullname from users limit 1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur = conn.execute(select([users.c.name, users.c.fullname]).limit(<span class="number">1</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur.fetchall()</span><br><span class="line">[(<span class="string">'jack'</span>, <span class="string">'Jack Jones'</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 联表查询</span></span><br><span class="line"><span class="comment"># SELECT users.name, addresses.email_address FROM users, addresses WHERE users.id = addresses.user_id</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = select([users.c.name, addresses.c.email_address]).where(users.c.id == addresses.c.user_id)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur = conn.execute(s)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur.fetchall()</span><br><span class="line">[(<span class="string">'jack'</span>, <span class="string">'jack@yahoo.com'</span>), (<span class="string">'jack'</span>, <span class="string">'jack@msn.com'</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 原始sql语句</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy.sql <span class="keyword">import</span> text</span><br><span class="line"><span class="meta">... </span>s = text(</span><br><span class="line"><span class="meta">... </span>    <span class="string">"SELECT users.fullname, addresses.email_address AS title "</span></span><br><span class="line"><span class="meta">... </span>        <span class="string">"FROM users, addresses "</span></span><br><span class="line"><span class="meta">... </span>        <span class="string">"WHERE users.id = addresses.user_id "</span></span><br><span class="line"><span class="meta">... </span>        <span class="string">"AND users.name BETWEEN :x AND :y "</span></span><br><span class="line"><span class="meta">... </span>        <span class="string">"AND (addresses.email_address LIKE :e1 "</span></span><br><span class="line"><span class="meta">... </span>            <span class="string">"OR addresses.email_address LIKE :e2)"</span>)</span><br><span class="line"><span class="meta">... </span>conn.execute(s, x=<span class="string">'m'</span>, y=<span class="string">'z'</span>, e1=<span class="string">'%@aol.com'</span>, e2=<span class="string">'%@msn.com'</span>).fetchall()</span><br><span class="line"></span><br><span class="line"><span class="comment">## 遍历大表，每N条数据请求数据库一次</span></span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> conn.execute(select([users])).yield_per(<span class="number">5</span>):</span><br><span class="line">    print(p)</span><br></pre></td></tr></table></figure>
+<h3 id="更改"><a href="#更改" class="headerlink" title="更改"></a>更改</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy.sql <span class="keyword">import</span> update, select, delete, insert</span><br><span class="line"><span class="comment"># 更改为具体值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>stmt = users.update().\</span><br><span class="line"><span class="meta">... </span>            where(users.c.name == <span class="string">'jack'</span>).\</span><br><span class="line"><span class="meta">... </span>            values(name=<span class="string">'ed'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>conn.execute(stmt)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更改为另一个字段的值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>stmt = users.update().values(name=users.c.fullname)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>conn.execute(stmt)</span><br></pre></td></tr></table></figure>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>stmt = users.delete().where(users.c.id == <span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>conn.execute(stmt)</span><br></pre></td></tr></table></figure>
+<h2 id="其他特性"><a href="#其他特性" class="headerlink" title="其他特性"></a>其他特性</h2><h3 id="监听DBAPI事件"><a href="#监听DBAPI事件" class="headerlink" title="监听DBAPI事件"></a>监听DBAPI事件</h3><p>监听connect事件，在初始化数据库连接时设置数据库参数变量，或者执行语句<br><a href="https://docs.sqlalchemy.org/en/13/core/engines.html#modifying-the-dbapi-connection-after-connect-or-running-commands-after-connect" target="_blank" rel="noopener">参考文档</a><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> event</span><br><span class="line"></span><br><span class="line">engine = create_engine(</span><br><span class="line">    <span class="string">"postgresql://user:pass@hostname/dbname"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="meta">@event.listens_for(engine, "connect")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">connect</span><span class="params">(dbapi_connection, connection_record)</span>:</span></span><br><span class="line">    cursor = dbapi_connection.cursor()</span><br><span class="line">    cursor.execute(<span class="string">"SET some session variables"</span>)</span><br><span class="line">    cursor.close()</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>SQLAlchemy</tag>
+        <tag>ORM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2020年终总结</title>
     <url>/2020/12/31/summary-of-year-2020/</url>
     <content><![CDATA[<p>非常时期，三观频繁受到冲击，估计以后历史会说今年是美利坚由盛转衰的一年。</p>
@@ -4782,32 +4808,6 @@ img[alt="-w350"] {
       </categories>
       <tags>
         <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQLAlchemy Core 使用教程</title>
-    <url>/2019/10/28/the-guide-of-SQLAlchemy-core/</url>
-    <content><![CDATA[<p>SQLAlchemy core 是SQLAlchemy的核心部件，主要负责生成sql查询和具体的数据库操作，SQLAlchemy orm 就是构建在core之上的。</p>
-<p>在不需要对象映射的时候，使用core而不是orm，可以降低数据库操作成本，提高性能。</p>
-<h2 id="Table映射"><a href="#Table映射" class="headerlink" title="Table映射"></a>Table映射</h2><h3 id="创建数据库连接"><a href="#创建数据库连接" class="headerlink" title="创建数据库连接"></a>创建数据库连接</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine</span><br><span class="line">engine = create_engine(<span class="string">'sqlite:///test.sqlite3'</span>, echo=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="表结构定义"><a href="#表结构定义" class="headerlink" title="表结构定义"></a>表结构定义</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> Table, Column, Integer, String, MetaData, ForeignKey, Index</span><br><span class="line">metadata = MetaData()</span><br><span class="line">users = Table(<span class="string">'users'</span>, metadata,</span><br><span class="line">    Column(<span class="string">'id'</span>, Integer, primary_key=<span class="literal">True</span>),</span><br><span class="line">    Column(<span class="string">'name'</span>, String),</span><br><span class="line">    Column(<span class="string">'fullname'</span>, String),</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># place an index on col1, col2</span></span><br><span class="line">    Index(<span class="string">'idx_col12'</span>, <span class="string">'name'</span>, <span class="string">'fullname'</span>),   <span class="comment"># 添加索引</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">addresses = Table(<span class="string">'addresses'</span>, metadata,</span><br><span class="line">    Column(<span class="string">'id'</span>, Integer, primary_key=<span class="literal">True</span>),</span><br><span class="line">    Column(<span class="string">'user_id'</span>, <span class="literal">None</span>, ForeignKey(<span class="string">'users.id'</span>)),</span><br><span class="line">    Column(<span class="string">'email_address'</span>, String, nullable=<span class="literal">False</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="映射已存在的数据表"><a href="#映射已存在的数据表" class="headerlink" title="映射已存在的数据表"></a>映射已存在的数据表</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 单个表</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> Table , MetaData</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>metadata = MetaData(engine)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>users = Table(<span class="string">'users'</span>, metadata, autoload=<span class="literal">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>users.c.keys()</span><br><span class="line">[<span class="string">'id'</span>, <span class="string">'name'</span>, <span class="string">'fullname'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 整个数据库</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>metadata.reflect()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>addresses = metadata.tables[<span class="string">'addresses'</span>]</span><br></pre></td></tr></table></figure>
-<h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> MetaData</span><br><span class="line"></span><br><span class="line">metadata = MetaData()</span><br><span class="line">metadata.create_all(engine)</span><br></pre></td></tr></table></figure>
-<h2 id="增删查改"><a href="#增删查改" class="headerlink" title="增删查改"></a>增删查改</h2><h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 获得连接对象</span></span><br><span class="line">conn = engine.connect()</span><br><span class="line"></span><br><span class="line"><span class="comment">## 插入一条</span></span><br><span class="line">ins = users.insert().values(name=<span class="string">'jack'</span>, fullname=<span class="string">'Jack Jones'</span>)</span><br><span class="line">conn.execute(ins)</span><br><span class="line"></span><br><span class="line">ins = users.insert()</span><br><span class="line">conn.execute(ins, name=<span class="string">'wendy'</span>, fullname=<span class="string">'Wendy Williams'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">## 批量插入</span></span><br><span class="line">conn.execute(addresses.insert(), [</span><br><span class="line">    &#123;<span class="string">'user_id'</span>: <span class="number">1</span>, <span class="string">'email_address'</span> : <span class="string">'jack@yahoo.com'</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'user_id'</span>: <span class="number">1</span>, <span class="string">'email_address'</span> : <span class="string">'jack@msn.com'</span>&#125;,</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
-<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>基本查询示例，复杂过滤条件查看<a href="https://docs.sqlalchemy.org/en/13/core/tutorial.html#operators" target="_blank" rel="noopener">文档</a></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># select * from users</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy.sql <span class="keyword">import</span> select</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur = conn.execute(select([users]))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur.fetchall()</span><br><span class="line">[(<span class="number">1</span>, <span class="string">'jack'</span>, <span class="string">'Jack Jones'</span>), (<span class="number">2</span>, <span class="string">'wendy'</span>, <span class="string">'Wendy Williams'</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># select name, fullname from users</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur = conn.execute(select([users.c.name, users.c.fullname]))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur.fetchall()</span><br><span class="line">[(<span class="string">'jack'</span>, <span class="string">'Jack Jones'</span>), (<span class="string">'wendy'</span>, <span class="string">'Wendy Williams'</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># select name, fullname from users limit 1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur = conn.execute(select([users.c.name, users.c.fullname]).limit(<span class="number">1</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur.fetchall()</span><br><span class="line">[(<span class="string">'jack'</span>, <span class="string">'Jack Jones'</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 联表查询</span></span><br><span class="line"><span class="comment"># SELECT users.name, addresses.email_address FROM users, addresses WHERE users.id = addresses.user_id</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = select([users.c.name, addresses.c.email_address]).where(users.c.id == addresses.c.user_id)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur = conn.execute(s)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cur.fetchall()</span><br><span class="line">[(<span class="string">'jack'</span>, <span class="string">'jack@yahoo.com'</span>), (<span class="string">'jack'</span>, <span class="string">'jack@msn.com'</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 原始sql语句</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy.sql <span class="keyword">import</span> text</span><br><span class="line"><span class="meta">... </span>s = text(</span><br><span class="line"><span class="meta">... </span>    <span class="string">"SELECT users.fullname, addresses.email_address AS title "</span></span><br><span class="line"><span class="meta">... </span>        <span class="string">"FROM users, addresses "</span></span><br><span class="line"><span class="meta">... </span>        <span class="string">"WHERE users.id = addresses.user_id "</span></span><br><span class="line"><span class="meta">... </span>        <span class="string">"AND users.name BETWEEN :x AND :y "</span></span><br><span class="line"><span class="meta">... </span>        <span class="string">"AND (addresses.email_address LIKE :e1 "</span></span><br><span class="line"><span class="meta">... </span>            <span class="string">"OR addresses.email_address LIKE :e2)"</span>)</span><br><span class="line"><span class="meta">... </span>conn.execute(s, x=<span class="string">'m'</span>, y=<span class="string">'z'</span>, e1=<span class="string">'%@aol.com'</span>, e2=<span class="string">'%@msn.com'</span>).fetchall()</span><br><span class="line"></span><br><span class="line"><span class="comment">## 遍历大表，每N条数据请求数据库一次</span></span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> conn.execute(select([users])).yield_per(<span class="number">5</span>):</span><br><span class="line">    print(p)</span><br></pre></td></tr></table></figure>
-<h3 id="更改"><a href="#更改" class="headerlink" title="更改"></a>更改</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy.sql <span class="keyword">import</span> update, select, delete, insert</span><br><span class="line"><span class="comment"># 更改为具体值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>stmt = users.update().\</span><br><span class="line"><span class="meta">... </span>            where(users.c.name == <span class="string">'jack'</span>).\</span><br><span class="line"><span class="meta">... </span>            values(name=<span class="string">'ed'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>conn.execute(stmt)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更改为另一个字段的值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>stmt = users.update().values(name=users.c.fullname)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>conn.execute(stmt)</span><br></pre></td></tr></table></figure>
-<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>stmt = users.delete().where(users.c.id == <span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>conn.execute(stmt)</span><br></pre></td></tr></table></figure>
-<h2 id="其他特性"><a href="#其他特性" class="headerlink" title="其他特性"></a>其他特性</h2><h3 id="监听DBAPI事件"><a href="#监听DBAPI事件" class="headerlink" title="监听DBAPI事件"></a>监听DBAPI事件</h3><p>监听connect事件，在初始化数据库连接时设置数据库参数变量，或者执行语句<br><a href="https://docs.sqlalchemy.org/en/13/core/engines.html#modifying-the-dbapi-connection-after-connect-or-running-commands-after-connect" target="_blank" rel="noopener">参考文档</a><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> event</span><br><span class="line"></span><br><span class="line">engine = create_engine(</span><br><span class="line">    <span class="string">"postgresql://user:pass@hostname/dbname"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="meta">@event.listens_for(engine, "connect")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">connect</span><span class="params">(dbapi_connection, connection_record)</span>:</span></span><br><span class="line">    cursor = dbapi_connection.cursor()</span><br><span class="line">    cursor.execute(<span class="string">"SET some session variables"</span>)</span><br><span class="line">    cursor.close()</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>SQLAlchemy</tag>
-        <tag>ORM</tag>
       </tags>
   </entry>
   <entry>
@@ -5560,6 +5560,53 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
+    <title>《在华五十年》读书笔记</title>
+    <url>/2019/10/01/%E3%80%8A%E5%9C%A8%E5%8D%8E%E4%BA%94%E5%8D%81%E5%B9%B4%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<p><img src="http://image.runjf.com/mweb/2019-10-02-15699994564737.jpg" alt></p>
+<p><em>本文为整理以前的读书笔记</em></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>之前对于传教士无甚好感，觉得他们总是将自己的信仰推销给别人，然而信仰的好坏暂且不论，总归是要自由的。</p>
+<p>对司徒雷登的第一印象应该是来自《别了，司徒雷登》一文，毛主席对美帝一通抨击，连带着对他观感也不好了。</p>
+<p>读了这本书才发现，一个较为真实的司徒雷登，了解他当时所处的社会现状，以及他说做的一些事情。</p>
+<p>最为佩服的还是他对当时中国教育的帮助，在燕京大学上投注的心血，这些都足以为其生平作注了。</p>
+<a id="more"></a>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>彼拉多见说也无济于事，反要生乱，就拿水在众人面前洗手，说，流这义人的血，罪不在我，你们承当吧。</p>
+<blockquote>
+<p>出自圣经</p>
+</blockquote>
+<p>中国人的思维方式不同，善于察言观色，认清局势并从中牟利</p>
+<blockquote>
+<p>认识可谓深刻</p>
+</blockquote>
+<blockquote>
+<p>认识可谓深刻</p>
+</blockquote>
+<p>一群美国人为我国的教育奔走呼告，如此高义着实令人佩服</p>
+<blockquote>
+<p>拜服</p>
+</blockquote>
+<blockquote>
+<p>拜服</p>
+</blockquote>
+<p>宗教信仰的表达，应当只是私人的事情</p>
+<p>乱世的思想发展较好</p>
+<blockquote>
+<p>如，战国时期百家争鸣，应当是乱世大家生活不好，在思想上就会有所宣泄，不平则鸣嘛。而且乱世当权者对思想的管控也小，各种思想也得以发展。</p>
+</blockquote>
+<p>汪精卫：革命投机者</p>
+<p>国共内战，与毛蒋两人的特质有很大关系</p>
+<p>苏联非共产主义而是修正，这在司徒雷登早已明了</p>
+<p>战争中的悲剧是中产阶级的生命和财产毁灭殆尽</p>
+<p>没有自由，就算赢了全世界也毫无意义</p>
+]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+        <tag>随感</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>《国史大纲》读书笔记</title>
     <url>/2019/11/27/%E3%80%8A%E5%9B%BD%E5%8F%B2%E5%A4%A7%E7%BA%B2%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img src="http://image.runjf.com/mweb/2019-11-27-15748658640077.jpg" alt></p>
@@ -5614,53 +5661,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
-    <title>《在华五十年》读书笔记</title>
-    <url>/2019/10/01/%E3%80%8A%E5%9C%A8%E5%8D%8E%E4%BA%94%E5%8D%81%E5%B9%B4%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<p><img src="http://image.runjf.com/mweb/2019-10-02-15699994564737.jpg" alt></p>
-<p><em>本文为整理以前的读书笔记</em></p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>之前对于传教士无甚好感，觉得他们总是将自己的信仰推销给别人，然而信仰的好坏暂且不论，总归是要自由的。</p>
-<p>对司徒雷登的第一印象应该是来自《别了，司徒雷登》一文，毛主席对美帝一通抨击，连带着对他观感也不好了。</p>
-<p>读了这本书才发现，一个较为真实的司徒雷登，了解他当时所处的社会现状，以及他说做的一些事情。</p>
-<p>最为佩服的还是他对当时中国教育的帮助，在燕京大学上投注的心血，这些都足以为其生平作注了。</p>
-<a id="more"></a>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>彼拉多见说也无济于事，反要生乱，就拿水在众人面前洗手，说，流这义人的血，罪不在我，你们承当吧。</p>
-<blockquote>
-<p>出自圣经</p>
-</blockquote>
-<p>中国人的思维方式不同，善于察言观色，认清局势并从中牟利</p>
-<blockquote>
-<p>认识可谓深刻</p>
-</blockquote>
-<blockquote>
-<p>认识可谓深刻</p>
-</blockquote>
-<p>一群美国人为我国的教育奔走呼告，如此高义着实令人佩服</p>
-<blockquote>
-<p>拜服</p>
-</blockquote>
-<blockquote>
-<p>拜服</p>
-</blockquote>
-<p>宗教信仰的表达，应当只是私人的事情</p>
-<p>乱世的思想发展较好</p>
-<blockquote>
-<p>如，战国时期百家争鸣，应当是乱世大家生活不好，在思想上就会有所宣泄，不平则鸣嘛。而且乱世当权者对思想的管控也小，各种思想也得以发展。</p>
-</blockquote>
-<p>汪精卫：革命投机者</p>
-<p>国共内战，与毛蒋两人的特质有很大关系</p>
-<p>苏联非共产主义而是修正，这在司徒雷登早已明了</p>
-<p>战争中的悲剧是中产阶级的生命和财产毁灭殆尽</p>
-<p>没有自由，就算赢了全世界也毫无意义</p>
-]]></content>
-      <categories>
-        <category>阅读</category>
-      </categories>
-      <tags>
-        <tag>读书笔记</tag>
-        <tag>随感</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>读《在细雨中呼喊》感悟</title>
     <url>/2019/09/22/%E3%80%8A%E5%9C%A8%E7%BB%86%E9%9B%A8%E4%B8%AD%E5%91%BC%E5%96%8A%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img src="http://image.runjf.com/mweb/15691588851421.jpg" alt></p>
@@ -5683,26 +5683,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       <tags>
         <tag>读书笔记</tag>
         <tag>随感</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>房龙:《宽容》摘录</title>
-    <url>/2020/03/22/%E3%80%8A%E5%AE%BD%E5%AE%B9%E3%80%8B%E6%91%98%E5%BD%95/</url>
-    <content><![CDATA[<p><em>补录，笔记太过久远，原文已然忘记。</em></p>
-<p>泰勒斯: 世间万物来源于水</p>
-<p>苏格拉底: 把大量的时间用在空洞的欢乐和虚无的胜利上使年华虚度, 这样的生活毫无意义; 为了满足自己小心的虚荣心和野心而肆意挥霍上帝赐予的一切.</p>
-<p>在基督徒眼里, 这个世界仅是通往天堂的前厅</p>
-<p>摩尼教: 3世纪前叶创始人摩尼出生</p>
-<p>现代的不宽容可以分为出于懒惰的不宽容, 出于无知的, 出于自私自利的.</p>
-<p>一些人靠某种以及建立的崇拜谋生, 另一些人却要把他们从一个寺庙引到另一个寺庙. 他们之间的战争一直是公开的. </p>
-<p>今天的异教徒, 明天就是一切持不同意见的人的劲敌</p>
-<p>世界上本来只有一个暴君, 激进派却带来了两个</p>
-]]></content>
-      <categories>
-        <category>阅读</category>
-      </categories>
-      <tags>
-        <tag>读书笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -5752,6 +5732,26 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       <tags>
         <tag>读书笔记</tag>
         <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>房龙:《宽容》摘录</title>
+    <url>/2020/03/22/%E3%80%8A%E5%AE%BD%E5%AE%B9%E3%80%8B%E6%91%98%E5%BD%95/</url>
+    <content><![CDATA[<p><em>补录，笔记太过久远，原文已然忘记。</em></p>
+<p>泰勒斯: 世间万物来源于水</p>
+<p>苏格拉底: 把大量的时间用在空洞的欢乐和虚无的胜利上使年华虚度, 这样的生活毫无意义; 为了满足自己小心的虚荣心和野心而肆意挥霍上帝赐予的一切.</p>
+<p>在基督徒眼里, 这个世界仅是通往天堂的前厅</p>
+<p>摩尼教: 3世纪前叶创始人摩尼出生</p>
+<p>现代的不宽容可以分为出于懒惰的不宽容, 出于无知的, 出于自私自利的.</p>
+<p>一些人靠某种以及建立的崇拜谋生, 另一些人却要把他们从一个寺庙引到另一个寺庙. 他们之间的战争一直是公开的. </p>
+<p>今天的异教徒, 明天就是一切持不同意见的人的劲敌</p>
+<p>世界上本来只有一个暴君, 激进派却带来了两个</p>
+]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -6831,55 +6831,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
-    <title>《通往奴役之路》读书笔记</title>
-    <url>/2019/12/20/%E3%80%8A%E9%80%9A%E5%BE%80%E5%A5%B4%E5%BD%B9%E4%B9%8B%E8%B7%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<p><em>本文为整理以前的读书笔记</em></p>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>这本书应该是对三观冲击最大的一本，在大学时第一次读，先是震惊，再是愤怒，然后是害怕。</p>
-<p>当然现在看来，又有一些不一样的见解。一直自认为，思维深刻，三观稳定，然而也不可避免地被各种书籍媒体塑造。</p>
-<p>想要保持独立思考是何其之难，再者，就算能独立思考，人们接受的信息都是片面的，有怎能确保得出正确的结果呢？</p>
-<a id="more"></a>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>如果从长远考虑，我们是自己命运的创造者，那么，从短期着眼，我们就是我们所造的观念的俘虏。</p>
-<blockquote>
-<p>阮云：有一些事情没什么特别的，当加上想象的动机，就变得非常可怕了。所以唯心主义也是有意义的，你的世界是有你的思想观念重构的。</p>
-</blockquote>
-<p>个人主义的基本特征，就是把个人当做个人尊重，就是在他自己的范围内承认他的看法和趣味是至高无上的。</p>
-<blockquote>
-<p>阮云：其实就是不应该承认有思想教皇的存在</p>
-</blockquote>
-<p>在安排我们的事务时，应该尽可能多地运用自发的社会力量，而尽可能少地借助于强制</p>
-<p>“西方的”就是指自由主义与民族主义，资本主义与个人主义，自由贸易与任何形式的国际主义或对和平的热爱</p>
-<p>总是使一个国家变成人间地狱的东西，恰恰是人们视图将其变成天堂。  – F·荷尔德林。</p>
-<p>社会主义从一开始便直接了当地具有独裁主义的性质，是通过等级制度的路线审慎地改革社会，并强加一种强制性的“精神力量”，以此“终结革命的一种尝试”。</p>
-<p>民主在自由之中寻找平等，而社会主义则在约数和奴役之中寻求平等。</p>
-<p>对更大自由的许诺已经成为社会主义宣传最有效的武器之一。</p>
-<p>一个名副其实的计划经济，必定有一个单一的观念。</p>
-<p>防止权力专断的不是它的来源，而是对他的限制。</p>
-<p>法治的基本要点：留给执掌强制权力的权行机构的行动自由，应当减少到最低程度。</p>
-<p>计划必然要涉及对不同的人们的具体要求给予有意识的差别对待，并允许这个人做一定要禁止另一个人做的事情。</p>
-<p>任何旨在实现公平分配的重大理想政策，必定会导致法治的破坏。</p>
-<blockquote>
-<p>阮云：分配的权力该如何分配</p>
-</blockquote>
-<p>如果我们力求获取金钱，那是因为金钱能够提供我们最广泛的选择机会去享受我们努力的结果。</p>
-<p>私有制是自由的最重要保障。</p>
-<p>富人得势的世界，得势的人才能致富的世界。</p>
-<p>所有权力都易腐坏，绝对的权力则绝对地会腐化。</p>
-<p>西方世界大多数人所想象的那种“自由社会主义”何以是纯理论的，而世界各处实行的社会主义为什么却是极权主义的。</p>
-<p>目的说明手段的正当性这个原则，在集体主义道德里是至高无上的准则。</p>
-<p>国家社会主义或者共产主义这一类活动背后所蕴含的道德情感的强度，也许只有历史上的伟大的宗教运动能与之相比。</p>
-<p>不喜欢掌握权力的人能够当权的可能性是和一个心地非常善良的人在奴隶种植园里担任监工的工作的可能性是一样的。</p>
-<p>斥责任何只为活动而活动，没有远大目标的人类行为，这是完全符合极权主义的整个精神的。</p>
-<p>只有当我们对自己的利害关系负责并且只有牺牲他们的自由时，我们的决定才能有道德价值，而我们要是在没有选择自由的情况下做到了无私，在道德上也微不足道。</p>
-]]></content>
-      <categories>
-        <category>阅读</category>
-      </categories>
-      <tags>
-        <tag>读书笔记</tag>
-        <tag>随感</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>《道德箴言录》读书笔记</title>
     <url>/2019/12/14/%E3%80%8A%E9%81%93%E5%BE%B7%E7%AE%B4%E8%A8%80%E5%BD%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img src="http://image.runjf.com/mweb/2019-12-15-15763936994979.jpg" alt></p>
@@ -6930,6 +6881,55 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
 <blockquote>
 <p>阮云：所以气量是种难得的东西</p>
 </blockquote>
+]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+        <tag>随感</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《通往奴役之路》读书笔记</title>
+    <url>/2019/12/20/%E3%80%8A%E9%80%9A%E5%BE%80%E5%A5%B4%E5%BD%B9%E4%B9%8B%E8%B7%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<p><em>本文为整理以前的读书笔记</em></p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>这本书应该是对三观冲击最大的一本，在大学时第一次读，先是震惊，再是愤怒，然后是害怕。</p>
+<p>当然现在看来，又有一些不一样的见解。一直自认为，思维深刻，三观稳定，然而也不可避免地被各种书籍媒体塑造。</p>
+<p>想要保持独立思考是何其之难，再者，就算能独立思考，人们接受的信息都是片面的，有怎能确保得出正确的结果呢？</p>
+<a id="more"></a>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>如果从长远考虑，我们是自己命运的创造者，那么，从短期着眼，我们就是我们所造的观念的俘虏。</p>
+<blockquote>
+<p>阮云：有一些事情没什么特别的，当加上想象的动机，就变得非常可怕了。所以唯心主义也是有意义的，你的世界是有你的思想观念重构的。</p>
+</blockquote>
+<p>个人主义的基本特征，就是把个人当做个人尊重，就是在他自己的范围内承认他的看法和趣味是至高无上的。</p>
+<blockquote>
+<p>阮云：其实就是不应该承认有思想教皇的存在</p>
+</blockquote>
+<p>在安排我们的事务时，应该尽可能多地运用自发的社会力量，而尽可能少地借助于强制</p>
+<p>“西方的”就是指自由主义与民族主义，资本主义与个人主义，自由贸易与任何形式的国际主义或对和平的热爱</p>
+<p>总是使一个国家变成人间地狱的东西，恰恰是人们视图将其变成天堂。  – F·荷尔德林。</p>
+<p>社会主义从一开始便直接了当地具有独裁主义的性质，是通过等级制度的路线审慎地改革社会，并强加一种强制性的“精神力量”，以此“终结革命的一种尝试”。</p>
+<p>民主在自由之中寻找平等，而社会主义则在约数和奴役之中寻求平等。</p>
+<p>对更大自由的许诺已经成为社会主义宣传最有效的武器之一。</p>
+<p>一个名副其实的计划经济，必定有一个单一的观念。</p>
+<p>防止权力专断的不是它的来源，而是对他的限制。</p>
+<p>法治的基本要点：留给执掌强制权力的权行机构的行动自由，应当减少到最低程度。</p>
+<p>计划必然要涉及对不同的人们的具体要求给予有意识的差别对待，并允许这个人做一定要禁止另一个人做的事情。</p>
+<p>任何旨在实现公平分配的重大理想政策，必定会导致法治的破坏。</p>
+<blockquote>
+<p>阮云：分配的权力该如何分配</p>
+</blockquote>
+<p>如果我们力求获取金钱，那是因为金钱能够提供我们最广泛的选择机会去享受我们努力的结果。</p>
+<p>私有制是自由的最重要保障。</p>
+<p>富人得势的世界，得势的人才能致富的世界。</p>
+<p>所有权力都易腐坏，绝对的权力则绝对地会腐化。</p>
+<p>西方世界大多数人所想象的那种“自由社会主义”何以是纯理论的，而世界各处实行的社会主义为什么却是极权主义的。</p>
+<p>目的说明手段的正当性这个原则，在集体主义道德里是至高无上的准则。</p>
+<p>国家社会主义或者共产主义这一类活动背后所蕴含的道德情感的强度，也许只有历史上的伟大的宗教运动能与之相比。</p>
+<p>不喜欢掌握权力的人能够当权的可能性是和一个心地非常善良的人在奴隶种植园里担任监工的工作的可能性是一样的。</p>
+<p>斥责任何只为活动而活动，没有远大目标的人类行为，这是完全符合极权主义的整个精神的。</p>
+<p>只有当我们对自己的利害关系负责并且只有牺牲他们的自由时，我们的决定才能有道德价值，而我们要是在没有选择自由的情况下做到了无私，在道德上也微不足道。</p>
 ]]></content>
       <categories>
         <category>阅读</category>
@@ -7218,6 +7218,22 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
 <h2 id="标准"><a href="#标准" class="headerlink" title="标准"></a>标准</h2><ul>
 <li>人无法准确衡量新事物的价值，因为没有标准。所以很多愚蠢的事发生就不奇怪了，因为发生了才明白。</li>
 </ul>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>世界观</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我们为什么不能理解别人</title>
+    <url>/2016/06/12/%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%90%86%E8%A7%A3%E5%88%AB%E4%BA%BA/</url>
+    <content><![CDATA[<p>　　这世界上这么多纷争与烦恼，很大一部分都是因为人与人之间不能相互理解，他人为敌国、以邻为壑等等层出不穷。之所以不能理解，是因为<strong>同一个东西，对于不同的人（或者不同时间或空间的同一个人），价值是全然不同的。</strong></p>
+<p>　　可能你认为重于生命的东西，于他人不过徒增笑谈尔。比如信教者的斋戒等行为，对无神论者来说是多余的，而对信徒来说却是可能比生命更重要。<br>　　<br>　　又如，你还在大学的时候，这时的时间对你来说十分廉价，所以你愿意去发8元每小时的宣传单；等你事业有成或是垂垂老矣，你还愿意花这一小时去干这个吗，也许只会感叹自己当时太年轻吧。一个人尚且不能理解年轻时的自己，又怎能奢望他理解别人呢？<br>　　<br>　　真正的相互理解是要认同他人对事物价值的判定，但一个事物对他们的价值有天壤之别，这样你叫他们如何相互理解呢？</p>
+<p>　　那么怎么解决这种情况呢？也就是怎么寻找一种相对普适的价值衡量方法呢？<br>　　<br>　　我的一个浅薄的思路是，<strong>衡量一个事物的价值可以通过这个人的付出相对自身的稀缺性，这种付出包括物资的付出和精神上承受的压力。</strong><br>　　<br>　　比如说，一个乞丐付出了仅有的100元买了个表，和一个百万富豪付出1000元买了个表。对乞丐来说这表是全部，而对富豪来说表是1/1000。因此乞丐对表爱护有加，富豪对表弃之如弊履，就完全可以理解了。也可以说乞丐的表价值大于富豪的表。<br>　　<br>　　虽然绝对价值不可判定，并且造成很多纷争。但是，同一件事对不同的人价值不同也不是全然没有好处，至少在市场经济里，你们完全可以交换这些东西嘛。</p>
+<p>　　要之，于娑婆世界中，众生皆苦，<strong>要以事物相对他人的稀缺性来看他人的付出与承受，如此理解他人才成为可能。</strong></p>
 ]]></content>
       <categories>
         <category>随笔</category>
@@ -8076,22 +8092,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       <tags>
         <tag>读书笔记</tag>
         <tag>重构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我们为什么不能理解别人</title>
-    <url>/2016/06/12/%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%90%86%E8%A7%A3%E5%88%AB%E4%BA%BA/</url>
-    <content><![CDATA[<p>　　这世界上这么多纷争与烦恼，很大一部分都是因为人与人之间不能相互理解，他人为敌国、以邻为壑等等层出不穷。之所以不能理解，是因为<strong>同一个东西，对于不同的人（或者不同时间或空间的同一个人），价值是全然不同的。</strong></p>
-<p>　　可能你认为重于生命的东西，于他人不过徒增笑谈尔。比如信教者的斋戒等行为，对无神论者来说是多余的，而对信徒来说却是可能比生命更重要。<br>　　<br>　　又如，你还在大学的时候，这时的时间对你来说十分廉价，所以你愿意去发8元每小时的宣传单；等你事业有成或是垂垂老矣，你还愿意花这一小时去干这个吗，也许只会感叹自己当时太年轻吧。一个人尚且不能理解年轻时的自己，又怎能奢望他理解别人呢？<br>　　<br>　　真正的相互理解是要认同他人对事物价值的判定，但一个事物对他们的价值有天壤之别，这样你叫他们如何相互理解呢？</p>
-<p>　　那么怎么解决这种情况呢？也就是怎么寻找一种相对普适的价值衡量方法呢？<br>　　<br>　　我的一个浅薄的思路是，<strong>衡量一个事物的价值可以通过这个人的付出相对自身的稀缺性，这种付出包括物资的付出和精神上承受的压力。</strong><br>　　<br>　　比如说，一个乞丐付出了仅有的100元买了个表，和一个百万富豪付出1000元买了个表。对乞丐来说这表是全部，而对富豪来说表是1/1000。因此乞丐对表爱护有加，富豪对表弃之如弊履，就完全可以理解了。也可以说乞丐的表价值大于富豪的表。<br>　　<br>　　虽然绝对价值不可判定，并且造成很多纷争。但是，同一件事对不同的人价值不同也不是全然没有好处，至少在市场经济里，你们完全可以交换这些东西嘛。</p>
-<p>　　要之，于娑婆世界中，众生皆苦，<strong>要以事物相对他人的稀缺性来看他人的付出与承受，如此理解他人才成为可能。</strong></p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-        <tag>世界观</tag>
       </tags>
   </entry>
   <entry>

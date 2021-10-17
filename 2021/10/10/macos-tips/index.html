@@ -410,7 +410,6 @@
 <p>可以安装 gnu 工具，覆盖这些命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install coreutils findutils gnu-tar htop</span><br><span class="line"><span class="built_in">export</span>   PATH=<span class="string">"/usr/local/opt/coreutils/libexec/gnubin:<span class="variable">$PATH</span>"</span></span><br><span class="line"><span class="built_in">export</span>  MANPATH=<span class="string">"/usr/local/opt/coreutils/libexec/gnuman:<span class="variable">$MANPATH</span>"</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="清除一些-macOS-系统默认快捷键"><a href="#清除一些-macOS-系统默认快捷键" class="headerlink" title="清除一些 macOS 系统默认快捷键"></a>清除一些 macOS 系统默认快捷键</h2><p>创建文件 ~/Library/KeyBindings/DefaultKeyBinding.dict<br>这里是清除了默认的 <code>Control + Command + 方向键</code>的行为<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="string">"^@\UF701"</span> = <span class="string">"noop:"</span><span class="comment">;</span></span><br><span class="line"><span class="string">"^@\UF702"</span> = <span class="string">"noop:"</span><span class="comment">;</span></span><br><span class="line"><span class="string">"^@\UF703"</span> = <span class="string">"noop:"</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>字符含义</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -441,7 +440,6 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p>参考：</p>
 <ul>
 <li><a href="http://xahlee.info/kbd/osx_keybinding.html" target="_blank" rel="noopener">http://xahlee.info/kbd/osx_keybinding.html</a></li>
@@ -490,8 +488,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2021/10/10/mysql-partition/" rel="next" title="MySQL 表分区使用">
-                  <i class="fa fa-chevron-left"></i> MySQL 表分区使用
+                <a href="/2021/10/10/windows-network-share/" rel="next" title="Windows 网络共享">
+                  <i class="fa fa-chevron-left"></i> Windows 网络共享
                 </a>
               
             </div>
@@ -500,8 +498,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2021/10/11/hexo-local-search-not-complete-fix/" rel="prev" title="hexo 站内搜索内容不完全问题修复">
-                  hexo 站内搜索内容不完全问题修复 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/10/10/mysql-partition/" rel="prev" title="MySQL 表分区使用">
+                  MySQL 表分区使用 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -854,12 +852,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">280k</span>
+    <span title="站点总字数">281k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:50</span>
+    <span title="站点阅读时长">5:51</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

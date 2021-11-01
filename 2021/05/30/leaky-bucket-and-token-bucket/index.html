@@ -69,7 +69,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-05-31-16223889987592.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-05-31-16223906628083.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-05-31-16223908269384.jpg">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.041Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="限流算法之漏桶与令牌桶">
 <meta name="twitter:description" content="后端一个常见且比较让人头疼的问题是服务限流，没有做好限流开始导致单个服务耗时增加，进而影响上下游服务，最终可能导致整个系统被拖垮。 限流的目的是通过对并发请求进行限速来保护系统，一旦达到限制速率则可以拒绝服务、排队 或等待、降级。">
@@ -968,56 +968,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

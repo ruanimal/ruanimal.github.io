@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="今年的主题是应该是变化吧，想要离开令自己疲惫的环境，破釜沉舟了一把。结果虽不说如意，却也给平淡的生活注入了变化。 另一个，还是常年与懈怠和懦弱斗争，不说屡战屡败，已不远矣。戒之戒之">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.054Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019年终总结">
 <meta name="twitter:description" content="今年的主题是应该是变化吧，想要离开令自己疲惫的环境，破釜沉舟了一把。结果虽不说如意，却也给平淡的生活注入了变化。 另一个，还是常年与懈怠和懦弱斗争，不说屡战屡败，已不远矣。戒之戒之">
@@ -406,7 +406,7 @@
 <h4 id="非技术"><a href="#非技术" class="headerlink" title="非技术"></a>非技术</h4><ul>
 <li>浪潮之巅</li>
 <li>演说之禅</li>
-<li>上帝掷骰子吗–量子力学史话</li>
+<li>上帝掷骰子吗—量子力学史话</li>
 <li>纽约客</li>
 <li>浮生六记</li>
 </ul>
@@ -970,56 +970,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

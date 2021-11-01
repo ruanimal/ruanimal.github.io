@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="主力使用SublimeText3编辑器，将一些常用的快捷键总结一下。 通用（General） Esc 退出功能，比如退出输出面板 ↑↓←→    上下左右移动光标，注意不是不是KJHL！ Alt    显示菜单栏 Ctrl + Shift + P    调出命令板（Command Palette） Ctrl + `    调出控制台 Ctrl + K, Ctrl + 数字    代码折叠，数字代表">
+  <meta name="description" content="主力使用SublimeText3编辑器，将一些常用的快捷键总结一下。 通用（General） Esc 退出功能，比如退出输出面板 ↑↓←→    上下左右移动光标，注意不是不是KJHL！ Alt    显示菜单栏 Ctrl + Shift + P    调出命令板（Command Palette） Ctrl + `     调出控制台 Ctrl + K, Ctrl + 数字    代码折叠，数字代">
 <meta name="keywords" content="编辑器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SublimeText3 快捷键列表">
 <meta property="og:url" content="http://ponder.work/2016/07/16/sublime快捷键/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="主力使用SublimeText3编辑器，将一些常用的快捷键总结一下。 通用（General） Esc 退出功能，比如退出输出面板 ↑↓←→    上下左右移动光标，注意不是不是KJHL！ Alt    显示菜单栏 Ctrl + Shift + P    调出命令板（Command Palette） Ctrl + `    调出控制台 Ctrl + K, Ctrl + 数字    代码折叠，数字代表">
+<meta property="og:description" content="主力使用SublimeText3编辑器，将一些常用的快捷键总结一下。 通用（General） Esc 退出功能，比如退出输出面板 ↑↓←→    上下左右移动光标，注意不是不是KJHL！ Alt    显示菜单栏 Ctrl + Shift + P    调出命令板（Command Palette） Ctrl + `     调出控制台 Ctrl + K, Ctrl + 数字    代码折叠，数字代">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.053Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SublimeText3 快捷键列表">
-<meta name="twitter:description" content="主力使用SublimeText3编辑器，将一些常用的快捷键总结一下。 通用（General） Esc 退出功能，比如退出输出面板 ↑↓←→    上下左右移动光标，注意不是不是KJHL！ Alt    显示菜单栏 Ctrl + Shift + P    调出命令板（Command Palette） Ctrl + `    调出控制台 Ctrl + K, Ctrl + 数字    代码折叠，数字代表">
+<meta name="twitter:description" content="主力使用SublimeText3编辑器，将一些常用的快捷键总结一下。 通用（General） Esc 退出功能，比如退出输出面板 ↑↓←→    上下左右移动光标，注意不是不是KJHL！ Alt    显示菜单栏 Ctrl + Shift + P    调出命令板（Command Palette） Ctrl + `     调出控制台 Ctrl + K, Ctrl + 数字    代码折叠，数字代">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2016/07/16/sublime快捷键/">
 
@@ -389,7 +389,7 @@
 <li><code>↑↓←→</code>    上下左右移动光标，注意不是不是KJHL！</li>
 <li><code>Alt</code>    显示菜单栏</li>
 <li><code>Ctrl + Shift + P</code>    调出命令板（Command Palette）</li>
-<li><code>Ctrl + `</code>    调出控制台</li>
+<li><code>Ctrl + ` </code>    调出控制台</li>
 <li><code>Ctrl + K, Ctrl + 数字</code>    代码折叠，数字代表折叠的层次</li>
 <li><code>Ctrl + Shift + [ / ]</code>    收起/展开选中的代码。</li>
 </ul>
@@ -986,56 +986,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

@@ -57,20 +57,23 @@
   };
 </script>
 
-  <meta name="description" content="最近的一些文章是整理以前的笔记MySQL 是最常用的数据，有时希望将数据库文件存放在自定义路径，或者在系统中启动多个 MySQL服务。">
-<meta name="keywords" content="MySQL">
+  <meta name="description" content="跳跃表 （skiplist) 是一种有序数据结构，它通过在每个节点中维持多个指向其他节点的 指针，从而达到快速访问节点的目的。 跳跃表优点  表支持平均O(logN), 最坏O(N)复杂度的节点查找，效率可以和平衡树相当 通过顺序性操作来批量处理节点 实现比平衡树要来得更为简单  因为ziplist内存占用较小，所以Redis使用作为有序集合的初始底层结构。如果一个有序集合包含的元素数量比较多（大">
+<meta name="keywords" content="Redis,C">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL 自定义数据库路径">
-<meta property="og:url" content="http://ponder.work/2020/10/14/mysql-custom-location/index.html">
+<meta property="og:title" content="Redis原理 —— zskiplist 跳跃表">
+<meta property="og:url" content="http://ponder.work/2021/04/20/redis-soure-code-data-structure-zskiplist/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="最近的一些文章是整理以前的笔记MySQL 是最常用的数据，有时希望将数据库文件存放在自定义路径，或者在系统中启动多个 MySQL服务。">
+<meta property="og:description" content="跳跃表 （skiplist) 是一种有序数据结构，它通过在每个节点中维持多个指向其他节点的 指针，从而达到快速访问节点的目的。 跳跃表优点  表支持平均O(logN), 最坏O(N)复杂度的节点查找，效率可以和平衡树相当 通过顺序性操作来批量处理节点 实现比平衡树要来得更为简单  因为ziplist内存占用较小，所以Redis使用作为有序集合的初始底层结构。如果一个有序集合包含的元素数量比较多（大">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-10-14T15:57:06.702Z">
+<meta property="og:image" content="http://image.runjf.com/mweb/2021-04-23-16190066207268.jpg">
+<meta property="og:image" content="http://image.runjf.com/mweb/2021-04-23-16191635872238.jpg">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.052Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL 自定义数据库路径">
-<meta name="twitter:description" content="最近的一些文章是整理以前的笔记MySQL 是最常用的数据，有时希望将数据库文件存放在自定义路径，或者在系统中启动多个 MySQL服务。">
+<meta name="twitter:title" content="Redis原理 —— zskiplist 跳跃表">
+<meta name="twitter:description" content="跳跃表 （skiplist) 是一种有序数据结构，它通过在每个节点中维持多个指向其他节点的 指针，从而达到快速访问节点的目的。 跳跃表优点  表支持平均O(logN), 最坏O(N)复杂度的节点查找，效率可以和平衡树相当 通过顺序性操作来批量处理节点 实现比平衡树要来得更为简单  因为ziplist内存占用较小，所以Redis使用作为有序集合的初始底层结构。如果一个有序集合包含的元素数量比较多（大">
+<meta name="twitter:image" content="http://image.runjf.com/mweb/2021-04-23-16190066207268.jpg">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
-  <link rel="canonical" href="http://ponder.work/2020/10/14/mysql-custom-location/">
+  <link rel="canonical" href="http://ponder.work/2021/04/20/redis-soure-code-data-structure-zskiplist/">
 
 
 <script id="page-configurations">
@@ -84,7 +87,7 @@
   };
 </script>
 
-  <title>MySQL 自定义数据库路径 | 逸思杂陈</title>
+  <title>Redis原理 —— zskiplist 跳跃表 | 逸思杂陈</title>
   <meta name="generator" content="Hexo 3.9.0">
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134911454-2"></script>
@@ -294,7 +297,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2020/10/14/mysql-custom-location/">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2021/04/20/redis-soure-code-data-structure-zskiplist/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jay.Run">
@@ -306,7 +309,7 @@
       <meta itemprop="name" content="逸思杂陈">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">MySQL 自定义数据库路径
+        <h1 class="post-title" itemprop="name headline">Redis原理 —— zskiplist 跳跃表
 
           
         </h1>
@@ -322,7 +325,7 @@
                 
               
 
-              <time title="创建时间：2020-10-14 20:17:00" itemprop="dateCreated datePublished" datetime="2020-10-14T20:17:00+08:00">2020-10-14</time>
+              <time title="创建时间：2021-04-20 21:48:00" itemprop="dateCreated datePublished" datetime="2021-04-20T21:48:00+08:00">2021-04-20</time>
             </span>
           
             
@@ -333,7 +336,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-14 23:57:06" itemprop="dateModified" datetime="2021-10-14T23:57:06+08:00">2021-10-14</time>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
               </span>
             
           
@@ -360,7 +363,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>805</span>
+              <span>2.9k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -370,7 +373,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>4 分钟</span>
             </span>
           
 
@@ -383,11 +386,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><em>最近的一些文章是整理以前的笔记</em><br>MySQL 是最常用的数据，有时希望将数据库文件存放在自定义路径，或者在系统中启动多个 MySQL服务。<br><a id="more"></a><br>当然，如果条件允许，建议直接使用 docker </p>
-<h2 id="创建-my-cnf-配置文件"><a href="#创建-my-cnf-配置文件" class="headerlink" title="创建 my.cnf 配置文件"></a>创建 my.cnf 配置文件</h2><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="attr">datadir</span>=/home/ruan/data/mysql_data</span><br><span class="line"><span class="attr">socket</span>=/home/ruan/data/mysql.sock</span><br><span class="line"><span class="attr">user</span>=ruan</span><br><span class="line"><span class="comment"># Disabling symbolic-links is recommended to prevent assorted security risks</span></span><br><span class="line"><span class="attr">symbolic-links</span>=<span class="number">0</span></span><br><span class="line"><span class="attr">bind-address</span>=<span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">port</span> = <span class="number">12345</span></span><br><span class="line"></span><br><span class="line"><span class="attr">character-set-server</span>=utf8</span><br><span class="line"><span class="attr">collation-server</span>=utf8_general_ci</span><br><span class="line"></span><br><span class="line"><span class="section">[mysqld_safe]</span></span><br><span class="line"><span class="attr">log-error</span>=/home/ruan/data/mysqld.log</span><br><span class="line"><span class="attr">pid-file</span>=/home/ruan/data/mysqld.pid</span><br></pre></td></tr></table></figure>
-<h2 id="启动和初始化"><a href="#启动和初始化" class="headerlink" title="启动和初始化"></a>启动和初始化</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动MySQL</span></span><br><span class="line">mysqld_safe --defaults-file=my.cnf --user=ruan</span><br><span class="line"><span class="meta">#</span><span class="bash"> 初始化数据库</span></span><br><span class="line">mysql_install_db --defaults-file=my.cnf --user=ruan</span><br></pre></td></tr></table></figure>
-<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ tree data</span><br><span class="line">data</span><br><span class="line">├── my.cnf</span><br><span class="line">├── mysql_data</span><br><span class="line">│   ├── ibdata1</span><br><span class="line">│   ├── ib_logfile0</span><br><span class="line">│   ├── ib_logfile1</span><br><span class="line">├── mysqld.log</span><br><span class="line">├── mysqld.pid</span><br><span class="line">└── mysql.sock</span><br></pre></td></tr></table></figure>
-<h2 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use mysql; update<span class="built_in"> user </span><span class="builtin-name">set</span> <span class="attribute">password</span>=password('m654321') where <span class="attribute">user</span>=<span class="string">'root'</span>; flush privileges;</span><br></pre></td></tr></table></figure>
+        <p>跳跃表 （skiplist) 是一种有序数据结构，它通过在每个节点中维持多个指向其他节点的 指针，从而达到快速访问节点的目的。</p>
+<p>跳跃表优点</p>
+<ul>
+<li>表支持平均<code>O(logN)</code>, 最坏<code>O(N)</code>复杂度的节点查找，效率可以和平衡树相当</li>
+<li>通过顺序性操作来批量处理节点</li>
+<li>实现比平衡树要来得更为简单</li>
+</ul>
+<p>因为<code>ziplist</code>内存占用较小，所以Redis使用作为有序集合的初始底层结构。<br>如果一个有序集合包含的元素数量比较多（大于<code>zset-max-ziplist-entries</code>），又或者有序集合中元素的成员是比较长的字符串时（大于<code>zset-max-ziplist-value</code>），Redis就会将其底层结构转换为跳跃表。</p>
+<a id="more"></a>
+<h2 id="zskiplist-数据结构"><a href="#zskiplist-数据结构" class="headerlink" title="zskiplist 数据结构"></a>zskiplist 数据结构</h2><p>跳跃表节点, 其中<code>zskiplistLevel</code>成员是<a href="https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html" target="_blank" rel="noopener">柔性数组</a><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> &#123;</span></span><br><span class="line">    <span class="comment">// 成员对象</span></span><br><span class="line">    robj *obj;</span><br><span class="line">    <span class="comment">// 分值</span></span><br><span class="line">    <span class="keyword">double</span> score;</span><br><span class="line">    <span class="comment">// 后退指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">backward</span>;</span></span><br><span class="line">    <span class="comment">// 层</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistLevel</span> &#123;</span></span><br><span class="line">        <span class="comment">// 前进指针</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">forward</span>;</span></span><br><span class="line">        <span class="comment">// 跨度，经过的节点数目</span></span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> span;</span><br><span class="line">    &#125; level[];  <span class="comment">// 柔性数组</span></span><br><span class="line">&#125; zskiplistNode;</span><br></pre></td></tr></table></figure></p>
+<p>跳跃表<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplist</span> &#123;</span></span><br><span class="line">    <span class="comment">// 表头节点和表尾节点</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">header</span>, *<span class="title">tail</span>;</span></span><br><span class="line">    <span class="comment">// 表中节点的数量</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> length;</span><br><span class="line">    <span class="comment">// 表中层数最大的节点的层数</span></span><br><span class="line">    <span class="keyword">int</span> level;</span><br><span class="line">&#125; zskiplist;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://image.runjf.com/mweb/2021-04-23-16190066207268.jpg" alt></p>
+<p>所谓跳跃表，就是多层链表（redis中的实现是最多32层）通过额外的链接提高效率，从低层到高层，节点之间的跨度逐渐变大。</p>
+<p>跨度越大则查找效率越高，所以查找时是从高层往底层查找。</p>
+<p>如果节点的最高层高为x，则可以认为该节点就存储在低x层，则表头到该节点的跨度之和为该节点的rank(排位)，所有节点的最大层高为跳跃表层高。</p>
+<h2 id="跳跃表插入节点"><a href="#跳跃表插入节点" class="headerlink" title="跳跃表插入节点"></a>跳跃表插入节点</h2><p>因为跳跃表是多层链表，所以插入节点的关键是找到每一层插入的位置，以及插入位置的跨度变化，还有新节点的跨度计算。</p>
+<p>python 版跳跃表插入实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 比较节点大小</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_node_lt</span><span class="params">(node: zskiplistNode, score: float, obj: robj)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> node.score &lt; score:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">if</span> (node.score == score <span class="keyword">and</span></span><br><span class="line">        compareStringObjects(node.obj, obj) &lt; <span class="number">0</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">zslInsert</span><span class="params">(zsl: zskiplist, score: float, obj: robj)</span> -&gt; zskiplistNode:</span></span><br><span class="line">    <span class="comment"># update list记录的是每一层, 新节点需要插入的位置(新节点x的backward节点指针)</span></span><br><span class="line">    update: List[Opt[zskiplistNode]] = [<span class="literal">None</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(ZSKIPLIST_MAXLEVEL)]</span><br><span class="line">    <span class="comment"># rank[i]: 从高到低, 到第i层为止经过的所有node的span总和, 也就是节点的排序</span></span><br><span class="line">    <span class="comment"># 用于计算新节点各层的span, 以及新节点的后继节点各层的span</span></span><br><span class="line">    rank = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(ZSKIPLIST_MAXLEVEL)]</span><br><span class="line">    x = zsl.header</span><br><span class="line">    <span class="comment"># 从高层开始遍历</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(zsl.level<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">        rank[i] = <span class="number">0</span> <span class="keyword">if</span> i == zsl.level<span class="number">-1</span> <span class="keyword">else</span> rank[i+<span class="number">1</span>]</span><br><span class="line">        <span class="comment"># 找到每一层x需要插入的位置, 并更新rank</span></span><br><span class="line">        <span class="keyword">while</span> x.level[i].forward <span class="keyword">and</span> _node_lt(x.level[i].forward, score, obj):</span><br><span class="line">            rank[i] += x.level[i].span</span><br><span class="line">            x = x.level[i].forward</span><br><span class="line">        <span class="comment"># 对于每一层i, 新节点会插入到update[i].level[i]之后</span></span><br><span class="line">        update[i] = x</span><br><span class="line">    level = zslRandomLevel()  <span class="comment"># 取一个随机层数, 使zskiplist，每层节点更为均衡</span></span><br><span class="line">    <span class="comment"># 新节点层高增大的情况，更新扩展层的默认跨度</span></span><br><span class="line">    <span class="keyword">if</span> level &gt; zsl.level:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(zsl.level, level):</span><br><span class="line">            rank[i] = <span class="number">0</span></span><br><span class="line">            update[i] = zsl.header</span><br><span class="line">            update[i].level[i].span = zsl.length </span><br><span class="line">        zsl.level = level</span><br><span class="line">    <span class="comment"># 更新节点x和前驱节点已有层的跨度</span></span><br><span class="line">    x = zslCreateNode(level, score, obj)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(level):</span><br><span class="line">        x.level[i].forward = update[i].level[i].forward</span><br><span class="line">        update[i].level[i].forward = x </span><br><span class="line">        x.level[i].span = update[i].level[i].span - (rank[<span class="number">0</span>] - rank[i])  </span><br><span class="line">        update[i].level[i].span = (rank[<span class="number">0</span>] - rank[i]) + <span class="number">1</span> </span><br><span class="line">    <span class="comment"># 更新前驱节点扩展层的跨度，x节点这些层没有后继节点，所以跨度为0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(level, zsl.level):</span><br><span class="line">        update[i].level[i].span += <span class="number">1</span>  <span class="comment"># type: ignore</span></span><br><span class="line">    <span class="comment"># 设置新节点的后退指针, level[0]才有后退指针</span></span><br><span class="line">    x.backward = <span class="literal">None</span> <span class="keyword">if</span> update[<span class="number">0</span>] == zsl.header <span class="keyword">else</span> update[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> x.level[<span class="number">0</span>].forward:</span><br><span class="line">        x.level[<span class="number">0</span>].forward.backward = x</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        zsl.tail = x</span><br><span class="line">    zsl.length += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure></p>
+<h2 id="跳跃表查找"><a href="#跳跃表查找" class="headerlink" title="跳跃表查找"></a>跳跃表查找</h2><p>跳跃表的查找则是从高层向低层查找，沿着最高层链表前进；遇到大于目标值的节点，则往下一层，直到找到相等的值为止。</p>
+<p>经过的所有节点的跨度相加即是目标节点的rank。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">zslGetRank</span><span class="params">(zsl: zskiplist, score: float, obj: robj)</span> -&gt; int:</span></span><br><span class="line">    rank = <span class="number">0</span></span><br><span class="line">    x = zsl.header</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(zsl.level<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">        <span class="keyword">while</span> x.level[i].forward <span class="keyword">and</span> _node_lt(x.level[i].forward, score, obj):</span><br><span class="line">            rank += x.level[i].span</span><br><span class="line">            x = x.level[i].forward</span><br><span class="line">        <span class="keyword">if</span> x.obj <span class="keyword">and</span> equalStringObjects(x.obj, obj):</span><br><span class="line">            <span class="keyword">return</span> rank</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>查找score=2.0的o2对象的过程<br><img src="http://image.runjf.com/mweb/2021-04-23-16191635872238.jpg" alt></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>redis 3.0 源码</li>
+<li>redis 设计与实现</li>
+</ul>
+
     </div>
 
     
@@ -403,7 +427,7 @@
     <strong>本文作者： </strong>Jay.Run</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://ponder.work/2020/10/14/mysql-custom-location/" title="MySQL 自定义数据库路径">http://ponder.work/2020/10/14/mysql-custom-location/</a>
+    <a href="http://ponder.work/2021/04/20/redis-soure-code-data-structure-zskiplist/" title="Redis原理 —— zskiplist 跳跃表">http://ponder.work/2021/04/20/redis-soure-code-data-structure-zskiplist/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-SA</a> 许可协议。转载请注明出处！</li>
@@ -418,7 +442,9 @@
           
           <div class="post-tags">
             
-              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+              <a href="/tags/Redis/" rel="tag"># Redis</a>
+            
+              <a href="/tags/C/" rel="tag"># C</a>
             
           </div>
         
@@ -428,8 +454,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2020/09/19/午睡时的梦/" rel="next" title="午睡时的梦">
-                  <i class="fa fa-chevron-left"></i> 午睡时的梦
+                <a href="/2021/04/17/redis-soure-code-data-structure-dict/" rel="next" title="Redis原理 —— dict 字典">
+                  <i class="fa fa-chevron-left"></i> Redis原理 —— dict 字典
                 </a>
               
             </div>
@@ -438,8 +464,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2020/10/15/学习《重构手册》/" rel="prev" title="学习《重构手册》">
-                  学习《重构手册》 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/05/07/redis-soure-code-data-structure-sds/" rel="prev" title="Redis原理 —— SDS 简单动态字符串">
+                  Redis原理 —— SDS 简单动态字符串 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -492,7 +518,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-my-cnf-配置文件"><span class="nav-number">1.</span> <span class="nav-text">创建 my.cnf 配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动和初始化"><span class="nav-number">2.</span> <span class="nav-text">启动和初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录结构"><span class="nav-number">3.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置密码"><span class="nav-number">4.</span> <span class="nav-text">设置密码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#zskiplist-数据结构"><span class="nav-number">1.</span> <span class="nav-text">zskiplist 数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跳跃表插入节点"><span class="nav-number">2.</span> <span class="nav-text">跳跃表插入节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跳跃表查找"><span class="nav-number">3.</span> <span class="nav-text">跳跃表查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -507,7 +533,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">147</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -693,19 +719,7 @@
         
           
         
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        <span class="site-state-item-count">80</span>
+        <span class="site-state-item-count">74</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -792,12 +806,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">280k</span>
+    <span title="站点总字数">266k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:50</span>
+    <span title="站点阅读时长">5:32</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -923,56 +937,6 @@ window.addEventListener('pjax:success', () => {
   
 
   
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
-  
 
   
 
@@ -988,7 +952,7 @@ window.addEventListener('pjax:success', () => {
       repo: 'ruanima.github.io',
       owner: 'ruanima',
       admin: ['ruanima'],
-      id: '91efa7626947086d594402c3fd67af30',
+      id: 'fb10f2f871156f7d9fd8be3af54023ce',
         language: window.navigator.language || window.navigator.userLanguage,
       
       distractionFreeMode: 'true'

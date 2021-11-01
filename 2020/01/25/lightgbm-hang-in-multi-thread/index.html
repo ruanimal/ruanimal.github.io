@@ -66,7 +66,7 @@
 <meta property="og:description" content="症状最近在开发的lightgbm树模型，发现服务在处理了一定量请求后会卡死，请求无响应。 pstack之后发现, 进程卡在libgomp.so这个动态库的函数中. 证实确实是卡死 123Thread 8 (Thread 0x7f8eb7900700 (LWP 1859)):#0  0x00007f8e9def4af1 in ?? () from /usr/lib64/libgomp.so.1#1">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-01-25-15799334551032.jpg">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.042Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lightgbm多线程卡死问题定位">
 <meta name="twitter:description" content="症状最近在开发的lightgbm树模型，发现服务在处理了一定量请求后会卡死，请求无响应。 pstack之后发现, 进程卡在libgomp.so这个动态库的函数中. 证实确实是卡死 123Thread 8 (Thread 0x7f8eb7900700 (LWP 1859)):#0  0x00007f8e9def4af1 in ?? () from /usr/lib64/libgomp.so.1#1">
@@ -957,56 +957,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

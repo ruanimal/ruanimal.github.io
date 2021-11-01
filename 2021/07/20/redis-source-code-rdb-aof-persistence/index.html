@@ -68,7 +68,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-07-21-16268563558568.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-07-21-16268637141893.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-07-21-16268635658876.jpg">
-<meta property="og:updated_time" content="2021-07-21T11:13:54.000Z">
+<meta property="og:updated_time" content="2021-07-21T11:13:54.281Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis持久化：RDB与AOF">
 <meta name="twitter:description" content="Redis是内存型数据库，所有数据都存储在内存中。而内存是易失型存储，一旦进程退出所有数据都会丢失。 所谓持久化，就是将Redis在内存中的数据库状态以某次格式保存到磁盘里面，避免数据意外丢失。 Redis有两种持久化方式：RDB (Redis Database)、AOF (Append Only File)">
@@ -974,56 +974,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

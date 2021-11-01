@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="吾实乃庸人，于理虽觉明晰通达，于情却犹豫不畅。 　　独处之时意淫幻想，骤然临之慌乱畏惧不前。平生如遇佳人则豫惧无措，欲与之亲近而不得。而后偶一回想，怅然颓首而无所解。如此于人于己有何益处，空留念想，只招惆怅而已。 　　呜呼，面皮之为物当得了几两干饭，胆气之所缺非得几斤豹胆所能解。 　　为文以纪，聊为自勉，愿余能一扫前非。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.075Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="致己">
 <meta name="twitter:description" content="吾实乃庸人，于理虽觉明晰通达，于情却犹豫不畅。 　　独处之时意淫幻想，骤然临之慌乱畏惧不前。平生如遇佳人则豫惧无措，欲与之亲近而不得。而后偶一回想，怅然颓首而无所解。如此于人于己有何益处，空留念想，只招惆怅而已。 　　呜呼，面皮之为物当得了几两干饭，胆气之所缺非得几斤豹胆所能解。 　　为文以纪，聊为自勉，愿余能一扫前非。">
@@ -922,56 +922,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

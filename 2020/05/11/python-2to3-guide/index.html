@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="前置要求 了解Python3和Python2的区别，参考Python2和Python3区别，Python3新特性 完备的测试用例 必要的工具：future，用于自动修改不兼容的语法。six，用于Python版本判断。pylint，语法检查 做好备份 测试（至关重要），下面的每一步改动都得确保代码行为没有发生变化。  future安装pip install future -U">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.045Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python2迁移Python3指南">
 <meta name="twitter:description" content="前置要求 了解Python3和Python2的区别，参考Python2和Python3区别，Python3新特性 完备的测试用例 必要的工具：future，用于自动修改不兼容的语法。six，用于Python版本判断。pylint，语法检查 做好备份 测试（至关重要），下面的每一步改动都得确保代码行为没有发生变化。  future安装pip install future -U">
@@ -973,56 +973,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

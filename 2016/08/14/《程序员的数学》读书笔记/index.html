@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="简介本书讲的的是一些程序员必须了解的数学知识，有些知识点挺有意义的，特别是对于非科班出身的程序员来说。就我的观点来说，一般的程序员需要的数学水平大概是高中就够了，当然要做算法研究大学数学专业水平也不一定够。下文记录本书一些有用知识点，包括一些算法的数学思路，还有有趣的逻辑问题。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.066Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《程序员的数学》读书笔记">
 <meta name="twitter:description" content="简介本书讲的的是一些程序员必须了解的数学知识，有些知识点挺有意义的，特别是对于非科班出身的程序员来说。就我的观点来说，一般的程序员需要的数学水平大概是高中就够了，当然要做算法研究大学数学专业水平也不一定够。下文记录本书一些有用知识点，包括一些算法的数学思路，还有有趣的逻辑问题。">
@@ -937,56 +937,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

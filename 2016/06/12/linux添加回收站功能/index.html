@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="背景在linux服务器上工作，常常和rm打交道，难免手滑删除了重要的东西。而且linux又没有回收站功能，一旦删错东西真是欲哭无泪。别问我为什么知道，说多了都是泪。主要思路是用mv命令代替rm，将要删除的东西移动到回收站目录。 方案新建删除到回收站脚本mkdir ~/bin vim ~/bin/trash  # 将下面的内容写入1mv -v $@ $&amp;#123;trash_bin&amp;#125; ch">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.042Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux添加回收站功能">
 <meta name="twitter:description" content="背景在linux服务器上工作，常常和rm打交道，难免手滑删除了重要的东西。而且linux又没有回收站功能，一旦删错东西真是欲哭无泪。别问我为什么知道，说多了都是泪。主要思路是用mv命令代替rm，将要删除的东西移动到回收站目录。 方案新建删除到回收站脚本mkdir ~/bin vim ~/bin/trash  # 将下面的内容写入1mv -v $@ $&amp;#123;trash_bin&amp;#125; ch">
@@ -923,56 +923,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

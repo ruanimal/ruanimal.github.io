@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="SQLAlchemy core 是SQLAlchemy的核心部件，主要负责生成sql查询和具体的数据库操作，SQLAlchemy orm 就是构建在core之上的。 在不需要对象映射的时候，使用core而不是orm，可以降低数据库操作成本，提高性能。 Table映射创建数据库连接12from sqlalchemy import create_engineengine = create_engine">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-07-22T08:21:01.000Z">
+<meta property="og:updated_time" content="2021-07-22T08:21:01.045Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQLAlchemy Core 使用教程">
 <meta name="twitter:description" content="SQLAlchemy core 是SQLAlchemy的核心部件，主要负责生成sql查询和具体的数据库操作，SQLAlchemy orm 就是构建在core之上的。 在不需要对象映射的时候，使用core而不是orm，可以降低数据库操作成本，提高性能。 Table映射创建数据库连接12from sqlalchemy import create_engineengine = create_engine">
@@ -935,56 +935,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

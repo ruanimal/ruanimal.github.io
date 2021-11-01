@@ -68,7 +68,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2019-11-07-15731309158635.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2019-11-07-15731311981620.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2019-11-07-15731339898524.jpg">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.035Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C扩展与gevent共存时的问题">
 <meta name="twitter:description" content="gevent是一个使用完全同步编程模型的可扩展的异步I/O框架。 通用monkey.patch_all() 所有io操作函数, gevent可以以同步的方式编写异步代码. 在不更改代码的同时就可以使系统并发性能得到指数级提升。 这里有一个局限, c扩展中的io操作无法被patch, 会导致整个server阻塞">
@@ -960,56 +960,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

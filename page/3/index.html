@@ -291,6 +291,132 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2021/01/02/WSL2-bridge-mode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2021/01/02/WSL2-bridge-mode/" class="post-title-link" itemprop="url">WSL2开启桥接网络</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2021-01-02 15:00:00" itemprop="dateCreated datePublished" datetime="2021-01-02T15:00:00+08:00">2021-01-02</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-31 10:18:53" itemprop="dateModified" datetime="2021-08-31T10:18:53+08:00">2021-08-31</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工作生活/" itemprop="url" rel="index"><span itemprop="name">工作生活</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.8k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Windows Subsystem for Linux(WSL)从<code>Version 1 (WSL1)</code>升级到<code>Version 2 (WSL2)</code> 之后，底层实现方式发生了改变。</p>
+<p>由于使用Hyper-V来实现WSL2，使得WSL更像虚拟机，一个能访问本地硬盘的虚拟机。<br>这带来一些便利，能够把它当做独立服务器来使用，可玩性就增强很多。当然，这也导致WSL上的端口不能从外部访问到，总之有利有弊。</p>
+<p>虽然能够配置端口转发，曲线救国突破这个缺陷，但是有些服务的端口是约定俗成的（比如samba），更换端口号（原端口号被windows占用）之后其他设备可能识别不到服务。</p>
+<p>经过一番思考后，觉得给WSL2开启桥接模式，直接连接物理网络才是相对最好的方案。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2021/01/02/WSL2-bridge-mode/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="http://ponder.work/2020/12/31/summary-of-year-2020/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2022,131 +2148,6 @@
   </article>
 
     
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2020/06/20/python-import-behavior-and-circular-import/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jay.Run">
-      <meta itemprop="description" content="学习 思考 行动 Python">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="逸思杂陈">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2020/06/20/python-import-behavior-and-circular-import/" class="post-title-link" itemprop="url">循环import导致的模块被多次import</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2020-06-20 09:48:00" itemprop="dateCreated datePublished" datetime="2020-06-20T09:48:00+08:00">2020-06-20</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>4.5k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>6 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>循环import是很多Python初学者都会遇到问题，网上有也有很多文章讲解决方法，比如<a href="https://www.jianshu.com/p/a1e91cc53b07" target="_blank" rel="noopener">这篇</a>，不清楚的可以自行查阅，这里就不赘述了。</p>
-<p>那么，为啥老司机也会遇到这个问题呢？这段时间一直在搞把redis复刻一个python版本，在复刻代码时就遇到了这个问题。而且我也使用了延迟import，却没能解决。</p>
-<p>下面我们来详细分析下</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/06/20/python-import-behavior-and-circular-import/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </div>
 
   
@@ -2196,7 +2197,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">158</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2394,7 +2395,9 @@
         
           
         
-        <span class="site-state-item-count">80</span>
+          
+        
+        <span class="site-state-item-count">81</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -2481,12 +2484,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">281k</span>
+    <span title="站点总字数">285k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:51</span>
+    <span title="站点阅读时长">5:56</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -2632,9 +2635,9 @@ window.addEventListener('pjax:success', () => {
       
     
       
-        
-      
     
+      
+        
       
     
       

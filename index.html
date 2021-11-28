@@ -291,6 +291,212 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2021/11/28/bash-cheat-sheet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2021/11/28/bash-cheat-sheet/" class="post-title-link" itemprop="url">bash 语法备忘</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2021-11-28 15:24:56 / 修改时间：19:21:12" itemprop="dateCreated datePublished" datetime="2021-11-28T15:24:56+08:00">2021-11-28</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>4.4k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>5 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>bash 语法作为程序员好像都了解一些，但又缺少体系化学习，需要使用到某些功能时又经常手忙脚乱地查。<br>本文目的是作为bash的语法备忘录、语法速查表。</p>
+<h2 id="模式扩展"><a href="#模式扩展" class="headerlink" title="模式扩展"></a>模式扩展</h2><p>模式扩展（globbing），类似C语言中的宏展开，我们通常使用的通配符<code>*</code>就是其中之一。<br>Bash 一共提供八种扩展。</p>
+<ul>
+<li><code>~</code> 波浪线扩展</li>
+<li><code>?</code> 问号扩展</li>
+<li><code>*</code> 星号扩展</li>
+<li><code>[]</code> 方括号扩展</li>
+<li><code>{}</code> 大括号扩展</li>
+<li><code>$var</code> 变量扩展</li>
+<li><code>$(date)</code> 命令扩展</li>
+<li><code>$((1 + 1))</code> 算术扩展</li>
+</ul>
+<h3 id="波浪线扩展"><a href="#波浪线扩展" class="headerlink" title="波浪线扩展"></a>波浪线扩展</h3><p>波浪线<code>~</code>会自动扩展成当前用户的主目录。<br><code>~user</code>表示扩展成用户<code>user</code>的主目录。如果用户不存在，则波浪号扩展不起作用。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">bash-5.1$ <span class="keyword">echo</span> ~<span class="string">/projects/</span></span><br><span class="line"><span class="string">/Users/ruan/projects/</span></span><br><span class="line"></span><br><span class="line">bash-5.1$ <span class="keyword">echo</span> ~root/<span class="string">.ssh</span></span><br><span class="line"><span class="string">/var/root/.ssh</span></span><br><span class="line"></span><br><span class="line">bash-5.1$ <span class="keyword">echo</span> ~aaa/<span class="string">.ssh</span></span><br><span class="line">~aaa/<span class="string">.ssh</span></span><br></pre></td></tr></table></figure>
+<h3 id="问号扩展"><a href="#问号扩展" class="headerlink" title="问号扩展"></a>问号扩展</h3><p><code>?</code>字符代表文件路径里面的任意单个字符，不包括空字符。<br><strong>只有文件确实存在的前提下，才会发生扩展。</strong></p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bash-5.1$ </span>touch &#123;a,<span class="keyword">b&#125;.txt </span>ab.txt</span><br><span class="line"></span><br><span class="line"><span class="keyword">bash-5.1$ </span>ls ?.txt</span><br><span class="line"><span class="symbol">a.txt</span>  <span class="keyword">b.txt</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword">bash-5.1$ </span>ls ??.txt</span><br><span class="line"><span class="symbol">ab.txt</span></span><br></pre></td></tr></table></figure>
+<h3 id="星号扩展"><a href="#星号扩展" class="headerlink" title="星号扩展"></a>星号扩展</h3><p>*字符代表文件路径里面的任意数量的任意字符，包括零个字符。</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">bash<span class="number">-5.1</span>$ ls *.txt</span><br><span class="line">a.txt  ab.txt  b.txt</span><br><span class="line"></span><br><span class="line">bash<span class="number">-5.1</span>$ ls <span class="meta-keyword">/usr/</span>local/Cellar<span class="comment">/*/*/</span>bin/z*</span><br><span class="line"><span class="meta-keyword">/usr/</span>local/Cellar<span class="meta-keyword">/ffmpeg/</span><span class="number">4.4</span>_2<span class="meta-keyword">/bin/</span>zmqsend</span><br><span class="line"><span class="meta-keyword">/usr/</span>local/Cellar<span class="meta-keyword">/mysql-client/</span><span class="number">8.0</span><span class="number">.26</span><span class="meta-keyword">/bin/</span>zlib_decompress</span><br><span class="line"><span class="meta-keyword">/usr/</span>local/Cellar<span class="meta-keyword">/netpbm/</span><span class="number">10.86</span><span class="number">.24</span><span class="meta-keyword">/bin/</span>zeisstopnm</span><br><span class="line"><span class="meta-keyword">/usr/</span>local/Cellar<span class="meta-keyword">/perl/</span><span class="number">5.34</span><span class="number">.0</span><span class="meta-keyword">/bin/</span>zipdetails</span><br><span class="line"><span class="meta-keyword">/usr/</span>local/Cellar<span class="meta-keyword">/zstd/</span><span class="number">1.5</span><span class="number">.0</span><span class="meta-keyword">/bin/</span>zstd</span><br></pre></td></tr></table></figure>
+<h3 id="方括号扩展"><a href="#方括号扩展" class="headerlink" title="方括号扩展"></a>方括号扩展</h3><p>方括号扩展的形式是<code>[...]</code>，只有文件确实存在的前提下才会扩展。</p>
+<p><code>[^...]</code>和<code>[!...]</code>。它们表示匹配不在方括号里面的字符</p>
+<p>方括号扩展有一个简写形式[start-end]，表示匹配一个连续的范围</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">bash-<span class="number">5.1</span>$ ls [ab].txt</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-class">.txt</span>  <span class="selector-tag">b</span>.txt</span><br><span class="line"></span><br><span class="line">bash-<span class="number">5.1</span>$ ls [^b]<span class="selector-tag">b</span>.txt</span><br><span class="line">ab.txt</span><br><span class="line"></span><br><span class="line">bash-<span class="number">5.1</span>$ ls [a-b].txt</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-class">.txt</span>  <span class="selector-tag">b</span>.txt</span><br></pre></td></tr></table></figure>
+<h3 id="大括号扩展"><a href="#大括号扩展" class="headerlink" title="大括号扩展"></a>大括号扩展</h3><p>大括号扩展<code>{...}</code>表示分别扩展成大括号里面的所有值<br>大括号也可以与其他模式联用，并且总是先于其他模式进行扩展。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">bash<span class="number">-5.1</span>$ echo &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line">bash<span class="number">-5.1</span>$ echo a&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;b</span><br><span class="line">a1b a2b a3b</span><br><span class="line"></span><br><span class="line">bash<span class="number">-5.1</span>$ echo --exclude=&#123;a,b,c&#125;</span><br><span class="line">--exclude=a --exclude=b --exclude=c</span><br><span class="line"></span><br><span class="line">bash<span class="number">-5.1</span>$ echo foo&#123;<span class="number">1</span>,<span class="number">2</span>&#123;<span class="number">1</span>,<span class="number">2</span>&#125;<span class="number">0</span>,<span class="number">3</span>&#125;bar</span><br><span class="line">foo1bar foo210bar foo220bar foo3bar</span><br><span class="line"></span><br><span class="line">bash<span class="number">-5.1</span>$ echo &#123;<span class="number">1.</span><span class="number">.3</span>&#125;</span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line">bash<span class="number">-5.1</span>$ echo &#123;<span class="number">1.</span><span class="number">.10</span>.<span class="number">.2</span>&#125;</span><br><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">5</span> <span class="number">7</span> <span class="number">9</span></span><br></pre></td></tr></table></figure>
+<h3 id="变量扩展"><a href="#变量扩展" class="headerlink" title="变量扩展"></a>变量扩展</h3><p>Bash 将美元符号<code>$</code>开头的词元视为变量，将其扩展成变量值</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash-<span class="number">5.1</span>$ echo <span class="variable">$HOME</span></span><br><span class="line"><span class="regexp">/Users/</span>ruan</span><br></pre></td></tr></table></figure>
+<h3 id="命令扩展"><a href="#命令扩展" class="headerlink" title="命令扩展"></a>命令扩展</h3><p><code>$(...)</code>可以扩展成另一个命令的运行结果，该命令的所有输出都会作为返回值。</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bash-<span class="number">5</span>.<span class="number">1</span>$ <span class="built_in">echo</span> $(<span class="built_in">date</span>)</span><br><span class="line">日 <span class="number">11</span> <span class="number">28</span> <span class="number">16</span>:<span class="number">22</span>:<span class="number">09</span> CST <span class="number">2021</span></span><br><span class="line"></span><br><span class="line">bash-<span class="number">5</span>.<span class="number">1</span>$ <span class="built_in">echo</span> `<span class="built_in">date</span>`</span><br><span class="line">日 <span class="number">11</span> <span class="number">28</span> <span class="number">16</span>:<span class="number">22</span>:<span class="number">24</span> CST <span class="number">2021</span></span><br></pre></td></tr></table></figure>
+<h3 id="算术扩展"><a href="#算术扩展" class="headerlink" title="算术扩展"></a>算术扩展</h3><p><code>$((...))</code>可以扩展成整数运算的结果</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash<span class="number">-5.1</span>$ echo $((<span class="number">1</span>+<span class="number">1</span>))</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h2 id="引号使用"><a href="#引号使用" class="headerlink" title="引号使用"></a>引号使用</h2><h3 id="单引号"><a href="#单引号" class="headerlink" title="单引号"></a>单引号</h3><p>单引号用于保留字符的字面含义，在单引号里转义字符和模式扩展都会失效。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bash<span class="number">-5.1</span><span class="symbol">$</span> ls <span class="string">'[ab].txt'</span></span><br><span class="line">ls: cannot access <span class="string">'[ab].txt'</span>: <span class="keyword">No</span> such <span class="keyword">file</span> <span class="keyword">or</span> directory</span><br><span class="line"></span><br><span class="line">bash<span class="number">-5.1</span><span class="symbol">$</span> ls <span class="string">'*'</span></span><br><span class="line">ls: cannot access <span class="string">'*'</span>: <span class="keyword">No</span> such <span class="keyword">file</span> <span class="keyword">or</span> directory</span><br></pre></td></tr></table></figure>
+<h3 id="双引号"><a href="#双引号" class="headerlink" title="双引号"></a>双引号</h3><p>双引号比单引号宽松，三个特殊字符除外：美元符号（<code>$</code>）、反引号（<code>`</code>）和反斜杠（<code>\</code>）。这三个字符，会被 Bash 自动扩展。</p>
+<p>也就是说，相比单引号在双引号中变量扩展，命令扩展，算术扩展以及转义字符是有效的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bash-5.1$ <span class="built_in">echo</span> <span class="string">"<span class="variable">$((1+1)</span>)"</span></span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">bash-5.1$ <span class="built_in">echo</span> <span class="string">"<span class="variable">$HOME</span>"</span></span><br><span class="line">/Users/ruan</span><br><span class="line"></span><br><span class="line">bash-5.1$ <span class="built_in">echo</span> <span class="string">"<span class="variable">$(date)</span>"</span></span><br><span class="line">日 11 28 16:35:27 CST 2021</span><br><span class="line"></span><br><span class="line">bash-5.1$ <span class="built_in">echo</span> -e <span class="string">"1\t2"</span></span><br><span class="line">1	2</span><br></pre></td></tr></table></figure>
+<h3 id="引号嵌套"><a href="#引号嵌套" class="headerlink" title="引号嵌套"></a>引号嵌套</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 双引号中使用单引号</span></span><br><span class="line">bash-<span class="number">5.1</span>$ echo '<span class="string">"'</span></span><br><span class="line"><span class="string">"</span></span><br><span class="line">bash-<span class="number">5.1</span>$ echo '<span class="string">"<span class="subst">$&#123;HOME&#125;</span>"</span>'</span><br><span class="line"><span class="string">"<span class="subst">$&#123;HOME&#125;</span>"</span></span><br><span class="line"><span class="comment"># 单引号中使用双引号</span></span><br><span class="line">bash-<span class="number">5.1</span>$ echo <span class="string">"'<span class="subst">$&#123;HOME&#125;</span>'"</span></span><br><span class="line">'/Users/ruan'</span><br><span class="line">bash-<span class="number">5.1</span>$ echo <span class="string">"'\"</span>$&#123;HOME&#125;\<span class="string">"'"</span></span><br><span class="line">'<span class="string">"/Users/ruan"</span>'</span><br><span class="line"></span><br><span class="line"><span class="comment"># 引号嵌套中使用模式扩展，将需要扩展的字符放在单引号中；典型的有json变量填充</span></span><br><span class="line">bash-<span class="number">5.1</span>$ echo '&#123;<span class="string">"user"</span>: <span class="string">"'<span class="subst">$&#123;USER&#125;</span>'"</span>&#125;'</span><br><span class="line">&#123;<span class="string">"user"</span>: <span class="string">"ruan"</span>&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="here-doc"><a href="#here-doc" class="headerlink" title="here doc"></a>here doc</h3><p>Here 文档（here document）是一种输入多行字符串的方法，格式如下。<br>它的格式分成开始标记（<code>&lt;&lt; token</code>）和结束标记（<code>token</code>）, 一般用字符串<code>EOF</code>作为token</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt; <span class="keyword">token</span></span><br><span class="line"><span class="keyword">text</span></span><br><span class="line"><span class="keyword">token</span></span><br></pre></td></tr></table></figure>
+<p>例如</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">bash<span class="number">-5.1</span>$ cat &lt;&lt; <span class="literal">EOF</span></span><br><span class="line">&gt; <span class="number">11</span></span><br><span class="line">&gt; <span class="number">22</span></span><br><span class="line">&gt; <span class="number">33</span></span><br><span class="line">&gt; <span class="literal">EOF</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">22</span></span><br><span class="line"><span class="number">33</span></span><br></pre></td></tr></table></figure>
+<h3 id="here-string"><a href="#here-string" class="headerlink" title="here string"></a>here string</h3><p>Here 文档还有一个变体，叫做 Here 字符串（Here string），使用三个小于号（<code>&lt;&lt;&lt;</code>）表示。<br>它的作用是将字符串通过标准输入，传递给命令。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bash-<span class="number">5.1</span>$ <span class="keyword">cat</span> &lt;&lt;&lt; foobar</span><br><span class="line">foobar</span><br><span class="line">bash-<span class="number">5.1</span>$ <span class="keyword">echo</span> foobar | <span class="keyword">cat</span></span><br><span class="line">foobar</span><br></pre></td></tr></table></figure>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>bash 是基于标准输入在不同进程间交互数据的，大部分功能都是在操作字符串，所以<strong>变量的默认类型也是字符串</strong>。</p>
+<h3 id="声明变量和读取变量"><a href="#声明变量和读取变量" class="headerlink" title="声明变量和读取变量"></a>声明变量和读取变量</h3><p>声明时等号两边不能有空格。<br>Bash 变量名区分大小写，<code>HOME</code>和<code>home</code>是两个不同的变量。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bash<span class="number">-5.1</span>$ foo=<span class="number">1</span></span><br><span class="line">bash<span class="number">-5.1</span>$ echo $foo</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h3 id="变量查看和删除"><a href="#变量查看和删除" class="headerlink" title="变量查看和删除"></a>变量查看和删除</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有变量, 其中包含父进程export的变量</span></span><br><span class="line">bash-5.1$ set</span><br><span class="line"><span class="attribute">UID</span>=501</span><br><span class="line"><span class="attribute">USER</span>=ruan</span><br><span class="line"><span class="attribute">bar</span>=2</span><br><span class="line"><span class="attribute">foo</span>=1</span><br><span class="line"></span><br><span class="line">bash-5.1$ unset foo</span><br><span class="line">bash-5.1$ set</span><br><span class="line"><span class="attribute">UID</span>=501</span><br><span class="line"><span class="attribute">USER</span>=ruan</span><br><span class="line"><span class="attribute">bar</span>=2</span><br></pre></td></tr></table></figure>
+<h3 id="变量输出"><a href="#变量输出" class="headerlink" title="变量输出"></a>变量输出</h3><p>用户创建的变量仅可用于当前 Shell，子 Shell 默认读取不到父 Shell 定义的变量。<br>如果希望子进程能够读到这个变量，需要使用export命令。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bash-5.1$ bash -c <span class="builtin-name">set</span>  | grep foo</span><br><span class="line">bash-5.1$ <span class="builtin-name">export</span> <span class="attribute">foo</span>=1</span><br><span class="line">bash-5.1$ bash -c <span class="builtin-name">set</span>  | grep foo</span><br><span class="line"><span class="attribute">foo</span>=1</span><br></pre></td></tr></table></figure>
+<h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><p>平时所说的环境变量，就是init进程export输出的。子进程对变量的修改不会影响父进程，也就是说变量不是共享的。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看环境变量</span></span><br><span class="line">bash-5.1$ env</span><br><span class="line">SHELL=/bin/zsh</span><br><span class="line">LSCOLORS=Gxfxcxdxbxegedabagacad</span><br><span class="line">ITERM_PROFILE=Default</span><br></pre></td></tr></table></figure>
+<p>下面是一些常见的环境变量。</p>
+<ul>
+<li><code>BASHPID</code>：Bash 进程的进程 ID。</li>
+<li><code>BASHOPTS</code>：当前 Shell 的参数，可以用<code>shopt</code>命令修改。</li>
+<li><code>DISPLAY</code>：图形环境的显示器名字，通常是<code>:0</code>，表示 X Server 的第一个显示器。</li>
+<li><code>EDITOR</code>：默认的文本编辑器。</li>
+<li><code>HOME</code>：用户的主目录。</li>
+<li><code>HOST</code>：当前主机的名称。</li>
+<li><code>IFS</code>：词与词之间的分隔符，默认为空格。</li>
+<li><code>LANG</code>：字符集以及语言编码，比如<code>zh_CN.UTF-8</code>。</li>
+<li><code>PATH</code>：由冒号分开的目录列表，当输入可执行程序名后，会搜索这个目录列表。</li>
+<li><code>PS1</code>：Shell 提示符。</li>
+<li><code>PS2</code>： 输入多行命令时，次要的 Shell 提示符。</li>
+<li><code>PWD</code>：当前工作目录。</li>
+<li><code>RANDOM</code>：返回一个0到32767之间的随机数。</li>
+<li><code>SHELL</code>：Shell 的名字。</li>
+<li><code>SHELLOPTS</code>：启动当前 Shell 的<code>set</code>命令的参数</li>
+<li><code>TERM</code>：终端类型名，即终端仿真器所用的协议。</li>
+<li><code>UID</code>：当前用户的 ID 编号。</li>
+<li><code>USER</code>：当前用户的用户名。</li>
+</ul>
+<h3 id="特殊变量"><a href="#特殊变量" class="headerlink" title="特殊变量"></a>特殊变量</h3><p>Bash 提供一些特殊变量。这些变量的值由 Shell 提供，用户不能进行赋值。</p>
+<ul>
+<li><code>$?</code>: 上一个命令的退出码, 0为成功，其他为失败</li>
+<li><code>$$</code>: 当前进程的pid</li>
+<li><code>$_</code>: 为上一个命令的最后一个参数</li>
+<li><code>$!</code>: 为最近一个后台执行的异步命令的进程 ID。</li>
+<li><code>$0</code>: bash脚本的参数列表，0是脚本文件路径，1到n是第1到第n个参数</li>
+</ul>
+<h3 id="变量默认值"><a href="#变量默认值" class="headerlink" title="变量默认值"></a>变量默认值</h3><ul>
+<li><code>${varname:-word}</code>: 如果变量varname存在且不为空，则返回它的值，否则返回word</li>
+<li><code>${varname:=word}</code>: 如果变量varname存在且不为空，则返回它的值，否则将它设为word，并且返回word。</li>
+<li><code>${varname:+word}</code>: 如果变量名存在且不为空，则返回word，否则返回空值。它的目的是测试变量是否存在。</li>
+<li><code>${varname:?message}</code>: 如果变量varname存在且不为空，则返回它的值，否则打印出varname: message，并中断脚本的执行。</li>
+</ul>
+<h3 id="declare-命令"><a href="#declare-命令" class="headerlink" title="declare 命令"></a>declare 命令</h3><p><code>declare</code>命令的主要参数（OPTION）如下。</p>
+<ul>
+<li><code>-a</code>：声明数组变量。</li>
+<li><code>-A</code>：声明关联数组变量。</li>
+<li><code>-f</code>：输出所有函数定义。</li>
+<li><code>-F</code>：输出所有函数名。</li>
+<li><code>-i</code>：声明整数变量。</li>
+<li><code>-p</code>：查看变量信息。</li>
+<li><code>-r</code>：声明只读变量。</li>
+<li><code>-x</code>：该变量输出为环境变量。</li>
+</ul>
+<p>未完待续</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><h3 id="关联数组"><a href="#关联数组" class="headerlink" title="关联数组"></a>关联数组</h3><h2 id="控制流"><a href="#控制流" class="headerlink" title="控制流"></a>控制流</h2><h3 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h3><h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h2 id="脚本相关"><a href="#脚本相关" class="headerlink" title="脚本相关"></a>脚本相关</h2><h2 id="几个关键概念"><a href="#几个关键概念" class="headerlink" title="几个关键概念"></a>几个关键概念</h2><h3 id="返回码"><a href="#返回码" class="headerlink" title="返回码"></a>返回码</h3><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><h3 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://wangdoc.com/bash/condition.html" target="_blank" rel="noopener">https://wangdoc.com/bash/condition.html</a></li>
+</ul>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="http://ponder.work/2021/10/14/mysql-custom-location/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -538,6 +744,130 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2021/10/10/mysql-partition/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2021/10/10/mysql-partition/" class="post-title-link" itemprop="url">MySQL 表分区使用</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2021-10-10 15:00:00" itemprop="dateCreated datePublished" datetime="2021-10-10T15:00:00+08:00">2021-10-10</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-11 14:41:25" itemprop="dateModified" datetime="2021-10-11T14:41:25+08:00">2021-10-11</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>901</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>使用MySQL数据库时，当表的数据条数比较大时（1000w以上），数据查询会很慢，索引的效果也不好。</p>
+<p>这时我们可以把表的数据分区存储，安装数据值的前缀或者时间字段来分区。<br>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2021/10/10/mysql-partition/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="http://ponder.work/2021/10/10/macos-tips/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -634,130 +964,6 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2021/10/10/macos-tips/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2021/10/10/mysql-partition/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jay.Run">
-      <meta itemprop="description" content="学习 思考 行动 Python">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="逸思杂陈">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2021/10/10/mysql-partition/" class="post-title-link" itemprop="url">MySQL 表分区使用</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2021-10-10 15:00:00" itemprop="dateCreated datePublished" datetime="2021-10-10T15:00:00+08:00">2021-10-10</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-11 14:41:25" itemprop="dateModified" datetime="2021-10-11T14:41:25+08:00">2021-10-11</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>903</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>1 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>使用MySQL数据库时，当表的数据条数比较大时（1000w以上），数据查询会很慢，索引的效果也不好。</p>
-<p>这时我们可以把表的数据分区存储，安装数据值的前缀或者时间字段来分区。<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2021/10/10/mysql-partition/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -2033,130 +2239,6 @@
   </article>
 
     
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="http://ponder.work/2021/06/10/convict-conditioning/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jay.Run">
-      <meta itemprop="description" content="学习 思考 行动 Python">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="逸思杂陈">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2021/06/10/convict-conditioning/" class="post-title-link" itemprop="url">囚徒健身笔记</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2021-06-10 12:26:00" itemprop="dateCreated datePublished" datetime="2021-06-10T12:26:00+08:00">2021-06-10</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工作生活/" itemprop="url" rel="index"><span itemprop="name">工作生活</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>1.4k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>2 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>这不是一本教你练出“可爱肌肉”的书，而是一本教你练出能用的力量、极限的力量、生存的力量的书。<br>作者保罗·威德在美国最严酷的监狱中度过了19年，在其中逐渐挖掘出了一套最古老的健身法，在商业社会中早已失传的力量哲学，并凭此成为了地球上最强壮的人之一。</p>
-<p>本文是用于速查囚徒健身”六艺”的手册<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2021/06/10/convict-conditioning/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </div>
 
   
@@ -2206,7 +2288,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">158</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2404,7 +2486,9 @@
         
           
         
-        <span class="site-state-item-count">80</span>
+          
+        
+        <span class="site-state-item-count">81</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -2491,12 +2575,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">281k</span>
+    <span title="站点总字数">285k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:51</span>
+    <span title="站点阅读时长">5:56</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

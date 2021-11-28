@@ -589,16 +589,39 @@
 <li><p>2015.09.12          V2.3<br>  修正不能正确提取部分迅雷链接</p>
 </li>
 </ul>
-<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>这个小工具是本人Python的一个习作，水平有限，如有bug可以在这里留言，或者给我发邮件<a href="mailto:&#97;&#x64;&#x6d;&#105;&#110;&#x40;&#112;&#x6f;&#x6e;&#100;&#101;&#114;&#x2e;&#119;&#x6f;&#x72;&#x6b;" target="_blank" rel="noopener">&#97;&#x64;&#x6d;&#105;&#110;&#x40;&#112;&#x6f;&#x6e;&#100;&#101;&#114;&#x2e;&#119;&#x6f;&#x72;&#x6b;</a>。</p>
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>这个小工具是本人Python的一个习作，水平有限，如有bug可以在这里留言，或者给我发邮件<a href="mailto:&#97;&#x64;&#x6d;&#x69;&#110;&#64;&#x70;&#111;&#110;&#100;&#x65;&#114;&#x2e;&#x77;&#111;&#114;&#107;" target="_blank" rel="noopener">&#97;&#x64;&#x6d;&#x69;&#110;&#64;&#x70;&#111;&#110;&#100;&#x65;&#114;&#x2e;&#x77;&#111;&#114;&#107;</a>。</p>
 ]]></content>
       <categories>
         <category>编程</category>
       </categories>
   </entry>
   <entry>
+    <title>Bitmap 原理及实现</title>
+    <url>/2021/05/31/bitmap-python-edition/</url>
+    <content><![CDATA[<p>所谓的 Bitmap 其实就是二进制位数组，由于元素是二进制位，每一个元素只占用1个bit，十分节省内存空间。</p>
+<p>每一个bit有0、1两种状态，所以 Bitmap 适合应用于判断是否存在、桶排序（不含重复元素），具体来说可以用bitmap记录ip信息，实现布隆过滤器等等。<br><a id="more"></a></p>
+<h2 id="Bitmap-原理"><a href="#Bitmap-原理" class="headerlink" title="Bitmap 原理"></a>Bitmap 原理</h2><p>Bitmap 可以看成是个二维数组，第一维取出的元素是byte，然后用第二维的index去访问该byte对应的位。</p>
+<p>由于正常访问内存最小的单位的字节，操作具体的位需要位运算。</p>
+<p><img src="http://image.runjf.com/mweb/2021-05-31-16224684372402.jpg" alt></p>
+<h3 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h3><p><strong>注意</strong>：这里的位移操作都是逻辑位移</p>
+<p>一个byte有8bit， 设置某个位为1，需要用到<code>按位或 |</code><br><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">第<span class="number">0</span>个bit： byte |= <span class="number">0b10000000</span></span><br><span class="line">第<span class="number">1</span>个bit： byte |= <span class="number">0b01000000</span></span><br><span class="line">...</span><br><span class="line">第<span class="number">7</span>个bit： byte |= <span class="number">0b00000001</span></span><br><span class="line"></span><br><span class="line">所以：设置byte的第n个bit(n取<span class="number">0</span>到<span class="number">7</span>)： byte |= (<span class="number">0b10000000</span> &gt;&gt; n)</span><br></pre></td></tr></table></figure></p>
+<p>判断某个位是否为1，需要用到<code>按位与 &amp;</code><br>过程和上面类似, 满足<code>byte &amp; (0b10000000 &gt;&gt; n) == (0b10000000 &gt;&gt; n)</code>，则该位为1</p>
+<p>将某个位置为0，需要用到<code>按位与 &amp;</code><br><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">第<span class="number">0</span>个bit： byte &amp;= <span class="number">0b01111111</span></span><br><span class="line">第<span class="number">1</span>个bit： byte &amp;= <span class="number">0b10111111</span></span><br><span class="line">...</span><br><span class="line">第<span class="number">7</span>个bit： byte &amp;= <span class="number">0b01111110</span></span><br><span class="line"></span><br><span class="line">所以：第n个bit(n取<span class="number">0</span>到<span class="number">7</span>)： byte &amp;= ((<span class="number">0b10000000</span> &gt;&gt; n) ^ <span class="number">0b11111111</span>)</span><br><span class="line">Python中由于没有无符号数，所以算掩码（<span class="number">0b01111111</span>）时不能用按位取反。</span><br></pre></td></tr></table></figure></p>
+<h3 id="Python实现"><a href="#Python实现" class="headerlink" title="Python实现"></a>Python实现</h3><p>将使用到的掩码设置为常量，性能会更好，这里的实现主要是为了体现思路，便于理解</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">BYTE_WIDTH = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BitMap</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, size, fill=<span class="number">0</span>)</span>:</span></span><br><span class="line">        self._array = bytearray((fill <span class="keyword">for</span> _ <span class="keyword">in</span> range(size//BYTE_WIDTH+<span class="number">1</span>)))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        major, minor = divmod(index, BYTE_WIDTH)</span><br><span class="line">        self._array[major] |= (<span class="number">0b10000000</span> &gt;&gt; minor)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        major, minor = divmod(index, BYTE_WIDTH)</span><br><span class="line">        mask = <span class="number">0b10000000</span> &gt;&gt; minor</span><br><span class="line">        <span class="keyword">return</span> int(self._array[major] &amp; mask == mask)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">clear</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        major, minor = divmod(index, BYTE_WIDTH)</span><br><span class="line">        self._array[major] &amp;= ((<span class="number">0b10000000</span> &gt;&gt; minor) ^ <span class="number">0b11111111</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_bin</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">' '</span>.join((<span class="string">'&#123;:0&gt;8&#125;'</span>.format(bin(i)[<span class="number">2</span>:]) <span class="keyword">for</span> i <span class="keyword">in</span> self._array))</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>bash 语法备忘</title>
     <url>/2021/11/28/bash-cheat-sheet/</url>
-    <content><![CDATA[<p>bash 语法作为程序员好像都了解一些，但又缺少体系化学习，需要使用到某些功能时又经常手忙脚乱地查。<br>本文目的是作为bash的语法备忘录、语法速查表。</p>
+    <content><![CDATA[<p>bash 语法作为程序员好像都了解一些，但又缺少体系化学习，需要使用到某些功能时又经常手忙脚乱地查。<br>本文目的是作为bash的语法备忘录、语法速查表。<br><a id="more"></a></p>
 <h2 id="模式扩展"><a href="#模式扩展" class="headerlink" title="模式扩展"></a>模式扩展</h2><p>模式扩展（globbing），类似C语言中的宏展开，我们通常使用的通配符<code>*</code>就是其中之一。<br>Bash 一共提供八种扩展。</p>
 <ul>
 <li><code>~</code> 波浪线扩展</li>
@@ -704,29 +727,6 @@
       </categories>
       <tags>
         <tag>Shell</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Bitmap 原理及实现</title>
-    <url>/2021/05/31/bitmap-python-edition/</url>
-    <content><![CDATA[<p>所谓的 Bitmap 其实就是二进制位数组，由于元素是二进制位，每一个元素只占用1个bit，十分节省内存空间。</p>
-<p>每一个bit有0、1两种状态，所以 Bitmap 适合应用于判断是否存在、桶排序（不含重复元素），具体来说可以用bitmap记录ip信息，实现布隆过滤器等等。<br><a id="more"></a></p>
-<h2 id="Bitmap-原理"><a href="#Bitmap-原理" class="headerlink" title="Bitmap 原理"></a>Bitmap 原理</h2><p>Bitmap 可以看成是个二维数组，第一维取出的元素是byte，然后用第二维的index去访问该byte对应的位。</p>
-<p>由于正常访问内存最小的单位的字节，操作具体的位需要位运算。</p>
-<p><img src="http://image.runjf.com/mweb/2021-05-31-16224684372402.jpg" alt></p>
-<h3 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h3><p><strong>注意</strong>：这里的位移操作都是逻辑位移</p>
-<p>一个byte有8bit， 设置某个位为1，需要用到<code>按位或 |</code><br><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">第<span class="number">0</span>个bit： byte |= <span class="number">0b10000000</span></span><br><span class="line">第<span class="number">1</span>个bit： byte |= <span class="number">0b01000000</span></span><br><span class="line">...</span><br><span class="line">第<span class="number">7</span>个bit： byte |= <span class="number">0b00000001</span></span><br><span class="line"></span><br><span class="line">所以：设置byte的第n个bit(n取<span class="number">0</span>到<span class="number">7</span>)： byte |= (<span class="number">0b10000000</span> &gt;&gt; n)</span><br></pre></td></tr></table></figure></p>
-<p>判断某个位是否为1，需要用到<code>按位与 &amp;</code><br>过程和上面类似, 满足<code>byte &amp; (0b10000000 &gt;&gt; n) == (0b10000000 &gt;&gt; n)</code>，则该位为1</p>
-<p>将某个位置为0，需要用到<code>按位与 &amp;</code><br><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">第<span class="number">0</span>个bit： byte &amp;= <span class="number">0b01111111</span></span><br><span class="line">第<span class="number">1</span>个bit： byte &amp;= <span class="number">0b10111111</span></span><br><span class="line">...</span><br><span class="line">第<span class="number">7</span>个bit： byte &amp;= <span class="number">0b01111110</span></span><br><span class="line"></span><br><span class="line">所以：第n个bit(n取<span class="number">0</span>到<span class="number">7</span>)： byte &amp;= ((<span class="number">0b10000000</span> &gt;&gt; n) ^ <span class="number">0b11111111</span>)</span><br><span class="line">Python中由于没有无符号数，所以算掩码（<span class="number">0b01111111</span>）时不能用按位取反。</span><br></pre></td></tr></table></figure></p>
-<h3 id="Python实现"><a href="#Python实现" class="headerlink" title="Python实现"></a>Python实现</h3><p>将使用到的掩码设置为常量，性能会更好，这里的实现主要是为了体现思路，便于理解</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">BYTE_WIDTH = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BitMap</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, size, fill=<span class="number">0</span>)</span>:</span></span><br><span class="line">        self._array = bytearray((fill <span class="keyword">for</span> _ <span class="keyword">in</span> range(size//BYTE_WIDTH+<span class="number">1</span>)))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        major, minor = divmod(index, BYTE_WIDTH)</span><br><span class="line">        self._array[major] |= (<span class="number">0b10000000</span> &gt;&gt; minor)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        major, minor = divmod(index, BYTE_WIDTH)</span><br><span class="line">        mask = <span class="number">0b10000000</span> &gt;&gt; minor</span><br><span class="line">        <span class="keyword">return</span> int(self._array[major] &amp; mask == mask)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">clear</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        major, minor = divmod(index, BYTE_WIDTH)</span><br><span class="line">        self._array[major] &amp;= ((<span class="number">0b10000000</span> &gt;&gt; minor) ^ <span class="number">0b11111111</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_bin</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">' '</span>.join((<span class="string">'&#123;:0&gt;8&#125;'</span>.format(bin(i)[<span class="number">2</span>:]) <span class="keyword">for</span> i <span class="keyword">in</span> self._array))</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -1526,68 +1526,6 @@
       </tags>
   </entry>
   <entry>
-    <title>开发Python库并发布到PyPI指南</title>
-    <url>/2020/09/10/develop-python-library-and-upload-it-to-pypi-guide/</url>
-    <content><![CDATA[<h2 id="PyPI"><a href="#PyPI" class="headerlink" title="PyPI"></a>PyPI</h2><p><a href="https://pypi.org/" target="_blank" rel="noopener">PyPI</a>（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI</p>
-<p>而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。<br><a id="more"></a></p>
-<h2 id="用到的库代码"><a href="#用到的库代码" class="headerlink" title="用到的库代码"></a>用到的库代码</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">├── MANIFEST.<span class="keyword">in</span></span><br><span class="line">├── README.md</span><br><span class="line">├── dingtalk_log_handler</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">├── setup.py</span><br></pre></td></tr></table></figure>
-<p>整体代码结构，其中<a href="https://github.com/ruanima/dingtalk-log-handler" target="_blank" rel="noopener">dingtalk_log_handler</a>是我写的一个用于发日志到钉钉群的库，也是这次要发布的库。</p>
-<p>先看下库的主体代码<code>dingtalk_log_handler/__init__.py</code>, 由于功能比较简单，逻辑就都写在<code>__init__.py</code>里了</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="comment"># 其他import略去</span></span><br><span class="line"></span><br><span class="line">__author__ = <span class="string">'ruan.lj'</span></span><br><span class="line">__version__ = <span class="string">'0.0.2'</span></span><br><span class="line">__all__ = (</span><br><span class="line">    <span class="string">'OAPI_DOMAIN'</span>,</span><br><span class="line">    <span class="string">'DingTalkHandler'</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">OAPI_DOMAIN = <span class="string">'oapi.dingtalk.com'</span>   <span class="comment"># dingtalk open api domain</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DingdingApiError</span><span class="params">(RuntimeError)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DingTalkHandler</span><span class="params">(logging.Handler)</span>:</span></span><br><span class="line">    <span class="string">"""Handler for logging message to dingtalk"""</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    <span class="comment"># 略去逻辑代码</span></span><br></pre></td></tr></table></figure>
-<h2 id="编写-setup-py"><a href="#编写-setup-py" class="headerlink" title="编写 setup.py"></a>编写 setup.py</h2><p>setup.py指引了打包工具如何打包我们的库，功能与类似Makefile</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup, find_packages</span><br><span class="line"><span class="keyword">from</span> dingtalk_log_handler <span class="keyword">import</span> __author__, __version__</span><br><span class="line"></span><br><span class="line"><span class="comment"># read the contents of your README file</span></span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> path</span><br><span class="line">this_directory = path.abspath(path.dirname(__file__))</span><br><span class="line"><span class="keyword">with</span> open(path.join(this_directory, <span class="string">'README.md'</span>), encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    long_description = f.read()</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">'dingtalk-log-handler'</span>,</span><br><span class="line">    version=__version__,</span><br><span class="line">    author=__author__,</span><br><span class="line">    author_email=<span class="string">'xxx@foxmail.com'</span>,</span><br><span class="line">    description=<span class="string">'log handler for send message to dingtalk'</span>,</span><br><span class="line">    long_description=long_description,</span><br><span class="line">    long_description_content_type=<span class="string">'text/markdown'</span>,</span><br><span class="line">    classifiers=[</span><br><span class="line">        <span class="string">'Development Status :: 4 - Beta'</span>,</span><br><span class="line">        <span class="string">'Intended Audience :: Developers'</span>,</span><br><span class="line">        <span class="string">'Topic :: Software Development :: Libraries'</span>,</span><br><span class="line">        <span class="string">'Programming Language :: Python :: 3'</span>,</span><br><span class="line">        <span class="comment"># 省略一下</span></span><br><span class="line">    ],</span><br><span class="line">    packages=find_packages(),</span><br><span class="line">    python_requires=<span class="string">'&gt;=3.5'</span>,</span><br><span class="line">    install_requires=[],</span><br><span class="line">    project_urls=&#123;</span><br><span class="line">        <span class="string">'Source'</span>: <span class="string">'https://github.com/ruanima/dingtalk-log-handler'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>具体打包的功能由<code>setuptools.setup</code>函数实现，我们只需要修改对应的参数即可</p>
-<p>这些参数影响打包的行为，以及在PyPI页面上显示的信息</p>
-<p>主要的参数说明，详细信息参考<a href="https://packaging.python.org/guides/distributing-packages-using-setuptools" target="_blank" rel="noopener">文档</a></p>
-<ul>
-<li>name: 库名，也就是<code>pip install xxx</code>时的名称</li>
-<li>version: 版本，我们这里是复用了库代码里的版本号</li>
-<li>author: 作者，同上</li>
-<li>author_email: 作者邮箱</li>
-<li>description: 库说明，在<code>pip search xxx</code>的时候可以看到</li>
-<li>long_description: 库详细说明，显示在PyPI完整上，我们这里从<code>README.md</code>文件中读取具体内容</li>
-<li>long_description: 库详细说明的格式，这里使用markdown</li>
-<li>classifiers: 库的类别信息，<a href="https://pypi.org/classifiers/" target="_blank" rel="noopener">所有可选值参考</a></li>
-<li>packages: 库包含的python包，通过find_packages自动添加</li>
-<li>py_modules: 库包含的顶级Python模块，我们这里没有</li>
-<li>python_requires: 支持的Python版本</li>
-<li>install_requires: 依赖的其他库，格式与<code>pip freeze</code>输出的格式相同</li>
-<li>project_urls: 项目的一些链接信息，<a href="https://packaging.python.org/guides/distributing-packages-using-setuptools/?#project-urls" target="_blank" rel="noopener">可选值列表</a></li>
-</ul>
-<h2 id="编写-MANIFEST-in"><a href="#编写-MANIFEST-in" class="headerlink" title="编写 MANIFEST.in"></a>编写 MANIFEST.in</h2><p>打包时默认只会包含包代码和一些必要的文件，见<a href="https://packaging.python.org/guides/using-manifest-in/#how-files-are-included-in-an-sdist" target="_blank" rel="noopener">列表</a><br>如果要包含其他资源文件，必须编写<code>MANIFEST.in</code>来说明说明</p>
-<p>MANIFEST.in<br><figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">include</span> README.md</span><br><span class="line">recursive-<span class="keyword">include</span> dingtalk_log_handler *</span><br><span class="line">global-<span class="keyword">exclude</span> __pycache__</span><br><span class="line">global-<span class="keyword">exclude</span> tmp</span><br><span class="line">global-<span class="keyword">exclude</span> *.py[co]</span><br></pre></td></tr></table></figure></p>
-<p>语法和shell的通配符语法类似</p>
-<ul>
-<li><code>include &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 包含项目根目录匹配通配符的文件</li>
-<li><code>recursive-include &lt;dir-pattern&gt; &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 递归地包含指定目录匹配通配符的文件</li>
-<li><code>global-exclude &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 递归地排除匹配通配符的文件</li>
-</ul>
-<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><p>执行: <code>python3 setup.py sdist bdist_wheel</code></p>
-<p>输出文件<br><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">dist</span></span><br><span class="line">├── <span class="selector-tag">dingtalk-log-handler-0</span><span class="selector-class">.0</span><span class="selector-class">.2</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br><span class="line">└── <span class="selector-tag">dingtalk_log_handler-0</span><span class="selector-class">.0</span><span class="selector-class">.2-py3-none-any</span><span class="selector-class">.whl</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>我们可以通过<a href="https://test.pypi.org" target="_blank" rel="noopener">PyPI的测试站点</a> 来练习库文件的上传，并测试效果</p>
-<ol>
-<li><a href="https://test.pypi.org/account/register/" target="_blank" rel="noopener">注册账户</a> </li>
-<li>安装上传工具：<code>pip install twine -U</code></li>
-<li>上传文件：<code>twine upload --repository testpypi dist/*</code> </li>
-</ol>
-<p>熟悉流程之后，就可以换成<a href="https://pypi.org" target="_blank" rel="noopener">正式站点</a>，指定正式仓库(–repository pypi)上传文件</p>
-<p>这样全世界的人都能看到你的库了。</p>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>可以在<a href="https://pypi.org/project/dingtalk-log-handler/" target="_blank" rel="noopener">这里</a>找到我这次上传的库</p>
-<p>可以看到 setup.py 文件里的很多信息会对应体现在PyPI网页上<br><img src="http://image.runjf.com/mweb/2020-09-11-15997969319299.jpg" alt></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://packaging.python.org/guides/distributing-packages-using-setuptools" target="_blank" rel="noopener">https://packaging.python.org/guides/distributing-packages-using-setuptools</a></li>
-<li><a href="https://packaging.python.org/guides/using-manifest-in/" target="_blank" rel="noopener">https://packaging.python.org/guides/using-manifest-in/</a></li>
-</ol>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>PyPI</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>使用PlantUML做软件设计</title>
     <url>/2019/09/21/design-program-with-plantuml/</url>
     <content><![CDATA[<h2 id="Plantuml-是什么？"><a href="#Plantuml-是什么？" class="headerlink" title="Plantuml 是什么？"></a>Plantuml 是什么？</h2><p>首先得说一下UML，<strong>统一建模语言</strong>（英语：Unified Modeling Language，缩写 UML）是非专利的第三代和规约语言。</p>
@@ -1648,6 +1586,68 @@
       <tags>
         <tag>UML</tag>
         <tag>软件架构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>开发Python库并发布到PyPI指南</title>
+    <url>/2020/09/10/develop-python-library-and-upload-it-to-pypi-guide/</url>
+    <content><![CDATA[<h2 id="PyPI"><a href="#PyPI" class="headerlink" title="PyPI"></a>PyPI</h2><p><a href="https://pypi.org/" target="_blank" rel="noopener">PyPI</a>（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI</p>
+<p>而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。<br><a id="more"></a></p>
+<h2 id="用到的库代码"><a href="#用到的库代码" class="headerlink" title="用到的库代码"></a>用到的库代码</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">├── MANIFEST.<span class="keyword">in</span></span><br><span class="line">├── README.md</span><br><span class="line">├── dingtalk_log_handler</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">├── setup.py</span><br></pre></td></tr></table></figure>
+<p>整体代码结构，其中<a href="https://github.com/ruanima/dingtalk-log-handler" target="_blank" rel="noopener">dingtalk_log_handler</a>是我写的一个用于发日志到钉钉群的库，也是这次要发布的库。</p>
+<p>先看下库的主体代码<code>dingtalk_log_handler/__init__.py</code>, 由于功能比较简单，逻辑就都写在<code>__init__.py</code>里了</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="comment"># 其他import略去</span></span><br><span class="line"></span><br><span class="line">__author__ = <span class="string">'ruan.lj'</span></span><br><span class="line">__version__ = <span class="string">'0.0.2'</span></span><br><span class="line">__all__ = (</span><br><span class="line">    <span class="string">'OAPI_DOMAIN'</span>,</span><br><span class="line">    <span class="string">'DingTalkHandler'</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">OAPI_DOMAIN = <span class="string">'oapi.dingtalk.com'</span>   <span class="comment"># dingtalk open api domain</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DingdingApiError</span><span class="params">(RuntimeError)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DingTalkHandler</span><span class="params">(logging.Handler)</span>:</span></span><br><span class="line">    <span class="string">"""Handler for logging message to dingtalk"""</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    <span class="comment"># 略去逻辑代码</span></span><br></pre></td></tr></table></figure>
+<h2 id="编写-setup-py"><a href="#编写-setup-py" class="headerlink" title="编写 setup.py"></a>编写 setup.py</h2><p>setup.py指引了打包工具如何打包我们的库，功能与类似Makefile</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup, find_packages</span><br><span class="line"><span class="keyword">from</span> dingtalk_log_handler <span class="keyword">import</span> __author__, __version__</span><br><span class="line"></span><br><span class="line"><span class="comment"># read the contents of your README file</span></span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> path</span><br><span class="line">this_directory = path.abspath(path.dirname(__file__))</span><br><span class="line"><span class="keyword">with</span> open(path.join(this_directory, <span class="string">'README.md'</span>), encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    long_description = f.read()</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">'dingtalk-log-handler'</span>,</span><br><span class="line">    version=__version__,</span><br><span class="line">    author=__author__,</span><br><span class="line">    author_email=<span class="string">'xxx@foxmail.com'</span>,</span><br><span class="line">    description=<span class="string">'log handler for send message to dingtalk'</span>,</span><br><span class="line">    long_description=long_description,</span><br><span class="line">    long_description_content_type=<span class="string">'text/markdown'</span>,</span><br><span class="line">    classifiers=[</span><br><span class="line">        <span class="string">'Development Status :: 4 - Beta'</span>,</span><br><span class="line">        <span class="string">'Intended Audience :: Developers'</span>,</span><br><span class="line">        <span class="string">'Topic :: Software Development :: Libraries'</span>,</span><br><span class="line">        <span class="string">'Programming Language :: Python :: 3'</span>,</span><br><span class="line">        <span class="comment"># 省略一下</span></span><br><span class="line">    ],</span><br><span class="line">    packages=find_packages(),</span><br><span class="line">    python_requires=<span class="string">'&gt;=3.5'</span>,</span><br><span class="line">    install_requires=[],</span><br><span class="line">    project_urls=&#123;</span><br><span class="line">        <span class="string">'Source'</span>: <span class="string">'https://github.com/ruanima/dingtalk-log-handler'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>具体打包的功能由<code>setuptools.setup</code>函数实现，我们只需要修改对应的参数即可</p>
+<p>这些参数影响打包的行为，以及在PyPI页面上显示的信息</p>
+<p>主要的参数说明，详细信息参考<a href="https://packaging.python.org/guides/distributing-packages-using-setuptools" target="_blank" rel="noopener">文档</a></p>
+<ul>
+<li>name: 库名，也就是<code>pip install xxx</code>时的名称</li>
+<li>version: 版本，我们这里是复用了库代码里的版本号</li>
+<li>author: 作者，同上</li>
+<li>author_email: 作者邮箱</li>
+<li>description: 库说明，在<code>pip search xxx</code>的时候可以看到</li>
+<li>long_description: 库详细说明，显示在PyPI完整上，我们这里从<code>README.md</code>文件中读取具体内容</li>
+<li>long_description: 库详细说明的格式，这里使用markdown</li>
+<li>classifiers: 库的类别信息，<a href="https://pypi.org/classifiers/" target="_blank" rel="noopener">所有可选值参考</a></li>
+<li>packages: 库包含的python包，通过find_packages自动添加</li>
+<li>py_modules: 库包含的顶级Python模块，我们这里没有</li>
+<li>python_requires: 支持的Python版本</li>
+<li>install_requires: 依赖的其他库，格式与<code>pip freeze</code>输出的格式相同</li>
+<li>project_urls: 项目的一些链接信息，<a href="https://packaging.python.org/guides/distributing-packages-using-setuptools/?#project-urls" target="_blank" rel="noopener">可选值列表</a></li>
+</ul>
+<h2 id="编写-MANIFEST-in"><a href="#编写-MANIFEST-in" class="headerlink" title="编写 MANIFEST.in"></a>编写 MANIFEST.in</h2><p>打包时默认只会包含包代码和一些必要的文件，见<a href="https://packaging.python.org/guides/using-manifest-in/#how-files-are-included-in-an-sdist" target="_blank" rel="noopener">列表</a><br>如果要包含其他资源文件，必须编写<code>MANIFEST.in</code>来说明说明</p>
+<p>MANIFEST.in<br><figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">include</span> README.md</span><br><span class="line">recursive-<span class="keyword">include</span> dingtalk_log_handler *</span><br><span class="line">global-<span class="keyword">exclude</span> __pycache__</span><br><span class="line">global-<span class="keyword">exclude</span> tmp</span><br><span class="line">global-<span class="keyword">exclude</span> *.py[co]</span><br></pre></td></tr></table></figure></p>
+<p>语法和shell的通配符语法类似</p>
+<ul>
+<li><code>include &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 包含项目根目录匹配通配符的文件</li>
+<li><code>recursive-include &lt;dir-pattern&gt; &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 递归地包含指定目录匹配通配符的文件</li>
+<li><code>global-exclude &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 递归地排除匹配通配符的文件</li>
+</ul>
+<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><p>执行: <code>python3 setup.py sdist bdist_wheel</code></p>
+<p>输出文件<br><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">dist</span></span><br><span class="line">├── <span class="selector-tag">dingtalk-log-handler-0</span><span class="selector-class">.0</span><span class="selector-class">.2</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br><span class="line">└── <span class="selector-tag">dingtalk_log_handler-0</span><span class="selector-class">.0</span><span class="selector-class">.2-py3-none-any</span><span class="selector-class">.whl</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>我们可以通过<a href="https://test.pypi.org" target="_blank" rel="noopener">PyPI的测试站点</a> 来练习库文件的上传，并测试效果</p>
+<ol>
+<li><a href="https://test.pypi.org/account/register/" target="_blank" rel="noopener">注册账户</a> </li>
+<li>安装上传工具：<code>pip install twine -U</code></li>
+<li>上传文件：<code>twine upload --repository testpypi dist/*</code> </li>
+</ol>
+<p>熟悉流程之后，就可以换成<a href="https://pypi.org" target="_blank" rel="noopener">正式站点</a>，指定正式仓库(–repository pypi)上传文件</p>
+<p>这样全世界的人都能看到你的库了。</p>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>可以在<a href="https://pypi.org/project/dingtalk-log-handler/" target="_blank" rel="noopener">这里</a>找到我这次上传的库</p>
+<p>可以看到 setup.py 文件里的很多信息会对应体现在PyPI网页上<br><img src="http://image.runjf.com/mweb/2020-09-11-15997969319299.jpg" alt></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://packaging.python.org/guides/distributing-packages-using-setuptools" target="_blank" rel="noopener">https://packaging.python.org/guides/distributing-packages-using-setuptools</a></li>
+<li><a href="https://packaging.python.org/guides/using-manifest-in/" target="_blank" rel="noopener">https://packaging.python.org/guides/using-manifest-in/</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>PyPI</tag>
       </tags>
   </entry>
   <entry>
@@ -1853,6 +1853,47 @@
       </tags>
   </entry>
   <entry>
+    <title>Docker mtu 引发的加班血案</title>
+    <url>/2021/09/21/docker-mtu-issues/</url>
+    <content><![CDATA[<p>最近在搞 torch 的工程化，基于 brpc 和 libtorch，将两者编译在一起的过程也是坑深，容下次再表。</p>
+<p>为了简化部署，brpc 服务在 Docker 容器中运行。本地测试时功能一切正常，上到预发布环境时请求全部超时。</p>
+<p>由于业务代码，brpc，docker环境，机房都是新的，在排查问题的过程中简直一头雾水。（当然根本原因还是水平不足）<br><a id="more"></a></p>
+<h2 id="使尽浑身解数定位"><a href="#使尽浑身解数定位" class="headerlink" title="使尽浑身解数定位"></a>使尽浑身解数定位</h2><p>发现请求超时后，开始用CURL测试接口，用真实数据验证发现请求都耗时1s，这和用c++的预期完全不符。</p>
+<h3 id="我代码不应该有bug"><a href="#我代码不应该有bug" class="headerlink" title="我代码不应该有bug!!"></a>我代码不应该有bug!!</h3><p>首先是怀疑业务代码有问题，逐行统计业务代码耗时，发现业务代码仅耗时10+ms。</p>
+<h3 id="curl-不应该-Expect"><a href="#curl-不应该-Expect" class="headerlink" title="curl 不应该 Expect"></a>curl 不应该 Expect</h3><p>用空数据访问接口，发现耗时也只有20+ms，这时开始怀疑brpc是不是编译得有问题，或者说和libtorch编译到一起不兼容。<br>这时我请教了一位同事，他对brpc比较熟悉，然后他说是curl实现的问题，和brpc没关系, 参考<a href="https://github.com/apache/incubator-brpc/issues/1075" target="_blank" rel="noopener"> brpc issue</a></p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">curl传输的时候，会设置 <span class="string">Expect:</span> <span class="number">100</span>-<span class="keyword">continue</span>, 这个协议brpc本身没有实现, 所以curl会等待一个超时。</span><br><span class="line">加上 -H <span class="string">'Expect:'</span> 可以解决这个问题</span><br></pre></td></tr></table></figure>
+<p>所以这个1s超时是个烟雾弹，线上client是Python，不会有这个问题。</p>
+<h3 id="难道是-lvs"><a href="#难道是-lvs" class="headerlink" title="难道是 lvs ?"></a>难道是 lvs ?</h3><p>接着又是一通疯狂测试，各种角度体位测试。发现本机测试是ok的，透过lvs请求（跨机房）就会卡住直到超时，而且小body请求一切正常，大body请求卡住。</p>
+<p>这时又开始怀疑brpc编译的不对，导致这个超时（brpc编译过程比较曲折，导致我不太有信心）。</p>
+<p>于是我在这个服务器Docker中运行了另一个brpc服务，发现是一样的问题。</p>
+<p>为了确认是否是brpc的问题，又写了个Python 的 echo server 进行测试，发现在docker中是一样的问题，但是不在docker中运行有一切正常。</p>
+<p>这是时就可以确定，与代码无关，是docker或者lvs的问题，一度陷入僵局。</p>
+<h3 id="docker-才是罪魁祸首"><a href="#docker-才是罪魁祸首" class="headerlink" title="docker 才是罪魁祸首"></a>docker 才是罪魁祸首</h3><p>完全没思路，于是找来了运维的同学，这时运维提了一下，这个机房的mtu会小一点，于是一切串起来了。</p>
+<p>马上测试，发现机房的mtu只有1450，而docker0网桥的默认mtu是1500，这就很能解释小body没问题，大body卡死。</p>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">~# netstat -i</span><br><span class="line">Kernel Interface table</span><br><span class="line">Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg</span><br><span class="line">docker0   <span class="number">1500</span>        <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>             <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMU</span><br><span class="line">eth0      <span class="number">1450</span>  <span class="number">1023246</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>        <span class="number">110268</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMRU</span><br><span class="line">lo       <span class="number">65536</span>     <span class="number">1967</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>          <span class="number">1967</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> LRU</span><br><span class="line">wlan0     <span class="number">1500</span>        <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>             <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMU</span><br></pre></td></tr></table></figure>
+<p>修改docker0的mtu，重启docker.service，一切问题都解决了。</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">cat <span class="params">&lt;&lt; EOF &gt;</span> <span class="meta-keyword">/etc/</span>docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"mtu"</span>: <span class="number">1450</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h2 id="事后诸葛"><a href="#事后诸葛" class="headerlink" title="事后诸葛"></a>事后诸葛</h2><h3 id="找到问题等于解决了一半"><a href="#找到问题等于解决了一半" class="headerlink" title="找到问题等于解决了一半"></a>找到问题等于解决了一半</h3><p>这句话说得并不太懂，应该是“找到问题等于解决了90%”。<br>在互联网时代，找到了具体问题，在一通Google，基本等于解决了问题。你始终要确信，这个问题不应该只有你遇到。</p>
+<p>在这个例子上，curl的误导大概花了一半的时间去定位。所以，定位问题首先得明天问题，如医生看病一样，确认问题发生的现象（卡住），位置(docker容器中)、程度（永久）、触发原因（大请求body）。</p>
+<h3 id="要善于运用他人的经验和知识"><a href="#要善于运用他人的经验和知识" class="headerlink" title="要善于运用他人的经验和知识"></a>要善于运用他人的经验和知识</h3><p>找专业人士寻求帮助是非常高效的，会大大缩短定位问题的时间，因为他们会运用经验和知识快速排除错误选项。</p>
+<h3 id="知识可能会误导你"><a href="#知识可能会误导你" class="headerlink" title="知识可能会误导你"></a>知识可能会误导你</h3><p>你所拥有的知识，并不是究竟的知识，也就是它所能应用的范围并不适应当前的场景，还有可能误导你。<br>你所缺失的知识，让你看不清前方正确的道路。</p>
+<p>按我的知识，docker0是网桥，等价于交换机，除了性能问题，不应该导致丢包，就一直没往这个方向考虑（当然这块的知识也不扎实）。<br>MTU也不应该导致丢包，交换机应该会进行IP分片。但忽略了一个点，虚拟的网桥并不是硬件网桥，可能并没有实现IP分片的逻辑（仅丢弃）。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://github.com/apache/incubator-brpc/issues/1075" target="_blank" rel="noopener">https://github.com/apache/incubator-brpc/issues/1075</a></li>
+<li><a href="https://mp.weixin.qq.com/s/-Q1AkxUr9xzGKwUMV-FQhQ" target="_blank" rel="noopener">云网络丢包故障定位全景指南</a></li>
+<li><a href="https://mlohr.com/docker-mtu/" target="_blank" rel="noopener">https://mlohr.com/docker-mtu/</a></li>
+<li><a href="https://github.com/docker/for-win/issues/1144" target="_blank" rel="noopener">https://github.com/docker/for-win/issues/1144</a></li>
+<li><a href="https://www.cnblogs.com/sammyliu/p/5079898.html" target="_blank" rel="noopener">https://www.cnblogs.com/sammyliu/p/5079898.html</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python2 中 enum 枚举库诡异行为探究</title>
     <url>/2019/11/21/enum-lib-problem-in-python2/</url>
     <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近接手了一个82年的<del>拉菲</del>Python项目，简直酸爽。<br>Python版本用的是2.7.5，里面用的第三方库各种老旧，潜藏了不少深坑。这次我们就先讲enum库的坑，其他有空再聊。</p>
@@ -1893,47 +1934,6 @@
       <tags>
         <tag>Python</tag>
         <tag>Enum</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Docker mtu 引发的加班血案</title>
-    <url>/2021/09/21/docker-mtu-issues/</url>
-    <content><![CDATA[<p>最近在搞 torch 的工程化，基于 brpc 和 libtorch，将两者编译在一起的过程也是坑深，容下次再表。</p>
-<p>为了简化部署，brpc 服务在 Docker 容器中运行。本地测试时功能一切正常，上到预发布环境时请求全部超时。</p>
-<p>由于业务代码，brpc，docker环境，机房都是新的，在排查问题的过程中简直一头雾水。（当然根本原因还是水平不足）<br><a id="more"></a></p>
-<h2 id="使尽浑身解数定位"><a href="#使尽浑身解数定位" class="headerlink" title="使尽浑身解数定位"></a>使尽浑身解数定位</h2><p>发现请求超时后，开始用CURL测试接口，用真实数据验证发现请求都耗时1s，这和用c++的预期完全不符。</p>
-<h3 id="我代码不应该有bug"><a href="#我代码不应该有bug" class="headerlink" title="我代码不应该有bug!!"></a>我代码不应该有bug!!</h3><p>首先是怀疑业务代码有问题，逐行统计业务代码耗时，发现业务代码仅耗时10+ms。</p>
-<h3 id="curl-不应该-Expect"><a href="#curl-不应该-Expect" class="headerlink" title="curl 不应该 Expect"></a>curl 不应该 Expect</h3><p>用空数据访问接口，发现耗时也只有20+ms，这时开始怀疑brpc是不是编译得有问题，或者说和libtorch编译到一起不兼容。<br>这时我请教了一位同事，他对brpc比较熟悉，然后他说是curl实现的问题，和brpc没关系, 参考<a href="https://github.com/apache/incubator-brpc/issues/1075" target="_blank" rel="noopener"> brpc issue</a></p>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">curl传输的时候，会设置 <span class="string">Expect:</span> <span class="number">100</span>-<span class="keyword">continue</span>, 这个协议brpc本身没有实现, 所以curl会等待一个超时。</span><br><span class="line">加上 -H <span class="string">'Expect:'</span> 可以解决这个问题</span><br></pre></td></tr></table></figure>
-<p>所以这个1s超时是个烟雾弹，线上client是Python，不会有这个问题。</p>
-<h3 id="难道是-lvs"><a href="#难道是-lvs" class="headerlink" title="难道是 lvs ?"></a>难道是 lvs ?</h3><p>接着又是一通疯狂测试，各种角度体位测试。发现本机测试是ok的，透过lvs请求（跨机房）就会卡住直到超时，而且小body请求一切正常，大body请求卡住。</p>
-<p>这时又开始怀疑brpc编译的不对，导致这个超时（brpc编译过程比较曲折，导致我不太有信心）。</p>
-<p>于是我在这个服务器Docker中运行了另一个brpc服务，发现是一样的问题。</p>
-<p>为了确认是否是brpc的问题，又写了个Python 的 echo server 进行测试，发现在docker中是一样的问题，但是不在docker中运行有一切正常。</p>
-<p>这是时就可以确定，与代码无关，是docker或者lvs的问题，一度陷入僵局。</p>
-<h3 id="docker-才是罪魁祸首"><a href="#docker-才是罪魁祸首" class="headerlink" title="docker 才是罪魁祸首"></a>docker 才是罪魁祸首</h3><p>完全没思路，于是找来了运维的同学，这时运维提了一下，这个机房的mtu会小一点，于是一切串起来了。</p>
-<p>马上测试，发现机房的mtu只有1450，而docker0网桥的默认mtu是1500，这就很能解释小body没问题，大body卡死。</p>
-<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">~# netstat -i</span><br><span class="line">Kernel Interface table</span><br><span class="line">Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg</span><br><span class="line">docker0   <span class="number">1500</span>        <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>             <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMU</span><br><span class="line">eth0      <span class="number">1450</span>  <span class="number">1023246</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>        <span class="number">110268</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMRU</span><br><span class="line">lo       <span class="number">65536</span>     <span class="number">1967</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>          <span class="number">1967</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> LRU</span><br><span class="line">wlan0     <span class="number">1500</span>        <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>             <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMU</span><br></pre></td></tr></table></figure>
-<p>修改docker0的mtu，重启docker.service，一切问题都解决了。</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">cat <span class="params">&lt;&lt; EOF &gt;</span> <span class="meta-keyword">/etc/</span>docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"mtu"</span>: <span class="number">1450</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-<h2 id="事后诸葛"><a href="#事后诸葛" class="headerlink" title="事后诸葛"></a>事后诸葛</h2><h3 id="找到问题等于解决了一半"><a href="#找到问题等于解决了一半" class="headerlink" title="找到问题等于解决了一半"></a>找到问题等于解决了一半</h3><p>这句话说得并不太懂，应该是“找到问题等于解决了90%”。<br>在互联网时代，找到了具体问题，在一通Google，基本等于解决了问题。你始终要确信，这个问题不应该只有你遇到。</p>
-<p>在这个例子上，curl的误导大概花了一半的时间去定位。所以，定位问题首先得明天问题，如医生看病一样，确认问题发生的现象（卡住），位置(docker容器中)、程度（永久）、触发原因（大请求body）。</p>
-<h3 id="要善于运用他人的经验和知识"><a href="#要善于运用他人的经验和知识" class="headerlink" title="要善于运用他人的经验和知识"></a>要善于运用他人的经验和知识</h3><p>找专业人士寻求帮助是非常高效的，会大大缩短定位问题的时间，因为他们会运用经验和知识快速排除错误选项。</p>
-<h3 id="知识可能会误导你"><a href="#知识可能会误导你" class="headerlink" title="知识可能会误导你"></a>知识可能会误导你</h3><p>你所拥有的知识，并不是究竟的知识，也就是它所能应用的范围并不适应当前的场景，还有可能误导你。<br>你所缺失的知识，让你看不清前方正确的道路。</p>
-<p>按我的知识，docker0是网桥，等价于交换机，除了性能问题，不应该导致丢包，就一直没往这个方向考虑（当然这块的知识也不扎实）。<br>MTU也不应该导致丢包，交换机应该会进行IP分片。但忽略了一个点，虚拟的网桥并不是硬件网桥，可能并没有实现IP分片的逻辑（仅丢弃）。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://github.com/apache/incubator-brpc/issues/1075" target="_blank" rel="noopener">https://github.com/apache/incubator-brpc/issues/1075</a></li>
-<li><a href="https://mp.weixin.qq.com/s/-Q1AkxUr9xzGKwUMV-FQhQ" target="_blank" rel="noopener">云网络丢包故障定位全景指南</a></li>
-<li><a href="https://mlohr.com/docker-mtu/" target="_blank" rel="noopener">https://mlohr.com/docker-mtu/</a></li>
-<li><a href="https://github.com/docker/for-win/issues/1144" target="_blank" rel="noopener">https://github.com/docker/for-win/issues/1144</a></li>
-<li><a href="https://www.cnblogs.com/sammyliu/p/5079898.html" target="_blank" rel="noopener">https://www.cnblogs.com/sammyliu/p/5079898.html</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -2049,117 +2049,6 @@
       </categories>
       <tags>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo 站内搜索内容不完全问题修复</title>
-    <url>/2021/10/11/hexo-local-search-not-complete-fix/</url>
-    <content><![CDATA[<p>在使用 Hexo 的站内搜索时，发现搜索的内容不全。单步调试发现xml解析不完整，有部分内容被截断了。</p>
-<p>在浏览器中打开<a href="/search.xml">/search.xml</a>发现以下错误。显然xml中有非法字符，xml解析产生了错误。<br><a id="more"></a><br><img src="http://image.runjf.com/mweb/2021-10-12-16339770374988.jpg" alt></p>
-<p>将search.xml文件保存，并用python打开，找到具体出错的位置。<br>utf8解码之后可以发现<code>\x10</code>非法字符，将其删除，重新生成文章问题解决。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx = open(<span class="string">'./tmp.xml'</span>, <span class="string">'rb'</span>).read()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx.index(<span class="string">b'\x10\xE7\x84\xB6'</span>)</span><br><span class="line"><span class="number">923278</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx[<span class="number">923278</span>:<span class="number">923278</span>+<span class="number">31</span>]</span><br><span class="line"><span class="string">b'\x10\xe7\x84\xb6\xe5\x88\x99\xef\xbc\x8c\xe4\xbb\x8a\xe4\xb9\x8b\xe4\xb8\x96\xe4\xba\xba\xef\xbc\x8c\xe7\xb1\xbb\xe6\xad\xa4'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx[<span class="number">923278</span>:<span class="number">923278</span>+<span class="number">31</span>].decode()</span><br><span class="line"><span class="string">'\x10然则，今之世人，类此'</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://image.runjf.com/mweb/2021-10-12-16339793845815.jpg" alt></p>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>XML</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在WSL2中安装openmediavault(OMV)</title>
-    <url>/2021/01/02/install-openmediavault-in-WSL2/</url>
-    <content><![CDATA[<p><strong>本方案存在不可解决的缺点，已被笔者放弃，请移步<a href="/2021/09/21/openmediavault-on-hyperv/">最新解决方案</a></strong></p>
-<p>NAS的文件系统一直是我比较纠结的一个点。NAS的系统基本上是基于Linux(Unix)，文件系统不是ntfs，数据迁移不方便，数据恢复工具也没那么全。</p>
-<p>WSL就完美解决了这个问题，用Linux提供服务，数据最终还是落在ntfs上，而且重要的是everything也能用上。</p>
-<p>openmediavault(OMV)是一个基于Debian的NAS系统，而且能在原生Debian系统上自行安装，正好能够实现我们的功能。<br><a id="more"></a></p>
-<h2 id="WSL2-相关准备工作"><a href="#WSL2-相关准备工作" class="headerlink" title="WSL2 相关准备工作"></a>WSL2 相关准备工作</h2><p>需要安装WSL2并启用桥接网络，同时安装好Debian系统</p>
-<p>参考本人<a href="/2021/01/02/WSL2-bridge-mode/">这篇文章</a></p>
-<h2 id="安装-systemd"><a href="#安装-systemd" class="headerlink" title="安装 systemd"></a>安装 systemd</h2><p>由于openmediavault对systemd有强依赖，而WSL的系统默认是由<code>/init</code>启动的，会导致安装出错<br>所以得先把systemd的问题解决。</p>
-<p>经过一番google，找到了<a href="https://github.com/arkane-systems/genie" target="_blank" rel="noopener">systemd-genie</a>能够解决问题</p>
-<h3 id="安装-dotnet-源"><a href="#安装-dotnet-源" class="headerlink" title="安装 dotnet 源"></a>安装 dotnet 源</h3><p>systemd-genie 依赖 dotnet-runtime-5.0, 所以把dotnet源配好，参考<a href="https://docs.microsoft.com/zh-cn/dotnet/core/install/linux-debian#debian-10-" target="_blank" rel="noopener">文档</a></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb</span><br><span class="line">sudo dpkg -i packages-microsoft-prod.deb</span><br><span class="line">sudo apt-get update; \</span><br><span class="line">  sudo apt-get install -y apt-transport-https &amp;&amp; \</span><br><span class="line">  sudo apt-get update</span><br></pre></td></tr></table></figure>
-<h3 id="安装-systemd-genie"><a href="#安装-systemd-genie" class="headerlink" title="安装 systemd-genie"></a>安装 systemd-genie</h3><p>官网提供了安装脚本, 执行完会配置好systemd-genie源并安装<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -s https://packagecloud.io/install/repositories/arkane-systems/wsl-translinux/script.deb.sh | sudo bash</span><br></pre></td></tr></table></figure></p>
-<p>但是安装过程中，发现systemd-genie源的访问有些问题，所以只能从gitbub下载安装<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /tmp &amp;&amp; wget https://github.com/arkane-systems/genie/releases/download/1.30/systemd-genie_1.30_amd64.deb</span><br><span class="line">dpkg -i systemd-genie_1.30_amd64.deb</span><br><span class="line">apt --fix-broken install</span><br></pre></td></tr></table></figure></p>
-<h3 id="默认启动-systemd-genie"><a href="#默认启动-systemd-genie" class="headerlink" title="默认启动 systemd-genie"></a>默认启动 systemd-genie</h3><p>修改<code>/root/.bashrc</code>, 添加以下内容<br><figure class="highlight lua"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="string">[[ ! -v INSIDE_GENIE ]]</span>; <span class="keyword">then</span></span><br><span class="line">    echo <span class="string">"Starting genie"</span></span><br><span class="line">    exec /usr/bin/genie -s</span><br><span class="line">fi</span><br></pre></td></tr></table></figure></p>
-<h2 id="网络相关配置"><a href="#网络相关配置" class="headerlink" title="网络相关配置"></a>网络相关配置</h2><p>主机名和网口配置重启WSL后可能会失效，建议修改配置文件来实现</p>
-<h3 id="主机名"><a href="#主机名" class="headerlink" title="主机名"></a>主机名</h3><p>修改<code>/etc/wsl.conf</code>，增加<code>hostname = openmediavault</code><br><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[network]</span></span><br><span class="line"><span class="attr">hostname</span> = openmediavault</span><br><span class="line"><span class="attr">generateResolvConf</span> = <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
-<p>修改<code>/etc/genie.ini</code>，设置<code>update-hostname</code>为false<br><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">[genie]</span><br><span class="line">secure-path=<span class="regexp">/lib/</span><span class="string">systemd:</span><span class="regexp">/usr/</span>local<span class="regexp">/sbin:/</span>usr<span class="regexp">/local/</span><span class="string">bin:</span><span class="regexp">/usr/</span><span class="string">sbin:</span><span class="regexp">/usr/</span><span class="string">bin:</span><span class="regexp">/sbin:/</span>bin</span><br><span class="line">unshare=<span class="regexp">/usr/</span>bin/unshare</span><br><span class="line">update-hostname=<span class="literal">false</span></span><br><span class="line">clone-path=<span class="literal">false</span></span><br><span class="line">clone-env=WSL_DISTRO_NAME,WSL_INTEROP,WSLENV</span><br></pre></td></tr></table></figure></p>
-<h3 id="ip地址"><a href="#ip地址" class="headerlink" title="ip地址"></a>ip地址</h3><p>注意，由于WSL的mac地址每次重启都会变，该问题暂时无法解决，参考<a href="https://github.com/microsoft/WSL/issues/5352" target="_blank" rel="noopener">issue</a><br>所以这里采用静态IPv4地址和DHCPv6来配置网络地址</p>
-<p>新建<code>/etc/systemd/network/lan.network</code>，内容如下<br><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[Match]</span></span><br><span class="line"><span class="attr">Name</span>=eth0</span><br><span class="line"></span><br><span class="line"><span class="section">[Network]</span></span><br><span class="line"><span class="attr">Description</span>=lan</span><br><span class="line"><span class="attr">DHCP</span>=ipv6</span><br><span class="line"><span class="attr">Address</span>=<span class="number">192.168</span>.<span class="number">123.31</span>/<span class="number">24</span></span><br><span class="line"><span class="attr">Gateway</span>=<span class="number">192.168</span>.<span class="number">123.1</span></span><br><span class="line"><span class="attr">DNS</span>=<span class="number">192.168</span>.<span class="number">123.1</span></span><br><span class="line"><span class="attr">LLDP</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">EmitLLDP</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
-<p>然后执行执行<code>systemctl enable systemd-networkd &amp;&amp; systemctl start systemd-networkd</code></p>
-<h2 id="安装-openmediavault"><a href="#安装-openmediavault" class="headerlink" title="安装 openmediavault"></a>安装 openmediavault</h2><p>参考<a href="https://openmediavault.readthedocs.io/en/5.x/installation/on_debian.html" target="_blank" rel="noopener">官方文档</a></p>
-<p>由于要安装的包比较多，建议先把Debian软件源替换成国内镜像，参考<a href="https://mirrors.tuna.tsinghua.edu.cn/help/debian/" target="_blank" rel="noopener">这个</a></p>
-<ol>
-<li><p>添加软件源keyring</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt-get install --yes gnupg</span><br><span class="line">wget -O <span class="string">"/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc"</span> https://packages.openmediavault.org/public/archive.key</span><br><span class="line">apt-key add <span class="string">"/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>添加openmediavault软件源</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;&gt; /etc/apt/sources.list.d/openmediavault.list</span><br><span class="line">deb https://packages.openmediavault.org/public usul main</span><br><span class="line"><span class="comment"># deb https://downloads.sourceforge.net/project/openmediavault/packages usul main</span></span><br><span class="line"><span class="comment">## Uncomment the following line to add software from the proposed repository.</span></span><br><span class="line"><span class="comment"># deb https://packages.openmediavault.org/public usul-proposed main</span></span><br><span class="line"><span class="comment"># deb https://downloads.sourceforge.net/project/openmediavault/packages usul-proposed main</span></span><br><span class="line"><span class="comment">## This software is not part of OpenMediaVault, but is offered by third-party</span></span><br><span class="line"><span class="comment">## developers as a service to OpenMediaVault users.</span></span><br><span class="line"><span class="comment"># deb https://packages.openmediavault.org/public usul partner</span></span><br><span class="line"><span class="comment"># deb https://downloads.sourceforge.net/project/openmediavault/packages usul partner</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> LANG=C.UTF-8</span><br><span class="line"><span class="built_in">export</span> DEBIAN_FRONTEND=noninteractive</span><br><span class="line"><span class="built_in">export</span> APT_LISTCHANGES_FRONTEND=none</span><br><span class="line">wget -O <span class="string">"/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc"</span> https://packages.openmediavault.org/public/archive.key</span><br><span class="line">apt-key add <span class="string">"/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc"</span></span><br><span class="line">apt-get update</span><br><span class="line">apt-get --yes --auto-remove --show-upgraded \</span><br><span class="line">    --allow-downgrades --allow-change-held-packages \</span><br><span class="line">    --no-install-recommends \</span><br><span class="line">    --option Dpkg::Options::=<span class="string">"--force-confdef"</span> \</span><br><span class="line">    --option DPkg::Options::=<span class="string">"--force-confold"</span> \</span><br><span class="line">    install openmediavault-keyring openmediavault</span><br><span class="line"></span><br><span class="line">omv-confdbadm populate</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="安装-omv-extras（可选）"><a href="#安装-omv-extras（可选）" class="headerlink" title="安装 omv-extras（可选）"></a>安装 omv-extras（可选）</h2><p>参考<a href="https://forum.openmediavault.org/index.php?thread/5549-omv-extras-org-plugin/" target="_blank" rel="noopener">官方文档</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash</span><br></pre></td></tr></table></figure></p>
-<h2 id="配置-openmediavault"><a href="#配置-openmediavault" class="headerlink" title="配置 openmediavault"></a>配置 openmediavault</h2><h3 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h3><p>OMV里的主机名和网络配置就配置成和上面配置文件里的一样，防止OMV的服务工作异常</p>
-<ol>
-<li><p>修改主机名，防止WSL默认主机名过长（必须小于15位），导致samba配置失败<br> <img src="http://image.runjf.com/mweb/2021-01-02-2021-01-02_180911.png" alt="2021-01-02_180911"></p>
-</li>
-<li><p>打开<code>系统 -&gt; 网络 -&gt; 添加 -&gt; 以太网</code>，配置网口ip，这里配置为DHCP自动获取<br> <img src="http://image.runjf.com/mweb/2021-01-02-2021-01-02_181342.png" alt="2021-01-02_181342"></p>
-</li>
-<li><p>打开<code>系统 -&gt; 常规设置 -&gt; Web管理员密码</code>，修改管理员密码，默认密码为<code>admin:openmediavault</code></p>
-</li>
-</ol>
-<h3 id="共享文件夹配置"><a href="#共享文件夹配置" class="headerlink" title="共享文件夹配置"></a>共享文件夹配置</h3><p>由于WSL2读写本机硬盘是使用的微软的驱动，OMV并不支持，默认只能识别到根目录的虚拟硬盘。</p>
-<p>又因为WSL2的本地硬盘都挂载在<code>/mnt/</code>路径下，所以只要能将<code>/mnt/</code>目录共享就ok了</p>
-<p>这里参考<a href="https://github.com/openmediavault/openmediavault/blob/master/deb/openmediavault-sharerootfs/debian/openmediavault-sharerootfs.postinst" target="_blank" rel="noopener">openmediavault-sharerootfs</a>的实现</p>
-<p>修改<code>/etc/openmediavault/config.xml</code>配置文件， 在<code>fstab</code>标签下增加<code>mntent</code>挂载点配置，修改完如下<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--省略其他部分--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">fstab</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mntent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uuid</span>&gt;</span>79684322-3eac-11ea-a974-63a080abab18<span class="tag">&lt;/<span class="name">uuid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fsname</span>&gt;</span>/dev/sdb<span class="tag">&lt;/<span class="name">fsname</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dir</span>&gt;</span>/<span class="tag">&lt;/<span class="name">dir</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>ext4<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">opts</span>&gt;</span>errors=remount-ro<span class="tag">&lt;/<span class="name">opts</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">freq</span>&gt;</span>0<span class="tag">&lt;/<span class="name">freq</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">passno</span>&gt;</span>1<span class="tag">&lt;/<span class="name">passno</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hidden</span>&gt;</span>1<span class="tag">&lt;/<span class="name">hidden</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">mntent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">fstab</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>打开<code>访问权限管理 -&gt; 共享文件夹 -&gt; 添加</code>，添加D盘（/mnt/d）作为共享文件夹，然后在samba服务中就能引用这个共享文件夹了<br><img src="http://image.runjf.com/mweb/2021-01-02-2021-01-02_183349.png" alt="2021-01-02_183349"></p>
-<p><img src="http://image.runjf.com/mweb/2021-01-02-2021-01-02_183046.png" alt="2021-01-02_183046"></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://github.com/arkane-systems/genie" target="_blank" rel="noopener">https://github.com/arkane-systems/genie</a></li>
-<li><a href="https://docs.microsoft.com/zh-cn/dotnet/core/install/linux-debian#debian-10-" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/dotnet/core/install/linux-debian#debian-10-</a></li>
-<li><a href="https://openmediavault.readthedocs.io/en/5.x/installation/on_debian.html" target="_blank" rel="noopener">https://openmediavault.readthedocs.io/en/5.x/installation/on_debian.html</a></li>
-<li><a href="https://forum.openmediavault.org/index.php?thread/5549-omv-extras-org-plugin/" target="_blank" rel="noopener">https://forum.openmediavault.org/index.php?thread/5549-omv-extras-org-plugin/</a></li>
-<li><a href="https://github.com/openmediavault/openmediavault/blob/master/deb/openmediavault-sharerootfs/debian/openmediavault-sharerootfs.postinst" target="_blank" rel="noopener">https://github.com/openmediavault/openmediavault/blob/master/deb/openmediavault-sharerootfs/debian/openmediavault-sharerootfs.postinst</a></li>
-</ol>
-]]></content>
-      <categories>
-        <category>工作生活</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>WSL</tag>
-        <tag>NAS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>IPython学习环境配置</title>
-    <url>/2020/07/18/ipython-learning-environment-config/</url>
-    <content><![CDATA[<h2 id="IPython简介"><a href="#IPython简介" class="headerlink" title="IPython简介"></a>IPython简介</h2><p>IPython项目起初是Fernando Pérez在2001年的一个用以加强和Python交互的子项目。在随后的16年中，它成为了Python数据栈最重要的工具之一。</p>
-<p>简单来说，我们可以把IPython当成一个学习Python语言、数据分析、机器学习的平台。</p>
-<a id="more"></a>
-<h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><p>这里我们使用<a href="https://docs.conda.io/en/latest/miniconda.html" target="_blank" rel="noopener">miniconda</a>，防止机器学习和图形显示相关的库出问题. 使用pyenv的同学，也可以用pyenv来安装miniconda。</p>
-<p>下载：<code>wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh</code></p>
-<p>安装: <code>sh Miniconda3-latest-MacOSX-x86_64.sh</code></p>
-<h3 id="创建ipython虚拟环境"><a href="#创建ipython虚拟环境" class="headerlink" title="创建ipython虚拟环境"></a>创建ipython虚拟环境</h3><ol>
-<li>创建虚拟环境：<code>conda create -n ipython</code></li>
-<li>激活环境：<code>conda activate ipython</code></li>
-<li>安装必要的python库：<code>pip install ipython pandas ipykernel matplotlib</code></li>
-</ol>
-<h2 id="用Visual-Studio-Code作为编辑器"><a href="#用Visual-Studio-Code作为编辑器" class="headerlink" title="用Visual Studio Code作为编辑器"></a>用Visual Studio Code作为编辑器</h2><p><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VSCode</a>在安装Python插件之后，就可以很方便得查看编辑IPython Notebook了</p>
-<h3 id="安装Python插件"><a href="#安装Python插件" class="headerlink" title="安装Python插件"></a>安装Python插件</h3><p>在扩展商店，搜索“Python”， 并安装<br><img src="http://image.runjf.com/mweb/2020-07-19-15951449200011.jpg" alt="-w549"></p>
-<h3 id="创建使用NoteBook"><a href="#创建使用NoteBook" class="headerlink" title="创建使用NoteBook"></a>创建使用NoteBook</h3><p>选择IPython环境<br><img src="http://image.runjf.com/mweb/2020-07-19-15951453546560.jpg" alt="-w1421"></p>
-<p>创建<code>hello.ipynb</code>Notebook<br><img src="http://image.runjf.com/mweb/2020-07-19-15951457001314.jpg" alt="-w1421"></p>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>数据分析</tag>
       </tags>
   </entry>
   <entry>
@@ -2329,6 +2218,117 @@
       </categories>
       <tags>
         <tag>浮点数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo 站内搜索内容不完全问题修复</title>
+    <url>/2021/10/11/hexo-local-search-not-complete-fix/</url>
+    <content><![CDATA[<p>在使用 Hexo 的站内搜索时，发现搜索的内容不全。单步调试发现xml解析不完整，有部分内容被截断了。</p>
+<p>在浏览器中打开<a href="/search.xml">/search.xml</a>发现以下错误。显然xml中有非法字符，xml解析产生了错误。<br><a id="more"></a><br><img src="http://image.runjf.com/mweb/2021-10-12-16339770374988.jpg" alt></p>
+<p>将search.xml文件保存，并用python打开，找到具体出错的位置。<br>utf8解码之后可以发现<code>\x10</code>非法字符，将其删除，重新生成文章问题解决。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx = open(<span class="string">'./tmp.xml'</span>, <span class="string">'rb'</span>).read()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx.index(<span class="string">b'\x10\xE7\x84\xB6'</span>)</span><br><span class="line"><span class="number">923278</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx[<span class="number">923278</span>:<span class="number">923278</span>+<span class="number">31</span>]</span><br><span class="line"><span class="string">b'\x10\xe7\x84\xb6\xe5\x88\x99\xef\xbc\x8c\xe4\xbb\x8a\xe4\xb9\x8b\xe4\xb8\x96\xe4\xba\xba\xef\xbc\x8c\xe7\xb1\xbb\xe6\xad\xa4'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx[<span class="number">923278</span>:<span class="number">923278</span>+<span class="number">31</span>].decode()</span><br><span class="line"><span class="string">'\x10然则，今之世人，类此'</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://image.runjf.com/mweb/2021-10-12-16339793845815.jpg" alt></p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>XML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在WSL2中安装openmediavault(OMV)</title>
+    <url>/2021/01/02/install-openmediavault-in-WSL2/</url>
+    <content><![CDATA[<p><strong>本方案存在不可解决的缺点，已被笔者放弃，请移步<a href="/2021/09/21/openmediavault-on-hyperv/">最新解决方案</a></strong></p>
+<p>NAS的文件系统一直是我比较纠结的一个点。NAS的系统基本上是基于Linux(Unix)，文件系统不是ntfs，数据迁移不方便，数据恢复工具也没那么全。</p>
+<p>WSL就完美解决了这个问题，用Linux提供服务，数据最终还是落在ntfs上，而且重要的是everything也能用上。</p>
+<p>openmediavault(OMV)是一个基于Debian的NAS系统，而且能在原生Debian系统上自行安装，正好能够实现我们的功能。<br><a id="more"></a></p>
+<h2 id="WSL2-相关准备工作"><a href="#WSL2-相关准备工作" class="headerlink" title="WSL2 相关准备工作"></a>WSL2 相关准备工作</h2><p>需要安装WSL2并启用桥接网络，同时安装好Debian系统</p>
+<p>参考本人<a href="/2021/01/02/WSL2-bridge-mode/">这篇文章</a></p>
+<h2 id="安装-systemd"><a href="#安装-systemd" class="headerlink" title="安装 systemd"></a>安装 systemd</h2><p>由于openmediavault对systemd有强依赖，而WSL的系统默认是由<code>/init</code>启动的，会导致安装出错<br>所以得先把systemd的问题解决。</p>
+<p>经过一番google，找到了<a href="https://github.com/arkane-systems/genie" target="_blank" rel="noopener">systemd-genie</a>能够解决问题</p>
+<h3 id="安装-dotnet-源"><a href="#安装-dotnet-源" class="headerlink" title="安装 dotnet 源"></a>安装 dotnet 源</h3><p>systemd-genie 依赖 dotnet-runtime-5.0, 所以把dotnet源配好，参考<a href="https://docs.microsoft.com/zh-cn/dotnet/core/install/linux-debian#debian-10-" target="_blank" rel="noopener">文档</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb</span><br><span class="line">sudo dpkg -i packages-microsoft-prod.deb</span><br><span class="line">sudo apt-get update; \</span><br><span class="line">  sudo apt-get install -y apt-transport-https &amp;&amp; \</span><br><span class="line">  sudo apt-get update</span><br></pre></td></tr></table></figure>
+<h3 id="安装-systemd-genie"><a href="#安装-systemd-genie" class="headerlink" title="安装 systemd-genie"></a>安装 systemd-genie</h3><p>官网提供了安装脚本, 执行完会配置好systemd-genie源并安装<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -s https://packagecloud.io/install/repositories/arkane-systems/wsl-translinux/script.deb.sh | sudo bash</span><br></pre></td></tr></table></figure></p>
+<p>但是安装过程中，发现systemd-genie源的访问有些问题，所以只能从gitbub下载安装<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /tmp &amp;&amp; wget https://github.com/arkane-systems/genie/releases/download/1.30/systemd-genie_1.30_amd64.deb</span><br><span class="line">dpkg -i systemd-genie_1.30_amd64.deb</span><br><span class="line">apt --fix-broken install</span><br></pre></td></tr></table></figure></p>
+<h3 id="默认启动-systemd-genie"><a href="#默认启动-systemd-genie" class="headerlink" title="默认启动 systemd-genie"></a>默认启动 systemd-genie</h3><p>修改<code>/root/.bashrc</code>, 添加以下内容<br><figure class="highlight lua"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="string">[[ ! -v INSIDE_GENIE ]]</span>; <span class="keyword">then</span></span><br><span class="line">    echo <span class="string">"Starting genie"</span></span><br><span class="line">    exec /usr/bin/genie -s</span><br><span class="line">fi</span><br></pre></td></tr></table></figure></p>
+<h2 id="网络相关配置"><a href="#网络相关配置" class="headerlink" title="网络相关配置"></a>网络相关配置</h2><p>主机名和网口配置重启WSL后可能会失效，建议修改配置文件来实现</p>
+<h3 id="主机名"><a href="#主机名" class="headerlink" title="主机名"></a>主机名</h3><p>修改<code>/etc/wsl.conf</code>，增加<code>hostname = openmediavault</code><br><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[network]</span></span><br><span class="line"><span class="attr">hostname</span> = openmediavault</span><br><span class="line"><span class="attr">generateResolvConf</span> = <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>修改<code>/etc/genie.ini</code>，设置<code>update-hostname</code>为false<br><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">[genie]</span><br><span class="line">secure-path=<span class="regexp">/lib/</span><span class="string">systemd:</span><span class="regexp">/usr/</span>local<span class="regexp">/sbin:/</span>usr<span class="regexp">/local/</span><span class="string">bin:</span><span class="regexp">/usr/</span><span class="string">sbin:</span><span class="regexp">/usr/</span><span class="string">bin:</span><span class="regexp">/sbin:/</span>bin</span><br><span class="line">unshare=<span class="regexp">/usr/</span>bin/unshare</span><br><span class="line">update-hostname=<span class="literal">false</span></span><br><span class="line">clone-path=<span class="literal">false</span></span><br><span class="line">clone-env=WSL_DISTRO_NAME,WSL_INTEROP,WSLENV</span><br></pre></td></tr></table></figure></p>
+<h3 id="ip地址"><a href="#ip地址" class="headerlink" title="ip地址"></a>ip地址</h3><p>注意，由于WSL的mac地址每次重启都会变，该问题暂时无法解决，参考<a href="https://github.com/microsoft/WSL/issues/5352" target="_blank" rel="noopener">issue</a><br>所以这里采用静态IPv4地址和DHCPv6来配置网络地址</p>
+<p>新建<code>/etc/systemd/network/lan.network</code>，内容如下<br><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[Match]</span></span><br><span class="line"><span class="attr">Name</span>=eth0</span><br><span class="line"></span><br><span class="line"><span class="section">[Network]</span></span><br><span class="line"><span class="attr">Description</span>=lan</span><br><span class="line"><span class="attr">DHCP</span>=ipv6</span><br><span class="line"><span class="attr">Address</span>=<span class="number">192.168</span>.<span class="number">123.31</span>/<span class="number">24</span></span><br><span class="line"><span class="attr">Gateway</span>=<span class="number">192.168</span>.<span class="number">123.1</span></span><br><span class="line"><span class="attr">DNS</span>=<span class="number">192.168</span>.<span class="number">123.1</span></span><br><span class="line"><span class="attr">LLDP</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">EmitLLDP</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>然后执行执行<code>systemctl enable systemd-networkd &amp;&amp; systemctl start systemd-networkd</code></p>
+<h2 id="安装-openmediavault"><a href="#安装-openmediavault" class="headerlink" title="安装 openmediavault"></a>安装 openmediavault</h2><p>参考<a href="https://openmediavault.readthedocs.io/en/5.x/installation/on_debian.html" target="_blank" rel="noopener">官方文档</a></p>
+<p>由于要安装的包比较多，建议先把Debian软件源替换成国内镜像，参考<a href="https://mirrors.tuna.tsinghua.edu.cn/help/debian/" target="_blank" rel="noopener">这个</a></p>
+<ol>
+<li><p>添加软件源keyring</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt-get install --yes gnupg</span><br><span class="line">wget -O <span class="string">"/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc"</span> https://packages.openmediavault.org/public/archive.key</span><br><span class="line">apt-key add <span class="string">"/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加openmediavault软件源</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;&gt; /etc/apt/sources.list.d/openmediavault.list</span><br><span class="line">deb https://packages.openmediavault.org/public usul main</span><br><span class="line"><span class="comment"># deb https://downloads.sourceforge.net/project/openmediavault/packages usul main</span></span><br><span class="line"><span class="comment">## Uncomment the following line to add software from the proposed repository.</span></span><br><span class="line"><span class="comment"># deb https://packages.openmediavault.org/public usul-proposed main</span></span><br><span class="line"><span class="comment"># deb https://downloads.sourceforge.net/project/openmediavault/packages usul-proposed main</span></span><br><span class="line"><span class="comment">## This software is not part of OpenMediaVault, but is offered by third-party</span></span><br><span class="line"><span class="comment">## developers as a service to OpenMediaVault users.</span></span><br><span class="line"><span class="comment"># deb https://packages.openmediavault.org/public usul partner</span></span><br><span class="line"><span class="comment"># deb https://downloads.sourceforge.net/project/openmediavault/packages usul partner</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> LANG=C.UTF-8</span><br><span class="line"><span class="built_in">export</span> DEBIAN_FRONTEND=noninteractive</span><br><span class="line"><span class="built_in">export</span> APT_LISTCHANGES_FRONTEND=none</span><br><span class="line">wget -O <span class="string">"/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc"</span> https://packages.openmediavault.org/public/archive.key</span><br><span class="line">apt-key add <span class="string">"/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc"</span></span><br><span class="line">apt-get update</span><br><span class="line">apt-get --yes --auto-remove --show-upgraded \</span><br><span class="line">    --allow-downgrades --allow-change-held-packages \</span><br><span class="line">    --no-install-recommends \</span><br><span class="line">    --option Dpkg::Options::=<span class="string">"--force-confdef"</span> \</span><br><span class="line">    --option DPkg::Options::=<span class="string">"--force-confold"</span> \</span><br><span class="line">    install openmediavault-keyring openmediavault</span><br><span class="line"></span><br><span class="line">omv-confdbadm populate</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="安装-omv-extras（可选）"><a href="#安装-omv-extras（可选）" class="headerlink" title="安装 omv-extras（可选）"></a>安装 omv-extras（可选）</h2><p>参考<a href="https://forum.openmediavault.org/index.php?thread/5549-omv-extras-org-plugin/" target="_blank" rel="noopener">官方文档</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash</span><br></pre></td></tr></table></figure></p>
+<h2 id="配置-openmediavault"><a href="#配置-openmediavault" class="headerlink" title="配置 openmediavault"></a>配置 openmediavault</h2><h3 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h3><p>OMV里的主机名和网络配置就配置成和上面配置文件里的一样，防止OMV的服务工作异常</p>
+<ol>
+<li><p>修改主机名，防止WSL默认主机名过长（必须小于15位），导致samba配置失败<br> <img src="http://image.runjf.com/mweb/2021-01-02-2021-01-02_180911.png" alt="2021-01-02_180911"></p>
+</li>
+<li><p>打开<code>系统 -&gt; 网络 -&gt; 添加 -&gt; 以太网</code>，配置网口ip，这里配置为DHCP自动获取<br> <img src="http://image.runjf.com/mweb/2021-01-02-2021-01-02_181342.png" alt="2021-01-02_181342"></p>
+</li>
+<li><p>打开<code>系统 -&gt; 常规设置 -&gt; Web管理员密码</code>，修改管理员密码，默认密码为<code>admin:openmediavault</code></p>
+</li>
+</ol>
+<h3 id="共享文件夹配置"><a href="#共享文件夹配置" class="headerlink" title="共享文件夹配置"></a>共享文件夹配置</h3><p>由于WSL2读写本机硬盘是使用的微软的驱动，OMV并不支持，默认只能识别到根目录的虚拟硬盘。</p>
+<p>又因为WSL2的本地硬盘都挂载在<code>/mnt/</code>路径下，所以只要能将<code>/mnt/</code>目录共享就ok了</p>
+<p>这里参考<a href="https://github.com/openmediavault/openmediavault/blob/master/deb/openmediavault-sharerootfs/debian/openmediavault-sharerootfs.postinst" target="_blank" rel="noopener">openmediavault-sharerootfs</a>的实现</p>
+<p>修改<code>/etc/openmediavault/config.xml</code>配置文件， 在<code>fstab</code>标签下增加<code>mntent</code>挂载点配置，修改完如下<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--省略其他部分--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">fstab</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mntent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uuid</span>&gt;</span>79684322-3eac-11ea-a974-63a080abab18<span class="tag">&lt;/<span class="name">uuid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fsname</span>&gt;</span>/dev/sdb<span class="tag">&lt;/<span class="name">fsname</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dir</span>&gt;</span>/<span class="tag">&lt;/<span class="name">dir</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>ext4<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">opts</span>&gt;</span>errors=remount-ro<span class="tag">&lt;/<span class="name">opts</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">freq</span>&gt;</span>0<span class="tag">&lt;/<span class="name">freq</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">passno</span>&gt;</span>1<span class="tag">&lt;/<span class="name">passno</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hidden</span>&gt;</span>1<span class="tag">&lt;/<span class="name">hidden</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">mntent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">fstab</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>打开<code>访问权限管理 -&gt; 共享文件夹 -&gt; 添加</code>，添加D盘（/mnt/d）作为共享文件夹，然后在samba服务中就能引用这个共享文件夹了<br><img src="http://image.runjf.com/mweb/2021-01-02-2021-01-02_183349.png" alt="2021-01-02_183349"></p>
+<p><img src="http://image.runjf.com/mweb/2021-01-02-2021-01-02_183046.png" alt="2021-01-02_183046"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://github.com/arkane-systems/genie" target="_blank" rel="noopener">https://github.com/arkane-systems/genie</a></li>
+<li><a href="https://docs.microsoft.com/zh-cn/dotnet/core/install/linux-debian#debian-10-" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/dotnet/core/install/linux-debian#debian-10-</a></li>
+<li><a href="https://openmediavault.readthedocs.io/en/5.x/installation/on_debian.html" target="_blank" rel="noopener">https://openmediavault.readthedocs.io/en/5.x/installation/on_debian.html</a></li>
+<li><a href="https://forum.openmediavault.org/index.php?thread/5549-omv-extras-org-plugin/" target="_blank" rel="noopener">https://forum.openmediavault.org/index.php?thread/5549-omv-extras-org-plugin/</a></li>
+<li><a href="https://github.com/openmediavault/openmediavault/blob/master/deb/openmediavault-sharerootfs/debian/openmediavault-sharerootfs.postinst" target="_blank" rel="noopener">https://github.com/openmediavault/openmediavault/blob/master/deb/openmediavault-sharerootfs/debian/openmediavault-sharerootfs.postinst</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>工作生活</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>WSL</tag>
+        <tag>NAS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IPython学习环境配置</title>
+    <url>/2020/07/18/ipython-learning-environment-config/</url>
+    <content><![CDATA[<h2 id="IPython简介"><a href="#IPython简介" class="headerlink" title="IPython简介"></a>IPython简介</h2><p>IPython项目起初是Fernando Pérez在2001年的一个用以加强和Python交互的子项目。在随后的16年中，它成为了Python数据栈最重要的工具之一。</p>
+<p>简单来说，我们可以把IPython当成一个学习Python语言、数据分析、机器学习的平台。</p>
+<a id="more"></a>
+<h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><p>这里我们使用<a href="https://docs.conda.io/en/latest/miniconda.html" target="_blank" rel="noopener">miniconda</a>，防止机器学习和图形显示相关的库出问题. 使用pyenv的同学，也可以用pyenv来安装miniconda。</p>
+<p>下载：<code>wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh</code></p>
+<p>安装: <code>sh Miniconda3-latest-MacOSX-x86_64.sh</code></p>
+<h3 id="创建ipython虚拟环境"><a href="#创建ipython虚拟环境" class="headerlink" title="创建ipython虚拟环境"></a>创建ipython虚拟环境</h3><ol>
+<li>创建虚拟环境：<code>conda create -n ipython</code></li>
+<li>激活环境：<code>conda activate ipython</code></li>
+<li>安装必要的python库：<code>pip install ipython pandas ipykernel matplotlib</code></li>
+</ol>
+<h2 id="用Visual-Studio-Code作为编辑器"><a href="#用Visual-Studio-Code作为编辑器" class="headerlink" title="用Visual Studio Code作为编辑器"></a>用Visual Studio Code作为编辑器</h2><p><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VSCode</a>在安装Python插件之后，就可以很方便得查看编辑IPython Notebook了</p>
+<h3 id="安装Python插件"><a href="#安装Python插件" class="headerlink" title="安装Python插件"></a>安装Python插件</h3><p>在扩展商店，搜索“Python”， 并安装<br><img src="http://image.runjf.com/mweb/2020-07-19-15951449200011.jpg" alt="-w549"></p>
+<h3 id="创建使用NoteBook"><a href="#创建使用NoteBook" class="headerlink" title="创建使用NoteBook"></a>创建使用NoteBook</h3><p>选择IPython环境<br><img src="http://image.runjf.com/mweb/2020-07-19-15951453546560.jpg" alt="-w1421"></p>
+<p>创建<code>hello.ipynb</code>Notebook<br><img src="http://image.runjf.com/mweb/2020-07-19-15951457001314.jpg" alt="-w1421"></p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>数据分析</tag>
       </tags>
   </entry>
   <entry>
@@ -2509,6 +2509,23 @@
       </tags>
   </entry>
   <entry>
+    <title>xubuntu自动登录root账户</title>
+    <url>/2016/04/16/lightdm%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%95root%E8%B4%A6%E6%88%B7/</url>
+    <content><![CDATA[<h2 id="设置root密码"><a href="#设置root密码" class="headerlink" title="设置root密码"></a>设置root密码</h2><p>运行 <code>sudo passwd</code><br>根据提示输入root帐户密码。</p>
+<h2 id="修改lightdm配置文件"><a href="#修改lightdm配置文件" class="headerlink" title="修改lightdm配置文件"></a>修改lightdm配置文件</h2><p>运行 <code>ls /usr/share/lightdm/lightdm.conf.d/ -al</code><br>-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf<br>-rw-r–r– 1 root root   68 12月  3 03:57 50-guest-wrapper.conf<br>-rw-r–r– 1 root root   51 12月  3 03:57 50-xserver-command.conf<br>-rw-r–r– 1 root root  118  4月 16 17:08 <b>60-lightdm-gtk-greeter.conf</b></p>
+<p>就是greeter这个文件，不同的发行版可能名字不同。<br>运行 <code>sudo gedit /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf</code><br>改完以后是这样<br><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[SeatDefaults]</span></span><br><span class="line"><span class="attr">autologin-user</span>=root</span><br><span class="line"><span class="attr">greeter-session</span>=lightdm-gtk-greeter</span><br><span class="line"><span class="attr">greeter-show-manual-login</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">all-guest</span>=<span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="修改-root-profile"><a href="#修改-root-profile" class="headerlink" title="修改 /root/.profile"></a>修改 <code>/root/.profile</code></h2><p>在刚修改完root权限自动登录后，发现可能开机出现以下提示：</p>
+<figure class="highlight subunit"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Error </span>found when loading /root/.profile</span><br><span class="line">stdin:is not a tty</span><br><span class="line">…………</span><br></pre></td></tr></table></figure>
+<p>运行 <code>gedit /root/.profile</code><br>打开文件后找到<code>mesg n</code>，将其更改为<code>tty -s &amp;&amp; mesg n</code>。</p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Lightgbm多线程卡死问题定位</title>
     <url>/2020/01/25/lightgbm-hang-in-multi-thread/</url>
     <content><![CDATA[<h2 id="症状"><a href="#症状" class="headerlink" title="症状"></a>症状</h2><p>最近在开发的lightgbm树模型，发现服务在处理了一定量请求后会卡死，请求无响应。</p>
@@ -2553,23 +2570,6 @@
       <tags>
         <tag>Python</tag>
         <tag>Lightgbm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>xubuntu自动登录root账户</title>
-    <url>/2016/04/16/lightdm%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%95root%E8%B4%A6%E6%88%B7/</url>
-    <content><![CDATA[<h2 id="设置root密码"><a href="#设置root密码" class="headerlink" title="设置root密码"></a>设置root密码</h2><p>运行 <code>sudo passwd</code><br>根据提示输入root帐户密码。</p>
-<h2 id="修改lightdm配置文件"><a href="#修改lightdm配置文件" class="headerlink" title="修改lightdm配置文件"></a>修改lightdm配置文件</h2><p>运行 <code>ls /usr/share/lightdm/lightdm.conf.d/ -al</code><br>-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf<br>-rw-r–r– 1 root root   68 12月  3 03:57 50-guest-wrapper.conf<br>-rw-r–r– 1 root root   51 12月  3 03:57 50-xserver-command.conf<br>-rw-r–r– 1 root root  118  4月 16 17:08 <b>60-lightdm-gtk-greeter.conf</b></p>
-<p>就是greeter这个文件，不同的发行版可能名字不同。<br>运行 <code>sudo gedit /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf</code><br>改完以后是这样<br><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[SeatDefaults]</span></span><br><span class="line"><span class="attr">autologin-user</span>=root</span><br><span class="line"><span class="attr">greeter-session</span>=lightdm-gtk-greeter</span><br><span class="line"><span class="attr">greeter-show-manual-login</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">all-guest</span>=<span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="修改-root-profile"><a href="#修改-root-profile" class="headerlink" title="修改 /root/.profile"></a>修改 <code>/root/.profile</code></h2><p>在刚修改完root权限自动登录后，发现可能开机出现以下提示：</p>
-<figure class="highlight subunit"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Error </span>found when loading /root/.profile</span><br><span class="line">stdin:is not a tty</span><br><span class="line">…………</span><br></pre></td></tr></table></figure>
-<p>运行 <code>gedit /root/.profile</code><br>打开文件后找到<code>mesg n</code>，将其更改为<code>tty -s &amp;&amp; mesg n</code>。</p>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -2870,6 +2870,37 @@
       </tags>
   </entry>
   <entry>
+    <title>OpenWrt执行自定义CGI脚本</title>
+    <url>/2020/11/26/openwrt-run-custom-cgi-script/</url>
+    <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>我家里的路由器是矿渣newifi3, 刷了OpenWrt系统，可玩性还是非常强的。<br>而且路由器作为24小时在线的设备，很适合作为网络设备的控制中心，比如使用<a href="https://zh.wikipedia.org/wiki/%E7%B6%B2%E8%B7%AF%E5%96%9A%E9%86%92" target="_blank" rel="noopener">WOL</a>唤醒其他设备。<br>之前就写过一个Python服务，用来控制其他设备的唤醒和睡眠。但是由于newifi3的rom空间十分有限，usb又十分不稳定，Python环境在路由器上还是太重了。<br>所以就想到了利用路由器默认的uhttpd网页服务器，自己编写CGI脚本来实现相应功能。<br><a id="more"></a></p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>以下操作均需要ssh登陆到路由器后台</p>
+<h3 id="uhttpd添加lua执行功能"><a href="#uhttpd添加lua执行功能" class="headerlink" title="uhttpd添加lua执行功能"></a>uhttpd添加lua执行功能</h3><p>编辑<code>/etc/config/uhttpd</code>文件<br>在<code>config uhttpd main</code>部分添加<code>list interpreter &quot;.lua=/usr/bin/lua&quot;</code>， 使uhttpd能够执行lua文件</p>
+<p>重启uhttp服务：<code>/etc/init.d/uhttpd restart</code></p>
+<p>修改后的配置大致如下<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Server configuration</span></span><br><span class="line">config uhttpd main</span><br><span class="line"></span><br><span class="line">	# HTTP listen addresses, multiple allowed</span><br><span class="line">	list listen_http	0.0.0.0:80</span><br><span class="line">	list listen_http	[::]:80</span><br><span class="line"></span><br><span class="line">	# HTTPS listen addresses, multiple allowed</span><br><span class="line">	list listen_https	0.0.0.0:443</span><br><span class="line">	list listen_https	[::]:443</span><br><span class="line"></span><br><span class="line">	# Redirect HTTP requests <span class="keyword">to</span> HTTPS <span class="keyword">if</span> possible</span><br><span class="line">	option redirect_https	1</span><br><span class="line"></span><br><span class="line">	#<span class="built_in"> Server </span>document root</span><br><span class="line">	option home		/www</span><br><span class="line">	</span><br><span class="line">	# 此处省略其他配置</span><br><span class="line">	</span><br><span class="line">	# List of extension-&gt;interpreter mappings.</span><br><span class="line">	# Files with an associated interpreter can</span><br><span class="line">	# be called outside of the CGI<span class="built_in"> prefix </span><span class="keyword">and</span> <span class="keyword">do</span></span><br><span class="line">	# <span class="keyword">not</span> need <span class="keyword">to</span> be executable.</span><br><span class="line"><span class="comment">#	list interpreter	".php=/usr/bin/php-cgi"</span></span><br><span class="line"><span class="comment">#	list interpreter	".cgi=/usr/bin/perl"</span></span><br><span class="line">	list interpreter <span class="string">".lua=/usr/bin/lua"</span>  # 我们添加的内容</span><br><span class="line"></span><br><span class="line"><span class="comment"># 此处省略其他配置</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="添加CGI脚本"><a href="#添加CGI脚本" class="headerlink" title="添加CGI脚本"></a>添加CGI脚本</h3><p>从上面的配置可以看到，web的默认路径在<code>/www</code><br>我们就在这里新建一个文件夹<code>ctl</code>，来存放我们的CGI脚本, 用于实现NAS的睡眠和唤醒。</p>
+<p>目录信息如下<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">/www/</span><br><span class="line">├── cgi-bin</span><br><span class="line">│   └── luci</span><br><span class="line">├── ctl</span><br><span class="line">│   ├── sleep.lua</span><br><span class="line">│   └── wakeup.lua</span><br><span class="line">├── index.html</span><br></pre></td></tr></table></figure></p>
+<p>下面开始编写CGI脚本，需要复习以下CGI协议，可以参考<a href="http://ponder.work/2019/09/28/python-web-development/#CGI">本人的文章</a><br>再花几分钟熟悉一下<a href="https://www.runoob.com/lua/lua-tutorial.html" target="_blank" rel="noopener">lua语法</a></p>
+<h4 id="NAS睡眠脚本"><a href="#NAS睡眠脚本" class="headerlink" title="NAS睡眠脚本"></a>NAS睡眠脚本</h4><p>睡眠的实现是在NAS上写了个简单的Web服务，基于<code>systemctl suspend</code>来实现睡眠<br>然后访问Web服务，触发NAS的睡眠。这里为了和下面的唤醒统一处理，所以通过路由器的CGI转发了一道，直接访问也是可以的。<br><figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/lua</span><br><span class="line"><span class="comment">-- /www/ctl/sleep.lua</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"Content-Type: text/plain\r\n\r\n"</span>)</span><br><span class="line"><span class="keyword">local</span> <span class="built_in">status</span> = <span class="built_in">os</span>.<span class="built_in">execute</span>(<span class="string">"wget -q -O - --timeout 1 -t 1  http://192.168.123.100:8888/ctl/sleep &gt; /dev/null"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">status</span> == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"sleep succ\n"</span>)</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"sleep fail, already sleep?\n"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>使用：<code>curl http://192.168.123.1/ctl/sleep.lua</code></p>
+<h4 id="NAS唤醒脚本"><a href="#NAS唤醒脚本" class="headerlink" title="NAS唤醒脚本"></a>NAS唤醒脚本</h4><p>唤醒是基于WOL，原理是在网络上广播特定格式的网络包，目标机器的网卡接受到以后唤醒机器。</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/lua</span><br><span class="line"></span><br><span class="line"><span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"Content-Type: text/plain\r\n\r\n"</span>)</span><br><span class="line"><span class="comment">-- /usr/bin/etherwake -i &lt;网口&gt; &lt;MAC&gt;</span></span><br><span class="line"><span class="comment">-- 网口需要是和目标机器同网段的接口，在OpenWrt中通常是br-lan</span></span><br><span class="line"><span class="keyword">local</span> <span class="built_in">status</span> = <span class="built_in">os</span>.<span class="built_in">execute</span>(<span class="string">"/usr/bin/etherwake -i br-lan 00:12:34:56:78:90"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">status</span> == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"wakeup succ\n"</span>)</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"wakeup fail\n"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>使用：<code>curl http://192.168.123.1/ctl/wakeup.lua</code></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://zh.wikipedia.org/wiki/%E7%B6%B2%E8%B7%AF%E5%96%9A%E9%86%92" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E7%B6%B2%E8%B7%AF%E5%96%9A%E9%86%92</a></li>
+<li><a href="https://www.zhihu.com/question/31579325/answer/283425839" target="_blank" rel="noopener">https://www.zhihu.com/question/31579325/answer/283425839</a></li>
+<li><a href="https://www.runoob.com/lua/lua-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/lua/lua-tutorial.html</a></li>
+<li><a href="https://openwrt.org/docs/guide-user/services/webserver/uhttpd" target="_blank" rel="noopener">https://openwrt.org/docs/guide-user/services/webserver/uhttpd</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>CGI</tag>
+        <tag>OpenWrt</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>优雅地使用 Pizza Boy GBA 金手指</title>
     <url>/2021/02/11/pizza-boy-gba-cheat/</url>
     <content><![CDATA[<p>最近偶然又玩起了GBA游戏，瞬间又像是回到了儿时的时光。也碰到了许久以来的老问题，如何作弊，毕竟游戏里刷资源和练级实在是体力劳动，年龄大了毕竟肝不动了。</p>
@@ -2907,37 +2938,6 @@
       </categories>
       <tags>
         <tag>游戏</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>OpenWrt执行自定义CGI脚本</title>
-    <url>/2020/11/26/openwrt-run-custom-cgi-script/</url>
-    <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>我家里的路由器是矿渣newifi3, 刷了OpenWrt系统，可玩性还是非常强的。<br>而且路由器作为24小时在线的设备，很适合作为网络设备的控制中心，比如使用<a href="https://zh.wikipedia.org/wiki/%E7%B6%B2%E8%B7%AF%E5%96%9A%E9%86%92" target="_blank" rel="noopener">WOL</a>唤醒其他设备。<br>之前就写过一个Python服务，用来控制其他设备的唤醒和睡眠。但是由于newifi3的rom空间十分有限，usb又十分不稳定，Python环境在路由器上还是太重了。<br>所以就想到了利用路由器默认的uhttpd网页服务器，自己编写CGI脚本来实现相应功能。<br><a id="more"></a></p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>以下操作均需要ssh登陆到路由器后台</p>
-<h3 id="uhttpd添加lua执行功能"><a href="#uhttpd添加lua执行功能" class="headerlink" title="uhttpd添加lua执行功能"></a>uhttpd添加lua执行功能</h3><p>编辑<code>/etc/config/uhttpd</code>文件<br>在<code>config uhttpd main</code>部分添加<code>list interpreter &quot;.lua=/usr/bin/lua&quot;</code>， 使uhttpd能够执行lua文件</p>
-<p>重启uhttp服务：<code>/etc/init.d/uhttpd restart</code></p>
-<p>修改后的配置大致如下<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Server configuration</span></span><br><span class="line">config uhttpd main</span><br><span class="line"></span><br><span class="line">	# HTTP listen addresses, multiple allowed</span><br><span class="line">	list listen_http	0.0.0.0:80</span><br><span class="line">	list listen_http	[::]:80</span><br><span class="line"></span><br><span class="line">	# HTTPS listen addresses, multiple allowed</span><br><span class="line">	list listen_https	0.0.0.0:443</span><br><span class="line">	list listen_https	[::]:443</span><br><span class="line"></span><br><span class="line">	# Redirect HTTP requests <span class="keyword">to</span> HTTPS <span class="keyword">if</span> possible</span><br><span class="line">	option redirect_https	1</span><br><span class="line"></span><br><span class="line">	#<span class="built_in"> Server </span>document root</span><br><span class="line">	option home		/www</span><br><span class="line">	</span><br><span class="line">	# 此处省略其他配置</span><br><span class="line">	</span><br><span class="line">	# List of extension-&gt;interpreter mappings.</span><br><span class="line">	# Files with an associated interpreter can</span><br><span class="line">	# be called outside of the CGI<span class="built_in"> prefix </span><span class="keyword">and</span> <span class="keyword">do</span></span><br><span class="line">	# <span class="keyword">not</span> need <span class="keyword">to</span> be executable.</span><br><span class="line"><span class="comment">#	list interpreter	".php=/usr/bin/php-cgi"</span></span><br><span class="line"><span class="comment">#	list interpreter	".cgi=/usr/bin/perl"</span></span><br><span class="line">	list interpreter <span class="string">".lua=/usr/bin/lua"</span>  # 我们添加的内容</span><br><span class="line"></span><br><span class="line"><span class="comment"># 此处省略其他配置</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="添加CGI脚本"><a href="#添加CGI脚本" class="headerlink" title="添加CGI脚本"></a>添加CGI脚本</h3><p>从上面的配置可以看到，web的默认路径在<code>/www</code><br>我们就在这里新建一个文件夹<code>ctl</code>，来存放我们的CGI脚本, 用于实现NAS的睡眠和唤醒。</p>
-<p>目录信息如下<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">/www/</span><br><span class="line">├── cgi-bin</span><br><span class="line">│   └── luci</span><br><span class="line">├── ctl</span><br><span class="line">│   ├── sleep.lua</span><br><span class="line">│   └── wakeup.lua</span><br><span class="line">├── index.html</span><br></pre></td></tr></table></figure></p>
-<p>下面开始编写CGI脚本，需要复习以下CGI协议，可以参考<a href="http://ponder.work/2019/09/28/python-web-development/#CGI">本人的文章</a><br>再花几分钟熟悉一下<a href="https://www.runoob.com/lua/lua-tutorial.html" target="_blank" rel="noopener">lua语法</a></p>
-<h4 id="NAS睡眠脚本"><a href="#NAS睡眠脚本" class="headerlink" title="NAS睡眠脚本"></a>NAS睡眠脚本</h4><p>睡眠的实现是在NAS上写了个简单的Web服务，基于<code>systemctl suspend</code>来实现睡眠<br>然后访问Web服务，触发NAS的睡眠。这里为了和下面的唤醒统一处理，所以通过路由器的CGI转发了一道，直接访问也是可以的。<br><figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/lua</span><br><span class="line"><span class="comment">-- /www/ctl/sleep.lua</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"Content-Type: text/plain\r\n\r\n"</span>)</span><br><span class="line"><span class="keyword">local</span> <span class="built_in">status</span> = <span class="built_in">os</span>.<span class="built_in">execute</span>(<span class="string">"wget -q -O - --timeout 1 -t 1  http://192.168.123.100:8888/ctl/sleep &gt; /dev/null"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">status</span> == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"sleep succ\n"</span>)</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"sleep fail, already sleep?\n"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<p>使用：<code>curl http://192.168.123.1/ctl/sleep.lua</code></p>
-<h4 id="NAS唤醒脚本"><a href="#NAS唤醒脚本" class="headerlink" title="NAS唤醒脚本"></a>NAS唤醒脚本</h4><p>唤醒是基于WOL，原理是在网络上广播特定格式的网络包，目标机器的网卡接受到以后唤醒机器。</p>
-<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/lua</span><br><span class="line"></span><br><span class="line"><span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"Content-Type: text/plain\r\n\r\n"</span>)</span><br><span class="line"><span class="comment">-- /usr/bin/etherwake -i &lt;网口&gt; &lt;MAC&gt;</span></span><br><span class="line"><span class="comment">-- 网口需要是和目标机器同网段的接口，在OpenWrt中通常是br-lan</span></span><br><span class="line"><span class="keyword">local</span> <span class="built_in">status</span> = <span class="built_in">os</span>.<span class="built_in">execute</span>(<span class="string">"/usr/bin/etherwake -i br-lan 00:12:34:56:78:90"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">status</span> == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"wakeup succ\n"</span>)</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">io</span>.<span class="built_in">stdout</span>:<span class="built_in">write</span>(<span class="string">"wakeup fail\n"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>使用：<code>curl http://192.168.123.1/ctl/wakeup.lua</code></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://zh.wikipedia.org/wiki/%E7%B6%B2%E8%B7%AF%E5%96%9A%E9%86%92" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E7%B6%B2%E8%B7%AF%E5%96%9A%E9%86%92</a></li>
-<li><a href="https://www.zhihu.com/question/31579325/answer/283425839" target="_blank" rel="noopener">https://www.zhihu.com/question/31579325/answer/283425839</a></li>
-<li><a href="https://www.runoob.com/lua/lua-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/lua/lua-tutorial.html</a></li>
-<li><a href="https://openwrt.org/docs/guide-user/services/webserver/uhttpd" target="_blank" rel="noopener">https://openwrt.org/docs/guide-user/services/webserver/uhttpd</a></li>
-</ol>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>CGI</tag>
-        <tag>OpenWrt</tag>
       </tags>
   </entry>
   <entry>
@@ -3041,6 +3041,32 @@ img[alt="-w350"] {
       </tags>
   </entry>
   <entry>
+    <title>Python asyncio 简易教程</title>
+    <url>/2020/05/24/python-asyncio-usage/</url>
+    <content><![CDATA[<p><code>asyncio</code>是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。</p>
+<p><code>asyncio</code>的编程模型就是一个消息循环。我们从<code>asyncio</code>模块中直接获取一个<code>EventLoop</code>的引用，然后把需要执行的协程扔到<code>EventLoop</code>中执行，就实现了异步IO。</p>
+<a id="more"></a>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'hello'</span>)</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>)</span><br><span class="line">    print(<span class="string">' world'</span>)</span><br><span class="line">    </span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">loop.run_until_complete(hello_world())</span><br><span class="line">loop.close()</span><br></pre></td></tr></table></figure>
+<h2 id="执行逻辑"><a href="#执行逻辑" class="headerlink" title="执行逻辑"></a>执行逻辑</h2><p><code>async def</code> 定义的每一个函数, 本质上是一个协程.<br>当await调用一个函数时, 程序就切换到该函数中执行了, 当执行完成时, 程序又回到await调用处继续执行. </p>
+<p>当函数的调用链上碰到系统io相关函数时，程序执行的控制权就会回到eventloop主循环，eventloop就会调度执行别的函数，等到该函数的io就绪时，再从该函数暂停的地方继续执行。</p>
+<p>再搭配上支持非阻塞io的异步库, 这样就实现了高效的异步编程.</p>
+<p>所有异步函数是在同一个线程中执行的, 在该进程内我们还可启用其他线程, 执行其他同步代码. 下图展示了Python中协程、线程、进程的逻辑关系。</p>
+<p><img src="http://image.runjf.com/mweb/2020-05-24-15903277834535.jpg" alt></p>
+<h2 id="如何在event-loop内调用同步代码"><a href="#如何在event-loop内调用同步代码" class="headerlink" title="如何在event loop内调用同步代码"></a>如何在event loop内调用同步代码</h2><p>一旦使用async, 整个线程内都必须使用异步, 否则整个线程都会阻塞。<br>所以，必须另起线程, 将同步操作放在线程中执行。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> concurrent.futures</span><br><span class="line"></span><br><span class="line">executor = concurrent.futures.ThreadPoolExecutor(</span><br><span class="line">    max_workers=<span class="number">2</span>,  <span class="comment"># 线程池大小</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">some_block_things</span><span class="params">(x)</span>:</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">(x)</span>:</span></span><br><span class="line">    print(<span class="string">'hello world'</span>, time.time())</span><br><span class="line">    loop = asyncio.get_event_loop()</span><br><span class="line">    fut = loop.run_in_executor(executor, some_block_things, x)</span><br><span class="line">    num =  <span class="keyword">await</span> asyncio.wait_for(fut, timeout=<span class="number">10</span>)</span><br><span class="line">    print(<span class="string">'num %s'</span> % num)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    start = time.time()</span><br><span class="line">    <span class="keyword">await</span> asyncio.wait([hello_world(i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">8</span>)])</span><br><span class="line">    end = time.time()</span><br><span class="line">    print(<span class="string">"Complete in &#123;&#125; seconds"</span>.format(end - start))</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">loop.run_until_complete(main())</span><br><span class="line">loop.close()</span><br></pre></td></tr></table></figure>
+<p>输出<br><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">hello world <span class="number">1533904346.37133</span></span><br><span class="line">hello world <span class="number">1533904346.371683</span></span><br><span class="line">hello world <span class="number">1533904346.37199</span></span><br><span class="line">hello world <span class="number">1533904346.372059</span></span><br><span class="line">hello world <span class="number">1533904346.372122</span></span><br><span class="line">hello world <span class="number">1533904346.372176</span></span><br><span class="line">hello world <span class="number">1533904346.372245</span></span><br><span class="line">hello world <span class="number">1533904346.372295</span></span><br><span class="line">num <span class="number">0</span></span><br><span class="line">num <span class="number">3</span></span><br><span class="line">num <span class="number">4</span></span><br><span class="line">num <span class="number">1</span></span><br><span class="line">num <span class="number">5</span></span><br><span class="line">num <span class="number">6</span></span><br><span class="line">num <span class="number">7</span></span><br><span class="line">num <span class="number">2</span></span><br><span class="line">Complete in <span class="number">4.015289068222046</span> seconds</span><br><span class="line">[Finished in <span class="number">4.2</span>s]</span><br></pre></td></tr></table></figure></p>
+<p>因为这里我的线程池大小为2, 所以8个sleep整体耗时4s, 但是’hello world’ 几乎是同一时刻输出的, 这就是asyncio的魅力所在.</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>asyncio使用<code>async</code>和<code>await</code>的语法，使得原来回调函数形式的异步代码变为同步代码，更易于理解。<br>使用asyncio可以方便地构建高性能的网络服务, 单进程qps可以轻松地达到2000以上。<br>基于asyncio也出现了一些异步web框架，比如sanic，相比传统框架性能提升较大。</p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>异步</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用SWIG实现Python调用c++</title>
     <url>/2020/08/05/python-connect-cpp-programs-with-SWIG/</url>
     <content><![CDATA[<p> <strong><a href="http://www.swig.org" target="_blank" rel="noopener">SWIG</a></strong> (Simplified Wrapper and Interface Generator) 是一个开源工具，用于让C/C++的程序和库可以被其他语言调用。</p>
@@ -3118,32 +3144,6 @@ img[alt="-w350"] {
       </categories>
       <tags>
         <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python asyncio 简易教程</title>
-    <url>/2020/05/24/python-asyncio-usage/</url>
-    <content><![CDATA[<p><code>asyncio</code>是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。</p>
-<p><code>asyncio</code>的编程模型就是一个消息循环。我们从<code>asyncio</code>模块中直接获取一个<code>EventLoop</code>的引用，然后把需要执行的协程扔到<code>EventLoop</code>中执行，就实现了异步IO。</p>
-<a id="more"></a>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'hello'</span>)</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>)</span><br><span class="line">    print(<span class="string">' world'</span>)</span><br><span class="line">    </span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">loop.run_until_complete(hello_world())</span><br><span class="line">loop.close()</span><br></pre></td></tr></table></figure>
-<h2 id="执行逻辑"><a href="#执行逻辑" class="headerlink" title="执行逻辑"></a>执行逻辑</h2><p><code>async def</code> 定义的每一个函数, 本质上是一个协程.<br>当await调用一个函数时, 程序就切换到该函数中执行了, 当执行完成时, 程序又回到await调用处继续执行. </p>
-<p>当函数的调用链上碰到系统io相关函数时，程序执行的控制权就会回到eventloop主循环，eventloop就会调度执行别的函数，等到该函数的io就绪时，再从该函数暂停的地方继续执行。</p>
-<p>再搭配上支持非阻塞io的异步库, 这样就实现了高效的异步编程.</p>
-<p>所有异步函数是在同一个线程中执行的, 在该进程内我们还可启用其他线程, 执行其他同步代码. 下图展示了Python中协程、线程、进程的逻辑关系。</p>
-<p><img src="http://image.runjf.com/mweb/2020-05-24-15903277834535.jpg" alt></p>
-<h2 id="如何在event-loop内调用同步代码"><a href="#如何在event-loop内调用同步代码" class="headerlink" title="如何在event loop内调用同步代码"></a>如何在event loop内调用同步代码</h2><p>一旦使用async, 整个线程内都必须使用异步, 否则整个线程都会阻塞。<br>所以，必须另起线程, 将同步操作放在线程中执行。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> concurrent.futures</span><br><span class="line"></span><br><span class="line">executor = concurrent.futures.ThreadPoolExecutor(</span><br><span class="line">    max_workers=<span class="number">2</span>,  <span class="comment"># 线程池大小</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">some_block_things</span><span class="params">(x)</span>:</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">(x)</span>:</span></span><br><span class="line">    print(<span class="string">'hello world'</span>, time.time())</span><br><span class="line">    loop = asyncio.get_event_loop()</span><br><span class="line">    fut = loop.run_in_executor(executor, some_block_things, x)</span><br><span class="line">    num =  <span class="keyword">await</span> asyncio.wait_for(fut, timeout=<span class="number">10</span>)</span><br><span class="line">    print(<span class="string">'num %s'</span> % num)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    start = time.time()</span><br><span class="line">    <span class="keyword">await</span> asyncio.wait([hello_world(i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">8</span>)])</span><br><span class="line">    end = time.time()</span><br><span class="line">    print(<span class="string">"Complete in &#123;&#125; seconds"</span>.format(end - start))</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">loop.run_until_complete(main())</span><br><span class="line">loop.close()</span><br></pre></td></tr></table></figure>
-<p>输出<br><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">hello world <span class="number">1533904346.37133</span></span><br><span class="line">hello world <span class="number">1533904346.371683</span></span><br><span class="line">hello world <span class="number">1533904346.37199</span></span><br><span class="line">hello world <span class="number">1533904346.372059</span></span><br><span class="line">hello world <span class="number">1533904346.372122</span></span><br><span class="line">hello world <span class="number">1533904346.372176</span></span><br><span class="line">hello world <span class="number">1533904346.372245</span></span><br><span class="line">hello world <span class="number">1533904346.372295</span></span><br><span class="line">num <span class="number">0</span></span><br><span class="line">num <span class="number">3</span></span><br><span class="line">num <span class="number">4</span></span><br><span class="line">num <span class="number">1</span></span><br><span class="line">num <span class="number">5</span></span><br><span class="line">num <span class="number">6</span></span><br><span class="line">num <span class="number">7</span></span><br><span class="line">num <span class="number">2</span></span><br><span class="line">Complete in <span class="number">4.015289068222046</span> seconds</span><br><span class="line">[Finished in <span class="number">4.2</span>s]</span><br></pre></td></tr></table></figure></p>
-<p>因为这里我的线程池大小为2, 所以8个sleep整体耗时4s, 但是’hello world’ 几乎是同一时刻输出的, 这就是asyncio的魅力所在.</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>asyncio使用<code>async</code>和<code>await</code>的语法，使得原来回调函数形式的异步代码变为同步代码，更易于理解。<br>使用asyncio可以方便地构建高性能的网络服务, 单进程qps可以轻松地达到2000以上。<br>基于asyncio也出现了一些异步web框架，比如sanic，相比传统框架性能提升较大。</p>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>异步</tag>
       </tags>
   </entry>
   <entry>
@@ -3894,27 +3894,6 @@ img[alt="-w350"] {
       </tags>
   </entry>
   <entry>
-    <title>Python中yield语句的运行机制</title>
-    <url>/2016/04/16/python%E4%B8%ADyield%E8%AF%AD%E5%8F%A5%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/</url>
-    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>如果一个在函数中存在yield关键字，那么这个函数就构成了生成器。生成器是一个函数，它生成一个序列，以便在迭代中使用。<br>调用这个函数，并不会马上开始执行函数体中的代码，而是返回一个生成器对象，通过调用生成器对象的<code>next()</code>方法（python3中是<code>__netx__()</code>）执行函数。</p>
-<p>那么，具体的函数中语句的执行顺序是怎么样的呢？</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'the beginning of function'</span></span><br><span class="line">    <span class="keyword">if</span> x &lt;= <span class="number">0</span> <span class="keyword">or</span> <span class="keyword">not</span> isinstance(x, int):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(x):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'before yield'</span>, i</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'after yield'</span>, i</span><br><span class="line"></span><br><span class="line">gen = func(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br></pre></td></tr></table></figure>
-<p>输出<br><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">********************</span><br><span class="line"><span class="keyword">the</span> beginning <span class="keyword">of</span> <span class="function"><span class="keyword">function</span></span></span><br><span class="line"><span class="keyword">before</span> yield <span class="number">0</span></span><br><span class="line">-&gt; yielding: <span class="number">0</span></span><br><span class="line">********************</span><br><span class="line"><span class="keyword">after</span> yield <span class="number">0</span></span><br><span class="line"><span class="keyword">before</span> yield <span class="number">1</span></span><br><span class="line">-&gt; yielding: <span class="number">1</span></span><br><span class="line">********************</span><br><span class="line"><span class="keyword">after</span> yield <span class="number">1</span></span><br><span class="line">Traceback (most recent call <span class="keyword">last</span>):</span><br><span class="line">  File <span class="string">"D:\Projects\test.py"</span>, <span class="built_in">line</span> <span class="number">28</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    print <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><ol>
-<li>首先运行<code>func(2)</code>，这时函数的所有语句都没有执行，返回一个生成器赋值给<code>gen</code>。</li>
-<li>第一次执行<code>gen.next()</code>，函数从头开始执行，运行完yield语句暂停住了。</li>
-<li>再次运行<code>gen.next()</code>，从停下的地方继续，直到遇到遇到下一个yield，运行完yield语句又暂停住了。</li>
-<li>第三次尝试运行<code>gen.next()</code>，运行完<code>print &#39;after yield&#39;, i</code>，由于循环次数已满，找不到下一个yield，就出现<code>StopIteration</code>错误</li>
-</ol>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Python Web开发总结</title>
     <url>/2019/09/28/python-web-development/</url>
     <content><![CDATA[<h2 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><h3 id="HTTP简介"><a href="#HTTP简介" class="headerlink" title="HTTP简介"></a>HTTP简介</h3><p>HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写。<br>用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议。</p>
@@ -4047,6 +4026,27 @@ img[alt="-w350"] {
         <tag>Python</tag>
         <tag>Django</tag>
         <tag>Web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python中yield语句的运行机制</title>
+    <url>/2016/04/16/python%E4%B8%ADyield%E8%AF%AD%E5%8F%A5%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>如果一个在函数中存在yield关键字，那么这个函数就构成了生成器。生成器是一个函数，它生成一个序列，以便在迭代中使用。<br>调用这个函数，并不会马上开始执行函数体中的代码，而是返回一个生成器对象，通过调用生成器对象的<code>next()</code>方法（python3中是<code>__netx__()</code>）执行函数。</p>
+<p>那么，具体的函数中语句的执行顺序是怎么样的呢？</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x=<span class="number">10</span>)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'the beginning of function'</span></span><br><span class="line">    <span class="keyword">if</span> x &lt;= <span class="number">0</span> <span class="keyword">or</span> <span class="keyword">not</span> isinstance(x, int):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(x):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'before yield'</span>, i</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'after yield'</span>, i</span><br><span class="line"></span><br><span class="line">gen = func(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line"><span class="keyword">print</span> <span class="string">'*'</span>*<span class="number">20</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br></pre></td></tr></table></figure>
+<p>输出<br><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">********************</span><br><span class="line"><span class="keyword">the</span> beginning <span class="keyword">of</span> <span class="function"><span class="keyword">function</span></span></span><br><span class="line"><span class="keyword">before</span> yield <span class="number">0</span></span><br><span class="line">-&gt; yielding: <span class="number">0</span></span><br><span class="line">********************</span><br><span class="line"><span class="keyword">after</span> yield <span class="number">0</span></span><br><span class="line"><span class="keyword">before</span> yield <span class="number">1</span></span><br><span class="line">-&gt; yielding: <span class="number">1</span></span><br><span class="line">********************</span><br><span class="line"><span class="keyword">after</span> yield <span class="number">1</span></span><br><span class="line">Traceback (most recent call <span class="keyword">last</span>):</span><br><span class="line">  File <span class="string">"D:\Projects\test.py"</span>, <span class="built_in">line</span> <span class="number">28</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    print <span class="string">'-&gt; yielding: %s'</span> % gen.next()</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><ol>
+<li>首先运行<code>func(2)</code>，这时函数的所有语句都没有执行，返回一个生成器赋值给<code>gen</code>。</li>
+<li>第一次执行<code>gen.next()</code>，函数从头开始执行，运行完yield语句暂停住了。</li>
+<li>再次运行<code>gen.next()</code>，从停下的地方继续，直到遇到遇到下一个yield，运行完yield语句又暂停住了。</li>
+<li>第三次尝试运行<code>gen.next()</code>，运行完<code>print &#39;after yield&#39;, i</code>，由于循环次数已满，找不到下一个yield，就出现<code>StopIteration</code>错误</li>
+</ol>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -6615,6 +6615,26 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
+    <title>《经济学原理：微观经济学分册》思维导图</title>
+    <url>/2015/10/03/%E3%80%8A%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%8E%9F%E7%90%86%EF%BC%9A%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%88%86%E5%86%8C%E3%80%8B%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</url>
+    <content><![CDATA[<ul>
+<li>由于微观经济学经济学中的概念较多，且繁杂，故作思维导图作为记忆和理解的辅助。</li>
+<li>书籍版本：<a href="http://book.douban.com/subject/3719533/" target="_blank" rel="noopener">《经济学原理(第4版):微观经济学分册》</a></li>
+<li>作者：<a href="http://baike.baidu.com/link?url=RCDcniLIx-hAl-nesCNmnGVNvCh8qZ4CKwB8anLMBMu58798gFgmAeRKUwsXVJ9lWJgdxYNuwdUpV-U1ly2tg_" target="_blank" rel="noopener">[美] N.格里高利·曼昆</a></li>
+<li>制作工具：<a href="http://www.xmind.net/" target="_blank" rel="noopener">xmind</a></li>
+</ul>
+<!--![微观经济学-1](media/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6-1.jpg)-->
+<p><img src="http://image.runjf.com/mweb/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6-1.jpg" alt></p>
+]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+        <tag>思维导图</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>《程序员的数学》读书笔记</title>
     <url>/2016/08/14/%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本书讲的的是一些程序员必须了解的数学知识，有些知识点挺有意义的，特别是对于非科班出身的程序员来说。<br>就我的观点来说，一般的程序员需要的数学水平大概是高中就够了，当然要做算法研究大学数学专业水平也不一定够。<br>下文记录本书一些有用知识点，包括一些算法的数学思路，还有有趣的逻辑问题。</p>
@@ -6642,26 +6662,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </categories>
       <tags>
         <tag>读书笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《经济学原理：微观经济学分册》思维导图</title>
-    <url>/2015/10/03/%E3%80%8A%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%8E%9F%E7%90%86%EF%BC%9A%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%88%86%E5%86%8C%E3%80%8B%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</url>
-    <content><![CDATA[<ul>
-<li>由于微观经济学经济学中的概念较多，且繁杂，故作思维导图作为记忆和理解的辅助。</li>
-<li>书籍版本：<a href="http://book.douban.com/subject/3719533/" target="_blank" rel="noopener">《经济学原理(第4版):微观经济学分册》</a></li>
-<li>作者：<a href="http://baike.baidu.com/link?url=RCDcniLIx-hAl-nesCNmnGVNvCh8qZ4CKwB8anLMBMu58798gFgmAeRKUwsXVJ9lWJgdxYNuwdUpV-U1ly2tg_" target="_blank" rel="noopener">[美] N.格里高利·曼昆</a></li>
-<li>制作工具：<a href="http://www.xmind.net/" target="_blank" rel="noopener">xmind</a></li>
-</ul>
-<!--![微观经济学-1](media/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6-1.jpg)-->
-<p><img src="http://image.runjf.com/mweb/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6-1.jpg" alt></p>
-]]></content>
-      <categories>
-        <category>阅读</category>
-      </categories>
-      <tags>
-        <tag>读书笔记</tag>
-        <tag>思维导图</tag>
       </tags>
   </entry>
   <entry>
@@ -7253,6 +7253,20 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
+    <title>关于生活</title>
+    <url>/2016/05/22/%E5%85%B3%E4%BA%8E%E7%94%9F%E6%B4%BB/</url>
+    <content><![CDATA[<p>　　有些人以为生活只有诗与远方，后来他离开了生活。<br>　　<br>　　有些人以为生活只是眼前的苟且，后来他失去了自我。</p>
+<p>　　人生在世，无论理想如何远大，终须为稻粱谋。陶渊明不为五斗米折腰，前提没这点俸禄也不至于饿死。若是形式迫人，虽嗟来之食亦受之。一旦不为生计发愁，迎接你的必是诗与远方。故我先欲求之财务自由，后践吾心之所向。</p>
+<p>　　不够强大的理想主义者，一大部分矮化成了现实主义者，另一部分成了随波逐流的躯壳，余下的抛弃了这个娑婆世界。<br>　　<br>　　而我，先欲求安身立命之所，后追寻最初的梦想，希望能走得更远。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于Python类的继承</title>
     <url>/2016/02/28/%E5%85%B3%E4%BA%8Epython%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/</url>
     <content><![CDATA[<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>童话里经常会看到英雄打败恶人的故事，而且故事里总会有一个类似黑暗森林的场景——要么是一个山洞，要么是一篇森林，要么是另一个星球，反正是英雄不该去的某个地方。<br>当然，一旦反面角色在剧情中出现，你就会发现英雄非得去那片破森林去杀掉坏人。当英雄的总是不得不冒着生命危险进到邪恶森林中去。</p>
@@ -7285,20 +7299,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </categories>
       <tags>
         <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于生活</title>
-    <url>/2016/05/22/%E5%85%B3%E4%BA%8E%E7%94%9F%E6%B4%BB/</url>
-    <content><![CDATA[<p>　　有些人以为生活只有诗与远方，后来他离开了生活。<br>　　<br>　　有些人以为生活只是眼前的苟且，后来他失去了自我。</p>
-<p>　　人生在世，无论理想如何远大，终须为稻粱谋。陶渊明不为五斗米折腰，前提没这点俸禄也不至于饿死。若是形式迫人，虽嗟来之食亦受之。一旦不为生计发愁，迎接你的必是诗与远方。故我先欲求之财务自由，后践吾心之所向。</p>
-<p>　　不够强大的理想主义者，一大部分矮化成了现实主义者，另一部分成了随波逐流的躯壳，余下的抛弃了这个娑婆世界。<br>　　<br>　　而我，先欲求安身立命之所，后追寻最初的梦想，希望能走得更远。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
@@ -7642,22 +7642,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       <tags>
         <tag>读书笔记</tag>
         <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>无常迅速</title>
-    <url>/2017/10/17/%E6%97%A0%E5%B8%B8%E8%BF%85%E9%80%9F/</url>
-    <content><![CDATA[<p>昨夜刚收到外祖父离世的消息, 顿时心里空落落的, 不知何处安放.</p>
-<p>随着年岁渐长, 看着亲人离自己远去, 真是很难接受, 恨自己的无力, 不能为他们做些什么.</p>
-<p>或许这就是佛家说的求不得吧, 不喜欢的事物它还是会来, 喜欢的事物也还是会走, 来或是不来都难以求得, 父亲那是也是这样.</p>
-<p>死生事大, 无常迅速.</p>
-<p>无法, 唯有精进.</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
@@ -8344,6 +8328,22 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
+    <title>无常迅速</title>
+    <url>/2017/10/17/%E6%97%A0%E5%B8%B8%E8%BF%85%E9%80%9F/</url>
+    <content><![CDATA[<p>昨夜刚收到外祖父离世的消息, 顿时心里空落落的, 不知何处安放.</p>
+<p>随着年岁渐长, 看着亲人离自己远去, 真是很难接受, 恨自己的无力, 不能为他们做些什么.</p>
+<p>或许这就是佛家说的求不得吧, 不喜欢的事物它还是会来, 喜欢的事物也还是会走, 来或是不来都难以求得, 父亲那是也是这样.</p>
+<p>死生事大, 无常迅速.</p>
+<p>无法, 唯有精进.</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>杂感（1）</title>
     <url>/2017/08/30/%E6%9D%82%E6%84%9F-1/</url>
     <content><![CDATA[<p>昨夜偶得春梦一</p>
@@ -8450,22 +8450,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
-    <title>简明双标指南</title>
-    <url>/2020/06/13/%E7%AE%80%E6%98%8E%E5%8F%8C%E6%A0%87%E6%8C%87%E5%8D%97/</url>
-    <content><![CDATA[<p>最近一段时期有很多事情发生，也颠覆了我们的认知（如I cannot breathe），同时也发现了很多双标事件。</p>
-<p>下面就简单地总结下，如何双标。</p>
-<p>双标的核心是，定性的看问题，不要就事论事具体分析。</p>
-<p>双标的要点之一，选取部分真相进行概括定性。<br>这里的选取非常关键，我们应该选择性地看见我们想看见的东西。假如B捡了地上的一块钱并据为己有，贪小便宜不是君子所为，这人肯定是品行不端。假如A也这么干了，对不起我没有看见。假如A捡了垃圾放垃圾桶了，这时我们就可以说，从一件微不足道的事情上就可以看出A真是道德高尚。</p>
-<p>双标的要点之二，定性之后的上纲上线。<br>由于第一步我们已经定性了A和B，以后再发生事情就很好处理了。假如都做了好事，A就是好人性质的体现，B因为他是坏人肯定是另有目的的，是伪装的。假如都做了坏事，反过来处理就好了。比如，你认定A是好人，B是坏人，假设他们都随地吐痰了。这时就可以说A肯定是不小心的，大善人怎么可能做这种事；可以说B真是狗改不了吃屎，连基本的公德心都没有。假设都做了好事，扶老奶奶过马路，A就是一以贯之的道德楷模，值得学习；B肯定是装的，为了方便自己做坏事。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>番茄工作法工具推荐</title>
     <url>/2016/02/11/%E7%95%AA%E8%8C%84%E5%B7%A5%E4%BD%9C%E6%B3%95%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/</url>
     <content><![CDATA[<h2 id="番茄工作法简介"><a href="#番茄工作法简介" class="headerlink" title="番茄工作法简介"></a>番茄工作法简介</h2><p>番茄工作法（英语：Pomodoro Technique）是一种时间管理法方法，在上世纪八十年代由Francesco Cirillo创立。 该方法使用一个定时器来分割出一个一般为25分钟的工作时间和5分钟的休息时间，而那些时间段被称为pomodori，为意大利语单词 pomodoro（中文：番茄）之复数。</p>
@@ -8496,6 +8480,22 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       <tags>
         <tag>GTD</tag>
         <tag>番茄工作法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>简明双标指南</title>
+    <url>/2020/06/13/%E7%AE%80%E6%98%8E%E5%8F%8C%E6%A0%87%E6%8C%87%E5%8D%97/</url>
+    <content><![CDATA[<p>最近一段时期有很多事情发生，也颠覆了我们的认知（如I cannot breathe），同时也发现了很多双标事件。</p>
+<p>下面就简单地总结下，如何双标。</p>
+<p>双标的核心是，定性的看问题，不要就事论事具体分析。</p>
+<p>双标的要点之一，选取部分真相进行概括定性。<br>这里的选取非常关键，我们应该选择性地看见我们想看见的东西。假如B捡了地上的一块钱并据为己有，贪小便宜不是君子所为，这人肯定是品行不端。假如A也这么干了，对不起我没有看见。假如A捡了垃圾放垃圾桶了，这时我们就可以说，从一件微不足道的事情上就可以看出A真是道德高尚。</p>
+<p>双标的要点之二，定性之后的上纲上线。<br>由于第一步我们已经定性了A和B，以后再发生事情就很好处理了。假如都做了好事，A就是好人性质的体现，B因为他是坏人肯定是另有目的的，是伪装的。假如都做了坏事，反过来处理就好了。比如，你认定A是好人，B是坏人，假设他们都随地吐痰了。这时就可以说A肯定是不小心的，大善人怎么可能做这种事；可以说B真是狗改不了吃屎，连基本的公德心都没有。假设都做了好事，扶老奶奶过马路，A就是一以贯之的道德楷模，值得学习；B肯定是装的，为了方便自己做坏事。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
@@ -8560,6 +8560,22 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
 <p>　　独处之时意淫幻想，骤然临之慌乱畏惧不前。平生如遇佳人则豫惧无措，欲与之亲近而不得。而后偶一回想，怅然颓首而无所解。如此于人于己有何益处，空留念想，只招惆怅而已。</p>
 <p>　　呜呼，面皮之为物当得了几两干饭，胆气之所缺非得几斤豹胆所能解。</p>
 <p>　　为文以纪，聊为自勉，愿余能一扫前非。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>世界观</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>补记杂感一则</title>
+    <url>/2016/06/16/%E8%A1%A5%E8%AE%B0%E6%9D%82%E6%84%9F%E4%B8%80%E5%88%99/</url>
+    <content><![CDATA[<p>　　人事皆非己见，人心不堪洞见。</p>
+<p>　　既不若向之所求，何须用心添烦恼。</p>
+<p>　　不谏已悟，来者可追。</p>
+<p>　　当效拂袖，心役即脱。</p>
 ]]></content>
       <categories>
         <category>随笔</category>
@@ -8803,22 +8819,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       <tags>
         <tag>读书笔记</tag>
         <tag>重构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>补记杂感一则</title>
-    <url>/2016/06/16/%E8%A1%A5%E8%AE%B0%E6%9D%82%E6%84%9F%E4%B8%80%E5%88%99/</url>
-    <content><![CDATA[<p>　　人事皆非己见，人心不堪洞见。</p>
-<p>　　既不若向之所求，何须用心添烦恼。</p>
-<p>　　不谏已悟，来者可追。</p>
-<p>　　当效拂袖，心役即脱。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-        <tag>世界观</tag>
       </tags>
   </entry>
   <entry>

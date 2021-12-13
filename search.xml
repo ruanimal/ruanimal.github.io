@@ -589,39 +589,16 @@
 <li><p>2015.09.12          V2.3<br>  修正不能正确提取部分迅雷链接</p>
 </li>
 </ul>
-<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>这个小工具是本人Python的一个习作，水平有限，如有bug可以在这里留言，或者给我发邮件<a href="mailto:&#97;&#x64;&#x6d;&#x69;&#110;&#64;&#x70;&#111;&#110;&#100;&#x65;&#114;&#x2e;&#x77;&#111;&#114;&#107;" target="_blank" rel="noopener">&#97;&#x64;&#x6d;&#x69;&#110;&#64;&#x70;&#111;&#110;&#100;&#x65;&#114;&#x2e;&#x77;&#111;&#114;&#107;</a>。</p>
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>这个小工具是本人Python的一个习作，水平有限，如有bug可以在这里留言，或者给我发邮件<a href="mailto:&#97;&#100;&#x6d;&#105;&#110;&#64;&#112;&#x6f;&#x6e;&#x64;&#x65;&#114;&#x2e;&#x77;&#111;&#114;&#107;" target="_blank" rel="noopener">&#97;&#100;&#x6d;&#105;&#110;&#64;&#112;&#x6f;&#x6e;&#x64;&#x65;&#114;&#x2e;&#x77;&#111;&#114;&#107;</a>。</p>
 ]]></content>
       <categories>
         <category>编程</category>
       </categories>
-  </entry>
-  <entry>
-    <title>Bitmap 原理及实现</title>
-    <url>/2021/05/31/bitmap-python-edition/</url>
-    <content><![CDATA[<p>所谓的 Bitmap 其实就是二进制位数组，由于元素是二进制位，每一个元素只占用1个bit，十分节省内存空间。</p>
-<p>每一个bit有0、1两种状态，所以 Bitmap 适合应用于判断是否存在、桶排序（不含重复元素），具体来说可以用bitmap记录ip信息，实现布隆过滤器等等。<br><a id="more"></a></p>
-<h2 id="Bitmap-原理"><a href="#Bitmap-原理" class="headerlink" title="Bitmap 原理"></a>Bitmap 原理</h2><p>Bitmap 可以看成是个二维数组，第一维取出的元素是byte，然后用第二维的index去访问该byte对应的位。</p>
-<p>由于正常访问内存最小的单位的字节，操作具体的位需要位运算。</p>
-<p><img src="http://image.runjf.com/mweb/2021-05-31-16224684372402.jpg" alt></p>
-<h3 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h3><p><strong>注意</strong>：这里的位移操作都是逻辑位移</p>
-<p>一个byte有8bit， 设置某个位为1，需要用到<code>按位或 |</code><br><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">第<span class="number">0</span>个bit： byte |= <span class="number">0b10000000</span></span><br><span class="line">第<span class="number">1</span>个bit： byte |= <span class="number">0b01000000</span></span><br><span class="line">...</span><br><span class="line">第<span class="number">7</span>个bit： byte |= <span class="number">0b00000001</span></span><br><span class="line"></span><br><span class="line">所以：设置byte的第n个bit(n取<span class="number">0</span>到<span class="number">7</span>)： byte |= (<span class="number">0b10000000</span> &gt;&gt; n)</span><br></pre></td></tr></table></figure></p>
-<p>判断某个位是否为1，需要用到<code>按位与 &amp;</code><br>过程和上面类似, 满足<code>byte &amp; (0b10000000 &gt;&gt; n) == (0b10000000 &gt;&gt; n)</code>，则该位为1</p>
-<p>将某个位置为0，需要用到<code>按位与 &amp;</code><br><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">第<span class="number">0</span>个bit： byte &amp;= <span class="number">0b01111111</span></span><br><span class="line">第<span class="number">1</span>个bit： byte &amp;= <span class="number">0b10111111</span></span><br><span class="line">...</span><br><span class="line">第<span class="number">7</span>个bit： byte &amp;= <span class="number">0b01111110</span></span><br><span class="line"></span><br><span class="line">所以：第n个bit(n取<span class="number">0</span>到<span class="number">7</span>)： byte &amp;= ((<span class="number">0b10000000</span> &gt;&gt; n) ^ <span class="number">0b11111111</span>)</span><br><span class="line">Python中由于没有无符号数，所以算掩码（<span class="number">0b01111111</span>）时不能用按位取反。</span><br></pre></td></tr></table></figure></p>
-<h3 id="Python实现"><a href="#Python实现" class="headerlink" title="Python实现"></a>Python实现</h3><p>将使用到的掩码设置为常量，性能会更好，这里的实现主要是为了体现思路，便于理解</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">BYTE_WIDTH = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BitMap</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, size, fill=<span class="number">0</span>)</span>:</span></span><br><span class="line">        self._array = bytearray((fill <span class="keyword">for</span> _ <span class="keyword">in</span> range(size//BYTE_WIDTH+<span class="number">1</span>)))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        major, minor = divmod(index, BYTE_WIDTH)</span><br><span class="line">        self._array[major] |= (<span class="number">0b10000000</span> &gt;&gt; minor)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        major, minor = divmod(index, BYTE_WIDTH)</span><br><span class="line">        mask = <span class="number">0b10000000</span> &gt;&gt; minor</span><br><span class="line">        <span class="keyword">return</span> int(self._array[major] &amp; mask == mask)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">clear</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        major, minor = divmod(index, BYTE_WIDTH)</span><br><span class="line">        self._array[major] &amp;= ((<span class="number">0b10000000</span> &gt;&gt; minor) ^ <span class="number">0b11111111</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_bin</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">' '</span>.join((<span class="string">'&#123;:0&gt;8&#125;'</span>.format(bin(i)[<span class="number">2</span>:]) <span class="keyword">for</span> i <span class="keyword">in</span> self._array))</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>数据结构</tag>
-      </tags>
   </entry>
   <entry>
     <title>bash 语法备忘</title>
     <url>/2021/11/28/bash-cheat-sheet/</url>
-    <content><![CDATA[<p>bash 语法作为程序员好像都了解一些，但又缺少体系化学习，需要使用到某些功能时又经常手忙脚乱地查。<br>本文目的是作为bash的语法备忘录、语法速查表。<br><a id="more"></a></p>
+    <content><![CDATA[<p>bash 语法作为程序员好像都了解一些，但又缺少体系化学习，需要使用到某些功能时又经常手忙脚乱地查。<br>本文主要参考<a href="https://wangdoc.com/bash/" target="_blank" rel="noopener">阮一峰的bash教程</a>，对bash的知识点进行了梳理。<br>本文目的是作为bash的语法备忘录、语法速查表。<br><a id="more"></a></p>
 <h2 id="模式扩展"><a href="#模式扩展" class="headerlink" title="模式扩展"></a>模式扩展</h2><p>模式扩展（globbing），类似C语言中的宏展开，我们通常使用的通配符<code>*</code>就是其中之一。<br>Bash 一共提供八种扩展。</p>
 <ul>
 <li><code>~</code> 波浪线扩展</li>
@@ -637,11 +614,11 @@
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">bash-5.1$ <span class="keyword">echo</span> ~<span class="string">/projects/</span></span><br><span class="line"><span class="string">/Users/ruan/projects/</span></span><br><span class="line"></span><br><span class="line">bash-5.1$ <span class="keyword">echo</span> ~root/<span class="string">.ssh</span></span><br><span class="line"><span class="string">/var/root/.ssh</span></span><br><span class="line"></span><br><span class="line">bash-5.1$ <span class="keyword">echo</span> ~aaa/<span class="string">.ssh</span></span><br><span class="line">~aaa/<span class="string">.ssh</span></span><br></pre></td></tr></table></figure>
 <h3 id="问号扩展"><a href="#问号扩展" class="headerlink" title="问号扩展"></a>问号扩展</h3><p><code>?</code>字符代表文件路径里面的任意单个字符，不包括空字符。<br><strong>只有文件确实存在的前提下，才会发生扩展。</strong></p>
 <figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">bash-5.1$ </span>touch &#123;a,<span class="keyword">b&#125;.txt </span>ab.txt</span><br><span class="line"></span><br><span class="line"><span class="keyword">bash-5.1$ </span>ls ?.txt</span><br><span class="line"><span class="symbol">a.txt</span>  <span class="keyword">b.txt</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword">bash-5.1$ </span>ls ??.txt</span><br><span class="line"><span class="symbol">ab.txt</span></span><br></pre></td></tr></table></figure>
-<h3 id="星号扩展"><a href="#星号扩展" class="headerlink" title="星号扩展"></a>星号扩展</h3><p>*字符代表文件路径里面的任意数量的任意字符，包括零个字符。</p>
+<h3 id="星号扩展"><a href="#星号扩展" class="headerlink" title="星号扩展"></a>星号扩展</h3><p><code>*</code>字符代表文件路径里面的任意数量的任意字符，包括零个字符。</p>
 <figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">bash<span class="number">-5.1</span>$ ls *.txt</span><br><span class="line">a.txt  ab.txt  b.txt</span><br><span class="line"></span><br><span class="line">bash<span class="number">-5.1</span>$ ls <span class="meta-keyword">/usr/</span>local/Cellar<span class="comment">/*/*/</span>bin/z*</span><br><span class="line"><span class="meta-keyword">/usr/</span>local/Cellar<span class="meta-keyword">/ffmpeg/</span><span class="number">4.4</span>_2<span class="meta-keyword">/bin/</span>zmqsend</span><br><span class="line"><span class="meta-keyword">/usr/</span>local/Cellar<span class="meta-keyword">/mysql-client/</span><span class="number">8.0</span><span class="number">.26</span><span class="meta-keyword">/bin/</span>zlib_decompress</span><br><span class="line"><span class="meta-keyword">/usr/</span>local/Cellar<span class="meta-keyword">/netpbm/</span><span class="number">10.86</span><span class="number">.24</span><span class="meta-keyword">/bin/</span>zeisstopnm</span><br><span class="line"><span class="meta-keyword">/usr/</span>local/Cellar<span class="meta-keyword">/perl/</span><span class="number">5.34</span><span class="number">.0</span><span class="meta-keyword">/bin/</span>zipdetails</span><br><span class="line"><span class="meta-keyword">/usr/</span>local/Cellar<span class="meta-keyword">/zstd/</span><span class="number">1.5</span><span class="number">.0</span><span class="meta-keyword">/bin/</span>zstd</span><br></pre></td></tr></table></figure>
 <h3 id="方括号扩展"><a href="#方括号扩展" class="headerlink" title="方括号扩展"></a>方括号扩展</h3><p>方括号扩展的形式是<code>[...]</code>，只有文件确实存在的前提下才会扩展。</p>
 <p><code>[^...]</code>和<code>[!...]</code>。它们表示匹配不在方括号里面的字符</p>
-<p>方括号扩展有一个简写形式[start-end]，表示匹配一个连续的范围</p>
+<p>方括号扩展有一个简写形式<code>[start-end]</code>，表示匹配一个连续的范围</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">bash-<span class="number">5.1</span>$ ls [ab].txt</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-class">.txt</span>  <span class="selector-tag">b</span>.txt</span><br><span class="line"></span><br><span class="line">bash-<span class="number">5.1</span>$ ls [^b]<span class="selector-tag">b</span>.txt</span><br><span class="line">ab.txt</span><br><span class="line"></span><br><span class="line">bash-<span class="number">5.1</span>$ ls [a-b].txt</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-class">.txt</span>  <span class="selector-tag">b</span>.txt</span><br></pre></td></tr></table></figure>
 <h3 id="大括号扩展"><a href="#大括号扩展" class="headerlink" title="大括号扩展"></a>大括号扩展</h3><p>大括号扩展<code>{...}</code>表示分别扩展成大括号里面的所有值<br>大括号也可以与其他模式联用，并且总是先于其他模式进行扩展。</p>
 <figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">bash<span class="number">-5.1</span>$ echo &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line">bash<span class="number">-5.1</span>$ echo a&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;b</span><br><span class="line">a1b a2b a3b</span><br><span class="line"></span><br><span class="line">bash<span class="number">-5.1</span>$ echo --exclude=&#123;a,b,c&#125;</span><br><span class="line">--exclude=a --exclude=b --exclude=c</span><br><span class="line"></span><br><span class="line">bash<span class="number">-5.1</span>$ echo foo&#123;<span class="number">1</span>,<span class="number">2</span>&#123;<span class="number">1</span>,<span class="number">2</span>&#125;<span class="number">0</span>,<span class="number">3</span>&#125;bar</span><br><span class="line">foo1bar foo210bar foo220bar foo3bar</span><br><span class="line"></span><br><span class="line">bash<span class="number">-5.1</span>$ echo &#123;<span class="number">1.</span><span class="number">.3</span>&#125;</span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line">bash<span class="number">-5.1</span>$ echo &#123;<span class="number">1.</span><span class="number">.10</span>.<span class="number">.2</span>&#125;</span><br><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">5</span> <span class="number">7</span> <span class="number">9</span></span><br></pre></td></tr></table></figure>
@@ -717,9 +694,34 @@
 <li><code>-r</code>：声明只读变量。</li>
 <li><code>-x</code>：该变量输出为环境变量。</li>
 </ul>
-<p>未完待续</p>
-<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><h3 id="关联数组"><a href="#关联数组" class="headerlink" title="关联数组"></a>关联数组</h3><h2 id="控制流"><a href="#控制流" class="headerlink" title="控制流"></a>控制流</h2><h3 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h3><h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h2 id="脚本相关"><a href="#脚本相关" class="headerlink" title="脚本相关"></a>脚本相关</h2><h2 id="几个关键概念"><a href="#几个关键概念" class="headerlink" title="几个关键概念"></a>几个关键概念</h2><h3 id="返回码"><a href="#返回码" class="headerlink" title="返回码"></a>返回码</h3><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><h3 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://wangdoc.com/bash/condition.html" target="_blank" rel="noopener">https://wangdoc.com/bash/condition.html</a></li>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 声明为整数，可以直接计算，不需要使用$符号</span></span><br><span class="line">bash-<span class="number">5.1</span><span class="variable">$ </span>declare -i val1=<span class="number">12</span> val2=<span class="number">5</span></span><br><span class="line">bash-<span class="number">5.1</span><span class="variable">$ </span>echo <span class="variable">$val1</span></span><br><span class="line"><span class="number">12</span></span><br><span class="line">bash-<span class="number">5.1</span><span class="variable">$ </span>val1+=val2</span><br><span class="line">bash-<span class="number">5.1</span><span class="variable">$ </span>echo <span class="variable">$val1</span></span><br><span class="line"><span class="number">17</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 一个变量声明为整数以后，依然可以被改写为字符串。Bash 不会报错，但会赋以不确定的值</span></span><br><span class="line">bash-<span class="number">5.1</span><span class="variable">$ </span>val1=aaa</span><br><span class="line">bash-<span class="number">5.1</span><span class="variable">$ </span>echo <span class="variable">$val1</span></span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>bash 有字符串，数字，数字，关联数组四种数据类型，默认是字符串，其他类型需要手动声明。</p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>语法 <code>varname=value</code></p>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">bash-5.1$ </span><span class="built_in">s1</span><span class="symbol">=abcdefg</span></span><br><span class="line"><span class="keyword">bash-5.1$ </span>echo $<span class="built_in">s1</span></span><br><span class="line"><span class="symbol">abcdefg</span></span><br></pre></td></tr></table></figure>
+<h4 id="获取长度（length）"><a href="#获取长度（length）" class="headerlink" title="获取长度（length）"></a>获取长度（length）</h4><p>语法 <code>${#varname}</code></p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">bash-<span class="number">5.1</span><span class="variable">$ </span>echo <span class="variable">$&#123;</span><span class="comment">#s1&#125;</span></span><br><span class="line"><span class="number">7</span></span><br></pre></td></tr></table></figure>
+<h4 id="子字符串（substr）"><a href="#子字符串（substr）" class="headerlink" title="子字符串（substr）"></a>子字符串（substr）</h4><p>语法 <code>${varname:offset:length}</code>, offset为负数的时候，前面要加空格，防止与默认值语法冲突。</p>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">bash-5.1$ </span>echo $&#123;<span class="built_in">s1</span>:<span class="number">1</span>:<span class="number">3</span>&#125;</span><br><span class="line"><span class="keyword">bcd</span></span><br><span class="line"><span class="keyword">bash-5.1$ </span>echo $&#123;<span class="built_in">s1</span>: -<span class="number">6</span>:<span class="number">2</span>&#125;</span><br><span class="line"><span class="keyword">bc</span></span><br><span class="line"><span class="keyword">bash-5.1$ </span>echo $&#123;<span class="built_in">s1</span>: -<span class="number">6</span>:<span class="number">3</span>&#125;</span><br><span class="line"><span class="keyword">bcd</span></span><br></pre></td></tr></table></figure>
+<h4 id="替换-（replace）"><a href="#替换-（replace）" class="headerlink" title="替换 （replace）"></a>替换 （replace）</h4><h5 id="字符串头部的模式匹配"><a href="#字符串头部的模式匹配" class="headerlink" title="字符串头部的模式匹配"></a>字符串头部的模式匹配</h5><ul>
+<li><code>${variable#pattern}</code>: 删除最短匹配（非贪婪匹配）的部分，返回剩余部分</li>
+<li><code>${variable##pattern}</code>: 删除最长匹配（贪婪匹配）的部分，返回剩余部分</li>
+</ul>
+<p>匹配模式pattern可以使用<code>*</code>、<code>?</code>、<code>[]</code>等通配符。</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>myPath=<span class="regexp">/home/cam</span><span class="regexp">/book/long</span>.file.name</span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>echo <span class="variable">$&#123;</span>myPath<span class="comment">#/*/&#125;</span></span><br><span class="line">cam/book/long.file.name</span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>echo <span class="variable">$&#123;</span>myPath<span class="comment">##/*/&#125;</span></span><br><span class="line">long.file.name</span><br></pre></td></tr></table></figure>
+<h5 id="字符串尾部的模式匹配"><a href="#字符串尾部的模式匹配" class="headerlink" title="字符串尾部的模式匹配"></a>字符串尾部的模式匹配</h5><ul>
+<li><code>${variable%pattern}</code>: 删除最短匹配（非贪婪匹配）的部分，返回剩余部分</li>
+<li><code>${variable%%pattern}</code>: 删除最长匹配（贪婪匹配）的部分，返回剩余部分</li>
+</ul>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">$ path=<span class="regexp">/home/</span>cam<span class="regexp">/book/</span><span class="keyword">long</span>.<span class="keyword">file</span>.name</span><br><span class="line"></span><br><span class="line">$ echo $&#123;path%.*&#125;</span><br><span class="line"><span class="regexp">/home/</span>cam<span class="regexp">/book/</span><span class="keyword">long</span>.<span class="keyword">file</span></span><br><span class="line"></span><br><span class="line">$ echo $&#123;path%%.*&#125;</span><br><span class="line"><span class="regexp">/home/</span>cam<span class="regexp">/book/</span><span class="keyword">long</span></span><br></pre></td></tr></table></figure>
+<h5 id="任意位置的模式匹配"><a href="#任意位置的模式匹配" class="headerlink" title="任意位置的模式匹配"></a>任意位置的模式匹配</h5><p>如果匹配<code>pattern</code>则用<code>replace</code>替换匹配的内容</p>
+<ul>
+<li><code>${variable/pattern/replace}</code>: 替换第一个匹配</li>
+<li><code>${variable//pattern/replace}</code>: 替换所有匹配</li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ path=<span class="regexp">/home/</span>cam<span class="regexp">/foo/</span>foo.name</span><br><span class="line"></span><br><span class="line">$ echo <span class="variable">$&#123;path/foo/bar&#125;</span></span><br><span class="line"><span class="regexp">/home/</span>cam<span class="regexp">/bar/</span>foo.name</span><br><span class="line"></span><br><span class="line">$ echo <span class="variable">$&#123;path//foo/bar&#125;</span></span><br><span class="line"><span class="regexp">/home/</span>cam<span class="regexp">/bar/</span>bar.name</span><br></pre></td></tr></table></figure>
+<h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><h3 id="关联数组"><a href="#关联数组" class="headerlink" title="关联数组"></a>关联数组</h3><h2 id="控制流"><a href="#控制流" class="headerlink" title="控制流"></a>控制流</h2><h3 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h3><h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h2 id="脚本相关"><a href="#脚本相关" class="headerlink" title="脚本相关"></a>脚本相关</h2><h3 id="几个关键概念"><a href="#几个关键概念" class="headerlink" title="几个关键概念"></a>几个关键概念</h3><h4 id="shebang"><a href="#shebang" class="headerlink" title="shebang"></a>shebang</h4><h4 id="返回码"><a href="#返回码" class="headerlink" title="返回码"></a>返回码</h4><h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><h4 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h4><p>未完待续</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://wangdoc.com/bash/" target="_blank" rel="noopener">https://wangdoc.com/bash/</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -775,6 +777,29 @@
       <tags>
         <tag>Python</tag>
         <tag>Gevent</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Bitmap 原理及实现</title>
+    <url>/2021/05/31/bitmap-python-edition/</url>
+    <content><![CDATA[<p>所谓的 Bitmap 其实就是二进制位数组，由于元素是二进制位，每一个元素只占用1个bit，十分节省内存空间。</p>
+<p>每一个bit有0、1两种状态，所以 Bitmap 适合应用于判断是否存在、桶排序（不含重复元素），具体来说可以用bitmap记录ip信息，实现布隆过滤器等等。<br><a id="more"></a></p>
+<h2 id="Bitmap-原理"><a href="#Bitmap-原理" class="headerlink" title="Bitmap 原理"></a>Bitmap 原理</h2><p>Bitmap 可以看成是个二维数组，第一维取出的元素是byte，然后用第二维的index去访问该byte对应的位。</p>
+<p>由于正常访问内存最小的单位的字节，操作具体的位需要位运算。</p>
+<p><img src="http://image.runjf.com/mweb/2021-05-31-16224684372402.jpg" alt></p>
+<h3 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h3><p><strong>注意</strong>：这里的位移操作都是逻辑位移</p>
+<p>一个byte有8bit， 设置某个位为1，需要用到<code>按位或 |</code><br><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">第<span class="number">0</span>个bit： byte |= <span class="number">0b10000000</span></span><br><span class="line">第<span class="number">1</span>个bit： byte |= <span class="number">0b01000000</span></span><br><span class="line">...</span><br><span class="line">第<span class="number">7</span>个bit： byte |= <span class="number">0b00000001</span></span><br><span class="line"></span><br><span class="line">所以：设置byte的第n个bit(n取<span class="number">0</span>到<span class="number">7</span>)： byte |= (<span class="number">0b10000000</span> &gt;&gt; n)</span><br></pre></td></tr></table></figure></p>
+<p>判断某个位是否为1，需要用到<code>按位与 &amp;</code><br>过程和上面类似, 满足<code>byte &amp; (0b10000000 &gt;&gt; n) == (0b10000000 &gt;&gt; n)</code>，则该位为1</p>
+<p>将某个位置为0，需要用到<code>按位与 &amp;</code><br><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">第<span class="number">0</span>个bit： byte &amp;= <span class="number">0b01111111</span></span><br><span class="line">第<span class="number">1</span>个bit： byte &amp;= <span class="number">0b10111111</span></span><br><span class="line">...</span><br><span class="line">第<span class="number">7</span>个bit： byte &amp;= <span class="number">0b01111110</span></span><br><span class="line"></span><br><span class="line">所以：第n个bit(n取<span class="number">0</span>到<span class="number">7</span>)： byte &amp;= ((<span class="number">0b10000000</span> &gt;&gt; n) ^ <span class="number">0b11111111</span>)</span><br><span class="line">Python中由于没有无符号数，所以算掩码（<span class="number">0b01111111</span>）时不能用按位取反。</span><br></pre></td></tr></table></figure></p>
+<h3 id="Python实现"><a href="#Python实现" class="headerlink" title="Python实现"></a>Python实现</h3><p>将使用到的掩码设置为常量，性能会更好，这里的实现主要是为了体现思路，便于理解</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">BYTE_WIDTH = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BitMap</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, size, fill=<span class="number">0</span>)</span>:</span></span><br><span class="line">        self._array = bytearray((fill <span class="keyword">for</span> _ <span class="keyword">in</span> range(size//BYTE_WIDTH+<span class="number">1</span>)))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        major, minor = divmod(index, BYTE_WIDTH)</span><br><span class="line">        self._array[major] |= (<span class="number">0b10000000</span> &gt;&gt; minor)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        major, minor = divmod(index, BYTE_WIDTH)</span><br><span class="line">        mask = <span class="number">0b10000000</span> &gt;&gt; minor</span><br><span class="line">        <span class="keyword">return</span> int(self._array[major] &amp; mask == mask)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">clear</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        major, minor = divmod(index, BYTE_WIDTH)</span><br><span class="line">        self._array[major] &amp;= ((<span class="number">0b10000000</span> &gt;&gt; minor) ^ <span class="number">0b11111111</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_bin</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">' '</span>.join((<span class="string">'&#123;:0&gt;8&#125;'</span>.format(bin(i)[<span class="number">2</span>:]) <span class="keyword">for</span> i <span class="keyword">in</span> self._array))</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -1853,47 +1878,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Docker mtu 引发的加班血案</title>
-    <url>/2021/09/21/docker-mtu-issues/</url>
-    <content><![CDATA[<p>最近在搞 torch 的工程化，基于 brpc 和 libtorch，将两者编译在一起的过程也是坑深，容下次再表。</p>
-<p>为了简化部署，brpc 服务在 Docker 容器中运行。本地测试时功能一切正常，上到预发布环境时请求全部超时。</p>
-<p>由于业务代码，brpc，docker环境，机房都是新的，在排查问题的过程中简直一头雾水。（当然根本原因还是水平不足）<br><a id="more"></a></p>
-<h2 id="使尽浑身解数定位"><a href="#使尽浑身解数定位" class="headerlink" title="使尽浑身解数定位"></a>使尽浑身解数定位</h2><p>发现请求超时后，开始用CURL测试接口，用真实数据验证发现请求都耗时1s，这和用c++的预期完全不符。</p>
-<h3 id="我代码不应该有bug"><a href="#我代码不应该有bug" class="headerlink" title="我代码不应该有bug!!"></a>我代码不应该有bug!!</h3><p>首先是怀疑业务代码有问题，逐行统计业务代码耗时，发现业务代码仅耗时10+ms。</p>
-<h3 id="curl-不应该-Expect"><a href="#curl-不应该-Expect" class="headerlink" title="curl 不应该 Expect"></a>curl 不应该 Expect</h3><p>用空数据访问接口，发现耗时也只有20+ms，这时开始怀疑brpc是不是编译得有问题，或者说和libtorch编译到一起不兼容。<br>这时我请教了一位同事，他对brpc比较熟悉，然后他说是curl实现的问题，和brpc没关系, 参考<a href="https://github.com/apache/incubator-brpc/issues/1075" target="_blank" rel="noopener"> brpc issue</a></p>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">curl传输的时候，会设置 <span class="string">Expect:</span> <span class="number">100</span>-<span class="keyword">continue</span>, 这个协议brpc本身没有实现, 所以curl会等待一个超时。</span><br><span class="line">加上 -H <span class="string">'Expect:'</span> 可以解决这个问题</span><br></pre></td></tr></table></figure>
-<p>所以这个1s超时是个烟雾弹，线上client是Python，不会有这个问题。</p>
-<h3 id="难道是-lvs"><a href="#难道是-lvs" class="headerlink" title="难道是 lvs ?"></a>难道是 lvs ?</h3><p>接着又是一通疯狂测试，各种角度体位测试。发现本机测试是ok的，透过lvs请求（跨机房）就会卡住直到超时，而且小body请求一切正常，大body请求卡住。</p>
-<p>这时又开始怀疑brpc编译的不对，导致这个超时（brpc编译过程比较曲折，导致我不太有信心）。</p>
-<p>于是我在这个服务器Docker中运行了另一个brpc服务，发现是一样的问题。</p>
-<p>为了确认是否是brpc的问题，又写了个Python 的 echo server 进行测试，发现在docker中是一样的问题，但是不在docker中运行有一切正常。</p>
-<p>这是时就可以确定，与代码无关，是docker或者lvs的问题，一度陷入僵局。</p>
-<h3 id="docker-才是罪魁祸首"><a href="#docker-才是罪魁祸首" class="headerlink" title="docker 才是罪魁祸首"></a>docker 才是罪魁祸首</h3><p>完全没思路，于是找来了运维的同学，这时运维提了一下，这个机房的mtu会小一点，于是一切串起来了。</p>
-<p>马上测试，发现机房的mtu只有1450，而docker0网桥的默认mtu是1500，这就很能解释小body没问题，大body卡死。</p>
-<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">~# netstat -i</span><br><span class="line">Kernel Interface table</span><br><span class="line">Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg</span><br><span class="line">docker0   <span class="number">1500</span>        <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>             <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMU</span><br><span class="line">eth0      <span class="number">1450</span>  <span class="number">1023246</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>        <span class="number">110268</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMRU</span><br><span class="line">lo       <span class="number">65536</span>     <span class="number">1967</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>          <span class="number">1967</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> LRU</span><br><span class="line">wlan0     <span class="number">1500</span>        <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>             <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMU</span><br></pre></td></tr></table></figure>
-<p>修改docker0的mtu，重启docker.service，一切问题都解决了。</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">cat <span class="params">&lt;&lt; EOF &gt;</span> <span class="meta-keyword">/etc/</span>docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"mtu"</span>: <span class="number">1450</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-<h2 id="事后诸葛"><a href="#事后诸葛" class="headerlink" title="事后诸葛"></a>事后诸葛</h2><h3 id="找到问题等于解决了一半"><a href="#找到问题等于解决了一半" class="headerlink" title="找到问题等于解决了一半"></a>找到问题等于解决了一半</h3><p>这句话说得并不太懂，应该是“找到问题等于解决了90%”。<br>在互联网时代，找到了具体问题，在一通Google，基本等于解决了问题。你始终要确信，这个问题不应该只有你遇到。</p>
-<p>在这个例子上，curl的误导大概花了一半的时间去定位。所以，定位问题首先得明天问题，如医生看病一样，确认问题发生的现象（卡住），位置(docker容器中)、程度（永久）、触发原因（大请求body）。</p>
-<h3 id="要善于运用他人的经验和知识"><a href="#要善于运用他人的经验和知识" class="headerlink" title="要善于运用他人的经验和知识"></a>要善于运用他人的经验和知识</h3><p>找专业人士寻求帮助是非常高效的，会大大缩短定位问题的时间，因为他们会运用经验和知识快速排除错误选项。</p>
-<h3 id="知识可能会误导你"><a href="#知识可能会误导你" class="headerlink" title="知识可能会误导你"></a>知识可能会误导你</h3><p>你所拥有的知识，并不是究竟的知识，也就是它所能应用的范围并不适应当前的场景，还有可能误导你。<br>你所缺失的知识，让你看不清前方正确的道路。</p>
-<p>按我的知识，docker0是网桥，等价于交换机，除了性能问题，不应该导致丢包，就一直没往这个方向考虑（当然这块的知识也不扎实）。<br>MTU也不应该导致丢包，交换机应该会进行IP分片。但忽略了一个点，虚拟的网桥并不是硬件网桥，可能并没有实现IP分片的逻辑（仅丢弃）。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://github.com/apache/incubator-brpc/issues/1075" target="_blank" rel="noopener">https://github.com/apache/incubator-brpc/issues/1075</a></li>
-<li><a href="https://mp.weixin.qq.com/s/-Q1AkxUr9xzGKwUMV-FQhQ" target="_blank" rel="noopener">云网络丢包故障定位全景指南</a></li>
-<li><a href="https://mlohr.com/docker-mtu/" target="_blank" rel="noopener">https://mlohr.com/docker-mtu/</a></li>
-<li><a href="https://github.com/docker/for-win/issues/1144" target="_blank" rel="noopener">https://github.com/docker/for-win/issues/1144</a></li>
-<li><a href="https://www.cnblogs.com/sammyliu/p/5079898.html" target="_blank" rel="noopener">https://www.cnblogs.com/sammyliu/p/5079898.html</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Docker</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Python2 中 enum 枚举库诡异行为探究</title>
     <url>/2019/11/21/enum-lib-problem-in-python2/</url>
     <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近接手了一个82年的<del>拉菲</del>Python项目，简直酸爽。<br>Python版本用的是2.7.5，里面用的第三方库各种老旧，潜藏了不少深坑。这次我们就先讲enum库的坑，其他有空再聊。</p>
@@ -1934,6 +1918,47 @@
       <tags>
         <tag>Python</tag>
         <tag>Enum</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker mtu 引发的加班血案</title>
+    <url>/2021/09/21/docker-mtu-issues/</url>
+    <content><![CDATA[<p>最近在搞 torch 的工程化，基于 brpc 和 libtorch，将两者编译在一起的过程也是坑深，容下次再表。</p>
+<p>为了简化部署，brpc 服务在 Docker 容器中运行。本地测试时功能一切正常，上到预发布环境时请求全部超时。</p>
+<p>由于业务代码，brpc，docker环境，机房都是新的，在排查问题的过程中简直一头雾水。（当然根本原因还是水平不足）<br><a id="more"></a></p>
+<h2 id="使尽浑身解数定位"><a href="#使尽浑身解数定位" class="headerlink" title="使尽浑身解数定位"></a>使尽浑身解数定位</h2><p>发现请求超时后，开始用CURL测试接口，用真实数据验证发现请求都耗时1s，这和用c++的预期完全不符。</p>
+<h3 id="我代码不应该有bug"><a href="#我代码不应该有bug" class="headerlink" title="我代码不应该有bug!!"></a>我代码不应该有bug!!</h3><p>首先是怀疑业务代码有问题，逐行统计业务代码耗时，发现业务代码仅耗时10+ms。</p>
+<h3 id="curl-不应该-Expect"><a href="#curl-不应该-Expect" class="headerlink" title="curl 不应该 Expect"></a>curl 不应该 Expect</h3><p>用空数据访问接口，发现耗时也只有20+ms，这时开始怀疑brpc是不是编译得有问题，或者说和libtorch编译到一起不兼容。<br>这时我请教了一位同事，他对brpc比较熟悉，然后他说是curl实现的问题，和brpc没关系, 参考<a href="https://github.com/apache/incubator-brpc/issues/1075" target="_blank" rel="noopener"> brpc issue</a></p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">curl传输的时候，会设置 <span class="string">Expect:</span> <span class="number">100</span>-<span class="keyword">continue</span>, 这个协议brpc本身没有实现, 所以curl会等待一个超时。</span><br><span class="line">加上 -H <span class="string">'Expect:'</span> 可以解决这个问题</span><br></pre></td></tr></table></figure>
+<p>所以这个1s超时是个烟雾弹，线上client是Python，不会有这个问题。</p>
+<h3 id="难道是-lvs"><a href="#难道是-lvs" class="headerlink" title="难道是 lvs ?"></a>难道是 lvs ?</h3><p>接着又是一通疯狂测试，各种角度体位测试。发现本机测试是ok的，透过lvs请求（跨机房）就会卡住直到超时，而且小body请求一切正常，大body请求卡住。</p>
+<p>这时又开始怀疑brpc编译的不对，导致这个超时（brpc编译过程比较曲折，导致我不太有信心）。</p>
+<p>于是我在这个服务器Docker中运行了另一个brpc服务，发现是一样的问题。</p>
+<p>为了确认是否是brpc的问题，又写了个Python 的 echo server 进行测试，发现在docker中是一样的问题，但是不在docker中运行有一切正常。</p>
+<p>这是时就可以确定，与代码无关，是docker或者lvs的问题，一度陷入僵局。</p>
+<h3 id="docker-才是罪魁祸首"><a href="#docker-才是罪魁祸首" class="headerlink" title="docker 才是罪魁祸首"></a>docker 才是罪魁祸首</h3><p>完全没思路，于是找来了运维的同学，这时运维提了一下，这个机房的mtu会小一点，于是一切串起来了。</p>
+<p>马上测试，发现机房的mtu只有1450，而docker0网桥的默认mtu是1500，这就很能解释小body没问题，大body卡死。</p>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">~# netstat -i</span><br><span class="line">Kernel Interface table</span><br><span class="line">Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg</span><br><span class="line">docker0   <span class="number">1500</span>        <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>             <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMU</span><br><span class="line">eth0      <span class="number">1450</span>  <span class="number">1023246</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>        <span class="number">110268</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMRU</span><br><span class="line">lo       <span class="number">65536</span>     <span class="number">1967</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>          <span class="number">1967</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> LRU</span><br><span class="line">wlan0     <span class="number">1500</span>        <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> <span class="number">0</span>             <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span> BMU</span><br></pre></td></tr></table></figure>
+<p>修改docker0的mtu，重启docker.service，一切问题都解决了。</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">cat <span class="params">&lt;&lt; EOF &gt;</span> <span class="meta-keyword">/etc/</span>docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"mtu"</span>: <span class="number">1450</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h2 id="事后诸葛"><a href="#事后诸葛" class="headerlink" title="事后诸葛"></a>事后诸葛</h2><h3 id="找到问题等于解决了一半"><a href="#找到问题等于解决了一半" class="headerlink" title="找到问题等于解决了一半"></a>找到问题等于解决了一半</h3><p>这句话说得并不太懂，应该是“找到问题等于解决了90%”。<br>在互联网时代，找到了具体问题，在一通Google，基本等于解决了问题。你始终要确信，这个问题不应该只有你遇到。</p>
+<p>在这个例子上，curl的误导大概花了一半的时间去定位。所以，定位问题首先得明天问题，如医生看病一样，确认问题发生的现象（卡住），位置(docker容器中)、程度（永久）、触发原因（大请求body）。</p>
+<h3 id="要善于运用他人的经验和知识"><a href="#要善于运用他人的经验和知识" class="headerlink" title="要善于运用他人的经验和知识"></a>要善于运用他人的经验和知识</h3><p>找专业人士寻求帮助是非常高效的，会大大缩短定位问题的时间，因为他们会运用经验和知识快速排除错误选项。</p>
+<h3 id="知识可能会误导你"><a href="#知识可能会误导你" class="headerlink" title="知识可能会误导你"></a>知识可能会误导你</h3><p>你所拥有的知识，并不是究竟的知识，也就是它所能应用的范围并不适应当前的场景，还有可能误导你。<br>你所缺失的知识，让你看不清前方正确的道路。</p>
+<p>按我的知识，docker0是网桥，等价于交换机，除了性能问题，不应该导致丢包，就一直没往这个方向考虑（当然这块的知识也不扎实）。<br>MTU也不应该导致丢包，交换机应该会进行IP分片。但忽略了一个点，虚拟的网桥并不是硬件网桥，可能并没有实现IP分片的逻辑（仅丢弃）。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://github.com/apache/incubator-brpc/issues/1075" target="_blank" rel="noopener">https://github.com/apache/incubator-brpc/issues/1075</a></li>
+<li><a href="https://mp.weixin.qq.com/s/-Q1AkxUr9xzGKwUMV-FQhQ" target="_blank" rel="noopener">云网络丢包故障定位全景指南</a></li>
+<li><a href="https://mlohr.com/docker-mtu/" target="_blank" rel="noopener">https://mlohr.com/docker-mtu/</a></li>
+<li><a href="https://github.com/docker/for-win/issues/1144" target="_blank" rel="noopener">https://github.com/docker/for-win/issues/1144</a></li>
+<li><a href="https://www.cnblogs.com/sammyliu/p/5079898.html" target="_blank" rel="noopener">https://www.cnblogs.com/sammyliu/p/5079898.html</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -2049,6 +2074,22 @@
       </categories>
       <tags>
         <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo 站内搜索内容不完全问题修复</title>
+    <url>/2021/10/11/hexo-local-search-not-complete-fix/</url>
+    <content><![CDATA[<p>在使用 Hexo 的站内搜索时，发现搜索的内容不全。单步调试发现xml解析不完整，有部分内容被截断了。</p>
+<p>在浏览器中打开<a href="/search.xml">/search.xml</a>发现以下错误。显然xml中有非法字符，xml解析产生了错误。<br><a id="more"></a><br><img src="http://image.runjf.com/mweb/2021-10-12-16339770374988.jpg" alt></p>
+<p>将search.xml文件保存，并用python打开，找到具体出错的位置。<br>utf8解码之后可以发现<code>\x10</code>非法字符，将其删除，重新生成文章问题解决。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx = open(<span class="string">'./tmp.xml'</span>, <span class="string">'rb'</span>).read()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx.index(<span class="string">b'\x10\xE7\x84\xB6'</span>)</span><br><span class="line"><span class="number">923278</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx[<span class="number">923278</span>:<span class="number">923278</span>+<span class="number">31</span>]</span><br><span class="line"><span class="string">b'\x10\xe7\x84\xb6\xe5\x88\x99\xef\xbc\x8c\xe4\xbb\x8a\xe4\xb9\x8b\xe4\xb8\x96\xe4\xba\xba\xef\xbc\x8c\xe7\xb1\xbb\xe6\xad\xa4'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx[<span class="number">923278</span>:<span class="number">923278</span>+<span class="number">31</span>].decode()</span><br><span class="line"><span class="string">'\x10然则，今之世人，类此'</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://image.runjf.com/mweb/2021-10-12-16339793845815.jpg" alt></p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>XML</tag>
       </tags>
   </entry>
   <entry>
@@ -2221,22 +2262,6 @@
       </tags>
   </entry>
   <entry>
-    <title>hexo 站内搜索内容不完全问题修复</title>
-    <url>/2021/10/11/hexo-local-search-not-complete-fix/</url>
-    <content><![CDATA[<p>在使用 Hexo 的站内搜索时，发现搜索的内容不全。单步调试发现xml解析不完整，有部分内容被截断了。</p>
-<p>在浏览器中打开<a href="/search.xml">/search.xml</a>发现以下错误。显然xml中有非法字符，xml解析产生了错误。<br><a id="more"></a><br><img src="http://image.runjf.com/mweb/2021-10-12-16339770374988.jpg" alt></p>
-<p>将search.xml文件保存，并用python打开，找到具体出错的位置。<br>utf8解码之后可以发现<code>\x10</code>非法字符，将其删除，重新生成文章问题解决。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx = open(<span class="string">'./tmp.xml'</span>, <span class="string">'rb'</span>).read()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx.index(<span class="string">b'\x10\xE7\x84\xB6'</span>)</span><br><span class="line"><span class="number">923278</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx[<span class="number">923278</span>:<span class="number">923278</span>+<span class="number">31</span>]</span><br><span class="line"><span class="string">b'\x10\xe7\x84\xb6\xe5\x88\x99\xef\xbc\x8c\xe4\xbb\x8a\xe4\xb9\x8b\xe4\xb8\x96\xe4\xba\xba\xef\xbc\x8c\xe7\xb1\xbb\xe6\xad\xa4'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>xxx[<span class="number">923278</span>:<span class="number">923278</span>+<span class="number">31</span>].decode()</span><br><span class="line"><span class="string">'\x10然则，今之世人，类此'</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://image.runjf.com/mweb/2021-10-12-16339793845815.jpg" alt></p>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>XML</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>在WSL2中安装openmediavault(OMV)</title>
     <url>/2021/01/02/install-openmediavault-in-WSL2/</url>
     <content><![CDATA[<p><strong>本方案存在不可解决的缺点，已被笔者放弃，请移步<a href="/2021/09/21/openmediavault-on-hyperv/">最新解决方案</a></strong></p>
@@ -2346,7 +2371,7 @@
 <li>不支持rzsz</li>
 </ol>
 <p>而 iTerm2 内置了 Tmux 绑定功能，可以将 tmux 的窗口和窗格映射成原生的窗口和窗格，可以用 iTerm2 的菜单和快捷键来操作窗口，解决了前3点问题。</p>
-<p>至于第4点，rzsz 由于 tmux 的实现机制决定了是无解的。</p>
+<p>至于第4点，rzsz 由于 tmux 的实现机制决定了是无解的。<br>然而 <a href="https://github.com/lonnywong" target="_blank" rel="noopener">lonnywong</a> 实现了替代方案 <a href="https://github.com/trzsz/trzsz" target="_blank" rel="noopener">trzsz</a> ，<strong>完美解决了文件上传下载的问题</strong>，亲测非常好用。</p>
 <h2 id="iTerm2-配置"><a href="#iTerm2-配置" class="headerlink" title="iTerm2 配置"></a>iTerm2 配置</h2><p>可以对 tmux 窗口的映射进行一些定制</p>
 <p>iTerm2 对于 tmux 会话有一个profile，建议对终端颜色和外观进行一些定制化，将原生窗口和 tmux 窗口区分开来。</p>
 <p><img src="http://image.runjf.com/mweb/2021-08-03-16279767130639.jpg" alt><br><img src="http://image.runjf.com/mweb/2021-08-03-16279767560503.jpg" alt></p>
@@ -2376,6 +2401,46 @@
       </categories>
       <tags>
         <tag>tmux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>学海屠魔录</title>
+    <url>/2021/06/20/learning-method/</url>
+    <content><![CDATA[<p>英彦有云，魔鬼在细节之中（The devil is in the details），其意义在于提醒人们，不要忽视细节，即使是微不足道的小处也可以影响大局。</p>
+<p>换个角度思考，这句话用在学习上，是再贴切不过了。当我们接触一个新领域时，其中的每个知识细节，都是魔鬼，稍有不慎就会被魔鬼击败，产生厌学情绪，再起不能。只有除尽这些魔鬼，才能攀上知识的高峰。<br><a id="more"></a></p>
+<p>但光学会这些细节的点还远远不够，你的知识都是僵化的，是零散不成体系的的，难以真正应用。<br>就如将英语单词表背得滚瓜烂熟，倘若不识得语法与文法，断然是写不出文章的。</p>
+<p>总地来说，学习分为两个阶段，“为学日益”和“为道日损”，也就是积累具体细节知识点，然后再将这些知识点进行归纳总结整理，将知识抽象并构建体系。</p>
+<blockquote>
+<p>注：此处的“为学日益”和“为道日损”与道德经中原义不同</p>
+</blockquote>
+<p>华罗庚教授曾把读书的过程归纳为“由薄到厚”与“由厚到薄”两个阶段，也是异曲同工；硅谷钢铁侠马斯克常说的“第一性原理”，就是第二步“为道日损”所得到的结果；再进一步，禅宗所说的“渐修”和“顿悟”也是一样的。</p>
+<p>这两个阶段总体上是同等重要的，但在学习的不同阶段又该有所侧重。</p>
+<p>下面将理论展开论述，我们又能引申出一些结论，得到一些新的看法。</p>
+<h2 id="为学日益"><a href="#为学日益" class="headerlink" title="为学日益"></a>为学日益</h2><p>先讲第一阶段，这一阶段积累具体细节知识点，那么多大规模的知识点可以成为一个细节呢？</p>
+<p>这点因人而异，因当前知识储备而异，评判标准就是能否说出该知识点的定义和用途，如若不能就应该继续往下看构成该知识点的子知识点，直至满足标准为止。</p>
+<p>由此可知，学习是有极限的，当最小的知识点都不能领会时，继续学习就无从谈起了。<br>就如数学，当不能理解<code>1 + 1 = 2</code>时，在这之上构建的一切都与你无缘了。</p>
+<p>所以学习还是要靠智商的，只不过要求极低。</p>
+<p>在这个阶段比较有效的方法有</p>
+<ul>
+<li>不同体系的知识类比迁移，跟已学会的知识联系，便于记忆</li>
+<li>费曼学习法，通过输出的方式，对学会的知识点的掌握程度进行确认。</li>
+</ul>
+<h2 id="为道日损"><a href="#为道日损" class="headerlink" title="为道日损"></a>为道日损</h2><p>当学习到达一定的阶段，就该对知识进行归纳整理，以便进入下一阶段的学习。</p>
+<p>因为人脑所能同时关注的知识点是有上限的，如果不加以归纳整理进行抽象，体现出来就是学了新的忘了旧的。</p>
+<p>日常生活的很多场景都与这个有关，比如人们在争辩的时候经常会扣帽子，这就是一种抽象，降低了受众的认知难度，在传播中是有利的。“xx人偷井盖”，这就是典型的扣帽子，一个地方人何其多，每个人又不一样，贴切地描述出这个整体是非常难的，扣帽子就是舍弃了其他特征，用某几个特征来概括整体，这样带了的坏处就是不准确，失之偏颇。</p>
+<p>这一阶段影响的是对知识的应用，也就是将一系列知识点抽象成一个整体，用于构造其他知识。</p>
+<p>抽象有好的有坏的，知识点的名称就是对其内涵的一种抽象，好的抽象应该是可以望文生义的。就像写代码，好的函数命名应该是表达了函数的用途，也就是对具体实现该函数语句的抽象。</p>
+<p>类比也是一种抽象，而且是一种极其高效的抽象，将具体的细节和已有的知识点关联起来。但类比也是危险的，很容易做出不合适的类比，也就是引喻失义。所以类比更像是方便法门，一条通向“第一性原理”的捷径，有其适用场景，不应该作为“第一性原理”本身牢记。</p>
+<h2 id="歧路"><a href="#歧路" class="headerlink" title="歧路"></a>歧路</h2><p>由此可以看出很多学习的方法其实都走在歧路上。</p>
+<p>如学英语，一味在单词和例句中深挖，最终还是不能流畅的写作交流，这是第二阶段缺失造成的。<br>又如罗辑思维，听他灌输各种大而无当的大道理，只会显得很轻浮，除了增加谈资之外无有用处，这是第一阶段缺失造成的。</p>
+<p>最后，希望我这胡言乱语对读者有些微帮助。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>学习方法</tag>
       </tags>
   </entry>
   <entry>
@@ -2431,46 +2496,6 @@
       <tags>
         <tag>Python</tag>
         <tag>限流</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>学海屠魔录</title>
-    <url>/2021/06/20/learning-method/</url>
-    <content><![CDATA[<p>英彦有云，魔鬼在细节之中（The devil is in the details），其意义在于提醒人们，不要忽视细节，即使是微不足道的小处也可以影响大局。</p>
-<p>换个角度思考，这句话用在学习上，是再贴切不过了。当我们接触一个新领域时，其中的每个知识细节，都是魔鬼，稍有不慎就会被魔鬼击败，产生厌学情绪，再起不能。只有除尽这些魔鬼，才能攀上知识的高峰。<br><a id="more"></a></p>
-<p>但光学会这些细节的点还远远不够，你的知识都是僵化的，是零散不成体系的的，难以真正应用。<br>就如将英语单词表背得滚瓜烂熟，倘若不识得语法与文法，断然是写不出文章的。</p>
-<p>总地来说，学习分为两个阶段，“为学日益”和“为道日损”，也就是积累具体细节知识点，然后再将这些知识点进行归纳总结整理，将知识抽象并构建体系。</p>
-<blockquote>
-<p>注：此处的“为学日益”和“为道日损”与道德经中原义不同</p>
-</blockquote>
-<p>华罗庚教授曾把读书的过程归纳为“由薄到厚”与“由厚到薄”两个阶段，也是异曲同工；硅谷钢铁侠马斯克常说的“第一性原理”，就是第二步“为道日损”所得到的结果；再进一步，禅宗所说的“渐修”和“顿悟”也是一样的。</p>
-<p>这两个阶段总体上是同等重要的，但在学习的不同阶段又该有所侧重。</p>
-<p>下面将理论展开论述，我们又能引申出一些结论，得到一些新的看法。</p>
-<h2 id="为学日益"><a href="#为学日益" class="headerlink" title="为学日益"></a>为学日益</h2><p>先讲第一阶段，这一阶段积累具体细节知识点，那么多大规模的知识点可以成为一个细节呢？</p>
-<p>这点因人而异，因当前知识储备而异，评判标准就是能否说出该知识点的定义和用途，如若不能就应该继续往下看构成该知识点的子知识点，直至满足标准为止。</p>
-<p>由此可知，学习是有极限的，当最小的知识点都不能领会时，继续学习就无从谈起了。<br>就如数学，当不能理解<code>1 + 1 = 2</code>时，在这之上构建的一切都与你无缘了。</p>
-<p>所以学习还是要靠智商的，只不过要求极低。</p>
-<p>在这个阶段比较有效的方法有</p>
-<ul>
-<li>不同体系的知识类比迁移，跟已学会的知识联系，便于记忆</li>
-<li>费曼学习法，通过输出的方式，对学会的知识点的掌握程度进行确认。</li>
-</ul>
-<h2 id="为道日损"><a href="#为道日损" class="headerlink" title="为道日损"></a>为道日损</h2><p>当学习到达一定的阶段，就该对知识进行归纳整理，以便进入下一阶段的学习。</p>
-<p>因为人脑所能同时关注的知识点是有上限的，如果不加以归纳整理进行抽象，体现出来就是学了新的忘了旧的。</p>
-<p>日常生活的很多场景都与这个有关，比如人们在争辩的时候经常会扣帽子，这就是一种抽象，降低了受众的认知难度，在传播中是有利的。“xx人偷井盖”，这就是典型的扣帽子，一个地方人何其多，每个人又不一样，贴切地描述出这个整体是非常难的，扣帽子就是舍弃了其他特征，用某几个特征来概括整体，这样带了的坏处就是不准确，失之偏颇。</p>
-<p>这一阶段影响的是对知识的应用，也就是将一系列知识点抽象成一个整体，用于构造其他知识。</p>
-<p>抽象有好的有坏的，知识点的名称就是对其内涵的一种抽象，好的抽象应该是可以望文生义的。就像写代码，好的函数命名应该是表达了函数的用途，也就是对具体实现该函数语句的抽象。</p>
-<p>类比也是一种抽象，而且是一种极其高效的抽象，将具体的细节和已有的知识点关联起来。但类比也是危险的，很容易做出不合适的类比，也就是引喻失义。所以类比更像是方便法门，一条通向“第一性原理”的捷径，有其适用场景，不应该作为“第一性原理”本身牢记。</p>
-<h2 id="歧路"><a href="#歧路" class="headerlink" title="歧路"></a>歧路</h2><p>由此可以看出很多学习的方法其实都走在歧路上。</p>
-<p>如学英语，一味在单词和例句中深挖，最终还是不能流畅的写作交流，这是第二阶段缺失造成的。<br>又如罗辑思维，听他灌输各种大而无当的大道理，只会显得很轻浮，除了增加谈资之外无有用处，这是第一阶段缺失造成的。</p>
-<p>最后，希望我这胡言乱语对读者有些微帮助。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-        <tag>学习方法</tag>
       </tags>
   </entry>
   <entry>
@@ -2638,6 +2663,19 @@
       </tags>
   </entry>
   <entry>
+    <title>电影《活着》随感</title>
+    <url>/2017/03/12/movie-huozhe/</url>
+    <content><![CDATA[<p>　　几年前看过小说，情节都早已淡忘，回想起来只留着忧伤的感觉。偶然看到这电影，虽然情节与原著有些不同，但都让人百感交集。因为其实活着的故事就是父辈人的故事，里面的很多类似的事都听老一辈讲过。</p>
+<p>　　鲁迅曾说过，悲剧是把美好的东西撕碎给人看。人生，又何尝不是呢。活着的故事虽然与时代背景有些关系，小人物在其中很是无力，被历史的洪流裹挟着近乎无路可走。但是，看当今的世上，在我们的视野之外，也还有无数的悲剧在发生。当悲剧发生在别人身上时，那是新闻，那是故事；当发生在你身上时，你却无处述说。所以，我很少看新闻，特别是报道苦难的新闻，看多了会觉得悲伤而又无力。</p>
+<p>　　其实某个角度来说，社会一直都没有变过，也就是阶级。每个小镇上都龙二，也有富贵；只是后来他们的地位转换了。阶级就如同金字塔一般，每个人就其占有资源的多少处在不同的层级上，下层的人想往上爬，一切都是赤裸裸的丛林法则。每个人都在往上面看，羡慕上方的美好生活，有谁会往下看一眼，下面是一群穷困潦倒的富贵，如同蝼蚁，在苦苦挣扎。</p>
+<p>　　只要有社会存在，阶级是必然存在的。假使都不算父辈积累的资源，从零开始，大家都处于通过生产物品进行交换的阶段。由于每个人天生是不同的，体力、智商、寿命等属性的总值是不同的，这样大家的生产率就会不同，几代几十代之后差距越来越大（和复利类似），阶级就不可避免地产生了。改朝换代也好，革命也好，都只是重新洗牌而已。</p>
+<p>　　唉，越想越是悲哀。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+  </entry>
+  <entry>
     <title>macOS 使用技巧</title>
     <url>/2021/10/10/macos-tips/</url>
     <content><![CDATA[<p>对程序员来说，macOS 就是一个桌面支持比较好的 Linux/Unix，给日常开发带来了许多便利</p>
@@ -2709,19 +2747,6 @@
       <tags>
         <tag>mac</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>电影《活着》随感</title>
-    <url>/2017/03/12/movie-huozhe/</url>
-    <content><![CDATA[<p>　　几年前看过小说，情节都早已淡忘，回想起来只留着忧伤的感觉。偶然看到这电影，虽然情节与原著有些不同，但都让人百感交集。因为其实活着的故事就是父辈人的故事，里面的很多类似的事都听老一辈讲过。</p>
-<p>　　鲁迅曾说过，悲剧是把美好的东西撕碎给人看。人生，又何尝不是呢。活着的故事虽然与时代背景有些关系，小人物在其中很是无力，被历史的洪流裹挟着近乎无路可走。但是，看当今的世上，在我们的视野之外，也还有无数的悲剧在发生。当悲剧发生在别人身上时，那是新闻，那是故事；当发生在你身上时，你却无处述说。所以，我很少看新闻，特别是报道苦难的新闻，看多了会觉得悲伤而又无力。</p>
-<p>　　其实某个角度来说，社会一直都没有变过，也就是阶级。每个小镇上都龙二，也有富贵；只是后来他们的地位转换了。阶级就如同金字塔一般，每个人就其占有资源的多少处在不同的层级上，下层的人想往上爬，一切都是赤裸裸的丛林法则。每个人都在往上面看，羡慕上方的美好生活，有谁会往下看一眼，下面是一群穷困潦倒的富贵，如同蝼蚁，在苦苦挣扎。</p>
-<p>　　只要有社会存在，阶级是必然存在的。假使都不算父辈积累的资源，从零开始，大家都处于通过生产物品进行交换的阶段。由于每个人天生是不同的，体力、智商、寿命等属性的总值是不同的，这样大家的生产率就会不同，几代几十代之后差距越来越大（和复利类似），阶级就不可避免地产生了。改朝换代也好，革命也好，都只是重新洗牌而已。</p>
-<p>　　唉，越想越是悲哀。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
   </entry>
   <entry>
     <title>MySQL 自定义数据库路径</title>
@@ -3387,167 +3412,6 @@ img[alt="-w350"] {
       </tags>
   </entry>
   <entry>
-    <title>Python日志原理及实践</title>
-    <url>/2019/11/02/python-logging-guide/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="一次简单的日志记录"><a href="#一次简单的日志记录" class="headerlink" title="一次简单的日志记录"></a>一次简单的日志记录</h3><figure class="highlight sml"><table><tr><td class="code"><pre><span class="line">import logging</span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">except <span class="type">Exception</span> <span class="keyword">as</span> e:</span><br><span class="line">    logger.debug(<span class="symbol">'debug</span> %s', e)</span><br><span class="line">    logger.info(<span class="symbol">'info</span> %s', e)</span><br><span class="line">    logger.warning(<span class="symbol">'warning</span> %s', e)</span><br><span class="line">    logger.error(<span class="symbol">'error</span> %s', e)</span><br><span class="line">    logger.<span class="keyword">exception</span>(<span class="symbol">'exception</span> %s', e)</span><br></pre></td></tr></table></figure>
-<p>output<br><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">warning division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">error division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">exception division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">Traceback (most recent call <span class="keyword">last</span>):</span><br><span class="line">  File <span class="string">"test.py"</span>, <span class="built_in">line</span> <span class="number">5</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">ZeroDivisionError: division <span class="keyword">by</span> <span class="literal">zero</span></span><br></pre></td></tr></table></figure></p>
-<ol>
-<li><code>logging.getLogger</code> 获取一个记录器, 一般以模块名称命名</li>
-<li>调用日志记录器的相应方法记录日志</li>
-</ol>
-<a id="more"></a>
-<h3 id="记录器-logger"><a href="#记录器-logger" class="headerlink" title="记录器 (logger)"></a>记录器 (logger)</h3><p><img src="http://image.runjf.com/mweb/2019-11-02-15441717816714.jpg" alt></p>
-<ul>
-<li>logger是Python记录日志的入口</li>
-<li>logger.info, logger.debug等几个函数对应记录不同的日志级别</li>
-<li>日志配置可以设置日志级别, 低于日志级别的日志不被记录</li>
-<li>默认日志配置的级别是WARNING</li>
-</ul>
-<p>Python日志支持的级别</p>
-<table>
-<thead>
-<tr>
-<th>级别</th>
-<th>何时使用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>DEBUG</td>
-<td>详细信息，典型地调试问题时会感兴趣。</td>
-</tr>
-<tr>
-<td>INFO</td>
-<td>证明事情按预期工作。</td>
-</tr>
-<tr>
-<td>WARNING</td>
-<td>表明发生了一些意外，或者不久的将来会发生问题软件还是在正常工作。</td>
-</tr>
-<tr>
-<td>ERROR</td>
-<td>由于更严重的问题，软件已不能执行一些功能了。</td>
-</tr>
-<tr>
-<td>CRITICAL</td>
-<td>严重错误，表明软件已不能继续运行了。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="记录-record"><a href="#记录-record" class="headerlink" title="记录 (record)"></a>记录 (record)</h3><p>每个record对象代表一条日志<br>record拥很多有的属性， 可扩展, 主要被formatter使用</p>
-<p>日志记录器的记录方法每次被调用就会生成一条record对象, 并且将record的所有属性都设置好.</p>
-<p>record主要有以下属性</p>
-<table>
-<thead>
-<tr>
-<th>name</th>
-<th>logger名称</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>msg</td>
-<td>日志文本</td>
-</tr>
-<tr>
-<td>args</td>
-<td>格式文本的参数</td>
-</tr>
-<tr>
-<td>levelname</td>
-<td>级别名称</td>
-</tr>
-<tr>
-<td>module</td>
-<td>模块名称</td>
-</tr>
-<tr>
-<td>exc_info</td>
-<td>异常相关信息</td>
-</tr>
-<tr>
-<td>lineno</td>
-<td>行号</td>
-</tr>
-<tr>
-<td>funcName</td>
-<td>打日志的函数名称</td>
-</tr>
-<tr>
-<td>threadName</td>
-<td>线程名</td>
-</tr>
-<tr>
-<td>processName</td>
-<td>进程名称</td>
-</tr>
-</tbody>
-</table>
-<h3 id="处理器-handler"><a href="#处理器-handler" class="headerlink" title="处理器 (handler)"></a>处理器 (handler)</h3><p>日志处理器决定了日志的存储的方式， 存储大小，存储的位置<br>日志处理器通过handle方法处理日志, 不同的处理器行为差别很大</p>
-<p>一些常见的日志处理器</p>
-<ul>
-<li>StreamHandler 输出到终端</li>
-<li>SMTPHandler 通过 email 发送日志记录</li>
-<li>SocketHandler 将日志通过网络发送</li>
-<li>FileHandler  记录到文件</li>
-<li>TimedRotatingFileHandler 记录到文件并按时间滚动</li>
-</ul>
-<h3 id="过滤器-filter"><a href="#过滤器-filter" class="headerlink" title="过滤器 (filter)"></a>过滤器 (filter)</h3><p>filter是附加在logger上的, 对日志进行细粒度控制, 例如根据一些条件判断是否记录日志, 修改日志record的内容等</p>
-<p><img src="http://image.runjf.com/mweb/2019-11-02-15441884511996.jpg" alt></p>
-<p>例如上面这个ContextFilter, 就将第二条日志过滤掉了.</p>
-<h3 id="格式器-formatter"><a href="#格式器-formatter" class="headerlink" title="格式器 (formatter)"></a>格式器 (formatter)</h3><p>根据配置，将日志record的属性格式化成字符串<br><img src="http://image.runjf.com/mweb/2019-11-02-15441892815553.jpg" alt></p>
-<p><img src="http://image.runjf.com/mweb/2019-11-02-15441892888667.jpg" alt></p>
-<h3 id="日志处理流程"><a href="#日志处理流程" class="headerlink" title="日志处理流程"></a>日志处理流程</h3><p>解释完这些名词, 然后看这个这个流程图, 就会明白整个日志的处理流程</p>
-<p><img src="http://image.runjf.com/mweb/2019-11-02-15393262305519.jpg" alt></p>
-<h3 id="日志配置"><a href="#日志配置" class="headerlink" title="日志配置"></a>日志配置</h3><p>开发过程中觉得比较好的一个日志配置</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">LOGGING = &#123;</span><br><span class="line">    <span class="string">'version'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'disable_existing_loggers'</span>: <span class="literal">False</span>,  <span class="comment"># 是否禁用已存在的日志记录器</span></span><br><span class="line">    <span class="string">'formatters'</span>: &#123;</span><br><span class="line">        <span class="string">'verbose'</span>: &#123;</span><br><span class="line">            <span class="string">'format'</span>: <span class="string">'[%(levelname)s %(asctime)s %(name)s %(funcName)s %(lineno)d %(process)d] %(message)s'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'simple'</span>: &#123;</span><br><span class="line">            <span class="string">'format'</span>: <span class="string">'[%(levelname)s %(message)s'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'handlers'</span>: &#123;</span><br><span class="line">        <span class="string">'console'</span>: &#123;</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'INFO'</span>,</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.StreamHandler'</span>,   <span class="comment"># 输出到终端的handlers</span></span><br><span class="line">            <span class="string">'formatter'</span>: <span class="string">'simple'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'backend_file'</span>:&#123;</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.handlers.TimedRotatingFileHandler'</span>,    </span><br><span class="line">            <span class="string">'filename'</span>: <span class="string">'main.log'</span>,</span><br><span class="line">            <span class="string">'backupCount'</span>: <span class="number">5</span>,</span><br><span class="line">            <span class="string">'formatter'</span>:<span class="string">'verbose'</span>,</span><br><span class="line">            <span class="string">'when'</span>: <span class="string">'D'</span>,  <span class="comment"># 按天滚动日志</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'backend_err_file'</span>:&#123;</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.handlers.TimedRotatingFileHandler'</span>,</span><br><span class="line">            <span class="string">'filename'</span>: <span class="string">'main_error.log'</span>,</span><br><span class="line">            <span class="string">'backupCount'</span>: <span class="number">5</span>,</span><br><span class="line">            <span class="string">'formatter'</span>:<span class="string">'verbose'</span>,</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'ERROR'</span>,</span><br><span class="line">            <span class="string">'when'</span>: <span class="string">'D'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'loggers'</span>: &#123;</span><br><span class="line">        <span class="string">''</span>: &#123;</span><br><span class="line">            <span class="string">'handlers'</span>: [<span class="string">'backend_file'</span>, <span class="string">'backend_err_file'</span>],</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'INFO'</span>,</span><br><span class="line">            <span class="string">'propagate'</span>: <span class="literal">False</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> logging.config</span><br><span class="line"></span><br><span class="line">logging.config.dictConfig(LOGGING)</span><br></pre></td></tr></table></figure>
-<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h3 id="要打哪些日志"><a href="#要打哪些日志" class="headerlink" title="要打哪些日志"></a>要打哪些日志</h3><h4 id="问题定位"><a href="#问题定位" class="headerlink" title="问题定位"></a>问题定位</h4><ul>
-<li>web请求入口和出口</li>
-<li>外部服务调用入参和返回</li>
-<li>未预料的程序异常</li>
-<li>关键流程记录</li>
-<li>启动、关闭、配置加载</li>
-</ul>
-<h4 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h4><ul>
-<li>函数\服务调用耗时记录</li>
-</ul>
-<h3 id="每条日志要包含哪些内容"><a href="#每条日志要包含哪些内容" class="headerlink" title="每条日志要包含哪些内容"></a>每条日志要包含哪些内容</h3><ul>
-<li><p>基本信息</p>
-  <figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">'<span class="variable">%(levelname)s %</span>(asctime)s <span class="variable">%(name)s %</span>(funcName)s <span class="variable">%(lineno)d %</span>(process)d <span class="variable">%(thread)d %</span>(message)s'</span><br><span class="line"></span><br><span class="line">日志级别 时间 logger名称 函数名称 函数名 行号 进程id 线程id</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li>唯一请求id</li>
-<li>必要的描述信息: 如request xxx failed</li>
-<li>异常相关信息, 调用trace info</li>
-</ul>
-<h3 id="日志级别"><a href="#日志级别" class="headerlink" title="日志级别"></a>日志级别</h3><p>正确地使用日志级别, 不要乱用级别<br><strong>ERROR</strong>：该级别的错误也需要马上被处理。当ERROR错误发生时，已经影响了用户的正常访问，是需要马上得到人工介入并处理的。<br><strong>WARNING</strong>：该日志表示系统可能出现问题，也可能没有，这种情况如网络的波动等。对于WARN级别的日志，虽然不需要系统管理员马上处理，也是需要及时查看并处理的。因此此种级别的日志也不应太多，能不打WARNING级别的日志，就尽量不要打；<br><strong>INFO</strong>：该种日志记录系统的正常运行状态, 占日志的大部分；<br><strong>DEBUG</strong>：开发过程中的调试信息。</p>
-<h3 id="日志存储"><a href="#日志存储" class="headerlink" title="日志存储"></a>日志存储</h3><h4 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h4><ul>
-<li>日志滚动: 按时间或按大小滚动. 同时配置最大保存的数目</li>
-<li>存储路径: 放到空间比较大目录</li>
-<li>注意是否多进程写日志</li>
-<li>error级别日志输出到单独文件</li>
-</ul>
-<h4 id="网络日志"><a href="#网络日志" class="headerlink" title="网络日志"></a>网络日志</h4><ul>
-<li>单机情况下一般不需要 </li>
-<li>多机部署可用kafka，ELK等方案</li>
-</ul>
-<h3 id="一些记录的建议"><a href="#一些记录的建议" class="headerlink" title="一些记录的建议"></a>一些记录的建议</h3><ul>
-<li>不要使用print代替日志</li>
-<li>日志对程序性能有影响, 不要打很多没有必要的日志.</li>
-<li>不同的日志handler有不同的适用场景, 要选择合适的handler</li>
-<li>Python内置的所有handler只是线程安全, 多进程场景可以打日志到多个文件, 或者使用网络日志</li>
-</ul>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>日志</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Python排序算法总结</title>
     <url>/2016/01/20/python-sort-algorithms/</url>
     <content><![CDATA[<h2 id="冒泡排序-BubbleSort"><a href="#冒泡排序-BubbleSort" class="headerlink" title="冒泡排序 BubbleSort"></a>冒泡排序 BubbleSort</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>遍历序列，比较两个元素，如果前面的大于后面的就交换两者的位置。其实称之为冒泡排序不如加沉底排序，因为每一轮比较，这一轮轮最大都会被排到序列末尾，其实沉底更为贴切。</p>
@@ -3809,6 +3673,167 @@ img[alt="-w350"] {
       <tags>
         <tag>Python</tag>
         <tag>Pytest</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python日志原理及实践</title>
+    <url>/2019/11/02/python-logging-guide/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="一次简单的日志记录"><a href="#一次简单的日志记录" class="headerlink" title="一次简单的日志记录"></a>一次简单的日志记录</h3><figure class="highlight sml"><table><tr><td class="code"><pre><span class="line">import logging</span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">except <span class="type">Exception</span> <span class="keyword">as</span> e:</span><br><span class="line">    logger.debug(<span class="symbol">'debug</span> %s', e)</span><br><span class="line">    logger.info(<span class="symbol">'info</span> %s', e)</span><br><span class="line">    logger.warning(<span class="symbol">'warning</span> %s', e)</span><br><span class="line">    logger.error(<span class="symbol">'error</span> %s', e)</span><br><span class="line">    logger.<span class="keyword">exception</span>(<span class="symbol">'exception</span> %s', e)</span><br></pre></td></tr></table></figure>
+<p>output<br><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">warning division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">error division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">exception division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">Traceback (most recent call <span class="keyword">last</span>):</span><br><span class="line">  File <span class="string">"test.py"</span>, <span class="built_in">line</span> <span class="number">5</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">ZeroDivisionError: division <span class="keyword">by</span> <span class="literal">zero</span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><code>logging.getLogger</code> 获取一个记录器, 一般以模块名称命名</li>
+<li>调用日志记录器的相应方法记录日志</li>
+</ol>
+<a id="more"></a>
+<h3 id="记录器-logger"><a href="#记录器-logger" class="headerlink" title="记录器 (logger)"></a>记录器 (logger)</h3><p><img src="http://image.runjf.com/mweb/2019-11-02-15441717816714.jpg" alt></p>
+<ul>
+<li>logger是Python记录日志的入口</li>
+<li>logger.info, logger.debug等几个函数对应记录不同的日志级别</li>
+<li>日志配置可以设置日志级别, 低于日志级别的日志不被记录</li>
+<li>默认日志配置的级别是WARNING</li>
+</ul>
+<p>Python日志支持的级别</p>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>何时使用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DEBUG</td>
+<td>详细信息，典型地调试问题时会感兴趣。</td>
+</tr>
+<tr>
+<td>INFO</td>
+<td>证明事情按预期工作。</td>
+</tr>
+<tr>
+<td>WARNING</td>
+<td>表明发生了一些意外，或者不久的将来会发生问题软件还是在正常工作。</td>
+</tr>
+<tr>
+<td>ERROR</td>
+<td>由于更严重的问题，软件已不能执行一些功能了。</td>
+</tr>
+<tr>
+<td>CRITICAL</td>
+<td>严重错误，表明软件已不能继续运行了。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="记录-record"><a href="#记录-record" class="headerlink" title="记录 (record)"></a>记录 (record)</h3><p>每个record对象代表一条日志<br>record拥很多有的属性， 可扩展, 主要被formatter使用</p>
+<p>日志记录器的记录方法每次被调用就会生成一条record对象, 并且将record的所有属性都设置好.</p>
+<p>record主要有以下属性</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>logger名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>msg</td>
+<td>日志文本</td>
+</tr>
+<tr>
+<td>args</td>
+<td>格式文本的参数</td>
+</tr>
+<tr>
+<td>levelname</td>
+<td>级别名称</td>
+</tr>
+<tr>
+<td>module</td>
+<td>模块名称</td>
+</tr>
+<tr>
+<td>exc_info</td>
+<td>异常相关信息</td>
+</tr>
+<tr>
+<td>lineno</td>
+<td>行号</td>
+</tr>
+<tr>
+<td>funcName</td>
+<td>打日志的函数名称</td>
+</tr>
+<tr>
+<td>threadName</td>
+<td>线程名</td>
+</tr>
+<tr>
+<td>processName</td>
+<td>进程名称</td>
+</tr>
+</tbody>
+</table>
+<h3 id="处理器-handler"><a href="#处理器-handler" class="headerlink" title="处理器 (handler)"></a>处理器 (handler)</h3><p>日志处理器决定了日志的存储的方式， 存储大小，存储的位置<br>日志处理器通过handle方法处理日志, 不同的处理器行为差别很大</p>
+<p>一些常见的日志处理器</p>
+<ul>
+<li>StreamHandler 输出到终端</li>
+<li>SMTPHandler 通过 email 发送日志记录</li>
+<li>SocketHandler 将日志通过网络发送</li>
+<li>FileHandler  记录到文件</li>
+<li>TimedRotatingFileHandler 记录到文件并按时间滚动</li>
+</ul>
+<h3 id="过滤器-filter"><a href="#过滤器-filter" class="headerlink" title="过滤器 (filter)"></a>过滤器 (filter)</h3><p>filter是附加在logger上的, 对日志进行细粒度控制, 例如根据一些条件判断是否记录日志, 修改日志record的内容等</p>
+<p><img src="http://image.runjf.com/mweb/2019-11-02-15441884511996.jpg" alt></p>
+<p>例如上面这个ContextFilter, 就将第二条日志过滤掉了.</p>
+<h3 id="格式器-formatter"><a href="#格式器-formatter" class="headerlink" title="格式器 (formatter)"></a>格式器 (formatter)</h3><p>根据配置，将日志record的属性格式化成字符串<br><img src="http://image.runjf.com/mweb/2019-11-02-15441892815553.jpg" alt></p>
+<p><img src="http://image.runjf.com/mweb/2019-11-02-15441892888667.jpg" alt></p>
+<h3 id="日志处理流程"><a href="#日志处理流程" class="headerlink" title="日志处理流程"></a>日志处理流程</h3><p>解释完这些名词, 然后看这个这个流程图, 就会明白整个日志的处理流程</p>
+<p><img src="http://image.runjf.com/mweb/2019-11-02-15393262305519.jpg" alt></p>
+<h3 id="日志配置"><a href="#日志配置" class="headerlink" title="日志配置"></a>日志配置</h3><p>开发过程中觉得比较好的一个日志配置</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">LOGGING = &#123;</span><br><span class="line">    <span class="string">'version'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'disable_existing_loggers'</span>: <span class="literal">False</span>,  <span class="comment"># 是否禁用已存在的日志记录器</span></span><br><span class="line">    <span class="string">'formatters'</span>: &#123;</span><br><span class="line">        <span class="string">'verbose'</span>: &#123;</span><br><span class="line">            <span class="string">'format'</span>: <span class="string">'[%(levelname)s %(asctime)s %(name)s %(funcName)s %(lineno)d %(process)d] %(message)s'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'simple'</span>: &#123;</span><br><span class="line">            <span class="string">'format'</span>: <span class="string">'[%(levelname)s %(message)s'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'handlers'</span>: &#123;</span><br><span class="line">        <span class="string">'console'</span>: &#123;</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'INFO'</span>,</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.StreamHandler'</span>,   <span class="comment"># 输出到终端的handlers</span></span><br><span class="line">            <span class="string">'formatter'</span>: <span class="string">'simple'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'backend_file'</span>:&#123;</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.handlers.TimedRotatingFileHandler'</span>,    </span><br><span class="line">            <span class="string">'filename'</span>: <span class="string">'main.log'</span>,</span><br><span class="line">            <span class="string">'backupCount'</span>: <span class="number">5</span>,</span><br><span class="line">            <span class="string">'formatter'</span>:<span class="string">'verbose'</span>,</span><br><span class="line">            <span class="string">'when'</span>: <span class="string">'D'</span>,  <span class="comment"># 按天滚动日志</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'backend_err_file'</span>:&#123;</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.handlers.TimedRotatingFileHandler'</span>,</span><br><span class="line">            <span class="string">'filename'</span>: <span class="string">'main_error.log'</span>,</span><br><span class="line">            <span class="string">'backupCount'</span>: <span class="number">5</span>,</span><br><span class="line">            <span class="string">'formatter'</span>:<span class="string">'verbose'</span>,</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'ERROR'</span>,</span><br><span class="line">            <span class="string">'when'</span>: <span class="string">'D'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'loggers'</span>: &#123;</span><br><span class="line">        <span class="string">''</span>: &#123;</span><br><span class="line">            <span class="string">'handlers'</span>: [<span class="string">'backend_file'</span>, <span class="string">'backend_err_file'</span>],</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'INFO'</span>,</span><br><span class="line">            <span class="string">'propagate'</span>: <span class="literal">False</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> logging.config</span><br><span class="line"></span><br><span class="line">logging.config.dictConfig(LOGGING)</span><br></pre></td></tr></table></figure>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h3 id="要打哪些日志"><a href="#要打哪些日志" class="headerlink" title="要打哪些日志"></a>要打哪些日志</h3><h4 id="问题定位"><a href="#问题定位" class="headerlink" title="问题定位"></a>问题定位</h4><ul>
+<li>web请求入口和出口</li>
+<li>外部服务调用入参和返回</li>
+<li>未预料的程序异常</li>
+<li>关键流程记录</li>
+<li>启动、关闭、配置加载</li>
+</ul>
+<h4 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h4><ul>
+<li>函数\服务调用耗时记录</li>
+</ul>
+<h3 id="每条日志要包含哪些内容"><a href="#每条日志要包含哪些内容" class="headerlink" title="每条日志要包含哪些内容"></a>每条日志要包含哪些内容</h3><ul>
+<li><p>基本信息</p>
+  <figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">'<span class="variable">%(levelname)s %</span>(asctime)s <span class="variable">%(name)s %</span>(funcName)s <span class="variable">%(lineno)d %</span>(process)d <span class="variable">%(thread)d %</span>(message)s'</span><br><span class="line"></span><br><span class="line">日志级别 时间 logger名称 函数名称 函数名 行号 进程id 线程id</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>唯一请求id</li>
+<li>必要的描述信息: 如request xxx failed</li>
+<li>异常相关信息, 调用trace info</li>
+</ul>
+<h3 id="日志级别"><a href="#日志级别" class="headerlink" title="日志级别"></a>日志级别</h3><p>正确地使用日志级别, 不要乱用级别<br><strong>ERROR</strong>：该级别的错误也需要马上被处理。当ERROR错误发生时，已经影响了用户的正常访问，是需要马上得到人工介入并处理的。<br><strong>WARNING</strong>：该日志表示系统可能出现问题，也可能没有，这种情况如网络的波动等。对于WARN级别的日志，虽然不需要系统管理员马上处理，也是需要及时查看并处理的。因此此种级别的日志也不应太多，能不打WARNING级别的日志，就尽量不要打；<br><strong>INFO</strong>：该种日志记录系统的正常运行状态, 占日志的大部分；<br><strong>DEBUG</strong>：开发过程中的调试信息。</p>
+<h3 id="日志存储"><a href="#日志存储" class="headerlink" title="日志存储"></a>日志存储</h3><h4 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h4><ul>
+<li>日志滚动: 按时间或按大小滚动. 同时配置最大保存的数目</li>
+<li>存储路径: 放到空间比较大目录</li>
+<li>注意是否多进程写日志</li>
+<li>error级别日志输出到单独文件</li>
+</ul>
+<h4 id="网络日志"><a href="#网络日志" class="headerlink" title="网络日志"></a>网络日志</h4><ul>
+<li>单机情况下一般不需要 </li>
+<li>多机部署可用kafka，ELK等方案</li>
+</ul>
+<h3 id="一些记录的建议"><a href="#一些记录的建议" class="headerlink" title="一些记录的建议"></a>一些记录的建议</h3><ul>
+<li>不要使用print代替日志</li>
+<li>日志对程序性能有影响, 不要打很多没有必要的日志.</li>
+<li>不同的日志handler有不同的适用场景, 要选择合适的handler</li>
+<li>Python内置的所有handler只是线程安全, 多进程场景可以打日志到多个文件, 或者使用网络日志</li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>日志</tag>
       </tags>
   </entry>
   <entry>
@@ -4385,43 +4410,6 @@ img[alt="-w350"] {
       </tags>
   </entry>
   <entry>
-    <title>Redis原理 —— zskiplist 跳跃表</title>
-    <url>/2021/04/20/redis-source-code-data-structure-zskiplist/</url>
-    <content><![CDATA[<p>跳跃表 （skiplist) 是一种有序数据结构，它通过在每个节点中维持多个指向其他节点的 指针，从而达到快速访问节点的目的。</p>
-<p>跳跃表优点</p>
-<ul>
-<li>表支持平均<code>O(logN)</code>, 最坏<code>O(N)</code>复杂度的节点查找，效率可以和平衡树相当</li>
-<li>通过顺序性操作来批量处理节点</li>
-<li>实现比平衡树要来得更为简单</li>
-</ul>
-<p>因为<code>ziplist</code>内存占用较小，所以Redis使用作为有序集合的初始底层结构。<br>如果一个有序集合包含的元素数量比较多（大于<code>zset-max-ziplist-entries</code>），又或者有序集合中元素的成员是比较长的字符串时（大于<code>zset-max-ziplist-value</code>），Redis就会将其底层结构转换为跳跃表。</p>
-<a id="more"></a>
-<h2 id="zskiplist-数据结构"><a href="#zskiplist-数据结构" class="headerlink" title="zskiplist 数据结构"></a>zskiplist 数据结构</h2><p>跳跃表节点, 其中<code>zskiplistLevel</code>成员是<a href="https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html" target="_blank" rel="noopener">柔性数组</a><br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> &#123;</span></span><br><span class="line">    <span class="comment">// 成员对象</span></span><br><span class="line">    robj *obj;</span><br><span class="line">    <span class="comment">// 分值</span></span><br><span class="line">    <span class="keyword">double</span> score;</span><br><span class="line">    <span class="comment">// 后退指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">backward</span>;</span></span><br><span class="line">    <span class="comment">// 层</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistLevel</span> &#123;</span></span><br><span class="line">        <span class="comment">// 前进指针</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">forward</span>;</span></span><br><span class="line">        <span class="comment">// 跨度，经过的节点数目</span></span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> span;</span><br><span class="line">    &#125; level[];  <span class="comment">// 柔性数组</span></span><br><span class="line">&#125; zskiplistNode;</span><br></pre></td></tr></table></figure></p>
-<p>跳跃表<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplist</span> &#123;</span></span><br><span class="line">    <span class="comment">// 表头节点和表尾节点</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">header</span>, *<span class="title">tail</span>;</span></span><br><span class="line">    <span class="comment">// 表中节点的数量</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> length;</span><br><span class="line">    <span class="comment">// 表中层数最大的节点的层数</span></span><br><span class="line">    <span class="keyword">int</span> level;</span><br><span class="line">&#125; zskiplist;</span><br></pre></td></tr></table></figure></p>
-<p><img src="http://image.runjf.com/mweb/2021-04-23-16190066207268.jpg" alt></p>
-<p>所谓跳跃表，就是多层链表（redis中的实现是最多32层）通过额外的链接提高效率，从低层到高层，节点之间的跨度逐渐变大。</p>
-<p>跨度越大则查找效率越高，所以查找时是从高层往底层查找。</p>
-<p>如果节点的最高层高为x，则可以认为该节点就存储在低x层，则表头到该节点的跨度之和为该节点的rank(排位)，所有节点的最大层高为跳跃表层高。</p>
-<h2 id="跳跃表插入节点"><a href="#跳跃表插入节点" class="headerlink" title="跳跃表插入节点"></a>跳跃表插入节点</h2><p>因为跳跃表是多层链表，所以插入节点的关键是找到每一层插入的位置，以及插入位置的跨度变化，还有新节点的跨度计算。</p>
-<p>python 版跳跃表插入实现<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 比较节点大小</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_node_lt</span><span class="params">(node: zskiplistNode, score: float, obj: robj)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> node.score &lt; score:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">if</span> (node.score == score <span class="keyword">and</span></span><br><span class="line">        compareStringObjects(node.obj, obj) &lt; <span class="number">0</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">zslInsert</span><span class="params">(zsl: zskiplist, score: float, obj: robj)</span> -&gt; zskiplistNode:</span></span><br><span class="line">    <span class="comment"># update list记录的是每一层, 新节点需要插入的位置(新节点x的backward节点指针)</span></span><br><span class="line">    update: List[Opt[zskiplistNode]] = [<span class="literal">None</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(ZSKIPLIST_MAXLEVEL)]</span><br><span class="line">    <span class="comment"># rank[i]: 从高到低, 到第i层为止经过的所有node的span总和, 也就是节点的排序</span></span><br><span class="line">    <span class="comment"># 用于计算新节点各层的span, 以及新节点的后继节点各层的span</span></span><br><span class="line">    rank = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(ZSKIPLIST_MAXLEVEL)]</span><br><span class="line">    x = zsl.header</span><br><span class="line">    <span class="comment"># 从高层开始遍历</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(zsl.level<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">        rank[i] = <span class="number">0</span> <span class="keyword">if</span> i == zsl.level<span class="number">-1</span> <span class="keyword">else</span> rank[i+<span class="number">1</span>]</span><br><span class="line">        <span class="comment"># 找到每一层x需要插入的位置, 并更新rank</span></span><br><span class="line">        <span class="keyword">while</span> x.level[i].forward <span class="keyword">and</span> _node_lt(x.level[i].forward, score, obj):</span><br><span class="line">            rank[i] += x.level[i].span</span><br><span class="line">            x = x.level[i].forward</span><br><span class="line">        <span class="comment"># 对于每一层i, 新节点会插入到update[i].level[i]之后</span></span><br><span class="line">        update[i] = x</span><br><span class="line">    level = zslRandomLevel()  <span class="comment"># 取一个随机层数, 使zskiplist，每层节点更为均衡</span></span><br><span class="line">    <span class="comment"># 新节点层高增大的情况，更新扩展层的默认跨度</span></span><br><span class="line">    <span class="keyword">if</span> level &gt; zsl.level:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(zsl.level, level):</span><br><span class="line">            rank[i] = <span class="number">0</span></span><br><span class="line">            update[i] = zsl.header</span><br><span class="line">            update[i].level[i].span = zsl.length </span><br><span class="line">        zsl.level = level</span><br><span class="line">    <span class="comment"># 更新节点x和前驱节点已有层的跨度</span></span><br><span class="line">    x = zslCreateNode(level, score, obj)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(level):</span><br><span class="line">        x.level[i].forward = update[i].level[i].forward</span><br><span class="line">        update[i].level[i].forward = x </span><br><span class="line">        x.level[i].span = update[i].level[i].span - (rank[<span class="number">0</span>] - rank[i])  </span><br><span class="line">        update[i].level[i].span = (rank[<span class="number">0</span>] - rank[i]) + <span class="number">1</span> </span><br><span class="line">    <span class="comment"># 更新前驱节点扩展层的跨度，x节点这些层没有后继节点，所以跨度为0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(level, zsl.level):</span><br><span class="line">        update[i].level[i].span += <span class="number">1</span>  <span class="comment"># type: ignore</span></span><br><span class="line">    <span class="comment"># 设置新节点的后退指针, level[0]才有后退指针</span></span><br><span class="line">    x.backward = <span class="literal">None</span> <span class="keyword">if</span> update[<span class="number">0</span>] == zsl.header <span class="keyword">else</span> update[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> x.level[<span class="number">0</span>].forward:</span><br><span class="line">        x.level[<span class="number">0</span>].forward.backward = x</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        zsl.tail = x</span><br><span class="line">    zsl.length += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure></p>
-<h2 id="跳跃表查找"><a href="#跳跃表查找" class="headerlink" title="跳跃表查找"></a>跳跃表查找</h2><p>跳跃表的查找则是从高层向低层查找，沿着最高层链表前进；遇到大于目标值的节点，则往下一层，直到找到相等的值为止。</p>
-<p>经过的所有节点的跨度相加即是目标节点的rank。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">zslGetRank</span><span class="params">(zsl: zskiplist, score: float, obj: robj)</span> -&gt; int:</span></span><br><span class="line">    rank = <span class="number">0</span></span><br><span class="line">    x = zsl.header</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(zsl.level<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">        <span class="keyword">while</span> x.level[i].forward <span class="keyword">and</span> _node_lt(x.level[i].forward, score, obj):</span><br><span class="line">            rank += x.level[i].span</span><br><span class="line">            x = x.level[i].forward</span><br><span class="line">        <span class="keyword">if</span> x.obj <span class="keyword">and</span> equalStringObjects(x.obj, obj):</span><br><span class="line">            <span class="keyword">return</span> rank</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<p>查找score=2.0的o2对象的过程<br><img src="http://image.runjf.com/mweb/2021-04-23-16191635872238.jpg" alt></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li>redis 3.0 源码</li>
-<li>redis 设计与实现</li>
-</ul>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Redis</tag>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Redis持久化：RDB与AOF</title>
     <url>/2021/07/20/redis-source-code-rdb-aof-persistence/</url>
     <content><![CDATA[<p>Redis是内存型数据库，所有数据都存储在内存中。而内存是易失型存储，一旦进程退出所有数据都会丢失。</p>
@@ -4485,23 +4473,40 @@ img[alt="-w350"] {
       </tags>
   </entry>
   <entry>
-    <title>从windows资源管理器启动Python脚本</title>
-    <url>/2018/02/04/run-python-from-explorer/</url>
-    <content><![CDATA[<p>有时想给windows的资源管理器增加一些自定义的功能，比如创建目录联接到某个目录。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>给windows的资源管理器添加一个右键菜单，调用你想要运行的程序或脚本，理论上可以实现任意功能。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p><strong>那么我们就开始py一个脚本吧, 创建目录联接到指定目录</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os, sys, subprocess</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> len(sys.argv) &lt; <span class="number">2</span>:</span><br><span class="line">    exit()</span><br><span class="line"></span><br><span class="line">p = sys.argv[<span class="number">1</span>]  <span class="comment"># 目标路径通过命令行参数传入</span></span><br><span class="line">base_dir, name = os.path.split(p)</span><br><span class="line"></span><br><span class="line">si = subprocess.STARTUPINFO()</span><br><span class="line">si.dwFlags |= subprocess.STARTF_USESHOWWINDOW   <span class="comment"># 隐藏subprocess运行的命令窗口</span></span><br><span class="line">cmd = <span class="string">'mklink /J &#123;&#125; &#123;&#125;'</span>.format(os.path.join(<span class="string">'E:\\share'</span>, name), p)</span><br><span class="line">subprocess.call(cmd, startupinfo=si, shell=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+    <title>Redis原理 —— zskiplist 跳跃表</title>
+    <url>/2021/04/20/redis-source-code-data-structure-zskiplist/</url>
+    <content><![CDATA[<p>跳跃表 （skiplist) 是一种有序数据结构，它通过在每个节点中维持多个指向其他节点的 指针，从而达到快速访问节点的目的。</p>
+<p>跳跃表优点</p>
+<ul>
+<li>表支持平均<code>O(logN)</code>, 最坏<code>O(N)</code>复杂度的节点查找，效率可以和平衡树相当</li>
+<li>通过顺序性操作来批量处理节点</li>
+<li>实现比平衡树要来得更为简单</li>
+</ul>
+<p>因为<code>ziplist</code>内存占用较小，所以Redis使用作为有序集合的初始底层结构。<br>如果一个有序集合包含的元素数量比较多（大于<code>zset-max-ziplist-entries</code>），又或者有序集合中元素的成员是比较长的字符串时（大于<code>zset-max-ziplist-value</code>），Redis就会将其底层结构转换为跳跃表。</p>
 <a id="more"></a>
-<p><strong>修改注册表,添加右键菜单</strong></p>
-<p>复制这段保存为 add_to_share.reg 双击执行导入</p>
-<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT<span class="tag">\<span class="name">Directory</span></span><span class="tag">\<span class="name">shell</span></span><span class="tag">\<span class="name">share</span></span>]</span><br><span class="line">@="添加到共享文件夹"</span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT<span class="tag">\<span class="name">Directory</span></span><span class="tag">\<span class="name">shell</span></span><span class="tag">\<span class="name">share</span></span><span class="tag">\<span class="name">command</span></span>]</span><br><span class="line">@="<span class="tag">\<span class="name">"</span></span>D:<span class="tag">\<span class="name">\</span></span>lib<span class="tag">\<span class="name">\</span></span>python3<span class="tag">\<span class="name">\</span></span>pythonw.exe<span class="tag">\<span class="name">"</span></span> <span class="tag">\<span class="name">"</span></span>D:<span class="tag">\<span class="name">\</span></span>Scripts<span class="tag">\<span class="name">\</span></span>link_to_share.py<span class="tag">\<span class="name">"</span></span> <span class="tag">\<span class="name">"</span></span><span class="comment">%1\""</span></span><br><span class="line">; D:<span class="tag">\<span class="name">\</span></span>lib<span class="tag">\<span class="name">\</span></span>python3<span class="tag">\<span class="name">\</span></span>pythonw.exe 这是python解释器路径, pythonw.exe 执行时不会有解释器窗口</span><br><span class="line">; D:<span class="tag">\<span class="name">\</span></span>Scripts<span class="tag">\<span class="name">\</span></span>link_to_share.py 脚本路径</span><br><span class="line">; <span class="comment">%1 选中的文件夹全路径</span></span><br></pre></td></tr></table></figure>
-<h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p><img src="http://image.runjf.com/18-2-4/77007025.jpg" alt><br><img src="http://image.runjf.com/18-2-4/54072201.jpg" alt></p>
+<h2 id="zskiplist-数据结构"><a href="#zskiplist-数据结构" class="headerlink" title="zskiplist 数据结构"></a>zskiplist 数据结构</h2><p>跳跃表节点, 其中<code>zskiplistLevel</code>成员是<a href="https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html" target="_blank" rel="noopener">柔性数组</a><br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> &#123;</span></span><br><span class="line">    <span class="comment">// 成员对象</span></span><br><span class="line">    robj *obj;</span><br><span class="line">    <span class="comment">// 分值</span></span><br><span class="line">    <span class="keyword">double</span> score;</span><br><span class="line">    <span class="comment">// 后退指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">backward</span>;</span></span><br><span class="line">    <span class="comment">// 层</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistLevel</span> &#123;</span></span><br><span class="line">        <span class="comment">// 前进指针</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">forward</span>;</span></span><br><span class="line">        <span class="comment">// 跨度，经过的节点数目</span></span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> span;</span><br><span class="line">    &#125; level[];  <span class="comment">// 柔性数组</span></span><br><span class="line">&#125; zskiplistNode;</span><br></pre></td></tr></table></figure></p>
+<p>跳跃表<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplist</span> &#123;</span></span><br><span class="line">    <span class="comment">// 表头节点和表尾节点</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">header</span>, *<span class="title">tail</span>;</span></span><br><span class="line">    <span class="comment">// 表中节点的数量</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> length;</span><br><span class="line">    <span class="comment">// 表中层数最大的节点的层数</span></span><br><span class="line">    <span class="keyword">int</span> level;</span><br><span class="line">&#125; zskiplist;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://image.runjf.com/mweb/2021-04-23-16190066207268.jpg" alt></p>
+<p>所谓跳跃表，就是多层链表（redis中的实现是最多32层）通过额外的链接提高效率，从低层到高层，节点之间的跨度逐渐变大。</p>
+<p>跨度越大则查找效率越高，所以查找时是从高层往底层查找。</p>
+<p>如果节点的最高层高为x，则可以认为该节点就存储在低x层，则表头到该节点的跨度之和为该节点的rank(排位)，所有节点的最大层高为跳跃表层高。</p>
+<h2 id="跳跃表插入节点"><a href="#跳跃表插入节点" class="headerlink" title="跳跃表插入节点"></a>跳跃表插入节点</h2><p>因为跳跃表是多层链表，所以插入节点的关键是找到每一层插入的位置，以及插入位置的跨度变化，还有新节点的跨度计算。</p>
+<p>python 版跳跃表插入实现<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 比较节点大小</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_node_lt</span><span class="params">(node: zskiplistNode, score: float, obj: robj)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> node.score &lt; score:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">if</span> (node.score == score <span class="keyword">and</span></span><br><span class="line">        compareStringObjects(node.obj, obj) &lt; <span class="number">0</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">zslInsert</span><span class="params">(zsl: zskiplist, score: float, obj: robj)</span> -&gt; zskiplistNode:</span></span><br><span class="line">    <span class="comment"># update list记录的是每一层, 新节点需要插入的位置(新节点x的backward节点指针)</span></span><br><span class="line">    update: List[Opt[zskiplistNode]] = [<span class="literal">None</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(ZSKIPLIST_MAXLEVEL)]</span><br><span class="line">    <span class="comment"># rank[i]: 从高到低, 到第i层为止经过的所有node的span总和, 也就是节点的排序</span></span><br><span class="line">    <span class="comment"># 用于计算新节点各层的span, 以及新节点的后继节点各层的span</span></span><br><span class="line">    rank = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(ZSKIPLIST_MAXLEVEL)]</span><br><span class="line">    x = zsl.header</span><br><span class="line">    <span class="comment"># 从高层开始遍历</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(zsl.level<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">        rank[i] = <span class="number">0</span> <span class="keyword">if</span> i == zsl.level<span class="number">-1</span> <span class="keyword">else</span> rank[i+<span class="number">1</span>]</span><br><span class="line">        <span class="comment"># 找到每一层x需要插入的位置, 并更新rank</span></span><br><span class="line">        <span class="keyword">while</span> x.level[i].forward <span class="keyword">and</span> _node_lt(x.level[i].forward, score, obj):</span><br><span class="line">            rank[i] += x.level[i].span</span><br><span class="line">            x = x.level[i].forward</span><br><span class="line">        <span class="comment"># 对于每一层i, 新节点会插入到update[i].level[i]之后</span></span><br><span class="line">        update[i] = x</span><br><span class="line">    level = zslRandomLevel()  <span class="comment"># 取一个随机层数, 使zskiplist，每层节点更为均衡</span></span><br><span class="line">    <span class="comment"># 新节点层高增大的情况，更新扩展层的默认跨度</span></span><br><span class="line">    <span class="keyword">if</span> level &gt; zsl.level:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(zsl.level, level):</span><br><span class="line">            rank[i] = <span class="number">0</span></span><br><span class="line">            update[i] = zsl.header</span><br><span class="line">            update[i].level[i].span = zsl.length </span><br><span class="line">        zsl.level = level</span><br><span class="line">    <span class="comment"># 更新节点x和前驱节点已有层的跨度</span></span><br><span class="line">    x = zslCreateNode(level, score, obj)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(level):</span><br><span class="line">        x.level[i].forward = update[i].level[i].forward</span><br><span class="line">        update[i].level[i].forward = x </span><br><span class="line">        x.level[i].span = update[i].level[i].span - (rank[<span class="number">0</span>] - rank[i])  </span><br><span class="line">        update[i].level[i].span = (rank[<span class="number">0</span>] - rank[i]) + <span class="number">1</span> </span><br><span class="line">    <span class="comment"># 更新前驱节点扩展层的跨度，x节点这些层没有后继节点，所以跨度为0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(level, zsl.level):</span><br><span class="line">        update[i].level[i].span += <span class="number">1</span>  <span class="comment"># type: ignore</span></span><br><span class="line">    <span class="comment"># 设置新节点的后退指针, level[0]才有后退指针</span></span><br><span class="line">    x.backward = <span class="literal">None</span> <span class="keyword">if</span> update[<span class="number">0</span>] == zsl.header <span class="keyword">else</span> update[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> x.level[<span class="number">0</span>].forward:</span><br><span class="line">        x.level[<span class="number">0</span>].forward.backward = x</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        zsl.tail = x</span><br><span class="line">    zsl.length += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure></p>
+<h2 id="跳跃表查找"><a href="#跳跃表查找" class="headerlink" title="跳跃表查找"></a>跳跃表查找</h2><p>跳跃表的查找则是从高层向低层查找，沿着最高层链表前进；遇到大于目标值的节点，则往下一层，直到找到相等的值为止。</p>
+<p>经过的所有节点的跨度相加即是目标节点的rank。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">zslGetRank</span><span class="params">(zsl: zskiplist, score: float, obj: robj)</span> -&gt; int:</span></span><br><span class="line">    rank = <span class="number">0</span></span><br><span class="line">    x = zsl.header</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(zsl.level<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">        <span class="keyword">while</span> x.level[i].forward <span class="keyword">and</span> _node_lt(x.level[i].forward, score, obj):</span><br><span class="line">            rank += x.level[i].span</span><br><span class="line">            x = x.level[i].forward</span><br><span class="line">        <span class="keyword">if</span> x.obj <span class="keyword">and</span> equalStringObjects(x.obj, obj):</span><br><span class="line">            <span class="keyword">return</span> rank</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>查找score=2.0的o2对象的过程<br><img src="http://image.runjf.com/mweb/2021-04-23-16191635872238.jpg" alt></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>redis 3.0 源码</li>
+<li>redis 设计与实现</li>
+</ul>
 ]]></content>
       <categories>
         <category>编程</category>
       </categories>
       <tags>
-        <tag>Python</tag>
+        <tag>Redis</tag>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -4553,6 +4558,26 @@ img[alt="-w350"] {
         <tag>Python</tag>
         <tag>分布式</tag>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>从windows资源管理器启动Python脚本</title>
+    <url>/2018/02/04/run-python-from-explorer/</url>
+    <content><![CDATA[<p>有时想给windows的资源管理器增加一些自定义的功能，比如创建目录联接到某个目录。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>给windows的资源管理器添加一个右键菜单，调用你想要运行的程序或脚本，理论上可以实现任意功能。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p><strong>那么我们就开始py一个脚本吧, 创建目录联接到指定目录</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os, sys, subprocess</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> len(sys.argv) &lt; <span class="number">2</span>:</span><br><span class="line">    exit()</span><br><span class="line"></span><br><span class="line">p = sys.argv[<span class="number">1</span>]  <span class="comment"># 目标路径通过命令行参数传入</span></span><br><span class="line">base_dir, name = os.path.split(p)</span><br><span class="line"></span><br><span class="line">si = subprocess.STARTUPINFO()</span><br><span class="line">si.dwFlags |= subprocess.STARTF_USESHOWWINDOW   <span class="comment"># 隐藏subprocess运行的命令窗口</span></span><br><span class="line">cmd = <span class="string">'mklink /J &#123;&#125; &#123;&#125;'</span>.format(os.path.join(<span class="string">'E:\\share'</span>, name), p)</span><br><span class="line">subprocess.call(cmd, startupinfo=si, shell=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><strong>修改注册表,添加右键菜单</strong></p>
+<p>复制这段保存为 add_to_share.reg 双击执行导入</p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT<span class="tag">\<span class="name">Directory</span></span><span class="tag">\<span class="name">shell</span></span><span class="tag">\<span class="name">share</span></span>]</span><br><span class="line">@="添加到共享文件夹"</span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT<span class="tag">\<span class="name">Directory</span></span><span class="tag">\<span class="name">shell</span></span><span class="tag">\<span class="name">share</span></span><span class="tag">\<span class="name">command</span></span>]</span><br><span class="line">@="<span class="tag">\<span class="name">"</span></span>D:<span class="tag">\<span class="name">\</span></span>lib<span class="tag">\<span class="name">\</span></span>python3<span class="tag">\<span class="name">\</span></span>pythonw.exe<span class="tag">\<span class="name">"</span></span> <span class="tag">\<span class="name">"</span></span>D:<span class="tag">\<span class="name">\</span></span>Scripts<span class="tag">\<span class="name">\</span></span>link_to_share.py<span class="tag">\<span class="name">"</span></span> <span class="tag">\<span class="name">"</span></span><span class="comment">%1\""</span></span><br><span class="line">; D:<span class="tag">\<span class="name">\</span></span>lib<span class="tag">\<span class="name">\</span></span>python3<span class="tag">\<span class="name">\</span></span>pythonw.exe 这是python解释器路径, pythonw.exe 执行时不会有解释器窗口</span><br><span class="line">; D:<span class="tag">\<span class="name">\</span></span>Scripts<span class="tag">\<span class="name">\</span></span>link_to_share.py 脚本路径</span><br><span class="line">; <span class="comment">%1 选中的文件夹全路径</span></span><br></pre></td></tr></table></figure>
+<h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p><img src="http://image.runjf.com/18-2-4/77007025.jpg" alt><br><img src="http://image.runjf.com/18-2-4/54072201.jpg" alt></p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -5050,51 +5075,6 @@ img[alt="-w350"] {
       </tags>
   </entry>
   <entry>
-    <title>ubuntu静态ip配置</title>
-    <url>/2016/04/16/ubuntu%E9%9D%99%E6%80%81ip%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<p>以vmware虚拟机为例</p>
-<h2 id="设置IP"><a href="#设置IP" class="headerlink" title="设置IP"></a>设置IP</h2><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">auto eth0  # eth0是网卡名称，你的不一定是这个，可通过ifconfig查看</span><br><span class="line">iface eth0 inet static</span><br><span class="line">address 192.168.157.129   # 地址</span><br><span class="line">gateway 192.168.157.2    # 网关</span><br><span class="line">netmask 255.255.255.0   # 掩码</span><br></pre></td></tr></table></figure></p>
-<h2 id="修改DNS"><a href="#修改DNS" class="headerlink" title="修改DNS"></a>修改DNS</h2><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>variable-precision SWAR 算法详解</title>
-    <url>/2020/08/01/variable-precision-SWAR-algorithm/</url>
-    <content><![CDATA[<p>在学习redis源码时，发现<code>BITCOUNT</code>命令实现用到了variable-precision SWAR 算法。</p>
-<p><code>BITCOUNT</code>命令要解决的问题：<strong>统计一个位数组中非0二进制位的数量</strong>。在数学上被称为“计算汉明重量（Hamming Weight)” </p>
-<p>目前已知效率最好的通用算法为variable-precision SWAR 算法。<br>该算法通过一系列位移和位运算操作，可以在常数时间内计算多个字节的汉明重量，并且不需要使用任何额外的内存。<br><a id="more"></a></p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>以下是一个处理32位长度位数组的算法实现，一共分4步。<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">uint32_t</span> swar(<span class="keyword">uint32_t</span> i)&#123;</span><br><span class="line">    i = (i &amp; <span class="number">0x55555555</span>) + ((i&gt;&gt;<span class="number">1</span>) &amp; <span class="number">0x55555555</span>);  <span class="comment">// 步骤1</span></span><br><span class="line">    i = (i &amp; <span class="number">0x33333333</span>) + ((i&gt;&gt;<span class="number">2</span>) &amp; <span class="number">0x33333333</span>);  <span class="comment">// 步骤2</span></span><br><span class="line">    i = (i &amp; <span class="number">0x0F0F0F0F</span>) + ((i&gt;&gt;<span class="number">4</span>) &amp; <span class="number">0x0F0F0F0F</span>);  <span class="comment">// 步骤3</span></span><br><span class="line">    i = (i * <span class="number">0x01010101</span>) &gt;&gt; <span class="number">24</span>;                    <span class="comment">// 步骤4</span></span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>这里我们以<code>i=0x12345678</code>(二进制位为<code>00010010001101000101011001111000</code>)为例，讲解算法过程<br>我们可以把i的二进制位理解成：长度为32的数组，每个元素取值区间[0,1]，每个元素正好能代表这个位是不是1.</p>
-<p>所以，问题就可以转化为，求这个数组的和。<br>根据分治法的思想，我们可以把相邻的两个数字相加，得到长度为16的数组，每个元素取值区间[0,2]。<br>并以此类推，最终求出总和。</p>
-<p><img src="http://image.runjf.com/mweb/2020-08-01-15962704953270.jpg" alt><br><img src="http://image.runjf.com/mweb/2020-08-01-15962705553725.jpg" alt></p>
-<h3 id="步骤1"><a href="#步骤1" class="headerlink" title="步骤1"></a>步骤1</h3><p>这一步用到<code>0x55555555</code>作为掩码，其二进制表示为<code>01010101010101010101010101010101</code><br>此时i可理解为长度为32的数组，每个元素取值区间[0,1]，元素宽度1bit。</p>
-<p>通过<code>i &amp; 0x55555555</code>运算，取得了i的奇数位置元素，存储为16个2bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x55555555</code>运算，取得了i的偶数位置元素，存储为16个2bit整数；</p>
-<p>两者相加，相当于16组2bit整数按位相加，问题就转化成了2bit的二进制加法。<br>由于原数组每个元素取值区间[0,1]，所以每组相加的结果会在[0,2]区间内，2bit刚好存储。<br>最终得到长度为16的数组，每个元素取值区间[0,2]。<br><img src="http://image.runjf.com/mweb/2020-08-01-15962660065367.jpg" alt></p>
-<h3 id="步骤2"><a href="#步骤2" class="headerlink" title="步骤2"></a>步骤2</h3><p>这一步用到<code>0x33333333</code>作为掩码，其二进制表示为<code>00110011001100110011001100110011</code><br>此时i可理解表示为长度为16的数组，每个元素取值区间[0,2]，元素宽度2bit。</p>
-<p>通过<code>i &amp; 0x33333333</code>运算，取得了i的奇数位置元素，存储为8个4bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x33333333</code>运算，取得了i的偶数位置元素，存储为8个4bit整数；</p>
-<p>两者相加，相当于8组4bit整数按位相加，问题就转化成了4bit的二进制加法。<br>由于原数组每个元素取值区间[0,2]，所以每组相加的结果会在[0,4]区间内，4bit刚好存储。<br>最终得到长度为8的数组，每个元素取值区间[0,4]。</p>
-<h3 id="步骤3"><a href="#步骤3" class="headerlink" title="步骤3"></a>步骤3</h3><p>这一步用到<code>0x0F0F0F0F</code>作为掩码，其二进制表示为<code>00001111000011110000111100001111</code><br>此时i可理解表示为长度为8的数组，每个元素取值区间[0,4]，元素宽度4bit。</p>
-<p>通过<code>i &amp; 0x0F0F0F0F</code>运算，取得了i的奇数位置元素，存储为4个8bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x33333333</code>运算，取得了i的偶数位置元素，存储为4个8bit整数；</p>
-<p>两者相加，相当于4组8bit整数按位相加, 问题就转化成了8bit的二进制加法。<br>由于原数组每个元素取值区间[0,4]，所以每组相加的结果会在<code>[0,8]</code>区间内，8bit足够存储。<br>最终得到长度为4的数组，每个元素取值区间[0,8]。</p>
-<h3 id="步骤4"><a href="#步骤4" class="headerlink" title="步骤4"></a>步骤4</h3><p>按照上面的思路，本来应该继续将长度为4的数组转换为长度为2的数组。<br>但是这里由于4个8bit整数相加存在简便运算，就不继续往下合并了。</p>
-<p>到这一步是时<code>i=0x02030404</code>，为了求出最终结果，我们可以想到位移的办法将每8bit取出（参考ip掩码计算），然后再依次相加。<br>最终结果也就是 <code>(i &amp; 0xFF) + ((i&gt;&gt;8) &amp; 0xFF) + ((i&gt;&gt;16) &amp; 0xFF) + ((i&gt;&gt;24) &amp; 0xFF)</code></p>
-<p>为了理解算法里的做法，这里需要简单的数学推导<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 将0x01010101转化成多项式表达</span></span><br><span class="line">          <span class="number">0x01010101</span> == <span class="number">2</span>**<span class="number">24</span> + <span class="number">2</span>**<span class="number">16</span> + <span class="number">2</span>**<span class="number">8</span> + <span class="number">2</span>**<span class="number">0</span> </span><br><span class="line"><span class="comment">// 两边同乘以i</span></span><br><span class="line">      i * <span class="number">0x01010101</span> == i * <span class="number">2</span>**<span class="number">24</span> + i * <span class="number">2</span>**<span class="number">16</span> + i * <span class="number">2</span>**<span class="number">8</span> + i * <span class="number">2</span>**<span class="number">0</span></span><br><span class="line"><span class="comment">// 2的乘方运算转化为位移运算</span></span><br><span class="line">      i * <span class="number">0x01010101</span> == (i&lt;&lt;<span class="number">24</span>) + (i&lt;&lt;<span class="number">16</span>) + (i&lt;&lt;<span class="number">8</span>) + (i&lt;&lt;<span class="number">0</span>)</span><br><span class="line"><span class="comment">// 两边同时右移24位</span></span><br><span class="line">(i * <span class="number">0x01010101</span>)&gt;&gt;<span class="number">24</span> == ((i&lt;&lt;<span class="number">24</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">16</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">8</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">0</span>)&gt;&gt;<span class="number">24</span>)</span><br><span class="line"><span class="comment">// 将左移和右移合并，并考虑溢出，最终结果一致</span></span><br><span class="line">(i * <span class="number">0x01010101</span>)&gt;&gt;<span class="number">24</span> == (i &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">8</span>) &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">16</span>) &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">24</span>) &amp; <span class="number">0xFF</span>)</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Windows 网络共享</title>
     <url>/2021/10/10/windows-network-share/</url>
     <content><![CDATA[<p>要在不暴露 client 的情况下共享网络，一般就只能使用 nat(Network Address Translation), linux 下可以使用 iptables 很轻松地搞定。<br>nat 包含 DNAT 和 SNAT, 要想双向互通，必须两者都实现。</p>
@@ -5137,6 +5117,51 @@ img[alt="-w350"] {
       </categories>
       <tags>
         <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ubuntu静态ip配置</title>
+    <url>/2016/04/16/ubuntu%E9%9D%99%E6%80%81ip%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p>以vmware虚拟机为例</p>
+<h2 id="设置IP"><a href="#设置IP" class="headerlink" title="设置IP"></a>设置IP</h2><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">auto eth0  # eth0是网卡名称，你的不一定是这个，可通过ifconfig查看</span><br><span class="line">iface eth0 inet static</span><br><span class="line">address 192.168.157.129   # 地址</span><br><span class="line">gateway 192.168.157.2    # 网关</span><br><span class="line">netmask 255.255.255.0   # 掩码</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改DNS"><a href="#修改DNS" class="headerlink" title="修改DNS"></a>修改DNS</h2><p>运行 <code>sudo nano /etc/resolvconf/resolv.conf.d/base</code><br>把文件改成 <code>nameserver 192.168.157.2</code><br>把<code>192.168.157.2</code>改成你需要的dns，这里因为是vmware的NAT模式，所以dns和网关是一样的。</p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>variable-precision SWAR 算法详解</title>
+    <url>/2020/08/01/variable-precision-SWAR-algorithm/</url>
+    <content><![CDATA[<p>在学习redis源码时，发现<code>BITCOUNT</code>命令实现用到了variable-precision SWAR 算法。</p>
+<p><code>BITCOUNT</code>命令要解决的问题：<strong>统计一个位数组中非0二进制位的数量</strong>。在数学上被称为“计算汉明重量（Hamming Weight)” </p>
+<p>目前已知效率最好的通用算法为variable-precision SWAR 算法。<br>该算法通过一系列位移和位运算操作，可以在常数时间内计算多个字节的汉明重量，并且不需要使用任何额外的内存。<br><a id="more"></a></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>以下是一个处理32位长度位数组的算法实现，一共分4步。<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">uint32_t</span> swar(<span class="keyword">uint32_t</span> i)&#123;</span><br><span class="line">    i = (i &amp; <span class="number">0x55555555</span>) + ((i&gt;&gt;<span class="number">1</span>) &amp; <span class="number">0x55555555</span>);  <span class="comment">// 步骤1</span></span><br><span class="line">    i = (i &amp; <span class="number">0x33333333</span>) + ((i&gt;&gt;<span class="number">2</span>) &amp; <span class="number">0x33333333</span>);  <span class="comment">// 步骤2</span></span><br><span class="line">    i = (i &amp; <span class="number">0x0F0F0F0F</span>) + ((i&gt;&gt;<span class="number">4</span>) &amp; <span class="number">0x0F0F0F0F</span>);  <span class="comment">// 步骤3</span></span><br><span class="line">    i = (i * <span class="number">0x01010101</span>) &gt;&gt; <span class="number">24</span>;                    <span class="comment">// 步骤4</span></span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>这里我们以<code>i=0x12345678</code>(二进制位为<code>00010010001101000101011001111000</code>)为例，讲解算法过程<br>我们可以把i的二进制位理解成：长度为32的数组，每个元素取值区间[0,1]，每个元素正好能代表这个位是不是1.</p>
+<p>所以，问题就可以转化为，求这个数组的和。<br>根据分治法的思想，我们可以把相邻的两个数字相加，得到长度为16的数组，每个元素取值区间[0,2]。<br>并以此类推，最终求出总和。</p>
+<p><img src="http://image.runjf.com/mweb/2020-08-01-15962704953270.jpg" alt><br><img src="http://image.runjf.com/mweb/2020-08-01-15962705553725.jpg" alt></p>
+<h3 id="步骤1"><a href="#步骤1" class="headerlink" title="步骤1"></a>步骤1</h3><p>这一步用到<code>0x55555555</code>作为掩码，其二进制表示为<code>01010101010101010101010101010101</code><br>此时i可理解为长度为32的数组，每个元素取值区间[0,1]，元素宽度1bit。</p>
+<p>通过<code>i &amp; 0x55555555</code>运算，取得了i的奇数位置元素，存储为16个2bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x55555555</code>运算，取得了i的偶数位置元素，存储为16个2bit整数；</p>
+<p>两者相加，相当于16组2bit整数按位相加，问题就转化成了2bit的二进制加法。<br>由于原数组每个元素取值区间[0,1]，所以每组相加的结果会在[0,2]区间内，2bit刚好存储。<br>最终得到长度为16的数组，每个元素取值区间[0,2]。<br><img src="http://image.runjf.com/mweb/2020-08-01-15962660065367.jpg" alt></p>
+<h3 id="步骤2"><a href="#步骤2" class="headerlink" title="步骤2"></a>步骤2</h3><p>这一步用到<code>0x33333333</code>作为掩码，其二进制表示为<code>00110011001100110011001100110011</code><br>此时i可理解表示为长度为16的数组，每个元素取值区间[0,2]，元素宽度2bit。</p>
+<p>通过<code>i &amp; 0x33333333</code>运算，取得了i的奇数位置元素，存储为8个4bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x33333333</code>运算，取得了i的偶数位置元素，存储为8个4bit整数；</p>
+<p>两者相加，相当于8组4bit整数按位相加，问题就转化成了4bit的二进制加法。<br>由于原数组每个元素取值区间[0,2]，所以每组相加的结果会在[0,4]区间内，4bit刚好存储。<br>最终得到长度为8的数组，每个元素取值区间[0,4]。</p>
+<h3 id="步骤3"><a href="#步骤3" class="headerlink" title="步骤3"></a>步骤3</h3><p>这一步用到<code>0x0F0F0F0F</code>作为掩码，其二进制表示为<code>00001111000011110000111100001111</code><br>此时i可理解表示为长度为8的数组，每个元素取值区间[0,4]，元素宽度4bit。</p>
+<p>通过<code>i &amp; 0x0F0F0F0F</code>运算，取得了i的奇数位置元素，存储为4个8bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x33333333</code>运算，取得了i的偶数位置元素，存储为4个8bit整数；</p>
+<p>两者相加，相当于4组8bit整数按位相加, 问题就转化成了8bit的二进制加法。<br>由于原数组每个元素取值区间[0,4]，所以每组相加的结果会在<code>[0,8]</code>区间内，8bit足够存储。<br>最终得到长度为4的数组，每个元素取值区间[0,8]。</p>
+<h3 id="步骤4"><a href="#步骤4" class="headerlink" title="步骤4"></a>步骤4</h3><p>按照上面的思路，本来应该继续将长度为4的数组转换为长度为2的数组。<br>但是这里由于4个8bit整数相加存在简便运算，就不继续往下合并了。</p>
+<p>到这一步是时<code>i=0x02030404</code>，为了求出最终结果，我们可以想到位移的办法将每8bit取出（参考ip掩码计算），然后再依次相加。<br>最终结果也就是 <code>(i &amp; 0xFF) + ((i&gt;&gt;8) &amp; 0xFF) + ((i&gt;&gt;16) &amp; 0xFF) + ((i&gt;&gt;24) &amp; 0xFF)</code></p>
+<p>为了理解算法里的做法，这里需要简单的数学推导<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 将0x01010101转化成多项式表达</span></span><br><span class="line">          <span class="number">0x01010101</span> == <span class="number">2</span>**<span class="number">24</span> + <span class="number">2</span>**<span class="number">16</span> + <span class="number">2</span>**<span class="number">8</span> + <span class="number">2</span>**<span class="number">0</span> </span><br><span class="line"><span class="comment">// 两边同乘以i</span></span><br><span class="line">      i * <span class="number">0x01010101</span> == i * <span class="number">2</span>**<span class="number">24</span> + i * <span class="number">2</span>**<span class="number">16</span> + i * <span class="number">2</span>**<span class="number">8</span> + i * <span class="number">2</span>**<span class="number">0</span></span><br><span class="line"><span class="comment">// 2的乘方运算转化为位移运算</span></span><br><span class="line">      i * <span class="number">0x01010101</span> == (i&lt;&lt;<span class="number">24</span>) + (i&lt;&lt;<span class="number">16</span>) + (i&lt;&lt;<span class="number">8</span>) + (i&lt;&lt;<span class="number">0</span>)</span><br><span class="line"><span class="comment">// 两边同时右移24位</span></span><br><span class="line">(i * <span class="number">0x01010101</span>)&gt;&gt;<span class="number">24</span> == ((i&lt;&lt;<span class="number">24</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">16</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">8</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">0</span>)&gt;&gt;<span class="number">24</span>)</span><br><span class="line"><span class="comment">// 将左移和右移合并，并考虑溢出，最终结果一致</span></span><br><span class="line">(i * <span class="number">0x01010101</span>)&gt;&gt;<span class="number">24</span> == (i &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">8</span>) &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">16</span>) &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">24</span>) &amp; <span class="number">0xFF</span>)</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -6029,29 +6054,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
-    <title>《情商》摘录</title>
-    <url>/2020/05/05/%E3%80%8A%E6%83%85%E5%95%86%E3%80%8B%E6%91%98%E5%BD%95/</url>
-    <content><![CDATA[<p><em>本文为整理以前的读书笔记</em></p>
-<p>对抑郁的忧虑会使我们的抑郁更加严重</p>
-<p>忧虑是一项认知任务，个体如果把心理资源用于忧虑，就分散了用于处理其他信息的心理资源。<br><a id="more"></a><br>社交 – 情绪同步性</p>
-<p>就事论事 – 维护关系</p>
-<blockquote>
-<p>阮云：单纯地发泄情绪对于关系是没有多大帮助的，你要表达出你的诉求。</p>
-</blockquote>
-<p>暴力行为的入侵性记忆</p>
-<p>创伤有应激障碍引发的大脑变化是可以消除的，可从最直接的情绪印记当中复原，治愈的途径就是再学习。</p>
-<p>创伤复原：获得安全感，记住创伤细节并哀悼由此造成的损失，最有重新恢复正常的生活。</p>
-<p>行为疗法与药物一样有效。</p>
-]]></content>
-      <categories>
-        <category>阅读</category>
-      </categories>
-      <tags>
-        <tag>读书笔记</tag>
-        <tag>心理学</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>《意志力：关于专注、自控与效率的心理学》读书笔记</title>
     <url>/2020/04/23/%E3%80%8A%E6%84%8F%E5%BF%97%E5%8A%9B%EF%BC%9A%E5%85%B3%E4%BA%8E%E4%B8%93%E6%B3%A8%E3%80%81%E8%87%AA%E6%8E%A7%E4%B8%8E%E6%95%88%E7%8E%87%E7%9A%84%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><em>本文为整理以前的读书笔记</em><br><em>老拖延症企图从这本书中获得救赎之道，然而这笔记也拖延了许久。总体来说理论是很有道理的。</em></p>
@@ -6120,6 +6122,29 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
 <blockquote>
 <p>阮云：所以做苦行僧不如，得到应得的奖励。</p>
 </blockquote>
+]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+        <tag>心理学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《情商》摘录</title>
+    <url>/2020/05/05/%E3%80%8A%E6%83%85%E5%95%86%E3%80%8B%E6%91%98%E5%BD%95/</url>
+    <content><![CDATA[<p><em>本文为整理以前的读书笔记</em></p>
+<p>对抑郁的忧虑会使我们的抑郁更加严重</p>
+<p>忧虑是一项认知任务，个体如果把心理资源用于忧虑，就分散了用于处理其他信息的心理资源。<br><a id="more"></a><br>社交 – 情绪同步性</p>
+<p>就事论事 – 维护关系</p>
+<blockquote>
+<p>阮云：单纯地发泄情绪对于关系是没有多大帮助的，你要表达出你的诉求。</p>
+</blockquote>
+<p>暴力行为的入侵性记忆</p>
+<p>创伤有应激障碍引发的大脑变化是可以消除的，可从最直接的情绪印记当中复原，治愈的途径就是再学习。</p>
+<p>创伤复原：获得安全感，记住创伤细节并哀悼由此造成的损失，最有重新恢复正常的生活。</p>
+<p>行为疗法与药物一样有效。</p>
 ]]></content>
       <categories>
         <category>阅读</category>
@@ -6341,6 +6366,22 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
+    <title>《燃灯者》摘录</title>
+    <url>/2020/03/21/%E3%80%8A%E7%87%83%E7%81%AF%E8%80%85%E3%80%8B%E6%91%98%E5%BD%95/</url>
+    <content><![CDATA[<p><em>补录，笔记太过久远，原文已然忘记。《维摩诘经》有云，无尽灯者，譬如一灯燃百千灯，冥者皆明，明终不尽。所谓燃灯者，大抵如此</em></p>
+<p>文革十年甚于崖山者百倍</p>
+<p>视其平居无以异于俗人，临大节而不可夺，此不俗人也</p>
+<p>人民，人民，有多少罪恶借你的名义施行</p>
+<p>殷鉴不远，多行不义必自毙</p>
+]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>《潜规则》读书笔记</title>
     <url>/2019/12/06/%E3%80%8A%E6%BD%9C%E8%A7%84%E5%88%99%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img src="http://image.runjf.com/mweb/2019-12-07-15756868332950.jpg?300x" alt></p>
@@ -6389,22 +6430,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       <tags>
         <tag>读书笔记</tag>
         <tag>历史</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《燃灯者》摘录</title>
-    <url>/2020/03/21/%E3%80%8A%E7%87%83%E7%81%AF%E8%80%85%E3%80%8B%E6%91%98%E5%BD%95/</url>
-    <content><![CDATA[<p><em>补录，笔记太过久远，原文已然忘记。《维摩诘经》有云，无尽灯者，譬如一灯燃百千灯，冥者皆明，明终不尽。所谓燃灯者，大抵如此</em></p>
-<p>文革十年甚于崖山者百倍</p>
-<p>视其平居无以异于俗人，临大节而不可夺，此不俗人也</p>
-<p>人民，人民，有多少罪恶借你的名义施行</p>
-<p>殷鉴不远，多行不义必自毙</p>
-]]></content>
-      <categories>
-        <category>阅读</category>
-      </categories>
-      <tags>
-        <tag>读书笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -6615,26 +6640,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
-    <title>《经济学原理：微观经济学分册》思维导图</title>
-    <url>/2015/10/03/%E3%80%8A%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%8E%9F%E7%90%86%EF%BC%9A%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%88%86%E5%86%8C%E3%80%8B%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</url>
-    <content><![CDATA[<ul>
-<li>由于微观经济学经济学中的概念较多，且繁杂，故作思维导图作为记忆和理解的辅助。</li>
-<li>书籍版本：<a href="http://book.douban.com/subject/3719533/" target="_blank" rel="noopener">《经济学原理(第4版):微观经济学分册》</a></li>
-<li>作者：<a href="http://baike.baidu.com/link?url=RCDcniLIx-hAl-nesCNmnGVNvCh8qZ4CKwB8anLMBMu58798gFgmAeRKUwsXVJ9lWJgdxYNuwdUpV-U1ly2tg_" target="_blank" rel="noopener">[美] N.格里高利·曼昆</a></li>
-<li>制作工具：<a href="http://www.xmind.net/" target="_blank" rel="noopener">xmind</a></li>
-</ul>
-<!--![微观经济学-1](media/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6-1.jpg)-->
-<p><img src="http://image.runjf.com/mweb/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6-1.jpg" alt></p>
-]]></content>
-      <categories>
-        <category>阅读</category>
-      </categories>
-      <tags>
-        <tag>读书笔记</tag>
-        <tag>思维导图</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>《程序员的数学》读书笔记</title>
     <url>/2016/08/14/%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本书讲的的是一些程序员必须了解的数学知识，有些知识点挺有意义的，特别是对于非科班出身的程序员来说。<br>就我的观点来说，一般的程序员需要的数学水平大概是高中就够了，当然要做算法研究大学数学专业水平也不一定够。<br>下文记录本书一些有用知识点，包括一些算法的数学思路，还有有趣的逻辑问题。</p>
@@ -6662,6 +6667,26 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </categories>
       <tags>
         <tag>读书笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《经济学原理：微观经济学分册》思维导图</title>
+    <url>/2015/10/03/%E3%80%8A%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%8E%9F%E7%90%86%EF%BC%9A%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%88%86%E5%86%8C%E3%80%8B%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</url>
+    <content><![CDATA[<ul>
+<li>由于微观经济学经济学中的概念较多，且繁杂，故作思维导图作为记忆和理解的辅助。</li>
+<li>书籍版本：<a href="http://book.douban.com/subject/3719533/" target="_blank" rel="noopener">《经济学原理(第4版):微观经济学分册》</a></li>
+<li>作者：<a href="http://baike.baidu.com/link?url=RCDcniLIx-hAl-nesCNmnGVNvCh8qZ4CKwB8anLMBMu58798gFgmAeRKUwsXVJ9lWJgdxYNuwdUpV-U1ly2tg_" target="_blank" rel="noopener">[美] N.格里高利·曼昆</a></li>
+<li>制作工具：<a href="http://www.xmind.net/" target="_blank" rel="noopener">xmind</a></li>
+</ul>
+<!--![微观经济学-1](media/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6-1.jpg)-->
+<p><img src="http://image.runjf.com/mweb/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6-1.jpg" alt></p>
+]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+        <tag>思维导图</tag>
       </tags>
   </entry>
   <entry>
@@ -7253,20 +7278,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
-    <title>关于生活</title>
-    <url>/2016/05/22/%E5%85%B3%E4%BA%8E%E7%94%9F%E6%B4%BB/</url>
-    <content><![CDATA[<p>　　有些人以为生活只有诗与远方，后来他离开了生活。<br>　　<br>　　有些人以为生活只是眼前的苟且，后来他失去了自我。</p>
-<p>　　人生在世，无论理想如何远大，终须为稻粱谋。陶渊明不为五斗米折腰，前提没这点俸禄也不至于饿死。若是形式迫人，虽嗟来之食亦受之。一旦不为生计发愁，迎接你的必是诗与远方。故我先欲求之财务自由，后践吾心之所向。</p>
-<p>　　不够强大的理想主义者，一大部分矮化成了现实主义者，另一部分成了随波逐流的躯壳，余下的抛弃了这个娑婆世界。<br>　　<br>　　而我，先欲求安身立命之所，后追寻最初的梦想，希望能走得更远。</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>关于Python类的继承</title>
     <url>/2016/02/28/%E5%85%B3%E4%BA%8Epython%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/</url>
     <content><![CDATA[<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>童话里经常会看到英雄打败恶人的故事，而且故事里总会有一个类似黑暗森林的场景——要么是一个山洞，要么是一篇森林，要么是另一个星球，反正是英雄不该去的某个地方。<br>当然，一旦反面角色在剧情中出现，你就会发现英雄非得去那片破森林去杀掉坏人。当英雄的总是不得不冒着生命危险进到邪恶森林中去。</p>
@@ -7299,6 +7310,20 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </categories>
       <tags>
         <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于生活</title>
+    <url>/2016/05/22/%E5%85%B3%E4%BA%8E%E7%94%9F%E6%B4%BB/</url>
+    <content><![CDATA[<p>　　有些人以为生活只有诗与远方，后来他离开了生活。<br>　　<br>　　有些人以为生活只是眼前的苟且，后来他失去了自我。</p>
+<p>　　人生在世，无论理想如何远大，终须为稻粱谋。陶渊明不为五斗米折腰，前提没这点俸禄也不至于饿死。若是形式迫人，虽嗟来之食亦受之。一旦不为生计发愁，迎接你的必是诗与远方。故我先欲求之财务自由，后践吾心之所向。</p>
+<p>　　不够强大的理想主义者，一大部分矮化成了现实主义者，另一部分成了随波逐流的躯壳，余下的抛弃了这个娑婆世界。<br>　　<br>　　而我，先欲求安身立命之所，后追寻最初的梦想，希望能走得更远。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
@@ -7567,6 +7592,22 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       <tags>
         <tag>随笔</tag>
         <tag>世界观</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>无常迅速</title>
+    <url>/2017/10/17/%E6%97%A0%E5%B8%B8%E8%BF%85%E9%80%9F/</url>
+    <content><![CDATA[<p>昨夜刚收到外祖父离世的消息, 顿时心里空落落的, 不知何处安放.</p>
+<p>随着年岁渐长, 看着亲人离自己远去, 真是很难接受, 恨自己的无力, 不能为他们做些什么.</p>
+<p>或许这就是佛家说的求不得吧, 不喜欢的事物它还是会来, 喜欢的事物也还是会走, 来或是不来都难以求得, 父亲那是也是这样.</p>
+<p>死生事大, 无常迅速.</p>
+<p>无法, 唯有精进.</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
@@ -8328,22 +8369,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
-    <title>无常迅速</title>
-    <url>/2017/10/17/%E6%97%A0%E5%B8%B8%E8%BF%85%E9%80%9F/</url>
-    <content><![CDATA[<p>昨夜刚收到外祖父离世的消息, 顿时心里空落落的, 不知何处安放.</p>
-<p>随着年岁渐长, 看着亲人离自己远去, 真是很难接受, 恨自己的无力, 不能为他们做些什么.</p>
-<p>或许这就是佛家说的求不得吧, 不喜欢的事物它还是会来, 喜欢的事物也还是会走, 来或是不来都难以求得, 父亲那是也是这样.</p>
-<p>死生事大, 无常迅速.</p>
-<p>无法, 唯有精进.</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>杂感（1）</title>
     <url>/2017/08/30/%E6%9D%82%E6%84%9F-1/</url>
     <content><![CDATA[<p>昨夜偶得春梦一</p>
@@ -8602,6 +8627,22 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
+    <title>除法在 Python2 和 Python3 中的区别</title>
+    <url>/2016/01/10/%E9%99%A4%E6%B3%95%E5%9C%A8python2%E5%92%8Cpython3%E4%B8%AD%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>Python2 中使用<code>from __future__ import division</code>就可以使用python3的除法。</li>
+<li>Python2 中<code>/</code>与操作数有关，<code>x / y</code>中x、y都为整型的话，为<code>floor除法</code>，否则为<code>true除法</code>也是日常的除法。</li>
+<li>Python3 中<code>/</code>为<code>true除法</code>， 与操作数无关。</li>
+<li><code>//</code>在 Python2 与 Python3 中并无差别， 都代表<code>floor除法</code></li>
+</ol>
+<h2 id="Python3"><a href="#Python3" class="headerlink" title="Python3"></a>Python3</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2.0</span></span><br></pre></td></tr></table></figure>
+<h2 id="Python2"><a href="#Python2" class="headerlink" title="Python2"></a>Python2</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2.0</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+  </entry>
+  <entry>
     <title>学习重构：代码的坏味道</title>
     <url>/2020/03/21/%E9%87%8D%E6%9E%84%EF%BC%9A%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93/</url>
     <content><![CDATA[<p>读完了<a href="https://book.douban.com/subject/30468597/" target="_blank" rel="noopener">重构</a>，感觉受益匪浅，准备写一个系列的文章。 </p>
@@ -8820,21 +8861,5 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
         <tag>读书笔记</tag>
         <tag>重构</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>除法在 Python2 和 Python3 中的区别</title>
-    <url>/2016/01/10/%E9%99%A4%E6%B3%95%E5%9C%A8python2%E5%92%8Cpython3%E4%B8%AD%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>Python2 中使用<code>from __future__ import division</code>就可以使用python3的除法。</li>
-<li>Python2 中<code>/</code>与操作数有关，<code>x / y</code>中x、y都为整型的话，为<code>floor除法</code>，否则为<code>true除法</code>也是日常的除法。</li>
-<li>Python3 中<code>/</code>为<code>true除法</code>， 与操作数无关。</li>
-<li><code>//</code>在 Python2 与 Python3 中并无差别， 都代表<code>floor除法</code></li>
-</ol>
-<h2 id="Python3"><a href="#Python3" class="headerlink" title="Python3"></a>Python3</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2.0</span></span><br></pre></td></tr></table></figure>
-<h2 id="Python2"><a href="#Python2" class="headerlink" title="Python2"></a>Python2</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>/<span class="number">3</span></span><br><span class="line"><span class="number">-1.6666666666666667</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">-5.0</span>//<span class="number">3</span></span><br><span class="line"><span class="number">-2.0</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
   </entry>
 </search>

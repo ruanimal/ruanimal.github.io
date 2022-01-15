@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="这世界上这么多纷争与烦恼，很大一部分都是因为人与人之间不能相互理解，他人为敌国、以邻为壑等等层出不穷。之所以不能理解，是因为同一个东西，对于不同的人（或者不同时间或空间的同一个人），价值是全然不同的。 　　可能你认为重于生命的东西，于他人不过徒增笑谈尔。比如信教者的斋戒等行为，对无神论者来说是多余的，而对信徒来说却是可能比生命更重要。　　　　又如，你还在大学的时候，这时的时间对你来说十分廉价，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.071Z">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我们为什么不能理解别人">
 <meta name="twitter:description" content="这世界上这么多纷争与烦恼，很大一部分都是因为人与人之间不能相互理解，他人为敌国、以邻为壑等等层出不穷。之所以不能理解，是因为同一个东西，对于不同的人（或者不同时间或空间的同一个人），价值是全然不同的。 　　可能你认为重于生命的东西，于他人不过徒增笑谈尔。比如信教者的斋戒等行为，对无神论者来说是多余的，而对信徒来说却是可能比生命更重要。　　　　又如，你还在大学的时候，这时的时间对你来说十分廉价，">
@@ -785,7 +785,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -799,7 +799,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:08</span>
+    <span title="站点阅读时长">6:09</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -924,6 +924,56 @@ window.addEventListener('pjax:success', () => {
 
   
 
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
   
 
   

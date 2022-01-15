@@ -66,7 +66,7 @@
 <meta property="og:description" content="本文为整理以前的读书笔记 简介《冬吴相对论》是一档商业脱口秀广播节目，节目由原凤凰卫视著名主持人梁冬与《21世纪商业评论》发行人吴伯凡共同主持。 本书就是节目的内容集结而成，对于经济知识的扫盲有些意义，但也有电视节目的通病，知识流于细碎，没有体系。 初学者用来初步了解经济学现象，还是很有意义的。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2019-12-16-15765097203009.jpg">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.060Z">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《冬吴相对论》读书笔记">
 <meta name="twitter:description" content="本文为整理以前的读书笔记 简介《冬吴相对论》是一档商业脱口秀广播节目，节目由原凤凰卫视著名主持人梁冬与《21世纪商业评论》发行人吴伯凡共同主持。 本书就是节目的内容集结而成，对于经济知识的扫盲有些意义，但也有电视节目的通病，知识流于细碎，没有体系。 初学者用来初步了解经济学现象，还是很有意义的。">
@@ -837,7 +837,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -851,7 +851,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:08</span>
+    <span title="站点阅读时长">6:09</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -976,6 +976,56 @@ window.addEventListener('pjax:success', () => {
 
   
 
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
   
 
   

@@ -66,7 +66,7 @@
 <meta property="og:description" content="所谓的 Bitmap 其实就是二进制位数组，由于元素是二进制位，每一个元素只占用1个bit，十分节省内存空间。 每一个bit有0、1两种状态，所以 Bitmap 适合应用于判断是否存在、桶排序（不含重复元素），具体来说可以用bitmap记录ip信息，实现布隆过滤器等等。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-05-31-16224684372402.jpg">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.035Z">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bitmap 原理及实现">
 <meta name="twitter:description" content="所谓的 Bitmap 其实就是二进制位数组，由于元素是二进制位，每一个元素只占用1个bit，十分节省内存空间。 每一个bit有0、1两种状态，所以 Bitmap 适合应用于判断是否存在、桶排序（不含重复元素），具体来说可以用bitmap记录ip信息，实现布隆过滤器等等。">
@@ -796,7 +796,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -810,7 +810,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:08</span>
+    <span title="站点阅读时长">6:09</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
@@ -935,6 +935,56 @@ window.addEventListener('pjax:success', () => {
 
   
 
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
   
 
   

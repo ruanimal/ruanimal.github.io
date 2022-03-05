@@ -416,7 +416,7 @@
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash<span class="number">-5.1</span>$ echo $((<span class="number">1</span>+<span class="number">1</span>))</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
 <h2 id="引号使用"><a href="#引号使用" class="headerlink" title="引号使用"></a>引号使用</h2><h3 id="单引号"><a href="#单引号" class="headerlink" title="单引号"></a>单引号</h3><p>单引号用于保留字符的字面含义，在单引号里转义字符和模式扩展都会失效。</p>
 <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bash<span class="number">-5.1</span><span class="symbol">$</span> ls <span class="string">'[ab].txt'</span></span><br><span class="line">ls: cannot access <span class="string">'[ab].txt'</span>: <span class="keyword">No</span> such <span class="keyword">file</span> <span class="keyword">or</span> directory</span><br><span class="line"></span><br><span class="line">bash<span class="number">-5.1</span><span class="symbol">$</span> ls <span class="string">'*'</span></span><br><span class="line">ls: cannot access <span class="string">'*'</span>: <span class="keyword">No</span> such <span class="keyword">file</span> <span class="keyword">or</span> directory</span><br></pre></td></tr></table></figure>
-<h3 id="双引号"><a href="#双引号" class="headerlink" title="双引号"></a>双引号</h3><p>双引号比单引号宽松，三个特殊字符除外：美元符号（<code>$</code>）、反引号（<code>`</code>）和反斜杠（<code>\</code>）。这三个字符，会被 Bash 自动扩展。</p>
+<h3 id="双引号"><a href="#双引号" class="headerlink" title="双引号"></a>双引号</h3><p>双引号比单引号宽松，三个特殊字符除外：美元符号（<code>$</code>）、反引号（<code>` </code>）和反斜杠（<code>\</code>）。这三个字符，会被 Bash 自动扩展。</p>
 <p>也就是说，相比单引号在双引号中变量扩展，命令扩展，算术扩展以及转义字符是有效的。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bash-5.1$ <span class="built_in">echo</span> <span class="string">"<span class="variable">$((1+1)</span>)"</span></span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">bash-5.1$ <span class="built_in">echo</span> <span class="string">"<span class="variable">$HOME</span>"</span></span><br><span class="line">/Users/ruan</span><br><span class="line"></span><br><span class="line">bash-5.1$ <span class="built_in">echo</span> <span class="string">"<span class="variable">$(date)</span>"</span></span><br><span class="line">日 11 28 16:35:27 CST 2021</span><br><span class="line"></span><br><span class="line">bash-5.1$ <span class="built_in">echo</span> -e <span class="string">"1\t2"</span></span><br><span class="line">1	2</span><br></pre></td></tr></table></figure>
 <h3 id="引号嵌套"><a href="#引号嵌套" class="headerlink" title="引号嵌套"></a>引号嵌套</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 双引号中使用单引号</span></span><br><span class="line">bash-<span class="number">5.1</span>$ echo '<span class="string">"'</span></span><br><span class="line"><span class="string">"</span></span><br><span class="line">bash-<span class="number">5.1</span>$ echo '<span class="string">"<span class="subst">$&#123;HOME&#125;</span>"</span>'</span><br><span class="line"><span class="string">"<span class="subst">$&#123;HOME&#125;</span>"</span></span><br><span class="line"><span class="comment"># 单引号中使用双引号</span></span><br><span class="line">bash-<span class="number">5.1</span>$ echo <span class="string">"'<span class="subst">$&#123;HOME&#125;</span>'"</span></span><br><span class="line">'/Users/ruan'</span><br><span class="line">bash-<span class="number">5.1</span>$ echo <span class="string">"'\"</span>$&#123;HOME&#125;\<span class="string">"'"</span></span><br><span class="line">'<span class="string">"/Users/ruan"</span>'</span><br><span class="line"></span><br><span class="line"><span class="comment"># 引号嵌套中使用模式扩展，将需要扩展的字符放在单引号中；典型的有json变量填充</span></span><br><span class="line">bash-<span class="number">5.1</span>$ echo '&#123;<span class="string">"user"</span>: <span class="string">"'<span class="subst">$&#123;USER&#125;</span>'"</span>&#125;'</span><br><span class="line">&#123;<span class="string">"user"</span>: <span class="string">"ruan"</span>&#125;</span><br></pre></td></tr></table></figure>
@@ -458,7 +458,7 @@
 <h3 id="特殊变量"><a href="#特殊变量" class="headerlink" title="特殊变量"></a>特殊变量</h3><p>Bash 提供一些特殊变量。这些变量的值由 Shell 提供，用户不能进行赋值。</p>
 <ul>
 <li><code>$?</code>: 上一个命令的退出码, 0为成功，其他为失败</li>
-<li><code>$$</code>: 当前进程的pid</li>
+<li>$$$$: 当前进程的pid</li>
 <li><code>$_</code>: 为上一个命令的最后一个参数</li>
 <li><code>$!</code>: 为最近一个后台执行的异步命令的进程 ID。</li>
 <li><code>$0</code>: bash脚本的参数列表，0是脚本文件路径，1到n是第1到第n个参数</li>
@@ -717,6 +717,10 @@
 
             <div class="post-nav-prev post-nav-item">
               
+                <a href="/2022/03/05/python-loop-variables-leak/" rel="prev" title="">
+                   <i class="fa fa-chevron-right"></i>
+                </a>
+              
             </div>
           </div>
         
@@ -782,7 +786,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1069,12 +1073,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">295k</span>
+    <span title="站点总字数">297k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:09</span>
+    <span title="站点阅读时长">6:11</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

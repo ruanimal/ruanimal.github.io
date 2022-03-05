@@ -57,18 +57,20 @@
   };
 </script>
 
-  <meta name="description" content="学习 思考 行动 Python">
-<meta property="og:type" content="website">
-<meta property="og:title" content="逸思杂陈">
-<meta property="og:url" content="http://ponder.work/categories/编程/page/4/index.html">
+  <meta name="description" content="循环变量泄露与延迟绑定叠加在一起，会产生一些让人迷惑的结果。">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 循环变量泄露与延迟绑定">
+<meta property="og:url" content="http://ponder.work/2022/03/04/python-loop-variables-leak/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="学习 思考 行动 Python">
+<meta property="og:description" content="循环变量泄露与延迟绑定叠加在一起，会产生一些让人迷惑的结果。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2022-03-05T05:12:51.657Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="逸思杂陈">
-<meta name="twitter:description" content="学习 思考 行动 Python">
+<meta name="twitter:title" content="Python 循环变量泄露与延迟绑定">
+<meta name="twitter:description" content="循环变量泄露与延迟绑定叠加在一起，会产生一些让人迷惑的结果。">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
-  <link rel="canonical" href="http://ponder.work/categories/编程/page/4/">
+  <link rel="canonical" href="http://ponder.work/2022/03/04/python-loop-variables-leak/">
 
 
 <script id="page-configurations">
@@ -76,13 +78,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>分类: 编程 | 逸思杂陈</title>
+  <title>Python 循环变量泄露与延迟绑定 | 逸思杂陈</title>
   <meta name="generator" content="Hexo 3.9.0">
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134911454-2"></script>
@@ -246,30 +248,6 @@
 
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 </nav>
   <div class="site-search">
     <div class="popup search-popup">
@@ -310,488 +288,194 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
   
   
   
-  <div class="post-block category">
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">编程<small>分类</small>
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2022/03/04/python-loop-variables-leak/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Python 循环变量泄露与延迟绑定
+
+          
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2022-03-04 20:17:00" itemprop="dateCreated datePublished" datetime="2022-03-04T20:17:00+08:00">2022-03-04</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-05 13:12:51" itemprop="dateModified" datetime="2022-03-05T13:12:51+08:00">2022-03-05</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.7k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>循环变量泄露与延迟绑定叠加在一起，会产生一些让人迷惑的结果。<br><a id="more"></a></p>
+<h2 id="梦开始的地方"><a href="#梦开始的地方" class="headerlink" title="梦开始的地方"></a>梦开始的地方</h2><p>先看看一开始的问题，可以看到这里lambda函数的返回值一直在变。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">xx = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]:</span><br><span class="line">    xx.append(<span class="keyword">lambda</span>: i)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'a:'</span>, xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> xx:</span><br><span class="line">    print(j())</span><br><span class="line"></span><br><span class="line">print(<span class="string">'b:'</span>, xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xx:</span><br><span class="line">    print(i, i())</span><br><span class="line"></span><br><span class="line">print(<span class="string">'c:'</span>, xx[<span class="number">0</span>], xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]:</span><br><span class="line">    print(i)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'d:'</span>, xx[<span class="number">0</span>], xx[<span class="number">0</span>]())</span><br></pre></td></tr></table></figure>
+<p>输出如下</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">a:</span> <span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="symbol">b:</span> <span class="number">3</span></span><br><span class="line"><span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt;</span><br><span class="line"><span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca303a0</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca303a0</span>&gt;</span><br><span class="line"><span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30430</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30430</span>&gt;</span><br><span class="line"><span class="symbol">c:</span> <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30430</span>&gt;</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="symbol">d:</span> <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt; <span class="number">6</span></span><br></pre></td></tr></table></figure>
+<h2 id="循环变量泄露"><a href="#循环变量泄露" class="headerlink" title="循环变量泄露"></a>循环变量泄露</h2><p>由于Python没有块级作用域，所以循环会改变当前作用域变量的值，也就是循环变量泄露。<br><strong>注意</strong>：Python3中列表推导式循环变量不会泄露，Python2中和常规循环一样泄露。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">-1</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">7</span>):</span><br><span class="line">    <span class="keyword">if</span> x == <span class="number">6</span>:</span><br><span class="line">        print(x, <span class="string">': for x inside loop'</span>)</span><br><span class="line">print(x, <span class="string">': x in global'</span>)</span><br></pre></td></tr></table></figure>
+<p>输出如下</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">6 </span>: <span class="keyword">for</span> x inside loop</span><br><span class="line"><span class="symbol">6 </span>: x in global</span><br></pre></td></tr></table></figure>
+<h2 id="闭包与延迟绑定"><a href="#闭包与延迟绑定" class="headerlink" title="闭包与延迟绑定"></a>闭包与延迟绑定</h2><p>再讲一下<code>闭包</code>，在一个内部函数中，对外部作用域的变量进行引用，(并且一般外部函数的返回值为内部函数)，那么内部函数就被认为是闭包。<br>这里所谓的引用可以也就是内部函数记住了<strong>变量的名称</strong>（而不是值，这个从ast语法树可以看出），而变量对应的值是会变化的。<br>如果在循环中定义闭包，引用的变量的值在循环结束才统一确定为最后一次循环时的值，也就是延迟绑定（lazy binding）。</p>
+<p>所以下面的例子，<code>xx</code>的所有匿名函数的返回值均为<code>3</code><br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xx = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]:</span><br><span class="line">    xx.<span class="built_in">append</span>(<span class="built_in">lambda</span>: i)</span><br></pre></td></tr></table></figure></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>再分析一开始的问题，这里的匿名函数引用了变量<code>i</code>，而<code>i</code>是全局变量，所以再次使用<code>i</code>作为循环变量时，列表中的匿名函数引用的值就被覆盖了。</p>
+<p>正确做法：</p>
+<ul>
+<li>在独立的函数中定义闭包</li>
+<li>闭包引用的变量应该是其他函数不可修改的</li>
+<li>优先使用列表推导式</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://stackoverflow.com/questions/3611760/scoping-in-python-for-loops" target="_blank" rel="noopener">https://stackoverflow.com/questions/3611760/scoping-in-python-for-loops</a></li>
+<li><a href="https://www.educative.io/courses/python-ftw-under-the-hood/N8RW8508RkL" target="_blank" rel="noopener">https://www.educative.io/courses/python-ftw-under-the-hood/N8RW8508RkL</a></li>
+<li><a href="https://mail.python.org/pipermail/python-ideas/2008-October/002109.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-ideas/2008-October/002109.html</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Jay.Run</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ponder.work/2022/03/04/python-loop-variables-leak/" title="Python 循环变量泄露与延迟绑定">http://ponder.work/2022/03/04/python-loop-variables-leak/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
 
       
 
-  
-  
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Python/" rel="tag"># Python</a>
+            
+          </div>
+        
 
-  
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2021/11/28/bash-cheat-sheet/" rel="next" title="bash 语法备忘">
+                  <i class="fa fa-chevron-left"></i> bash 语法备忘
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
     
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
-    </div>
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/11/02/python-logging-guide/" itemprop="url">
-            <span itemprop="name">Python日志原理及实践</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-11-02T09:48:00+08:00"
-              content="2019-11-02">
-          11-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/28/the-guide-of-SQLAlchemy-core/" itemprop="url">
-            <span itemprop="name">SQLAlchemy Core 使用教程</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-10-28T20:17:00+08:00"
-              content="2019-10-28">
-          10-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/26/the-guide-of-SQLAlchemy-orm/" itemprop="url">
-            <span itemprop="name">SQLAlchemy ORM 使用教程</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-10-26T20:17:00+08:00"
-              content="2019-10-26">
-          10-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/09/28/python-web-development/" itemprop="url">
-            <span itemprop="name">Python Web开发总结</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-09-28T09:48:00+08:00"
-              content="2019-09-28">
-          09-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/09/23/decorator-in-python/" itemprop="url">
-            <span itemprop="name">Python装饰器详解</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-09-23T09:48:00+08:00"
-              content="2019-09-23">
-          09-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/09/21/design-program-with-plantuml/" itemprop="url">
-            <span itemprop="name">使用PlantUML做软件设计</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-09-21T09:48:00+08:00"
-              content="2019-09-21">
-          09-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-    
-    <div class="collection-year">
-      <h1 class="collection-header">2018</h1>
-    </div>
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/03/31/python-learning-guide/" itemprop="url">
-            <span itemprop="name">Python不完全指北</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-31T21:48:00+08:00"
-              content="2018-03-31">
-          03-31
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/02/04/run-python-from-explorer/" itemprop="url">
-            <span itemprop="name">从windows资源管理器启动Python脚本</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-04T10:40:00+08:00"
-              content="2018-02-04">
-          02-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-    
-    <div class="collection-year">
-      <h1 class="collection-header">2017</h1>
-    </div>
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2017/08/30/difference-between-python2-and-python3/" itemprop="url">
-            <span itemprop="name">Python2 与 Python3 区别</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-30T17:03:00+08:00"
-              content="2017-08-30">
-          08-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2017/01/08/the-guide-of-windows-subsystem-for-linux/" itemprop="url">
-            <span itemprop="name">Windows Subsystem for Linux(WSL) 简单指引</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-01-08T20:00:00+08:00"
-              content="2017-01-08">
-          01-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-    
-    <div class="collection-year">
-      <h1 class="collection-header">2016</h1>
-    </div>
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2016/09/10/git-svn——用git来操作svn项目/" itemprop="url">
-            <span itemprop="name">git-svn：通过git来管理svn代码</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-09-10T12:00:00+08:00"
-              content="2016-09-10">
-          09-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2016/07/16/sublime快捷键/" itemprop="url">
-            <span itemprop="name">SublimeText3 快捷键列表</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-16T15:00:00+08:00"
-              content="2016-07-16">
-          07-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2016/06/22/centos开关机日志分析/" itemprop="url">
-            <span itemprop="name">centos开关机日志分析</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-22T19:52:00+08:00"
-              content="2016-06-22">
-          06-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2016/06/22/python包导入再谈/" itemprop="url">
-            <span itemprop="name">python包导入再谈</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-22T19:26:00+08:00"
-              content="2016-06-22">
-          06-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2016/06/21/《大话设计模式》读书笔记/" itemprop="url">
-            <span itemprop="name">《大话设计模式》读书笔记</span>
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-21T21:30:00+08:00"
-              content="2016-06-21">
-          06-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    </div>
   </div>
   
   
   
+  </article>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/categories/编程/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/categories/编程/">1</a><span class="space">&hellip;</span><a class="page-number" href="/categories/编程/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/categories/编程/page/5/">5</a><a class="page-number" href="/categories/编程/page/6/">6</a><a class="extend next" rel="next" href="/categories/编程/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
+  </div>
 
 
           </div>
           
+    
+    <div class="comments" id="gitalk-container"></div>
+  
 
         </div>
           
@@ -806,6 +490,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -818,6 +507,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#梦开始的地方"><span class="nav-number">1.</span> <span class="nav-text">梦开始的地方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环变量泄露"><span class="nav-number">2.</span> <span class="nav-text">循环变量泄露</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#闭包与延迟绑定"><span class="nav-number">3.</span> <span class="nav-text">闭包与延迟绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
@@ -1304,6 +995,24 @@ window.addEventListener('pjax:success', () => {
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '6a903e3db839fa7a1f0f',
+      clientSecret: 'c19ebb77db2f0e162961d60afaa89d0f4ed5f3ad',
+      repo: 'ruanima.github.io',
+      owner: 'ruanima',
+      admin: ['ruanima'],
+      id: 'c84baa4190e0d7e4110d89c89d842f0e',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
 
     </div>
 </body>

@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="循环变量泄露与延迟绑定叠加在一起，会产生一些让人迷惑的结果。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-03-05T05:12:51.657Z">
+<meta property="og:updated_time" content="2022-03-05T05:14:52.177Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 循环变量泄露与延迟绑定">
 <meta name="twitter:description" content="循环变量泄露与延迟绑定叠加在一起，会产生一些让人迷惑的结果。">
@@ -333,7 +333,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-05 13:12:51" itemprop="dateModified" datetime="2022-03-05T13:12:51+08:00">2022-03-05</time>
+                <time title="修改时间：2022-03-05 13:14:52" itemprop="dateModified" datetime="2022-03-05T13:14:52+08:00">2022-03-05</time>
               </span>
             
           
@@ -392,7 +392,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">-1</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">7</span>):</span><br><span class="line">    <span class="keyword">if</span> x == <span class="number">6</span>:</span><br><span class="line">        print(x, <span class="string">': for x inside loop'</span>)</span><br><span class="line">print(x, <span class="string">': x in global'</span>)</span><br></pre></td></tr></table></figure>
 <p>输出如下</p>
 <figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">6 </span>: <span class="keyword">for</span> x inside loop</span><br><span class="line"><span class="symbol">6 </span>: x in global</span><br></pre></td></tr></table></figure>
-<h2 id="闭包与延迟绑定"><a href="#闭包与延迟绑定" class="headerlink" title="闭包与延迟绑定"></a>闭包与延迟绑定</h2><p>再讲一下<code>闭包</code>，在一个内部函数中，对外部作用域的变量进行引用，(并且一般外部函数的返回值为内部函数)，那么内部函数就被认为是闭包。<br>这里所谓的引用可以也就是内部函数记住了<strong>变量的名称</strong>（而不是值，这个从ast语法树可以看出），而变量对应的值是会变化的。<br>如果在循环中定义闭包，引用的变量的值在循环结束才统一确定为最后一次循环时的值，也就是延迟绑定（lazy binding）。</p>
+<h2 id="闭包与延迟绑定"><a href="#闭包与延迟绑定" class="headerlink" title="闭包与延迟绑定"></a>闭包与延迟绑定</h2><p>再讲一下<strong>闭包</strong>，在一个内部函数中，对外部作用域的变量进行引用，(并且一般外部函数的返回值为内部函数)，那么内部函数就被认为是闭包。<br>这里所谓的引用可以也就是内部函数记住了<strong>变量的名称</strong>（而不是值，这个从ast语法树可以看出），而变量对应的值是会变化的。<br>如果在循环中定义闭包，引用的变量的值在循环结束才统一确定为最后一次循环时的值，也就是<strong>延迟绑定</strong>（lazy binding）。</p>
 <p>所以下面的例子，<code>xx</code>的所有匿名函数的返回值均为<code>3</code><br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xx = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]:</span><br><span class="line">    xx.<span class="built_in">append</span>(<span class="built_in">lambda</span>: i)</span><br></pre></td></tr></table></figure></p>
 <h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>再分析一开始的问题，这里的匿名函数引用了变量<code>i</code>，而<code>i</code>是全局变量，所以再次使用<code>i</code>作为循环变量时，列表中的匿名函数引用的值就被覆盖了。</p>
 <p>正确做法：</p>

@@ -410,6 +410,7 @@
 <p>可以安装 gnu 工具，覆盖这些命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install coreutils findutils gnu-tar htop</span><br><span class="line"><span class="built_in">export</span>   PATH=<span class="string">"/usr/local/opt/coreutils/libexec/gnubin:<span class="variable">$PATH</span>"</span></span><br><span class="line"><span class="built_in">export</span>  MANPATH=<span class="string">"/usr/local/opt/coreutils/libexec/gnuman:<span class="variable">$MANPATH</span>"</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="清除一些-macOS-系统默认快捷键"><a href="#清除一些-macOS-系统默认快捷键" class="headerlink" title="清除一些 macOS 系统默认快捷键"></a>清除一些 macOS 系统默认快捷键</h2><p>创建文件 ~/Library/KeyBindings/DefaultKeyBinding.dict<br>这里是清除了默认的 <code>Control + Command + 方向键</code>的行为<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="string">"^@\UF701"</span> = <span class="string">"noop:"</span><span class="comment">;</span></span><br><span class="line"><span class="string">"^@\UF702"</span> = <span class="string">"noop:"</span><span class="comment">;</span></span><br><span class="line"><span class="string">"^@\UF703"</span> = <span class="string">"noop:"</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>字符含义</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -440,6 +441,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>参考：</p>
 <ul>
 <li><a href="http://xahlee.info/kbd/osx_keybinding.html" target="_blank" rel="noopener">http://xahlee.info/kbd/osx_keybinding.html</a></li>
@@ -986,56 +988,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

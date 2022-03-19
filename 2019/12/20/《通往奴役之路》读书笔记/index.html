@@ -398,7 +398,7 @@
 </blockquote>
 <p>在安排我们的事务时，应该尽可能多地运用自发的社会力量，而尽可能少地借助于强制</p>
 <p>“西方的”就是指自由主义与民族主义，资本主义与个人主义，自由贸易与任何形式的国际主义或对和平的热爱</p>
-<p>总是使一个国家变成人间地狱的东西，恰恰是人们视图将其变成天堂。  – F·荷尔德林。</p>
+<p>总是使一个国家变成人间地狱的东西，恰恰是人们视图将其变成天堂。  — F·荷尔德林。</p>
 <p>社会主义从一开始便直接了当地具有独裁主义的性质，是通过等级制度的路线审慎地改革社会，并强加一种强制性的“精神力量”，以此“终结革命的一种尝试”。</p>
 <p>民主在自由之中寻找平等，而社会主义则在约数和奴役之中寻求平等。</p>
 <p>对更大自由的许诺已经成为社会主义宣传最有效的武器之一。</p>
@@ -959,56 +959,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

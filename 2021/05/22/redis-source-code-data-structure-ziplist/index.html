@@ -418,6 +418,7 @@
 <h3 id="encoding"><a href="#encoding" class="headerlink" title="encoding"></a>encoding</h3><p>encoding 记录了当前节点的编码类型，编码时先尝试将内容转成数字，失败则当做字符串处理。</p>
 <p>个人觉得ziplist的精华就在entry的encoding，对让内存的每一个bit都重复表示了信息。</p>
 <p>下表中的0和1表示具体的二进制位, b表示该位置可能为0或者1</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -484,6 +485,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>可以看到ziplist为了节省内存空间，表示信息时真是细扣到每一个bit，非常高效。<br>但是也有个不足，就是代码变得复杂了。</p>
 <p>由于prelen和encoding和content这3个部分都是变长的，每一次插入和删除元素都得计算列表内存长度的变化。</p>
 <p>而且由于prelen的变长，可能会触发后面所有节点连锁更新prelen的值.<br>本来节点插入时只需要复制一次该节点以后所有节点的内存，这时复杂度为O(n), 触发连锁更新之后，这时候列表的插入复杂度就会变为O(n^2)。</p>
@@ -1034,56 +1036,6 @@ window.addEventListener('pjax:success', () => {
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
   
 
   

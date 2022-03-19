@@ -1759,6 +1759,7 @@
 
       
           <h2 id="速查表"><a href="#速查表" class="headerlink" title="速查表"></a>速查表</h2><p>Python2 vs Python3</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1896,6 +1897,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h2 id="详细对比"><a href="#详细对比" class="headerlink" title="详细对比"></a>详细对比</h2><h3 id="unicode"><a href="#unicode" class="headerlink" title="unicode"></a>unicode</h3><p>Python2</p>
 <ul>
 <li>字符串分 <code>str(&#39;&#39;)</code> 和 <code>unicode(u&#39;&#39;)</code></li>
@@ -2790,52 +2792,34 @@ window.addEventListener('pjax:success', () => {
   
     
       
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
     
   
 

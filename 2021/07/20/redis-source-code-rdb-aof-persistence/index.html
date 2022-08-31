@@ -68,7 +68,7 @@
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-07-21-16268563558568.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-07-21-16268637141893.jpg">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-07-21-16268635658876.jpg">
-<meta property="og:updated_time" content="2021-07-21T11:13:54.281Z">
+<meta property="og:updated_time" content="2022-07-29T08:25:49.851Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis持久化：RDB与AOF">
 <meta name="twitter:description" content="Redis是内存型数据库，所有数据都存储在内存中。而内存是易失型存储，一旦进程退出所有数据都会丢失。 所谓持久化，就是将Redis在内存中的数据库状态以某次格式保存到磁盘里面，避免数据意外丢失。 Redis有两种持久化方式：RDB (Redis Database)、AOF (Append Only File)">
@@ -337,7 +337,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-21 19:13:54" itemprop="dateModified" datetime="2021-07-21T19:13:54+08:00">2021-07-21</time>
+                <time title="修改时间：2022-07-29 16:25:49" itemprop="dateModified" datetime="2022-07-29T16:25:49+08:00">2022-07-29</time>
               </span>
             
           
@@ -364,7 +364,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>2.1k</span>
+              <span>2.2k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -397,6 +397,7 @@
 <p><code>SAVE</code> 命令会在当前进程进行，期间服务器会阻塞，不能处理任何请求。<br><code>BGSAVE</code> 命令会fork一个子进程来创建RDB（利用Copy-on-write），服务继续处理命令请求。</p>
 <p>为了避免竞争条件和性能问题，<code>SAVE</code> 和 <code>BGSAVE</code>任意时刻只能有一个在执行。</p>
 <p>用户可以通过save选项设置多个保存条件,但只要其中任意一个条件被满足，就会触发RDB保存.<br>save选项的格式是 <code>save seconds option_times</code>。例如<code>save 900 1</code>，若服务器在900秒之内, 对数据库进行了至少1次修改，则执行BGSAVE。</p>
+<p>BGSAVE也已可能会阻塞请求，因为磁盘io满了，这时如果有fsync操作，服务也会阻塞。<br>可以设置 <code>no-appendfsync-on-rewrite yes</code>, 在子进程处理和写硬盘时, 主进程不调用 fsync() 操作。</p>
 <h3 id="RDB文件读取"><a href="#RDB文件读取" class="headerlink" title="RDB文件读取"></a>RDB文件读取</h3><p>服务器启动时会自动载入RDB文件，Redis并没有专门用于载人RDB文件的命令。</p>
 <p>如果服务器开启了AOF持久化功能，那么服务器会优先使用AOF文件来还原数据库状态。</p>
 <h2 id="AOF持久化"><a href="#AOF持久化" class="headerlink" title="AOF持久化"></a>AOF持久化</h2><p>由于RDB生成的机制决定了，RDB文件总是会和redis内存有部分不一致，<strong>RDB文件会缺少从上次BGSAVE开始到当前时刻的所有改动</strong>。AOF持久化的存在就是为了解决该问题。</p>
@@ -559,7 +560,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">158</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -846,12 +847,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">297k</span>
+    <span title="站点总字数">299k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:11</span>
+    <span title="站点阅读时长">6:13</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

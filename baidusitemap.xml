@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://ponder.work/2022/08/30/close-subprocess-opened-fd/</loc>
+    <lastmod>2022-08-31</lastmod>
+  </url>
+  <url>
+    <loc>http://ponder.work/2021/07/20/redis-source-code-rdb-aof-persistence/</loc>
+    <lastmod>2022-07-29</lastmod>
+  </url>
+  <url>
+    <loc>http://ponder.work/2021/05/07/redis-source-code-data-structure-sds/</loc>
+    <lastmod>2022-07-29</lastmod>
+  </url>
+  <url>
+    <loc>http://ponder.work/2021/04/17/redis-source-code-data-structure-dict/</loc>
+    <lastmod>2022-07-29</lastmod>
+  </url>
+  <url>
     <loc>http://ponder.work/2021/09/21/docker-mtu-issues/</loc>
     <lastmod>2022-07-11</lastmod>
   </url>
   <url>
     <loc>http://ponder.work/2022/07/10/gracefully-shutdown-container/</loc>
     <lastmod>2022-07-11</lastmod>
-  </url>
-  <url>
-    <loc>http://ponder.work/2021/04/17/redis-source-code-data-structure-dict/</loc>
-    <lastmod>2022-04-15</lastmod>
   </url>
   <url>
     <loc>http://ponder.work/2021/06/02/consistent-hashing/</loc>
@@ -97,10 +109,6 @@
     <lastmod>2021-07-22</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2021/07/20/redis-source-code-rdb-aof-persistence/</loc>
-    <lastmod>2021-07-21</lastmod>
-  </url>
-  <url>
     <loc>http://ponder.work/2020/10/15/%E5%AD%A6%E4%B9%A0%E3%80%8A%E9%87%8D%E6%9E%84%E6%89%8B%E5%86%8C%E3%80%8B/</loc>
     <lastmod>2021-07-21</lastmod>
   </url>
@@ -141,11 +149,15 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
+    <loc>http://ponder.work/2015/10/10/%E7%94%9F%E6%AD%BB%E4%B9%8B%E9%97%B4%E6%9C%89%E5%A4%A7%E6%81%90%E6%80%96/</loc>
+    <lastmod>2021-07-15</lastmod>
+  </url>
+  <url>
     <loc>http://ponder.work/2016/02/11/%E7%95%AA%E8%8C%84%E5%B7%A5%E4%BD%9C%E6%B3%95%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2015/10/10/%E7%94%9F%E6%AD%BB%E4%B9%8B%E9%97%B4%E6%9C%89%E5%A4%A7%E6%81%90%E6%80%96/</loc>
+    <loc>http://ponder.work/2017/10/17/%E6%97%A0%E5%B8%B8%E8%BF%85%E9%80%9F/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -154,10 +166,6 @@
   </url>
   <url>
     <loc>http://ponder.work/2017/08/30/%E6%9D%82%E6%84%9F-1/</loc>
-    <lastmod>2021-07-15</lastmod>
-  </url>
-  <url>
-    <loc>http://ponder.work/2017/10/17/%E6%97%A0%E5%B8%B8%E8%BF%85%E9%80%9F/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -185,7 +193,7 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2016/02/28/%E5%85%B3%E4%BA%8Epython%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/</loc>
+    <loc>http://ponder.work/2016/04/16/%E4%BD%BF%E7%94%A8git%E7%9A%84hooks%E8%87%AA%E5%8A%A8%E5%90%8C%E6%AD%A5%E4%BB%A3%E7%A0%81/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -193,7 +201,7 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2016/04/16/%E4%BD%BF%E7%94%A8git%E7%9A%84hooks%E8%87%AA%E5%8A%A8%E5%90%8C%E6%AD%A5%E4%BB%A3%E7%A0%81/</loc>
+    <loc>http://ponder.work/2016/02/28/%E5%85%B3%E4%BA%8Epython%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -205,11 +213,15 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
+    <loc>http://ponder.work/2016/10/22/%E4%B8%80%E4%BA%9B%E5%8F%A5%E5%AD%90/</loc>
+    <lastmod>2021-07-15</lastmod>
+  </url>
+  <url>
     <loc>http://ponder.work/2016/09/04/%E3%80%8A%E9%9A%8F%E9%A3%8E%E8%80%8C%E8%A1%8C%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2016/10/22/%E4%B8%80%E4%BA%9B%E5%8F%A5%E5%AD%90/</loc>
+    <loc>http://ponder.work/2020/03/28/%E3%80%8A%E8%A1%80%E9%85%AC%E5%AE%9A%E5%BE%8B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -221,15 +233,11 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2020/03/28/%E3%80%8A%E8%A1%80%E9%85%AC%E5%AE%9A%E5%BE%8B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2021-07-15</lastmod>
-  </url>
-  <url>
     <loc>http://ponder.work/2015/09/30/%E3%80%8A%E8%B6%85%E8%B6%8A%E8%87%AA%E5%8D%91%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2015/10/03/%E3%80%8A%E7%A6%85%E8%80%85%E7%9A%84%E5%88%9D%E5%BF%83%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://ponder.work/2016/06/30/%E3%80%8A%E7%A6%85%E8%80%85%E7%9A%84%E5%88%9D%E5%BF%832%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -237,7 +245,7 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2016/06/30/%E3%80%8A%E7%A6%85%E8%80%85%E7%9A%84%E5%88%9D%E5%BF%832%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://ponder.work/2015/10/03/%E3%80%8A%E7%A6%85%E8%80%85%E7%9A%84%E5%88%9D%E5%BF%83%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -249,15 +257,11 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2020/03/21/%E3%80%8A%E7%87%83%E7%81%AF%E8%80%85%E3%80%8B%E6%91%98%E5%BD%95/</loc>
-    <lastmod>2021-07-15</lastmod>
-  </url>
-  <url>
     <loc>http://ponder.work/2019/12/06/%E3%80%8A%E6%BD%9C%E8%A7%84%E5%88%99%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2016/08/28/%E3%80%8A%E7%8B%82%E7%83%AD%E5%88%86%E5%AD%90%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://ponder.work/2020/03/21/%E3%80%8A%E7%87%83%E7%81%AF%E8%80%85%E3%80%8B%E6%91%98%E5%BD%95/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -265,7 +269,11 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2020/04/24/%E3%80%8A%E6%84%8F%E5%BF%97%E5%8A%9B%EF%BC%9A%E5%8F%97%E7%9B%8A%E4%B8%80%E7%94%9F%E7%9A%84%E6%BD%9C%E8%83%BD%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://ponder.work/2016/08/28/%E3%80%8A%E7%8B%82%E7%83%AD%E5%88%86%E5%AD%90%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2021-07-15</lastmod>
+  </url>
+  <url>
+    <loc>http://ponder.work/2019/11/02/%E3%80%8A%E6%B5%AE%E7%94%9F%E5%85%AD%E8%AE%B0%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -277,7 +285,7 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2019/11/02/%E3%80%8A%E6%B5%AE%E7%94%9F%E5%85%AD%E8%AE%B0%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://ponder.work/2020/04/24/%E3%80%8A%E6%84%8F%E5%BF%97%E5%8A%9B%EF%BC%9A%E5%8F%97%E7%9B%8A%E4%B8%80%E7%94%9F%E7%9A%84%E6%BD%9C%E8%83%BD%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -301,11 +309,11 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2019/10/01/%E3%80%8A%E5%9C%A8%E5%8D%8E%E4%BA%94%E5%8D%81%E5%B9%B4%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://ponder.work/2019/09/22/%E3%80%8A%E5%9C%A8%E7%BB%86%E9%9B%A8%E4%B8%AD%E5%91%BC%E5%96%8A%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2019/09/22/%E3%80%8A%E5%9C%A8%E7%BB%86%E9%9B%A8%E4%B8%AD%E5%91%BC%E5%96%8A%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://ponder.work/2019/10/01/%E3%80%8A%E5%9C%A8%E5%8D%8E%E4%BA%94%E5%8D%81%E5%B9%B4%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -317,11 +325,11 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2020/03/29/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/</loc>
+    <loc>http://ponder.work/2020/03/29/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A63%E3%80%8B%E6%91%98%E5%BD%95/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2020/03/29/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A63%E3%80%8B%E6%91%98%E5%BD%95/</loc>
+    <loc>http://ponder.work/2020/03/29/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -341,11 +349,11 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2020/05/04/%E3%80%8A%E5%8E%86%E5%8F%B2%E7%9A%84%E5%85%88%E5%A3%B0%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://ponder.work/2020/03/21/%E3%80%8A%E5%8F%98%E6%80%81%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2020/03/21/%E3%80%8A%E5%8F%98%E6%80%81%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/</loc>
+    <loc>http://ponder.work/2020/05/04/%E3%80%8A%E5%8E%86%E5%8F%B2%E7%9A%84%E5%85%88%E5%A3%B0%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -373,11 +381,11 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2017/01/08/the-guide-of-windows-subsystem-for-linux/</loc>
+    <loc>http://ponder.work/2016/04/16/ubuntu%E9%9D%99%E6%80%81ip%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2016/04/16/ubuntu%E9%9D%99%E6%80%81ip%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://ponder.work/2017/01/08/the-guide-of-windows-subsystem-for-linux/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -409,15 +417,7 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2021/05/07/redis-source-code-data-structure-sds/</loc>
-    <lastmod>2021-07-15</lastmod>
-  </url>
-  <url>
     <loc>http://ponder.work/2021/05/22/redis-source-code-data-structure-ziplist/</loc>
-    <lastmod>2021-07-15</lastmod>
-  </url>
-  <url>
-    <loc>http://ponder.work/2020/10/31/raspi-system-backup/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -425,11 +425,15 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2016/04/16/python%E4%B8%ADyield%E8%AF%AD%E5%8F%A5%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/</loc>
+    <loc>http://ponder.work/2020/10/31/raspi-system-backup/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
     <loc>http://ponder.work/2016/04/27/python%E4%B8%AD%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8/</loc>
+    <lastmod>2021-07-15</lastmod>
+  </url>
+  <url>
+    <loc>http://ponder.work/2016/04/16/python%E4%B8%ADyield%E8%AF%AD%E5%8F%A5%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -465,7 +469,7 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2020/08/05/python-connect-cpp-programs-with-SWIG/</loc>
+    <loc>http://ponder.work/2020/05/24/python-asyncio-usage/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -473,7 +477,7 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2020/05/24/python-asyncio-usage/</loc>
+    <loc>http://ponder.work/2020/08/05/python-connect-cpp-programs-with-SWIG/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -529,11 +533,11 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2016/09/10/git-svn%E2%80%94%E2%80%94%E7%94%A8git%E6%9D%A5%E6%93%8D%E4%BD%9Csvn%E9%A1%B9%E7%9B%AE/</loc>
+    <loc>http://ponder.work/2021/04/15/gmtime-multi-thread-problem/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2021/04/15/gmtime-multi-thread-problem/</loc>
+    <loc>http://ponder.work/2016/09/10/git-svn%E2%80%94%E2%80%94%E7%94%A8git%E6%9D%A5%E6%93%8D%E4%BD%9Csvn%E9%A1%B9%E7%9B%AE/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -565,15 +569,15 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2020/04/10/convent-xgboost-model-to-pmml-guide/</loc>
-    <lastmod>2021-07-15</lastmod>
-  </url>
-  <url>
     <loc>http://ponder.work/2020/02/29/build-python-program-to-standalone-binary/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
     <loc>http://ponder.work/2016/06/22/centos%E5%BC%80%E5%85%B3%E6%9C%BA%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2021-07-15</lastmod>
+  </url>
+  <url>
+    <loc>http://ponder.work/2020/04/10/convent-xgboost-model-to-pmml-guide/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
@@ -617,11 +621,11 @@
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2016/04/16/Python%E4%B8%ADUnicodeDecodeError%E7%9A%84%E5%87%A0%E7%A7%8D%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</loc>
+    <loc>http://ponder.work/2015/09/10/MySQL%E5%9C%A8django%E7%9A%84%E5%BA%94%E7%94%A8/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>
-    <loc>http://ponder.work/2015/09/10/MySQL%E5%9C%A8django%E7%9A%84%E5%BA%94%E7%94%A8/</loc>
+    <loc>http://ponder.work/2016/04/16/Python%E4%B8%ADUnicodeDecodeError%E7%9A%84%E5%87%A0%E7%A7%8D%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</loc>
     <lastmod>2021-07-15</lastmod>
   </url>
   <url>

@@ -397,7 +397,6 @@
 </ol>
 <p>所以之前一直用 windows 作为 NAS 系统，最大的问题是不支持共享文件夹的回收站。</p>
 <p>现有 NAS 方案的对比</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -444,7 +443,6 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p>本方案的思路受之前文章的启发 <a href="/2021/01/02/install-openmediavault-in-WSL2/">在WSL2中安装openmediavault(OMV)</a></p>
 <p>WSL2 的便利之处在于让 linux 系统能以一个足够快的速度访问 windows 文件，据了解是使用 9p(Plan 9 9p remote filesystem protocol) 协议进行文件共享。</p>
 <p>那么我们只要在 Hyper-V 上运行虚拟机，并通过某种方式（这里选择NFS）共享文件到虚拟机里，就能绕开 WSL2 的缺点。<br>实现 NAS 的底层文件系统由 windows 管理， 上层文件共享等应用由虚拟机中的 NAS 系统处理，兼顾了稳定性和扩展性。</p>

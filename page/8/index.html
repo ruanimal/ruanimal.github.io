@@ -1,0 +1,2751 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=7.4.0">
+  <link rel="mask-icon" href="/favicon.ico?v=7.4.0" color="#222">
+  <meta name="baidu-site-verification" content="K0iqERgnmF">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="学习 思考 行动 Python">
+<meta property="og:type" content="website">
+<meta property="og:title" content="逸思杂陈">
+<meta property="og:url" content="http://ponder.work/page/8/index.html">
+<meta property="og:site_name" content="逸思杂陈">
+<meta property="og:description" content="学习 思考 行动 Python">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="逸思杂陈">
+<meta name="twitter:description" content="学习 思考 行动 Python">
+  <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
+  <link rel="canonical" href="http://ponder.work/page/8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: true,
+    isPost: false,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>逸思杂陈</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134911454-2"></script>
+  <script pjax>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-134911454-2');
+    }
+  </script>
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">逸思杂陈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人类一思考，上帝就发笑。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-编程">
+      
+    
+
+    <a href="/categories/编程/" rel="section"><i class="menu-item-icon fa fa-fw fa-code"></i> <br>编程</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/ruanima" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <div id="posts" class="posts-expand">
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2017/03/12/movie-huozhe/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2017/03/12/movie-huozhe/" class="post-title-link" itemprop="url">电影《活着》随感</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-03-12 20:41:00" itemprop="dateCreated datePublished" datetime="2017-03-12T20:41:00+08:00">2017-03-12</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/随笔/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>592</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　几年前看过小说，情节都早已淡忘，回想起来只留着忧伤的感觉。偶然看到这电影，虽然情节与原著有些不同，但都让人百感交集。因为其实活着的故事就是父辈人的故事，里面的很多类似的事都听老一辈讲过。</p>
+<p>　　鲁迅曾说过，悲剧是把美好的东西撕碎给人看。人生，又何尝不是呢。活着的故事虽然与时代背景有些关系，小人物在其中很是无力，被历史的洪流裹挟着近乎无路可走。但是，看当今的世上，在我们的视野之外，也还有无数的悲剧在发生。当悲剧发生在别人身上时，那是新闻，那是故事；当发生在你身上时，你却无处述说。所以，我很少看新闻，特别是报道苦难的新闻，看多了会觉得悲伤而又无力。</p>
+<p>　　其实某个角度来说，社会一直都没有变过，也就是阶级。每个小镇上都龙二，也有富贵；只是后来他们的地位转换了。阶级就如同金字塔一般，每个人就其占有资源的多少处在不同的层级上，下层的人想往上爬，一切都是赤裸裸的丛林法则。每个人都在往上面看，羡慕上方的美好生活，有谁会往下看一眼，下面是一群穷困潦倒的富贵，如同蝼蚁，在苦苦挣扎。</p>
+<p>　　只要有社会存在，阶级是必然存在的。假使都不算父辈积累的资源，从零开始，大家都处于通过生产物品进行交换的阶段。由于每个人天生是不同的，体力、智商、寿命等属性的总值是不同的，这样大家的生产率就会不同，几代几十代之后差距越来越大（和复利类似），阶级就不可避免地产生了。改朝换代也好，革命也好，都只是重新洗牌而已。</p>
+<p>　　唉，越想越是悲哀。</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2017/01/08/the-guide-of-windows-subsystem-for-linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2017/01/08/the-guide-of-windows-subsystem-for-linux/" class="post-title-link" itemprop="url">Windows Subsystem for Linux(WSL) 简单指引</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-01-08 20:00:00" itemprop="dateCreated datePublished" datetime="2017-01-08T20:00:00+08:00">2017-01-08</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.8k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>　　<code>Windows Subsystem for Linux</code>（简称WSL）是一个为在Windows 10上能够原生运行Linux二进制可执行文件（ELF格式）的兼容层。它是由微软与Canonical公司合作开发，目标是使纯正的Ubuntu 14.04 “Trusty Tahr”映像能下载和解压到用户的本地计算机，并且映像内的工具和实用工具能在此子系统上原生运行。<br>　　WSL提供了一个微软开发的Linux兼容内核接口（不包含Linux代码），来自Ubuntu的用户模式二进制文件在其上运行。</p>
+<p>　　此功能组件从Win10 Insider Preview build 14316开始可用，正式版是Win10 RedStone1才可用，并且只有64位系统才有此功能。我目前的系统是预览版Insider Preview build 14986，相比正式版Win10 RedStone1版本WSL功能会完善些，但系统就不稳定些了。建议大家还是用Win10 RedStone1吧</p>
+<p>　　WSL 的出现解决了很大程度上解决了Windows用户使用linux工具链的需求，同时也解决部分用户（比如我）在Linux与Windows之间切换的麻烦。</p>
+<p><strong>WSL的优点</strong></p>
+<ul>
+<li>提高了接近原生Linux的使用体验，Python，Shell等开发环境与linux下基本相同</li>
+<li>使用Bash进行一些日常操作比CMD高校和方便多了</li>
+<li>资源利用效率，以及启动速度比虚拟机快多了，而且不用担心文件共享的问题</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2017/01/08/the-guide-of-windows-subsystem-for-linux/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/10/22/一些句子/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/10/22/一些句子/" class="post-title-link" itemprop="url">一些句子</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-22 20:41:00" itemprop="dateCreated datePublished" datetime="2016-10-22T20:41:00+08:00">2016-10-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.1k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>如果你不抱怨呢，你会感受到巨大的心理压力。压力有时并不是个坏东西，是的，它也许会让你感觉不舒服，但同时也是促使你进行改变的力量。</p>
+<p>一旦压力减轻，人就容易维持现状。然而，如果压力没有在抱怨中流失，它就会推积起来，到达一个极限，迫使你采取行动变现状。</p>
+<blockquote>
+<p>其实，压力产生的后果取决与你的器量，如果你能承受那便是动力，否则只会使你崩坏。</p>
+</blockquote>
+<p>当遇到事情时，理智的孩子让血液进入大脑，能聪明地思考问题；野蛮的孩子让血液进入四肢，大脑空虚，疯狂冲动。</p>
+<blockquote>
+<p>理智虽好，但若时时都是，未免略为无趣。</p>
+</blockquote>
+<p>毁灭一个生命，和毁灭全世界同等罪恶；拯救一个生命，和拯救全世界同等荣耀。</p>
+<blockquote>
+<p>就逃跑来说，五十步和百步其实没有区别。</p>
+</blockquote>
+<p>当人们开始对某人进行人身攻击的时候，他才能知道自己赢得了争论。</p>
+<blockquote>
+<p>俗话说，君子动口不动手。</p>
+</blockquote>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/10/22/一些句子/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/09/10/git-svn——用git来操作svn项目/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/09/10/git-svn——用git来操作svn项目/" class="post-title-link" itemprop="url">git-svn：通过git来管理svn代码</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-10 12:00:00" itemprop="dateCreated datePublished" datetime="2016-09-10T12:00:00+08:00">2016-09-10</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.6k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>5 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>svn和git都是常用的版本管理软件，但是git无论在理念或是功能上都比svn更为先进。但是有的公司是以svn作为中央仓库，这时git与svn代码的同步就可以通过 git-svn这个软件进行，从而用git管理svn代码。最后的效果相当于把svn仓库当作git的一个remote（远程仓库），而你本地的代码都是通过git来管理，只有push到svn时才会把你本地的commit同步到svn。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/09/10/git-svn——用git来操作svn项目/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/09/04/《随风而行》读书笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/09/04/《随风而行》读书笔记/" class="post-title-link" itemprop="url">《随风而行》读书笔记</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-04 20:17:00" itemprop="dateCreated datePublished" datetime="2016-09-04T20:17:00+08:00">2016-09-04</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>596</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><em>最近的这些读书笔记基本上都是补的以前的，其实已经近一年没怎么读文学类的书籍了，真是惭愧，自觉面目可憎。<br>工作了毕竟与大学时不同，时间也不那么充裕。而且做的是非本专业的工作，为了三餐，为了果腹，只能多看技术类的书了。<br>文学的先放一放，等稳定了再慢慢补上吧</em></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a href="https://book.douban.com/subject/1966573/" target="_blank" rel="noopener">随风而行</a> 是伊朗作家阿巴斯·基阿鲁斯达米的一本诗集。阿巴斯·基阿鲁斯达米不仅仅是为诗人，同时他也是一位电影导演。<br>因此他的短诗有着极强的画面感，诗句隽永富含哲思，使人如临其境。</p>
+<p>下面是本人从中摘录的一些喜欢的。</p>
+<h2 id="摘录"><a href="#摘录" class="headerlink" title="摘录"></a>摘录</h2><p>春风不识字<br>却翻作业本<br>孩子趴在小手上<br>睡得正香</p>
+<p>飞起再落下<br>落下又飞走<br>蚂蚱的方向<br>只有它知道</p>
+<p>羽绒枕<br>屠害千只小鸟梦</p>
+<p>怎么能<br>老龟活了三百年<br>不知有天<br>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/09/04/《随风而行》读书笔记/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/08/28/《狂热分子》读书笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/08/28/《狂热分子》读书笔记/" class="post-title-link" itemprop="url">《狂热分子》笔记</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-08-28 20:14:00" itemprop="dateCreated datePublished" datetime="2016-08-28T20:14:00+08:00">2016-08-28</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>948</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>作者，埃里克·霍弗。本书主要讲述处于群众运动中的个体的心理状态。作者亲身参与过群众运动，发现这些运动的参与者主要是现实生活的失意者。他们抛弃自己本已无可救药的生活，投身于“神圣的”群众运动，化身为伟大集体的一份子，号召自我牺牲以获救赎。阅读本书或许会对中国的革命年代多一些不一样的理解。</p>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>愈做不好一般事情是人愈的胆大妄为。</p>
+<p>希望并不是生命可以寄托的东西。</p>
+<blockquote>
+<p>阮云：除了精进，没有什么可以寄托生命。</p>
+</blockquote>
+<p>当你做不好分内的事时，别人会耻笑你，但当你帮助别人时，没人会耻笑你。</p>
+<p>有成就感的人会把世界当成一个友好的世界，失意者则乐于看到世界急遽改变。</p>
+<p>任何教义如果想要成为一种力量的来源，它就必须宣扬自己是打开未来之书（唯一）的钥匙。<br>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/08/28/《狂热分子》读书笔记/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/08/17/《七十年代》读书笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/08/17/《七十年代》读书笔记/" class="post-title-link" itemprop="url">《七十年代》读书笔记</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-08-17 20:17:00" itemprop="dateCreated datePublished" datetime="2016-08-17T20:17:00+08:00">2016-08-17</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>668</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>作者：北岛、李陀</p>
+<p>最早识得北岛这个作家，是因为他的诗句，并为之倾倒。</p>
+<pre><code>卑鄙是卑鄙者的通行证，
+高尚是高尚者的墓志铭，
+看吧，在那镀金的天空中，
+飘满了死者弯曲的倒影。
+</code></pre><p>这本书收集了三十篇記憶文字，是作者们对于”上世纪70年代”这一段特殊历史时期的印象和回忆。</p>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>不知是因为年轻还是饥饿，我们几乎每时每刻低头觅食，仿佛猪狗。</p>
+<blockquote>
+<p>阮云：我们难以想象的事，却以极平淡的语句说出，让人更加难以承受。</p>
+</blockquote>
+<p>历史在原来作痛的地点消失了。</p>
+<p>这个世界还会好吗，梁漱溟临终前的话。</p>
+<blockquote>
+<p>阮云：这世界曾经好过吗，其实它从未真正好过，只是有时我们居住在它稍微好一点的那部分里。</p>
+</blockquote>
+<p>大家极力地忘却七十年代，以为这样它就未发生过。</p>
+<blockquote>
+<p>阮云：人遇到痛苦的事，为了让自己好受一点，会不自觉地忘却它。这正是人的优点之一，然而也正是可悲之处。当痛苦的承受者都忘却了，痛苦的制造者会怎么想呢？</p>
+</blockquote>
+<p>普通百姓的日常生活，才是被历史忽略的最重要的部分。</p>
+<blockquote>
+<p>阮云：你我百年之后，世上还有几许痕迹。</p>
+</blockquote>
+<p>读啊写啊，可这都什么年代了，可别玩枪口上撞。</p>
+<blockquote>
+<p>阮云：读书人呐，过于理想乃至于幼稚。毛主席为啥读资治通鉴十七遍，而不是其他。</p>
+</blockquote>
+<p>历史永远记录的是大人物的大事，而小人物的日常感受我们无从得知。</p>
+<p>现在，大家笑朝鲜，那可真是“好了伤疤忘了疼”，小孩不知道也就算了，大人也一般傻。</p>
+<p>政治面貌调查和元朝人分四等有何区别。</p>
+<blockquote>
+<p>阮云：在性质上有区别，一个是伟光正的社会主义的，一个是腐朽的资本主义的。</p>
+</blockquote>
+<p>小桥报有人痴立，泪撒春帘一饼茶 —— 《己亥杂诗》龚自珍</p>
+<p>谁复留君住，叹人生几番离合，便成迟暮。—— 《金缕曲》纳兰性德</p>
+<blockquote>
+<p>阮云：何须几番离合，一见杨过便已把终身误了。</p>
+</blockquote>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/08/14/《程序员的数学》读书笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/08/14/《程序员的数学》读书笔记/" class="post-title-link" itemprop="url">《程序员的数学》读书笔记</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-08-14 19:17:00" itemprop="dateCreated datePublished" datetime="2016-08-14T19:17:00+08:00">2016-08-14</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>811</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本书讲的的是一些程序员必须了解的数学知识，有些知识点挺有意义的，特别是对于非科班出身的程序员来说。<br>就我的观点来说，一般的程序员需要的数学水平大概是高中就够了，当然要做算法研究大学数学专业水平也不一定够。<br>下文记录本书一些有用知识点，包括一些算法的数学思路，还有有趣的逻辑问题。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/08/14/《程序员的数学》读书笔记/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/07/31/windows软件推荐/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/07/31/windows软件推荐/" class="post-title-link" itemprop="url">windows优秀软件推荐（多图注意流量）</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-07-31 20:57:00" itemprop="dateCreated datePublished" datetime="2016-07-31T20:57:00+08:00">2016-07-31</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工作生活/" itemprop="url" rel="index"><span itemprop="name">工作生活</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.2k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>4 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本人结合自己使用的感受，推荐以下几十款软件给大家使用，覆盖了日常的大部分使用场景。<br>软件不追新，够用就好，因为软件随着不断更新过度开发的可能性是很大的。<br>资源大部分来自互联网，请知悉相关风险。</p>
+<p>部分分享已经失效，这里补一下: <a href="https://pan.baidu.com/s/1ehg5VNksD7u-eWm1KFmPSw" target="_blank" rel="noopener">https://pan.baidu.com/s/1ehg5VNksD7u-eWm1KFmPSw</a><br><em>提取码: g2fx</em></p>
+<p><strong>善用佳软，节约时间，提高效率。</strong></p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/07/31/windows软件推荐/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/07/16/sublime快捷键/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/07/16/sublime快捷键/" class="post-title-link" itemprop="url">SublimeText3 快捷键列表</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-07-16 15:00:00" itemprop="dateCreated datePublished" datetime="2016-07-16T15:00:00+08:00">2016-07-16</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.2k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>主力使用SublimeText3编辑器，将一些常用的快捷键总结一下。</p>
+<h2 id="通用（General）"><a href="#通用（General）" class="headerlink" title="通用（General）"></a>通用（General）</h2><ul>
+<li><code>Esc</code> 退出功能，比如退出输出面板</li>
+<li><code>↑↓←→</code>    上下左右移动光标，注意不是不是KJHL！</li>
+<li><code>Alt</code>    显示菜单栏</li>
+<li><code>Ctrl + Shift + P</code>    调出命令板（Command Palette）</li>
+<li><code>Ctrl + `</code>    调出控制台</li>
+<li><code>Ctrl + K, Ctrl + 数字</code>    代码折叠，数字代表折叠的层次</li>
+<li><code>Ctrl + Shift + [ / ]</code>    收起/展开选中的代码。</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/07/16/sublime快捷键/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/06/30/《禅者的初心2》读书笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/06/30/《禅者的初心2》读书笔记/" class="post-title-link" itemprop="url">《禅者的初心2》读书笔记</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-06-30 00:00:00" itemprop="dateCreated datePublished" datetime="2016-06-30T00:00:00+08:00">2016-06-30</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>902</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　诸行无常是你于此世遭受痛苦、挫折的原因。</p>
+<p>　　如果你能缓慢地行走，没有任何想要获得什么的念头，便已经是一名优秀的禅门弟子。</p>
+<p>　　入道之门屏息外界的诸多攀援之物，并止内在的情绪与妄念，当你变成一块砖或一面石墙，你便入了道。</p>
+<p>　　虽然由你的推想，你可以有一种试验性的理解；然而，你应该由经验而理解空性。</p>
+<p>　　叙述出来的并不是真正是实相，而当你认为它是实相时，已经包含你个人的观念和想法，那是一个自我的概念。</p>
+<p>　　大小方圆，并不属于现实实相，它们仅仅是观念，这就是空去水杯的含义。（忘记已有的观念）</p>
+<p>　　当我们分析一己的经验时，就产生了时间或空间大或小、重或轻的概念；某种的衡量尺度是必要的；以我们心中的各色各样的衡量尺度，我们经历着事物。然而事物本身并不存在衡量尺度，那是我们强加到实相上的。</p>
+<blockquote>
+<p>阮云：先生未生之前各种尺度何在，又何必头上安头。</p>
+</blockquote>
+<p>　　我们有无限的痛苦，因为我们有无限的欲望。</p>
+<blockquote>
+<p>阮云：因欲生贪，因欲生嗔，贪嗔既久，陈陈相因，愚痴无救。</p>
+</blockquote>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/06/30/《禅者的初心2》读书笔记/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/06/26/沟通/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/06/26/沟通/" class="post-title-link" itemprop="url">沟通</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-06-26 06:41:00" itemprop="dateCreated datePublished" datetime="2016-06-26T06:41:00+08:00">2016-06-26</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/随笔/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>526</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>no man is a island.</p>
+</blockquote>
+<p>　　西谚有云“没有人是个孤岛”，人是社会性动物，很多自我价值都在社交中实现，自是离不开沟通。</p>
+<p>　　但真正的沟通又是何其难？某种意义上，你永远都不能知道对方真正的意思。当然，有时你连自己是什么意思都不甚了解。</p>
+<p>　　在聊天中经常出现的是，表面上相谈甚欢，背地里很可能是呵呵一笑。毕竟不同价值观，你不能奢望别人能完全理解你，不然怎么老说知音难觅呢？</p>
+<p>　　叔本华曾说</p>
+<blockquote>
+<p>人就像寒冬里的刺猬,互相靠得太近,会觉得刺痛;彼此离得太远,却又会感觉寒冷.</p>
+</blockquote>
+<p>　　大师所言简直入木三分，而且这些刺猬靠得太近的时候，会说“这个距离太热了”，而不是“你刺到我了”。人与人之间的沟通乃至交往，正是寻找这个合适的距离，这个对双方都合适的距离。</p>
+<p>　　人人都有刺，你的刺一方面是你防卫的武器，另一方面阻止距离更近一步的枷锁。没安全感的人，他的刺就特别长，这样虽然安全了，但别人永远无法接近你。所以我们往往躲在自己厚重的防卫之下，同时感叹着“怎么没有真正理解我的人呢？”。</p>
+<p>　　但其实这些刺都是无用的累赘，你以为它能保护你，其实它把所有人都隔离在外。其实能伤害你的只有你自己，敞开你的心扉吧，你会找到真正的知音，就算不幸有人要辱骂你伤害你，你不放在心上，他就无的放矢。</p>
+<p>　　放下无谓的防备，追求无碍的沟通。</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/06/22/centos开关机日志分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/06/22/centos开关机日志分析/" class="post-title-link" itemprop="url">centos开关机日志分析</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-06-22 19:52:00" itemprop="dateCreated datePublished" datetime="2016-06-22T19:52:00+08:00">2016-06-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.9k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>在工作中发现有获取linux具体开关机时间和类型的需求，可以通过分析<code>/var/log/wtmp</code>日志文件得到。<br>通过<code>last -x -F</code>可以将<code>/var/log/wtmp</code>输出以下格式。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/06/22/centos开关机日志分析/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/06/22/python包导入再谈/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/06/22/python包导入再谈/" class="post-title-link" itemprop="url">python包导入再谈</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-06-22 19:26:00" itemprop="dateCreated datePublished" datetime="2016-06-22T19:26:00+08:00">2016-06-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.8k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="python包导入机制"><a href="#python包导入机制" class="headerlink" title="python包导入机制"></a>python包导入机制</h2><p>包是指含有<code>__init__.py</code>的文件夹，模块就是一个.py文件。</p>
+<p><strong>python的包和模块是先查找<code>buil-in moudle</code>然后是<code>sys.path</code>这个list里的所有路径。</strong></p>
+<ul>
+<li>sys.path[0]是启动Python解释器的脚本所在路径，比如运行<code>python task/admin.py</code>，sys.path[0]是<code>&#39;/home/code/taskman/task&#39;</code>；如果启动的是是idle,ipython等，sys.path[0]是<code>&#39;&#39;</code>。</li>
+<li>如果sys.path[0]是<code>&#39;&#39;</code>，这个值等于当前工作目录也就是<code>os.getcwd()</code>的值，也就是linux的pwd的值，你可以用<code>os.chdir</code>来改变工作路径。</li>
+<li>sys.path里余下的元素是python环境变量里的一些路径</li>
+</ul>
+<p>还是分析之前的那个例子</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/06/22/python包导入再谈/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2016/06/21/《大话设计模式》读书笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/06/21/《大话设计模式》读书笔记/" class="post-title-link" itemprop="url">《大话设计模式》读书笔记</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-06-21 21:30:00" itemprop="dateCreated datePublished" datetime="2016-06-21T21:30:00+08:00">2016-06-21</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.7k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="面向对象基础"><a href="#面向对象基础" class="headerlink" title="面向对象基础"></a>面向对象基础</h2><ol>
+<li>类是对对象的抽象，抽象类是对类的抽象，接口是对行为的抽象。</li>
+<li>如果行为跨越不同类的对象，可使用接口；对于一些相似的类对象，用继承抽象类</li>
+</ol>
+<p>抽象类是自底向上抽象出来的，接口是自顶向下的设计，也就是接口是预设计，抽象类是后抽象。<br>所有设计模式都是为了维护的方便，如果你的代码确定不需复用，阅后即焚，则设计模式是多余的。</p>
+<p>敏捷开发：通过重构改善既有代码的设计</p>
+<p>单一职责原则：就一个类应该只有一个引起它改变的原因</p>
+<p>开放-封闭原则：对于扩展开发，对于更改封闭</p>
+<p>依赖倒转原则：高层模块不应该依赖底层模块，两个都应该依赖抽象；抽象不应该依赖细节，细节应该依赖抽象。</p>
+<p>里式代换原则：依赖父类则可用子类代替，反之则不可（子类型必需能够替换父类型）</p>
+<p>迪米特法则：如果两个类不必彼此相互相互通信，那么这两个类就不应该发生直接的相互作用。如果其中一个类需要调用另一个类的某一个方法，可以通过第三者转发这个调用。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2016/06/21/《大话设计模式》读书笔记/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+  </div>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jay.Run</p>
+  <div class="site-description" itemprop="description">学习 思考 行动 Python</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/ruanima" title="GitHub &rarr; https://github.com/ruanima" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://leetcode-cn.com/u/iponder" title="Leetcode &rarr; https://leetcode-cn.com/u/iponder" rel="noopener" target="_blank"><i class="fa fa-fw fa-cubes"></i>Leetcode</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.liaoxuefeng.com/" title="https://www.liaoxuefeng.com/" rel="noopener" target="_blank">廖雪峰的官方网站</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://www.ruanyifeng.com/" title="http://www.ruanyifeng.com/" rel="noopener" target="_blank">阮一峰的个人网站</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://cse.google.com/cse?cx=006975008861986536211:lpx3qasaiom" title="https://cse.google.com/cse?cx=006975008861986536211:lpx3qasaiom" rel="noopener" target="_blank">mac软件搜索引擎</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.kaciras.com/" title="https://blog.kaciras.com/" rel="noopener" target="_blank">Kaciras' Blog</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://www.axihe.com/" title="https://www.axihe.com/" rel="noopener" target="_blank">阿西河的前端教程</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jay.Run</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">302k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:17</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="/lib/pjax/pjax.min.js?v=0.2.8"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var id = element.id || '';
+    var src = element.src || '';
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (id !=='') {
+      script.id = element.id;
+    }
+    if (src !== '') {
+      script.src = src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+  
+
+  
+
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=7.4.0">
+  <link rel="mask-icon" href="/favicon.ico?v=7.4.0" color="#222">
+  <meta name="baidu-site-verification" content="K0iqERgnmF">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="跳跃表 （skiplist) 是一种有序数据结构，它通过在每个节点中维持多个指向其他节点的 指针，从而达到快速访问节点的目的。 跳跃表优点  表支持平均O(logN), 最坏O(N)复杂度的节点查找，效率可以和平衡树相当 通过顺序性操作来批量处理节点 实现比平衡树要来得更为简单  因为ziplist内存占用较小，所以Redis使用作为有序集合的初始底层结构。如果一个有序集合包含的元素数量比较多（大">
+<meta name="keywords" content="Redis,C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis原理 —— zskiplist 跳跃表">
+<meta property="og:url" content="http://ponder.work/2021/04/20/redis-source-code-data-structure-zskiplist/index.html">
+<meta property="og:site_name" content="逸思杂陈">
+<meta property="og:description" content="跳跃表 （skiplist) 是一种有序数据结构，它通过在每个节点中维持多个指向其他节点的 指针，从而达到快速访问节点的目的。 跳跃表优点  表支持平均O(logN), 最坏O(N)复杂度的节点查找，效率可以和平衡树相当 通过顺序性操作来批量处理节点 实现比平衡树要来得更为简单  因为ziplist内存占用较小，所以Redis使用作为有序集合的初始底层结构。如果一个有序集合包含的元素数量比较多（大">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://image.runjf.com/mweb/2021-04-23-16190066207268.jpg">
+<meta property="og:image" content="http://image.runjf.com/mweb/2021-04-23-16191635872238.jpg">
+<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis原理 —— zskiplist 跳跃表">
+<meta name="twitter:description" content="跳跃表 （skiplist) 是一种有序数据结构，它通过在每个节点中维持多个指向其他节点的 指针，从而达到快速访问节点的目的。 跳跃表优点  表支持平均O(logN), 最坏O(N)复杂度的节点查找，效率可以和平衡树相当 通过顺序性操作来批量处理节点 实现比平衡树要来得更为简单  因为ziplist内存占用较小，所以Redis使用作为有序集合的初始底层结构。如果一个有序集合包含的元素数量比较多（大">
+<meta name="twitter:image" content="http://image.runjf.com/mweb/2021-04-23-16190066207268.jpg">
+  <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
+  <link rel="canonical" href="http://ponder.work/2021/04/20/redis-source-code-data-structure-zskiplist/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Redis原理 —— zskiplist 跳跃表 | 逸思杂陈</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134911454-2"></script>
+  <script pjax>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-134911454-2');
+    }
+  </script>
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">逸思杂陈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">人类一思考，上帝就发笑。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-编程">
+      
+    
+
+    <a href="/categories/编程/" rel="section"><i class="menu-item-icon fa fa-fw fa-code"></i> <br>编程</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/ruanima" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://ponder.work/2021/04/20/redis-source-code-data-structure-zskiplist/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jay.Run">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Redis原理 —— zskiplist 跳跃表
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2021-04-20 21:48:00" itemprop="dateCreated datePublished" datetime="2021-04-20T21:48:00+08:00">2021-04-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程/" itemprop="url" rel="index"><span itemprop="name">编程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>2.9k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>4 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>跳跃表 （skiplist) 是一种有序数据结构，它通过在每个节点中维持多个指向其他节点的 指针，从而达到快速访问节点的目的。</p>
+<p>跳跃表优点</p>
+<ul>
+<li>表支持平均<code>O(logN)</code>, 最坏<code>O(N)</code>复杂度的节点查找，效率可以和平衡树相当</li>
+<li>通过顺序性操作来批量处理节点</li>
+<li>实现比平衡树要来得更为简单</li>
+</ul>
+<p>因为<code>ziplist</code>内存占用较小，所以Redis使用作为有序集合的初始底层结构。<br>如果一个有序集合包含的元素数量比较多（大于<code>zset-max-ziplist-entries</code>），又或者有序集合中元素的成员是比较长的字符串时（大于<code>zset-max-ziplist-value</code>），Redis就会将其底层结构转换为跳跃表。</p>
+<a id="more"></a>
+<h2 id="zskiplist-数据结构"><a href="#zskiplist-数据结构" class="headerlink" title="zskiplist 数据结构"></a>zskiplist 数据结构</h2><p>跳跃表节点, 其中<code>zskiplistLevel</code>成员是<a href="https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html" target="_blank" rel="noopener">柔性数组</a><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> &#123;</span></span><br><span class="line">    <span class="comment">// 成员对象</span></span><br><span class="line">    robj *obj;</span><br><span class="line">    <span class="comment">// 分值</span></span><br><span class="line">    <span class="keyword">double</span> score;</span><br><span class="line">    <span class="comment">// 后退指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">backward</span>;</span></span><br><span class="line">    <span class="comment">// 层</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistLevel</span> &#123;</span></span><br><span class="line">        <span class="comment">// 前进指针</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">forward</span>;</span></span><br><span class="line">        <span class="comment">// 跨度，经过的节点数目</span></span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> span;</span><br><span class="line">    &#125; level[];  <span class="comment">// 柔性数组</span></span><br><span class="line">&#125; zskiplistNode;</span><br></pre></td></tr></table></figure></p>
+<p>跳跃表<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplist</span> &#123;</span></span><br><span class="line">    <span class="comment">// 表头节点和表尾节点</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">header</span>, *<span class="title">tail</span>;</span></span><br><span class="line">    <span class="comment">// 表中节点的数量</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> length;</span><br><span class="line">    <span class="comment">// 表中层数最大的节点的层数</span></span><br><span class="line">    <span class="keyword">int</span> level;</span><br><span class="line">&#125; zskiplist;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://image.runjf.com/mweb/2021-04-23-16190066207268.jpg" alt></p>
+<p>所谓跳跃表，就是多层链表（redis中的实现是最多32层）通过额外的链接提高效率，从低层到高层，节点之间的跨度逐渐变大。</p>
+<p>跨度越大则查找效率越高，所以查找时是从高层往底层查找。</p>
+<p>如果节点的最高层高为x，则可以认为该节点就存储在低x层，则表头到该节点的跨度之和为该节点的rank(排位)，所有节点的最大层高为跳跃表层高。</p>
+<h2 id="跳跃表插入节点"><a href="#跳跃表插入节点" class="headerlink" title="跳跃表插入节点"></a>跳跃表插入节点</h2><p>因为跳跃表是多层链表，所以插入节点的关键是找到每一层插入的位置，以及插入位置的跨度变化，还有新节点的跨度计算。</p>
+<p>python 版跳跃表插入实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 比较节点大小</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_node_lt</span><span class="params">(node: zskiplistNode, score: float, obj: robj)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> node.score &lt; score:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">if</span> (node.score == score <span class="keyword">and</span></span><br><span class="line">        compareStringObjects(node.obj, obj) &lt; <span class="number">0</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">zslInsert</span><span class="params">(zsl: zskiplist, score: float, obj: robj)</span> -&gt; zskiplistNode:</span></span><br><span class="line">    <span class="comment"># update list记录的是每一层, 新节点需要插入的位置(新节点x的backward节点指针)</span></span><br><span class="line">    update: List[Opt[zskiplistNode]] = [<span class="literal">None</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(ZSKIPLIST_MAXLEVEL)]</span><br><span class="line">    <span class="comment"># rank[i]: 从高到低, 到第i层为止经过的所有node的span总和, 也就是节点的排序</span></span><br><span class="line">    <span class="comment"># 用于计算新节点各层的span, 以及新节点的后继节点各层的span</span></span><br><span class="line">    rank = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(ZSKIPLIST_MAXLEVEL)]</span><br><span class="line">    x = zsl.header</span><br><span class="line">    <span class="comment"># 从高层开始遍历</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(zsl.level<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">        rank[i] = <span class="number">0</span> <span class="keyword">if</span> i == zsl.level<span class="number">-1</span> <span class="keyword">else</span> rank[i+<span class="number">1</span>]</span><br><span class="line">        <span class="comment"># 找到每一层x需要插入的位置, 并更新rank</span></span><br><span class="line">        <span class="keyword">while</span> x.level[i].forward <span class="keyword">and</span> _node_lt(x.level[i].forward, score, obj):</span><br><span class="line">            rank[i] += x.level[i].span</span><br><span class="line">            x = x.level[i].forward</span><br><span class="line">        <span class="comment"># 对于每一层i, 新节点会插入到update[i].level[i]之后</span></span><br><span class="line">        update[i] = x</span><br><span class="line">    level = zslRandomLevel()  <span class="comment"># 取一个随机层数, 使zskiplist，每层节点更为均衡</span></span><br><span class="line">    <span class="comment"># 新节点层高增大的情况，更新扩展层的默认跨度</span></span><br><span class="line">    <span class="keyword">if</span> level &gt; zsl.level:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(zsl.level, level):</span><br><span class="line">            rank[i] = <span class="number">0</span></span><br><span class="line">            update[i] = zsl.header</span><br><span class="line">            update[i].level[i].span = zsl.length </span><br><span class="line">        zsl.level = level</span><br><span class="line">    <span class="comment"># 更新节点x和前驱节点已有层的跨度</span></span><br><span class="line">    x = zslCreateNode(level, score, obj)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(level):</span><br><span class="line">        x.level[i].forward = update[i].level[i].forward</span><br><span class="line">        update[i].level[i].forward = x </span><br><span class="line">        x.level[i].span = update[i].level[i].span - (rank[<span class="number">0</span>] - rank[i])  </span><br><span class="line">        update[i].level[i].span = (rank[<span class="number">0</span>] - rank[i]) + <span class="number">1</span> </span><br><span class="line">    <span class="comment"># 更新前驱节点扩展层的跨度，x节点这些层没有后继节点，所以跨度为0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(level, zsl.level):</span><br><span class="line">        update[i].level[i].span += <span class="number">1</span>  <span class="comment"># type: ignore</span></span><br><span class="line">    <span class="comment"># 设置新节点的后退指针, level[0]才有后退指针</span></span><br><span class="line">    x.backward = <span class="literal">None</span> <span class="keyword">if</span> update[<span class="number">0</span>] == zsl.header <span class="keyword">else</span> update[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> x.level[<span class="number">0</span>].forward:</span><br><span class="line">        x.level[<span class="number">0</span>].forward.backward = x</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        zsl.tail = x</span><br><span class="line">    zsl.length += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure></p>
+<h2 id="跳跃表查找"><a href="#跳跃表查找" class="headerlink" title="跳跃表查找"></a>跳跃表查找</h2><p>跳跃表的查找则是从高层向低层查找，沿着最高层链表前进；遇到大于目标值的节点，则往下一层，直到找到相等的值为止。</p>
+<p>经过的所有节点的跨度相加即是目标节点的rank。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">zslGetRank</span><span class="params">(zsl: zskiplist, score: float, obj: robj)</span> -&gt; int:</span></span><br><span class="line">    rank = <span class="number">0</span></span><br><span class="line">    x = zsl.header</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(zsl.level<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">        <span class="keyword">while</span> x.level[i].forward <span class="keyword">and</span> _node_lt(x.level[i].forward, score, obj):</span><br><span class="line">            rank += x.level[i].span</span><br><span class="line">            x = x.level[i].forward</span><br><span class="line">        <span class="keyword">if</span> x.obj <span class="keyword">and</span> equalStringObjects(x.obj, obj):</span><br><span class="line">            <span class="keyword">return</span> rank</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>查找score=2.0的o2对象的过程<br><img src="http://image.runjf.com/mweb/2021-04-23-16191635872238.jpg" alt></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>redis 3.0 源码</li>
+<li>redis 设计与实现</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Jay.Run</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ponder.work/2021/04/20/redis-source-code-data-structure-zskiplist/" title="Redis原理 —— zskiplist 跳跃表">http://ponder.work/2021/04/20/redis-source-code-data-structure-zskiplist/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Redis/" rel="tag"># Redis</a>
+            
+              <a href="/tags/C/" rel="tag"># C</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2021/04/17/redis-source-code-data-structure-dict/" rel="next" title="Redis原理 —— dict 字典">
+                  <i class="fa fa-chevron-left"></i> Redis原理 —— dict 字典
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2021/05/07/redis-source-code-data-structure-sds/" rel="prev" title="Redis原理 —— SDS 简单动态字符串">
+                  Redis原理 —— SDS 简单动态字符串 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#zskiplist-数据结构"><span class="nav-number">1.</span> <span class="nav-text">zskiplist 数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跳跃表插入节点"><span class="nav-number">2.</span> <span class="nav-text">跳跃表插入节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跳跃表查找"><span class="nav-number">3.</span> <span class="nav-text">跳跃表查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jay.Run</p>
+  <div class="site-description" itemprop="description">学习 思考 行动 Python</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/ruanima" title="GitHub &rarr; https://github.com/ruanima" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://leetcode-cn.com/u/iponder" title="Leetcode &rarr; https://leetcode-cn.com/u/iponder" rel="noopener" target="_blank"><i class="fa fa-fw fa-cubes"></i>Leetcode</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.liaoxuefeng.com/" title="https://www.liaoxuefeng.com/" rel="noopener" target="_blank">廖雪峰的官方网站</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://www.ruanyifeng.com/" title="http://www.ruanyifeng.com/" rel="noopener" target="_blank">阮一峰的个人网站</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://cse.google.com/cse?cx=006975008861986536211:lpx3qasaiom" title="https://cse.google.com/cse?cx=006975008861986536211:lpx3qasaiom" rel="noopener" target="_blank">mac软件搜索引擎</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.kaciras.com/" title="https://blog.kaciras.com/" rel="noopener" target="_blank">Kaciras' Blog</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://www.axihe.com/" title="https://www.axihe.com/" rel="noopener" target="_blank">阿西河的前端教程</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jay.Run</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">302k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:17</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="/lib/pjax/pjax.min.js?v=0.2.8"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var id = element.id || '';
+    var src = element.src || '';
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (id !=='') {
+      script.id = element.id;
+    }
+    if (src !== '') {
+      script.src = src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '6a903e3db839fa7a1f0f',
+      clientSecret: 'c19ebb77db2f0e162961d60afaa89d0f4ed5f3ad',
+      repo: 'ruanima.github.io',
+      owner: 'ruanima',
+      admin: ['ruanima'],
+      id: 'ff60f42f61da883287f2686bd2e2490b',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+    </div>
+</body>
+</html>

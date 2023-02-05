@@ -589,7 +589,7 @@
 <li><p>2015.09.12          V2.3<br>  修正不能正确提取部分迅雷链接</p>
 </li>
 </ul>
-<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>这个小工具是本人Python的一个习作，水平有限，如有bug可以在这里留言，或者给我发邮件<a href="mailto:&#97;&#x64;&#x6d;&#x69;&#x6e;&#64;&#112;&#111;&#110;&#x64;&#x65;&#114;&#x2e;&#119;&#111;&#x72;&#x6b;" target="_blank" rel="noopener">&#97;&#x64;&#x6d;&#x69;&#x6e;&#64;&#112;&#111;&#110;&#x64;&#x65;&#114;&#x2e;&#119;&#111;&#x72;&#x6b;</a>。</p>
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>这个小工具是本人Python的一个习作，水平有限，如有bug可以在这里留言，或者给我发邮件<a href="mailto:&#97;&#100;&#109;&#105;&#110;&#x40;&#112;&#x6f;&#110;&#100;&#x65;&#x72;&#46;&#x77;&#111;&#x72;&#107;" target="_blank" rel="noopener">&#97;&#100;&#109;&#105;&#110;&#x40;&#112;&#x6f;&#110;&#100;&#x65;&#x72;&#46;&#x77;&#111;&#x72;&#107;</a>。</p>
 ]]></content>
       <categories>
         <category>编程</category>
@@ -1178,43 +1178,6 @@
       </tags>
   </entry>
   <entry>
-    <title>一致性哈希原理及实现</title>
-    <url>/2021/06/02/consistent-hashing/</url>
-    <content><![CDATA[<p>一致性哈希是一种特殊的哈希算法。在使用一致哈希算法后，哈希表槽位(slots)数的改变平均只需要对 K/n 个key需要重新映射，其中K是key的数量，n是槽位数量。然而在传统的哈希表中，添加或删除一个槽位的几乎需要对所有关键字进行重新映射。</p>
-<p>谈到一致性哈希（Consistent hashing），就得先讲一下分布式存储。<br>比如我们有2000w条数据，一台机器存不下，那么我们可以把分成10份每份200w条存到10台机器上。<br>这样存储就不成问题，但是查询效率很低，查一条数据要每台机器都查一遍。<br>如果这些数据能够分类，每一类存到一台机器上，查询前先知道数据的类别，就可以直接定位到某台机器，效率就高了。<br><a id="more"></a></p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>那么就得找到一个通用而且均匀的分类方法，可以想到先哈希再取模<code>hash(data) % N</code></p>
-<p>现有这几个数据apple, banana, cherry，durian，希望存储到有3台机器的服务.<br><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"># 假设自定义了hash函数，有以下返回</span><br><span class="line">hash(<span class="string">"apple"</span>) % <span class="number">3</span> == <span class="number">30</span> % <span class="number">3</span> == <span class="number">0</span></span><br><span class="line">hash(<span class="string">"banada"</span>) % <span class="number">3</span> == <span class="number">31</span> % <span class="number">3</span> == <span class="number">1</span></span><br><span class="line">hash(<span class="string">"cherry"</span>) % <span class="number">3</span> == <span class="number">32</span> % <span class="number">3</span> == <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="http://image.runjf.com/mweb/2021-06-03-16226066038043.jpg" alt></p>
-<p>如果B机器宕机了，需要将取模余数和机器重新映射，这时发现3/4的数据都需要迁移<br><img src="http://image.runjf.com/mweb/2021-06-03-16226068389571.jpg" alt></p>
-<p>其实当B机器宕机时，取模的除数可以不改成2，依然是<code>hash(data) % 3</code>，这样余数就不会变，只需要把余数和机器的映射改一下，将原先B机器的映射到A机器上，这样只需要迁移1/4的数据.<br><img src="http://image.runjf.com/mweb/2021-06-03-16226412563166.jpg" alt></p>
-<p>但是现在取模的除数和机器数目相等，只能应对机器减少的情况，增加机器就没法处理了。<br>这时可以<strong>用一个比较大的数作为除数</strong>（比如3000），把除数在一定范围内的都映射到某台机器，增加机器只需要调整余数和机器的映射就行了。<br><img src="http://image.runjf.com/mweb/2021-06-03-16226416942953.jpg" alt></p>
-<p>到这里一致性哈希的基本原理已经介绍完了，但对于新增服务器的情况还存在一些问题。<br>新增的服务器D只分担了C服务器的负载，服务器 A 和 B 并没有因为 D 服务器的加入而减少负载压力。<br>针对这个问题，可以把D当做多台机器，均匀地放置，这样所有机器的负载都得到分担，也就是所谓的引入虚拟节点。<br><img src="http://image.runjf.com/mweb/2021-06-03-16226421634795.jpg" alt></p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>下面用Python来实现一致性哈希，这里实现不带虚拟节点的版本。</p>
-<p>代码实现和上文分析，有几点细节有些不同</p>
-<ul>
-<li>简化实现，使用<code>hashlib.sha1</code>作为哈希函数</li>
-<li>取模的除数设置为<code>2^32 - 1</code>，这是C语言中<code>unsiged int</code>的最大取值。</li>
-<li>根据我们的除数，余数的取值空间就是[0, 2^32 - 1], 可以看成一个首位相连的环。</li>
-<li>余数和机器的映射不需要单独维护，只要将机器也哈希和取模，就得到机器在环上的位置。</li>
-<li>机器分布在环上，将余数的取值范围分割成多个区间，每个区间对应一台机器，每台机器负责上一个机器位置到当前机器位置的数据。<br><img src="http://image.runjf.com/mweb/2021-06-03-16226908837252.jpg" alt></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line">MASK = <span class="number">2</span> ** <span class="number">32</span> - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">myhash</span><span class="params">(string)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> int(hashlib.sha1(string.encode(<span class="string">"utf-8"</span>)).hexdigest(), <span class="number">16</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_pos</span><span class="params">(obj)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> myhash(obj) % MASK</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Server</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, addr)</span>:</span></span><br><span class="line">        self.addr = addr</span><br><span class="line">        self.pos = get_pos(self.addr)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__hash__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> myhash(self.addr)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;Server &#123;&#125;; &#123;:,&#125;&gt;'</span>.format(self.addr, self.pos)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConsistentHashing</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.servers = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_server</span><span class="params">(self, server)</span>:</span></span><br><span class="line">        <span class="keyword">assert</span> server <span class="keyword">not</span> <span class="keyword">in</span> self.servers</span><br><span class="line">        self.servers.append(server)</span><br><span class="line">        self.servers.sort(key=<span class="keyword">lambda</span> i: i.pos)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_server</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="keyword">assert</span> len(self.servers) &gt; <span class="number">0</span></span><br><span class="line">        pos = get_pos(key)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> self.servers:</span><br><span class="line">            <span class="keyword">if</span> i.pos &gt;= pos:</span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line">        <span class="keyword">return</span> self.servers[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    ch = ConsistentHashing()</span><br><span class="line">    ch.add_server(Server(<span class="string">'192.168.1.1:80'</span>))</span><br><span class="line">    ch.add_server(Server(<span class="string">'192.168.1.2:80'</span>))</span><br><span class="line">    ch.add_server(Server(<span class="string">'192.168.1.3:80'</span>))</span><br><span class="line">    print(ch.servers)</span><br><span class="line">    print(<span class="string">'&#123;:,&#125;'</span>.format(get_pos(<span class="string">'123'</span>)), ch.get_server(<span class="string">'123'</span>))</span><br><span class="line">    print(<span class="string">'&#123;:,&#125;'</span>.format(get_pos(<span class="string">'xxx'</span>)), ch.get_server(<span class="string">'xxx'</span>))</span><br><span class="line">    print(<span class="string">'&#123;:,&#125;'</span>.format(get_pos(<span class="string">'1'</span>)), ch.get_server(<span class="string">'1'</span>))</span><br></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://segmentfault.com/a/1190000021199728" target="_blank" rel="noopener">https://segmentfault.com/a/1190000021199728</a></li>
-<li><a href="https://www.jianshu.com/p/528ce5cd7e8f" target="_blank" rel="noopener">https://www.jianshu.com/p/528ce5cd7e8f</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Consistent_hashing" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Consistent_hashing</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>分布式</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>在Java环境中使用PMML执行xgboost模型</title>
     <url>/2020/04/10/convent-xgboost-model-to-pmml-guide/</url>
     <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近有个需求, 在Java环境环境运行xgboost模型, 查询资料后发现PMML可以解决这个问题.</p>
@@ -1252,6 +1215,43 @@
         <tag>Python</tag>
         <tag>机器学习</tag>
         <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一致性哈希原理及实现</title>
+    <url>/2021/06/02/consistent-hashing/</url>
+    <content><![CDATA[<p>一致性哈希是一种特殊的哈希算法。在使用一致哈希算法后，哈希表槽位(slots)数的改变平均只需要对 K/n 个key需要重新映射，其中K是key的数量，n是槽位数量。然而在传统的哈希表中，添加或删除一个槽位的几乎需要对所有关键字进行重新映射。</p>
+<p>谈到一致性哈希（Consistent hashing），就得先讲一下分布式存储。<br>比如我们有2000w条数据，一台机器存不下，那么我们可以把分成10份每份200w条存到10台机器上。<br>这样存储就不成问题，但是查询效率很低，查一条数据要每台机器都查一遍。<br>如果这些数据能够分类，每一类存到一台机器上，查询前先知道数据的类别，就可以直接定位到某台机器，效率就高了。<br><a id="more"></a></p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>那么就得找到一个通用而且均匀的分类方法，可以想到先哈希再取模<code>hash(data) % N</code></p>
+<p>现有这几个数据apple, banana, cherry，durian，希望存储到有3台机器的服务.<br><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"># 假设自定义了hash函数，有以下返回</span><br><span class="line">hash(<span class="string">"apple"</span>) % <span class="number">3</span> == <span class="number">30</span> % <span class="number">3</span> == <span class="number">0</span></span><br><span class="line">hash(<span class="string">"banada"</span>) % <span class="number">3</span> == <span class="number">31</span> % <span class="number">3</span> == <span class="number">1</span></span><br><span class="line">hash(<span class="string">"cherry"</span>) % <span class="number">3</span> == <span class="number">32</span> % <span class="number">3</span> == <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="http://image.runjf.com/mweb/2021-06-03-16226066038043.jpg" alt></p>
+<p>如果B机器宕机了，需要将取模余数和机器重新映射，这时发现3/4的数据都需要迁移<br><img src="http://image.runjf.com/mweb/2021-06-03-16226068389571.jpg" alt></p>
+<p>其实当B机器宕机时，取模的除数可以不改成2，依然是<code>hash(data) % 3</code>，这样余数就不会变，只需要把余数和机器的映射改一下，将原先B机器的映射到A机器上，这样只需要迁移1/4的数据.<br><img src="http://image.runjf.com/mweb/2021-06-03-16226412563166.jpg" alt></p>
+<p>但是现在取模的除数和机器数目相等，只能应对机器减少的情况，增加机器就没法处理了。<br>这时可以<strong>用一个比较大的数作为除数</strong>（比如3000），把除数在一定范围内的都映射到某台机器，增加机器只需要调整余数和机器的映射就行了。<br><img src="http://image.runjf.com/mweb/2021-06-03-16226416942953.jpg" alt></p>
+<p>到这里一致性哈希的基本原理已经介绍完了，但对于新增服务器的情况还存在一些问题。<br>新增的服务器D只分担了C服务器的负载，服务器 A 和 B 并没有因为 D 服务器的加入而减少负载压力。<br>针对这个问题，可以把D当做多台机器，均匀地放置，这样所有机器的负载都得到分担，也就是所谓的引入虚拟节点。<br><img src="http://image.runjf.com/mweb/2021-06-03-16226421634795.jpg" alt></p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>下面用Python来实现一致性哈希，这里实现不带虚拟节点的版本。</p>
+<p>代码实现和上文分析，有几点细节有些不同</p>
+<ul>
+<li>简化实现，使用<code>hashlib.sha1</code>作为哈希函数</li>
+<li>取模的除数设置为<code>2^32 - 1</code>，这是C语言中<code>unsiged int</code>的最大取值。</li>
+<li>根据我们的除数，余数的取值空间就是[0, 2^32 - 1], 可以看成一个首位相连的环。</li>
+<li>余数和机器的映射不需要单独维护，只要将机器也哈希和取模，就得到机器在环上的位置。</li>
+<li>机器分布在环上，将余数的取值范围分割成多个区间，每个区间对应一台机器，每台机器负责上一个机器位置到当前机器位置的数据。<br><img src="http://image.runjf.com/mweb/2021-06-03-16226908837252.jpg" alt></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line">MASK = <span class="number">2</span> ** <span class="number">32</span> - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">myhash</span><span class="params">(string)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> int(hashlib.sha1(string.encode(<span class="string">"utf-8"</span>)).hexdigest(), <span class="number">16</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_pos</span><span class="params">(obj)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> myhash(obj) % MASK</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Server</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, addr)</span>:</span></span><br><span class="line">        self.addr = addr</span><br><span class="line">        self.pos = get_pos(self.addr)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__hash__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> myhash(self.addr)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;Server &#123;&#125;; &#123;:,&#125;&gt;'</span>.format(self.addr, self.pos)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConsistentHashing</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.servers = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_server</span><span class="params">(self, server)</span>:</span></span><br><span class="line">        <span class="keyword">assert</span> server <span class="keyword">not</span> <span class="keyword">in</span> self.servers</span><br><span class="line">        self.servers.append(server)</span><br><span class="line">        self.servers.sort(key=<span class="keyword">lambda</span> i: i.pos)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_server</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="keyword">assert</span> len(self.servers) &gt; <span class="number">0</span></span><br><span class="line">        pos = get_pos(key)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> self.servers:</span><br><span class="line">            <span class="keyword">if</span> i.pos &gt;= pos:</span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line">        <span class="keyword">return</span> self.servers[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    ch = ConsistentHashing()</span><br><span class="line">    ch.add_server(Server(<span class="string">'192.168.1.1:80'</span>))</span><br><span class="line">    ch.add_server(Server(<span class="string">'192.168.1.2:80'</span>))</span><br><span class="line">    ch.add_server(Server(<span class="string">'192.168.1.3:80'</span>))</span><br><span class="line">    print(ch.servers)</span><br><span class="line">    print(<span class="string">'&#123;:,&#125;'</span>.format(get_pos(<span class="string">'123'</span>)), ch.get_server(<span class="string">'123'</span>))</span><br><span class="line">    print(<span class="string">'&#123;:,&#125;'</span>.format(get_pos(<span class="string">'xxx'</span>)), ch.get_server(<span class="string">'xxx'</span>))</span><br><span class="line">    print(<span class="string">'&#123;:,&#125;'</span>.format(get_pos(<span class="string">'1'</span>)), ch.get_server(<span class="string">'1'</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://segmentfault.com/a/1190000021199728" target="_blank" rel="noopener">https://segmentfault.com/a/1190000021199728</a></li>
+<li><a href="https://www.jianshu.com/p/528ce5cd7e8f" target="_blank" rel="noopener">https://www.jianshu.com/p/528ce5cd7e8f</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Consistent_hashing" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Consistent_hashing</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>分布式</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -1838,68 +1838,6 @@
       </tags>
   </entry>
   <entry>
-    <title>开发Python库并发布到PyPI指南</title>
-    <url>/2020/09/10/develop-python-library-and-upload-it-to-pypi-guide/</url>
-    <content><![CDATA[<h2 id="PyPI"><a href="#PyPI" class="headerlink" title="PyPI"></a>PyPI</h2><p><a href="https://pypi.org/" target="_blank" rel="noopener">PyPI</a>（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI</p>
-<p>而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。<br><a id="more"></a></p>
-<h2 id="用到的库代码"><a href="#用到的库代码" class="headerlink" title="用到的库代码"></a>用到的库代码</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">├── MANIFEST.<span class="keyword">in</span></span><br><span class="line">├── README.md</span><br><span class="line">├── dingtalk_log_handler</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">├── setup.py</span><br></pre></td></tr></table></figure>
-<p>整体代码结构，其中<a href="https://github.com/ruanima/dingtalk-log-handler" target="_blank" rel="noopener">dingtalk_log_handler</a>是我写的一个用于发日志到钉钉群的库，也是这次要发布的库。</p>
-<p>先看下库的主体代码<code>dingtalk_log_handler/__init__.py</code>, 由于功能比较简单，逻辑就都写在<code>__init__.py</code>里了</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="comment"># 其他import略去</span></span><br><span class="line"></span><br><span class="line">__author__ = <span class="string">'ruan.lj'</span></span><br><span class="line">__version__ = <span class="string">'0.0.2'</span></span><br><span class="line">__all__ = (</span><br><span class="line">    <span class="string">'OAPI_DOMAIN'</span>,</span><br><span class="line">    <span class="string">'DingTalkHandler'</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">OAPI_DOMAIN = <span class="string">'oapi.dingtalk.com'</span>   <span class="comment"># dingtalk open api domain</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DingdingApiError</span><span class="params">(RuntimeError)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DingTalkHandler</span><span class="params">(logging.Handler)</span>:</span></span><br><span class="line">    <span class="string">"""Handler for logging message to dingtalk"""</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    <span class="comment"># 略去逻辑代码</span></span><br></pre></td></tr></table></figure>
-<h2 id="编写-setup-py"><a href="#编写-setup-py" class="headerlink" title="编写 setup.py"></a>编写 setup.py</h2><p>setup.py指引了打包工具如何打包我们的库，功能与类似Makefile</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup, find_packages</span><br><span class="line"><span class="keyword">from</span> dingtalk_log_handler <span class="keyword">import</span> __author__, __version__</span><br><span class="line"></span><br><span class="line"><span class="comment"># read the contents of your README file</span></span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> path</span><br><span class="line">this_directory = path.abspath(path.dirname(__file__))</span><br><span class="line"><span class="keyword">with</span> open(path.join(this_directory, <span class="string">'README.md'</span>), encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    long_description = f.read()</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">'dingtalk-log-handler'</span>,</span><br><span class="line">    version=__version__,</span><br><span class="line">    author=__author__,</span><br><span class="line">    author_email=<span class="string">'xxx@foxmail.com'</span>,</span><br><span class="line">    description=<span class="string">'log handler for send message to dingtalk'</span>,</span><br><span class="line">    long_description=long_description,</span><br><span class="line">    long_description_content_type=<span class="string">'text/markdown'</span>,</span><br><span class="line">    classifiers=[</span><br><span class="line">        <span class="string">'Development Status :: 4 - Beta'</span>,</span><br><span class="line">        <span class="string">'Intended Audience :: Developers'</span>,</span><br><span class="line">        <span class="string">'Topic :: Software Development :: Libraries'</span>,</span><br><span class="line">        <span class="string">'Programming Language :: Python :: 3'</span>,</span><br><span class="line">        <span class="comment"># 省略一下</span></span><br><span class="line">    ],</span><br><span class="line">    packages=find_packages(),</span><br><span class="line">    python_requires=<span class="string">'&gt;=3.5'</span>,</span><br><span class="line">    install_requires=[],</span><br><span class="line">    project_urls=&#123;</span><br><span class="line">        <span class="string">'Source'</span>: <span class="string">'https://github.com/ruanima/dingtalk-log-handler'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>具体打包的功能由<code>setuptools.setup</code>函数实现，我们只需要修改对应的参数即可</p>
-<p>这些参数影响打包的行为，以及在PyPI页面上显示的信息</p>
-<p>主要的参数说明，详细信息参考<a href="https://packaging.python.org/guides/distributing-packages-using-setuptools" target="_blank" rel="noopener">文档</a></p>
-<ul>
-<li>name: 库名，也就是<code>pip install xxx</code>时的名称</li>
-<li>version: 版本，我们这里是复用了库代码里的版本号</li>
-<li>author: 作者，同上</li>
-<li>author_email: 作者邮箱</li>
-<li>description: 库说明，在<code>pip search xxx</code>的时候可以看到</li>
-<li>long_description: 库详细说明，显示在PyPI完整上，我们这里从<code>README.md</code>文件中读取具体内容</li>
-<li>long_description: 库详细说明的格式，这里使用markdown</li>
-<li>classifiers: 库的类别信息，<a href="https://pypi.org/classifiers/" target="_blank" rel="noopener">所有可选值参考</a></li>
-<li>packages: 库包含的python包，通过find_packages自动添加</li>
-<li>py_modules: 库包含的顶级Python模块，我们这里没有</li>
-<li>python_requires: 支持的Python版本</li>
-<li>install_requires: 依赖的其他库，格式与<code>pip freeze</code>输出的格式相同</li>
-<li>project_urls: 项目的一些链接信息，<a href="https://packaging.python.org/guides/distributing-packages-using-setuptools/?#project-urls" target="_blank" rel="noopener">可选值列表</a></li>
-</ul>
-<h2 id="编写-MANIFEST-in"><a href="#编写-MANIFEST-in" class="headerlink" title="编写 MANIFEST.in"></a>编写 MANIFEST.in</h2><p>打包时默认只会包含包代码和一些必要的文件，见<a href="https://packaging.python.org/guides/using-manifest-in/#how-files-are-included-in-an-sdist" target="_blank" rel="noopener">列表</a><br>如果要包含其他资源文件，必须编写<code>MANIFEST.in</code>来说明说明</p>
-<p>MANIFEST.in<br><figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">include</span> README.md</span><br><span class="line">recursive-<span class="keyword">include</span> dingtalk_log_handler *</span><br><span class="line">global-<span class="keyword">exclude</span> __pycache__</span><br><span class="line">global-<span class="keyword">exclude</span> tmp</span><br><span class="line">global-<span class="keyword">exclude</span> *.py[co]</span><br></pre></td></tr></table></figure></p>
-<p>语法和shell的通配符语法类似</p>
-<ul>
-<li><code>include &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 包含项目根目录匹配通配符的文件</li>
-<li><code>recursive-include &lt;dir-pattern&gt; &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 递归地包含指定目录匹配通配符的文件</li>
-<li><code>global-exclude &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 递归地排除匹配通配符的文件</li>
-</ul>
-<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><p>执行: <code>python3 setup.py sdist bdist_wheel</code></p>
-<p>输出文件<br><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">dist</span></span><br><span class="line">├── <span class="selector-tag">dingtalk-log-handler-0</span><span class="selector-class">.0</span><span class="selector-class">.2</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br><span class="line">└── <span class="selector-tag">dingtalk_log_handler-0</span><span class="selector-class">.0</span><span class="selector-class">.2-py3-none-any</span><span class="selector-class">.whl</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>我们可以通过<a href="https://test.pypi.org" target="_blank" rel="noopener">PyPI的测试站点</a> 来练习库文件的上传，并测试效果</p>
-<ol>
-<li><a href="https://test.pypi.org/account/register/" target="_blank" rel="noopener">注册账户</a> </li>
-<li>安装上传工具：<code>pip install twine -U</code></li>
-<li>上传文件：<code>twine upload --repository testpypi dist/*</code> </li>
-</ol>
-<p>熟悉流程之后，就可以换成<a href="https://pypi.org" target="_blank" rel="noopener">正式站点</a>，指定正式仓库(–repository pypi)上传文件</p>
-<p>这样全世界的人都能看到你的库了。</p>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>可以在<a href="https://pypi.org/project/dingtalk-log-handler/" target="_blank" rel="noopener">这里</a>找到我这次上传的库</p>
-<p>可以看到 setup.py 文件里的很多信息会对应体现在PyPI网页上<br><img src="http://image.runjf.com/mweb/2020-09-11-15997969319299.jpg" alt></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://packaging.python.org/guides/distributing-packages-using-setuptools" target="_blank" rel="noopener">https://packaging.python.org/guides/distributing-packages-using-setuptools</a></li>
-<li><a href="https://packaging.python.org/guides/using-manifest-in/" target="_blank" rel="noopener">https://packaging.python.org/guides/using-manifest-in/</a></li>
-</ol>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>PyPI</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Python2 与 Python3 区别</title>
     <url>/2017/08/30/difference-between-python2-and-python3/</url>
     <content><![CDATA[<h2 id="速查表"><a href="#速查表" class="headerlink" title="速查表"></a>速查表</h2><p>Python2 vs Python3</p>
@@ -2068,6 +2006,68 @@
       </categories>
       <tags>
         <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>开发Python库并发布到PyPI指南</title>
+    <url>/2020/09/10/develop-python-library-and-upload-it-to-pypi-guide/</url>
+    <content><![CDATA[<h2 id="PyPI"><a href="#PyPI" class="headerlink" title="PyPI"></a>PyPI</h2><p><a href="https://pypi.org/" target="_blank" rel="noopener">PyPI</a>（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI</p>
+<p>而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。<br><a id="more"></a></p>
+<h2 id="用到的库代码"><a href="#用到的库代码" class="headerlink" title="用到的库代码"></a>用到的库代码</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">├── MANIFEST.<span class="keyword">in</span></span><br><span class="line">├── README.md</span><br><span class="line">├── dingtalk_log_handler</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">├── setup.py</span><br></pre></td></tr></table></figure>
+<p>整体代码结构，其中<a href="https://github.com/ruanima/dingtalk-log-handler" target="_blank" rel="noopener">dingtalk_log_handler</a>是我写的一个用于发日志到钉钉群的库，也是这次要发布的库。</p>
+<p>先看下库的主体代码<code>dingtalk_log_handler/__init__.py</code>, 由于功能比较简单，逻辑就都写在<code>__init__.py</code>里了</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="comment"># 其他import略去</span></span><br><span class="line"></span><br><span class="line">__author__ = <span class="string">'ruan.lj'</span></span><br><span class="line">__version__ = <span class="string">'0.0.2'</span></span><br><span class="line">__all__ = (</span><br><span class="line">    <span class="string">'OAPI_DOMAIN'</span>,</span><br><span class="line">    <span class="string">'DingTalkHandler'</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">OAPI_DOMAIN = <span class="string">'oapi.dingtalk.com'</span>   <span class="comment"># dingtalk open api domain</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DingdingApiError</span><span class="params">(RuntimeError)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DingTalkHandler</span><span class="params">(logging.Handler)</span>:</span></span><br><span class="line">    <span class="string">"""Handler for logging message to dingtalk"""</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    <span class="comment"># 略去逻辑代码</span></span><br></pre></td></tr></table></figure>
+<h2 id="编写-setup-py"><a href="#编写-setup-py" class="headerlink" title="编写 setup.py"></a>编写 setup.py</h2><p>setup.py指引了打包工具如何打包我们的库，功能与类似Makefile</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup, find_packages</span><br><span class="line"><span class="keyword">from</span> dingtalk_log_handler <span class="keyword">import</span> __author__, __version__</span><br><span class="line"></span><br><span class="line"><span class="comment"># read the contents of your README file</span></span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> path</span><br><span class="line">this_directory = path.abspath(path.dirname(__file__))</span><br><span class="line"><span class="keyword">with</span> open(path.join(this_directory, <span class="string">'README.md'</span>), encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    long_description = f.read()</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">'dingtalk-log-handler'</span>,</span><br><span class="line">    version=__version__,</span><br><span class="line">    author=__author__,</span><br><span class="line">    author_email=<span class="string">'xxx@foxmail.com'</span>,</span><br><span class="line">    description=<span class="string">'log handler for send message to dingtalk'</span>,</span><br><span class="line">    long_description=long_description,</span><br><span class="line">    long_description_content_type=<span class="string">'text/markdown'</span>,</span><br><span class="line">    classifiers=[</span><br><span class="line">        <span class="string">'Development Status :: 4 - Beta'</span>,</span><br><span class="line">        <span class="string">'Intended Audience :: Developers'</span>,</span><br><span class="line">        <span class="string">'Topic :: Software Development :: Libraries'</span>,</span><br><span class="line">        <span class="string">'Programming Language :: Python :: 3'</span>,</span><br><span class="line">        <span class="comment"># 省略一下</span></span><br><span class="line">    ],</span><br><span class="line">    packages=find_packages(),</span><br><span class="line">    python_requires=<span class="string">'&gt;=3.5'</span>,</span><br><span class="line">    install_requires=[],</span><br><span class="line">    project_urls=&#123;</span><br><span class="line">        <span class="string">'Source'</span>: <span class="string">'https://github.com/ruanima/dingtalk-log-handler'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>具体打包的功能由<code>setuptools.setup</code>函数实现，我们只需要修改对应的参数即可</p>
+<p>这些参数影响打包的行为，以及在PyPI页面上显示的信息</p>
+<p>主要的参数说明，详细信息参考<a href="https://packaging.python.org/guides/distributing-packages-using-setuptools" target="_blank" rel="noopener">文档</a></p>
+<ul>
+<li>name: 库名，也就是<code>pip install xxx</code>时的名称</li>
+<li>version: 版本，我们这里是复用了库代码里的版本号</li>
+<li>author: 作者，同上</li>
+<li>author_email: 作者邮箱</li>
+<li>description: 库说明，在<code>pip search xxx</code>的时候可以看到</li>
+<li>long_description: 库详细说明，显示在PyPI完整上，我们这里从<code>README.md</code>文件中读取具体内容</li>
+<li>long_description: 库详细说明的格式，这里使用markdown</li>
+<li>classifiers: 库的类别信息，<a href="https://pypi.org/classifiers/" target="_blank" rel="noopener">所有可选值参考</a></li>
+<li>packages: 库包含的python包，通过find_packages自动添加</li>
+<li>py_modules: 库包含的顶级Python模块，我们这里没有</li>
+<li>python_requires: 支持的Python版本</li>
+<li>install_requires: 依赖的其他库，格式与<code>pip freeze</code>输出的格式相同</li>
+<li>project_urls: 项目的一些链接信息，<a href="https://packaging.python.org/guides/distributing-packages-using-setuptools/?#project-urls" target="_blank" rel="noopener">可选值列表</a></li>
+</ul>
+<h2 id="编写-MANIFEST-in"><a href="#编写-MANIFEST-in" class="headerlink" title="编写 MANIFEST.in"></a>编写 MANIFEST.in</h2><p>打包时默认只会包含包代码和一些必要的文件，见<a href="https://packaging.python.org/guides/using-manifest-in/#how-files-are-included-in-an-sdist" target="_blank" rel="noopener">列表</a><br>如果要包含其他资源文件，必须编写<code>MANIFEST.in</code>来说明说明</p>
+<p>MANIFEST.in<br><figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">include</span> README.md</span><br><span class="line">recursive-<span class="keyword">include</span> dingtalk_log_handler *</span><br><span class="line">global-<span class="keyword">exclude</span> __pycache__</span><br><span class="line">global-<span class="keyword">exclude</span> tmp</span><br><span class="line">global-<span class="keyword">exclude</span> *.py[co]</span><br></pre></td></tr></table></figure></p>
+<p>语法和shell的通配符语法类似</p>
+<ul>
+<li><code>include &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 包含项目根目录匹配通配符的文件</li>
+<li><code>recursive-include &lt;dir-pattern&gt; &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 递归地包含指定目录匹配通配符的文件</li>
+<li><code>global-exclude &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 递归地排除匹配通配符的文件</li>
+</ul>
+<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><p>执行: <code>python3 setup.py sdist bdist_wheel</code></p>
+<p>输出文件<br><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">dist</span></span><br><span class="line">├── <span class="selector-tag">dingtalk-log-handler-0</span><span class="selector-class">.0</span><span class="selector-class">.2</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br><span class="line">└── <span class="selector-tag">dingtalk_log_handler-0</span><span class="selector-class">.0</span><span class="selector-class">.2-py3-none-any</span><span class="selector-class">.whl</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>我们可以通过<a href="https://test.pypi.org" target="_blank" rel="noopener">PyPI的测试站点</a> 来练习库文件的上传，并测试效果</p>
+<ol>
+<li><a href="https://test.pypi.org/account/register/" target="_blank" rel="noopener">注册账户</a> </li>
+<li>安装上传工具：<code>pip install twine -U</code></li>
+<li>上传文件：<code>twine upload --repository testpypi dist/*</code> </li>
+</ol>
+<p>熟悉流程之后，就可以换成<a href="https://pypi.org" target="_blank" rel="noopener">正式站点</a>，指定正式仓库(–repository pypi)上传文件</p>
+<p>这样全世界的人都能看到你的库了。</p>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>可以在<a href="https://pypi.org/project/dingtalk-log-handler/" target="_blank" rel="noopener">这里</a>找到我这次上传的库</p>
+<p>可以看到 setup.py 文件里的很多信息会对应体现在PyPI网页上<br><img src="http://image.runjf.com/mweb/2020-09-11-15997969319299.jpg" alt></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://packaging.python.org/guides/distributing-packages-using-setuptools" target="_blank" rel="noopener">https://packaging.python.org/guides/distributing-packages-using-setuptools</a></li>
+<li><a href="https://packaging.python.org/guides/using-manifest-in/" target="_blank" rel="noopener">https://packaging.python.org/guides/using-manifest-in/</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>PyPI</tag>
       </tags>
   </entry>
   <entry>
@@ -2302,6 +2302,90 @@
       </tags>
   </entry>
   <entry>
+    <title>容器内进程优雅退出</title>
+    <url>/2022/07/10/gracefully-shutdown-container/</url>
+    <content><![CDATA[<p>在使用 docker 时，常常会碰到进程退出时资源清理的问题，比如保证当前请求处理完成，再退出程序。</p>
+<p>当执行 <code>docker stop xxx</code> 时，docker会向主进程（pid=1）发送 <code>SIGTERM</code> 信号<br>如果在一定时间(默认为10s)内进程没有退出，会进一步发送 <code>SIGKILL</code> 直接杀死程序，该信号既不能被捕捉也不能被忽略。</p>
+<p>一般的web框架或者rpc框架都集成了 <code>SIGTERM</code> 信号处理程序， 一般不用担心优雅退出的问题。<br>但是如果你的容器内有多个程序（称为胖容器，一般不推荐），那么就需要做一些操作保证所有程序优雅退出。</p>
+<a id="more"></a>
+<h2 id="signals"><a href="#signals" class="headerlink" title="signals"></a>signals</h2><p>信号是一种进程间通信机制，它给应用程序提供一种异步的软件中断，使应用程序有机会接受其他程序活终端发送的命令(即信号)。</p>
+<p>应用程序收到信号后，有三种处理方式：忽略，默认，或捕捉。</p>
+<p>常见信号：</p>
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>信号数</th>
+<th>描述</th>
+<th style="text-align:left">默认操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SIGHUP</td>
+<td>1</td>
+<td>当用户退出Linux登录时，前台进程组和后台有对终端输出的进程将会收到SIGHUP信号。对于与终端脱离关系的守护进程，这个信号用于通知它重新读取配置文件。</td>
+<td style="text-align:left">终止进程</td>
+</tr>
+<tr>
+<td>SIGINT</td>
+<td>2</td>
+<td>程序终止(interrupt)信号，在用户键入 Ctrl+C 时发出。</td>
+<td style="text-align:left">终止进程</td>
+</tr>
+<tr>
+<td>SIGQUIT</td>
+<td>3</td>
+<td>和SIGINT类似，但由QUIT字符(通常是Ctrl /)来控制。</td>
+<td style="text-align:left">终止进程并dump core</td>
+</tr>
+<tr>
+<td>SIGFPE</td>
+<td>8</td>
+<td>在发生致命的算术运算错误时发出。不仅包括浮点运算错误，还包括溢出及除数为0等其它所有的算术错误。</td>
+<td style="text-align:left">终止进程并dump core</td>
+</tr>
+<tr>
+<td>SIGKILL</td>
+<td>9</td>
+<td>用来立即结束程序的运行。本信号不能被阻塞，处理和忽略。</td>
+<td style="text-align:left">终止进程</td>
+</tr>
+<tr>
+<td>SIGALRM</td>
+<td>14</td>
+<td>时钟定时信号，计算的是实际的时间或时钟时间。alarm 函数使用该信号。</td>
+<td style="text-align:left">终止进程</td>
+</tr>
+<tr>
+<td>SIGTERM</td>
+<td>15</td>
+<td>通常用来要求程序自己正常退出；kill 命令缺省产生这个信号。</td>
+<td style="text-align:left">终止进程</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><p>下面以 supervisor 为例，Dockerfile 如下</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> centos:centos7</span><br><span class="line"><span class="keyword">ENV</span> PYTHONUNBUFFERED=<span class="number">1</span> TZ=Asia/Shanghai</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum -y install epel-release &amp;&amp; \</span></span><br><span class="line"><span class="bash">    yum -y install supervisor &amp;&amp; \</span></span><br><span class="line"><span class="bash">    yum -y clean all  &amp;&amp; rm -rf /var/cache</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> ./ /root/</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [ <span class="string">"/usr/bin/supervisord"</span>, <span class="string">"-n"</span>, <span class="string">"-c"</span>, <span class="string">"/etc/supervisord.conf"</span> ]</span></span><br></pre></td></tr></table></figure>
+<h2 id="trap"><a href="#trap" class="headerlink" title="trap"></a>trap</h2><p>正常情况，容器退出时supervisor启动的其他程序并不会收到 <code>SIGTERM</code> 信号，导致子程序直接退出了。</p>
+<p>这里使用 <code>trap</code> 对程序的异常处理进行包装<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">trap</span> &lt;siginal handler&gt; &lt;signal 1&gt; &lt;signal 2&gt; ...</span><br></pre></td></tr></table></figure></p>
+<p>新建一个初始化脚本，<code>init.sh</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">/usr/bin/supervisord -n -c /etc/supervisord.conf &amp;</span><br><span class="line"></span><br><span class="line"><span class="built_in">trap</span> <span class="string">"supervisorctl stop all &amp;&amp; sleep 3"</span> TERM INT</span><br><span class="line"></span><br><span class="line"><span class="built_in">wait</span></span><br></pre></td></tr></table></figure></p>
+<p>修改 ENTRYPOINT 为如下<br><figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"sh"</span>, <span class="string">"/root/init.sh"</span>]</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/" target="_blank" rel="noopener">https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/</a></li>
+<li><a href="https://www.cnblogs.com/taobataoma/archive/2007/08/30/875743.html" target="_blank" rel="noopener">https://www.cnblogs.com/taobataoma/archive/2007/08/30/875743.html</a></li>
+<li><a href="https://wangchujiang.com/linux-command/c/trap.html" target="_blank" rel="noopener">https://wangchujiang.com/linux-command/c/trap.html</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo 站内搜索内容不完全问题修复</title>
     <url>/2021/10/11/hexo-local-search-not-complete-fix/</url>
     <content><![CDATA[<p>在使用 Hexo 的站内搜索时，发现搜索的内容不全。单步调试发现xml解析不完整，有部分内容被截断了。</p>
@@ -2484,90 +2568,6 @@
       </categories>
       <tags>
         <tag>浮点数</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>容器内进程优雅退出</title>
-    <url>/2022/07/10/gracefully-shutdown-container/</url>
-    <content><![CDATA[<p>在使用 docker 时，常常会碰到进程退出时资源清理的问题，比如保证当前请求处理完成，再退出程序。</p>
-<p>当执行 <code>docker stop xxx</code> 时，docker会向主进程（pid=1）发送 <code>SIGTERM</code> 信号<br>如果在一定时间(默认为10s)内进程没有退出，会进一步发送 <code>SIGKILL</code> 直接杀死程序，该信号既不能被捕捉也不能被忽略。</p>
-<p>一般的web框架或者rpc框架都集成了 <code>SIGTERM</code> 信号处理程序， 一般不用担心优雅退出的问题。<br>但是如果你的容器内有多个程序（称为胖容器，一般不推荐），那么就需要做一些操作保证所有程序优雅退出。</p>
-<a id="more"></a>
-<h2 id="signals"><a href="#signals" class="headerlink" title="signals"></a>signals</h2><p>信号是一种进程间通信机制，它给应用程序提供一种异步的软件中断，使应用程序有机会接受其他程序活终端发送的命令(即信号)。</p>
-<p>应用程序收到信号后，有三种处理方式：忽略，默认，或捕捉。</p>
-<p>常见信号：</p>
-<table>
-<thead>
-<tr>
-<th>信号名称</th>
-<th>信号数</th>
-<th>描述</th>
-<th style="text-align:left">默认操作</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>SIGHUP</td>
-<td>1</td>
-<td>当用户退出Linux登录时，前台进程组和后台有对终端输出的进程将会收到SIGHUP信号。对于与终端脱离关系的守护进程，这个信号用于通知它重新读取配置文件。</td>
-<td style="text-align:left">终止进程</td>
-</tr>
-<tr>
-<td>SIGINT</td>
-<td>2</td>
-<td>程序终止(interrupt)信号，在用户键入 Ctrl+C 时发出。</td>
-<td style="text-align:left">终止进程</td>
-</tr>
-<tr>
-<td>SIGQUIT</td>
-<td>3</td>
-<td>和SIGINT类似，但由QUIT字符(通常是Ctrl /)来控制。</td>
-<td style="text-align:left">终止进程并dump core</td>
-</tr>
-<tr>
-<td>SIGFPE</td>
-<td>8</td>
-<td>在发生致命的算术运算错误时发出。不仅包括浮点运算错误，还包括溢出及除数为0等其它所有的算术错误。</td>
-<td style="text-align:left">终止进程并dump core</td>
-</tr>
-<tr>
-<td>SIGKILL</td>
-<td>9</td>
-<td>用来立即结束程序的运行。本信号不能被阻塞，处理和忽略。</td>
-<td style="text-align:left">终止进程</td>
-</tr>
-<tr>
-<td>SIGALRM</td>
-<td>14</td>
-<td>时钟定时信号，计算的是实际的时间或时钟时间。alarm 函数使用该信号。</td>
-<td style="text-align:left">终止进程</td>
-</tr>
-<tr>
-<td>SIGTERM</td>
-<td>15</td>
-<td>通常用来要求程序自己正常退出；kill 命令缺省产生这个信号。</td>
-<td style="text-align:left">终止进程</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><p>下面以 supervisor 为例，Dockerfile 如下</p>
-<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> centos:centos7</span><br><span class="line"><span class="keyword">ENV</span> PYTHONUNBUFFERED=<span class="number">1</span> TZ=Asia/Shanghai</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum -y install epel-release &amp;&amp; \</span></span><br><span class="line"><span class="bash">    yum -y install supervisor &amp;&amp; \</span></span><br><span class="line"><span class="bash">    yum -y clean all  &amp;&amp; rm -rf /var/cache</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> ./ /root/</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [ <span class="string">"/usr/bin/supervisord"</span>, <span class="string">"-n"</span>, <span class="string">"-c"</span>, <span class="string">"/etc/supervisord.conf"</span> ]</span></span><br></pre></td></tr></table></figure>
-<h2 id="trap"><a href="#trap" class="headerlink" title="trap"></a>trap</h2><p>正常情况，容器退出时supervisor启动的其他程序并不会收到 <code>SIGTERM</code> 信号，导致子程序直接退出了。</p>
-<p>这里使用 <code>trap</code> 对程序的异常处理进行包装<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">trap</span> &lt;siginal handler&gt; &lt;signal 1&gt; &lt;signal 2&gt; ...</span><br></pre></td></tr></table></figure></p>
-<p>新建一个初始化脚本，<code>init.sh</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">/usr/bin/supervisord -n -c /etc/supervisord.conf &amp;</span><br><span class="line"></span><br><span class="line"><span class="built_in">trap</span> <span class="string">"supervisorctl stop all &amp;&amp; sleep 3"</span> TERM INT</span><br><span class="line"></span><br><span class="line"><span class="built_in">wait</span></span><br></pre></td></tr></table></figure></p>
-<p>修改 ENTRYPOINT 为如下<br><figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"sh"</span>, <span class="string">"/root/init.sh"</span>]</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/" target="_blank" rel="noopener">https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/</a></li>
-<li><a href="https://www.cnblogs.com/taobataoma/archive/2007/08/30/875743.html" target="_blank" rel="noopener">https://www.cnblogs.com/taobataoma/archive/2007/08/30/875743.html</a></li>
-<li><a href="https://wangchujiang.com/linux-command/c/trap.html" target="_blank" rel="noopener">https://wangchujiang.com/linux-command/c/trap.html</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -2772,41 +2772,6 @@
       </tags>
   </entry>
   <entry>
-    <title>缓存淘汰算法之LFU</title>
-    <url>/2021/06/23/lfu-cache/</url>
-    <content><![CDATA[<p>Least Frequently Used (LFU) 是一种常见的缓存淘汰算法，译为“最近最不经常使用”，也就是将缓存中使用次数最少的数据淘汰掉。</p>
-<p>有两种常见的实现方法</p>
-<ul>
-<li>小顶堆 + hashmap，插入和删除的复杂度为O(logN), 但淘汰相同访问次数的节点是不稳定的，因为堆排序不稳定。</li>
-<li>数组存储数据项 + hashmap记录数据项index, 淘汰缓存的复杂度为O(N)</li>
-</ul>
-<a id="more"></a>
-<p>特点</p>
-<ol>
-<li>一般情况下，LFU效率要优于LRU，且能够避免周期性或者偶发性的操作导致缓存命中率下降的问题</li>
-<li>LFU存在历史数据影响将来数据的”缓存污染”问题。</li>
-</ol>
-<h2 id="Python-实现"><a href="#Python-实现" class="headerlink" title="Python 实现"></a>Python 实现</h2><p>这里的Python实现是方案1</p>
-<p>具体步骤</p>
-<ol>
-<li>get元素时，如果存在则返回结果并更新访问次数</li>
-<li>set元素时，如果存在则更新val并更新访问次数，否则检查是否淘汰缓存并插入新key</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> log, ceil</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinHeap</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self._items = [<span class="literal">None</span>]</span><br><span class="line">        self.need_swap = self.more</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">length</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self._items) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">depth</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> ceil(log(self.length+<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">more</span><span class="params">(self, i, j)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._items[i] &gt; self._items[j]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">exch</span><span class="params">(self, i, j)</span>:</span></span><br><span class="line">        self._items[i], self._items[j] = self._items[j], self._items[i]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">swim</span><span class="params">(self, k)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> k &gt; <span class="number">1</span> <span class="keyword">and</span> self.need_swap(k//<span class="number">2</span>, k):</span><br><span class="line">            self.exch(k//<span class="number">2</span>, k)</span><br><span class="line">            k = k//<span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sink</span><span class="params">(self, k)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="number">2</span> * k &lt;= self.length:</span><br><span class="line">            j = <span class="number">2</span> * k</span><br><span class="line">            <span class="keyword">if</span> j &lt; self.length <span class="keyword">and</span> self.need_swap(j, j+<span class="number">1</span>):</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> self.need_swap(k, j):</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            self.exch(k, j)</span><br><span class="line">            k = j</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, val)</span>:</span></span><br><span class="line">        self._items.append(val)</span><br><span class="line">        self.swim(self.length)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">top</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.length &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self._items[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">del_top</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.length &gt; <span class="number">0</span>:</span><br><span class="line">            self.exch(<span class="number">1</span>, self.length)</span><br><span class="line">            val = self._items.pop()</span><br><span class="line">            self.sink(<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> val</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        tmp = []</span><br><span class="line">        seq = <span class="string">' '</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, self.depth+<span class="number">1</span>):</span><br><span class="line">            l = seq.join([str(e) <span class="keyword">for</span> e <span class="keyword">in</span> self._items[<span class="number">2</span>**(i<span class="number">-1</span>):<span class="number">2</span>**i]])</span><br><span class="line">            tmp.append(l)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'\n'</span>.join(tmp)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key, val=None)</span>:</span></span><br><span class="line">        self.key = key</span><br><span class="line">        self.val = val</span><br><span class="line">        self.count = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__gt__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">        <span class="keyword">return</span>  self.count &gt; other.count</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># return '&lt;Node key=&#123;!r&#125; val=&#123;!r&#125; count=&#123;!r&#125;&gt;'.format(self.key, self.val, self.count)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&#123;&#125;|&#123;!r&#125;'</span>.format(self.key, self.count)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LFUCache</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, size)</span>:</span></span><br><span class="line">        self.cache = &#123;&#125;</span><br><span class="line">        self.heap = MinHeap()</span><br><span class="line">        self.size = size</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">check_expired</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.heap.length == self.size:</span><br><span class="line">            node = self.heap.del_top()</span><br><span class="line">            self.cache.pop(node.key)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">update_count</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        idx = self.heap._items.index(node)</span><br><span class="line">        node.count += <span class="number">1</span></span><br><span class="line">        self.heap.sink(idx)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        node = self.cache.get(key, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> node:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.update_count(node)</span><br><span class="line">        <span class="keyword">return</span> node.val</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set</span><span class="params">(self, key, val)</span>:</span></span><br><span class="line">        node = self.cache.get(key, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> node:</span><br><span class="line">            node.val = val</span><br><span class="line">            self.update_count(node)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        node = Node(key, val)</span><br><span class="line">        self.check_expired()</span><br><span class="line">        self.heap.insert(node)</span><br><span class="line">        self.cache[key] = node</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;LFU &#123;!r&#125;&gt;'</span>.format(self.cache)</span><br></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://en.wikipedia.org/wiki/Least_frequently_used" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Least_frequently_used</a></li>
-<li><a href="https://melonshell.github.io/2020/02/07/ds_cache_eli/" target="_blank" rel="noopener">https://melonshell.github.io/2020/02/07/ds_cache_eli/</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>缓存</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>学海屠魔录</title>
     <url>/2021/06/20/learning-method/</url>
     <content><![CDATA[<p>英彦有云，魔鬼在细节之中（The devil is in the details），其意义在于提醒人们，不要忽视细节，即使是微不足道的小处也可以影响大局。</p>
@@ -2844,6 +2809,41 @@
       <tags>
         <tag>随笔</tag>
         <tag>学习方法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>缓存淘汰算法之LFU</title>
+    <url>/2021/06/23/lfu-cache/</url>
+    <content><![CDATA[<p>Least Frequently Used (LFU) 是一种常见的缓存淘汰算法，译为“最近最不经常使用”，也就是将缓存中使用次数最少的数据淘汰掉。</p>
+<p>有两种常见的实现方法</p>
+<ul>
+<li>小顶堆 + hashmap，插入和删除的复杂度为O(logN), 但淘汰相同访问次数的节点是不稳定的，因为堆排序不稳定。</li>
+<li>数组存储数据项 + hashmap记录数据项index, 淘汰缓存的复杂度为O(N)</li>
+</ul>
+<a id="more"></a>
+<p>特点</p>
+<ol>
+<li>一般情况下，LFU效率要优于LRU，且能够避免周期性或者偶发性的操作导致缓存命中率下降的问题</li>
+<li>LFU存在历史数据影响将来数据的”缓存污染”问题。</li>
+</ol>
+<h2 id="Python-实现"><a href="#Python-实现" class="headerlink" title="Python 实现"></a>Python 实现</h2><p>这里的Python实现是方案1</p>
+<p>具体步骤</p>
+<ol>
+<li>get元素时，如果存在则返回结果并更新访问次数</li>
+<li>set元素时，如果存在则更新val并更新访问次数，否则检查是否淘汰缓存并插入新key</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> log, ceil</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinHeap</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self._items = [<span class="literal">None</span>]</span><br><span class="line">        self.need_swap = self.more</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">length</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self._items) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">depth</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> ceil(log(self.length+<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">more</span><span class="params">(self, i, j)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._items[i] &gt; self._items[j]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">exch</span><span class="params">(self, i, j)</span>:</span></span><br><span class="line">        self._items[i], self._items[j] = self._items[j], self._items[i]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">swim</span><span class="params">(self, k)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> k &gt; <span class="number">1</span> <span class="keyword">and</span> self.need_swap(k//<span class="number">2</span>, k):</span><br><span class="line">            self.exch(k//<span class="number">2</span>, k)</span><br><span class="line">            k = k//<span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sink</span><span class="params">(self, k)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="number">2</span> * k &lt;= self.length:</span><br><span class="line">            j = <span class="number">2</span> * k</span><br><span class="line">            <span class="keyword">if</span> j &lt; self.length <span class="keyword">and</span> self.need_swap(j, j+<span class="number">1</span>):</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> self.need_swap(k, j):</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            self.exch(k, j)</span><br><span class="line">            k = j</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, val)</span>:</span></span><br><span class="line">        self._items.append(val)</span><br><span class="line">        self.swim(self.length)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">top</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.length &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self._items[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">del_top</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.length &gt; <span class="number">0</span>:</span><br><span class="line">            self.exch(<span class="number">1</span>, self.length)</span><br><span class="line">            val = self._items.pop()</span><br><span class="line">            self.sink(<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> val</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        tmp = []</span><br><span class="line">        seq = <span class="string">' '</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, self.depth+<span class="number">1</span>):</span><br><span class="line">            l = seq.join([str(e) <span class="keyword">for</span> e <span class="keyword">in</span> self._items[<span class="number">2</span>**(i<span class="number">-1</span>):<span class="number">2</span>**i]])</span><br><span class="line">            tmp.append(l)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'\n'</span>.join(tmp)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key, val=None)</span>:</span></span><br><span class="line">        self.key = key</span><br><span class="line">        self.val = val</span><br><span class="line">        self.count = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__gt__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">        <span class="keyword">return</span>  self.count &gt; other.count</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># return '&lt;Node key=&#123;!r&#125; val=&#123;!r&#125; count=&#123;!r&#125;&gt;'.format(self.key, self.val, self.count)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&#123;&#125;|&#123;!r&#125;'</span>.format(self.key, self.count)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LFUCache</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, size)</span>:</span></span><br><span class="line">        self.cache = &#123;&#125;</span><br><span class="line">        self.heap = MinHeap()</span><br><span class="line">        self.size = size</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">check_expired</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.heap.length == self.size:</span><br><span class="line">            node = self.heap.del_top()</span><br><span class="line">            self.cache.pop(node.key)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">update_count</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        idx = self.heap._items.index(node)</span><br><span class="line">        node.count += <span class="number">1</span></span><br><span class="line">        self.heap.sink(idx)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        node = self.cache.get(key, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> node:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.update_count(node)</span><br><span class="line">        <span class="keyword">return</span> node.val</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set</span><span class="params">(self, key, val)</span>:</span></span><br><span class="line">        node = self.cache.get(key, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> node:</span><br><span class="line">            node.val = val</span><br><span class="line">            self.update_count(node)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        node = Node(key, val)</span><br><span class="line">        self.check_expired()</span><br><span class="line">        self.heap.insert(node)</span><br><span class="line">        self.cache[key] = node</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;LFU &#123;!r&#125;&gt;'</span>.format(self.cache)</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://en.wikipedia.org/wiki/Least_frequently_used" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Least_frequently_used</a></li>
+<li><a href="https://melonshell.github.io/2020/02/07/ds_cache_eli/" target="_blank" rel="noopener">https://melonshell.github.io/2020/02/07/ds_cache_eli/</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>缓存</tag>
       </tags>
   </entry>
   <entry>
@@ -3386,32 +3386,6 @@ img[alt="-w350"] {
       </tags>
   </entry>
   <entry>
-    <title>Python asyncio 简易教程</title>
-    <url>/2020/05/24/python-asyncio-usage/</url>
-    <content><![CDATA[<p><code>asyncio</code>是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。</p>
-<p><code>asyncio</code>的编程模型就是一个消息循环。我们从<code>asyncio</code>模块中直接获取一个<code>EventLoop</code>的引用，然后把需要执行的协程扔到<code>EventLoop</code>中执行，就实现了异步IO。</p>
-<a id="more"></a>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'hello'</span>)</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>)</span><br><span class="line">    print(<span class="string">' world'</span>)</span><br><span class="line">    </span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">loop.run_until_complete(hello_world())</span><br><span class="line">loop.close()</span><br></pre></td></tr></table></figure>
-<h2 id="执行逻辑"><a href="#执行逻辑" class="headerlink" title="执行逻辑"></a>执行逻辑</h2><p><code>async def</code> 定义的每一个函数, 本质上是一个协程.<br>当await调用一个函数时, 程序就切换到该函数中执行了, 当执行完成时, 程序又回到await调用处继续执行. </p>
-<p>当函数的调用链上碰到系统io相关函数时，程序执行的控制权就会回到eventloop主循环，eventloop就会调度执行别的函数，等到该函数的io就绪时，再从该函数暂停的地方继续执行。</p>
-<p>再搭配上支持非阻塞io的异步库, 这样就实现了高效的异步编程.</p>
-<p>所有异步函数是在同一个线程中执行的, 在该进程内我们还可启用其他线程, 执行其他同步代码. 下图展示了Python中协程、线程、进程的逻辑关系。</p>
-<p><img src="http://image.runjf.com/mweb/2020-05-24-15903277834535.jpg" alt></p>
-<h2 id="如何在event-loop内调用同步代码"><a href="#如何在event-loop内调用同步代码" class="headerlink" title="如何在event loop内调用同步代码"></a>如何在event loop内调用同步代码</h2><p>一旦使用async, 整个线程内都必须使用异步, 否则整个线程都会阻塞。<br>所以，必须另起线程, 将同步操作放在线程中执行。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> concurrent.futures</span><br><span class="line"></span><br><span class="line">executor = concurrent.futures.ThreadPoolExecutor(</span><br><span class="line">    max_workers=<span class="number">2</span>,  <span class="comment"># 线程池大小</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">some_block_things</span><span class="params">(x)</span>:</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">(x)</span>:</span></span><br><span class="line">    print(<span class="string">'hello world'</span>, time.time())</span><br><span class="line">    loop = asyncio.get_event_loop()</span><br><span class="line">    fut = loop.run_in_executor(executor, some_block_things, x)</span><br><span class="line">    num =  <span class="keyword">await</span> asyncio.wait_for(fut, timeout=<span class="number">10</span>)</span><br><span class="line">    print(<span class="string">'num %s'</span> % num)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    start = time.time()</span><br><span class="line">    <span class="keyword">await</span> asyncio.wait([hello_world(i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">8</span>)])</span><br><span class="line">    end = time.time()</span><br><span class="line">    print(<span class="string">"Complete in &#123;&#125; seconds"</span>.format(end - start))</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">loop.run_until_complete(main())</span><br><span class="line">loop.close()</span><br></pre></td></tr></table></figure>
-<p>输出<br><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">hello world <span class="number">1533904346.37133</span></span><br><span class="line">hello world <span class="number">1533904346.371683</span></span><br><span class="line">hello world <span class="number">1533904346.37199</span></span><br><span class="line">hello world <span class="number">1533904346.372059</span></span><br><span class="line">hello world <span class="number">1533904346.372122</span></span><br><span class="line">hello world <span class="number">1533904346.372176</span></span><br><span class="line">hello world <span class="number">1533904346.372245</span></span><br><span class="line">hello world <span class="number">1533904346.372295</span></span><br><span class="line">num <span class="number">0</span></span><br><span class="line">num <span class="number">3</span></span><br><span class="line">num <span class="number">4</span></span><br><span class="line">num <span class="number">1</span></span><br><span class="line">num <span class="number">5</span></span><br><span class="line">num <span class="number">6</span></span><br><span class="line">num <span class="number">7</span></span><br><span class="line">num <span class="number">2</span></span><br><span class="line">Complete in <span class="number">4.015289068222046</span> seconds</span><br><span class="line">[Finished in <span class="number">4.2</span>s]</span><br></pre></td></tr></table></figure></p>
-<p>因为这里我的线程池大小为2, 所以8个sleep整体耗时4s, 但是’hello world’ 几乎是同一时刻输出的, 这就是asyncio的魅力所在.</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>asyncio使用<code>async</code>和<code>await</code>的语法，使得原来回调函数形式的异步代码变为同步代码，更易于理解。<br>使用asyncio可以方便地构建高性能的网络服务, 单进程qps可以轻松地达到2000以上。<br>基于asyncio也出现了一些异步web框架，比如sanic，相比传统框架性能提升较大。</p>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>异步</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>使用SWIG实现Python调用c++</title>
     <url>/2020/08/05/python-connect-cpp-programs-with-SWIG/</url>
     <content><![CDATA[<p> <strong><a href="http://www.swig.org" target="_blank" rel="noopener">SWIG</a></strong> (Simplified Wrapper and Interface Generator) 是一个开源工具，用于让C/C++的程序和库可以被其他语言调用。</p>
@@ -3442,6 +3416,32 @@ img[alt="-w350"] {
         <tag>Python</tag>
         <tag>C++</tag>
         <tag>SWIG</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python asyncio 简易教程</title>
+    <url>/2020/05/24/python-asyncio-usage/</url>
+    <content><![CDATA[<p><code>asyncio</code>是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。</p>
+<p><code>asyncio</code>的编程模型就是一个消息循环。我们从<code>asyncio</code>模块中直接获取一个<code>EventLoop</code>的引用，然后把需要执行的协程扔到<code>EventLoop</code>中执行，就实现了异步IO。</p>
+<a id="more"></a>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'hello'</span>)</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>)</span><br><span class="line">    print(<span class="string">' world'</span>)</span><br><span class="line">    </span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">loop.run_until_complete(hello_world())</span><br><span class="line">loop.close()</span><br></pre></td></tr></table></figure>
+<h2 id="执行逻辑"><a href="#执行逻辑" class="headerlink" title="执行逻辑"></a>执行逻辑</h2><p><code>async def</code> 定义的每一个函数, 本质上是一个协程.<br>当await调用一个函数时, 程序就切换到该函数中执行了, 当执行完成时, 程序又回到await调用处继续执行. </p>
+<p>当函数的调用链上碰到系统io相关函数时，程序执行的控制权就会回到eventloop主循环，eventloop就会调度执行别的函数，等到该函数的io就绪时，再从该函数暂停的地方继续执行。</p>
+<p>再搭配上支持非阻塞io的异步库, 这样就实现了高效的异步编程.</p>
+<p>所有异步函数是在同一个线程中执行的, 在该进程内我们还可启用其他线程, 执行其他同步代码. 下图展示了Python中协程、线程、进程的逻辑关系。</p>
+<p><img src="http://image.runjf.com/mweb/2020-05-24-15903277834535.jpg" alt></p>
+<h2 id="如何在event-loop内调用同步代码"><a href="#如何在event-loop内调用同步代码" class="headerlink" title="如何在event loop内调用同步代码"></a>如何在event loop内调用同步代码</h2><p>一旦使用async, 整个线程内都必须使用异步, 否则整个线程都会阻塞。<br>所以，必须另起线程, 将同步操作放在线程中执行。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> concurrent.futures</span><br><span class="line"></span><br><span class="line">executor = concurrent.futures.ThreadPoolExecutor(</span><br><span class="line">    max_workers=<span class="number">2</span>,  <span class="comment"># 线程池大小</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">some_block_things</span><span class="params">(x)</span>:</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">(x)</span>:</span></span><br><span class="line">    print(<span class="string">'hello world'</span>, time.time())</span><br><span class="line">    loop = asyncio.get_event_loop()</span><br><span class="line">    fut = loop.run_in_executor(executor, some_block_things, x)</span><br><span class="line">    num =  <span class="keyword">await</span> asyncio.wait_for(fut, timeout=<span class="number">10</span>)</span><br><span class="line">    print(<span class="string">'num %s'</span> % num)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    start = time.time()</span><br><span class="line">    <span class="keyword">await</span> asyncio.wait([hello_world(i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">8</span>)])</span><br><span class="line">    end = time.time()</span><br><span class="line">    print(<span class="string">"Complete in &#123;&#125; seconds"</span>.format(end - start))</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">loop.run_until_complete(main())</span><br><span class="line">loop.close()</span><br></pre></td></tr></table></figure>
+<p>输出<br><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">hello world <span class="number">1533904346.37133</span></span><br><span class="line">hello world <span class="number">1533904346.371683</span></span><br><span class="line">hello world <span class="number">1533904346.37199</span></span><br><span class="line">hello world <span class="number">1533904346.372059</span></span><br><span class="line">hello world <span class="number">1533904346.372122</span></span><br><span class="line">hello world <span class="number">1533904346.372176</span></span><br><span class="line">hello world <span class="number">1533904346.372245</span></span><br><span class="line">hello world <span class="number">1533904346.372295</span></span><br><span class="line">num <span class="number">0</span></span><br><span class="line">num <span class="number">3</span></span><br><span class="line">num <span class="number">4</span></span><br><span class="line">num <span class="number">1</span></span><br><span class="line">num <span class="number">5</span></span><br><span class="line">num <span class="number">6</span></span><br><span class="line">num <span class="number">7</span></span><br><span class="line">num <span class="number">2</span></span><br><span class="line">Complete in <span class="number">4.015289068222046</span> seconds</span><br><span class="line">[Finished in <span class="number">4.2</span>s]</span><br></pre></td></tr></table></figure></p>
+<p>因为这里我的线程池大小为2, 所以8个sleep整体耗时4s, 但是’hello world’ 几乎是同一时刻输出的, 这就是asyncio的魅力所在.</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>asyncio使用<code>async</code>和<code>await</code>的语法，使得原来回调函数形式的异步代码变为同步代码，更易于理解。<br>使用asyncio可以方便地构建高性能的网络服务, 单进程qps可以轻松地达到2000以上。<br>基于asyncio也出现了一些异步web框架，比如sanic，相比传统框架性能提升较大。</p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>异步</tag>
       </tags>
   </entry>
   <entry>
@@ -3483,6 +3483,201 @@ img[alt="-w350"] {
 <li><a href="https://docs.python.org/zh-cn/3/reference/import.html" target="_blank" rel="noopener">https://docs.python.org/zh-cn/3/reference/import.html</a></li>
 <li><a href="https://docs.python.org/zh-cn/3/library/sys.html?#sys.modules" target="_blank" rel="noopener">https://docs.python.org/zh-cn/3/library/sys.html?#sys.modules</a></li>
 </ol>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python日志原理及实践</title>
+    <url>/2019/11/02/python-logging-guide/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="一次简单的日志记录"><a href="#一次简单的日志记录" class="headerlink" title="一次简单的日志记录"></a>一次简单的日志记录</h3><figure class="highlight sml"><table><tr><td class="code"><pre><span class="line">import logging</span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">except <span class="type">Exception</span> <span class="keyword">as</span> e:</span><br><span class="line">    logger.debug(<span class="symbol">'debug</span> %s', e)</span><br><span class="line">    logger.info(<span class="symbol">'info</span> %s', e)</span><br><span class="line">    logger.warning(<span class="symbol">'warning</span> %s', e)</span><br><span class="line">    logger.error(<span class="symbol">'error</span> %s', e)</span><br><span class="line">    logger.<span class="keyword">exception</span>(<span class="symbol">'exception</span> %s', e)</span><br></pre></td></tr></table></figure>
+<p>output<br><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">warning division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">error division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">exception division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">Traceback (most recent call <span class="keyword">last</span>):</span><br><span class="line">  File <span class="string">"test.py"</span>, <span class="built_in">line</span> <span class="number">5</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">ZeroDivisionError: division <span class="keyword">by</span> <span class="literal">zero</span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><code>logging.getLogger</code> 获取一个记录器, 一般以模块名称命名</li>
+<li>调用日志记录器的相应方法记录日志</li>
+</ol>
+<a id="more"></a>
+<h3 id="记录器-logger"><a href="#记录器-logger" class="headerlink" title="记录器 (logger)"></a>记录器 (logger)</h3><p><img src="http://image.runjf.com/mweb/2019-11-02-15441717816714.jpg" alt></p>
+<ul>
+<li>logger是Python记录日志的入口</li>
+<li>logger.info, logger.debug等几个函数对应记录不同的日志级别</li>
+<li>日志配置可以设置日志级别, 低于日志级别的日志不被记录</li>
+<li>默认日志配置的级别是WARNING</li>
+</ul>
+<p>Python日志支持的级别</p>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>何时使用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DEBUG</td>
+<td>详细信息，典型地调试问题时会感兴趣。</td>
+</tr>
+<tr>
+<td>INFO</td>
+<td>证明事情按预期工作。</td>
+</tr>
+<tr>
+<td>WARNING</td>
+<td>表明发生了一些意外，或者不久的将来会发生问题软件还是在正常工作。</td>
+</tr>
+<tr>
+<td>ERROR</td>
+<td>由于更严重的问题，软件已不能执行一些功能了。</td>
+</tr>
+<tr>
+<td>CRITICAL</td>
+<td>严重错误，表明软件已不能继续运行了。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="记录-record"><a href="#记录-record" class="headerlink" title="记录 (record)"></a>记录 (record)</h3><p>每个record对象代表一条日志<br>record拥很多有的属性， 可扩展, 主要被formatter使用</p>
+<p>日志记录器的记录方法每次被调用就会生成一条record对象, 并且将record的所有属性都设置好.</p>
+<p>record主要有以下属性</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>logger名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>msg</td>
+<td>日志文本</td>
+</tr>
+<tr>
+<td>args</td>
+<td>格式文本的参数</td>
+</tr>
+<tr>
+<td>levelname</td>
+<td>级别名称</td>
+</tr>
+<tr>
+<td>module</td>
+<td>模块名称</td>
+</tr>
+<tr>
+<td>exc_info</td>
+<td>异常相关信息</td>
+</tr>
+<tr>
+<td>lineno</td>
+<td>行号</td>
+</tr>
+<tr>
+<td>funcName</td>
+<td>打日志的函数名称</td>
+</tr>
+<tr>
+<td>threadName</td>
+<td>线程名</td>
+</tr>
+<tr>
+<td>processName</td>
+<td>进程名称</td>
+</tr>
+</tbody>
+</table>
+<h3 id="处理器-handler"><a href="#处理器-handler" class="headerlink" title="处理器 (handler)"></a>处理器 (handler)</h3><p>日志处理器决定了日志的存储的方式， 存储大小，存储的位置<br>日志处理器通过handle方法处理日志, 不同的处理器行为差别很大</p>
+<p>一些常见的日志处理器</p>
+<ul>
+<li>StreamHandler 输出到终端</li>
+<li>SMTPHandler 通过 email 发送日志记录</li>
+<li>SocketHandler 将日志通过网络发送</li>
+<li>FileHandler  记录到文件</li>
+<li>TimedRotatingFileHandler 记录到文件并按时间滚动</li>
+</ul>
+<h3 id="过滤器-filter"><a href="#过滤器-filter" class="headerlink" title="过滤器 (filter)"></a>过滤器 (filter)</h3><p>filter是附加在logger上的, 对日志进行细粒度控制, 例如根据一些条件判断是否记录日志, 修改日志record的内容等</p>
+<p><img src="http://image.runjf.com/mweb/2019-11-02-15441884511996.jpg" alt></p>
+<p>例如上面这个ContextFilter, 就将第二条日志过滤掉了.</p>
+<h3 id="格式器-formatter"><a href="#格式器-formatter" class="headerlink" title="格式器 (formatter)"></a>格式器 (formatter)</h3><p>根据配置，将日志record的属性格式化成字符串<br><img src="http://image.runjf.com/mweb/2019-11-02-15441892815553.jpg" alt></p>
+<p><img src="http://image.runjf.com/mweb/2019-11-02-15441892888667.jpg" alt></p>
+<h3 id="日志处理流程"><a href="#日志处理流程" class="headerlink" title="日志处理流程"></a>日志处理流程</h3><p>解释完这些名词, 然后看这个这个流程图, 就会明白整个日志的处理流程</p>
+<p><img src="http://image.runjf.com/mweb/2019-11-02-15393262305519.jpg" alt></p>
+<h3 id="日志配置"><a href="#日志配置" class="headerlink" title="日志配置"></a>日志配置</h3><p>开发过程中觉得比较好的一个日志配置</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">LOGGING = &#123;</span><br><span class="line">    <span class="string">'version'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'disable_existing_loggers'</span>: <span class="literal">False</span>,  <span class="comment"># 是否禁用已存在的日志记录器</span></span><br><span class="line">    <span class="string">'formatters'</span>: &#123;</span><br><span class="line">        <span class="string">'verbose'</span>: &#123;</span><br><span class="line">            <span class="string">'format'</span>: <span class="string">'[%(levelname)s %(asctime)s %(name)s %(funcName)s %(lineno)d %(process)d] %(message)s'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'simple'</span>: &#123;</span><br><span class="line">            <span class="string">'format'</span>: <span class="string">'[%(levelname)s %(message)s'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'handlers'</span>: &#123;</span><br><span class="line">        <span class="string">'console'</span>: &#123;</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'INFO'</span>,</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.StreamHandler'</span>,   <span class="comment"># 输出到终端的handlers</span></span><br><span class="line">            <span class="string">'formatter'</span>: <span class="string">'simple'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'backend_file'</span>:&#123;</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.handlers.TimedRotatingFileHandler'</span>,    </span><br><span class="line">            <span class="string">'filename'</span>: <span class="string">'main.log'</span>,</span><br><span class="line">            <span class="string">'backupCount'</span>: <span class="number">5</span>,</span><br><span class="line">            <span class="string">'formatter'</span>:<span class="string">'verbose'</span>,</span><br><span class="line">            <span class="string">'when'</span>: <span class="string">'D'</span>,  <span class="comment"># 按天滚动日志</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'backend_err_file'</span>:&#123;</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.handlers.TimedRotatingFileHandler'</span>,</span><br><span class="line">            <span class="string">'filename'</span>: <span class="string">'main_error.log'</span>,</span><br><span class="line">            <span class="string">'backupCount'</span>: <span class="number">5</span>,</span><br><span class="line">            <span class="string">'formatter'</span>:<span class="string">'verbose'</span>,</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'ERROR'</span>,</span><br><span class="line">            <span class="string">'when'</span>: <span class="string">'D'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'loggers'</span>: &#123;</span><br><span class="line">        <span class="string">''</span>: &#123;</span><br><span class="line">            <span class="string">'handlers'</span>: [<span class="string">'backend_file'</span>, <span class="string">'backend_err_file'</span>],</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'INFO'</span>,</span><br><span class="line">            <span class="string">'propagate'</span>: <span class="literal">False</span>,  <span class="comment"># 是否传递给上级logger，一般设置为False；否则，可能会导致多份日志</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> logging.config</span><br><span class="line"></span><br><span class="line">logging.config.dictConfig(LOGGING)</span><br></pre></td></tr></table></figure>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h3 id="要打哪些日志"><a href="#要打哪些日志" class="headerlink" title="要打哪些日志"></a>要打哪些日志</h3><h4 id="问题定位"><a href="#问题定位" class="headerlink" title="问题定位"></a>问题定位</h4><ul>
+<li>web请求入口和出口</li>
+<li>外部服务调用入参和返回</li>
+<li>未预料的程序异常</li>
+<li>关键流程记录</li>
+<li>启动、关闭、配置加载</li>
+</ul>
+<h4 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h4><ul>
+<li>函数\服务调用耗时记录</li>
+</ul>
+<h3 id="每条日志要包含哪些内容"><a href="#每条日志要包含哪些内容" class="headerlink" title="每条日志要包含哪些内容"></a>每条日志要包含哪些内容</h3><ul>
+<li><p>基本信息</p>
+  <figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">'<span class="variable">%(levelname)s %</span>(asctime)s <span class="variable">%(name)s %</span>(funcName)s <span class="variable">%(lineno)d %</span>(process)d <span class="variable">%(thread)d %</span>(message)s'</span><br><span class="line"></span><br><span class="line">日志级别 时间 logger名称 函数名称 函数名 行号 进程id 线程id</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>唯一请求id</li>
+<li>必要的描述信息: 如request xxx failed</li>
+<li>异常相关信息, 调用trace info</li>
+</ul>
+<h3 id="日志级别"><a href="#日志级别" class="headerlink" title="日志级别"></a>日志级别</h3><p>正确地使用日志级别, 不要乱用级别<br><strong>ERROR</strong>：该级别的错误也需要马上被处理。当ERROR错误发生时，已经影响了用户的正常访问，是需要马上得到人工介入并处理的。<br><strong>WARNING</strong>：该日志表示系统可能出现问题，也可能没有，这种情况如网络的波动等。对于WARN级别的日志，虽然不需要系统管理员马上处理，也是需要及时查看并处理的。因此此种级别的日志也不应太多，能不打WARNING级别的日志，就尽量不要打；<br><strong>INFO</strong>：该种日志记录系统的正常运行状态, 占日志的大部分；<br><strong>DEBUG</strong>：开发过程中的调试信息。</p>
+<h3 id="日志存储"><a href="#日志存储" class="headerlink" title="日志存储"></a>日志存储</h3><h4 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h4><ul>
+<li>日志滚动: 按时间或按大小滚动. 同时配置最大保存的数目</li>
+<li>存储路径: 放到空间比较大目录</li>
+<li>注意是否多进程写日志</li>
+<li>error级别日志输出到单独文件</li>
+</ul>
+<h4 id="网络日志"><a href="#网络日志" class="headerlink" title="网络日志"></a>网络日志</h4><ul>
+<li>单机情况下一般不需要 </li>
+<li>多机部署可用kafka，ELK等方案</li>
+</ul>
+<h3 id="一些记录的建议"><a href="#一些记录的建议" class="headerlink" title="一些记录的建议"></a>一些记录的建议</h3><ul>
+<li>不要使用print代替日志</li>
+<li>日志对程序性能有影响, 不要打很多没有必要的日志.</li>
+<li>不同的日志handler有不同的适用场景, 要选择合适的handler</li>
+<li>Python内置的所有handler只是线程安全, 多进程场景可以打日志到多个文件, 或者使用网络日志</li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>日志</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python 循环变量泄露与延迟绑定</title>
+    <url>/2022/03/04/python-loop-variables-leak/</url>
+    <content><![CDATA[<p>循环变量泄露与延迟绑定叠加在一起，会产生一些让人迷惑的结果。<br><a id="more"></a></p>
+<h2 id="梦开始的地方"><a href="#梦开始的地方" class="headerlink" title="梦开始的地方"></a>梦开始的地方</h2><p>先看看一开始的问题，可以看到这里lambda函数的返回值一直在变。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">xx = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]:</span><br><span class="line">    xx.append(<span class="keyword">lambda</span>: i)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'a:'</span>, xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> xx:</span><br><span class="line">    print(j())</span><br><span class="line"></span><br><span class="line">print(<span class="string">'b:'</span>, xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xx:</span><br><span class="line">    print(i, i())</span><br><span class="line"></span><br><span class="line">print(<span class="string">'c:'</span>, xx[<span class="number">0</span>], xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]:</span><br><span class="line">    print(i)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'d:'</span>, xx[<span class="number">0</span>], xx[<span class="number">0</span>]())</span><br></pre></td></tr></table></figure>
+<p>输出如下</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">a:</span> <span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="symbol">b:</span> <span class="number">3</span></span><br><span class="line"><span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt;</span><br><span class="line"><span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca303a0</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca303a0</span>&gt;</span><br><span class="line"><span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30430</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30430</span>&gt;</span><br><span class="line"><span class="symbol">c:</span> <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30430</span>&gt;</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="symbol">d:</span> <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt; <span class="number">6</span></span><br></pre></td></tr></table></figure>
+<h2 id="循环变量泄露"><a href="#循环变量泄露" class="headerlink" title="循环变量泄露"></a>循环变量泄露</h2><p>由于Python没有块级作用域，所以循环会改变当前作用域变量的值，也就是循环变量泄露。<br><strong>注意</strong>：Python3中列表推导式循环变量不会泄露，Python2中和常规循环一样泄露。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = <span class="number">-1</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">7</span>):</span><br><span class="line">    <span class="keyword">if</span> x == <span class="number">6</span>:</span><br><span class="line">        print(x, <span class="string">': for x inside loop'</span>)</span><br><span class="line">print(x, <span class="string">': x in global'</span>)</span><br></pre></td></tr></table></figure>
+<p>输出如下</p>
+<figure class="highlight basic"><table><tr><td class="code"><pre><span class="line"><span class="symbol">6 </span>: <span class="keyword">for</span> x inside loop</span><br><span class="line"><span class="symbol">6 </span>: x in global</span><br></pre></td></tr></table></figure>
+<h2 id="闭包与延迟绑定"><a href="#闭包与延迟绑定" class="headerlink" title="闭包与延迟绑定"></a>闭包与延迟绑定</h2><p>再讲一下<strong>闭包</strong>，在一个内部函数中，对外部作用域的变量进行引用，(并且一般外部函数的返回值为内部函数)，那么内部函数就被认为是闭包。<br>这里所谓的引用可以也就是内部函数记住了<strong>变量的名称</strong>（而不是值，这个从ast语法树可以看出），而变量对应的值是会变化的。<br>如果在循环中定义闭包，引用的变量的值在循环结束才统一确定为最后一次循环时的值，也就是<strong>延迟绑定</strong>（lazy binding）。</p>
+<p>所以下面的例子，<code>xx</code>的所有匿名函数的返回值均为<code>3</code><br><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">xx = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]:</span><br><span class="line">    xx.<span class="built_in">append</span>(<span class="built_in">lambda</span>: i)</span><br></pre></td></tr></table></figure></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>再分析一开始的问题，这里的匿名函数引用了变量<code>i</code>，而<code>i</code>是全局变量，所以再次使用<code>i</code>作为循环变量时，列表中的匿名函数引用的值就被覆盖了。</p>
+<p>正确做法：</p>
+<ul>
+<li>在独立的函数中定义闭包</li>
+<li>闭包引用的变量应该是其他函数不可修改的</li>
+<li>优先使用列表推导式</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://stackoverflow.com/questions/3611760/scoping-in-python-for-loops" target="_blank" rel="noopener">https://stackoverflow.com/questions/3611760/scoping-in-python-for-loops</a></li>
+<li><a href="https://www.educative.io/courses/python-ftw-under-the-hood/N8RW8508RkL" target="_blank" rel="noopener">https://www.educative.io/courses/python-ftw-under-the-hood/N8RW8508RkL</a></li>
+<li><a href="https://mail.python.org/pipermail/python-ideas/2008-October/002109.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-ideas/2008-October/002109.html</a></li>
+</ul>
 ]]></content>
       <categories>
         <category>编程</category>
@@ -3722,201 +3917,6 @@ img[alt="-w350"] {
 <li>炼气： <a href="https://www.bilibili.com/video/BV1nE41127zQ" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1nE41127zQ</a></li>
 <li>筑基： <a href="https://www.bilibili.com/video/BV1WT4y137cD" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1WT4y137cD</a></li>
 <li>金丹： <a href="https://www.bilibili.com/video/BV1qa4y1Y7CD" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1qa4y1Y7CD</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python日志原理及实践</title>
-    <url>/2019/11/02/python-logging-guide/</url>
-    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="一次简单的日志记录"><a href="#一次简单的日志记录" class="headerlink" title="一次简单的日志记录"></a>一次简单的日志记录</h3><figure class="highlight sml"><table><tr><td class="code"><pre><span class="line">import logging</span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">except <span class="type">Exception</span> <span class="keyword">as</span> e:</span><br><span class="line">    logger.debug(<span class="symbol">'debug</span> %s', e)</span><br><span class="line">    logger.info(<span class="symbol">'info</span> %s', e)</span><br><span class="line">    logger.warning(<span class="symbol">'warning</span> %s', e)</span><br><span class="line">    logger.error(<span class="symbol">'error</span> %s', e)</span><br><span class="line">    logger.<span class="keyword">exception</span>(<span class="symbol">'exception</span> %s', e)</span><br></pre></td></tr></table></figure>
-<p>output<br><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">warning division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">error division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">exception division <span class="keyword">by</span> <span class="literal">zero</span></span><br><span class="line">Traceback (most recent call <span class="keyword">last</span>):</span><br><span class="line">  File <span class="string">"test.py"</span>, <span class="built_in">line</span> <span class="number">5</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">ZeroDivisionError: division <span class="keyword">by</span> <span class="literal">zero</span></span><br></pre></td></tr></table></figure></p>
-<ol>
-<li><code>logging.getLogger</code> 获取一个记录器, 一般以模块名称命名</li>
-<li>调用日志记录器的相应方法记录日志</li>
-</ol>
-<a id="more"></a>
-<h3 id="记录器-logger"><a href="#记录器-logger" class="headerlink" title="记录器 (logger)"></a>记录器 (logger)</h3><p><img src="http://image.runjf.com/mweb/2019-11-02-15441717816714.jpg" alt></p>
-<ul>
-<li>logger是Python记录日志的入口</li>
-<li>logger.info, logger.debug等几个函数对应记录不同的日志级别</li>
-<li>日志配置可以设置日志级别, 低于日志级别的日志不被记录</li>
-<li>默认日志配置的级别是WARNING</li>
-</ul>
-<p>Python日志支持的级别</p>
-<table>
-<thead>
-<tr>
-<th>级别</th>
-<th>何时使用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>DEBUG</td>
-<td>详细信息，典型地调试问题时会感兴趣。</td>
-</tr>
-<tr>
-<td>INFO</td>
-<td>证明事情按预期工作。</td>
-</tr>
-<tr>
-<td>WARNING</td>
-<td>表明发生了一些意外，或者不久的将来会发生问题软件还是在正常工作。</td>
-</tr>
-<tr>
-<td>ERROR</td>
-<td>由于更严重的问题，软件已不能执行一些功能了。</td>
-</tr>
-<tr>
-<td>CRITICAL</td>
-<td>严重错误，表明软件已不能继续运行了。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="记录-record"><a href="#记录-record" class="headerlink" title="记录 (record)"></a>记录 (record)</h3><p>每个record对象代表一条日志<br>record拥很多有的属性， 可扩展, 主要被formatter使用</p>
-<p>日志记录器的记录方法每次被调用就会生成一条record对象, 并且将record的所有属性都设置好.</p>
-<p>record主要有以下属性</p>
-<table>
-<thead>
-<tr>
-<th>name</th>
-<th>logger名称</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>msg</td>
-<td>日志文本</td>
-</tr>
-<tr>
-<td>args</td>
-<td>格式文本的参数</td>
-</tr>
-<tr>
-<td>levelname</td>
-<td>级别名称</td>
-</tr>
-<tr>
-<td>module</td>
-<td>模块名称</td>
-</tr>
-<tr>
-<td>exc_info</td>
-<td>异常相关信息</td>
-</tr>
-<tr>
-<td>lineno</td>
-<td>行号</td>
-</tr>
-<tr>
-<td>funcName</td>
-<td>打日志的函数名称</td>
-</tr>
-<tr>
-<td>threadName</td>
-<td>线程名</td>
-</tr>
-<tr>
-<td>processName</td>
-<td>进程名称</td>
-</tr>
-</tbody>
-</table>
-<h3 id="处理器-handler"><a href="#处理器-handler" class="headerlink" title="处理器 (handler)"></a>处理器 (handler)</h3><p>日志处理器决定了日志的存储的方式， 存储大小，存储的位置<br>日志处理器通过handle方法处理日志, 不同的处理器行为差别很大</p>
-<p>一些常见的日志处理器</p>
-<ul>
-<li>StreamHandler 输出到终端</li>
-<li>SMTPHandler 通过 email 发送日志记录</li>
-<li>SocketHandler 将日志通过网络发送</li>
-<li>FileHandler  记录到文件</li>
-<li>TimedRotatingFileHandler 记录到文件并按时间滚动</li>
-</ul>
-<h3 id="过滤器-filter"><a href="#过滤器-filter" class="headerlink" title="过滤器 (filter)"></a>过滤器 (filter)</h3><p>filter是附加在logger上的, 对日志进行细粒度控制, 例如根据一些条件判断是否记录日志, 修改日志record的内容等</p>
-<p><img src="http://image.runjf.com/mweb/2019-11-02-15441884511996.jpg" alt></p>
-<p>例如上面这个ContextFilter, 就将第二条日志过滤掉了.</p>
-<h3 id="格式器-formatter"><a href="#格式器-formatter" class="headerlink" title="格式器 (formatter)"></a>格式器 (formatter)</h3><p>根据配置，将日志record的属性格式化成字符串<br><img src="http://image.runjf.com/mweb/2019-11-02-15441892815553.jpg" alt></p>
-<p><img src="http://image.runjf.com/mweb/2019-11-02-15441892888667.jpg" alt></p>
-<h3 id="日志处理流程"><a href="#日志处理流程" class="headerlink" title="日志处理流程"></a>日志处理流程</h3><p>解释完这些名词, 然后看这个这个流程图, 就会明白整个日志的处理流程</p>
-<p><img src="http://image.runjf.com/mweb/2019-11-02-15393262305519.jpg" alt></p>
-<h3 id="日志配置"><a href="#日志配置" class="headerlink" title="日志配置"></a>日志配置</h3><p>开发过程中觉得比较好的一个日志配置</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">LOGGING = &#123;</span><br><span class="line">    <span class="string">'version'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'disable_existing_loggers'</span>: <span class="literal">False</span>,  <span class="comment"># 是否禁用已存在的日志记录器</span></span><br><span class="line">    <span class="string">'formatters'</span>: &#123;</span><br><span class="line">        <span class="string">'verbose'</span>: &#123;</span><br><span class="line">            <span class="string">'format'</span>: <span class="string">'[%(levelname)s %(asctime)s %(name)s %(funcName)s %(lineno)d %(process)d] %(message)s'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'simple'</span>: &#123;</span><br><span class="line">            <span class="string">'format'</span>: <span class="string">'[%(levelname)s %(message)s'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'handlers'</span>: &#123;</span><br><span class="line">        <span class="string">'console'</span>: &#123;</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'INFO'</span>,</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.StreamHandler'</span>,   <span class="comment"># 输出到终端的handlers</span></span><br><span class="line">            <span class="string">'formatter'</span>: <span class="string">'simple'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'backend_file'</span>:&#123;</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.handlers.TimedRotatingFileHandler'</span>,    </span><br><span class="line">            <span class="string">'filename'</span>: <span class="string">'main.log'</span>,</span><br><span class="line">            <span class="string">'backupCount'</span>: <span class="number">5</span>,</span><br><span class="line">            <span class="string">'formatter'</span>:<span class="string">'verbose'</span>,</span><br><span class="line">            <span class="string">'when'</span>: <span class="string">'D'</span>,  <span class="comment"># 按天滚动日志</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'backend_err_file'</span>:&#123;</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.handlers.TimedRotatingFileHandler'</span>,</span><br><span class="line">            <span class="string">'filename'</span>: <span class="string">'main_error.log'</span>,</span><br><span class="line">            <span class="string">'backupCount'</span>: <span class="number">5</span>,</span><br><span class="line">            <span class="string">'formatter'</span>:<span class="string">'verbose'</span>,</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'ERROR'</span>,</span><br><span class="line">            <span class="string">'when'</span>: <span class="string">'D'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'loggers'</span>: &#123;</span><br><span class="line">        <span class="string">''</span>: &#123;</span><br><span class="line">            <span class="string">'handlers'</span>: [<span class="string">'backend_file'</span>, <span class="string">'backend_err_file'</span>],</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'INFO'</span>,</span><br><span class="line">            <span class="string">'propagate'</span>: <span class="literal">False</span>,  <span class="comment"># 是否传递给上级logger，一般设置为False；否则，可能会导致多份日志</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> logging.config</span><br><span class="line"></span><br><span class="line">logging.config.dictConfig(LOGGING)</span><br></pre></td></tr></table></figure>
-<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h3 id="要打哪些日志"><a href="#要打哪些日志" class="headerlink" title="要打哪些日志"></a>要打哪些日志</h3><h4 id="问题定位"><a href="#问题定位" class="headerlink" title="问题定位"></a>问题定位</h4><ul>
-<li>web请求入口和出口</li>
-<li>外部服务调用入参和返回</li>
-<li>未预料的程序异常</li>
-<li>关键流程记录</li>
-<li>启动、关闭、配置加载</li>
-</ul>
-<h4 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h4><ul>
-<li>函数\服务调用耗时记录</li>
-</ul>
-<h3 id="每条日志要包含哪些内容"><a href="#每条日志要包含哪些内容" class="headerlink" title="每条日志要包含哪些内容"></a>每条日志要包含哪些内容</h3><ul>
-<li><p>基本信息</p>
-  <figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">'<span class="variable">%(levelname)s %</span>(asctime)s <span class="variable">%(name)s %</span>(funcName)s <span class="variable">%(lineno)d %</span>(process)d <span class="variable">%(thread)d %</span>(message)s'</span><br><span class="line"></span><br><span class="line">日志级别 时间 logger名称 函数名称 函数名 行号 进程id 线程id</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li>唯一请求id</li>
-<li>必要的描述信息: 如request xxx failed</li>
-<li>异常相关信息, 调用trace info</li>
-</ul>
-<h3 id="日志级别"><a href="#日志级别" class="headerlink" title="日志级别"></a>日志级别</h3><p>正确地使用日志级别, 不要乱用级别<br><strong>ERROR</strong>：该级别的错误也需要马上被处理。当ERROR错误发生时，已经影响了用户的正常访问，是需要马上得到人工介入并处理的。<br><strong>WARNING</strong>：该日志表示系统可能出现问题，也可能没有，这种情况如网络的波动等。对于WARN级别的日志，虽然不需要系统管理员马上处理，也是需要及时查看并处理的。因此此种级别的日志也不应太多，能不打WARNING级别的日志，就尽量不要打；<br><strong>INFO</strong>：该种日志记录系统的正常运行状态, 占日志的大部分；<br><strong>DEBUG</strong>：开发过程中的调试信息。</p>
-<h3 id="日志存储"><a href="#日志存储" class="headerlink" title="日志存储"></a>日志存储</h3><h4 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h4><ul>
-<li>日志滚动: 按时间或按大小滚动. 同时配置最大保存的数目</li>
-<li>存储路径: 放到空间比较大目录</li>
-<li>注意是否多进程写日志</li>
-<li>error级别日志输出到单独文件</li>
-</ul>
-<h4 id="网络日志"><a href="#网络日志" class="headerlink" title="网络日志"></a>网络日志</h4><ul>
-<li>单机情况下一般不需要 </li>
-<li>多机部署可用kafka，ELK等方案</li>
-</ul>
-<h3 id="一些记录的建议"><a href="#一些记录的建议" class="headerlink" title="一些记录的建议"></a>一些记录的建议</h3><ul>
-<li>不要使用print代替日志</li>
-<li>日志对程序性能有影响, 不要打很多没有必要的日志.</li>
-<li>不同的日志handler有不同的适用场景, 要选择合适的handler</li>
-<li>Python内置的所有handler只是线程安全, 多进程场景可以打日志到多个文件, 或者使用网络日志</li>
-</ul>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>日志</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python 循环变量泄露与延迟绑定</title>
-    <url>/2022/03/04/python-loop-variables-leak/</url>
-    <content><![CDATA[<p>循环变量泄露与延迟绑定叠加在一起，会产生一些让人迷惑的结果。<br><a id="more"></a></p>
-<h2 id="梦开始的地方"><a href="#梦开始的地方" class="headerlink" title="梦开始的地方"></a>梦开始的地方</h2><p>先看看一开始的问题，可以看到这里lambda函数的返回值一直在变。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">xx = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]:</span><br><span class="line">    xx.append(<span class="keyword">lambda</span>: i)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'a:'</span>, xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> xx:</span><br><span class="line">    print(j())</span><br><span class="line"></span><br><span class="line">print(<span class="string">'b:'</span>, xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xx:</span><br><span class="line">    print(i, i())</span><br><span class="line"></span><br><span class="line">print(<span class="string">'c:'</span>, xx[<span class="number">0</span>], xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]:</span><br><span class="line">    print(i)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'d:'</span>, xx[<span class="number">0</span>], xx[<span class="number">0</span>]())</span><br></pre></td></tr></table></figure>
-<p>输出如下</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">a:</span> <span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="symbol">b:</span> <span class="number">3</span></span><br><span class="line"><span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt;</span><br><span class="line"><span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca303a0</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca303a0</span>&gt;</span><br><span class="line"><span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30430</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30430</span>&gt;</span><br><span class="line"><span class="symbol">c:</span> <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30430</span>&gt;</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="symbol">d:</span> <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt; <span class="number">6</span></span><br></pre></td></tr></table></figure>
-<h2 id="循环变量泄露"><a href="#循环变量泄露" class="headerlink" title="循环变量泄露"></a>循环变量泄露</h2><p>由于Python没有块级作用域，所以循环会改变当前作用域变量的值，也就是循环变量泄露。<br><strong>注意</strong>：Python3中列表推导式循环变量不会泄露，Python2中和常规循环一样泄露。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = <span class="number">-1</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">7</span>):</span><br><span class="line">    <span class="keyword">if</span> x == <span class="number">6</span>:</span><br><span class="line">        print(x, <span class="string">': for x inside loop'</span>)</span><br><span class="line">print(x, <span class="string">': x in global'</span>)</span><br></pre></td></tr></table></figure>
-<p>输出如下</p>
-<figure class="highlight basic"><table><tr><td class="code"><pre><span class="line"><span class="symbol">6 </span>: <span class="keyword">for</span> x inside loop</span><br><span class="line"><span class="symbol">6 </span>: x in global</span><br></pre></td></tr></table></figure>
-<h2 id="闭包与延迟绑定"><a href="#闭包与延迟绑定" class="headerlink" title="闭包与延迟绑定"></a>闭包与延迟绑定</h2><p>再讲一下<strong>闭包</strong>，在一个内部函数中，对外部作用域的变量进行引用，(并且一般外部函数的返回值为内部函数)，那么内部函数就被认为是闭包。<br>这里所谓的引用可以也就是内部函数记住了<strong>变量的名称</strong>（而不是值，这个从ast语法树可以看出），而变量对应的值是会变化的。<br>如果在循环中定义闭包，引用的变量的值在循环结束才统一确定为最后一次循环时的值，也就是<strong>延迟绑定</strong>（lazy binding）。</p>
-<p>所以下面的例子，<code>xx</code>的所有匿名函数的返回值均为<code>3</code><br><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">xx = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]:</span><br><span class="line">    xx.<span class="built_in">append</span>(<span class="built_in">lambda</span>: i)</span><br></pre></td></tr></table></figure></p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>再分析一开始的问题，这里的匿名函数引用了变量<code>i</code>，而<code>i</code>是全局变量，所以再次使用<code>i</code>作为循环变量时，列表中的匿名函数引用的值就被覆盖了。</p>
-<p>正确做法：</p>
-<ul>
-<li>在独立的函数中定义闭包</li>
-<li>闭包引用的变量应该是其他函数不可修改的</li>
-<li>优先使用列表推导式</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://stackoverflow.com/questions/3611760/scoping-in-python-for-loops" target="_blank" rel="noopener">https://stackoverflow.com/questions/3611760/scoping-in-python-for-loops</a></li>
-<li><a href="https://www.educative.io/courses/python-ftw-under-the-hood/N8RW8508RkL" target="_blank" rel="noopener">https://www.educative.io/courses/python-ftw-under-the-hood/N8RW8508RkL</a></li>
-<li><a href="https://mail.python.org/pipermail/python-ideas/2008-October/002109.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-ideas/2008-October/002109.html</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -5272,36 +5272,6 @@ img[alt="-w350"] {
       </tags>
   </entry>
   <entry>
-    <title>variable-precision SWAR 算法详解</title>
-    <url>/2020/08/01/variable-precision-SWAR-algorithm/</url>
-    <content><![CDATA[<p>在学习redis源码时，发现<code>BITCOUNT</code>命令实现用到了variable-precision SWAR 算法。</p>
-<p><code>BITCOUNT</code>命令要解决的问题：<strong>统计一个位数组中非0二进制位的数量</strong>。在数学上被称为“计算汉明重量（Hamming Weight)” </p>
-<p>目前已知效率最好的通用算法为variable-precision SWAR 算法。<br>该算法通过一系列位移和位运算操作，可以在常数时间内计算多个字节的汉明重量，并且不需要使用任何额外的内存。<br><a id="more"></a></p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>以下是一个处理32位长度位数组的算法实现，一共分4步。<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">uint32_t</span> swar(<span class="keyword">uint32_t</span> i)&#123;</span><br><span class="line">    i = (i &amp; <span class="number">0x55555555</span>) + ((i&gt;&gt;<span class="number">1</span>) &amp; <span class="number">0x55555555</span>);  <span class="comment">// 步骤1</span></span><br><span class="line">    i = (i &amp; <span class="number">0x33333333</span>) + ((i&gt;&gt;<span class="number">2</span>) &amp; <span class="number">0x33333333</span>);  <span class="comment">// 步骤2</span></span><br><span class="line">    i = (i &amp; <span class="number">0x0F0F0F0F</span>) + ((i&gt;&gt;<span class="number">4</span>) &amp; <span class="number">0x0F0F0F0F</span>);  <span class="comment">// 步骤3</span></span><br><span class="line">    i = (i * <span class="number">0x01010101</span>) &gt;&gt; <span class="number">24</span>;                    <span class="comment">// 步骤4</span></span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>这里我们以<code>i=0x12345678</code>(二进制位为<code>00010010001101000101011001111000</code>)为例，讲解算法过程<br>我们可以把i的二进制位理解成：长度为32的数组，每个元素取值区间[0,1]，每个元素正好能代表这个位是不是1.</p>
-<p>所以，问题就可以转化为，求这个数组的和。<br>根据分治法的思想，我们可以把相邻的两个数字相加，得到长度为16的数组，每个元素取值区间[0,2]。<br>并以此类推，最终求出总和。</p>
-<p><img src="http://image.runjf.com/mweb/2020-08-01-15962704953270.jpg" alt><br><img src="http://image.runjf.com/mweb/2020-08-01-15962705553725.jpg" alt></p>
-<h3 id="步骤1"><a href="#步骤1" class="headerlink" title="步骤1"></a>步骤1</h3><p>这一步用到<code>0x55555555</code>作为掩码，其二进制表示为<code>01010101010101010101010101010101</code><br>此时i可理解为长度为32的数组，每个元素取值区间[0,1]，元素宽度1bit。</p>
-<p>通过<code>i &amp; 0x55555555</code>运算，取得了i的奇数位置元素，存储为16个2bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x55555555</code>运算，取得了i的偶数位置元素，存储为16个2bit整数；</p>
-<p>两者相加，相当于16组2bit整数按位相加，问题就转化成了2bit的二进制加法。<br>由于原数组每个元素取值区间[0,1]，所以每组相加的结果会在[0,2]区间内，2bit刚好存储。<br>最终得到长度为16的数组，每个元素取值区间[0,2]。<br><img src="http://image.runjf.com/mweb/2020-08-01-15962660065367.jpg" alt></p>
-<h3 id="步骤2"><a href="#步骤2" class="headerlink" title="步骤2"></a>步骤2</h3><p>这一步用到<code>0x33333333</code>作为掩码，其二进制表示为<code>00110011001100110011001100110011</code><br>此时i可理解表示为长度为16的数组，每个元素取值区间[0,2]，元素宽度2bit。</p>
-<p>通过<code>i &amp; 0x33333333</code>运算，取得了i的奇数位置元素，存储为8个4bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x33333333</code>运算，取得了i的偶数位置元素，存储为8个4bit整数；</p>
-<p>两者相加，相当于8组4bit整数按位相加，问题就转化成了4bit的二进制加法。<br>由于原数组每个元素取值区间[0,2]，所以每组相加的结果会在[0,4]区间内，4bit刚好存储。<br>最终得到长度为8的数组，每个元素取值区间[0,4]。</p>
-<h3 id="步骤3"><a href="#步骤3" class="headerlink" title="步骤3"></a>步骤3</h3><p>这一步用到<code>0x0F0F0F0F</code>作为掩码，其二进制表示为<code>00001111000011110000111100001111</code><br>此时i可理解表示为长度为8的数组，每个元素取值区间[0,4]，元素宽度4bit。</p>
-<p>通过<code>i &amp; 0x0F0F0F0F</code>运算，取得了i的奇数位置元素，存储为4个8bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x33333333</code>运算，取得了i的偶数位置元素，存储为4个8bit整数；</p>
-<p>两者相加，相当于4组8bit整数按位相加, 问题就转化成了8bit的二进制加法。<br>由于原数组每个元素取值区间[0,4]，所以每组相加的结果会在<code>[0,8]</code>区间内，8bit足够存储。<br>最终得到长度为4的数组，每个元素取值区间[0,8]。</p>
-<h3 id="步骤4"><a href="#步骤4" class="headerlink" title="步骤4"></a>步骤4</h3><p>按照上面的思路，本来应该继续将长度为4的数组转换为长度为2的数组。<br>但是这里由于4个8bit整数相加存在简便运算，就不继续往下合并了。</p>
-<p>到这一步是时<code>i=0x02030404</code>，为了求出最终结果，我们可以想到位移的办法将每8bit取出（参考ip掩码计算），然后再依次相加。<br>最终结果也就是 <code>(i &amp; 0xFF) + ((i&gt;&gt;8) &amp; 0xFF) + ((i&gt;&gt;16) &amp; 0xFF) + ((i&gt;&gt;24) &amp; 0xFF)</code></p>
-<p>为了理解算法里的做法，这里需要简单的数学推导<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 将0x01010101转化成多项式表达</span></span><br><span class="line">          <span class="number">0x01010101</span> == <span class="number">2</span>**<span class="number">24</span> + <span class="number">2</span>**<span class="number">16</span> + <span class="number">2</span>**<span class="number">8</span> + <span class="number">2</span>**<span class="number">0</span> </span><br><span class="line"><span class="comment">// 两边同乘以i</span></span><br><span class="line">      i * <span class="number">0x01010101</span> == i * <span class="number">2</span>**<span class="number">24</span> + i * <span class="number">2</span>**<span class="number">16</span> + i * <span class="number">2</span>**<span class="number">8</span> + i * <span class="number">2</span>**<span class="number">0</span></span><br><span class="line"><span class="comment">// 2的乘方运算转化为位移运算</span></span><br><span class="line">      i * <span class="number">0x01010101</span> == (i&lt;&lt;<span class="number">24</span>) + (i&lt;&lt;<span class="number">16</span>) + (i&lt;&lt;<span class="number">8</span>) + (i&lt;&lt;<span class="number">0</span>)</span><br><span class="line"><span class="comment">// 两边同时右移24位</span></span><br><span class="line">(i * <span class="number">0x01010101</span>)&gt;&gt;<span class="number">24</span> == ((i&lt;&lt;<span class="number">24</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">16</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">8</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">0</span>)&gt;&gt;<span class="number">24</span>)</span><br><span class="line"><span class="comment">// 将左移和右移合并，并考虑溢出，最终结果一致</span></span><br><span class="line">(i * <span class="number">0x01010101</span>)&gt;&gt;<span class="number">24</span> == (i &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">8</span>) &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">16</span>) &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">24</span>) &amp; <span class="number">0xFF</span>)</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Windows 网络共享</title>
     <url>/2021/10/10/windows-network-share/</url>
     <content><![CDATA[<p>要在不暴露 client 的情况下共享网络，一般就只能使用 nat(Network Address Translation), linux 下可以使用 iptables 很轻松地搞定。<br>nat 包含 DNAT 和 SNAT, 要想双向互通，必须两者都实现。</p>
@@ -5344,6 +5314,36 @@ img[alt="-w350"] {
       </categories>
       <tags>
         <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>variable-precision SWAR 算法详解</title>
+    <url>/2020/08/01/variable-precision-SWAR-algorithm/</url>
+    <content><![CDATA[<p>在学习redis源码时，发现<code>BITCOUNT</code>命令实现用到了variable-precision SWAR 算法。</p>
+<p><code>BITCOUNT</code>命令要解决的问题：<strong>统计一个位数组中非0二进制位的数量</strong>。在数学上被称为“计算汉明重量（Hamming Weight)” </p>
+<p>目前已知效率最好的通用算法为variable-precision SWAR 算法。<br>该算法通过一系列位移和位运算操作，可以在常数时间内计算多个字节的汉明重量，并且不需要使用任何额外的内存。<br><a id="more"></a></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>以下是一个处理32位长度位数组的算法实现，一共分4步。<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">uint32_t</span> swar(<span class="keyword">uint32_t</span> i)&#123;</span><br><span class="line">    i = (i &amp; <span class="number">0x55555555</span>) + ((i&gt;&gt;<span class="number">1</span>) &amp; <span class="number">0x55555555</span>);  <span class="comment">// 步骤1</span></span><br><span class="line">    i = (i &amp; <span class="number">0x33333333</span>) + ((i&gt;&gt;<span class="number">2</span>) &amp; <span class="number">0x33333333</span>);  <span class="comment">// 步骤2</span></span><br><span class="line">    i = (i &amp; <span class="number">0x0F0F0F0F</span>) + ((i&gt;&gt;<span class="number">4</span>) &amp; <span class="number">0x0F0F0F0F</span>);  <span class="comment">// 步骤3</span></span><br><span class="line">    i = (i * <span class="number">0x01010101</span>) &gt;&gt; <span class="number">24</span>;                    <span class="comment">// 步骤4</span></span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>这里我们以<code>i=0x12345678</code>(二进制位为<code>00010010001101000101011001111000</code>)为例，讲解算法过程<br>我们可以把i的二进制位理解成：长度为32的数组，每个元素取值区间[0,1]，每个元素正好能代表这个位是不是1.</p>
+<p>所以，问题就可以转化为，求这个数组的和。<br>根据分治法的思想，我们可以把相邻的两个数字相加，得到长度为16的数组，每个元素取值区间[0,2]。<br>并以此类推，最终求出总和。</p>
+<p><img src="http://image.runjf.com/mweb/2020-08-01-15962704953270.jpg" alt><br><img src="http://image.runjf.com/mweb/2020-08-01-15962705553725.jpg" alt></p>
+<h3 id="步骤1"><a href="#步骤1" class="headerlink" title="步骤1"></a>步骤1</h3><p>这一步用到<code>0x55555555</code>作为掩码，其二进制表示为<code>01010101010101010101010101010101</code><br>此时i可理解为长度为32的数组，每个元素取值区间[0,1]，元素宽度1bit。</p>
+<p>通过<code>i &amp; 0x55555555</code>运算，取得了i的奇数位置元素，存储为16个2bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x55555555</code>运算，取得了i的偶数位置元素，存储为16个2bit整数；</p>
+<p>两者相加，相当于16组2bit整数按位相加，问题就转化成了2bit的二进制加法。<br>由于原数组每个元素取值区间[0,1]，所以每组相加的结果会在[0,2]区间内，2bit刚好存储。<br>最终得到长度为16的数组，每个元素取值区间[0,2]。<br><img src="http://image.runjf.com/mweb/2020-08-01-15962660065367.jpg" alt></p>
+<h3 id="步骤2"><a href="#步骤2" class="headerlink" title="步骤2"></a>步骤2</h3><p>这一步用到<code>0x33333333</code>作为掩码，其二进制表示为<code>00110011001100110011001100110011</code><br>此时i可理解表示为长度为16的数组，每个元素取值区间[0,2]，元素宽度2bit。</p>
+<p>通过<code>i &amp; 0x33333333</code>运算，取得了i的奇数位置元素，存储为8个4bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x33333333</code>运算，取得了i的偶数位置元素，存储为8个4bit整数；</p>
+<p>两者相加，相当于8组4bit整数按位相加，问题就转化成了4bit的二进制加法。<br>由于原数组每个元素取值区间[0,2]，所以每组相加的结果会在[0,4]区间内，4bit刚好存储。<br>最终得到长度为8的数组，每个元素取值区间[0,4]。</p>
+<h3 id="步骤3"><a href="#步骤3" class="headerlink" title="步骤3"></a>步骤3</h3><p>这一步用到<code>0x0F0F0F0F</code>作为掩码，其二进制表示为<code>00001111000011110000111100001111</code><br>此时i可理解表示为长度为8的数组，每个元素取值区间[0,4]，元素宽度4bit。</p>
+<p>通过<code>i &amp; 0x0F0F0F0F</code>运算，取得了i的奇数位置元素，存储为4个8bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x33333333</code>运算，取得了i的偶数位置元素，存储为4个8bit整数；</p>
+<p>两者相加，相当于4组8bit整数按位相加, 问题就转化成了8bit的二进制加法。<br>由于原数组每个元素取值区间[0,4]，所以每组相加的结果会在<code>[0,8]</code>区间内，8bit足够存储。<br>最终得到长度为4的数组，每个元素取值区间[0,8]。</p>
+<h3 id="步骤4"><a href="#步骤4" class="headerlink" title="步骤4"></a>步骤4</h3><p>按照上面的思路，本来应该继续将长度为4的数组转换为长度为2的数组。<br>但是这里由于4个8bit整数相加存在简便运算，就不继续往下合并了。</p>
+<p>到这一步是时<code>i=0x02030404</code>，为了求出最终结果，我们可以想到位移的办法将每8bit取出（参考ip掩码计算），然后再依次相加。<br>最终结果也就是 <code>(i &amp; 0xFF) + ((i&gt;&gt;8) &amp; 0xFF) + ((i&gt;&gt;16) &amp; 0xFF) + ((i&gt;&gt;24) &amp; 0xFF)</code></p>
+<p>为了理解算法里的做法，这里需要简单的数学推导<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 将0x01010101转化成多项式表达</span></span><br><span class="line">          <span class="number">0x01010101</span> == <span class="number">2</span>**<span class="number">24</span> + <span class="number">2</span>**<span class="number">16</span> + <span class="number">2</span>**<span class="number">8</span> + <span class="number">2</span>**<span class="number">0</span> </span><br><span class="line"><span class="comment">// 两边同乘以i</span></span><br><span class="line">      i * <span class="number">0x01010101</span> == i * <span class="number">2</span>**<span class="number">24</span> + i * <span class="number">2</span>**<span class="number">16</span> + i * <span class="number">2</span>**<span class="number">8</span> + i * <span class="number">2</span>**<span class="number">0</span></span><br><span class="line"><span class="comment">// 2的乘方运算转化为位移运算</span></span><br><span class="line">      i * <span class="number">0x01010101</span> == (i&lt;&lt;<span class="number">24</span>) + (i&lt;&lt;<span class="number">16</span>) + (i&lt;&lt;<span class="number">8</span>) + (i&lt;&lt;<span class="number">0</span>)</span><br><span class="line"><span class="comment">// 两边同时右移24位</span></span><br><span class="line">(i * <span class="number">0x01010101</span>)&gt;&gt;<span class="number">24</span> == ((i&lt;&lt;<span class="number">24</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">16</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">8</span>)&gt;&gt;<span class="number">24</span>) + ((i&lt;&lt;<span class="number">0</span>)&gt;&gt;<span class="number">24</span>)</span><br><span class="line"><span class="comment">// 将左移和右移合并，并考虑溢出，最终结果一致</span></span><br><span class="line">(i * <span class="number">0x01010101</span>)&gt;&gt;<span class="number">24</span> == (i &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">8</span>) &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">16</span>) &amp; <span class="number">0xFF</span>) + ((i&gt;&gt;<span class="number">24</span>) &amp; <span class="number">0xFF</span>)</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -5522,6 +5522,41 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
+    <title>《乡关何处》读书笔记</title>
+    <url>/2015/09/29/%E3%80%8A%E4%B9%A1%E5%85%B3%E4%BD%95%E5%A4%84%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
+<li>这本书是野夫关于他个人对几十年前那动荡而又荒诞不经的时代的感悟，真实的过去往往没有历史书上写的那么伟光正、那么云淡风轻。</li>
+<li>抑郁症、愤青不可读此书，恐加重病情。</li>
+</ul>
+<a id="more"></a>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ol>
+<li><p>事实上，组织中只有细胞，是不再有人的。发明组织的人，是按机器原理设计的，个体的人在组织中，类似某个螺丝、刀片一般的部件。任何个人主义和自由主义，都是组织所不允许的；组织只会冠冕堂皇地提倡集体主义，会用无数教条来帮助你遗忘作为人的个性。</p>
+</li>
+<li><p>我们那一代人，许多是真正的理想主义者，而蒋介石从孙中山那里继承而来的国家体制，是违背现代宪政的“三一律”——一个领袖，一个主义，一个政党。当基本的人权都要被这个政府所钳制时，如果有另外一个党打出“要自由民主，要结社言论自由”的口号时，你说它能不吸引我们这些爱国哀民而又轻身躁进企图改造社会的理想青年吗？</p>
+<pre><code>博主云：所以我说从来不看好学生运动的，改造社会这种事情从来不是光靠满腔热情所能做到的，作为领袖没有一点的手腕是很难成就的。而那些政客更不用说了，他们永远是利益至上的，不知理想为何物。最好的状态是有个理想残存的野心家，然而毕竟是奢望。
+</code></pre></li>
+<li><p>生命不是话剧，可以彩排一次再正式登台。他们的悲剧一次性上演，就挥霍完了他们的一生。</p>
+<pre><code>博主云：我们从未踏入同一条河流，人生之无奈正出于此。
+</code></pre></li>
+<li><p>迅翁尝云：人最痛苦的莫过于梦醒之后无路可走。于我，则常是中宵酒醒之后，无路可走而深陷回忆，牵出无数往事的余痛。</p>
+</li>
+<li><p>老李认为——红卫兵的造反初衷源于那一代的神圣使命感，他们并不单纯，至少不像我们今天想象的那么幼稚。但动机不错的行动并不能保证结果的正确。他认为，知识分子应该为此首先承担罪责，全国各地的“文革”之火并非文盲引起，主要的“纵火犯”都是书生，他们只是没想到“革命最后会革到自己头上”。而在此之前，整个知识群体的道义缺失，客观上默许和纵容了暴政的为所欲为</p>
+</li>
+<li><p>捡粪的孩子多，牲口的遗矢有限，便不免有人终日碌碌而仅仅捡得几十粒羊矢。也有的持之以恒地跟踪一群牛，焦急地守望牛翘起尾巴，端起撮箕去抢接，甚至为此掀起混战。</p>
+<pre><code>博主云：现在看来甚是可笑，但这就是真实的生活，唏嘘！
+</code></pre></li>
+<li><p>他说世界上总有一些走投无路的人，需要花点小钱买个安慰；而我们这些废人也是生灵，也要活命，这叫天生人必养人。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>《七十年代》读书笔记</title>
     <url>/2016/08/17/%E3%80%8A%E4%B8%83%E5%8D%81%E5%B9%B4%E4%BB%A3%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>作者：北岛、李陀</p>
@@ -5563,41 +5598,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
 <blockquote>
 <p>阮云：何须几番离合，一见杨过便已把终身误了。</p>
 </blockquote>
-]]></content>
-      <categories>
-        <category>阅读</category>
-      </categories>
-      <tags>
-        <tag>读书笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《乡关何处》读书笔记</title>
-    <url>/2015/09/29/%E3%80%8A%E4%B9%A1%E5%85%B3%E4%BD%95%E5%A4%84%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
-<li>这本书是野夫关于他个人对几十年前那动荡而又荒诞不经的时代的感悟，真实的过去往往没有历史书上写的那么伟光正、那么云淡风轻。</li>
-<li>抑郁症、愤青不可读此书，恐加重病情。</li>
-</ul>
-<a id="more"></a>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ol>
-<li><p>事实上，组织中只有细胞，是不再有人的。发明组织的人，是按机器原理设计的，个体的人在组织中，类似某个螺丝、刀片一般的部件。任何个人主义和自由主义，都是组织所不允许的；组织只会冠冕堂皇地提倡集体主义，会用无数教条来帮助你遗忘作为人的个性。</p>
-</li>
-<li><p>我们那一代人，许多是真正的理想主义者，而蒋介石从孙中山那里继承而来的国家体制，是违背现代宪政的“三一律”——一个领袖，一个主义，一个政党。当基本的人权都要被这个政府所钳制时，如果有另外一个党打出“要自由民主，要结社言论自由”的口号时，你说它能不吸引我们这些爱国哀民而又轻身躁进企图改造社会的理想青年吗？</p>
-<pre><code>博主云：所以我说从来不看好学生运动的，改造社会这种事情从来不是光靠满腔热情所能做到的，作为领袖没有一点的手腕是很难成就的。而那些政客更不用说了，他们永远是利益至上的，不知理想为何物。最好的状态是有个理想残存的野心家，然而毕竟是奢望。
-</code></pre></li>
-<li><p>生命不是话剧，可以彩排一次再正式登台。他们的悲剧一次性上演，就挥霍完了他们的一生。</p>
-<pre><code>博主云：我们从未踏入同一条河流，人生之无奈正出于此。
-</code></pre></li>
-<li><p>迅翁尝云：人最痛苦的莫过于梦醒之后无路可走。于我，则常是中宵酒醒之后，无路可走而深陷回忆，牵出无数往事的余痛。</p>
-</li>
-<li><p>老李认为——红卫兵的造反初衷源于那一代的神圣使命感，他们并不单纯，至少不像我们今天想象的那么幼稚。但动机不错的行动并不能保证结果的正确。他认为，知识分子应该为此首先承担罪责，全国各地的“文革”之火并非文盲引起，主要的“纵火犯”都是书生，他们只是没想到“革命最后会革到自己头上”。而在此之前，整个知识群体的道义缺失，客观上默许和纵容了暴政的为所欲为</p>
-</li>
-<li><p>捡粪的孩子多，牲口的遗矢有限，便不免有人终日碌碌而仅仅捡得几十粒羊矢。也有的持之以恒地跟踪一群牛，焦急地守望牛翘起尾巴，端起撮箕去抢接，甚至为此掀起混战。</p>
-<pre><code>博主云：现在看来甚是可笑，但这就是真实的生活，唏嘘！
-</code></pre></li>
-<li><p>他说世界上总有一些走投无路的人，需要花点小钱买个安慰；而我们这些废人也是生灵，也要活命，这叫天生人必养人。</p>
-</li>
-</ol>
 ]]></content>
       <categories>
         <category>阅读</category>
@@ -5673,36 +5673,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
-    <title>《十万小时天才理论》摘录</title>
-    <url>/2020/03/29/%E3%80%8A%E5%8D%81%E4%B8%87%E5%B0%8F%E6%97%B6%E5%A4%A9%E6%89%8D%E7%90%86%E8%AE%BA%E3%80%8B%E6%91%98%E5%BD%95/</url>
-    <content><![CDATA[<p><em>本文为整理以前的读书笔记</em></p>
-<p>精深练习：朝着既定目标挣扎前进，挑战自己的能力极限，不断放错，这让你更聪明</p>
-<p>设定一个稍微超过自己现有能力的目标，盲目受挫毫无帮助，实现目标才能突破原有水平。</p>
-<p>专业选手与普通人之间的差别是懂这种语言与不懂的区别</p>
-<a id="more"></a>
-<p>精深练习</p>
-<ol>
-<li>组块化：整体了解；分解成基础组块；慢动作练习，加速，了解内在结构</li>
-<li>重复练习</li>
-<li>尝试体会</li>
-</ol>
-<p>练习就是每天弹奏同样的音符，人类基本的姿态 —— 为一个想法努力，为你渴望的伟大成就努力争取，然后感觉它与你失之交臂。</p>
-<p>激情的工作原理：是那些让我们意识到“我就想成为那样的人”的时刻。</p>
-<p>激情的原始信号：未来归属感；不活不再安全；稀缺性</p>
-<p>激情不是为遵守规则而存在的，它的存在只是为了工作，为了给自己选择的任务提供能量。</p>
-<p>人才温床：肯定努力的价值，以及缓慢的进步，而不是天生的才华和智慧。</p>
-<p>良好的性格是在外而内的，而且可以由动机和练习综合创造。</p>
-<p><strong>不要期望一下子取得大幅度的进步</strong>，试着每天进步一小点，这是必经之路，而一旦开始进步，就会持续进步。</p>
-<p>髓鞘质回路不仅需要精深练习，也需要激情。</p>
-]]></content>
-      <categories>
-        <category>阅读</category>
-      </categories>
-      <tags>
-        <tag>读书笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>《冬吴相对论》读书笔记</title>
     <url>/2019/12/16/%E3%80%8A%E5%86%AC%E5%90%B4%E7%9B%B8%E5%AF%B9%E8%AE%BA%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img src="http://image.runjf.com/mweb/2019-12-16-15765097203009.jpg" alt></p>
@@ -5764,6 +5734,36 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       <tags>
         <tag>读书笔记</tag>
         <tag>随感</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《十万小时天才理论》摘录</title>
+    <url>/2020/03/29/%E3%80%8A%E5%8D%81%E4%B8%87%E5%B0%8F%E6%97%B6%E5%A4%A9%E6%89%8D%E7%90%86%E8%AE%BA%E3%80%8B%E6%91%98%E5%BD%95/</url>
+    <content><![CDATA[<p><em>本文为整理以前的读书笔记</em></p>
+<p>精深练习：朝着既定目标挣扎前进，挑战自己的能力极限，不断放错，这让你更聪明</p>
+<p>设定一个稍微超过自己现有能力的目标，盲目受挫毫无帮助，实现目标才能突破原有水平。</p>
+<p>专业选手与普通人之间的差别是懂这种语言与不懂的区别</p>
+<a id="more"></a>
+<p>精深练习</p>
+<ol>
+<li>组块化：整体了解；分解成基础组块；慢动作练习，加速，了解内在结构</li>
+<li>重复练习</li>
+<li>尝试体会</li>
+</ol>
+<p>练习就是每天弹奏同样的音符，人类基本的姿态 —— 为一个想法努力，为你渴望的伟大成就努力争取，然后感觉它与你失之交臂。</p>
+<p>激情的工作原理：是那些让我们意识到“我就想成为那样的人”的时刻。</p>
+<p>激情的原始信号：未来归属感；不活不再安全；稀缺性</p>
+<p>激情不是为遵守规则而存在的，它的存在只是为了工作，为了给自己选择的任务提供能量。</p>
+<p>人才温床：肯定努力的价值，以及缓慢的进步，而不是天生的才华和智慧。</p>
+<p>良好的性格是在外而内的，而且可以由动机和练习综合创造。</p>
+<p><strong>不要期望一下子取得大幅度的进步</strong>，试着每天进步一小点，这是必经之路，而一旦开始进步，就会持续进步。</p>
+<p>髓鞘质回路不仅需要精深练习，也需要激情。</p>
+]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -6420,70 +6420,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
-    <title>《找回逝去的自我--大脑心灵和往事的记忆》读书笔记</title>
-    <url>/2019/10/06/%E3%80%8A%E6%89%BE%E5%9B%9E%E9%80%9D%E5%8E%BB%E7%9A%84%E8%87%AA%E6%88%91%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<p><a href="https://book.douban.com/subject/5406389/" target="_blank" rel="noopener"> <img src="http://image.runjf.com/mweb/2019-10-06-15703330203326.jpg" alt> </a></p>
-<p><em>本文为整理以前的读书笔记</em></p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>作者: <a href="https://book.douban.com/search/%E4%B8%B9%E5%B0%BC%E5%B0%94%C2%B7%E5%A4%8F%E5%85%8B%E7%89%B9" target="_blank" rel="noopener">丹尼尔·夏克特</a> / <a href="https://book.douban.com/search/Daniel%20L.%20Schacter" target="_blank" rel="noopener">Daniel L. Schacter</a></p>
-<p>顾名思义，这是一本关于记忆的书，讲述了人脑记忆的机制。我们是如何储存，并提前记忆的。</p>
-<p>阅读这本书，对理解记忆，寻找改善记忆的方式有很大帮助。</p>
-<a id="more"></a>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>对往事的利用依赖于：</p>
-<ol>
-<li>语义记忆: 包括概念的及事实的知识 </li>
-<li>程序记忆: 是我们学习技能和形成习惯的基础</li>
-</ol>
-<p>记忆活动的两种模式：</p>
-<ol>
-<li>场域记忆：以事件发生的原始方式重新加以体验(第一人称视角，注意感情）</li>
-<li>观察者记忆: 必然是记忆的原始事件的变化形式(第三人称视角，注意客观环境回忆）</li>
-</ol>
-<p>一个记忆的感情强度，部分地决定于你的回忆方式</p>
-<p>一件事，我们仅仅是知道它发生过，还是记住了，取决于它发生时是如何加以注意的。</p>
-<p>对某事记忆印象，一方面取决于该事在过去的发生，另一方面也取决于目前回忆时所发生的情况</p>
-<p>短时时记忆，工作记忆系统。</p>
-<blockquote>
-<p>类似电脑RAM</p>
-</blockquote>
-<p>“深度加工”效应,要想建立长久的记忆，那就必须对所接受的信息进行更彻底或更深入的编码，即以一种有意义的方式将这一信息与已经存在于记忆之中的知识相联结。</p>
-<blockquote>
-<p>将信息赋予意义，能改善记忆  </p>
-</blockquote>
-<p>记忆是大脑欲赋予环境以秩序的一种努力</p>
-<p>精细编码为回忆提供看更多的线索</p>
-<p>只有未消退的记忆在碰到适当的回忆线索时，才能被记起</p>
-<p>提取线索具有的特征，会影响我们的回忆结果</p>
-<p>新的编码和储存会干扰先前记忆的回忆能力</p>
-<p>记忆歪曲在一点程度上是由编码过程引起的</p>
-<p>提取记忆唤醒了沉睡的记忆影像，还有当时的主观体验。</p>
-<p>海马系统，与近期经验的外显记忆相关</p>
-<p>颞叶中央区系统损伤引起失忆症</p>
-<p>注意力的集中是形成新的的外显记忆的必要条件</p>
-<p>内隐记忆与外显记忆</p>
-<p>启动效应：与事件相关的线索，有助于唤醒对该事件的记忆</p>
-<p>启动效应的产生不依赖于有意识的记忆</p>
-<p>启动效应依赖于某一以知觉为基础的记忆系统</p>
-<p>闪光灯记忆（像拍照一样的记忆），比日常记忆保持得更好</p>
-<p>某一事件发生之后，随时间的流逝，人们倾向于遗忘或者混淆该记忆的来源</p>
-<blockquote>
-<p>换个角度理解，已于遗忘的记忆一般都是单一来源的。</p>
-</blockquote>
-<p>回闪记忆：不由自主地产生、并具有强迫性质的种种回忆。</p>
-<p>能引起情绪变动的材料记忆得更牢</p>
-<p>情绪一致性提取：当你感到悲伤时，你似乎很容易产生各种消极的想法并记起痛苦的经历来。</p>
-<p>杏仁核 – 情绪调节的关键结构</p>
-<p>情绪之所以有助于记忆，是因为它引起了某些与应激性有关的激素释放</p>
-<p>心因性失忆（因心理创伤而引起的暂时性记忆丧失） – 大脑损伤，情绪创伤的联合反应</p>
-]]></content>
-      <categories>
-        <category>阅读</category>
-      </categories>
-      <tags>
-        <tag>读书笔记</tag>
-        <tag>记忆</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>《浮生六记》笔记</title>
     <url>/2019/11/02/%E3%80%8A%E6%B5%AE%E7%94%9F%E5%85%AD%E8%AE%B0%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img src="http://image.runjf.com/mweb/2019-12-07-15756871927995.jpg?300x" alt></p>
@@ -6545,6 +6481,70 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </categories>
       <tags>
         <tag>读书笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《找回逝去的自我--大脑心灵和往事的记忆》读书笔记</title>
+    <url>/2019/10/06/%E3%80%8A%E6%89%BE%E5%9B%9E%E9%80%9D%E5%8E%BB%E7%9A%84%E8%87%AA%E6%88%91%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<p><a href="https://book.douban.com/subject/5406389/" target="_blank" rel="noopener"> <img src="http://image.runjf.com/mweb/2019-10-06-15703330203326.jpg" alt> </a></p>
+<p><em>本文为整理以前的读书笔记</em></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>作者: <a href="https://book.douban.com/search/%E4%B8%B9%E5%B0%BC%E5%B0%94%C2%B7%E5%A4%8F%E5%85%8B%E7%89%B9" target="_blank" rel="noopener">丹尼尔·夏克特</a> / <a href="https://book.douban.com/search/Daniel%20L.%20Schacter" target="_blank" rel="noopener">Daniel L. Schacter</a></p>
+<p>顾名思义，这是一本关于记忆的书，讲述了人脑记忆的机制。我们是如何储存，并提前记忆的。</p>
+<p>阅读这本书，对理解记忆，寻找改善记忆的方式有很大帮助。</p>
+<a id="more"></a>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>对往事的利用依赖于：</p>
+<ol>
+<li>语义记忆: 包括概念的及事实的知识 </li>
+<li>程序记忆: 是我们学习技能和形成习惯的基础</li>
+</ol>
+<p>记忆活动的两种模式：</p>
+<ol>
+<li>场域记忆：以事件发生的原始方式重新加以体验(第一人称视角，注意感情）</li>
+<li>观察者记忆: 必然是记忆的原始事件的变化形式(第三人称视角，注意客观环境回忆）</li>
+</ol>
+<p>一个记忆的感情强度，部分地决定于你的回忆方式</p>
+<p>一件事，我们仅仅是知道它发生过，还是记住了，取决于它发生时是如何加以注意的。</p>
+<p>对某事记忆印象，一方面取决于该事在过去的发生，另一方面也取决于目前回忆时所发生的情况</p>
+<p>短时时记忆，工作记忆系统。</p>
+<blockquote>
+<p>类似电脑RAM</p>
+</blockquote>
+<p>“深度加工”效应,要想建立长久的记忆，那就必须对所接受的信息进行更彻底或更深入的编码，即以一种有意义的方式将这一信息与已经存在于记忆之中的知识相联结。</p>
+<blockquote>
+<p>将信息赋予意义，能改善记忆  </p>
+</blockquote>
+<p>记忆是大脑欲赋予环境以秩序的一种努力</p>
+<p>精细编码为回忆提供看更多的线索</p>
+<p>只有未消退的记忆在碰到适当的回忆线索时，才能被记起</p>
+<p>提取线索具有的特征，会影响我们的回忆结果</p>
+<p>新的编码和储存会干扰先前记忆的回忆能力</p>
+<p>记忆歪曲在一点程度上是由编码过程引起的</p>
+<p>提取记忆唤醒了沉睡的记忆影像，还有当时的主观体验。</p>
+<p>海马系统，与近期经验的外显记忆相关</p>
+<p>颞叶中央区系统损伤引起失忆症</p>
+<p>注意力的集中是形成新的的外显记忆的必要条件</p>
+<p>内隐记忆与外显记忆</p>
+<p>启动效应：与事件相关的线索，有助于唤醒对该事件的记忆</p>
+<p>启动效应的产生不依赖于有意识的记忆</p>
+<p>启动效应依赖于某一以知觉为基础的记忆系统</p>
+<p>闪光灯记忆（像拍照一样的记忆），比日常记忆保持得更好</p>
+<p>某一事件发生之后，随时间的流逝，人们倾向于遗忘或者混淆该记忆的来源</p>
+<blockquote>
+<p>换个角度理解，已于遗忘的记忆一般都是单一来源的。</p>
+</blockquote>
+<p>回闪记忆：不由自主地产生、并具有强迫性质的种种回忆。</p>
+<p>能引起情绪变动的材料记忆得更牢</p>
+<p>情绪一致性提取：当你感到悲伤时，你似乎很容易产生各种消极的想法并记起痛苦的经历来。</p>
+<p>杏仁核 – 情绪调节的关键结构</p>
+<p>情绪之所以有助于记忆，是因为它引起了某些与应激性有关的激素释放</p>
+<p>心因性失忆（因心理创伤而引起的暂时性记忆丧失） – 大脑损伤，情绪创伤的联合反应</p>
+]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+        <tag>记忆</tag>
       </tags>
   </entry>
   <entry>
@@ -7593,190 +7593,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
-    <title>《庄子諵哗》读书笔记</title>
-    <url>/2020/08/01/%E5%BA%84%E5%AD%90%E8%AB%B5%E5%93%97-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<p>从高中接触庄子开始，就觉得太难懂了，无论原著还是翻译。直到大学发现南老师讲的这本，才算是勉强能看下去。</p>
-<p>从14年开始，晚上时不时看一点，到现在看完，正好六年。</p>
-<p>人生又有多少个六年呢</p>
-<a id="more"></a>
-<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>第一个主题，就是人生要“具见”，见地具备，就是普通讲的见解，再普通一点讲，就是眼光、思想。</p>
-<p>物与物之间互相在变化，所以叫“物化”</p>
-<blockquote>
-<p>阮云：庄周化蝶，就是物化</p>
-</blockquote>
-<p>“野马”不是一匹马喔，“野马”就是佛经上讲的“阳焰”，太阳光的幻影，古书叫做“海市蜃楼”。</p>
-<p>人类的见解、知识和生活经验都是“比量”，不是真实的。同样一个气候，同样一个空间，一个时间，一个颜色，因人而产生的感受各异。</p>
-<blockquote>
-<p>阮云：因为人和真实的世界，中间总是隔着一层感官，所以每个人的感受是不一样的。</p>
-</blockquote>
-<p>“循业发现”。每一个人根据他自己的生活经历、思想见解、智慧境界等，看一个东西的观念都不同。</p>
-<blockquote>
-<p>阮云：这也是为什么人们很难相互理解</p>
-</blockquote>
-<p>世味尝来浑是蜡，莫教开口向人提。</p>
-<blockquote>
-<p>阮云：大抵是真实而又乏味吧，而且生活的苦不要对他人讲，因为别人体会不了，徒增笑料</p>
-</blockquote>
-<p>依他而起，属于“比量”的境界，通过比较而产生的，都是“依他而起”</p>
-<blockquote>
-<p>阮云：人类的见解、知识和生活经验都是“依他而起”，这个“他”，类似佛家的本性</p>
-</blockquote>
-<p>以神仙丹道家学说来讲，认为生时魄在肉体生命活力中普遍存在。不经过修炼，不能和魂凝聚为一，死后魄就归沉于地。因此，魂就是鬼影，魄是鬼形。</p>
-<p>人世间哪个是真理？哪个是是？哪个是非？哪个是黑？哪个是白？其实对与不对，都是人的“师心自用”。就是说一个人有“成见”，有主观的观念，自以为对就对，叫“师心自用”。</p>
-<blockquote>
-<p>阮云：人总以为自己的经验，能够放之四海，可笑啊</p>
-</blockquote>
-<p>会万物于己者，其惟圣人乎。</p>
-<blockquote>
-<p>阮云：所谓物我混而为一</p>
-</blockquote>
-<p>庄子说：是非观念所产生可以不可以，是从我们的主观来的，我们的认识，你认为可以就可以，你认为不可以就不可以，宇宙间没有一个真正的离开身心以外的是非观念。</p>
-<blockquote>
-<p>阮云：所以说，真正的客观是不存在的。</p>
-</blockquote>
-<p>“物固有所然，”天地万物它有它的所以然，既然宇宙形成了万物，电就是电，电通过灯时，它发亮；通过录音机收音机时，它发声。这个物体有它所以然的特别的性能。“物固有所可。”所以万物有它适宜应该的本位，有它适宜应该的立场。</p>
-<blockquote>
-<p>阮云：一个物有造就它的原因，自然也限制了它能适用的地方。如果这些变了，这物就变为他物了吧</p>
-</blockquote>
-<p>“不用而寓诸庸”呢？“庸”不是马虎，不是差不多，是“得其环中”，</p>
-<blockquote>
-<p>阮云：无用之用是谓大用，道家来讲是无为，佛家是随缘</p>
-</blockquote>
-<p>把自己的精神、聪明向一点上钻。这个“劳神明为一”的“一”，不是“道通为一”的“一”的意思，不要搞错了。只向一点上钻牛角尖，他认为自己最高明，不晓得向大同方面钻，</p>
-<p>形而上之道无是也无非，无善也无恶，形而下之道，有是非，有善恶。</p>
-<blockquote>
-<p>阮云：世界万物本来应该是中性的，因为人的观念介入，而有了高下，有了分别</p>
-</blockquote>
-<p>“未始有封也”，并没有界线。</p>
-<blockquote>
-<p>阮云：物于物之间不存在界限，一直在转化</p>
-</blockquote>
-<p>物质文明越发达，社会越复杂，思想之混乱，是非善恶观念之复杂，都是障道的因缘</p>
-<blockquote>
-<p>阮云：这些就是五蕴，色受想行识。</p>
-</blockquote>
-<p>我再提一下全篇的宗旨，道体，宇宙万有的本体，本来是绝对、同一的。当道体起作用的时候，一切万类的现象不同，作用不同，但道体是一样的。</p>
-<blockquote>
-<p>阮云：一以贯之的就是道体吧</p>
-</blockquote>
-<p>道体是“一”的。因为大家自己的观念不同，被现象骗了，所以各家有各家的看法，儒家有儒家的看法，墨家有墨家的看法 道家有道家的看法，各种说法都不同，应用的方法也不同。因此，被现象迷住了，忘记了本来。</p>
-<p>人要晓得“知几”，把握自己生命的重点，不“知几”，对于自己是在开玩笑，没有用</p>
-<blockquote>
-<p>阮云：几通机，因为物化，事物总在变动之中，所以要知晓关键时机</p>
-</blockquote>
-<p>不管是宗教的，哲学的、科学的、古代诸子百家的，现在的科学分门别类，都有一个大原则，一切学问与人身心性命没有关系的，它不会成立不会存在。</p>
-<p>天地是与我同存的，万物是与我同一的，我们跟万物同样都是那个东西的一份子，并非天地就是我，也不是我就是天地，物是物，我是我，天还是天，地还是地。</p>
-<p>佛学里的有一句名言“如人饮水，冷暖自知”，就是“圣人怀之”，到了那个程度，那个境界，“圣人”只有自己知道</p>
-<p>“是非以不辩为解脱”，禅宗注重的行为，不完全是打坐，所以百丈禅师讲“疾病以减食为汤药”，有了病最好少吃东西，肠胃清理一下，</p>
-<p>上古我们的老祖宗是吃狗肉的，现在广东人保持了这一习俗，上古祭祖宗都要用狗肉来祭，大约到了商、周以后，在祭祀中，才渐渐免除了狗肉这项祭品，但在某些祀典中，仍然须用草扎一个象形的狗，替代一头真的狗，这就是刍狗的来源。</p>
-<blockquote>
-<p>阮云：以万物为刍狗，把万物当成草扎的狗，在祭祀的时候，很庄重，把草狗当成真狗，当祭祀完，就可以扔掉了。</p>
-</blockquote>
-<p>“大廉不嗛”的道理，我经常说一个笑话，拿什么来比呢？拿猪来比，实际世界上最爱干净的是猪，研究生物学的都懂。你看猪一天到晚用嘴东拱西拱，人们以为猪脏，其实它最爱清洁了，脏东西一点都看不惯，看到脏东西就把它拱开，结果是越拱越脏。</p>
-<blockquote>
-<p>阮云：嗛通谦，真正的大廉没有谦让，并不是不谈钱。</p>
-</blockquote>
-<p>啮缺问：你知不知道，天地万物有一个到了最高处基本是相同的，绝对的，同一的那个东西？王倪答复：我哪里知道？换一句话说，我不知道。啮缺又问：你为什么不知道？你知不知道你那个时候你不知道的？王倪说我也不知道，我也不懂。那么啮缺就问：既然这样，宇宙万物的最高处是无知吗？王倪又说，那我也不知道。我们中国文化有一个成语，叫“一问三不知”</p>
-<p>“吊诡”就是佛家禅宗所谓“机锋”。中国学武的有一句话：“弓在弦上，不得不发”，弓拉满了，箭在弦上，不得不发，这是“机”。彼此两个机关相对，非常锋利，很快，不可以用思想，来不及用思想</p>
-<blockquote>
-<p>阮云：所谓势，物理中的势能就是来自此处</p>
-</blockquote>
-<p>“不可思议”，最高的真理就这四个字。不可以用思想知识去推测，不可用逻辑思辩来断定。</p>
-<p>知其不可奈何而安之若命，德之至也。</p>
-<p>凡交近则必相靡以信，远则必忠之以言。言必或传之。</p>
-<p>夫两喜必多溢美之言，两怒必多溢恶之言。凡溢之类妄，妄则其信之也莫，莫则传言者殃。</p>
-<blockquote>
-<p>阮云：所以君子之交淡如水</p>
-</blockquote>
-<p>克核太至，则必有不肖之心应之，而不知其然也。</p>
-<p>我们常常看到办事的，做公务员的“迁令”。譬如我发现有跟我做事的同学，我说：“请你帮我把下面那一本书拿上来。”结果他到了下面对另一人说，“某某人，老师叫你把那本书拿上去。”这就叫“迁令”，已经不对了。做人要“不迁令”。</p>
-<blockquote>
-<p>阮云：然而现在企业在中层都是这种人，可笑可笑</p>
-</blockquote>
-<p>“美成在久，”就是我们平时所讲的，好事不在忙。成就好的事情，不是一时做得到的。坏的事情却容易成就，一成就了以往，来不及改正。所以作人处事要慎重地考虑。</p>
-<p>“有人于此，其德天杀。与之为无方，则危吾国，与之为有方，则危吾身。</p>
-<blockquote>
-<p>阮云：与暴君相处，如果任由放纵他，危害国家，如果约束他，危害自身性命</p>
-</blockquote>
-<p>形就而入，且为颠为灭，为崩为蹶；心和而出，且为声为名，为妖为孽。</p>
-<blockquote>
-<p>阮云：讲得是要和光同尘，如果顺从本心，反而被认为妖孽</p>
-</blockquote>
-<p>汝不知夫螳螂乎？怒其臂以当车辙，不知其不胜任也，是其才之美者也。戒之，慎之，积伐而美者以犯之，几矣！</p>
-<p>故未终其天年而中道之夭于斧斤，此材之患也。</p>
-<p>支离其德</p>
-<blockquote>
-<p>阮云：支离是古人叫支离疏，长得奇形怪状的，然而却免遭各种劳役。这里讲的还是无用之用</p>
-</blockquote>
-<p>福轻乎羽，莫之知载。</p>
-<blockquote>
-<p>阮云：幸福这东西比羽毛还轻，不知道拿什么把它装起来。</p>
-</blockquote>
-<p>《人间世》全篇的宗旨：“世路难行”。并不是世路是不可行的，是可行的。人生要你自己善于处。那么归结起来告诉我们什么东西呢？三个字：守本份。人要守本份，在什么立场就做什么事，处什么态度。大家进了歌厅就要跟着唱歌，进了舞厅就要跟着跳舞，大家喝醉了你就要装醉，大家清醒起来你也要跟着清醒，大家都在做工你却在睡觉，那就不是疯而是蠢到极点了。</p>
-<p>我们知道，春秋战国的文化，道跟德是分开的，道是体，就是内涵，是每个人修养学问的内涵；德是用，得了道体就能起用，即用世之道。</p>
-<p>自其异者视之，肝胆楚越也；自其同者视之，万物皆一也。</p>
-<p>吾所谓无情者，言人之不以好恶内伤其身，常因自然而不益生也。</p>
-<p>尤其这一篇我们要了解什么是“命”，这个命不是算八字那个命，它在哲学的理论上叫天命，在实际的修证就是认清生命的来源。</p>
-<p>这个“命”相当于佛学中讲的业，善的是善业，恶的是恶业，不善不恶的是无记业。</p>
-<p>古书上的“天”字，大约概括了五类内涵：（一）天文学上物理世界的天体之天，如《周易》乾卦卦辞“天行健”的“天”。 （二）具有宗教色彩，信仰上的主宰之天，如《左传》所说的“昊天不吊”。（三）理性上的天，如《诗经》小节的“苍天苍天”。（四）心理性情上的天，如《泰誓》和《孟子》的“天视自我民视，天听自我民听”。（五）形而上的天，如《中庸》所谓“天命之谓性”。</p>
-<p>那么这个道怎么来的呢？两个路线：一是抛弃了你的小聪明，而求那个“无知之知”的大道；另一个路线，把世间的聪明学问都通到了极点，最后归到“一无所知而无不知”，也就得道了。</p>
-<blockquote>
-<p>阮云：和禅宗所谓顿悟和渐修一个意思</p>
-</blockquote>
-<p>不要弄得像现在大学的史学系一样，自己好像比历史还高明，然后去分析历史批判历史，结果你不是历史，你是书呆子。现在研究历史同我们过去不同，我们过去研究历史，是使自己懂得如何作人做事，现在不然，现在是比历史都还要高。</p>
-<blockquote>
-<p>阮云：我们的历史课本常犯这种毛病，脱离时代来谈局限性</p>
-</blockquote>
-<p>“未死先学死，有生即杀生”，“生”就是心念一动，就要把心念通通去掉；这个“死”，不是自己吃安眠药去死，是要烦恼杂念妄想通通死光，就是杀的作用。也就是说，心中的烦恼杂念通通死光，生命的本能才会恢复，才会长生不死。</p>
-<p>孔子讲得很彻底：“徒善不足以为敬，徒法不足以自刑”。</p>
-<p>汉家自有制度，本以霸王道杂之</p>
-<p>泉涸，鱼相与处于陆，相呴以湿，相濡以沫，不如相忘于江湖。与其誉尧而非桀也，不如两忘而化其道。</p>
-<p>杀生者不死，生生者不生。其为物，无不将也，无不迎也，无不毁也，无不成也，其名为撄宁。撄宁也者，撄而后成者也。</p>
-<p>孔子儒家所标榜的圣王之道，得了道才可以入世，“终日挥形”，他们虽然一天到晚看起来忙死了，但“神气无变”，内在修养神与气，并没有受忙碌的外界所影响。</p>
-<p>“各有前因莫羡人”，每一个人都有各自的前因后果，你不要嫉妒羡慕人家。这些都是人生哲学的问题。</p>
-<p>认为时代是进步的，这是站在物质文明立场上来讲。今后的人在物质的享受上，比我们现在还要进步，最后的形态，是物质文明一切一切都在进步；认为时代是退化退步的，这是站在精神文明来讲，这两种观念，必须要推论到宗教上面去。</p>
-<p>你看其它国家的人，标榜人道，可见很不人道，所以才需要人道。</p>
-<p>“其卧徐徐，其觉于于”，这两句话代表佛学禅宗讲的“梦觉一如”，人没有昏迷过，无所谓睡眠，睡眠也是清醒，醒了以后，也没有昏迷过，在清醒中“人生如梦”，本来是梦境，这没有什么两样。</p>
-<blockquote>
-<p>阮云：所谓色即是空，空即是色。</p>
-</blockquote>
-<p>“以己出经”，拿自己推理别人，就是儒家讲的推己及人的忠恕之道。</p>
-<p>圣帝明王，就是动物园的园长，就养一些高明的动物。</p>
-<blockquote>
-<p>阮云：所以领导者并不是自己多强，是要能招到厉害的人，管好厉害的人。</p>
-</blockquote>
-<p>这个道理只可以悟不可以讲，讲出来就很讨厌的。</p>
-<blockquote>
-<p>阮云：就如鲁迅说的，“这人终究会死的”，虽然是实话，但是难听</p>
-</blockquote>
-<p>没有一个人会在妈妈肚子里问：我为什么要生出来？我生出来的目的是什么？没有一个人是问明白了才生出来的。所以人生就以人生为目的，本来如此，这个题目本身就是答案，还有什么好讲的！</p>
-<p>我们人生只有十二个字：“看得破，忍不过；想得到，做不来。”</p>
-]]></content>
-      <categories>
-        <category>阅读</category>
-      </categories>
-      <tags>
-        <tag>读书笔记</tag>
-        <tag>哲学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我们为什么不能理解别人</title>
-    <url>/2016/06/12/%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%90%86%E8%A7%A3%E5%88%AB%E4%BA%BA/</url>
-    <content><![CDATA[<p>　　这世界上这么多纷争与烦恼，很大一部分都是因为人与人之间不能相互理解，他人为敌国、以邻为壑等等层出不穷。之所以不能理解，是因为<strong>同一个东西，对于不同的人（或者不同时间或空间的同一个人），价值是全然不同的。</strong></p>
-<p>　　可能你认为重于生命的东西，于他人不过徒增笑谈尔。比如信教者的斋戒等行为，对无神论者来说是多余的，而对信徒来说却是可能比生命更重要。<br>　　<br>　　又如，你还在大学的时候，这时的时间对你来说十分廉价，所以你愿意去发8元每小时的宣传单；等你事业有成或是垂垂老矣，你还愿意花这一小时去干这个吗，也许只会感叹自己当时太年轻吧。一个人尚且不能理解年轻时的自己，又怎能奢望他理解别人呢？<br>　　<br>　　真正的相互理解是要认同他人对事物价值的判定，但一个事物对他们的价值有天壤之别，这样你叫他们如何相互理解呢？</p>
-<p>　　那么怎么解决这种情况呢？也就是怎么寻找一种相对普适的价值衡量方法呢？<br>　　<br>　　我的一个浅薄的思路是，<strong>衡量一个事物的价值可以通过这个人的付出相对自身的稀缺性，这种付出包括物资的付出和精神上承受的压力。</strong><br>　　<br>　　比如说，一个乞丐付出了仅有的100元买了个表，和一个百万富豪付出1000元买了个表。对乞丐来说这表是全部，而对富豪来说表是1/1000。因此乞丐对表爱护有加，富豪对表弃之如弊履，就完全可以理解了。也可以说乞丐的表价值大于富豪的表。<br>　　<br>　　虽然绝对价值不可判定，并且造成很多纷争。但是，同一件事对不同的人价值不同也不是全然没有好处，至少在市场经济里，你们完全可以交换这些东西嘛。</p>
-<p>　　要之，于娑婆世界中，众生皆苦，<strong>要以事物相对他人的稀缺性来看他人的付出与承受，如此理解他人才成为可能。</strong></p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-        <tag>世界观</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>学习《重构手册》</title>
     <url>/2020/10/15/%E5%AD%A6%E4%B9%A0%E3%80%8A%E9%87%8D%E6%9E%84%E6%89%8B%E5%86%8C%E3%80%8B/</url>
     <content><![CDATA[<p><img src="http://image.runjf.com/mweb/2020-10-18-%E9%87%8D%E6%9E%84%E6%89%8B%E5%86%8C-%E5%BC%82%E5%91%B3.png" alt></p>
@@ -8457,6 +8273,190 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       <tags>
         <tag>读书笔记</tag>
         <tag>重构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我们为什么不能理解别人</title>
+    <url>/2016/06/12/%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%90%86%E8%A7%A3%E5%88%AB%E4%BA%BA/</url>
+    <content><![CDATA[<p>　　这世界上这么多纷争与烦恼，很大一部分都是因为人与人之间不能相互理解，他人为敌国、以邻为壑等等层出不穷。之所以不能理解，是因为<strong>同一个东西，对于不同的人（或者不同时间或空间的同一个人），价值是全然不同的。</strong></p>
+<p>　　可能你认为重于生命的东西，于他人不过徒增笑谈尔。比如信教者的斋戒等行为，对无神论者来说是多余的，而对信徒来说却是可能比生命更重要。<br>　　<br>　　又如，你还在大学的时候，这时的时间对你来说十分廉价，所以你愿意去发8元每小时的宣传单；等你事业有成或是垂垂老矣，你还愿意花这一小时去干这个吗，也许只会感叹自己当时太年轻吧。一个人尚且不能理解年轻时的自己，又怎能奢望他理解别人呢？<br>　　<br>　　真正的相互理解是要认同他人对事物价值的判定，但一个事物对他们的价值有天壤之别，这样你叫他们如何相互理解呢？</p>
+<p>　　那么怎么解决这种情况呢？也就是怎么寻找一种相对普适的价值衡量方法呢？<br>　　<br>　　我的一个浅薄的思路是，<strong>衡量一个事物的价值可以通过这个人的付出相对自身的稀缺性，这种付出包括物资的付出和精神上承受的压力。</strong><br>　　<br>　　比如说，一个乞丐付出了仅有的100元买了个表，和一个百万富豪付出1000元买了个表。对乞丐来说这表是全部，而对富豪来说表是1/1000。因此乞丐对表爱护有加，富豪对表弃之如弊履，就完全可以理解了。也可以说乞丐的表价值大于富豪的表。<br>　　<br>　　虽然绝对价值不可判定，并且造成很多纷争。但是，同一件事对不同的人价值不同也不是全然没有好处，至少在市场经济里，你们完全可以交换这些东西嘛。</p>
+<p>　　要之，于娑婆世界中，众生皆苦，<strong>要以事物相对他人的稀缺性来看他人的付出与承受，如此理解他人才成为可能。</strong></p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>世界观</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《庄子諵哗》读书笔记</title>
+    <url>/2020/08/01/%E5%BA%84%E5%AD%90%E8%AB%B5%E5%93%97-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<p>从高中接触庄子开始，就觉得太难懂了，无论原著还是翻译。直到大学发现南老师讲的这本，才算是勉强能看下去。</p>
+<p>从14年开始，晚上时不时看一点，到现在看完，正好六年。</p>
+<p>人生又有多少个六年呢</p>
+<a id="more"></a>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>第一个主题，就是人生要“具见”，见地具备，就是普通讲的见解，再普通一点讲，就是眼光、思想。</p>
+<p>物与物之间互相在变化，所以叫“物化”</p>
+<blockquote>
+<p>阮云：庄周化蝶，就是物化</p>
+</blockquote>
+<p>“野马”不是一匹马喔，“野马”就是佛经上讲的“阳焰”，太阳光的幻影，古书叫做“海市蜃楼”。</p>
+<p>人类的见解、知识和生活经验都是“比量”，不是真实的。同样一个气候，同样一个空间，一个时间，一个颜色，因人而产生的感受各异。</p>
+<blockquote>
+<p>阮云：因为人和真实的世界，中间总是隔着一层感官，所以每个人的感受是不一样的。</p>
+</blockquote>
+<p>“循业发现”。每一个人根据他自己的生活经历、思想见解、智慧境界等，看一个东西的观念都不同。</p>
+<blockquote>
+<p>阮云：这也是为什么人们很难相互理解</p>
+</blockquote>
+<p>世味尝来浑是蜡，莫教开口向人提。</p>
+<blockquote>
+<p>阮云：大抵是真实而又乏味吧，而且生活的苦不要对他人讲，因为别人体会不了，徒增笑料</p>
+</blockquote>
+<p>依他而起，属于“比量”的境界，通过比较而产生的，都是“依他而起”</p>
+<blockquote>
+<p>阮云：人类的见解、知识和生活经验都是“依他而起”，这个“他”，类似佛家的本性</p>
+</blockquote>
+<p>以神仙丹道家学说来讲，认为生时魄在肉体生命活力中普遍存在。不经过修炼，不能和魂凝聚为一，死后魄就归沉于地。因此，魂就是鬼影，魄是鬼形。</p>
+<p>人世间哪个是真理？哪个是是？哪个是非？哪个是黑？哪个是白？其实对与不对，都是人的“师心自用”。就是说一个人有“成见”，有主观的观念，自以为对就对，叫“师心自用”。</p>
+<blockquote>
+<p>阮云：人总以为自己的经验，能够放之四海，可笑啊</p>
+</blockquote>
+<p>会万物于己者，其惟圣人乎。</p>
+<blockquote>
+<p>阮云：所谓物我混而为一</p>
+</blockquote>
+<p>庄子说：是非观念所产生可以不可以，是从我们的主观来的，我们的认识，你认为可以就可以，你认为不可以就不可以，宇宙间没有一个真正的离开身心以外的是非观念。</p>
+<blockquote>
+<p>阮云：所以说，真正的客观是不存在的。</p>
+</blockquote>
+<p>“物固有所然，”天地万物它有它的所以然，既然宇宙形成了万物，电就是电，电通过灯时，它发亮；通过录音机收音机时，它发声。这个物体有它所以然的特别的性能。“物固有所可。”所以万物有它适宜应该的本位，有它适宜应该的立场。</p>
+<blockquote>
+<p>阮云：一个物有造就它的原因，自然也限制了它能适用的地方。如果这些变了，这物就变为他物了吧</p>
+</blockquote>
+<p>“不用而寓诸庸”呢？“庸”不是马虎，不是差不多，是“得其环中”，</p>
+<blockquote>
+<p>阮云：无用之用是谓大用，道家来讲是无为，佛家是随缘</p>
+</blockquote>
+<p>把自己的精神、聪明向一点上钻。这个“劳神明为一”的“一”，不是“道通为一”的“一”的意思，不要搞错了。只向一点上钻牛角尖，他认为自己最高明，不晓得向大同方面钻，</p>
+<p>形而上之道无是也无非，无善也无恶，形而下之道，有是非，有善恶。</p>
+<blockquote>
+<p>阮云：世界万物本来应该是中性的，因为人的观念介入，而有了高下，有了分别</p>
+</blockquote>
+<p>“未始有封也”，并没有界线。</p>
+<blockquote>
+<p>阮云：物于物之间不存在界限，一直在转化</p>
+</blockquote>
+<p>物质文明越发达，社会越复杂，思想之混乱，是非善恶观念之复杂，都是障道的因缘</p>
+<blockquote>
+<p>阮云：这些就是五蕴，色受想行识。</p>
+</blockquote>
+<p>我再提一下全篇的宗旨，道体，宇宙万有的本体，本来是绝对、同一的。当道体起作用的时候，一切万类的现象不同，作用不同，但道体是一样的。</p>
+<blockquote>
+<p>阮云：一以贯之的就是道体吧</p>
+</blockquote>
+<p>道体是“一”的。因为大家自己的观念不同，被现象骗了，所以各家有各家的看法，儒家有儒家的看法，墨家有墨家的看法 道家有道家的看法，各种说法都不同，应用的方法也不同。因此，被现象迷住了，忘记了本来。</p>
+<p>人要晓得“知几”，把握自己生命的重点，不“知几”，对于自己是在开玩笑，没有用</p>
+<blockquote>
+<p>阮云：几通机，因为物化，事物总在变动之中，所以要知晓关键时机</p>
+</blockquote>
+<p>不管是宗教的，哲学的、科学的、古代诸子百家的，现在的科学分门别类，都有一个大原则，一切学问与人身心性命没有关系的，它不会成立不会存在。</p>
+<p>天地是与我同存的，万物是与我同一的，我们跟万物同样都是那个东西的一份子，并非天地就是我，也不是我就是天地，物是物，我是我，天还是天，地还是地。</p>
+<p>佛学里的有一句名言“如人饮水，冷暖自知”，就是“圣人怀之”，到了那个程度，那个境界，“圣人”只有自己知道</p>
+<p>“是非以不辩为解脱”，禅宗注重的行为，不完全是打坐，所以百丈禅师讲“疾病以减食为汤药”，有了病最好少吃东西，肠胃清理一下，</p>
+<p>上古我们的老祖宗是吃狗肉的，现在广东人保持了这一习俗，上古祭祖宗都要用狗肉来祭，大约到了商、周以后，在祭祀中，才渐渐免除了狗肉这项祭品，但在某些祀典中，仍然须用草扎一个象形的狗，替代一头真的狗，这就是刍狗的来源。</p>
+<blockquote>
+<p>阮云：以万物为刍狗，把万物当成草扎的狗，在祭祀的时候，很庄重，把草狗当成真狗，当祭祀完，就可以扔掉了。</p>
+</blockquote>
+<p>“大廉不嗛”的道理，我经常说一个笑话，拿什么来比呢？拿猪来比，实际世界上最爱干净的是猪，研究生物学的都懂。你看猪一天到晚用嘴东拱西拱，人们以为猪脏，其实它最爱清洁了，脏东西一点都看不惯，看到脏东西就把它拱开，结果是越拱越脏。</p>
+<blockquote>
+<p>阮云：嗛通谦，真正的大廉没有谦让，并不是不谈钱。</p>
+</blockquote>
+<p>啮缺问：你知不知道，天地万物有一个到了最高处基本是相同的，绝对的，同一的那个东西？王倪答复：我哪里知道？换一句话说，我不知道。啮缺又问：你为什么不知道？你知不知道你那个时候你不知道的？王倪说我也不知道，我也不懂。那么啮缺就问：既然这样，宇宙万物的最高处是无知吗？王倪又说，那我也不知道。我们中国文化有一个成语，叫“一问三不知”</p>
+<p>“吊诡”就是佛家禅宗所谓“机锋”。中国学武的有一句话：“弓在弦上，不得不发”，弓拉满了，箭在弦上，不得不发，这是“机”。彼此两个机关相对，非常锋利，很快，不可以用思想，来不及用思想</p>
+<blockquote>
+<p>阮云：所谓势，物理中的势能就是来自此处</p>
+</blockquote>
+<p>“不可思议”，最高的真理就这四个字。不可以用思想知识去推测，不可用逻辑思辩来断定。</p>
+<p>知其不可奈何而安之若命，德之至也。</p>
+<p>凡交近则必相靡以信，远则必忠之以言。言必或传之。</p>
+<p>夫两喜必多溢美之言，两怒必多溢恶之言。凡溢之类妄，妄则其信之也莫，莫则传言者殃。</p>
+<blockquote>
+<p>阮云：所以君子之交淡如水</p>
+</blockquote>
+<p>克核太至，则必有不肖之心应之，而不知其然也。</p>
+<p>我们常常看到办事的，做公务员的“迁令”。譬如我发现有跟我做事的同学，我说：“请你帮我把下面那一本书拿上来。”结果他到了下面对另一人说，“某某人，老师叫你把那本书拿上去。”这就叫“迁令”，已经不对了。做人要“不迁令”。</p>
+<blockquote>
+<p>阮云：然而现在企业在中层都是这种人，可笑可笑</p>
+</blockquote>
+<p>“美成在久，”就是我们平时所讲的，好事不在忙。成就好的事情，不是一时做得到的。坏的事情却容易成就，一成就了以往，来不及改正。所以作人处事要慎重地考虑。</p>
+<p>“有人于此，其德天杀。与之为无方，则危吾国，与之为有方，则危吾身。</p>
+<blockquote>
+<p>阮云：与暴君相处，如果任由放纵他，危害国家，如果约束他，危害自身性命</p>
+</blockquote>
+<p>形就而入，且为颠为灭，为崩为蹶；心和而出，且为声为名，为妖为孽。</p>
+<blockquote>
+<p>阮云：讲得是要和光同尘，如果顺从本心，反而被认为妖孽</p>
+</blockquote>
+<p>汝不知夫螳螂乎？怒其臂以当车辙，不知其不胜任也，是其才之美者也。戒之，慎之，积伐而美者以犯之，几矣！</p>
+<p>故未终其天年而中道之夭于斧斤，此材之患也。</p>
+<p>支离其德</p>
+<blockquote>
+<p>阮云：支离是古人叫支离疏，长得奇形怪状的，然而却免遭各种劳役。这里讲的还是无用之用</p>
+</blockquote>
+<p>福轻乎羽，莫之知载。</p>
+<blockquote>
+<p>阮云：幸福这东西比羽毛还轻，不知道拿什么把它装起来。</p>
+</blockquote>
+<p>《人间世》全篇的宗旨：“世路难行”。并不是世路是不可行的，是可行的。人生要你自己善于处。那么归结起来告诉我们什么东西呢？三个字：守本份。人要守本份，在什么立场就做什么事，处什么态度。大家进了歌厅就要跟着唱歌，进了舞厅就要跟着跳舞，大家喝醉了你就要装醉，大家清醒起来你也要跟着清醒，大家都在做工你却在睡觉，那就不是疯而是蠢到极点了。</p>
+<p>我们知道，春秋战国的文化，道跟德是分开的，道是体，就是内涵，是每个人修养学问的内涵；德是用，得了道体就能起用，即用世之道。</p>
+<p>自其异者视之，肝胆楚越也；自其同者视之，万物皆一也。</p>
+<p>吾所谓无情者，言人之不以好恶内伤其身，常因自然而不益生也。</p>
+<p>尤其这一篇我们要了解什么是“命”，这个命不是算八字那个命，它在哲学的理论上叫天命，在实际的修证就是认清生命的来源。</p>
+<p>这个“命”相当于佛学中讲的业，善的是善业，恶的是恶业，不善不恶的是无记业。</p>
+<p>古书上的“天”字，大约概括了五类内涵：（一）天文学上物理世界的天体之天，如《周易》乾卦卦辞“天行健”的“天”。 （二）具有宗教色彩，信仰上的主宰之天，如《左传》所说的“昊天不吊”。（三）理性上的天，如《诗经》小节的“苍天苍天”。（四）心理性情上的天，如《泰誓》和《孟子》的“天视自我民视，天听自我民听”。（五）形而上的天，如《中庸》所谓“天命之谓性”。</p>
+<p>那么这个道怎么来的呢？两个路线：一是抛弃了你的小聪明，而求那个“无知之知”的大道；另一个路线，把世间的聪明学问都通到了极点，最后归到“一无所知而无不知”，也就得道了。</p>
+<blockquote>
+<p>阮云：和禅宗所谓顿悟和渐修一个意思</p>
+</blockquote>
+<p>不要弄得像现在大学的史学系一样，自己好像比历史还高明，然后去分析历史批判历史，结果你不是历史，你是书呆子。现在研究历史同我们过去不同，我们过去研究历史，是使自己懂得如何作人做事，现在不然，现在是比历史都还要高。</p>
+<blockquote>
+<p>阮云：我们的历史课本常犯这种毛病，脱离时代来谈局限性</p>
+</blockquote>
+<p>“未死先学死，有生即杀生”，“生”就是心念一动，就要把心念通通去掉；这个“死”，不是自己吃安眠药去死，是要烦恼杂念妄想通通死光，就是杀的作用。也就是说，心中的烦恼杂念通通死光，生命的本能才会恢复，才会长生不死。</p>
+<p>孔子讲得很彻底：“徒善不足以为敬，徒法不足以自刑”。</p>
+<p>汉家自有制度，本以霸王道杂之</p>
+<p>泉涸，鱼相与处于陆，相呴以湿，相濡以沫，不如相忘于江湖。与其誉尧而非桀也，不如两忘而化其道。</p>
+<p>杀生者不死，生生者不生。其为物，无不将也，无不迎也，无不毁也，无不成也，其名为撄宁。撄宁也者，撄而后成者也。</p>
+<p>孔子儒家所标榜的圣王之道，得了道才可以入世，“终日挥形”，他们虽然一天到晚看起来忙死了，但“神气无变”，内在修养神与气，并没有受忙碌的外界所影响。</p>
+<p>“各有前因莫羡人”，每一个人都有各自的前因后果，你不要嫉妒羡慕人家。这些都是人生哲学的问题。</p>
+<p>认为时代是进步的，这是站在物质文明立场上来讲。今后的人在物质的享受上，比我们现在还要进步，最后的形态，是物质文明一切一切都在进步；认为时代是退化退步的，这是站在精神文明来讲，这两种观念，必须要推论到宗教上面去。</p>
+<p>你看其它国家的人，标榜人道，可见很不人道，所以才需要人道。</p>
+<p>“其卧徐徐，其觉于于”，这两句话代表佛学禅宗讲的“梦觉一如”，人没有昏迷过，无所谓睡眠，睡眠也是清醒，醒了以后，也没有昏迷过，在清醒中“人生如梦”，本来是梦境，这没有什么两样。</p>
+<blockquote>
+<p>阮云：所谓色即是空，空即是色。</p>
+</blockquote>
+<p>“以己出经”，拿自己推理别人，就是儒家讲的推己及人的忠恕之道。</p>
+<p>圣帝明王，就是动物园的园长，就养一些高明的动物。</p>
+<blockquote>
+<p>阮云：所以领导者并不是自己多强，是要能招到厉害的人，管好厉害的人。</p>
+</blockquote>
+<p>这个道理只可以悟不可以讲，讲出来就很讨厌的。</p>
+<blockquote>
+<p>阮云：就如鲁迅说的，“这人终究会死的”，虽然是实话，但是难听</p>
+</blockquote>
+<p>没有一个人会在妈妈肚子里问：我为什么要生出来？我生出来的目的是什么？没有一个人是问明白了才生出来的。所以人生就以人生为目的，本来如此，这个题目本身就是答案，还有什么好讲的！</p>
+<p>我们人生只有十二个字：“看得破，忍不过；想得到，做不来。”</p>
+]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+        <tag>哲学</tag>
       </tags>
   </entry>
   <entry>

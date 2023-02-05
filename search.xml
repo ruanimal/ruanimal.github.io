@@ -589,7 +589,7 @@
 <li><p>2015.09.12          V2.3<br>  修正不能正确提取部分迅雷链接</p>
 </li>
 </ul>
-<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>这个小工具是本人Python的一个习作，水平有限，如有bug可以在这里留言，或者给我发邮件<a href="mailto:&#97;&#100;&#109;&#105;&#110;&#64;&#x70;&#x6f;&#110;&#100;&#x65;&#114;&#46;&#119;&#111;&#114;&#x6b;" target="_blank" rel="noopener">&#97;&#100;&#109;&#105;&#110;&#64;&#x70;&#x6f;&#110;&#100;&#x65;&#114;&#46;&#119;&#111;&#114;&#x6b;</a>。</p>
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>这个小工具是本人Python的一个习作，水平有限，如有bug可以在这里留言，或者给我发邮件<a href="mailto:&#x61;&#x64;&#109;&#105;&#110;&#x40;&#x70;&#111;&#x6e;&#x64;&#101;&#114;&#x2e;&#119;&#x6f;&#x72;&#x6b;" target="_blank" rel="noopener">&#x61;&#x64;&#109;&#105;&#110;&#x40;&#x70;&#111;&#x6e;&#x64;&#101;&#114;&#x2e;&#119;&#x6f;&#x72;&#x6b;</a>。</p>
 ]]></content>
       <categories>
         <category>编程</category>
@@ -1062,30 +1062,6 @@
       </tags>
   </entry>
   <entry>
-    <title>用exxo将Python程序编译成单一可执行文件</title>
-    <url>/2020/02/29/build-python-program-to-standalone-binary/</url>
-    <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>golang将程序编译成一个可执行文件，部署起来特别方便。</p>
-<p>那么Python是否也有类似解决方案呢？单一可执行文件，免去安装Python环境的麻烦，也避免了直接暴露源码程序。</p>
-<p>经过多次搜索之后找到解决方案 <a href="https://github.com/mbachry/exxo" target="_blank" rel="noopener">exxo</a></p>
-<p><em>注意：exxo只支持linux64平台</em></p>
-<a id="more"></a>
-<h2 id="指路"><a href="#指路" class="headerlink" title="指路"></a>指路</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>首先下载安装exxo<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://bintray.com/artifact/download/mbachry/exxo/exxo-0.0.7.tar.xz  <span class="comment"># 下载 </span></span><br><span class="line"></span><br><span class="line">tar xf exxo-0.0.7.tar.xz  <span class="comment"># 解压</span></span><br><span class="line"></span><br><span class="line">mv exxo /usr/<span class="built_in">local</span>/bin   <span class="comment"># 移动到可执行文件目录（可选）</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="创建环境"><a href="#创建环境" class="headerlink" title="创建环境"></a>创建环境</h3><p>通过 exxo 创建一个python虚拟环境，用于编译我们的程序</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">exxo venv /tmp/myenv    <span class="comment"># 创建环境</span></span><br><span class="line"><span class="built_in">source</span> /tmp/myenv/bin/activate   <span class="comment"># 激活环境</span></span><br></pre></td></tr></table></figure>
-<h3 id="编译程序"><a href="#编译程序" class="headerlink" title="编译程序"></a>编译程序</h3><p>先写一个简单的程序: aa.py<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    os.system(<span class="string">'ls -al'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></p>
-<p>再根据这个程序编写setup.py, 这一步是关键，不熟悉的同学可以去学习一下setuptools的语法。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#condig=utf8</span></span><br><span class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup, find_packages</span><br><span class="line"></span><br><span class="line">requirements = [</span><br><span class="line">    <span class="comment"># 这里可以写上需要的依赖</span></span><br><span class="line">    <span class="comment"># 'setuptools',</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">'pyaa'</span>,   <span class="comment"># 编译出的文件的名称</span></span><br><span class="line">    version=<span class="string">'0.0.1'</span>,</span><br><span class="line">    packages=find_packages(),</span><br><span class="line">    include_package_data=<span class="literal">True</span>,</span><br><span class="line">    install_requires=requirements,</span><br><span class="line">    zip_safe=<span class="literal">True</span>,</span><br><span class="line">    py_modules=[</span><br><span class="line">        <span class="string">"aa"</span>,</span><br><span class="line">    ],</span><br><span class="line">    entry_points=&#123;  <span class="comment"># python 生成可执行文件的入口</span></span><br><span class="line">        <span class="string">'console_scripts'</span>: [</span><br><span class="line">            <span class="string">'pyaa = aa:main'</span>,</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>执行<code>exxo build</code>编译，生成文件<code>dist/pyaa</code></p>
-<p>最后，测试该文件，功能正常。<br><figure class="highlight tap"><table><tr><td class="code"><pre><span class="line">$ ./dist/pyaa</span><br><span class="line">总用量 19348</span><br><span class="line">drwxrwxr-x<span class="number"> 4 </span>ruan ruan    <span class="number"> 4096 </span>3月  <span class="number"> 1 </span>11:25 .</span><br><span class="line">drwxrwxr-x<span class="number"> 6 </span>ruan ruan    <span class="number"> 4096 </span>2月 <span class="number"> 29 </span>11:48 ..</span><br><span class="line">-rw-rw-r--<span class="number"> 1 </span>ruan ruan      <span class="number"> 87 </span>3月  <span class="number"> 1 </span>11:14 aa.py</span><br><span class="line">drwxrwxr-x<span class="number"> 2 </span>ruan ruan    <span class="number"> 4096 </span>3月  <span class="number"> 1 </span>11:26 dist</span><br><span class="line">-rw-r--r--<span class="number"> 1 </span>ruan ruan<span class="number"> 19784872 </span>8月 <span class="number"> 29 </span>2016 exxo-0.0.7.tar.xz</span><br><span class="line">drwxrwxr-x<span class="number"> 2 </span>ruan ruan    <span class="number"> 4096 </span>3月  <span class="number"> 1 </span>11:24 __pycache__</span><br><span class="line">-rw-rw-r--<span class="number"> 1 </span>ruan ruan     <span class="number"> 505 </span>3月  <span class="number"> 1 </span>11:25 setup.py</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>centos开关机日志分析</title>
     <url>/2016/06/22/centos%E5%BC%80%E5%85%B3%E6%9C%BA%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>在工作中发现有获取linux具体开关机时间和类型的需求，可以通过分析<code>/var/log/wtmp</code>日志文件得到。<br>通过<code>last -x -F</code>可以将<code>/var/log/wtmp</code>输出以下格式。</p>
@@ -1169,6 +1145,30 @@
 <li><a href="https://docs.python.org/3/library/subprocess.html#subprocess.Popen" target="_blank" rel="noopener">https://docs.python.org/3/library/subprocess.html#subprocess.Popen</a></li>
 <li><a href="https://stackoverflow.com/questions/2023608/check-what-files-are-open-in-python#answer-25069136" target="_blank" rel="noopener">https://stackoverflow.com/questions/2023608/check-what-files-are-open-in-python#answer-25069136</a></li>
 </ul>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>用exxo将Python程序编译成单一可执行文件</title>
+    <url>/2020/02/29/build-python-program-to-standalone-binary/</url>
+    <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>golang将程序编译成一个可执行文件，部署起来特别方便。</p>
+<p>那么Python是否也有类似解决方案呢？单一可执行文件，免去安装Python环境的麻烦，也避免了直接暴露源码程序。</p>
+<p>经过多次搜索之后找到解决方案 <a href="https://github.com/mbachry/exxo" target="_blank" rel="noopener">exxo</a></p>
+<p><em>注意：exxo只支持linux64平台</em></p>
+<a id="more"></a>
+<h2 id="指路"><a href="#指路" class="headerlink" title="指路"></a>指路</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>首先下载安装exxo<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://bintray.com/artifact/download/mbachry/exxo/exxo-0.0.7.tar.xz  <span class="comment"># 下载 </span></span><br><span class="line"></span><br><span class="line">tar xf exxo-0.0.7.tar.xz  <span class="comment"># 解压</span></span><br><span class="line"></span><br><span class="line">mv exxo /usr/<span class="built_in">local</span>/bin   <span class="comment"># 移动到可执行文件目录（可选）</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="创建环境"><a href="#创建环境" class="headerlink" title="创建环境"></a>创建环境</h3><p>通过 exxo 创建一个python虚拟环境，用于编译我们的程序</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">exxo venv /tmp/myenv    <span class="comment"># 创建环境</span></span><br><span class="line"><span class="built_in">source</span> /tmp/myenv/bin/activate   <span class="comment"># 激活环境</span></span><br></pre></td></tr></table></figure>
+<h3 id="编译程序"><a href="#编译程序" class="headerlink" title="编译程序"></a>编译程序</h3><p>先写一个简单的程序: aa.py<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    os.system(<span class="string">'ls -al'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></p>
+<p>再根据这个程序编写setup.py, 这一步是关键，不熟悉的同学可以去学习一下setuptools的语法。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#condig=utf8</span></span><br><span class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup, find_packages</span><br><span class="line"></span><br><span class="line">requirements = [</span><br><span class="line">    <span class="comment"># 这里可以写上需要的依赖</span></span><br><span class="line">    <span class="comment"># 'setuptools',</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">'pyaa'</span>,   <span class="comment"># 编译出的文件的名称</span></span><br><span class="line">    version=<span class="string">'0.0.1'</span>,</span><br><span class="line">    packages=find_packages(),</span><br><span class="line">    include_package_data=<span class="literal">True</span>,</span><br><span class="line">    install_requires=requirements,</span><br><span class="line">    zip_safe=<span class="literal">True</span>,</span><br><span class="line">    py_modules=[</span><br><span class="line">        <span class="string">"aa"</span>,</span><br><span class="line">    ],</span><br><span class="line">    entry_points=&#123;  <span class="comment"># python 生成可执行文件的入口</span></span><br><span class="line">        <span class="string">'console_scripts'</span>: [</span><br><span class="line">            <span class="string">'pyaa = aa:main'</span>,</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>执行<code>exxo build</code>编译，生成文件<code>dist/pyaa</code></p>
+<p>最后，测试该文件，功能正常。<br><figure class="highlight tap"><table><tr><td class="code"><pre><span class="line">$ ./dist/pyaa</span><br><span class="line">总用量 19348</span><br><span class="line">drwxrwxr-x<span class="number"> 4 </span>ruan ruan    <span class="number"> 4096 </span>3月  <span class="number"> 1 </span>11:25 .</span><br><span class="line">drwxrwxr-x<span class="number"> 6 </span>ruan ruan    <span class="number"> 4096 </span>2月 <span class="number"> 29 </span>11:48 ..</span><br><span class="line">-rw-rw-r--<span class="number"> 1 </span>ruan ruan      <span class="number"> 87 </span>3月  <span class="number"> 1 </span>11:14 aa.py</span><br><span class="line">drwxrwxr-x<span class="number"> 2 </span>ruan ruan    <span class="number"> 4096 </span>3月  <span class="number"> 1 </span>11:26 dist</span><br><span class="line">-rw-r--r--<span class="number"> 1 </span>ruan ruan<span class="number"> 19784872 </span>8月 <span class="number"> 29 </span>2016 exxo-0.0.7.tar.xz</span><br><span class="line">drwxrwxr-x<span class="number"> 2 </span>ruan ruan    <span class="number"> 4096 </span>3月  <span class="number"> 1 </span>11:24 __pycache__</span><br><span class="line">-rw-rw-r--<span class="number"> 1 </span>ruan ruan     <span class="number"> 505 </span>3月  <span class="number"> 1 </span>11:25 setup.py</span><br></pre></td></tr></table></figure></p>
 ]]></content>
       <categories>
         <category>编程</category>
@@ -2772,6 +2772,41 @@
       </tags>
   </entry>
   <entry>
+    <title>缓存淘汰算法之LFU</title>
+    <url>/2021/06/23/lfu-cache/</url>
+    <content><![CDATA[<p>Least Frequently Used (LFU) 是一种常见的缓存淘汰算法，译为“最近最不经常使用”，也就是将缓存中使用次数最少的数据淘汰掉。</p>
+<p>有两种常见的实现方法</p>
+<ul>
+<li>小顶堆 + hashmap，插入和删除的复杂度为O(logN), 但淘汰相同访问次数的节点是不稳定的，因为堆排序不稳定。</li>
+<li>数组存储数据项 + hashmap记录数据项index, 淘汰缓存的复杂度为O(N)</li>
+</ul>
+<a id="more"></a>
+<p>特点</p>
+<ol>
+<li>一般情况下，LFU效率要优于LRU，且能够避免周期性或者偶发性的操作导致缓存命中率下降的问题</li>
+<li>LFU存在历史数据影响将来数据的”缓存污染”问题。</li>
+</ol>
+<h2 id="Python-实现"><a href="#Python-实现" class="headerlink" title="Python 实现"></a>Python 实现</h2><p>这里的Python实现是方案1</p>
+<p>具体步骤</p>
+<ol>
+<li>get元素时，如果存在则返回结果并更新访问次数</li>
+<li>set元素时，如果存在则更新val并更新访问次数，否则检查是否淘汰缓存并插入新key</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> log, ceil</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinHeap</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self._items = [<span class="literal">None</span>]</span><br><span class="line">        self.need_swap = self.more</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">length</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self._items) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">depth</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> ceil(log(self.length+<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">more</span><span class="params">(self, i, j)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._items[i] &gt; self._items[j]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">exch</span><span class="params">(self, i, j)</span>:</span></span><br><span class="line">        self._items[i], self._items[j] = self._items[j], self._items[i]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">swim</span><span class="params">(self, k)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> k &gt; <span class="number">1</span> <span class="keyword">and</span> self.need_swap(k//<span class="number">2</span>, k):</span><br><span class="line">            self.exch(k//<span class="number">2</span>, k)</span><br><span class="line">            k = k//<span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sink</span><span class="params">(self, k)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="number">2</span> * k &lt;= self.length:</span><br><span class="line">            j = <span class="number">2</span> * k</span><br><span class="line">            <span class="keyword">if</span> j &lt; self.length <span class="keyword">and</span> self.need_swap(j, j+<span class="number">1</span>):</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> self.need_swap(k, j):</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            self.exch(k, j)</span><br><span class="line">            k = j</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, val)</span>:</span></span><br><span class="line">        self._items.append(val)</span><br><span class="line">        self.swim(self.length)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">top</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.length &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self._items[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">del_top</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.length &gt; <span class="number">0</span>:</span><br><span class="line">            self.exch(<span class="number">1</span>, self.length)</span><br><span class="line">            val = self._items.pop()</span><br><span class="line">            self.sink(<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> val</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        tmp = []</span><br><span class="line">        seq = <span class="string">' '</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, self.depth+<span class="number">1</span>):</span><br><span class="line">            l = seq.join([str(e) <span class="keyword">for</span> e <span class="keyword">in</span> self._items[<span class="number">2</span>**(i<span class="number">-1</span>):<span class="number">2</span>**i]])</span><br><span class="line">            tmp.append(l)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'\n'</span>.join(tmp)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key, val=None)</span>:</span></span><br><span class="line">        self.key = key</span><br><span class="line">        self.val = val</span><br><span class="line">        self.count = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__gt__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">        <span class="keyword">return</span>  self.count &gt; other.count</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># return '&lt;Node key=&#123;!r&#125; val=&#123;!r&#125; count=&#123;!r&#125;&gt;'.format(self.key, self.val, self.count)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&#123;&#125;|&#123;!r&#125;'</span>.format(self.key, self.count)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LFUCache</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, size)</span>:</span></span><br><span class="line">        self.cache = &#123;&#125;</span><br><span class="line">        self.heap = MinHeap()</span><br><span class="line">        self.size = size</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">check_expired</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.heap.length == self.size:</span><br><span class="line">            node = self.heap.del_top()</span><br><span class="line">            self.cache.pop(node.key)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">update_count</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        idx = self.heap._items.index(node)</span><br><span class="line">        node.count += <span class="number">1</span></span><br><span class="line">        self.heap.sink(idx)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        node = self.cache.get(key, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> node:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.update_count(node)</span><br><span class="line">        <span class="keyword">return</span> node.val</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set</span><span class="params">(self, key, val)</span>:</span></span><br><span class="line">        node = self.cache.get(key, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> node:</span><br><span class="line">            node.val = val</span><br><span class="line">            self.update_count(node)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        node = Node(key, val)</span><br><span class="line">        self.check_expired()</span><br><span class="line">        self.heap.insert(node)</span><br><span class="line">        self.cache[key] = node</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;LFU &#123;!r&#125;&gt;'</span>.format(self.cache)</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://en.wikipedia.org/wiki/Least_frequently_used" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Least_frequently_used</a></li>
+<li><a href="https://melonshell.github.io/2020/02/07/ds_cache_eli/" target="_blank" rel="noopener">https://melonshell.github.io/2020/02/07/ds_cache_eli/</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>缓存</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>学海屠魔录</title>
     <url>/2021/06/20/learning-method/</url>
     <content><![CDATA[<p>英彦有云，魔鬼在细节之中（The devil is in the details），其意义在于提醒人们，不要忽视细节，即使是微不足道的小处也可以影响大局。</p>
@@ -2809,41 +2844,6 @@
       <tags>
         <tag>随笔</tag>
         <tag>学习方法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>缓存淘汰算法之LFU</title>
-    <url>/2021/06/23/lfu-cache/</url>
-    <content><![CDATA[<p>Least Frequently Used (LFU) 是一种常见的缓存淘汰算法，译为“最近最不经常使用”，也就是将缓存中使用次数最少的数据淘汰掉。</p>
-<p>有两种常见的实现方法</p>
-<ul>
-<li>小顶堆 + hashmap，插入和删除的复杂度为O(logN), 但淘汰相同访问次数的节点是不稳定的，因为堆排序不稳定。</li>
-<li>数组存储数据项 + hashmap记录数据项index, 淘汰缓存的复杂度为O(N)</li>
-</ul>
-<a id="more"></a>
-<p>特点</p>
-<ol>
-<li>一般情况下，LFU效率要优于LRU，且能够避免周期性或者偶发性的操作导致缓存命中率下降的问题</li>
-<li>LFU存在历史数据影响将来数据的”缓存污染”问题。</li>
-</ol>
-<h2 id="Python-实现"><a href="#Python-实现" class="headerlink" title="Python 实现"></a>Python 实现</h2><p>这里的Python实现是方案1</p>
-<p>具体步骤</p>
-<ol>
-<li>get元素时，如果存在则返回结果并更新访问次数</li>
-<li>set元素时，如果存在则更新val并更新访问次数，否则检查是否淘汰缓存并插入新key</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> log, ceil</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinHeap</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self._items = [<span class="literal">None</span>]</span><br><span class="line">        self.need_swap = self.more</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">length</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self._items) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">depth</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> ceil(log(self.length+<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">more</span><span class="params">(self, i, j)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._items[i] &gt; self._items[j]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">exch</span><span class="params">(self, i, j)</span>:</span></span><br><span class="line">        self._items[i], self._items[j] = self._items[j], self._items[i]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">swim</span><span class="params">(self, k)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> k &gt; <span class="number">1</span> <span class="keyword">and</span> self.need_swap(k//<span class="number">2</span>, k):</span><br><span class="line">            self.exch(k//<span class="number">2</span>, k)</span><br><span class="line">            k = k//<span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sink</span><span class="params">(self, k)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="number">2</span> * k &lt;= self.length:</span><br><span class="line">            j = <span class="number">2</span> * k</span><br><span class="line">            <span class="keyword">if</span> j &lt; self.length <span class="keyword">and</span> self.need_swap(j, j+<span class="number">1</span>):</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> self.need_swap(k, j):</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            self.exch(k, j)</span><br><span class="line">            k = j</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, val)</span>:</span></span><br><span class="line">        self._items.append(val)</span><br><span class="line">        self.swim(self.length)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">top</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.length &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> self._items[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">del_top</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.length &gt; <span class="number">0</span>:</span><br><span class="line">            self.exch(<span class="number">1</span>, self.length)</span><br><span class="line">            val = self._items.pop()</span><br><span class="line">            self.sink(<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> val</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        tmp = []</span><br><span class="line">        seq = <span class="string">' '</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, self.depth+<span class="number">1</span>):</span><br><span class="line">            l = seq.join([str(e) <span class="keyword">for</span> e <span class="keyword">in</span> self._items[<span class="number">2</span>**(i<span class="number">-1</span>):<span class="number">2</span>**i]])</span><br><span class="line">            tmp.append(l)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'\n'</span>.join(tmp)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key, val=None)</span>:</span></span><br><span class="line">        self.key = key</span><br><span class="line">        self.val = val</span><br><span class="line">        self.count = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__gt__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">        <span class="keyword">return</span>  self.count &gt; other.count</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># return '&lt;Node key=&#123;!r&#125; val=&#123;!r&#125; count=&#123;!r&#125;&gt;'.format(self.key, self.val, self.count)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&#123;&#125;|&#123;!r&#125;'</span>.format(self.key, self.count)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LFUCache</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, size)</span>:</span></span><br><span class="line">        self.cache = &#123;&#125;</span><br><span class="line">        self.heap = MinHeap()</span><br><span class="line">        self.size = size</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">check_expired</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.heap.length == self.size:</span><br><span class="line">            node = self.heap.del_top()</span><br><span class="line">            self.cache.pop(node.key)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">update_count</span><span class="params">(self, node)</span>:</span></span><br><span class="line">        idx = self.heap._items.index(node)</span><br><span class="line">        node.count += <span class="number">1</span></span><br><span class="line">        self.heap.sink(idx)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        node = self.cache.get(key, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> node:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.update_count(node)</span><br><span class="line">        <span class="keyword">return</span> node.val</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set</span><span class="params">(self, key, val)</span>:</span></span><br><span class="line">        node = self.cache.get(key, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> node:</span><br><span class="line">            node.val = val</span><br><span class="line">            self.update_count(node)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        node = Node(key, val)</span><br><span class="line">        self.check_expired()</span><br><span class="line">        self.heap.insert(node)</span><br><span class="line">        self.cache[key] = node</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;LFU &#123;!r&#125;&gt;'</span>.format(self.cache)</span><br></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://en.wikipedia.org/wiki/Least_frequently_used" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Least_frequently_used</a></li>
-<li><a href="https://melonshell.github.io/2020/02/07/ds_cache_eli/" target="_blank" rel="noopener">https://melonshell.github.io/2020/02/07/ds_cache_eli/</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>缓存</tag>
       </tags>
   </entry>
   <entry>
@@ -3732,6 +3732,40 @@ img[alt="-w350"] {
       </tags>
   </entry>
   <entry>
+    <title>Python 循环变量泄露与延迟绑定</title>
+    <url>/2022/03/04/python-loop-variables-leak/</url>
+    <content><![CDATA[<p>循环变量泄露与延迟绑定叠加在一起，会产生一些让人迷惑的结果。<br><a id="more"></a></p>
+<h2 id="梦开始的地方"><a href="#梦开始的地方" class="headerlink" title="梦开始的地方"></a>梦开始的地方</h2><p>先看看一开始的问题，可以看到这里lambda函数的返回值一直在变。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">xx = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]:</span><br><span class="line">    xx.append(<span class="keyword">lambda</span>: i)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'a:'</span>, xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> xx:</span><br><span class="line">    print(j())</span><br><span class="line"></span><br><span class="line">print(<span class="string">'b:'</span>, xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xx:</span><br><span class="line">    print(i, i())</span><br><span class="line"></span><br><span class="line">print(<span class="string">'c:'</span>, xx[<span class="number">0</span>], xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]:</span><br><span class="line">    print(i)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'d:'</span>, xx[<span class="number">0</span>], xx[<span class="number">0</span>]())</span><br></pre></td></tr></table></figure>
+<p>输出如下</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">a:</span> <span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="symbol">b:</span> <span class="number">3</span></span><br><span class="line"><span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt;</span><br><span class="line"><span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca303a0</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca303a0</span>&gt;</span><br><span class="line"><span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30430</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30430</span>&gt;</span><br><span class="line"><span class="symbol">c:</span> <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30430</span>&gt;</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="symbol">d:</span> <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt; <span class="number">6</span></span><br></pre></td></tr></table></figure>
+<h2 id="循环变量泄露"><a href="#循环变量泄露" class="headerlink" title="循环变量泄露"></a>循环变量泄露</h2><p>由于Python没有块级作用域，所以循环会改变当前作用域变量的值，也就是循环变量泄露。<br><strong>注意</strong>：Python3中列表推导式循环变量不会泄露，Python2中和常规循环一样泄露。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = <span class="number">-1</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">7</span>):</span><br><span class="line">    <span class="keyword">if</span> x == <span class="number">6</span>:</span><br><span class="line">        print(x, <span class="string">': for x inside loop'</span>)</span><br><span class="line">print(x, <span class="string">': x in global'</span>)</span><br></pre></td></tr></table></figure>
+<p>输出如下</p>
+<figure class="highlight basic"><table><tr><td class="code"><pre><span class="line"><span class="symbol">6 </span>: <span class="keyword">for</span> x inside loop</span><br><span class="line"><span class="symbol">6 </span>: x in global</span><br></pre></td></tr></table></figure>
+<h2 id="闭包与延迟绑定"><a href="#闭包与延迟绑定" class="headerlink" title="闭包与延迟绑定"></a>闭包与延迟绑定</h2><p>再讲一下<strong>闭包</strong>，在一个内部函数中，对外部作用域的变量进行引用，(并且一般外部函数的返回值为内部函数)，那么内部函数就被认为是闭包。<br>这里所谓的引用可以也就是内部函数记住了<strong>变量的名称</strong>（而不是值，这个从ast语法树可以看出），而变量对应的值是会变化的。<br>如果在循环中定义闭包，引用的变量的值在循环结束才统一确定为最后一次循环时的值，也就是<strong>延迟绑定</strong>（lazy binding）。</p>
+<p>所以下面的例子，<code>xx</code>的所有匿名函数的返回值均为<code>3</code><br><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">xx = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]:</span><br><span class="line">    xx.<span class="built_in">append</span>(<span class="built_in">lambda</span>: i)</span><br></pre></td></tr></table></figure></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>再分析一开始的问题，这里的匿名函数引用了变量<code>i</code>，而<code>i</code>是全局变量，所以再次使用<code>i</code>作为循环变量时，列表中的匿名函数引用的值就被覆盖了。</p>
+<p>正确做法：</p>
+<ul>
+<li>在独立的函数中定义闭包</li>
+<li>闭包引用的变量应该是其他函数不可修改的</li>
+<li>优先使用列表推导式</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://stackoverflow.com/questions/3611760/scoping-in-python-for-loops" target="_blank" rel="noopener">https://stackoverflow.com/questions/3611760/scoping-in-python-for-loops</a></li>
+<li><a href="https://www.educative.io/courses/python-ftw-under-the-hood/N8RW8508RkL" target="_blank" rel="noopener">https://www.educative.io/courses/python-ftw-under-the-hood/N8RW8508RkL</a></li>
+<li><a href="https://mail.python.org/pipermail/python-ideas/2008-October/002109.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-ideas/2008-October/002109.html</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python日志原理及实践</title>
     <url>/2019/11/02/python-logging-guide/</url>
     <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="一次简单的日志记录"><a href="#一次简单的日志记录" class="headerlink" title="一次简单的日志记录"></a>一次简单的日志记录</h3><figure class="highlight sml"><table><tr><td class="code"><pre><span class="line">import logging</span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">except <span class="type">Exception</span> <span class="keyword">as</span> e:</span><br><span class="line">    logger.debug(<span class="symbol">'debug</span> %s', e)</span><br><span class="line">    logger.info(<span class="symbol">'info</span> %s', e)</span><br><span class="line">    logger.warning(<span class="symbol">'warning</span> %s', e)</span><br><span class="line">    logger.error(<span class="symbol">'error</span> %s', e)</span><br><span class="line">    logger.<span class="keyword">exception</span>(<span class="symbol">'exception</span> %s', e)</span><br></pre></td></tr></table></figure>
@@ -3890,40 +3924,6 @@ img[alt="-w350"] {
       <tags>
         <tag>Python</tag>
         <tag>日志</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python 循环变量泄露与延迟绑定</title>
-    <url>/2022/03/04/python-loop-variables-leak/</url>
-    <content><![CDATA[<p>循环变量泄露与延迟绑定叠加在一起，会产生一些让人迷惑的结果。<br><a id="more"></a></p>
-<h2 id="梦开始的地方"><a href="#梦开始的地方" class="headerlink" title="梦开始的地方"></a>梦开始的地方</h2><p>先看看一开始的问题，可以看到这里lambda函数的返回值一直在变。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">xx = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]:</span><br><span class="line">    xx.append(<span class="keyword">lambda</span>: i)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'a:'</span>, xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> xx:</span><br><span class="line">    print(j())</span><br><span class="line"></span><br><span class="line">print(<span class="string">'b:'</span>, xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xx:</span><br><span class="line">    print(i, i())</span><br><span class="line"></span><br><span class="line">print(<span class="string">'c:'</span>, xx[<span class="number">0</span>], xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]:</span><br><span class="line">    print(i)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'d:'</span>, xx[<span class="number">0</span>], xx[<span class="number">0</span>]())</span><br></pre></td></tr></table></figure>
-<p>输出如下</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">a:</span> <span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="symbol">b:</span> <span class="number">3</span></span><br><span class="line"><span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt;</span><br><span class="line"><span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca303a0</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca303a0</span>&gt;</span><br><span class="line"><span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30430</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30430</span>&gt;</span><br><span class="line"><span class="symbol">c:</span> <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt; <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30430</span>&gt;</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="symbol">d:</span> <span class="params">&lt;function main2.&lt;locals&gt;</span>.<span class="params">&lt;lambda&gt;</span> at <span class="number">0x10ca30310</span>&gt; <span class="number">6</span></span><br></pre></td></tr></table></figure>
-<h2 id="循环变量泄露"><a href="#循环变量泄露" class="headerlink" title="循环变量泄露"></a>循环变量泄露</h2><p>由于Python没有块级作用域，所以循环会改变当前作用域变量的值，也就是循环变量泄露。<br><strong>注意</strong>：Python3中列表推导式循环变量不会泄露，Python2中和常规循环一样泄露。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = <span class="number">-1</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">7</span>):</span><br><span class="line">    <span class="keyword">if</span> x == <span class="number">6</span>:</span><br><span class="line">        print(x, <span class="string">': for x inside loop'</span>)</span><br><span class="line">print(x, <span class="string">': x in global'</span>)</span><br></pre></td></tr></table></figure>
-<p>输出如下</p>
-<figure class="highlight basic"><table><tr><td class="code"><pre><span class="line"><span class="symbol">6 </span>: <span class="keyword">for</span> x inside loop</span><br><span class="line"><span class="symbol">6 </span>: x in global</span><br></pre></td></tr></table></figure>
-<h2 id="闭包与延迟绑定"><a href="#闭包与延迟绑定" class="headerlink" title="闭包与延迟绑定"></a>闭包与延迟绑定</h2><p>再讲一下<strong>闭包</strong>，在一个内部函数中，对外部作用域的变量进行引用，(并且一般外部函数的返回值为内部函数)，那么内部函数就被认为是闭包。<br>这里所谓的引用可以也就是内部函数记住了<strong>变量的名称</strong>（而不是值，这个从ast语法树可以看出），而变量对应的值是会变化的。<br>如果在循环中定义闭包，引用的变量的值在循环结束才统一确定为最后一次循环时的值，也就是<strong>延迟绑定</strong>（lazy binding）。</p>
-<p>所以下面的例子，<code>xx</code>的所有匿名函数的返回值均为<code>3</code><br><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">xx = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]:</span><br><span class="line">    xx.<span class="built_in">append</span>(<span class="built_in">lambda</span>: i)</span><br></pre></td></tr></table></figure></p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>再分析一开始的问题，这里的匿名函数引用了变量<code>i</code>，而<code>i</code>是全局变量，所以再次使用<code>i</code>作为循环变量时，列表中的匿名函数引用的值就被覆盖了。</p>
-<p>正确做法：</p>
-<ul>
-<li>在独立的函数中定义闭包</li>
-<li>闭包引用的变量应该是其他函数不可修改的</li>
-<li>优先使用列表推导式</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://stackoverflow.com/questions/3611760/scoping-in-python-for-loops" target="_blank" rel="noopener">https://stackoverflow.com/questions/3611760/scoping-in-python-for-loops</a></li>
-<li><a href="https://www.educative.io/courses/python-ftw-under-the-hood/N8RW8508RkL" target="_blank" rel="noopener">https://www.educative.io/courses/python-ftw-under-the-hood/N8RW8508RkL</a></li>
-<li><a href="https://mail.python.org/pipermail/python-ideas/2008-October/002109.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-ideas/2008-October/002109.html</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -7761,22 +7761,6 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       </tags>
   </entry>
   <entry>
-    <title>我们为什么不能理解别人</title>
-    <url>/2016/06/12/%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%90%86%E8%A7%A3%E5%88%AB%E4%BA%BA/</url>
-    <content><![CDATA[<p>　　这世界上这么多纷争与烦恼，很大一部分都是因为人与人之间不能相互理解，他人为敌国、以邻为壑等等层出不穷。之所以不能理解，是因为<strong>同一个东西，对于不同的人（或者不同时间或空间的同一个人），价值是全然不同的。</strong></p>
-<p>　　可能你认为重于生命的东西，于他人不过徒增笑谈尔。比如信教者的斋戒等行为，对无神论者来说是多余的，而对信徒来说却是可能比生命更重要。<br>　　<br>　　又如，你还在大学的时候，这时的时间对你来说十分廉价，所以你愿意去发8元每小时的宣传单；等你事业有成或是垂垂老矣，你还愿意花这一小时去干这个吗，也许只会感叹自己当时太年轻吧。一个人尚且不能理解年轻时的自己，又怎能奢望他理解别人呢？<br>　　<br>　　真正的相互理解是要认同他人对事物价值的判定，但一个事物对他们的价值有天壤之别，这样你叫他们如何相互理解呢？</p>
-<p>　　那么怎么解决这种情况呢？也就是怎么寻找一种相对普适的价值衡量方法呢？<br>　　<br>　　我的一个浅薄的思路是，<strong>衡量一个事物的价值可以通过这个人的付出相对自身的稀缺性，这种付出包括物资的付出和精神上承受的压力。</strong><br>　　<br>　　比如说，一个乞丐付出了仅有的100元买了个表，和一个百万富豪付出1000元买了个表。对乞丐来说这表是全部，而对富豪来说表是1/1000。因此乞丐对表爱护有加，富豪对表弃之如弊履，就完全可以理解了。也可以说乞丐的表价值大于富豪的表。<br>　　<br>　　虽然绝对价值不可判定，并且造成很多纷争。但是，同一件事对不同的人价值不同也不是全然没有好处，至少在市场经济里，你们完全可以交换这些东西嘛。</p>
-<p>　　要之，于娑婆世界中，众生皆苦，<strong>要以事物相对他人的稀缺性来看他人的付出与承受，如此理解他人才成为可能。</strong></p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-        <tag>世界观</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>学习《重构手册》</title>
     <url>/2020/10/15/%E5%AD%A6%E4%B9%A0%E3%80%8A%E9%87%8D%E6%9E%84%E6%89%8B%E5%86%8C%E3%80%8B/</url>
     <content><![CDATA[<p><img src="http://image.runjf.com/mweb/2020-10-18-%E9%87%8D%E6%9E%84%E6%89%8B%E5%86%8C-%E5%BC%82%E5%91%B3.png" alt></p>
@@ -8457,6 +8441,22 @@ ISIS：招募“圣战士” 死后能获72位纯洁处女。
       <tags>
         <tag>读书笔记</tag>
         <tag>重构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我们为什么不能理解别人</title>
+    <url>/2016/06/12/%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%90%86%E8%A7%A3%E5%88%AB%E4%BA%BA/</url>
+    <content><![CDATA[<p>　　这世界上这么多纷争与烦恼，很大一部分都是因为人与人之间不能相互理解，他人为敌国、以邻为壑等等层出不穷。之所以不能理解，是因为<strong>同一个东西，对于不同的人（或者不同时间或空间的同一个人），价值是全然不同的。</strong></p>
+<p>　　可能你认为重于生命的东西，于他人不过徒增笑谈尔。比如信教者的斋戒等行为，对无神论者来说是多余的，而对信徒来说却是可能比生命更重要。<br>　　<br>　　又如，你还在大学的时候，这时的时间对你来说十分廉价，所以你愿意去发8元每小时的宣传单；等你事业有成或是垂垂老矣，你还愿意花这一小时去干这个吗，也许只会感叹自己当时太年轻吧。一个人尚且不能理解年轻时的自己，又怎能奢望他理解别人呢？<br>　　<br>　　真正的相互理解是要认同他人对事物价值的判定，但一个事物对他们的价值有天壤之别，这样你叫他们如何相互理解呢？</p>
+<p>　　那么怎么解决这种情况呢？也就是怎么寻找一种相对普适的价值衡量方法呢？<br>　　<br>　　我的一个浅薄的思路是，<strong>衡量一个事物的价值可以通过这个人的付出相对自身的稀缺性，这种付出包括物资的付出和精神上承受的压力。</strong><br>　　<br>　　比如说，一个乞丐付出了仅有的100元买了个表，和一个百万富豪付出1000元买了个表。对乞丐来说这表是全部，而对富豪来说表是1/1000。因此乞丐对表爱护有加，富豪对表弃之如弊履，就完全可以理解了。也可以说乞丐的表价值大于富豪的表。<br>　　<br>　　虽然绝对价值不可判定，并且造成很多纷争。但是，同一件事对不同的人价值不同也不是全然没有好处，至少在市场经济里，你们完全可以交换这些东西嘛。</p>
+<p>　　要之，于娑婆世界中，众生皆苦，<strong>要以事物相对他人的稀缺性来看他人的付出与承受，如此理解他人才成为可能。</strong></p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+        <tag>世界观</tag>
       </tags>
   </entry>
   <entry>

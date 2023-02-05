@@ -303,14 +303,14 @@
   </url>
   
   <url>
-    <loc>http://ponder.work/2020/02/29/build-python-program-to-standalone-binary/</loc>
+    <loc>http://ponder.work/2016/06/22/centos%E5%BC%80%E5%85%B3%E6%9C%BA%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/</loc>
     
     <lastmod>2021-07-15</lastmod>
     
   </url>
   
   <url>
-    <loc>http://ponder.work/2016/06/22/centos%E5%BC%80%E5%85%B3%E6%9C%BA%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/</loc>
+    <loc>http://ponder.work/2020/02/29/build-python-program-to-standalone-binary/</loc>
     
     <lastmod>2021-07-15</lastmod>
     
@@ -1411,6 +1411,13 @@
   </url>
   
   <url>
+    <loc>http://ponder.work/tags/%E7%BC%93%E5%AD%98/</loc>
+    <lastmod>2023-02-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://ponder.work/tags/%E9%9A%8F%E7%AC%94/</loc>
     <lastmod>2023-02-05</lastmod>
     <changefreq>daily</changefreq>
@@ -1419,13 +1426,6 @@
   
   <url>
     <loc>http://ponder.work/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/</loc>
-    <lastmod>2023-02-05</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://ponder.work/tags/%E7%BC%93%E5%AD%98/</loc>
     <lastmod>2023-02-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

@@ -66,7 +66,7 @@
 <meta property="og:description" content="PyPIPyPI（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI 而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2020-09-11-15997969319299.jpg">
-<meta property="og:updated_time" content="2023-02-05T13:20:57.689Z">
+<meta property="og:updated_time" content="2023-02-05T14:04:01.777Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发Python库并发布到PyPI指南">
 <meta name="twitter:description" content="PyPIPyPI（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI 而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。">
@@ -335,7 +335,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-02-05 21:20:57" itemprop="dateModified" datetime="2023-02-05T21:20:57+08:00">2023-02-05</time>
+                <time title="修改时间：2023-02-05 22:04:01" itemprop="dateModified" datetime="2023-02-05T22:04:01+08:00">2023-02-05</time>
               </span>
             
           
@@ -419,7 +419,7 @@
 <li><code>recursive-include &lt;dir-pattern&gt; &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 递归地包含指定目录匹配通配符的文件</li>
 <li><code>global-exclude &lt;pattern&gt; &lt;pattern2&gt; ...</code>: 递归地排除匹配通配符的文件</li>
 </ul>
-<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><p>执行: <code>python3 setup.py sdist bdist_wheel</code></p>
+<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><p>执行: <code>pip3 install wheel &amp;&amp; python3 setup.py sdist bdist_wheel</code></p>
 <p>输出文件<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">dist</span></span><br><span class="line">├── <span class="selector-tag">dingtalk-log-handler-0</span><span class="selector-class">.0</span><span class="selector-class">.2</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br><span class="line">└── <span class="selector-tag">dingtalk_log_handler-0</span><span class="selector-class">.0</span><span class="selector-class">.2-py3-none-any</span><span class="selector-class">.whl</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>我们可以通过<a href="https://test.pypi.org" target="_blank" rel="noopener">PyPI的测试站点</a> 来练习库文件的上传，并测试效果</p>
 <ol>

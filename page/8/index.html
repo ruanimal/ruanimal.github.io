@@ -382,6 +382,7 @@
 
       
           <h2 id="速查表"><a href="#速查表" class="headerlink" title="速查表"></a>速查表</h2><p>Python2 vs Python3</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -519,6 +520,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h2 id="详细对比"><a href="#详细对比" class="headerlink" title="详细对比"></a>详细对比</h2><h3 id="unicode"><a href="#unicode" class="headerlink" title="unicode"></a>unicode</h3><p>Python2</p>
 <ul>
 <li>字符串分 <code>str(&#39;&#39;)</code> 和 <code>unicode(u&#39;&#39;)</code></li>
@@ -1675,7 +1677,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>3.2k</span>
+              <span>3.3k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -1829,7 +1831,7 @@
 <li><code>↑↓←→</code>    上下左右移动光标，注意不是不是KJHL！</li>
 <li><code>Alt</code>    显示菜单栏</li>
 <li><code>Ctrl + Shift + P</code>    调出命令板（Command Palette）</li>
-<li><code>Ctrl + `</code>    调出控制台</li>
+<li><code>Ctrl + ` </code>    调出控制台</li>
 <li><code>Ctrl + K, Ctrl + 数字</code>    代码折叠，数字代表折叠的层次</li>
 <li><code>Ctrl + Shift + [ / ]</code>    收起/展开选中的代码。</li>
 </ul>
@@ -2292,7 +2294,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+                <time title="修改时间：2023-07-25 10:14:49" itemprop="dateModified" datetime="2023-07-25T10:14:49+08:00">2023-07-25</time>
               </span>
             
           
@@ -2319,7 +2321,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>1.8k</span>
+              <span>2.5k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -2329,7 +2331,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
           
 
@@ -2345,7 +2347,12 @@
           <h2 id="python包导入机制"><a href="#python包导入机制" class="headerlink" title="python包导入机制"></a>python包导入机制</h2><p>包是指含有<code>__init__.py</code>的文件夹，模块就是一个.py文件。</p>
 <p><strong>python的包和模块是先查找<code>buil-in moudle</code>然后是<code>sys.path</code>这个list里的所有路径。</strong></p>
 <ul>
-<li>sys.path[0]是启动Python解释器的脚本所在路径，比如运行<code>python task/admin.py</code>，sys.path[0]是<code>&#39;/home/code/taskman/task&#39;</code>；如果启动的是是idle,ipython等，sys.path[0]是<code>&#39;&#39;</code>。</li>
+<li>sys.path[0]是启动Python解释器的脚本所在路径<ul>
+<li>比如运行<code>python task/admin.py</code>，sys.path[0]是<code>&#39;/home/code/taskman/task&#39;</code></li>
+<li>启动脚本是符号链接时，<code>sys.path[0]</code>是实际文件所在路径，<a href="#符号链接的情况">详见</a></li>
+<li>如果启动的是python解释器，如idle,ipython等，sys.path[0]是<code>&#39;&#39;</code>。</li>
+</ul>
+</li>
 <li>如果sys.path[0]是<code>&#39;&#39;</code>，这个值等于当前工作目录也就是<code>os.getcwd()</code>的值，也就是linux的pwd的值，你可以用<code>os.chdir</code>来改变工作路径。</li>
 <li>sys.path里余下的元素是python环境变量里的一些路径</li>
 </ul>
@@ -2713,12 +2720,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">305k</span>
+    <span title="站点总字数">306k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:21</span>
+    <span title="站点阅读时长">6:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

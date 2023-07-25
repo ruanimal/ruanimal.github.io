@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="python包导入机制包是指含有__init__.py的文件夹，模块就是一个.py文件。 python的包和模块是先查找buil-in moudle然后是sys.path这个list里的所有路径。  sys.path[0]是启动Python解释器的脚本所在路径，比如运行python task/admin.py，sys.path[0]是&amp;#39;/home/code/taskman/task&amp;#39">
+  <meta name="description" content="python包导入机制包是指含有__init__.py的文件夹，模块就是一个.py文件。 python的包和模块是先查找buil-in moudle然后是sys.path这个list里的所有路径。  sys.path[0]是启动Python解释器的脚本所在路径 比如运行python task/admin.py，sys.path[0]是&amp;#39;/home/code/taskman/task&amp;#39">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python包导入再谈">
 <meta property="og:url" content="http://ponder.work/2016/06/22/python包导入再谈/index.html">
 <meta property="og:site_name" content="逸思杂陈">
-<meta property="og:description" content="python包导入机制包是指含有__init__.py的文件夹，模块就是一个.py文件。 python的包和模块是先查找buil-in moudle然后是sys.path这个list里的所有路径。  sys.path[0]是启动Python解释器的脚本所在路径，比如运行python task/admin.py，sys.path[0]是&amp;#39;/home/code/taskman/task&amp;#39">
+<meta property="og:description" content="python包导入机制包是指含有__init__.py的文件夹，模块就是一个.py文件。 python的包和模块是先查找buil-in moudle然后是sys.path这个list里的所有路径。  sys.path[0]是启动Python解释器的脚本所在路径 比如运行python task/admin.py，sys.path[0]是&amp;#39;/home/code/taskman/task&amp;#39">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
+<meta property="og:updated_time" content="2023-07-25T02:14:49.591Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python包导入再谈">
-<meta name="twitter:description" content="python包导入机制包是指含有__init__.py的文件夹，模块就是一个.py文件。 python的包和模块是先查找buil-in moudle然后是sys.path这个list里的所有路径。  sys.path[0]是启动Python解释器的脚本所在路径，比如运行python task/admin.py，sys.path[0]是&amp;#39;/home/code/taskman/task&amp;#39">
+<meta name="twitter:description" content="python包导入机制包是指含有__init__.py的文件夹，模块就是一个.py文件。 python的包和模块是先查找buil-in moudle然后是sys.path这个list里的所有路径。  sys.path[0]是启动Python解释器的脚本所在路径 比如运行python task/admin.py，sys.path[0]是&amp;#39;/home/code/taskman/task&amp;#39">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2016/06/22/python包导入再谈/">
 
@@ -333,7 +333,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+                <time title="修改时间：2023-07-25 10:14:49" itemprop="dateModified" datetime="2023-07-25T10:14:49+08:00">2023-07-25</time>
               </span>
             
           
@@ -360,7 +360,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>1.8k</span>
+              <span>2.5k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -370,7 +370,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
           
 
@@ -386,7 +386,12 @@
         <h2 id="python包导入机制"><a href="#python包导入机制" class="headerlink" title="python包导入机制"></a>python包导入机制</h2><p>包是指含有<code>__init__.py</code>的文件夹，模块就是一个.py文件。</p>
 <p><strong>python的包和模块是先查找<code>buil-in moudle</code>然后是<code>sys.path</code>这个list里的所有路径。</strong></p>
 <ul>
-<li>sys.path[0]是启动Python解释器的脚本所在路径，比如运行<code>python task/admin.py</code>，sys.path[0]是<code>&#39;/home/code/taskman/task&#39;</code>；如果启动的是是idle,ipython等，sys.path[0]是<code>&#39;&#39;</code>。</li>
+<li>sys.path[0]是启动Python解释器的脚本所在路径<ul>
+<li>比如运行<code>python task/admin.py</code>，sys.path[0]是<code>&#39;/home/code/taskman/task&#39;</code></li>
+<li>启动脚本是符号链接时，<code>sys.path[0]</code>是实际文件所在路径，<a href="#符号链接的情况">详见</a></li>
+<li>如果启动的是python解释器，如idle,ipython等，sys.path[0]是<code>&#39;&#39;</code>。</li>
+</ul>
+</li>
 <li>如果sys.path[0]是<code>&#39;&#39;</code>，这个值等于当前工作目录也就是<code>os.getcwd()</code>的值，也就是linux的pwd的值，你可以用<code>os.chdir</code>来改变工作路径。</li>
 <li>sys.path里余下的元素是python环境变量里的一些路径</li>
 </ul>
@@ -402,6 +407,7 @@
 <p>这样在这个脚本的包导入正常，同时还可以通过<code>os.system(&#39;python -m task.models&#39;)</code>运行项目内其他模块，而不用管当前工作目录在那里。</p>
 <p>还有一个霸道的解决方法是，通过<code>export PYTHONPATH=&quot;/home/code/taskman&quot;</code>将项目路径，添加到python环境变量里，这样当解释器启动时项目路径就会直接添加到sys.path中。不过这样会影响整个python环境，可能出现包重名。</p>
 <p>当然还可以在Python的site-packages目录下新建一个<code>some.pth</code>文件，把需要的路径往里面写，这样每一个Python解释器进程的sys.path都会包含这个目录。可能会影响其他用户的程序，不推荐使用。</p>
+<h2 id="符号链接的情况"><a href="#符号链接的情况" class="headerlink" title="符号链接的情况"></a>符号链接的情况</h2><p>当Python程序的入口文件是符号链接时<code>sys.path[0]</code>是实际文件所在路径，所以可能会出现找不到模块的情况。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">➜ tree</span><br><span class="line">.</span><br><span class="line">├── aa.py -&gt; abc/aa.py</span><br><span class="line">├── abc</span><br><span class="line">│   └── aa.py</span><br><span class="line">└── b.py</span><br><span class="line"></span><br><span class="line">1 directory, 3 files</span><br><span class="line"></span><br><span class="line">➜ cat abc/aa.py</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(sys.path)</span><br><span class="line">abc=1</span><br><span class="line">from b import *</span><br><span class="line"></span><br><span class="line">➜ cat b.py</span><br><span class="line">b=2</span><br><span class="line"></span><br><span class="line">➜ python aa.py</span><br><span class="line">[<span class="string">'/private/tmp/tmp1/abc'</span>, </span><br><span class="line"><span class="string">'/Users/ruan/.pyenv/versions/3.8.7/lib/python38.zip'</span>, </span><br><span class="line"><span class="string">'/Users/ruan/.pyenv/versions/3.8.7/lib/python3.8'</span>, </span><br><span class="line"><span class="string">'/Users/ruan/.pyenv/versions/3.8.7/lib/python3.8/lib-dynload'</span>, </span><br><span class="line"><span class="string">'/Users/ruan/.pyenv/versions/3.8.7/lib/python3.8/site-packages'</span>]</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"aa.py"</span>, line 5, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    from b import *</span><br><span class="line">ModuleNotFoundError: No module named <span class="string">'b'</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
 <li>Python模块和包的搜索路径由<code>sys.path</code>列表决定</li>
 <li>Python会将启动脚本所在路径加入到<code>sys.path[0]</code>, 也就是<code>python /home/a/b/c.py</code>的<code>sys.path[0]</code>是<code>/home/a/b/</code></li>
@@ -514,7 +520,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#python包导入机制"><span class="nav-number">1.</span> <span class="nav-text">python包导入机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作路径的影响"><span class="nav-number">2.</span> <span class="nav-text">工作路径的影响</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#当前路径是-taskman"><span class="nav-number">2.1.</span> <span class="nav-text">当前路径是 taskman</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#当前路径不是-taskman"><span class="nav-number">2.2.</span> <span class="nav-text">当前路径不是 taskman</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#python包导入机制"><span class="nav-number">1.</span> <span class="nav-text">python包导入机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作路径的影响"><span class="nav-number">2.</span> <span class="nav-text">工作路径的影响</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#当前路径是-taskman"><span class="nav-number">2.1.</span> <span class="nav-text">当前路径是 taskman</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#当前路径不是-taskman"><span class="nav-number">2.2.</span> <span class="nav-text">当前路径不是 taskman</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#符号链接的情况"><span class="nav-number">3.</span> <span class="nav-text">符号链接的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -816,12 +822,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">305k</span>
+    <span title="站点总字数">306k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:21</span>
+    <span title="站点阅读时长">6:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

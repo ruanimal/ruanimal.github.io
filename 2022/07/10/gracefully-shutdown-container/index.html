@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="在使用 docker 时，常常会碰到进程退出时资源清理的问题，比如保证当前请求处理完成，再退出程序。 当执行 docker stop xxx 时，docker会向主进程（pid=1）发送 SIGTERM 信号如果在一定时间(默认为10s)内进程没有退出，会进一步发送 SIGKILL 直接杀死程序，该信号既不能被捕捉也不能被忽略。 一般的web框架或者rpc框架都集成了 SIGTERM 信号处理程序">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-07-11T07:33:54.101Z">
+<meta property="og:updated_time" content="2022-11-02T15:28:48.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="容器内进程优雅退出">
 <meta name="twitter:description" content="在使用 docker 时，常常会碰到进程退出时资源清理的问题，比如保证当前请求处理完成，再退出程序。 当执行 docker stop xxx 时，docker会向主进程（pid=1）发送 SIGTERM 信号如果在一定时间(默认为10s)内进程没有退出，会进一步发送 SIGKILL 直接杀死程序，该信号既不能被捕捉也不能被忽略。 一般的web框架或者rpc框架都集成了 SIGTERM 信号处理程序">
@@ -333,7 +333,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-07-11 15:33:54" itemprop="dateModified" datetime="2022-07-11T15:33:54+08:00">2022-07-11</time>
+                <time title="修改时间：2022-11-02 23:28:48" itemprop="dateModified" datetime="2022-11-02T23:28:48+08:00">2022-11-02</time>
               </span>
             
           
@@ -390,7 +390,6 @@
 <h2 id="signals"><a href="#signals" class="headerlink" title="signals"></a>signals</h2><p>信号是一种进程间通信机制，它给应用程序提供一种异步的软件中断，使应用程序有机会接受其他程序活终端发送的命令(即信号)。</p>
 <p>应用程序收到信号后，有三种处理方式：忽略，默认，或捕捉。</p>
 <p>常见信号：</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -445,7 +444,6 @@
 </tr>
 </tbody>
 </table>
-</div>
 <h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><p>下面以 supervisor 为例，Dockerfile 如下</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> centos:centos7</span><br><span class="line"><span class="keyword">ENV</span> PYTHONUNBUFFERED=<span class="number">1</span> TZ=Asia/Shanghai</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum -y install epel-release &amp;&amp; \</span></span><br><span class="line"><span class="bash">    yum -y install supervisor &amp;&amp; \</span></span><br><span class="line"><span class="bash">    yum -y clean all  &amp;&amp; rm -rf /var/cache</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> ./ /root/</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [ <span class="string">"/usr/bin/supervisord"</span>, <span class="string">"-n"</span>, <span class="string">"-c"</span>, <span class="string">"/etc/supervisord.conf"</span> ]</span></span><br></pre></td></tr></table></figure>
 <h2 id="trap"><a href="#trap" class="headerlink" title="trap"></a>trap</h2><p>正常情况，容器退出时supervisor启动的其他程序并不会收到 <code>SIGTERM</code> 信号，导致子程序直接退出了。</p>
@@ -579,7 +577,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">160</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -866,12 +864,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">306k</span>
+    <span title="站点总字数">307k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:22</span>
+    <span title="站点阅读时长">6:24</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

@@ -67,7 +67,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-01-02-2021-01-02_171339.png">
 <meta property="og:image" content="http://image.runjf.com/mweb/2021-01-11-%E6%8D%95%E8%8E%B71.png">
-<meta property="og:updated_time" content="2021-08-31T02:18:53.257Z">
+<meta property="og:updated_time" content="2023-05-28T15:58:45.039Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WSL2开启桥接网络">
 <meta name="twitter:description" content="Windows Subsystem for Linux(WSL)从Version 1 (WSL1)升级到Version 2 (WSL2) 之后，底层实现方式发生了改变。 由于使用Hyper-V来实现WSL2，使得WSL更像虚拟机，一个能访问本地硬盘的虚拟机。这带来一些便利，能够把它当做独立服务器来使用，可玩性就增强很多。当然，这也导致WSL上的端口不能从外部访问到，总之有利有弊。 虽然能够配置端口">
@@ -336,7 +336,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-31 10:18:53" itemprop="dateModified" datetime="2021-08-31T10:18:53+08:00">2021-08-31</time>
+                <time title="修改时间：2023-05-28 23:58:45" itemprop="dateModified" datetime="2023-05-28T23:58:45+08:00">2023-05-28</time>
               </span>
             
           
@@ -418,7 +418,7 @@
 <li><p>如果VERSION不为为2，在PowerShell执行<code>wsl --set-version Debian 2</code>进行升级</p>
 </li>
 </ol>
-<h2 id="修改WSL2默认网络为桥接"><a href="#修改WSL2默认网络为桥接" class="headerlink" title="修改WSL2默认网络为桥接"></a>修改WSL2默认网络为桥接</h2><p>由于WSL2底层使用的是Hyper-V虚拟机，所以我们可以修改虚拟交换机的类型，来启用桥接网络<br>打开<code>Hyper-V管理器 -&gt; 操作 -&gt; 虚拟交换机管理器</code>， 修改WSL的连接类型为“外部网络”<br><img src="http://image.runjf.com/mweb/2021-01-02-2021-01-02_171339.png" alt="2021-01-02_171339"></p>
+<h2 id="修改WSL2默认网络为桥接"><a href="#修改WSL2默认网络为桥接" class="headerlink" title="修改WSL2默认网络为桥接"></a>修改WSL2默认网络为桥接</h2><p>由于WSL2底层使用的是Hyper-V虚拟机，所以我们可以修改虚拟交换机的类型，来启用桥接网络<br>打开<code>Hyper-V管理器 -&gt; 操作 -&gt; 虚拟交换机管理器</code>， 修改WSL的连接类型为“外部网络”<br><img src="http://image.runjf.com/mweb/2021-01-02-2021-01-02_171339.png" alt="2021-01-02_171339"> </p>
 <h2 id="修复Debian网络"><a href="#修复Debian网络" class="headerlink" title="修复Debian网络"></a>修复Debian网络</h2><p>由于WSL2默认网络模式是NAT，我们把虚拟交换机改为桥接后，默认的ip和路由以及DNS解析将会失效</p>
 <p>以下操作在Debian系统内执行</p>
 <h3 id="修复ip和路由"><a href="#修复ip和路由" class="headerlink" title="修复ip和路由"></a>修复ip和路由</h3><ol>
@@ -566,7 +566,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">160</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -853,12 +853,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">306k</span>
+    <span title="站点总字数">307k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:22</span>
+    <span title="站点阅读时长">6:24</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

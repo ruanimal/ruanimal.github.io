@@ -65,12 +65,12 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="所谓的 Bitmap 其实就是二进制位数组，由于元素是二进制位，每一个元素只占用1个bit，十分节省内存空间。 每一个bit有0、1两种状态，所以 Bitmap 适合应用于判断是否存在、桶排序（不含重复元素），具体来说可以用bitmap记录ip信息，实现布隆过滤器等等。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://image.runjf.com/mweb/2021-05-31-16224684372402.jpg">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
+<meta property="og:image" content="https://image.ponder.work/mweb/2021-05-31-16224684372402.jpg">
+<meta property="og:updated_time" content="2024-07-09T13:50:24.797Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bitmap 原理及实现">
 <meta name="twitter:description" content="所谓的 Bitmap 其实就是二进制位数组，由于元素是二进制位，每一个元素只占用1个bit，十分节省内存空间。 每一个bit有0、1两种状态，所以 Bitmap 适合应用于判断是否存在、桶排序（不含重复元素），具体来说可以用bitmap记录ip信息，实现布隆过滤器等等。">
-<meta name="twitter:image" content="http://image.runjf.com/mweb/2021-05-31-16224684372402.jpg">
+<meta name="twitter:image" content="https://image.ponder.work/mweb/2021-05-31-16224684372402.jpg">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2021/05/31/bitmap-python-edition/">
 
@@ -335,7 +335,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+                <time title="修改时间：2024-07-09 21:50:24" itemprop="dateModified" datetime="2024-07-09T21:50:24+08:00">2024-07-09</time>
               </span>
             
           
@@ -389,7 +389,7 @@
 <p>每一个bit有0、1两种状态，所以 Bitmap 适合应用于判断是否存在、桶排序（不含重复元素），具体来说可以用bitmap记录ip信息，实现布隆过滤器等等。<br><a id="more"></a></p>
 <h2 id="Bitmap-原理"><a href="#Bitmap-原理" class="headerlink" title="Bitmap 原理"></a>Bitmap 原理</h2><p>Bitmap 可以看成是个二维数组，第一维取出的元素是byte，然后用第二维的index去访问该byte对应的位。</p>
 <p>由于正常访问内存最小的单位的字节，操作具体的位需要位运算。</p>
-<p><img src="http://image.runjf.com/mweb/2021-05-31-16224684372402.jpg" alt></p>
+<p><img src="https://image.ponder.work/mweb/2021-05-31-16224684372402.jpg" alt></p>
 <h3 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h3><p><strong>注意</strong>：这里的位移操作都是逻辑位移</p>
 <p>一个byte有8bit， 设置某个位为1，需要用到<code>按位或 |</code><br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">第<span class="number">0</span>个bit： byte |= <span class="number">0b10000000</span></span><br><span class="line">第<span class="number">1</span>个bit： byte |= <span class="number">0b01000000</span></span><br><span class="line">...</span><br><span class="line">第<span class="number">7</span>个bit： byte |= <span class="number">0b00000001</span></span><br><span class="line"></span><br><span class="line">所以：设置byte的第n个bit(n取<span class="number">0</span>到<span class="number">7</span>)： byte |= (<span class="number">0b10000000</span> &gt;&gt; n)</span><br></pre></td></tr></table></figure></p>
 <p>判断某个位是否为1，需要用到<code>按位与 &amp;</code><br>过程和上面类似, 满足<code>byte &amp; (0b10000000 &gt;&gt; n) == (0b10000000 &gt;&gt; n)</code>，则该位为1</p>
@@ -796,7 +796,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

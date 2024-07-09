@@ -65,12 +65,12 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="最近在搞 torch 的工程化，基于 brpc 和 libtorch，将两者编译在一起的过程也是坑深，容下次再表。 为了简化部署，brpc 服务在 Docker 容器中运行。本地测试时功能一切正常，上到预发布环境时请求全部超时。 由于业务代码，brpc，docker环境，机房都是新的，在排查问题的过程中简直一头雾水。（当然根本原因还是水平不足）">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://image.runjf.com/mweb/2022-07-11-16575342644060.jpg">
-<meta property="og:updated_time" content="2022-11-02T15:28:48.170Z">
+<meta property="og:image" content="https://image.ponder.work/mweb/2022-07-11-16575342644060.jpg">
+<meta property="og:updated_time" content="2024-07-09T13:50:24.830Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker mtu 引发的加班血案">
 <meta name="twitter:description" content="最近在搞 torch 的工程化，基于 brpc 和 libtorch，将两者编译在一起的过程也是坑深，容下次再表。 为了简化部署，brpc 服务在 Docker 容器中运行。本地测试时功能一切正常，上到预发布环境时请求全部超时。 由于业务代码，brpc，docker环境，机房都是新的，在排查问题的过程中简直一头雾水。（当然根本原因还是水平不足）">
-<meta name="twitter:image" content="http://image.runjf.com/mweb/2022-07-11-16575342644060.jpg">
+<meta name="twitter:image" content="https://image.ponder.work/mweb/2022-07-11-16575342644060.jpg">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2021/09/21/docker-mtu-issues/">
 
@@ -335,7 +335,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-02 23:28:48" itemprop="dateModified" datetime="2022-11-02T23:28:48+08:00">2022-11-02</time>
+                <time title="修改时间：2024-07-09 21:50:24" itemprop="dateModified" datetime="2024-07-09T21:50:24+08:00">2024-07-09</time>
               </span>
             
           
@@ -407,7 +407,7 @@
 <p>在这个例子上，curl的误导大概花了一半的时间去定位。所以，定位问题首先得明确问题，如医生看病一样，确认问题发生的现象（卡住），位置(docker容器中)、程度（永久）、触发原因（大请求body）。</p>
 <h3 id="要善于运用他人的经验和知识"><a href="#要善于运用他人的经验和知识" class="headerlink" title="要善于运用他人的经验和知识"></a>要善于运用他人的经验和知识</h3><p>找专业人士寻求帮助是非常高效的，会大大缩短定位问题的时间，因为他们会运用经验和知识快速排除错误选项。</p>
 <h3 id="知识可能会误导你"><a href="#知识可能会误导你" class="headerlink" title="知识可能会误导你"></a>知识可能会误导你</h3><p>你所拥有的知识，并不是究竟的知识，也就是它所能应用的范围并不适应当前的场景，还有可能误导你。<br>你所缺失的知识，让你看不清前方正确的道路。</p>
-<p>按我的知识，docker0是网桥，等价于交换机，除了性能问题，不应该导致丢包，就一直没往这个方向考虑（当然这块的知识也不扎实）。<br>MTU也不应该导致丢包，交换机应该会进行IP分片。<br>但忽略了一个点，虚拟的网桥并不是硬件网桥，可能并没有实现IP分片的逻辑（仅丢弃），又或者没有实现 PMTU（Path MTU Discovery）。<br>上面这点存疑，但更直接的原因是服务的IP包的 <code>Don&#39;t fragment</code> flag 为1，也就是禁止分片（为什么设置还不清楚）。<br><img src="http://image.runjf.com/mweb/2022-07-11-16575342644060.jpg" alt></p>
+<p>按我的知识，docker0是网桥，等价于交换机，除了性能问题，不应该导致丢包，就一直没往这个方向考虑（当然这块的知识也不扎实）。<br>MTU也不应该导致丢包，交换机应该会进行IP分片。<br>但忽略了一个点，虚拟的网桥并不是硬件网桥，可能并没有实现IP分片的逻辑（仅丢弃），又或者没有实现 PMTU（Path MTU Discovery）。<br>上面这点存疑，但更直接的原因是服务的IP包的 <code>Don&#39;t fragment</code> flag 为1，也就是禁止分片（为什么设置还不清楚）。<br><img src="https://image.ponder.work/mweb/2022-07-11-16575342644060.jpg" alt></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://github.com/apache/incubator-brpc/issues/1075" target="_blank" rel="noopener">https://github.com/apache/incubator-brpc/issues/1075</a></li>
 <li><a href="https://mp.weixin.qq.com/s/-Q1AkxUr9xzGKwUMV-FQhQ" target="_blank" rel="noopener">云网络丢包故障定位全景指南</a></li>
@@ -814,7 +814,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

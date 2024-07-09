@@ -65,15 +65,15 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="后端一个常见且比较让人头疼的问题是服务限流，没有做好限流开始导致单个服务耗时增加，进而影响上下游服务，最终可能导致整个系统被拖垮。 限流的目的是通过对并发请求进行限速来保护系统，一旦达到限制速率则可以拒绝服务、排队 或等待、降级。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://image.runjf.com/mweb/2021-05-31-16223879750903.jpg">
-<meta property="og:image" content="http://image.runjf.com/mweb/2021-05-31-16223889987592.jpg">
-<meta property="og:image" content="http://image.runjf.com/mweb/2021-05-31-16223906628083.jpg">
-<meta property="og:image" content="http://image.runjf.com/mweb/2021-05-31-16223908269384.jpg">
-<meta property="og:updated_time" content="2021-07-15T08:02:44.000Z">
+<meta property="og:image" content="https://image.ponder.work/mweb/2021-05-31-16223879750903.jpg">
+<meta property="og:image" content="https://image.ponder.work/mweb/2021-05-31-16223889987592.jpg">
+<meta property="og:image" content="https://image.ponder.work/mweb/2021-05-31-16223906628083.jpg">
+<meta property="og:image" content="https://image.ponder.work/mweb/2021-05-31-16223908269384.jpg">
+<meta property="og:updated_time" content="2024-07-09T13:50:24.832Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="限流算法之漏桶与令牌桶">
 <meta name="twitter:description" content="后端一个常见且比较让人头疼的问题是服务限流，没有做好限流开始导致单个服务耗时增加，进而影响上下游服务，最终可能导致整个系统被拖垮。 限流的目的是通过对并发请求进行限速来保护系统，一旦达到限制速率则可以拒绝服务、排队 或等待、降级。">
-<meta name="twitter:image" content="http://image.runjf.com/mweb/2021-05-31-16223879750903.jpg">
+<meta name="twitter:image" content="https://image.ponder.work/mweb/2021-05-31-16223879750903.jpg">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2021/05/30/leaky-bucket-and-token-bucket/">
 
@@ -338,7 +338,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+                <time title="修改时间：2024-07-09 21:50:24" itemprop="dateModified" datetime="2024-07-09T21:50:24+08:00">2024-07-09</time>
               </span>
             
           
@@ -398,8 +398,8 @@
 <li>可以以任意速率流入水滴到漏桶。</li>
 <li>如果流入水滴超出了桶的容量， 则流入的水滴溢出了（被丢弃）。</li>
 </ul>
-<p><img src="http://image.runjf.com/mweb/2021-05-31-16223879750903.jpg" alt="-w962"></p>
-<p>漏桶的关键在于漏出速度恒定，超出的流量会被丢弃，最终请求看起来会是这样，峰值完全被砍掉了，过于粗暴了，适用的场景不多。<br><img src="http://image.runjf.com/mweb/2021-05-31-16223889987592.jpg" alt="-w1308"></p>
+<p><img src="https://image.ponder.work/mweb/2021-05-31-16223879750903.jpg" alt="-w962"></p>
+<p>漏桶的关键在于漏出速度恒定，超出的流量会被丢弃，最终请求看起来会是这样，峰值完全被砍掉了，过于粗暴了，适用的场景不多。<br><img src="https://image.ponder.work/mweb/2021-05-31-16223889987592.jpg" alt="-w1308"></p>
 <h3 id="漏桶Python实现"><a href="#漏桶Python实现" class="headerlink" title="漏桶Python实现"></a>漏桶Python实现</h3><p>网上常见的一种实现是用个队列直接存储请求来模拟漏桶，其实大可不必，内存空间占用大而且效率低。</p>
 <p>其实只需要通过一个队列记录请求时间，结合漏桶漏出速率进行计算，然后移动窗口就可以实现漏桶了。</p>
 <p>这里的实现对漏桶进行了简化，漏桶的容量恰好等于单位时间漏出的量。</p>
@@ -407,14 +407,14 @@
 <h2 id="令牌桶"><a href="#令牌桶" class="headerlink" title="令牌桶"></a>令牌桶</h2><p>令牌桶算法，是一个存放固定容量令牌的桶，按照固定速率往桶里添加令牌。</p>
 <p>令牌桶算法的描述如下。</p>
 <ul>
-<li>假设限制2r/s ，则按照500毫秒的固定速率往桶中添加令牌。 </li>
-<li>桶中最多存放b个令牌， 当桶满时，新添加的令牌被丢弃或拒绝。 </li>
+<li>假设限制2r/s ，则按照500毫秒的固定速率往桶中添加令牌。</li>
+<li>桶中最多存放b个令牌， 当桶满时，新添加的令牌被丢弃或拒绝。</li>
 <li>当一个n个字节的数据包到达，将从桶中删除n个令牌，然后发送请求</li>
 <li>如果桶中的令牌不足n个，则该数据包将被限流（要么丢弃， 要么在缓冲区等待）。</li>
 </ul>
-<p><img src="http://image.runjf.com/mweb/2021-05-31-16223906628083.jpg" alt="-w846"></p>
+<p><img src="https://image.ponder.work/mweb/2021-05-31-16223906628083.jpg" alt="-w846"></p>
 <p>由于令牌放置速度恒定，取出速度不限，所以令牌桶的限流是有一定弹性的，能够接受请求的一定波动。</p>
-<p><img src="http://image.runjf.com/mweb/2021-05-31-16223908269384.jpg" alt="-w1288"></p>
+<p><img src="https://image.ponder.work/mweb/2021-05-31-16223908269384.jpg" alt="-w1288"></p>
 <h3 id="令牌桶Python实现"><a href="#令牌桶Python实现" class="headerlink" title="令牌桶Python实现"></a>令牌桶Python实现</h3><p>通过计算令牌桶容量和产生速率就可以实现令牌桶，并不需要真的实现“把令牌放桶里”和“取出令牌”。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time, sleep</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TokenBucket</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, tokens, fill_rate)</span>:</span></span><br><span class="line">        self.capacity = float(tokens)   <span class="comment"># 容量</span></span><br><span class="line">        self._tokens = float(tokens)</span><br><span class="line">        self.fill_rate = float(fill_rate)    <span class="comment"># 产生速度</span></span><br><span class="line">        self.timestamp = time()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">consume</span><span class="params">(self, tokens, block=True)</span>:</span></span><br><span class="line">        <span class="keyword">assert</span> tokens &lt;= self.capacity, <span class="string">'Attempted to consume &#123;&#125; tokens from a bucket with capacity &#123;&#125;'</span>.format(tokens, self.capacity)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> block <span class="keyword">and</span> tokens &gt; self.tokens:</span><br><span class="line">            deficit = tokens - self._tokens</span><br><span class="line">            delay = deficit / self.fill_rate</span><br><span class="line">            print(<span class="string">'Have &#123;&#125; tokens, need &#123;&#125;; sleeping &#123;&#125; seconds'</span>.format(self._tokens, tokens, delay))</span><br><span class="line">            sleep(delay)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> tokens &lt;= self.tokens:</span><br><span class="line">            self._tokens -= tokens</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tokens</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self._tokens &lt; self.capacity:</span><br><span class="line">            now = time()   <span class="comment"># 获取当前时间</span></span><br><span class="line">            delta = self.fill_rate * (now - self.timestamp)   <span class="comment"># 算出这段时间产出的令牌</span></span><br><span class="line">            self._tokens = min(self.capacity, self._tokens + delta)   <span class="comment"># 丢弃超出容量的令牌</span></span><br><span class="line">            self.timestamp = now   <span class="comment"># 更新基准时间</span></span><br><span class="line">        <span class="keyword">return</span> self._tokens</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rate_limit</span><span class="params">(data, bandwidth_or_burst, steady_state_bandwidth=None)</span>:</span></span><br><span class="line">    <span class="comment"># bandwidth_or_burst 令牌桶容量</span></span><br><span class="line">    <span class="comment"># steady_state_bandwidth 令牌产生速度</span></span><br><span class="line">    bandwidth = steady_state_bandwidth <span class="keyword">or</span> bandwidth_or_burst</span><br><span class="line">    rate_limiter = TokenBucket(bandwidth_or_burst, bandwidth)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> thing <span class="keyword">in</span> data:</span><br><span class="line">        rate_limiter.consume(len(str(thing)))</span><br><span class="line">        <span class="keyword">yield</span> thing</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    stream = rate_limit(range(<span class="number">10</span>), <span class="number">5</span>, <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> stream:</span><br><span class="line">        print(time(), i)</span><br></pre></td></tr></table></figure>
 <p>注意：以上算法都是单机单线程的实现，如果需要多个机器限流则需要将桶的状态通过redis等外部服务来存储。</p>
@@ -831,7 +831,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

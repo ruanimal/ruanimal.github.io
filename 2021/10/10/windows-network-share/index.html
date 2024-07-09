@@ -65,14 +65,14 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="要在不暴露 client 的情况下共享网络，一般就只能使用 nat(Network Address Translation), linux 下可以使用 iptables 很轻松地搞定。nat 包含 DNAT 和 SNAT, 要想双向互通，必须两者都实现。 windows下的网络共享只有SNAT那一部分，比如各自免费wifi软件。少了DNAT，外部网络就无法访问内部。 还好windows下可以配置端">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://image.runjf.com/mweb/2021-10-10-16338760513347.jpg">
-<meta property="og:image" content="http://image.runjf.com/mweb/2021-10-10-16338761455929.jpg">
-<meta property="og:image" content="http://image.runjf.com/mweb/2021-10-10-16338761903207.jpg">
-<meta property="og:updated_time" content="2021-10-11T18:13:59.076Z">
+<meta property="og:image" content="https://image.ponder.work/mweb/2021-10-10-16338760513347.jpg">
+<meta property="og:image" content="https://image.ponder.work/mweb/2021-10-10-16338761455929.jpg">
+<meta property="og:image" content="https://image.ponder.work/mweb/2021-10-10-16338761903207.jpg">
+<meta property="og:updated_time" content="2024-07-09T13:50:24.832Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows 网络共享">
 <meta name="twitter:description" content="要在不暴露 client 的情况下共享网络，一般就只能使用 nat(Network Address Translation), linux 下可以使用 iptables 很轻松地搞定。nat 包含 DNAT 和 SNAT, 要想双向互通，必须两者都实现。 windows下的网络共享只有SNAT那一部分，比如各自免费wifi软件。少了DNAT，外部网络就无法访问内部。 还好windows下可以配置端">
-<meta name="twitter:image" content="http://image.runjf.com/mweb/2021-10-10-16338760513347.jpg">
+<meta name="twitter:image" content="https://image.ponder.work/mweb/2021-10-10-16338760513347.jpg">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2021/10/10/windows-network-share/">
 
@@ -337,7 +337,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-12 02:13:59" itemprop="dateModified" datetime="2021-10-12T02:13:59+08:00">2021-10-12</time>
+                <time title="修改时间：2024-07-09 21:50:24" itemprop="dateModified" datetime="2024-07-09T21:50:24+08:00">2024-07-09</time>
               </span>
             
           
@@ -395,10 +395,10 @@
 <li>A: 用于访问外网</li>
 <li>B: 共享网络接入点</li>
 </ul>
-<p>打开：控制面板 》网络和Internet 》网络和共享中心 》更改适配器设置 </p>
-<p><img src="http://image.runjf.com/mweb/2021-10-10-16338760513347.jpg" alt></p>
-<p><img src="http://image.runjf.com/mweb/2021-10-10-16338761455929.jpg" alt></p>
-<p>右键A网卡 &gt; 属性 &gt; 共享 &gt; 勾选允许 （win10可能有下拉选择，下拉选中B网卡）<br><img src="http://image.runjf.com/mweb/2021-10-10-16338761903207.jpg" alt></p>
+<p>打开：控制面板 》网络和Internet 》网络和共享中心 》更改适配器设置</p>
+<p><img src="https://image.ponder.work/mweb/2021-10-10-16338760513347.jpg" alt></p>
+<p><img src="https://image.ponder.work/mweb/2021-10-10-16338761455929.jpg" alt></p>
+<p>右键A网卡 &gt; 属性 &gt; 共享 &gt; 勾选允许 （win10可能有下拉选择，下拉选中B网卡）<br><img src="https://image.ponder.work/mweb/2021-10-10-16338761903207.jpg" alt></p>
 <h2 id="端口映射配置"><a href="#端口映射配置" class="headerlink" title="端口映射配置"></a>端口映射配置</h2><p>netsh是Windows自带的端口转发/端口映射工具。</p>
 <p>支持IPv4和IPv6,命令即时生效,重启系统后配置仍然存在。</p>
 <h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ul>
@@ -410,7 +410,7 @@
 <li>set - 设置配置信息。</li>
 <li>show - 显示信息。</li>
 </ul>
-<h3 id="用法-以v4tov4为例"><a href="#用法-以v4tov4为例" class="headerlink" title="用法(以v4tov4为例)"></a>用法(以v4tov4为例)</h3><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">add v4tov4 <span class="comment">[listenport=]</span>integer&gt;|servicename&gt; \ </span><br><span class="line">           <span class="comment">[connectaddress=]</span>IPv4 address&gt;|hostname&gt;  \ </span><br><span class="line">           <span class="comment">[<span class="comment">[connectport=]</span>integer&gt;|servicename&gt;]</span>  \ </span><br><span class="line">           <span class="comment">[<span class="comment">[listenaddress=]</span>IPv4 address&gt;|hostname&gt;]</span>  \</span><br><span class="line">           <span class="comment">[<span class="comment">[protocol=]</span>tcp]</span></span><br></pre></td></tr></table></figure>
+<h3 id="用法-以v4tov4为例"><a href="#用法-以v4tov4为例" class="headerlink" title="用法(以v4tov4为例)"></a>用法(以v4tov4为例)</h3><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">add v4tov4 <span class="comment">[listenport=]</span>integer&gt;|servicename&gt; \</span><br><span class="line">           <span class="comment">[connectaddress=]</span>IPv4 address&gt;|hostname&gt;  \</span><br><span class="line">           <span class="comment">[<span class="comment">[connectport=]</span>integer&gt;|servicename&gt;]</span>  \</span><br><span class="line">           <span class="comment">[<span class="comment">[listenaddress=]</span>IPv4 address&gt;|hostname&gt;]</span>  \</span><br><span class="line">           <span class="comment">[<span class="comment">[protocol=]</span>tcp]</span></span><br></pre></td></tr></table></figure>
 <h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><ul>
 <li>listenport      - IPv4 侦听端口。</li>
 <li>connectaddress  - IPv4 连接地址。</li>
@@ -422,6 +422,7 @@
 <p>这样外部就可以通过本地的对外ip来ssh访问192.168.8.108了<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh<span class="built_in"> interface </span>portproxy <span class="builtin-name">add</span> v4tov4 <span class="attribute">listenport</span>=2222 <span class="attribute">connectaddress</span>=192.168.8.108 <span class="attribute">connectport</span>=22</span><br></pre></td></tr></table></figure></p>
 <h3 id="显示端口转发"><a href="#显示端口转发" class="headerlink" title="显示端口转发"></a>显示端口转发</h3><p>一般情况下使用下列命令进行查看</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh<span class="built_in"> interface </span>portproxy show all</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -472,8 +473,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2021/10/10/mysql-partition/" rel="prev" title="MySQL 表分区使用">
-                  MySQL 表分区使用 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/10/10/macos-tips/" rel="prev" title="macOS 使用技巧">
+                  macOS 使用技巧 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -819,7 +820,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

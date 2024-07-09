@@ -65,16 +65,16 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="原理一次简单的日志记录1234567891011import logginglogger = logging.getLogger(__name__)try:    1/0except Exception as e:    logger.debug(&apos;debug %s&apos;, e)    logger.info(&apos;info %s&apos;, e)    logger.warning(&apos;warning %s&apos;,">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://image.runjf.com/mweb/2019-11-02-15441717816714.jpg">
-<meta property="og:image" content="http://image.runjf.com/mweb/2019-11-02-15441884511996.jpg">
-<meta property="og:image" content="http://image.runjf.com/mweb/2019-11-02-15441892815553.jpg">
-<meta property="og:image" content="http://image.runjf.com/mweb/2019-11-02-15441892888667.jpg">
-<meta property="og:image" content="http://image.runjf.com/mweb/2019-11-02-15393262305519.jpg">
-<meta property="og:updated_time" content="2022-12-05T08:03:58.215Z">
+<meta property="og:image" content="https://image.ponder.work/mweb/2019-11-02-15441717816714.jpg">
+<meta property="og:image" content="https://image.ponder.work/mweb/2019-11-02-15441884511996.jpg">
+<meta property="og:image" content="https://image.ponder.work/mweb/2019-11-02-15441892815553.jpg">
+<meta property="og:image" content="https://image.ponder.work/mweb/2019-11-02-15441892888667.jpg">
+<meta property="og:image" content="https://image.ponder.work/mweb/2019-11-02-15393262305519.jpg">
+<meta property="og:updated_time" content="2024-07-09T13:50:24.832Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python日志原理及实践">
 <meta name="twitter:description" content="原理一次简单的日志记录1234567891011import logginglogger = logging.getLogger(__name__)try:    1/0except Exception as e:    logger.debug(&apos;debug %s&apos;, e)    logger.info(&apos;info %s&apos;, e)    logger.warning(&apos;warning %s&apos;,">
-<meta name="twitter:image" content="http://image.runjf.com/mweb/2019-11-02-15441717816714.jpg">
+<meta name="twitter:image" content="https://image.ponder.work/mweb/2019-11-02-15441717816714.jpg">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2019/11/02/python-logging-guide/">
 
@@ -339,7 +339,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-05 16:03:58" itemprop="dateModified" datetime="2022-12-05T16:03:58+08:00">2022-12-05</time>
+                <time title="修改时间：2024-07-09 21:50:24" itemprop="dateModified" datetime="2024-07-09T21:50:24+08:00">2024-07-09</time>
               </span>
             
           
@@ -396,7 +396,7 @@
 <li>调用日志记录器的相应方法记录日志</li>
 </ol>
 <a id="more"></a>
-<h3 id="记录器-logger"><a href="#记录器-logger" class="headerlink" title="记录器 (logger)"></a>记录器 (logger)</h3><p><img src="http://image.runjf.com/mweb/2019-11-02-15441717816714.jpg" alt></p>
+<h3 id="记录器-logger"><a href="#记录器-logger" class="headerlink" title="记录器 (logger)"></a>记录器 (logger)</h3><p><img src="https://image.ponder.work/mweb/2019-11-02-15441717816714.jpg" alt></p>
 <ul>
 <li>logger是Python记录日志的入口</li>
 <li>logger.info, logger.debug等几个函数对应记录不同的日志级别</li>
@@ -493,14 +493,14 @@
 <li>TimedRotatingFileHandler 记录到文件并按时间滚动</li>
 </ul>
 <h3 id="过滤器-filter"><a href="#过滤器-filter" class="headerlink" title="过滤器 (filter)"></a>过滤器 (filter)</h3><p>filter是附加在logger上的, 对日志进行细粒度控制, 例如根据一些条件判断是否记录日志, 修改日志record的内容等</p>
-<p><img src="http://image.runjf.com/mweb/2019-11-02-15441884511996.jpg" alt></p>
+<p><img src="https://image.ponder.work/mweb/2019-11-02-15441884511996.jpg" alt></p>
 <p>例如上面这个ContextFilter, 就将第二条日志过滤掉了.</p>
-<h3 id="格式器-formatter"><a href="#格式器-formatter" class="headerlink" title="格式器 (formatter)"></a>格式器 (formatter)</h3><p>根据配置，将日志record的属性格式化成字符串<br><img src="http://image.runjf.com/mweb/2019-11-02-15441892815553.jpg" alt></p>
-<p><img src="http://image.runjf.com/mweb/2019-11-02-15441892888667.jpg" alt></p>
+<h3 id="格式器-formatter"><a href="#格式器-formatter" class="headerlink" title="格式器 (formatter)"></a>格式器 (formatter)</h3><p>根据配置，将日志record的属性格式化成字符串<br><img src="https://image.ponder.work/mweb/2019-11-02-15441892815553.jpg" alt></p>
+<p><img src="https://image.ponder.work/mweb/2019-11-02-15441892888667.jpg" alt></p>
 <h3 id="日志处理流程"><a href="#日志处理流程" class="headerlink" title="日志处理流程"></a>日志处理流程</h3><p>解释完这些名词, 然后看这个这个流程图, 就会明白整个日志的处理流程</p>
-<p><img src="http://image.runjf.com/mweb/2019-11-02-15393262305519.jpg" alt></p>
+<p><img src="https://image.ponder.work/mweb/2019-11-02-15393262305519.jpg" alt></p>
 <h3 id="日志配置"><a href="#日志配置" class="headerlink" title="日志配置"></a>日志配置</h3><p>开发过程中觉得比较好的一个日志配置</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">LOGGING = &#123;</span><br><span class="line">    <span class="string">'version'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'disable_existing_loggers'</span>: <span class="literal">False</span>,  <span class="comment"># 是否禁用已存在的日志记录器</span></span><br><span class="line">    <span class="string">'formatters'</span>: &#123;</span><br><span class="line">        <span class="string">'verbose'</span>: &#123;</span><br><span class="line">            <span class="string">'format'</span>: <span class="string">'[%(levelname)s %(asctime)s %(name)s %(funcName)s %(lineno)d %(process)d] %(message)s'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'simple'</span>: &#123;</span><br><span class="line">            <span class="string">'format'</span>: <span class="string">'[%(levelname)s %(message)s'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'handlers'</span>: &#123;</span><br><span class="line">        <span class="string">'console'</span>: &#123;</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'INFO'</span>,</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.StreamHandler'</span>,   <span class="comment"># 输出到终端的handlers</span></span><br><span class="line">            <span class="string">'formatter'</span>: <span class="string">'simple'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'backend_file'</span>:&#123;</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.handlers.TimedRotatingFileHandler'</span>,    </span><br><span class="line">            <span class="string">'filename'</span>: <span class="string">'main.log'</span>,</span><br><span class="line">            <span class="string">'backupCount'</span>: <span class="number">5</span>,</span><br><span class="line">            <span class="string">'formatter'</span>:<span class="string">'verbose'</span>,</span><br><span class="line">            <span class="string">'when'</span>: <span class="string">'D'</span>,  <span class="comment"># 按天滚动日志</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'backend_err_file'</span>:&#123;</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.handlers.TimedRotatingFileHandler'</span>,</span><br><span class="line">            <span class="string">'filename'</span>: <span class="string">'main_error.log'</span>,</span><br><span class="line">            <span class="string">'backupCount'</span>: <span class="number">5</span>,</span><br><span class="line">            <span class="string">'formatter'</span>:<span class="string">'verbose'</span>,</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'ERROR'</span>,</span><br><span class="line">            <span class="string">'when'</span>: <span class="string">'D'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'loggers'</span>: &#123;</span><br><span class="line">        <span class="string">''</span>: &#123;</span><br><span class="line">            <span class="string">'handlers'</span>: [<span class="string">'backend_file'</span>, <span class="string">'backend_err_file'</span>],</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'INFO'</span>,</span><br><span class="line">            <span class="string">'propagate'</span>: <span class="literal">False</span>,  <span class="comment"># 是否传递给上级logger，一般设置为False；否则，可能会导致多份日志</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> logging.config</span><br><span class="line"></span><br><span class="line">logging.config.dictConfig(LOGGING)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">LOGGING = &#123;</span><br><span class="line">    <span class="string">'version'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'disable_existing_loggers'</span>: <span class="literal">False</span>,  <span class="comment"># 是否禁用已存在的日志记录器</span></span><br><span class="line">    <span class="string">'formatters'</span>: &#123;</span><br><span class="line">        <span class="string">'verbose'</span>: &#123;</span><br><span class="line">            <span class="string">'format'</span>: <span class="string">'[%(levelname)s %(asctime)s %(name)s %(funcName)s %(lineno)d %(process)d] %(message)s'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'simple'</span>: &#123;</span><br><span class="line">            <span class="string">'format'</span>: <span class="string">'[%(levelname)s %(message)s'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'handlers'</span>: &#123;</span><br><span class="line">        <span class="string">'console'</span>: &#123;</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'INFO'</span>,</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.StreamHandler'</span>,   <span class="comment"># 输出到终端的handlers</span></span><br><span class="line">            <span class="string">'formatter'</span>: <span class="string">'simple'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'backend_file'</span>:&#123;</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.handlers.TimedRotatingFileHandler'</span>,</span><br><span class="line">            <span class="string">'filename'</span>: <span class="string">'main.log'</span>,</span><br><span class="line">            <span class="string">'backupCount'</span>: <span class="number">5</span>,</span><br><span class="line">            <span class="string">'formatter'</span>:<span class="string">'verbose'</span>,</span><br><span class="line">            <span class="string">'when'</span>: <span class="string">'D'</span>,  <span class="comment"># 按天滚动日志</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'backend_err_file'</span>:&#123;</span><br><span class="line">            <span class="string">'class'</span>: <span class="string">'logging.handlers.TimedRotatingFileHandler'</span>,</span><br><span class="line">            <span class="string">'filename'</span>: <span class="string">'main_error.log'</span>,</span><br><span class="line">            <span class="string">'backupCount'</span>: <span class="number">5</span>,</span><br><span class="line">            <span class="string">'formatter'</span>:<span class="string">'verbose'</span>,</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'ERROR'</span>,</span><br><span class="line">            <span class="string">'when'</span>: <span class="string">'D'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'loggers'</span>: &#123;</span><br><span class="line">        <span class="string">''</span>: &#123;</span><br><span class="line">            <span class="string">'handlers'</span>: [<span class="string">'backend_file'</span>, <span class="string">'backend_err_file'</span>],</span><br><span class="line">            <span class="string">'level'</span>: <span class="string">'INFO'</span>,</span><br><span class="line">            <span class="string">'propagate'</span>: <span class="literal">False</span>,  <span class="comment"># 是否传递给上级logger，一般设置为False；否则，可能会导致多份日志</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> logging.config</span><br><span class="line"></span><br><span class="line">logging.config.dictConfig(LOGGING)</span><br></pre></td></tr></table></figure>
 <h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h3 id="要打哪些日志"><a href="#要打哪些日志" class="headerlink" title="要打哪些日志"></a>要打哪些日志</h3><h4 id="问题定位"><a href="#问题定位" class="headerlink" title="问题定位"></a>问题定位</h4><ul>
 <li>web请求入口和出口</li>
 <li>外部服务调用入参和返回</li>
@@ -515,9 +515,8 @@
 <li><p>基本信息</p>
   <figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">'<span class="variable">%(levelname)s %</span>(asctime)s <span class="variable">%(name)s %</span>(funcName)s <span class="variable">%(lineno)d %</span>(process)d <span class="variable">%(thread)d %</span>(message)s'</span><br><span class="line"></span><br><span class="line">日志级别 时间 logger名称 函数名称 函数名 行号 进程id 线程id</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-<ul>
-<li>唯一请求id</li>
+<li><p>唯一请求id</p>
+</li>
 <li>必要的描述信息: 如request xxx failed</li>
 <li>异常相关信息, 调用trace info</li>
 </ul>
@@ -529,7 +528,7 @@
 <li>error级别日志输出到单独文件</li>
 </ul>
 <h4 id="网络日志"><a href="#网络日志" class="headerlink" title="网络日志"></a>网络日志</h4><ul>
-<li>单机情况下一般不需要 </li>
+<li>单机情况下一般不需要</li>
 <li>多机部署可用kafka，ELK等方案</li>
 </ul>
 <h3 id="一些记录的建议"><a href="#一些记录的建议" class="headerlink" title="一些记录的建议"></a>一些记录的建议</h3><ul>
@@ -938,7 +937,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

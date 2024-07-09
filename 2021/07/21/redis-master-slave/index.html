@@ -65,14 +65,14 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="Redis作为内存型数据，为了高可用，必须有数据备份，这里采取主从的模式。用户可以通过执行 SLAVEOF 命令或者设置 slaveof 选项，让一个服务器去复制 （replicate) 另一个服务器。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://image.runjf.com/mweb/2021-07-25-16272051223635.jpg">
-<meta property="og:image" content="http://image.runjf.com/mweb/2021-07-25-16272066103593.jpg">
-<meta property="og:image" content="http://image.runjf.com/mweb/2021-07-25-16272066397939.jpg">
-<meta property="og:updated_time" content="2021-07-25T09:57:05.000Z">
+<meta property="og:image" content="https://image.ponder.work/mweb/2021-07-25-16272051223635.jpg">
+<meta property="og:image" content="https://image.ponder.work/mweb/2021-07-25-16272066103593.jpg">
+<meta property="og:image" content="https://image.ponder.work/mweb/2021-07-25-16272066397939.jpg">
+<meta property="og:updated_time" content="2024-07-09T13:50:24.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis主从复制机制">
 <meta name="twitter:description" content="Redis作为内存型数据，为了高可用，必须有数据备份，这里采取主从的模式。用户可以通过执行 SLAVEOF 命令或者设置 slaveof 选项，让一个服务器去复制 （replicate) 另一个服务器。">
-<meta name="twitter:image" content="http://image.runjf.com/mweb/2021-07-25-16272051223635.jpg">
+<meta name="twitter:image" content="https://image.ponder.work/mweb/2021-07-25-16272051223635.jpg">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2021/07/21/redis-master-slave/">
 
@@ -337,7 +337,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-25 17:57:05" itemprop="dateModified" datetime="2021-07-25T17:57:05+08:00">2021-07-25</time>
+                <time title="修改时间：2024-07-09 21:50:24" itemprop="dateModified" datetime="2024-07-09T21:50:24+08:00">2024-07-09</time>
               </span>
             
           
@@ -396,7 +396,7 @@
 <li>主服务器发送缓冲区内的写命令</li>
 <li>之后主服务器写命令都需要同时发一份给从服务器（命令传播）</li>
 </ol>
-<p><img src="http://image.runjf.com/mweb/2021-07-25-16272051223635.jpg" alt="-w908"></p>
+<p><img src="https://image.ponder.work/mweb/2021-07-25-16272051223635.jpg" alt="-w908"></p>
 <h2 id="缺陷及解决方案"><a href="#缺陷及解决方案" class="headerlink" title="缺陷及解决方案"></a>缺陷及解决方案</h2><p>由于RDB的生成发送非常耗时，主从短暂断线的情况下，也需要重复生成，主从同步的效率就非常低了。</p>
 <p>Redis从2.8版本开始, 使用<code>PSYNC</code>命令替换<code>SYNC</code>，增加了部分同步功能，对断线重连的情况进行了优化。</p>
 <p>主从服务器都记录了<strong>复制偏移量</strong>，记录了主服务器发出的字节数和从服务器收到的字节数,并且主服务器使用一个<strong>复制积压缓冲区</strong>记录最近发出的数据（FIFO）。</p>
@@ -406,7 +406,7 @@
 <li>否则，执行全量复制。</li>
 </ul>
 <p>同时，主服务器每次启动时会生成<strong>运行id</strong>，防止主服务器重启后复制混乱。</p>
-<p><img src="http://image.runjf.com/mweb/2021-07-25-16272066103593.jpg" alt="-w586"><br><img src="http://image.runjf.com/mweb/2021-07-25-16272066397939.jpg" alt="-w552"></p>
+<p><img src="https://image.ponder.work/mweb/2021-07-25-16272066103593.jpg" alt="-w586"><br><img src="https://image.ponder.work/mweb/2021-07-25-16272066397939.jpg" alt="-w552"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li>redis 3.0 源码</li>
 <li>redis 设计与实现</li>
@@ -809,7 +809,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

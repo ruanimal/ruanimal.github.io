@@ -65,13 +65,13 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="Windows Subsystem for Linux(WSL)从Version 1 (WSL1)升级到Version 2 (WSL2) 之后，底层实现方式发生了改变。 由于使用Hyper-V来实现WSL2，使得WSL更像虚拟机，一个能访问本地硬盘的虚拟机。这带来一些便利，能够把它当做独立服务器来使用，可玩性就增强很多。当然，这也导致WSL上的端口不能从外部访问到，总之有利有弊。 虽然能够配置端口">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://image.runjf.com/mweb/2021-01-02-2021-01-02_171339.png">
-<meta property="og:image" content="http://image.runjf.com/mweb/2021-01-11-%E6%8D%95%E8%8E%B71.png">
-<meta property="og:updated_time" content="2023-05-28T16:32:47.894Z">
+<meta property="og:image" content="https://image.ponder.work/mweb/2021-01-02-2021-01-02_171339.png">
+<meta property="og:image" content="https://image.ponder.work/mweb/2021-01-11-%E6%8D%95%E8%8E%B71.png">
+<meta property="og:updated_time" content="2024-07-09T13:50:24.830Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WSL2开启桥接网络">
 <meta name="twitter:description" content="Windows Subsystem for Linux(WSL)从Version 1 (WSL1)升级到Version 2 (WSL2) 之后，底层实现方式发生了改变。 由于使用Hyper-V来实现WSL2，使得WSL更像虚拟机，一个能访问本地硬盘的虚拟机。这带来一些便利，能够把它当做独立服务器来使用，可玩性就增强很多。当然，这也导致WSL上的端口不能从外部访问到，总之有利有弊。 虽然能够配置端口">
-<meta name="twitter:image" content="http://image.runjf.com/mweb/2021-01-02-2021-01-02_171339.png">
+<meta name="twitter:image" content="https://image.ponder.work/mweb/2021-01-02-2021-01-02_171339.png">
   <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
   <link rel="canonical" href="http://ponder.work/2021/01/02/WSL2-bridge-mode/">
 
@@ -336,7 +336,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-05-29 00:32:47" itemprop="dateModified" datetime="2023-05-29T00:32:47+08:00">2023-05-29</time>
+                <time title="修改时间：2024-07-09 21:50:24" itemprop="dateModified" datetime="2024-07-09T21:50:24+08:00">2024-07-09</time>
               </span>
             
           
@@ -418,7 +418,7 @@
 <li><p>如果VERSION不为为2，在PowerShell执行<code>wsl --set-version Debian 2</code>进行升级</p>
 </li>
 </ol>
-<h2 id="修改WSL2默认网络为桥接"><a href="#修改WSL2默认网络为桥接" class="headerlink" title="修改WSL2默认网络为桥接"></a>修改WSL2默认网络为桥接</h2><p>由于WSL2底层使用的是Hyper-V虚拟机，所以我们可以修改虚拟交换机的类型，来启用桥接网络<br>打开<code>Hyper-V管理器 -&gt; 操作 -&gt; 虚拟交换机管理器</code>， 修改WSL的连接类型为“外部网络”<br><img src="http://image.runjf.com/mweb/2021-01-02-2021-01-02_171339.png" alt="2021-01-02_171339"></p>
+<h2 id="修改WSL2默认网络为桥接"><a href="#修改WSL2默认网络为桥接" class="headerlink" title="修改WSL2默认网络为桥接"></a>修改WSL2默认网络为桥接</h2><p>由于WSL2底层使用的是Hyper-V虚拟机，所以我们可以修改虚拟交换机的类型，来启用桥接网络<br>打开<code>Hyper-V管理器 -&gt; 操作 -&gt; 虚拟交换机管理器</code>， 修改WSL的连接类型为“外部网络”<br><img src="https://image.ponder.work/mweb/2021-01-02-2021-01-02_171339.png" alt="2021-01-02_171339"></p>
 <h2 id="修复Debian网络"><a href="#修复Debian网络" class="headerlink" title="修复Debian网络"></a>修复Debian网络</h2><p>由于WSL2默认网络模式是NAT，我们把虚拟交换机改为桥接后，默认的ip和路由以及DNS解析将会失效</p>
 <p>以下操作在Debian系统内执行</p>
 <h3 id="修复ip和路由"><a href="#修复ip和路由" class="headerlink" title="修复ip和路由"></a>修复ip和路由</h3><ol>
@@ -436,7 +436,7 @@
  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">nameserver</span> 192<span class="selector-class">.168</span><span class="selector-class">.123</span><span class="selector-class">.1</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h2 id="已知缺陷"><a href="#已知缺陷" class="headerlink" title="已知缺陷"></a>已知缺陷</h2><h3 id="重启Windows10后桥接失败"><a href="#重启Windows10后桥接失败" class="headerlink" title="重启Windows10后桥接失败"></a>重启Windows10后桥接失败</h3><p>重启后桥接可能会失败，而且上不了网，可以取消勾选外网网口的“Hyper-V可扩展的虚拟交换机”选项，然后重新配置桥接<br><img src="http://image.runjf.com/mweb/2021-01-11-%E6%8D%95%E8%8E%B71.png" alt="捕获1"></p>
+<h2 id="已知缺陷"><a href="#已知缺陷" class="headerlink" title="已知缺陷"></a>已知缺陷</h2><h3 id="重启Windows10后桥接失败"><a href="#重启Windows10后桥接失败" class="headerlink" title="重启Windows10后桥接失败"></a>重启Windows10后桥接失败</h3><p>重启后桥接可能会失败，而且上不了网，可以取消勾选外网网口的“Hyper-V可扩展的虚拟交换机”选项，然后重新配置桥接<br><img src="https://image.ponder.work/mweb/2021-01-11-%E6%8D%95%E8%8E%B71.png" alt="捕获1"></p>
 <h3 id="WSL2的MAC地址不固定"><a href="#WSL2的MAC地址不固定" class="headerlink" title="WSL2的MAC地址不固定"></a>WSL2的MAC地址不固定</h3><p>由于WSL2的MAC地址每次重启后都会变化，所以桥接后DHCP的ip也是非固定的，参考<a href="https://github.com/microsoft/WSL/issues/5352" target="_blank" rel="noopener">issue</a>。</p>
 <p>目前没有好的解决办法，一些依赖MAC地址的服务，可能会工作不正常。如samba的域名访问。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
@@ -844,7 +844,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

@@ -67,7 +67,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://image.ponder.work/mweb/2025-04-27---17457324901465.jpg">
 <meta property="og:image" content="https://image.ponder.work/mweb/2025-04-27---IMG_202504275684_512x682.jpg">
-<meta property="og:updated_time" content="2025-04-27T06:06:16.533Z">
+<meta property="og:updated_time" content="2025-04-27T06:11:41.240Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 iOS 上访问安卓应用">
 <meta name="twitter:description" content="有些应用在安卓上是独占的，iOS 上又没有比较好的替代品，而且 iOS 上没有能用安卓模拟器。如果使用多个设备，维护的心智成本又高，被这个问题困扰了许久。 最近碰巧了解了 scrcpy, 用于远程控制安卓，终于解决了这个问题。">
@@ -336,7 +336,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-04-27 14:06:16" itemprop="dateModified" datetime="2025-04-27T14:06:16+08:00">2025-04-27</time>
+                <time title="修改时间：2025-04-27 14:11:41" itemprop="dateModified" datetime="2025-04-27T14:11:41+08:00">2025-04-27</time>
               </span>
             
           
@@ -363,7 +363,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>1.4k</span>
+              <span>1.5k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -390,13 +390,13 @@
 <p>最近碰巧了解了 <a href="https://github.com/Genymobile/scrcpy" target="_blank" rel="noopener">scrcpy</a>, 用于远程控制安卓，终于解决了这个问题。<br><a id="more"></a></p>
 <p>需要的工具</p>
 <ol>
-<li>安卓环境：虚拟环境或者物理设备均可，这里使用虚拟环境。以下是可以的虚拟环境</li>
+<li>安卓环境：虚拟环境或者物理设备均可，这里使用虚拟环境。以下是可选的虚拟环境</li>
 </ol>
 <ul>
 <li>PVE 的 PCT容器 (Proxmox Container Toolkit)，需要打<a href="https://github.com/lurenJBD/PCT-patches" target="_blank" rel="noopener">补丁</a></li>
 <li>docker，基于<a href="https://github.com/remote-android/redroid-doc" target="_blank" rel="noopener">Redroid</a> 需要调整内核参数</li>
 <li>WSA (Windows Subsystem for Android)，与 scrcpy 配合有点问题，窗口有黑边。</li>
-<li>VMware、Virtual Box等虚拟化平台，需要解决虚拟显卡。</li>
+<li>VMware、VirtualBox等虚拟化平台，需要解决虚拟显卡。</li>
 </ul>
 <ol start="2">
 <li>使用 <a href="https://github.com/wsvn53/scrcpy-mobile" target="_blank" rel="noopener">scrcpy-mobile</a> 远程控制安卓环境, 当然 scrcpy 也支持 Windows、Linux、macOS</li>
@@ -405,7 +405,7 @@
 <ol>
 <li>根据 <a href="https://github.com/lurenJBD/PCT-patches" target="_blank" rel="noopener">PCT-patches</a> 文档，给 PCT 打好补丁</li>
 <li>根据 <a href="https://github.com/lurenJBD/PCT-patches/releases/download/lineage/lineage19.1-x86_64-houdini-magisk-gapps.tar.gz" target="_blank" rel="noopener">lineageOS 模板</a>，新建安卓容器，注意去除Unprivileged container的勾选。</li>
-<li>修改 lxc.init.cmd 选项，在后面增加<code>androidboot.redroid_width=1668 androidboot.redroid_height=2388 androidboot.redroid_fps=60</code>，调整分辨率和iPad一致。</li>
+<li>修改 lxc.init.cmd 选项，在后面增加以下参数，调整分辨率和iPad一致。<br><code>androidboot.redroid_width=1668 androidboot.redroid_height=2388 androidboot.redroid_fps=60</code></li>
 </ol>
 <p>ps: 安卓容器对宿主机性能似乎有一定要求，J4125 只是勉强够用，流畅度一般。</p>
 <h2 id="macOS-中使用-scrcpy"><a href="#macOS-中使用-scrcpy" class="headerlink" title="macOS 中使用 scrcpy"></a>macOS 中使用 scrcpy</h2><p>安装 <a href="https://github.com/Genymobile/scrcpy" target="_blank" rel="noopener">scrcpy</a> ，连接命令<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scrcpy <span class="attribute">--audio-codec</span>=aac \</span><br><span class="line">  <span class="attribute">--video-codec</span>=h264 \</span><br><span class="line">  <span class="attribute">--video-bit-rate</span>=16M \</span><br><span class="line">  <span class="attribute">--max-fps</span>=60 \</span><br><span class="line">  <span class="attribute">--tcpip</span>=192.168.10.181:5555 \</span><br><span class="line">  <span class="attribute">--start-app</span>=io.legado.app.release</span><br></pre></td></tr></table></figure></p>
@@ -416,13 +416,12 @@
 <li><code>--video-bit-rate=16M</code>    16Mbps 码率，高画质</li>
 <li><code>--max-fps=60</code>    最大帧率 60FPS，画面流畅</li>
 <li><code>--tcpip=192.168.10.181:5555</code>    Wi-Fi adb 连接设备</li>
-<li><code>--start-app=io.legado.app.release</code>    连接后直接启动 Legado App，应用列表可使用<code>adb shell pm list packages -3</code>查看</li>
+<li><code>--start-app=io.legado.app.release</code> （可选）连接后直接启动 Legado App，应用列表可使用<code>adb shell pm list packages -3</code>查看</li>
 </ul>
 <h2 id="iOS-中使用-scrcpy-mobile"><a href="#iOS-中使用-scrcpy-mobile" class="headerlink" title="iOS 中使用 scrcpy-mobile"></a>iOS 中使用 scrcpy-mobile</h2><p>appstore中安装 <a href="https://apps.apple.com/cn/app/scrcpy-remote/id1629352527" target="_blank" rel="noopener">scrcpy-mobile</a></p>
-<p>由于该应用的用户界面易用性比较差，这里直接使用<code>快捷指令</code>打开应用。</p>
+<p>由于该应用的用户界面易用性比较差，这里直接使用<code>快捷指令</code>打开应用。<br>设置打开 scrcpy-mobile 后，开启<code>引导式访问</code>，防止误触。同时可以在 iOS 设置中开启引导式访问的<code>面容id</code>，防止频繁输入密码。</p>
 <p><img src="https://image.ponder.work/mweb/2025-04-27---17457324901465.jpg" alt></p>
 <p>scrcpy-mobile 的 url schema<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrcpy2://192.168.10.181:5555?<span class="built_in">enable</span>-audio=<span class="literal">true</span>&amp;audio-codec=aac&amp;video-bit-rate=16M&amp;video-codec=h264&amp;max-fps=60</span><br></pre></td></tr></table></figure></p>
-<p>设置打开 scrcpy 后，开启<code>引导式访问</code>，防止误触。同时可以在 iOS 设置中开启引导式访问的<code>面容id</code>，防止频繁输入密码。</p>
 <p>最后，这也未尝不算一种 NTR<br><img src="https://image.ponder.work/mweb/2025-04-27---IMG_202504275684_512x682.jpg" alt="IMG_202504275684_512x682"></p>
 <h2 id="安卓环境设置（可选）"><a href="#安卓环境设置（可选）" class="headerlink" title="安卓环境设置（可选）"></a>安卓环境设置（可选）</h2><ol>
 <li>关闭导航栏：系统 &gt; 手势 &gt; 系统导航 &gt; 手势导航</li>

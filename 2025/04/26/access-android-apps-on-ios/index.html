@@ -67,7 +67,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://image.ponder.work/mweb/2025-04-27---17457324901465.jpg">
 <meta property="og:image" content="https://image.ponder.work/mweb/2025-04-27---IMG_202504275684_512x682.jpg">
-<meta property="og:updated_time" content="2025-04-27T06:13:39.860Z">
+<meta property="og:updated_time" content="2025-04-27T06:53:01.841Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 iOS 上访问安卓应用">
 <meta name="twitter:description" content="有些应用在安卓上是独占的，iOS 上又没有比较好的替代品，而且 iOS 上没有能用安卓模拟器。如果使用多个设备，维护的心智成本又高，被这个问题困扰了许久。 最近碰巧了解了 scrcpy, 用于远程控制安卓，终于解决了这个问题。">
@@ -336,7 +336,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-04-27 14:13:39" itemprop="dateModified" datetime="2025-04-27T14:13:39+08:00">2025-04-27</time>
+                <time title="修改时间：2025-04-27 14:53:01" itemprop="dateModified" datetime="2025-04-27T14:53:01+08:00">2025-04-27</time>
               </span>
             
           
@@ -398,14 +398,15 @@
 <li>WSA (Windows Subsystem for Android)，与 scrcpy 配合有点问题，窗口有黑边。</li>
 <li>VMware、VirtualBox等虚拟化平台，需要解决虚拟显卡。</li>
 </ul>
-<ol>
+<ol start="2">
 <li>使用 <a href="https://github.com/wsvn53/scrcpy-mobile" target="_blank" rel="noopener">scrcpy-mobile</a> 远程控制安卓环境, 当然 scrcpy 也支持 Windows、Linux、macOS</li>
 </ol>
 <h2 id="PCT-安卓容器"><a href="#PCT-安卓容器" class="headerlink" title="PCT 安卓容器"></a>PCT 安卓容器</h2><p>由于已有PVE环境，这里选用PCT，主要步骤</p>
 <ol>
 <li>根据 <a href="https://github.com/lurenJBD/PCT-patches" target="_blank" rel="noopener">PCT-patches</a> 文档，给 PCT 打好补丁</li>
 <li>根据 <a href="https://github.com/lurenJBD/PCT-patches/releases/download/lineage/lineage19.1-x86_64-houdini-magisk-gapps.tar.gz" target="_blank" rel="noopener">lineageOS 模板</a>，新建安卓容器，注意去除Unprivileged container的勾选。</li>
-<li>修改 lxc.init.cmd 选项，在后面增加以下参数，调整分辨率和iPad一致。<br><code>androidboot.redroid_width=1668 androidboot.redroid_height=2388 androidboot.redroid_fps=60</code></li>
+<li>修改 lxc.init.cmd 选项，在后面增加以下参数，调整分辨率和iPad一致。 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">androidboot.<span class="attribute">redroid_width</span>=1668 androidboot.<span class="attribute">redroid_height</span>=2388 androidboot.<span class="attribute">redroid_fps</span>=60</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <p>ps: 安卓容器对宿主机性能似乎有一定要求，J4125 只是勉强够用，流畅度一般。</p>
 <h2 id="macOS-中使用-scrcpy"><a href="#macOS-中使用-scrcpy" class="headerlink" title="macOS 中使用 scrcpy"></a>macOS 中使用 scrcpy</h2><p>安装 <a href="https://github.com/Genymobile/scrcpy" target="_blank" rel="noopener">scrcpy</a> ，连接命令<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scrcpy <span class="attribute">--audio-codec</span>=aac \</span><br><span class="line">  <span class="attribute">--video-codec</span>=h264 \</span><br><span class="line">  <span class="attribute">--video-bit-rate</span>=16M \</span><br><span class="line">  <span class="attribute">--max-fps</span>=60 \</span><br><span class="line">  <span class="attribute">--tcpip</span>=192.168.10.181:5555 \</span><br><span class="line">  <span class="attribute">--start-app</span>=io.legado.app.release</span><br></pre></td></tr></table></figure></p>

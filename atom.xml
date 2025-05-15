@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ponder.work/"/>
-  <updated>2025-05-15T12:32:27.962Z</updated>
+  <updated>2025-05-15T12:34:21.203Z</updated>
   <id>http://ponder.work/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://ponder.work/2025/05/15/levono-bios-force-downgrade/"/>
     <id>http://ponder.work/2025/05/15/levono-bios-force-downgrade/</id>
     <published>2025-05-15T10:00:00.000Z</published>
-    <updated>2025-05-15T12:32:27.962Z</updated>
+    <updated>2025-05-15T12:34:21.203Z</updated>
     
     <content type="html"><![CDATA[<p>联想某些版本的 bios 似乎会禁止降级，即使打开 bios 设置里的允许降级选项，依然会提示 “this platform does not support IHISI interface” 的错误，导致降级失败。<br><a id="more"></a></p><h2 id="降级方法"><a href="#降级方法" class="headerlink" title="降级方法"></a>降级方法</h2><p>经过一些尝试，找到了方法绕过，以 <code>ThinkBook 14 G3 ACL</code> 机型为例</p><ol><li>打开驱动<a href="https://newthink.lenovo.com.cn/driveList.html?selname=21A2004H0D" target="_blank" rel="noopener">下载页面</a> </li><li>打开 <a href="https://think.lenovo.com.cn/support/driver/driverdetail.aspx?DEditid=134398" target="_blank" rel="noopener">BIOS</a> 页面， 下载以下安装文件<ul><li>当前版本 BIOS 的安装包（<code>NEW</code>），版本 GQCN41WW_HFCN36WW</li><li>以及想要降级的 BIOS (<code>OLD</code>)，版本 GQCN36WW_HFCN31WW</li></ul></li><li>运行 <code>NEW</code>，选择仅解压。找到解压目录，应该只有一个 exe 程序，使用 7-zip 或者 bandizip 打开并提取内部文件。</li><li>对 <code>OLD</code> 也执行如上操作，如果没有解压选项，可以尝试直接提取。</li><li>将 <code>OLD</code> 提取目录中的 .bin 格式固件（GLV3A036.bin、GLV4D031.bin）复制到 <code>NEW</code> 提取目录中。</li><li>修改 <code>NEW</code> 提取目录中的 <code>platform.ini</code> 文件，找到如下内容 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[MULTI_FD]</span><br><span class="line">Flag=<span class="number">1</span></span><br><span class="line">FD#<span class="number">01</span>=ID,GLV4D,GLV4D036.bin</span><br><span class="line">FD#<span class="number">02</span>=PCI,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,FFFFFFFF,FFFFFFFF,GLV3A041.bin</span><br></pre></td></tr></table></figure></li></ol><pre><code>将其中的 .bin 文件名，修改为 `OLD` 中的 .bin 文件名，保存。有两个 .bin 文件，文件名是和版本中的数字对应的，不要修改错误。<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[MULTI_FD]</span><br><span class="line">Flag=<span class="number">1</span></span><br><span class="line">FD#<span class="number">01</span>=ID,GLV4D,GLV4D031.bin</span><br><span class="line">FD#<span class="number">02</span>=PCI,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,FFFFFFFF,FFFFFFFF,GLV3A036.bin</span><br></pre></td></tr></table></figure></code></pre><ol start="7"><li>运行 <code>NEW</code> 提取目录中的 H2OFFT-Wx64.exe，等待降级完成。</li></ol><p><strong>注意：有风险，请谨慎操作。不要跨太多版本，可能有不可预料的问题</strong></p><p><img src="https://image.ponder.work/mweb/2025-05-15---17473119676089.jpg" alt></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://www.geektech.co.nz/lenovo-y700-how-to-enable-bios-downgrade" target="_blank" rel="noopener">https://www.geektech.co.nz/lenovo-y700-how-to-enable-bios-downgrade</a></li></ul>]]></content>
     

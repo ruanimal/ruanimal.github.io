@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="逸思杂陈">
 <meta property="og:description" content="PyAutoGUI 是 GUI 功能强大自动化方案，但 UI 程序的运行环境选择与配置也是一大难题。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2025-05-28T11:00:55.614Z">
+<meta property="og:updated_time" content="2025-05-28T11:10:54.616Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 Linux 虚拟机中使用 PyAutoGUI 做自动化">
 <meta name="twitter:description" content="PyAutoGUI 是 GUI 功能强大自动化方案，但 UI 程序的运行环境选择与配置也是一大难题。">
@@ -333,7 +333,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-05-28 19:00:55" itemprop="dateModified" datetime="2025-05-28T19:00:55+08:00">2025-05-28</time>
+                <time title="修改时间：2025-05-28 19:10:54" itemprop="dateModified" datetime="2025-05-28T19:10:54+08:00">2025-05-28</time>
               </span>
             
           
@@ -360,7 +360,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>2.9k</span>
+              <span>3.2k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -398,7 +398,8 @@
 <li><a href="https://gitee.com/spark-store-project/spark-store" target="_blank" rel="noopener">星火应用商店</a>: 方便安装各种国内软件和 Wine 程序</li>
 <li>统信 Windows 应用兼容引擎: 在星火应用商店中安装，可以用于安装和打包商店中没有的程序</li>
 </ul>
-<h2 id="虚拟机配置"><a href="#虚拟机配置" class="headerlink" title="虚拟机配置"></a>虚拟机配置</h2><ol>
+<h2 id="虚拟机配置"><a href="#虚拟机配置" class="headerlink" title="虚拟机配置"></a>虚拟机配置</h2><p>步骤</p>
+<ol>
 <li>创建好 pve 虚拟机， 安装 debian，选择 mate 桌面</li>
 <li>设置分辨率：控制中心 -&gt; 显示器 -&gt; 设置为 1920x1080</li>
 <li>关闭自动睡眠：控制中心 -&gt; 电源管理 -&gt; 动作和显示修改为<code>从不</code></li>
@@ -408,8 +409,13 @@
 <li>安装统信 Windows 应用兼容引擎（可选）：在星火应用商店中安装</li>
 <li>火焰截图（可选）：在星火应用商店中安装，更方便对应用的按钮和文字截图。</li>
 </ol>
-<p>说明：如果不关闭自动睡眠和屏幕保护，PyAutoGUI 就无法截取到应用的图像，也就无法操作了。</p>
-<h2 id="PyAutoGUI-使用技巧"><a href="#PyAutoGUI-使用技巧" class="headerlink" title="PyAutoGUI 使用技巧"></a>PyAutoGUI 使用技巧</h2><h3 id="远程登录时找不到显示器"><a href="#远程登录时找不到显示器" class="headerlink" title="远程登录时找不到显示器"></a>远程登录时找不到显示器</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">os<span class="selector-class">.environ</span>[<span class="string">'DISPLAY'</span>] = <span class="string">':0'</span></span><br><span class="line">os<span class="selector-class">.environ</span>[<span class="string">'XAUTHORITY'</span>] = <span class="string">'/home/&lt;your-name&gt;/.Xauthority'</span></span><br></pre></td></tr></table></figure>
+<p>其他说明：</p>
+<ul>
+<li>如果不关闭自动睡眠和屏幕保护，PyAutoGUI 就无法截取到应用的图像，也就无法操作了。</li>
+<li>图形显示协议默认选 x11，wayland 对显卡有要求，虚拟机不方便处理。</li>
+</ul>
+<h2 id="PyAutoGUI-使用技巧"><a href="#PyAutoGUI-使用技巧" class="headerlink" title="PyAutoGUI 使用技巧"></a>PyAutoGUI 使用技巧</h2><h3 id="远程登录调试"><a href="#远程登录调试" class="headerlink" title="远程登录调试"></a>远程登录调试</h3><p>pve 默认图片控制台不太方便，不能复制粘贴，所以使用远程登录调试<br>由于系统使用 x11 环境，这里使用 xrdp 作为远程服务端。<br>如果以后更新到 wayland，可以使用 <code>gnome-remote-desktop</code>。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt <span class="keyword">install </span><span class="keyword">xorgxrdp </span>xrdp</span><br></pre></td></tr></table></figure></p>
+<h3 id="远程登录时找不到显示器"><a href="#远程登录时找不到显示器" class="headerlink" title="远程登录时找不到显示器"></a>远程登录时找不到显示器</h3><p>xrdp 或者 ssh 远程登录执行脚本时，窗口相关命令可能会提示找不到显示器。<br>可以在自动化脚本中设置以下环境变量<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">os<span class="selector-class">.environ</span>[<span class="string">'DISPLAY'</span>] = <span class="string">':0'</span></span><br><span class="line">os<span class="selector-class">.environ</span>[<span class="string">'XAUTHORITY'</span>] = <span class="string">'/home/&lt;your-name&gt;/.Xauthority'</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="过滤没必要的截图日志"><a href="#过滤没必要的截图日志" class="headerlink" title="过滤没必要的截图日志"></a>过滤没必要的截图日志</h3><p>gnome-screenshot 截图时会产生一些无用日志<br><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">** Message: <span class="number">17</span>:<span class="number">36</span>:<span class="number">31.888</span>: Unable <span class="keyword">to</span> <span class="keyword">use</span> GNOME Shell's </span><br><span class="line">builtin screenshot <span class="keyword">interface</span>, resorting <span class="keyword">to</span> fallback X11.</span><br></pre></td></tr></table></figure></p>
 <p>新建一个 <code>gnome-screenshot</code> 文件，赋予执行权限，放到 PATH 环境变量中比 <code>/usr/bin</code> 靠前的路径<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">exec</span> /usr/bin/gnome-screenshot <span class="string">"<span class="variable">$@</span>"</span> &gt;&gt; /tmp/gnome-screenshot.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure></p>
 <h3 id="验证码识别"><a href="#验证码识别" class="headerlink" title="验证码识别"></a>验证码识别</h3><h3 id="pytesseract"><a href="#pytesseract" class="headerlink" title="pytesseract"></a>pytesseract</h3><p>常见的方案是 <code>pytesseract</code>， 但是效果不好，识别率比较一般。</p>
@@ -525,7 +531,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统选择"><span class="nav-number">1.</span> <span class="nav-text">系统选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机配置"><span class="nav-number">2.</span> <span class="nav-text">虚拟机配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PyAutoGUI-使用技巧"><span class="nav-number">3.</span> <span class="nav-text">PyAutoGUI 使用技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#远程登录时找不到显示器"><span class="nav-number">3.1.</span> <span class="nav-text">远程登录时找不到显示器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过滤没必要的截图日志"><span class="nav-number">3.2.</span> <span class="nav-text">过滤没必要的截图日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证码识别"><span class="nav-number">3.3.</span> <span class="nav-text">验证码识别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pytesseract"><span class="nav-number">3.4.</span> <span class="nav-text">pytesseract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ddddocr"><span class="nav-number">3.5.</span> <span class="nav-text">ddddocr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高效执行自动化脚本"><span class="nav-number">3.6.</span> <span class="nav-text">高效执行自动化脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他有用的函数"><span class="nav-number">3.7.</span> <span class="nav-text">其他有用的函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-number">4.</span> <span class="nav-text">注意事项</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统选择"><span class="nav-number">1.</span> <span class="nav-text">系统选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机配置"><span class="nav-number">2.</span> <span class="nav-text">虚拟机配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PyAutoGUI-使用技巧"><span class="nav-number">3.</span> <span class="nav-text">PyAutoGUI 使用技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#远程登录调试"><span class="nav-number">3.1.</span> <span class="nav-text">远程登录调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程登录时找不到显示器"><span class="nav-number">3.2.</span> <span class="nav-text">远程登录时找不到显示器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过滤没必要的截图日志"><span class="nav-number">3.3.</span> <span class="nav-text">过滤没必要的截图日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证码识别"><span class="nav-number">3.4.</span> <span class="nav-text">验证码识别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pytesseract"><span class="nav-number">3.5.</span> <span class="nav-text">pytesseract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ddddocr"><span class="nav-number">3.6.</span> <span class="nav-text">ddddocr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高效执行自动化脚本"><span class="nav-number">3.7.</span> <span class="nav-text">高效执行自动化脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他有用的函数"><span class="nav-number">3.8.</span> <span class="nav-text">其他有用的函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-number">4.</span> <span class="nav-text">注意事项</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->

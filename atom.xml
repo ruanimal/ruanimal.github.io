@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ponder.work/"/>
-  <updated>2025-05-15T12:37:08.015Z</updated>
+  <updated>2025-05-28T09:07:53.832Z</updated>
   <id>http://ponder.work/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>语言的力量</title>
+    <link href="http://ponder.work/2025/05/27/the-power-of-language/"/>
+    <id>http://ponder.work/2025/05/27/the-power-of-language/</id>
+    <published>2025-05-27T12:41:00.000Z</published>
+    <updated>2025-05-28T09:07:53.832Z</updated>
+    
+    <content type="html"><![CDATA[<p>语言的力量远比想象的强大，某种程度上是有虚空造物的能力。<br><a id="more"></a><br>你可以凭空创造一个概念，并植入你的听众脑子，不论好还是坏。诈骗分子、PUA 大师、营销大师无不精通此等技艺。</p><p>起因是一个综艺节目，有个导演对哈妮克孜说了句话，让我惊为天人，让我惊叹“你他娘真是个人才”。<br>它在线下拍戏的时候见到了哈妮克孜，哈当时戴了副大镜框眼镜，于是它说道“我当时看到你的时候，感觉好失望，你和我银幕上看到的哈妮克孜完全不一样”。<br>它凭空创造了一个观念（事实），哈妮克孜颜值不行。怎么创造的呢？和哈妮克孜荧幕形象相比。这显然是不客观的，但很难瞬间就察觉到。</p><p>这样，好与坏、美与丑一切观念都是可以被重新定义的，只要你选择合适的目标和对照标准，甚至是你脑海里的标准。<br>你是丑的和你漂亮的时候比，你是蠢的和聪明的时候比，我对你是失望的和对你的期望相比。<br>PUA 大师就是用这种手法实现打压，新闻学就是这么颠倒黑白，当然也可以反向操作，那么你就成为知心姐姐鼓励大师。</p><p>所以，神话中的言出法随也不难理解，毕竟人是观念的动物，你改变/植入了某人的某个观念，那么你就改变了他眼中的世界。<br>这也就是《乔布斯传》中乔布斯的扭曲现实力场。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;语言的力量远比想象的强大，某种程度上是有虚空造物的能力。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="http://ponder.work/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="随笔" scheme="http://ponder.work/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
   
   <entry>
     <title>联想笔记本 BIOS 跳过检测强制降级</title>
@@ -475,29 +498,6 @@
     
     
       <category term="tmux" scheme="http://ponder.work/tags/tmux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Redis主从复制机制</title>
-    <link href="http://ponder.work/2021/07/21/redis-master-slave/"/>
-    <id>http://ponder.work/2021/07/21/redis-master-slave/</id>
-    <published>2021-07-21T14:48:00.000Z</published>
-    <updated>2024-07-09T13:50:24.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Redis作为内存型数据，为了高可用，必须有数据备份，这里采取主从的模式。<br>用户可以通过执行 SLAVEOF 命令或者设置 slaveof 选项，让一个服务器去复制 （replicate) 另一个服务器。<br><a id="more"></a><br>如果服务器 <code>127.0.0.1:12345</code> 向 <code>127.0.0.1:6379</code> 发送 <code>SLAVEOF 127.0.0.1 6379</code>, 则服务器（12345）将成为服务器（6379）的从服务器。</p><h2 id="旧版复制功能（全量复制）"><a href="#旧版复制功能（全量复制）" class="headerlink" title="旧版复制功能（全量复制）"></a>旧版复制功能（全量复制）</h2><p>Redis的复制功能分为同步（RDB文件）和命令传播（同步写命令）两个阶段，具体步骤如下。</p><ol><li>从服务器发送<code>SYNC</code></li><li>主服务器接收<code>SYNC</code>后执行<code>BGSAVE</code>生成RDB文件，同时用缓冲区记录之后所有写命令。</li><li>主服务器发送RDB到从服务器，从服务器加载RDB</li><li>主服务器发送缓冲区内的写命令</li><li>之后主服务器写命令都需要同时发一份给从服务器（命令传播）</li></ol><p><img src="https://image.ponder.work/mweb/2021-07-25-16272051223635.jpg" alt="-w908"></p><h2 id="缺陷及解决方案"><a href="#缺陷及解决方案" class="headerlink" title="缺陷及解决方案"></a>缺陷及解决方案</h2><p>由于RDB的生成发送非常耗时，主从短暂断线的情况下，也需要重复生成，主从同步的效率就非常低了。</p><p>Redis从2.8版本开始, 使用<code>PSYNC</code>命令替换<code>SYNC</code>，增加了部分同步功能，对断线重连的情况进行了优化。</p><p>主从服务器都记录了<strong>复制偏移量</strong>，记录了主服务器发出的字节数和从服务器收到的字节数,并且主服务器使用一个<strong>复制积压缓冲区</strong>记录最近发出的数据（FIFO）。</p><p>同步时，从服务器会发送复制偏移量。</p><ul><li>如果，主从偏移量相差的这部分数据在缓冲区中，则主服务器就发送这部分数据</li><li>否则，执行全量复制。</li></ul><p>同时，主服务器每次启动时会生成<strong>运行id</strong>，防止主服务器重启后复制混乱。</p><p><img src="https://image.ponder.work/mweb/2021-07-25-16272066103593.jpg" alt="-w586"><br><img src="https://image.ponder.work/mweb/2021-07-25-16272066397939.jpg" alt="-w552"></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li>redis 3.0 源码</li><li>redis 设计与实现</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Redis作为内存型数据，为了高可用，必须有数据备份，这里采取主从的模式。&lt;br&gt;用户可以通过执行 SLAVEOF 命令或者设置 slaveof 选项，让一个服务器去复制 （replicate) 另一个服务器。&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="编程" scheme="http://ponder.work/categories/%E7%BC%96%E7%A8%8B/"/>
-    
-    
-      <category term="Redis" scheme="http://ponder.work/tags/Redis/"/>
     
   </entry>
   

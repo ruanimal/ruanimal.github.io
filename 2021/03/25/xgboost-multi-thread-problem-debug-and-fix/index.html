@@ -58,7 +58,7 @@
 </script>
 
   <meta name="description" content="公司的线上模型服务是基于brpc + xgboost实现的，而xgboost官方是不支持在多线程环境下使用的（1.2.0版本之前） 这个模型服务已经有两年多了，显然当时用的版本是不支持多线程的，有位同事当时修改了xgboost的源码，解决了多线程的问题，在线上也稳定运行到现在。 那么，问题来了。最近有个新需求，用到了xgboost的pred_leaf功能，然后就发现并发请求时0.1%的模型结果不对">
-<meta name="keywords" content="Python,C++,机器学习">
+<meta name="keywords" content="Python,机器学习,C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="xgboost C++线程安全问题定位与修复">
 <meta property="og:url" content="http://ponder.work/2021/03/25/xgboost-multi-thread-problem-debug-and-fix/index.html">
@@ -445,9 +445,9 @@
             
               <a href="/tags/Python/" rel="tag"># Python</a>
             
-              <a href="/tags/C/" rel="tag"># C++</a>
-            
               <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+            
+              <a href="/tags/C/" rel="tag"># C++</a>
             
           </div>
         
@@ -536,7 +536,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -831,12 +831,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">311k</span>
+    <span title="站点总字数">312k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:29</span>
+    <span title="站点阅读时长">6:30</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>

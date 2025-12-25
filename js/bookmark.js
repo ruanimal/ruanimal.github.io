@@ -1,20 +1,20 @@
 /* global CONFIG */
 
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   'use strict';
 
-  var doSaveScroll = () => {
+  const doSaveScroll = () => {
     localStorage.setItem('bookmark' + location.pathname, window.scrollY);
   };
 
-  var scrollToMark = () => {
-    var top = localStorage.getItem('bookmark' + location.pathname);
-    top = parseInt(top, 10);
+  const scrollToMark = () => {
+    let top = localStorage.getItem('bookmark' + location.pathname);
+    top = Number(top);
     // If the page opens with a specific hash, just jump out
     if (!isNaN(top) && location.hash === '') {
       // Auto scroll to the position
       window.anime({
-        targets  : document.documentElement,
+        targets  : document.scrollingElement,
         duration : 200,
         easing   : 'linear',
         scrollTop: top
@@ -22,22 +22,19 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   };
   // Register everything
-  var init = function(trigger) {
+  const init = function(trigger) {
     // Create a link element
-    var link = document.querySelector('.book-mark-link');
+    const link = document.querySelector('.book-mark-link');
     // Scroll event
-    window.addEventListener('scroll', () => {
-      window.scrollY === 0 ? link.classList.add('book-mark-link-fixed') : link.classList.remove('book-mark-link-fixed');
-    });
+    window.addEventListener('scroll', () => link.classList.toggle('book-mark-link-fixed', window.scrollY === 0), { passive: true });
     // Register beforeunload event when the trigger is auto
     if (trigger === 'auto') {
       // Register beforeunload event
       window.addEventListener('beforeunload', doSaveScroll);
-      window.addEventListener('pjax:send', doSaveScroll);
+      document.addEventListener('pjax:send', doSaveScroll);
     }
     // Save the position by clicking the icon
-    link.addEventListener('click', event => {
-      event.preventDefault();
+    link.addEventListener('click', () => {
       doSaveScroll();
       window.anime({
         targets : link,
@@ -52,7 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     });
     scrollToMark();
-    window.addEventListener('pjax:success', scrollToMark);
+    document.addEventListener('pjax:success', scrollToMark);
   };
 
   init(CONFIG.bookmark.save);

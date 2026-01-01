@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://image.ponder.work/mweb/2020-09-11-15997969319299.jpg">
 <meta property="article:published_time" content="2020-09-10T12:03:00.000Z">
-<meta property="article:modified_time" content="2024-07-09T13:50:24.000Z">
+<meta property="article:modified_time" content="2024-07-09T14:02:56.000Z">
 <meta property="article:author" content="Jay.Run">
 <meta property="article:tag" content="PyPI">
 <meta property="article:tag" content="Python">
@@ -89,6 +89,7 @@
 
 
 
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -129,7 +130,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/%E7%BC%96%E7%A8%8B/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/programming/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -299,7 +300,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-09 21:50:24" itemprop="dateModified" datetime="2024-07-09T21:50:24+08:00">2024-07-09</time>
+      <time title="修改时间：2024-07-09 22:02:56" itemprop="dateModified" datetime="2024-07-09T22:02:56+08:00">2024-07-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -307,7 +308,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
         </span>
     </span>
 
@@ -335,12 +336,12 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="PyPI"><a href="#PyPI" class="headerlink" title="PyPI"></a>PyPI</h2><p><a href="https://pypi.org/">PyPI</a>（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI</p>
+    <div class="post-body" itemprop="articleBody"><h2 id="PyPI"><a href="#PyPI" class="headerlink" title="PyPI"></a>PyPI</h2><p><a target="_blank" rel="noopener" href="https://pypi.org/">PyPI</a>（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI</p>
 <p>而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。</p>
 <span id="more"></span>
 
 <h2 id="用到的库代码"><a href="#用到的库代码" class="headerlink" title="用到的库代码"></a>用到的库代码</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── MANIFEST<span class="selector-class">.in</span></span><br><span class="line">├── README<span class="selector-class">.md</span></span><br><span class="line">├── dingtalk_log_handler</span><br><span class="line">│   ├── __init__<span class="selector-class">.py</span></span><br><span class="line">├── setup.py</span><br></pre></td></tr></table></figure>
-<p>整体代码结构，其中<a href="https://github.com/ruanimal/dingtalk-log-handler">dingtalk_log_handler</a>是我写的一个用于发日志到钉钉群的库，也是这次要发布的库。</p>
+<p>整体代码结构，其中<a target="_blank" rel="noopener" href="https://github.com/ruanimal/dingtalk-log-handler">dingtalk_log_handler</a>是我写的一个用于发日志到钉钉群的库，也是这次要发布的库。</p>
 <p>先看下库的主体代码<code>dingtalk_log_handler/__init__.py</code>, 由于功能比较简单，逻辑就都写在<code>__init__.py</code>里了</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="comment"># 其他import略去</span></span><br><span class="line"></span><br><span class="line">__author__ = <span class="string">&#x27;ruan.lj&#x27;</span></span><br><span class="line">__version__ = <span class="string">&#x27;0.0.2&#x27;</span></span><br><span class="line">__all__ = (</span><br><span class="line">    <span class="string">&#x27;OAPI_DOMAIN&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;DingTalkHandler&#x27;</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">OAPI_DOMAIN = <span class="string">&#x27;oapi.dingtalk.com&#x27;</span>   <span class="comment"># dingtalk open api domain</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DingdingApiError</span>(<span class="title class_ inherited__">RuntimeError</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DingTalkHandler</span>(logging.Handler):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Handler for logging message to dingtalk&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    <span class="comment"># 略去逻辑代码</span></span><br></pre></td></tr></table></figure>
 
@@ -349,7 +350,7 @@
 
 <p>具体打包的功能由<code>setuptools.setup</code>函数实现，我们只需要修改对应的参数即可</p>
 <p>这些参数影响打包的行为，以及在PyPI页面上显示的信息</p>
-<p>主要的参数说明，详细信息参考<a href="https://packaging.python.org/guides/distributing-packages-using-setuptools">文档</a></p>
+<p>主要的参数说明，详细信息参考<a target="_blank" rel="noopener" href="https://packaging.python.org/guides/distributing-packages-using-setuptools">文档</a></p>
 <ul>
 <li>name: 库名，也就是<code>pip install xxx</code>时的名称</li>
 <li>version: 版本，我们这里是复用了库代码里的版本号</li>
@@ -358,14 +359,14 @@
 <li>description: 库说明，在<code>pip search xxx</code>的时候可以看到</li>
 <li>long_description: 库详细说明，显示在PyPI完整上，我们这里从<code>README.md</code>文件中读取具体内容</li>
 <li>long_description: 库详细说明的格式，这里使用markdown</li>
-<li>classifiers: 库的类别信息，<a href="https://pypi.org/classifiers/">所有可选值参考</a></li>
+<li>classifiers: 库的类别信息，<a target="_blank" rel="noopener" href="https://pypi.org/classifiers/">所有可选值参考</a></li>
 <li>packages: 库包含的python包，通过find_packages自动添加</li>
 <li>py_modules: 库包含的顶级Python模块，我们这里没有</li>
 <li>python_requires: 支持的Python版本</li>
 <li>install_requires: 依赖的其他库，格式与<code>pip freeze</code>输出的格式相同</li>
-<li>project_urls: 项目的一些链接信息，<a href="https://packaging.python.org/guides/distributing-packages-using-setuptools/#project-urls">可选值列表</a></li>
+<li>project_urls: 项目的一些链接信息，<a target="_blank" rel="noopener" href="https://packaging.python.org/guides/distributing-packages-using-setuptools/#project-urls">可选值列表</a></li>
 </ul>
-<h2 id="编写-MANIFEST-in"><a href="#编写-MANIFEST-in" class="headerlink" title="编写 MANIFEST.in"></a>编写 MANIFEST.in</h2><p>打包时默认只会包含包代码和一些必要的文件，见<a href="https://packaging.python.org/guides/using-manifest-in/#how-files-are-included-in-an-sdist">列表</a><br>如果要包含其他资源文件，必须编写<code>MANIFEST.in</code>来说明说明</p>
+<h2 id="编写-MANIFEST-in"><a href="#编写-MANIFEST-in" class="headerlink" title="编写 MANIFEST.in"></a>编写 MANIFEST.in</h2><p>打包时默认只会包含包代码和一些必要的文件，见<a target="_blank" rel="noopener" href="https://packaging.python.org/guides/using-manifest-in/#how-files-are-included-in-an-sdist">列表</a><br>如果要包含其他资源文件，必须编写<code>MANIFEST.in</code>来说明说明</p>
 <p>MANIFEST.in</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">include</span> README.md</span><br><span class="line"><span class="keyword">recursive</span>-<span class="keyword">include</span> dingtalk_log_handler *</span><br><span class="line"><span class="keyword">global</span>-<span class="keyword">exclude</span> __pycache__</span><br><span class="line"><span class="keyword">global</span>-<span class="keyword">exclude</span> tmp</span><br><span class="line"><span class="keyword">global</span>-<span class="keyword">exclude</span> *.py[co]</span><br></pre></td></tr></table></figure>
 
@@ -379,19 +380,19 @@
 <p>输出文件</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dist</span><br><span class="line">├── dingtalk-<span class="keyword">log</span>-<span class="keyword">handler</span><span class="number">-0.0</span><span class="number">.2</span>.tar.gz</span><br><span class="line">└── dingtalk_log_handler<span class="number">-0.0</span><span class="number">.2</span>-py3-<span class="keyword">none</span>-<span class="keyword">any</span>.whl</span><br></pre></td></tr></table></figure>
 
-<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>我们可以通过<a href="https://test.pypi.org/">PyPI的测试站点</a> 来练习库文件的上传，并测试效果</p>
+<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>我们可以通过<a target="_blank" rel="noopener" href="https://test.pypi.org/">PyPI的测试站点</a> 来练习库文件的上传，并测试效果</p>
 <ol>
-<li><a href="https://test.pypi.org/account/register/">注册账户</a></li>
+<li><a target="_blank" rel="noopener" href="https://test.pypi.org/account/register/">注册账户</a></li>
 <li>安装上传工具：<code>pip install twine -U</code></li>
 <li>上传文件：<code>twine upload --repository testpypi dist/*</code></li>
 </ol>
-<p>熟悉流程之后，就可以换成<a href="https://pypi.org/">正式站点</a>，指定正式仓库(–repository pypi)上传文件</p>
+<p>熟悉流程之后，就可以换成<a target="_blank" rel="noopener" href="https://pypi.org/">正式站点</a>，指定正式仓库(–repository pypi)上传文件</p>
 <p>这样全世界的人都能看到你的库了。</p>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>可以在<a href="https://pypi.org/project/dingtalk-log-handler/">这里</a>找到我这次上传的库</p>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>可以在<a target="_blank" rel="noopener" href="https://pypi.org/project/dingtalk-log-handler/">这里</a>找到我这次上传的库</p>
 <p>可以看到 setup.py 文件里的很多信息会对应体现在PyPI网页上<br><img src="https://image.ponder.work/mweb/2020-09-11-15997969319299.jpg"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://packaging.python.org/guides/distributing-packages-using-setuptools">https://packaging.python.org/guides/distributing-packages-using-setuptools</a></li>
-<li><a href="https://packaging.python.org/guides/using-manifest-in/">https://packaging.python.org/guides/using-manifest-in/</a></li>
+<li><a target="_blank" rel="noopener" href="https://packaging.python.org/guides/distributing-packages-using-setuptools">https://packaging.python.org/guides/distributing-packages-using-setuptools</a></li>
+<li><a target="_blank" rel="noopener" href="https://packaging.python.org/guides/using-manifest-in/">https://packaging.python.org/guides/using-manifest-in/</a></li>
 </ol>
 
     </div>
@@ -455,7 +456,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>

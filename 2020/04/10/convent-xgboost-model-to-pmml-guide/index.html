@@ -29,7 +29,7 @@
 <meta property="og:description" content="缘起最近有个需求, 在Java环境环境运行xgboost模型, 查询资料后发现PMML可以解决这个问题. PMML是数据挖掘的一种通用的规范，它用统一的XML格式来描述我们生成的机器学习模型。这样无论你的模型是sklearn,R还是Spark MLlib生成的，我们都可以将其转化为标准的XML格式来存储。当我们需要将这个PMML的模型用于部署的时候，可以使用目标环境的解析PMML模型的库来加载模型">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-10T13:48:00.000Z">
-<meta property="article:modified_time" content="2021-07-15T08:02:44.000Z">
+<meta property="article:modified_time" content="2020-07-01T03:41:57.000Z">
 <meta property="article:author" content="Jay.Run">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Python">
@@ -88,6 +88,7 @@
 
 
 
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -128,7 +129,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/%E7%BC%96%E7%A8%8B/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/programming/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -298,7 +299,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+      <time title="修改时间：2020-07-01 11:41:57" itemprop="dateModified" datetime="2020-07-01T11:41:57+08:00">2020-07-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -306,7 +307,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
         </span>
     </span>
 
@@ -349,7 +350,7 @@
 <p>使用这种方法, 可能会出现因为模型包含中文信息导致转换失败</p>
 <figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Standard output <span class="keyword">is</span> empty</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  <span class="keyword">File</span> <span class="string">&quot;&lt;stdin&gt;&quot;</span>, <span class="literal">line</span> <span class="number">7</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">  <span class="keyword">File</span> <span class="string">&quot;/Users/ruan/.pyenv/versions/2.7.16/lib/python2.7/site-packages/sklearn2pmml/__init__.py&quot;</span>, <span class="literal">line</span> <span class="number">262</span>, <span class="keyword">in</span> sklearn2pmml</span><br><span class="line">    print(<span class="string">&quot;Standard error:\n&#123;0&#125;&quot;</span>.format(_decode(<span class="literal">error</span>, java_encoding)))</span><br><span class="line">UnicodeEncodeError: <span class="symbol">&#x27;ascii</span>&#x27; codec can<span class="symbol">&#x27;t</span> encode <span class="built_in">character</span> u&#x27;\u6708&#x27; <span class="keyword">in</span> position <span class="number">1</span>: ordinal <span class="keyword">not</span> <span class="keyword">in</span> <span class="keyword">range</span>(<span class="number">128</span>)</span><br><span class="line"><span class="symbol">&#x27;ascii</span>&#x27; codec can<span class="symbol">&#x27;t</span> encode <span class="built_in">character</span> u&#x27;\u6708&#x27; <span class="keyword">in</span> position <span class="number">1</span>: ordinal <span class="keyword">not</span> <span class="keyword">in</span> <span class="keyword">range</span>(<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
 
-<h3 id="jpmml-xgboost"><a href="#jpmml-xgboost" class="headerlink" title="jpmml-xgboost"></a>jpmml-xgboost</h3><p>也可以<a href="https://github.com/jpmml/jpmml-xgboost">jpmml-xgboost</a>工具, 将xgboost模型直接转换为PMML</p>
+<h3 id="jpmml-xgboost"><a href="#jpmml-xgboost" class="headerlink" title="jpmml-xgboost"></a>jpmml-xgboost</h3><p>也可以<a target="_blank" rel="noopener" href="https://github.com/jpmml/jpmml-xgboost">jpmml-xgboost</a>工具, 将xgboost模型直接转换为PMML</p>
 <p>注意这里的模型文件, 需要是通过<code>xgboost.Booster.save_model</code>方法保存的.</p>
 <h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/jpmml/jpmml-xgboost/releases/download/1.3.15/jpmml-xgboost-executable-1.3.15.jar</span><br></pre></td></tr></table></figure>
 
@@ -363,12 +364,12 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pypmml <span class="keyword">import</span> Model</span><br><span class="line"><span class="keyword">import</span> xgboost <span class="keyword">as</span> xgb</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">xgb_mod = xgb.Booster(model_file=<span class="string">&#x27;demo.model&#x27;</span>)</span><br><span class="line">pmml_mod = Model.load(<span class="string">&#x27;demo.model.pmml&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># float分数比较</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">eq</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">abs</span>(a - b) &lt; <span class="number">0.00001</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># xgboost预测</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">predict</span>(<span class="params">mod, data</span>):</span><br><span class="line">    fea = np.asarray(data, dtype=np.float64).reshape([<span class="number">1</span>, -<span class="number">1</span>])</span><br><span class="line">    dtest = xgb.DMatrix(fea, missing=np.float64(-<span class="number">1.0</span>))</span><br><span class="line">    <span class="keyword">return</span> mod.predict(dtest)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># pmml预测</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pmml_predict</span>(<span class="params">mod, data</span>):</span><br><span class="line">    fea = &#123;<span class="string">&quot;fea&#123;&#125;&quot;</span>.<span class="built_in">format</span>(idx): elem <span class="keyword">for</span> (idx, elem) <span class="keyword">in</span>  <span class="built_in">enumerate</span>(data)&#125;</span><br><span class="line">    <span class="keyword">return</span> mod.predict(fea)[<span class="string">&#x27;probability(1)&#x27;</span>]</span><br><span class="line"></span><br><span class="line">data = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">a, b = predict(xgb_mod, data), pmml_predict(pmml_mod, data)</span><br><span class="line"><span class="keyword">assert</span> eq(a, b)</span><br></pre></td></tr></table></figure>
 
 <h3 id="Java环境执行"><a href="#Java环境执行" class="headerlink" title="Java环境执行"></a>Java环境执行</h3><p>java环境执行, 需要用到<code>pmml-evaluator</code>和<code>pmml-evaluator-extension</code>库</p>
-<p>具体代码参考 <a href="https://www.cnblogs.com/pinard/p/9220199.html">https://www.cnblogs.com/pinard/p/9220199.html</a></p>
+<p>具体代码参考 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/pinard/p/9220199.html">https://www.cnblogs.com/pinard/p/9220199.html</a></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://www.cnblogs.com/pinard/p/9220199.html">https://www.cnblogs.com/pinard/p/9220199.html</a></li>
-<li><a href="https://blog.csdn.net/yueguanghaidao/article/details/91892549">https://blog.csdn.net/yueguanghaidao/article/details/91892549</a></li>
-<li><a href="https://github.com/jpmml/jpmml-xgboost">https://github.com/jpmml/jpmml-xgboost</a></li>
-<li><a href="https://yao544303.github.io/2018/07/11/sklearn-PMML/">https://yao544303.github.io/2018/07/11/sklearn-PMML/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/pinard/p/9220199.html">https://www.cnblogs.com/pinard/p/9220199.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/yueguanghaidao/article/details/91892549">https://blog.csdn.net/yueguanghaidao/article/details/91892549</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jpmml/jpmml-xgboost">https://github.com/jpmml/jpmml-xgboost</a></li>
+<li><a target="_blank" rel="noopener" href="https://yao544303.github.io/2018/07/11/sklearn-PMML/">https://yao544303.github.io/2018/07/11/sklearn-PMML/</a></li>
 </ol>
 
     </div>
@@ -433,7 +434,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>

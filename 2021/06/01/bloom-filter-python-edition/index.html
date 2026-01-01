@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://image.ponder.work/mweb/2021-06-01-16225146416983.jpg">
 <meta property="og:image" content="https://image.ponder.work/mweb/2021-06-01-16225149337703.jpg">
 <meta property="article:published_time" content="2021-06-01T01:48:00.000Z">
-<meta property="article:modified_time" content="2024-07-09T13:50:24.000Z">
+<meta property="article:modified_time" content="2024-07-09T14:02:56.000Z">
 <meta property="article:author" content="Jay.Run">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="数据结构">
@@ -91,6 +91,7 @@
 
 
 
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -131,7 +132,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/%E7%BC%96%E7%A8%8B/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/programming/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -301,7 +302,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-09 21:50:24" itemprop="dateModified" datetime="2024-07-09T21:50:24+08:00">2024-07-09</time>
+      <time title="修改时间：2024-07-09 22:02:56" itemprop="dateModified" datetime="2024-07-09T22:02:56+08:00">2024-07-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -309,7 +310,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
         </span>
     </span>
 
@@ -352,8 +353,8 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">BIT_SIZE = <span class="number">5000000</span></span><br><span class="line">BYTE_WIDTH = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BitMap</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, size, fill=<span class="number">0</span></span>):</span><br><span class="line">        <span class="variable language_">self</span>._array = <span class="built_in">bytearray</span>((fill <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(size//BYTE_WIDTH+<span class="number">1</span>)))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">set</span>(<span class="params">self, index</span>):</span><br><span class="line">        major, minor = <span class="built_in">divmod</span>(index, BYTE_WIDTH)</span><br><span class="line">        <span class="variable language_">self</span>._array[major] |= (<span class="number">0b10000000</span> &gt;&gt; minor)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self, index</span>):</span><br><span class="line">        major, minor = <span class="built_in">divmod</span>(index, BYTE_WIDTH)</span><br><span class="line">        mask = <span class="number">0b10000000</span> &gt;&gt; minor</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">int</span>(<span class="variable language_">self</span>._array[major] &amp; mask == mask)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BloomFilter</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.bit_array = BitMap(BIT_SIZE)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self, url</span>):</span><br><span class="line">        point_list = <span class="variable language_">self</span>.get_postions(url)</span><br><span class="line">        <span class="keyword">for</span> b <span class="keyword">in</span> point_list:</span><br><span class="line">            <span class="variable language_">self</span>.bit_array.<span class="built_in">set</span>(b)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">contains</span>(<span class="params">self, url</span>):</span><br><span class="line">        point_list = <span class="variable language_">self</span>.get_postions(url)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">all</span>(<span class="variable language_">self</span>.bit_array.get(i) <span class="keyword">for</span> i <span class="keyword">in</span> point_list)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_postions</span>(<span class="params">self, url</span>):</span><br><span class="line">        <span class="keyword">return</span> [<span class="built_in">hash</span>(<span class="string">&#x27;&#123;&#125;-&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(url, i)) % BIT_SIZE <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">41</span>, <span class="number">48</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    bf = BloomFilter()</span><br><span class="line">    bf.add(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(bf.contains(<span class="string">&#x27;1&#x27;</span>))</span><br><span class="line">    <span class="built_in">print</span>(bf.contains(<span class="string">&#x27;2&#x27;</span>))</span><br></pre></td></tr></table></figure>
 
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://zh.wikipedia.org/wiki/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8">https://zh.wikipedia.org/wiki/布隆过滤器</a></li>
-<li><a href="https://www.cnblogs.com/cpselvis/p/6265825.html">https://www.cnblogs.com/cpselvis/p/6265825.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8">https://zh.wikipedia.org/wiki/布隆过滤器</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cpselvis/p/6265825.html">https://www.cnblogs.com/cpselvis/p/6265825.html</a></li>
 </ul>
 
     </div>
@@ -417,7 +418,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>

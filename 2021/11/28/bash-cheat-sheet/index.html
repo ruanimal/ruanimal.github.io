@@ -29,7 +29,7 @@
 <meta property="og:description" content="bash 语法作为程序员好像都了解一些，但又缺少体系化学习，需要使用到某些功能时又经常手忙脚乱地查。本文主要参考阮一峰的bash教程，对bash的知识点进行了梳理。本文目的是作为bash的语法备忘录、语法速查表。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-28T07:00:00.000Z">
-<meta property="article:modified_time" content="2022-11-02T15:28:48.000Z">
+<meta property="article:modified_time" content="2022-10-17T07:44:31.000Z">
 <meta property="article:author" content="Jay.Run">
 <meta property="article:tag" content="Shell">
 <meta name="twitter:card" content="summary">
@@ -86,6 +86,7 @@
 
 
 
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -126,7 +127,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/%E7%BC%96%E7%A8%8B/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/programming/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -296,7 +297,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-02 23:28:48" itemprop="dateModified" datetime="2022-11-02T23:28:48+08:00">2022-11-02</time>
+      <time title="修改时间：2022-10-17 15:44:31" itemprop="dateModified" datetime="2022-10-17T15:44:31+08:00">2022-10-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -304,7 +305,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
         </span>
     </span>
 
@@ -332,7 +333,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>bash 语法作为程序员好像都了解一些，但又缺少体系化学习，需要使用到某些功能时又经常手忙脚乱地查。<br>本文主要参考<a href="https://wangdoc.com/bash/">阮一峰的bash教程</a>，对bash的知识点进行了梳理。<br>本文目的是作为bash的语法备忘录、语法速查表。</p>
+    <div class="post-body" itemprop="articleBody"><p>bash 语法作为程序员好像都了解一些，但又缺少体系化学习，需要使用到某些功能时又经常手忙脚乱地查。<br>本文主要参考<a target="_blank" rel="noopener" href="https://wangdoc.com/bash/">阮一峰的bash教程</a>，对bash的知识点进行了梳理。<br>本文目的是作为bash的语法备忘录、语法速查表。</p>
 <span id="more"></span>
 <h2 id="模式扩展"><a href="#模式扩展" class="headerlink" title="模式扩展"></a>模式扩展</h2><p>模式扩展（globbing），类似C语言中的宏展开，我们通常使用的通配符<code>*</code>就是其中之一。</p>
 <p>Bash 一共提供八种扩展，前4种为文件扩展，只有文件路径确实存在才会扩展。</p>
@@ -571,7 +572,7 @@
 <li><code>[ integer1 -ge integer2 ]</code>：如果<code>integer1</code>大于或等于<code>integer2</code>，则为<code>true</code>。</li>
 <li><code>[ integer1 -gt integer2 ]</code>：如果<code>integer1</code>大于<code>integer2</code>，则为<code>true</code>。</li>
 </ul>
-<h4 id="文件判断"><a href="#文件判断" class="headerlink" title="文件判断"></a>文件判断</h4><p>以下表达式用来判断文件状态。仅列举常用判断，详细支持列表参考 <a href="https://tldp.org/LDP/abs/html/fto.html">https://tldp.org/LDP/abs/html/fto.html</a></p>
+<h4 id="文件判断"><a href="#文件判断" class="headerlink" title="文件判断"></a>文件判断</h4><p>以下表达式用来判断文件状态。仅列举常用判断，详细支持列表参考 <a target="_blank" rel="noopener" href="https://tldp.org/LDP/abs/html/fto.html">https://tldp.org/LDP/abs/html/fto.html</a></p>
 <ul>
 <li><code>[ -a file ]</code>：如果 file 存在，则为<code>true</code>。</li>
 <li><code>[ -d file ]</code>：如果 file 存在并且是一个目录，则为<code>true</code>。</li>
@@ -685,10 +686,10 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;1..30&#125;; do</span><br><span class="line">	sleep $((30+i)) &amp;</span><br><span class="line">	if [[ $(jobs | wc -l ) -gt 10 ]]; then</span><br><span class="line">		jobs</span><br><span class="line">		wait</span><br><span class="line">	fi</span><br><span class="line">done</span><br><span class="line">wait</span><br></pre></td></tr></table></figure>
 
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://wangdoc.com/bash/">https://wangdoc.com/bash/</a></li>
-<li><a href="https://tldp.org/LDP/abs/html/fto.html">https://tldp.org/LDP/abs/html/fto.html</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/Shebang">https://zh.wikipedia.org/wiki/Shebang</a></li>
-<li><a href="https://en.wikipedia.org/wiki/File_descriptor">https://en.wikipedia.org/wiki/File_descriptor</a></li>
+<li><a target="_blank" rel="noopener" href="https://wangdoc.com/bash/">https://wangdoc.com/bash/</a></li>
+<li><a target="_blank" rel="noopener" href="https://tldp.org/LDP/abs/html/fto.html">https://tldp.org/LDP/abs/html/fto.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Shebang">https://zh.wikipedia.org/wiki/Shebang</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/File_descriptor">https://en.wikipedia.org/wiki/File_descriptor</a></li>
 </ul>
 
     </div>
@@ -751,7 +752,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>

@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://image.ponder.work/mweb/2021-08-03-16279791503013.jpg">
 <meta property="og:image" content="https://image.ponder.work/mweb/2021-08-03-16279775548246.jpg">
 <meta property="article:published_time" content="2021-08-02T12:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-09T13:50:24.000Z">
+<meta property="article:modified_time" content="2024-07-09T14:02:56.000Z">
 <meta property="article:author" content="Jay.Run">
 <meta property="article:tag" content="tmux">
 <meta name="twitter:card" content="summary">
@@ -93,6 +93,7 @@
 
 
 
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -133,7 +134,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/%E7%BC%96%E7%A8%8B/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/programming/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -303,7 +304,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-09 21:50:24" itemprop="dateModified" datetime="2024-07-09T21:50:24+08:00">2024-07-09</time>
+      <time title="修改时间：2024-07-09 22:02:56" itemprop="dateModified" datetime="2024-07-09T22:02:56+08:00">2024-07-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -311,7 +312,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
         </span>
     </span>
 
@@ -344,7 +345,7 @@
 <p>Tmux 可以维持和管理我们的远程终端会话，和服务断线重连后也不会丢失工作状态, 同时可以在一个终端连接中开启多个窗口（window）和窗格（pane）。</p>
 <span id="more"></span>
 <p>比如，下面就包含了2个窗口和3个窗格<br><img src="https://image.ponder.work/mweb/2021-08-03-16279763351692.jpg"></p>
-<p>具体 Tmux 的细节和使用可以参考 <a href="https://www.ruanyifeng.com/blog/2019/10/tmux.html">阮一峰的文章</a></p>
+<p>具体 Tmux 的细节和使用可以参考 <a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2019/10/tmux.html">阮一峰的文章</a></p>
 <p>但是 Tmux 也存在以下几个问题（个人观点）</p>
 <ol>
 <li>窗口和会话管理默认是全键盘操作，需要记比较多快捷键</li>
@@ -353,7 +354,7 @@
 <li>不支持rzsz</li>
 </ol>
 <p>而 iTerm2 内置了 Tmux 绑定功能，可以将 tmux 的窗口和窗格映射成原生的窗口和窗格，可以用 iTerm2 的菜单和快捷键来操作窗口，解决了前3点问题。</p>
-<p>至于第4点，rzsz 由于 tmux 的实现机制决定了是无解的。<br>然而 <a href="https://github.com/lonnywong">lonnywong</a> 实现了替代方案 <a href="https://github.com/trzsz/trzsz">trzsz</a> ，<strong>完美解决了文件上传下载的问题</strong>，亲测非常好用。</p>
+<p>至于第4点，rzsz 由于 tmux 的实现机制决定了是无解的。<br>然而 <a target="_blank" rel="noopener" href="https://github.com/lonnywong">lonnywong</a> 实现了替代方案 <a target="_blank" rel="noopener" href="https://github.com/trzsz/trzsz">trzsz</a> ，<strong>完美解决了文件上传下载的问题</strong>，亲测非常好用。</p>
 <h2 id="iTerm2-配置"><a href="#iTerm2-配置" class="headerlink" title="iTerm2 配置"></a>iTerm2 配置</h2><p>可以对 tmux 窗口的映射进行一些定制</p>
 <p>iTerm2 对于 tmux 会话有一个profile，建议对终端颜色和外观进行一些定制化，将原生窗口和 tmux 窗口区分开来。</p>
 <p><img src="https://image.ponder.work/mweb/2021-08-03-16279767130639.jpg"><br><img src="https://image.ponder.work/mweb/2021-08-03-16279767560503.jpg"></p>
@@ -372,14 +373,14 @@
 <p><img src="https://image.ponder.work/mweb/2021-08-03-16279791503013.jpg"></p>
 <p><img src="https://image.ponder.work/mweb/2021-08-03-16279775548246.jpg"></p>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
-<li>tmux静态编译版本 <a href="https://github.com/mjakob-gh/build-static-tmux/releases">https://github.com/mjakob-gh/build-static-tmux/releases</a></li>
+<li>tmux静态编译版本 <a target="_blank" rel="noopener" href="https://github.com/mjakob-gh/build-static-tmux/releases">https://github.com/mjakob-gh/build-static-tmux/releases</a></li>
 <li>tmux显示颜色 <code>echo &#39;set -g default-terminal &quot;screen-256color&quot;&#39; &gt;&gt; ~/.tmux.conf</code></li>
 </ul>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://www.ruanyifeng.com/blog/2019/10/tmux.html">https://www.ruanyifeng.com/blog/2019/10/tmux.html</a></li>
-<li><a href="https://www.v2ex.com/t/589453">https://www.v2ex.com/t/589453</a></li>
-<li><a href="https://iterm2.com/documentation-tmux-integration.html">https://iterm2.com/documentation-tmux-integration.html</a></li>
-<li><a href="https://gitlab.com/gnachman/iterm2/-/wikis/tmux-Integration-Best-Practices">https://gitlab.com/gnachman/iterm2/-/wikis/tmux-Integration-Best-Practices</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2019/10/tmux.html">https://www.ruanyifeng.com/blog/2019/10/tmux.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.v2ex.com/t/589453">https://www.v2ex.com/t/589453</a></li>
+<li><a target="_blank" rel="noopener" href="https://iterm2.com/documentation-tmux-integration.html">https://iterm2.com/documentation-tmux-integration.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitlab.com/gnachman/iterm2/-/wikis/tmux-Integration-Best-Practices">https://gitlab.com/gnachman/iterm2/-/wikis/tmux-Integration-Best-Practices</a></li>
 </ul>
 
     </div>
@@ -442,7 +443,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>

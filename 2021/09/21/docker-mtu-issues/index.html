@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://image.ponder.work/mweb/2022-07-11-16575342644060.jpg">
 <meta property="article:published_time" content="2021-09-21T10:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-09T13:50:24.000Z">
+<meta property="article:modified_time" content="2024-07-09T14:02:56.000Z">
 <meta property="article:author" content="Jay.Run">
 <meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary">
@@ -88,6 +88,7 @@
 
 
 
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -128,7 +129,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/%E7%BC%96%E7%A8%8B/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/programming/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -298,7 +299,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-09 21:50:24" itemprop="dateModified" datetime="2024-07-09T21:50:24+08:00">2024-07-09</time>
+      <time title="修改时间：2024-07-09 22:02:56" itemprop="dateModified" datetime="2024-07-09T22:02:56+08:00">2024-07-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -306,7 +307,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
         </span>
     </span>
 
@@ -340,7 +341,7 @@
 <span id="more"></span>
 <h2 id="使尽浑身解数定位"><a href="#使尽浑身解数定位" class="headerlink" title="使尽浑身解数定位"></a>使尽浑身解数定位</h2><p>发现请求超时后，开始用CURL测试接口，用真实数据验证发现请求都耗时1s，这和用c++的预期完全不符。</p>
 <h3 id="我代码不应该有bug"><a href="#我代码不应该有bug" class="headerlink" title="我代码不应该有bug!!"></a>我代码不应该有bug!!</h3><p>首先是怀疑业务代码有问题，逐行统计业务代码耗时，发现业务代码仅耗时10+ms。</p>
-<h3 id="curl-不应该-Expect"><a href="#curl-不应该-Expect" class="headerlink" title="curl 不应该 Expect"></a>curl 不应该 Expect</h3><p>用空数据访问接口，发现耗时也只有20+ms，这时开始怀疑brpc是不是编译得有问题，或者说和libtorch编译到一起不兼容。<br>这时我请教了一位同事，他对brpc比较熟悉，然后他说是curl实现的问题，和brpc没关系, 参考<a href="https://github.com/apache/incubator-brpc/issues/1075"> brpc issue</a></p>
+<h3 id="curl-不应该-Expect"><a href="#curl-不应该-Expect" class="headerlink" title="curl 不应该 Expect"></a>curl 不应该 Expect</h3><p>用空数据访问接口，发现耗时也只有20+ms，这时开始怀疑brpc是不是编译得有问题，或者说和libtorch编译到一起不兼容。<br>这时我请教了一位同事，他对brpc比较熟悉，然后他说是curl实现的问题，和brpc没关系, 参考<a target="_blank" rel="noopener" href="https://github.com/apache/incubator-brpc/issues/1075"> brpc issue</a></p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl传输的时候，会设置 Expect: <span class="number">100</span>-<span class="keyword">continue</span>, 这个协议brpc本身没有实现, 所以curl会等待一个超时。</span><br><span class="line">加上 -H <span class="string">&#x27;Expect:&#x27;</span> 可以解决这个问题</span><br></pre></td></tr></table></figure>
 
 <p>所以这个1s超时是个烟雾弹，线上client是Python，不会有这个问题。</p>
@@ -362,12 +363,12 @@
 <h3 id="知识可能会误导你"><a href="#知识可能会误导你" class="headerlink" title="知识可能会误导你"></a>知识可能会误导你</h3><p>你所拥有的知识，并不是究竟的知识，也就是它所能应用的范围并不适应当前的场景，还有可能误导你。<br>你所缺失的知识，让你看不清前方正确的道路。</p>
 <p>按我的知识，docker0是网桥，等价于交换机，除了性能问题，不应该导致丢包，就一直没往这个方向考虑（当然这块的知识也不扎实）。<br>MTU也不应该导致丢包，交换机应该会进行IP分片。<br>但忽略了一个点，虚拟的网桥并不是硬件网桥，可能并没有实现IP分片的逻辑（仅丢弃），又或者没有实现 PMTU（Path MTU Discovery）。<br>上面这点存疑，但更直接的原因是服务的IP包的 <code>Don&#39;t fragment</code> flag 为1，也就是禁止分片（为什么设置还不清楚）。<br><img src="https://image.ponder.work/mweb/2022-07-11-16575342644060.jpg"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://github.com/apache/incubator-brpc/issues/1075">https://github.com/apache/incubator-brpc/issues/1075</a></li>
-<li><a href="https://mp.weixin.qq.com/s/-Q1AkxUr9xzGKwUMV-FQhQ">云网络丢包故障定位全景指南</a></li>
-<li><a href="https://mlohr.com/docker-mtu/">https://mlohr.com/docker-mtu/</a></li>
-<li><a href="https://github.com/docker/for-win/issues/1144">https://github.com/docker/for-win/issues/1144</a></li>
-<li><a href="https://www.cnblogs.com/sammyliu/p/5079898.html">https://www.cnblogs.com/sammyliu/p/5079898.html</a></li>
-<li><a href="https://github.com/moby/moby/issues/12565">https://github.com/moby/moby/issues/12565</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/apache/incubator-brpc/issues/1075">https://github.com/apache/incubator-brpc/issues/1075</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/-Q1AkxUr9xzGKwUMV-FQhQ">云网络丢包故障定位全景指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://mlohr.com/docker-mtu/">https://mlohr.com/docker-mtu/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/docker/for-win/issues/1144">https://github.com/docker/for-win/issues/1144</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sammyliu/p/5079898.html">https://www.cnblogs.com/sammyliu/p/5079898.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/moby/moby/issues/12565">https://github.com/moby/moby/issues/12565</a></li>
 </ul>
 
     </div>
@@ -430,7 +431,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>

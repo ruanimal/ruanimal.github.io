@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://image.ponder.work/mweb/2021-04-18-16187320239054.jpg">
 <meta property="og:image" content="https://image.ponder.work/mweb/2021-04-18-16187328149108.jpg">
 <meta property="article:published_time" content="2021-04-17T01:48:00.000Z">
-<meta property="article:modified_time" content="2024-07-09T13:50:24.000Z">
+<meta property="article:modified_time" content="2024-07-09T14:02:56.000Z">
 <meta property="article:author" content="Jay.Run">
 <meta property="article:tag" content="C">
 <meta property="article:tag" content="Redis">
@@ -90,6 +90,7 @@
 
 
 
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -130,7 +131,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/%E7%BC%96%E7%A8%8B/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/programming/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -300,7 +301,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-09 21:50:24" itemprop="dateModified" datetime="2024-07-09T21:50:24+08:00">2024-07-09</time>
+      <time title="修改时间：2024-07-09 22:02:56" itemprop="dateModified" datetime="2024-07-09T22:02:56+08:00">2024-07-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -308,7 +309,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
         </span>
     </span>
 
@@ -356,7 +357,7 @@
 <h2 id="哈希算法"><a href="#哈希算法" class="headerlink" title="哈希算法"></a>哈希算法</h2><p>redis 的 dict 本质上就是个hashmap，其中的关键是哈希算法。</p>
 <p>哈希函数（英语：Hash function）又称散列算法、散列函数，是一种从任何一种数据中创建小的数字“指纹”的方法。散列函数把消息或数据压缩成摘要，使得数据量变小，将数据的格式固定下来。该函数将数据打乱混合，重新创建一个叫做散列值的指纹。</p>
 <p>比如取模函数就是一种最简单的对整数的哈希算法。</p>
-<p>当字典被用作数据库的底层实现，或者哈希键的底层实现时，Redis使用 <a href="https://zh.wikipedia.org/wiki/Murmur%E5%93%88%E5%B8%8C">MurmurHash2</a> 算法来计算键的哈希值。</p>
+<p>当字典被用作数据库的底层实现，或者哈希键的底层实现时，Redis使用 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Murmur%E5%93%88%E5%B8%8C">MurmurHash2</a> 算法来计算键的哈希值。</p>
 <p>具体求索引的过程</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求哈希值</span></span><br><span class="line">hash = dict-&gt;type-&gt;hashFunction(kO);</span><br><span class="line"><span class="comment">// 根据哈希值和掩码计算出元素节点索引</span></span><br><span class="line">index = hash &amp; dict-&gt;ht[<span class="number">0</span>].sizemask</span><br></pre></td></tr></table></figure>
 
@@ -459,7 +460,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>

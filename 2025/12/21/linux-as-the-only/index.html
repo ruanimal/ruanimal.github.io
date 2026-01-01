@@ -29,7 +29,7 @@
 <meta property="og:description" content="这些年日常操作系统一直是 windows 和 macOS 交替使用，Linux 一般只作为服务器的操作系统。然而，咖喱味的 Windows 11 （LTSC）用起来实在难受（平时只玩游戏，下载）arm 的 macbook 虽然能效惊人，但是内存金子价格，软件也封闭（点名finder）和傲慢，实在受不了。最后，还是转向 Linux，毕竟现在 wayland 基本堪用，国产软件也随着信创逐渐丰富了。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-12-21T13:48:00.000Z">
-<meta property="article:modified_time" content="2025-12-22T03:46:55.106Z">
+<meta property="article:modified_time" content="2025-12-22T03:47:07.000Z">
 <meta property="article:author" content="Jay.Run">
 <meta property="article:tag" content="KDE">
 <meta property="article:tag" content="Linux">
@@ -87,6 +87,7 @@
 
 
 
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -127,7 +128,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/%E7%BC%96%E7%A8%8B/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/programming/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -297,7 +298,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-12-22 11:46:55" itemprop="dateModified" datetime="2025-12-22T11:46:55+08:00">2025-12-22</time>
+      <time title="修改时间：2025-12-22 11:47:07" itemprop="dateModified" datetime="2025-12-22T11:47:07+08:00">2025-12-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -305,7 +306,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
         </span>
     </span>
 
@@ -356,7 +357,7 @@
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ubuntu-drivers install <span class="number">580</span>-<span class="keyword">server</span>-<span class="keyword">open</span></span><br></pre></td></tr></table></figure>
 
 <ol start="2">
-<li>启用睡眠支持<a href="https://download.nvidia.com/XFree86/Linux-x86_64/570.172.08/README/powermanagement.html">参考</a><br>将显存内容保存，否则唤醒后程序会报错（如CUDA程序）</li>
+<li>启用睡眠支持<a target="_blank" rel="noopener" href="https://download.nvidia.com/XFree86/Linux-x86_64/570.172.08/README/powermanagement.html">参考</a><br>将显存内容保存，否则唤醒后程序会报错（如CUDA程序）</li>
 </ol>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/modprobe.d/nvidia-power-management.conf </span></span><br><span class="line">options nvidia <span class="attribute">NVreg_PreserveVideoMemoryAllocations</span>=1 <span class="attribute">NVreg_TemporaryFilePath</span>=/tmp</span><br><span class="line"></span><br><span class="line">sudo update-initramfs</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -569,7 +570,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>

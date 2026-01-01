@@ -29,7 +29,7 @@
 <meta property="og:description" content="缘起最近接手了一个82年的拉菲Python项目，简直酸爽。Python版本用的是2.7.5，里面用的第三方库各种老旧，潜藏了不少深坑。这次我们就先讲enum库的坑，其他有空再聊。 enum是一个枚举类型的第三方库，在Python3.4以后就作为官方库存在了，使用参考。所以如果用新版本的Python就不会存在这个问题了，版本老旧害死人啊。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-11-21T12:17:00.000Z">
-<meta property="article:modified_time" content="2021-07-15T08:02:44.000Z">
+<meta property="article:modified_time" content="2021-03-25T13:41:32.000Z">
 <meta property="article:author" content="Jay.Run">
 <meta property="article:tag" content="Enum">
 <meta property="article:tag" content="Python">
@@ -87,6 +87,7 @@
 
 
 
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -127,7 +128,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/%E7%BC%96%E7%A8%8B/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/programming/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -297,7 +298,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+      <time title="修改时间：2021-03-25 21:41:32" itemprop="dateModified" datetime="2021-03-25T21:41:32+08:00">2021-03-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -305,7 +306,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
         </span>
     </span>
 
@@ -334,7 +335,7 @@
     
     
     <div class="post-body" itemprop="articleBody"><h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近接手了一个82年的<del>拉菲</del>Python项目，简直酸爽。<br>Python版本用的是2.7.5，里面用的第三方库各种老旧，潜藏了不少深坑。这次我们就先讲enum库的坑，其他有空再聊。</p>
-<p>enum是一个枚举类型的第三方库，在Python3.4以后就作为官方库存在了，<a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017595944503424">使用参考</a>。<br>所以如果用新版本的Python就不会存在这个问题了，版本老旧害死人啊。</p>
+<p>enum是一个枚举类型的第三方库，在Python3.4以后就作为官方库存在了，<a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017595944503424">使用参考</a>。<br>所以如果用新版本的Python就不会存在这个问题了，版本老旧害死人啊。</p>
 <span id="more"></span>
 
 <h2 id="症状"><a href="#症状" class="headerlink" title="症状"></a>症状</h2><p>刚接手这个项目，在搭建环境的时候，装完依赖发现enum库不能按照预期工作（没有完善的requirements.txt是个坑）</p>
@@ -352,12 +353,12 @@
 <h2 id="归因"><a href="#归因" class="headerlink" title="归因"></a>归因</h2><p>一开始我以为的enum库的bug，在不同版本的Python中行为不一致。</p>
 <p>打开库源码路径一看，还真是大吃一惊。</p>
 <p>原来两个环境的enum库压根就不一样，实现方式也不太一样，所以行为不一样。</p>
-<h3 id="正式环境的库"><a href="#正式环境的库" class="headerlink" title="正式环境的库"></a>正式环境的库</h3><p>安装的是：enum&#x3D;&#x3D;0.4.7 <a href="https://pypi.org/project/enum/">pypi</a></p>
+<h3 id="正式环境的库"><a href="#正式环境的库" class="headerlink" title="正式环境的库"></a>正式环境的库</h3><p>安装的是：enum&#x3D;&#x3D;0.4.7 <a target="_blank" rel="noopener" href="https://pypi.org/project/enum/">pypi</a></p>
 <p>目录结构:</p>
 <figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">enum.py</span><br><span class="line">enum-0.4.7-py2.7.egg-info</span><br><span class="line">├── PKG-INFO</span><br><span class="line">├── SOURCES.txt</span><br><span class="line">├── dependency_links.txt</span><br><span class="line">├── installed-files.txt</span><br><span class="line">├──<span class="built_in"> not-zip-safe</span></span><br><span class="line"><span class="built_in"></span>├── requires.txt</span><br><span class="line">└── top_level.txt</span><br></pre></td></tr></table></figure>
 
 <p>只包含了enum.py这个文件，而且里面的代码实现很糟糕，和Python官方库的行为不一致。<br>也没找到源码管理仓库，总体来说质量糟糕。</p>
-<h3 id="开发环境的库"><a href="#开发环境的库" class="headerlink" title="开发环境的库"></a>开发环境的库</h3><p>安装的是：enum34&#x3D;&#x3D;1.1.6 <a href="https://pypi.org/project/enum34/">pypi</a></p>
+<h3 id="开发环境的库"><a href="#开发环境的库" class="headerlink" title="开发环境的库"></a>开发环境的库</h3><p>安装的是：enum34&#x3D;&#x3D;1.1.6 <a target="_blank" rel="noopener" href="https://pypi.org/project/enum34/">pypi</a></p>
 <p>目录结构:</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">enum</span><br><span class="line">├── LICENSE</span><br><span class="line">├── README</span><br><span class="line">├── __init__<span class="selector-class">.py</span></span><br><span class="line">└── __init__<span class="selector-class">.pyc</span></span><br><span class="line">enum34-<span class="number">1.1</span>.<span class="number">6</span><span class="selector-class">.dist-info</span></span><br><span class="line">├── DESCRIPTION<span class="selector-class">.rst</span></span><br><span class="line">├── INSTALLER</span><br><span class="line">├── METADATA</span><br><span class="line">├── RECORD</span><br><span class="line">├── WHEEL</span><br><span class="line">├── metadata<span class="selector-class">.json</span></span><br><span class="line">└── top_level.txt</span><br></pre></td></tr></table></figure>
 
@@ -434,7 +435,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>

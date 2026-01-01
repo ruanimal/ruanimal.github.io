@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://image.ponder.work/mweb/2020-09-19-16004775381948.jpg">
 <meta property="og:image" content="https://image.ponder.work/mweb/2020-09-19-16004776841057.jpg">
 <meta property="article:published_time" content="2020-07-24T12:17:00.000Z">
-<meta property="article:modified_time" content="2024-07-09T13:50:24.000Z">
+<meta property="article:modified_time" content="2024-07-09T14:02:56.000Z">
 <meta property="article:author" content="Jay.Run">
 <meta property="article:tag" content="Hackintosh">
 <meta property="article:tag" content="mac">
@@ -100,6 +100,7 @@
 
 
 
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -140,7 +141,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/%E7%BC%96%E7%A8%8B/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/programming/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -310,7 +311,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-09 21:50:24" itemprop="dateModified" datetime="2024-07-09T21:50:24+08:00">2024-07-09</time>
+      <time title="修改时间：2024-07-09 22:02:56" itemprop="dateModified" datetime="2024-07-09T22:02:56+08:00">2024-07-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -318,7 +319,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/" itemprop="url" rel="index"><span itemprop="name">工作生活</span></a>
+          <a href="/categories/life/" itemprop="url" rel="index"><span itemprop="name">工作生活</span></a>
         </span>
     </span>
 
@@ -406,7 +407,7 @@
 <li>硬盘：Samsung 850 EVO M.2 SATA 250G</li>
 <li>无线网卡：DW1820A (08PKF4)</li>
 </ul>
-<h2 id="总体成果"><a href="#总体成果" class="headerlink" title="总体成果"></a>总体成果</h2><p>OpenCore配置文件我放到github了 <a href="https://github.com/ruanimal/GB-BRi5H-8250-hackintosh">https://github.com/ruanimal/GB-BRi5H-8250-hackintosh</a></p>
+<h2 id="总体成果"><a href="#总体成果" class="headerlink" title="总体成果"></a>总体成果</h2><p>OpenCore配置文件我放到github了 <a target="_blank" rel="noopener" href="https://github.com/ruanimal/GB-BRi5H-8250-hackintosh">https://github.com/ruanimal/GB-BRi5H-8250-hackintosh</a></p>
 <h3 id="正常工作项目"><a href="#正常工作项目" class="headerlink" title="正常工作项目"></a>正常工作项目</h3><ul>
 <li>CPU，变频</li>
 <li>显卡，硬件加速</li>
@@ -425,21 +426,21 @@
 <li>HDMI睡眠唤醒，有时屏幕黑屏，需要按一下屏幕开关；DP睡眠正常 (添加启动参数<code>igfxonln=1</code>应该可以解决)</li>
 <li>显示器喇叭开机时不正常，拔插接口后或者开关屏幕电源后正常。(添加启动参数<code>igfxonln=1</code>应该可以解决)</li>
 </ul>
-<h2 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h2><p>安装过程大部分参考<a href="https://dortania.github.io/OpenCore-Install-Guide/">dortania</a>，这里采用的是双系统安装方法。</p>
+<h2 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h2><p>安装过程大部分参考<a target="_blank" rel="noopener" href="https://dortania.github.io/OpenCore-Install-Guide/">dortania</a>，这里采用的是双系统安装方法。</p>
 <p>先安装Windows10, 然后在Windows10下配置OpenCore，制作macOS安装镜像。</p>
 <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>预先下载的工具软件</p>
 <ul>
-<li><a href="http://www.wepe.com.cn/download.html">微PE工具箱V2.1</a>：Windows系统安装工具</li>
-<li><a href="https://www.microsoft.com/zh-cn/software-download/windows10ISO/">Windows10镜像</a></li>
-<li><a href="http://www.pc6.com/mac/691696.html">Hackintool</a>: 黑苹果多功能工具</li>
-<li><a href="https://www.python.org/downloads/">Python</a>: ProperTree等软件的依赖</li>
-<li><a href="https://www.diskgenius.cn/download.php">DiskGenius</a>: 磁盘分区</li>
-<li><a href="https://bootice.softonic.cn/?ex=MOB-615.2">bootice</a>: uefi引导编辑</li>
-<li><a href="https://github.com/corpnewt/ProperTree">ProperTree</a>: 编辑OpenCore配置</li>
-<li><a href="https://github.com/corpnewt/GenSMBIOS">GenSMBIOS</a>：用于生成苹果设备序列号信息</li>
-<li><a href="https://github.com/acidanthera/OpenCorePkg/releases">OpenCorePkg</a>: OpenCore引导文件，注意下载release版本</li>
-<li><del><a href="https://github.com/corpnewt/gibMacOS">gibMacOS</a>: 下载，制作macOS安装镜像</del></li>
-<li><a href="https://www.ccleaner.com/speccy/download">speccy</a>: 查看电脑硬件信息</li>
+<li><a target="_blank" rel="noopener" href="http://www.wepe.com.cn/download.html">微PE工具箱V2.1</a>：Windows系统安装工具</li>
+<li><a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/software-download/windows10ISO/">Windows10镜像</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.pc6.com/mac/691696.html">Hackintool</a>: 黑苹果多功能工具</li>
+<li><a target="_blank" rel="noopener" href="https://www.python.org/downloads/">Python</a>: ProperTree等软件的依赖</li>
+<li><a target="_blank" rel="noopener" href="https://www.diskgenius.cn/download.php">DiskGenius</a>: 磁盘分区</li>
+<li><a target="_blank" rel="noopener" href="https://bootice.softonic.cn/?ex=MOB-615.2">bootice</a>: uefi引导编辑</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/corpnewt/ProperTree">ProperTree</a>: 编辑OpenCore配置</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/corpnewt/GenSMBIOS">GenSMBIOS</a>：用于生成苹果设备序列号信息</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera/OpenCorePkg/releases">OpenCorePkg</a>: OpenCore引导文件，注意下载release版本</li>
+<li><del><a target="_blank" rel="noopener" href="https://github.com/corpnewt/gibMacOS">gibMacOS</a>: 下载，制作macOS安装镜像</del></li>
+<li><a target="_blank" rel="noopener" href="https://www.ccleaner.com/speccy/download">speccy</a>: 查看电脑硬件信息</li>
 </ul>
 <p>其他</p>
 <ul>
@@ -449,54 +450,54 @@
 </ul>
 <p>前置知识</p>
 <ul>
-<li><a href="https://dortania.github.io/OpenCore-Install-Guide/terminology.html">技术术语了解</a></li>
+<li><a target="_blank" rel="noopener" href="https://dortania.github.io/OpenCore-Install-Guide/terminology.html">技术术语了解</a></li>
 </ul>
 <h3 id="Windows安装和分区"><a href="#Windows安装和分区" class="headerlink" title="Windows安装和分区"></a>Windows安装和分区</h3><ol>
 <li>制作Windows安装U盘</li>
 <li>开机安装Delete键进入bios，选择从U盘启动</li>
-<li>安装Windows系统，具体安装过程可以参考<a href="https://zhuanlan.zhihu.com/p/49181786">这个教程</a>，注意安装时不要Windows分区不要占用所有空间，建议50G就好了。</li>
+<li>安装Windows系统，具体安装过程可以参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/49181786">这个教程</a>，注意安装时不要Windows分区不要占用所有空间，建议50G就好了。</li>
 <li>安装完成后，新建一个分区，后续作为macOS的安装分区，建议预留100G以上</li>
 </ol>
-<h3 id="macOS安装U盘制作"><a href="#macOS安装U盘制作" class="headerlink" title="macOS安装U盘制作"></a>macOS安装U盘制作</h3><h4 id="macOS准备"><a href="#macOS准备" class="headerlink" title="macOS准备"></a>macOS准备</h4><p>具体步骤参考<a href="https://dortania.github.io/OpenCore-Install-Guide/installer-guide/winblows-install.html#downloading-macos">这个</a>，gibMacOS已被官方教程废弃<br><del>1. 使用gibMacOS的gibMacOS.bat，下载最新macOS</del><br><del>2. 使用gibMacOS的MakeInstall.bat，制作安装U盘</del></p>
+<h3 id="macOS安装U盘制作"><a href="#macOS安装U盘制作" class="headerlink" title="macOS安装U盘制作"></a>macOS安装U盘制作</h3><h4 id="macOS准备"><a href="#macOS准备" class="headerlink" title="macOS准备"></a>macOS准备</h4><p>具体步骤参考<a target="_blank" rel="noopener" href="https://dortania.github.io/OpenCore-Install-Guide/installer-guide/winblows-install.html#downloading-macos">这个</a>，gibMacOS已被官方教程废弃<br><del>1. 使用gibMacOS的gibMacOS.bat，下载最新macOS</del><br><del>2. 使用gibMacOS的MakeInstall.bat，制作安装U盘</del></p>
 <h4 id="OpenCore文件准备"><a href="#OpenCore文件准备" class="headerlink" title="OpenCore文件准备"></a>OpenCore文件准备</h4><ol>
 <li>将下载的OpenCorePkg解压，复制EFI文件夹到U盘</li>
 <li>删除EFI文件夹中多余的文件，只保留以下内容<br> <img src="https://image.ponder.work/mweb/2020-07-25-15955829462860.png"></li>
 <li>添加必要的.efi驱动到U盘EFI&#x2F;OC&#x2F;Drivers文件夹，不同的机型需要的有所区别<ul>
-<li><a href="https://github.com/acidanthera/OcBinaryData/blob/master/Drivers/HfsPlus.efi">HfsPlus.efi</a>: 用于读写苹果HFS分区</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera/OcBinaryData/blob/master/Drivers/HfsPlus.efi">HfsPlus.efi</a>: 用于读写苹果HFS分区</li>
 </ul>
 </li>
 </ol>
 <h4 id="Kexts驱动准备"><a href="#Kexts驱动准备" class="headerlink" title="Kexts驱动准备"></a>Kexts驱动准备</h4><p>添加必要的Kexts驱动到U盘EFI&#x2F;OC&#x2F;Kexts文件夹，不同的机型需要的有所区别</p>
 <ul>
-<li><a href="https://github.com/acidanthera/VirtualSMC/releases">VirtualSMC</a>：将电脑伪装成苹果设备</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera/VirtualSMC/releases">VirtualSMC</a>：将电脑伪装成苹果设备</li>
 <li>SMCProcessor.kext: VirtualSMC附带驱动，用于监控cpu状态</li>
 <li>SMCSuperIO：VirtualSMC附带驱动，用于监控风扇状态</li>
-<li><a href="https://github.com/acidanthera/Lilu/releases">Lilu</a>: 用于加载音频等驱动</li>
-<li><a href="https://github.com/acidanthera/WhateverGreen/releases">WhateverGreen</a>：显卡驱动</li>
-<li><a href="https://github.com/acidanthera/AppleALC/releases">AppleALC</a>: 声卡驱动</li>
-<li><a href="https://github.com/acidanthera/IntelMausi/releases">IntelMausi</a>: 有线网卡驱动</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera/Lilu/releases">Lilu</a>: 用于加载音频等驱动</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera/WhateverGreen/releases">WhateverGreen</a>：显卡驱动</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera/AppleALC/releases">AppleALC</a>: 声卡驱动</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera/IntelMausi/releases">IntelMausi</a>: 有线网卡驱动</li>
 </ul>
 <h4 id="SSDT准备"><a href="#SSDT准备" class="headerlink" title="SSDT准备"></a>SSDT准备</h4><p>添加必要的Kexts驱动到U盘EFI&#x2F;OC&#x2F;ACPI文件夹，不同的机型需要的有所区别</p>
 <p><img src="https://image.ponder.work/mweb/2020-07-25-15955842564825.jpg" alt="-w828"></p>
-<p>从opencore的<a href="https://dortania.github.io/OpenCore-Install-Guide/ktext.html#desktop">文档</a>可以看出，我们至少需要以下几个SSDT</p>
+<p>从opencore的<a target="_blank" rel="noopener" href="https://dortania.github.io/OpenCore-Install-Guide/ktext.html#desktop">文档</a>可以看出，我们至少需要以下几个SSDT</p>
 <ul>
-<li><a href="https://dortania.github.io/Getting-Started-With-ACPI/Universal/plug.html">SSDT-PLUG</a>：电源管理相关，影响睡眠</li>
-<li><a href="https://dortania.github.io/Getting-Started-With-ACPI/Universal/ec-fix.html">SSDT-EC-USBX</a>：内置控制器，和USB相关，影响睡眠</li>
-<li><a href="https://dortania.github.io/Getting-Started-With-ACPI/Universal/nvram.html">SSDT-PMC</a>：NVRAM相关</li>
-<li><a href="https://dortania.github.io/Getting-Started-With-ACPI/Universal/awac.html">SSDT-AWAC</a>：系统时钟（通过查看DSDT，我们并不需要这个）</li>
+<li><a target="_blank" rel="noopener" href="https://dortania.github.io/Getting-Started-With-ACPI/Universal/plug.html">SSDT-PLUG</a>：电源管理相关，影响睡眠</li>
+<li><a target="_blank" rel="noopener" href="https://dortania.github.io/Getting-Started-With-ACPI/Universal/ec-fix.html">SSDT-EC-USBX</a>：内置控制器，和USB相关，影响睡眠</li>
+<li><a target="_blank" rel="noopener" href="https://dortania.github.io/Getting-Started-With-ACPI/Universal/nvram.html">SSDT-PMC</a>：NVRAM相关</li>
+<li><a target="_blank" rel="noopener" href="https://dortania.github.io/Getting-Started-With-ACPI/Universal/awac.html">SSDT-AWAC</a>：系统时钟（通过查看DSDT，我们并不需要这个）</li>
 </ul>
 <p>为了更完美，我们还需要以下SSDT，这些可以等macOS安装完之后，根据情况再考虑是否制作</p>
 <ul>
-<li><a href="https://dortania.github.io/Getting-Started-With-ACPI/Universal/smbus.html">SSDT-SBUS-MCHC</a>：SMBus相关</li>
-<li><a href="https://dortania.github.io/Getting-Started-With-ACPI/Universal/rhub.html">SSDT-RHUB</a>：USB相关</li>
-<li><a href="https://dortania.github.io/Getting-Started-With-ACPI/Universal/irq.html">SSDT-HPET</a>：IRQ Conflicts相关</li>
+<li><a target="_blank" rel="noopener" href="https://dortania.github.io/Getting-Started-With-ACPI/Universal/smbus.html">SSDT-SBUS-MCHC</a>：SMBus相关</li>
+<li><a target="_blank" rel="noopener" href="https://dortania.github.io/Getting-Started-With-ACPI/Universal/rhub.html">SSDT-RHUB</a>：USB相关</li>
+<li><a target="_blank" rel="noopener" href="https://dortania.github.io/Getting-Started-With-ACPI/Universal/irq.html">SSDT-HPET</a>：IRQ Conflicts相关</li>
 </ul>
-<p>具体SSDT的制作过程比较繁琐，详细过程参考<a href="https://dortania.github.io/Getting-Started-With-ACPI/">文档</a></p>
+<p>具体SSDT的制作过程比较繁琐，详细过程参考<a target="_blank" rel="noopener" href="https://dortania.github.io/Getting-Started-With-ACPI/">文档</a></p>
 <h4 id="OpenCore配置文件准备"><a href="#OpenCore配置文件准备" class="headerlink" title="OpenCore配置文件准备"></a>OpenCore配置文件准备</h4><ol>
 <li>复制OpenCorePKG的Docs&#x2F;Sample.plist到U盘EFI&#x2F;OC&#x2F;config.plist</li>
 <li>打开ProperTree的ProperTree.bat脚本，打开前面的config.plist，选择OC Clean Snapshot, 根据我们的驱动文件自动修改配置，保存。<br> <img src="https://image.ponder.work/mweb/2020-07-25-15955861876823.jpg" alt="-w355"></li>
-<li>配置文件各项微调，参考<a href="https://dortania.github.io/OpenCore-Install-Guide/config.plist/coffee-lake.html">文档</a>，注意DeviceProperties，PlatformInfo配置项，影响比较大。</li>
-<li>配置准确性校验 <a href="https://opencore.slowgeek.com/">https://opencore.slowgeek.com/</a></li>
+<li>配置文件各项微调，参考<a target="_blank" rel="noopener" href="https://dortania.github.io/OpenCore-Install-Guide/config.plist/coffee-lake.html">文档</a>，注意DeviceProperties，PlatformInfo配置项，影响比较大。</li>
+<li>配置准确性校验 <a target="_blank" rel="noopener" href="https://opencore.slowgeek.com/">https://opencore.slowgeek.com/</a></li>
 </ol>
 <p><strong>注意</strong>：配置文件中kext的顺序是有影响的，建议前两个是lilu和virtualsmc</p>
 <h3 id="Bios设置"><a href="#Bios设置" class="headerlink" title="Bios设置"></a>Bios设置</h3><p>如果bios没有相关设置项，可以跳过</p>
@@ -535,10 +536,10 @@
 <li>定制正确的显示输出接口，将物理接口和PCI设备正确对应</li>
 <li>显存，HDMI相关补丁</li>
 </ul>
-<p>这一步使用hackintool的应用补丁功能可以完成，详细步骤参考<a href="https://blog.daliansky.net/Tutorial-Using-Hackintool-to-open-the-correct-pose-of-the-8th-generation-core-display-HDMI-or-DVI-output.html">这个</a></p>
+<p>这一步使用hackintool的应用补丁功能可以完成，详细步骤参考<a target="_blank" rel="noopener" href="https://blog.daliansky.net/Tutorial-Using-Hackintool-to-open-the-correct-pose-of-the-8th-generation-core-display-HDMI-or-DVI-output.html">这个</a></p>
 <p><strong>注意</strong>：hackintool在配置过程中，有时改动会被重置，应用补丁时注意二次确认</p>
 <h4 id="声卡驱动"><a href="#声卡驱动" class="headerlink" title="声卡驱动"></a>声卡驱动</h4><p>声卡驱动大部分工作由AppleALC自动完成，我们需要的是选择正确的layout-id.<br>建议先去github的release日志上查看，是否在某次release添加了你主板的layout-id。如果没有相关记录，那就只能尝试wiki中对应声卡型号的所有可能的layout-id</p>
-<p>详细步骤参考<a href="https://dortania.github.io/OpenCore-Post-Install/universal/audio.html">这个</a></p>
+<p>详细步骤参考<a target="_blank" rel="noopener" href="https://dortania.github.io/OpenCore-Post-Install/universal/audio.html">这个</a></p>
 <h4 id="USB定制"><a href="#USB定制" class="headerlink" title="USB定制"></a>USB定制</h4><p>USB定制直接影响睡眠是否正常</p>
 <p>使用hackintool完成USB定制，主要过程</p>
 <ol>
@@ -547,25 +548,25 @@
 <li>分别使用USB2.0，USB3.0，Type-C设备拔插所有USB接口，找到物理接口和PCI设备的映射关系，并删除没有用到的USB接口。</li>
 <li>生成USBPorts.kext驱动，加载。</li>
 </ol>
-<p>详细步骤参考<a href="https://blog.daliansky.net/Intel-FB-Patcher-tutorial-and-insertion-pose.html#%E5%AE%9A%E5%88%B6usb">这个</a></p>
+<p>详细步骤参考<a target="_blank" rel="noopener" href="https://blog.daliansky.net/Intel-FB-Patcher-tutorial-and-insertion-pose.html#%E5%AE%9A%E5%88%B6usb">这个</a></p>
 <h4 id="DW1820A无线网卡"><a href="#DW1820A无线网卡" class="headerlink" title="DW1820A无线网卡"></a>DW1820A无线网卡</h4><p>无线网卡驱动和系统序列号影响iMessage, sidecar等Apple服务使用。</p>
 <ol>
 <li>找到无线的PCI设备地址<br> <img src="https://image.ponder.work/mweb/2020-07-25-15956404767924.jpg"></li>
 <li>在config.plist中<code>DeviceProperties-&gt;Add</code>配置项下加入设备信息, 注意替换PCI设备地址 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>PciRoot(0x0)/Pci(0x1C,0x5)/Pci(0x0,0x0)<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>AAPL,slot-name<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">string</span>&gt;</span>WLAN<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>compatible<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">string</span>&gt;</span>pci14e4,43a3<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>device_type<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">string</span>&gt;</span>Airport Extreme<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>model<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">string</span>&gt;</span>DW1820A (BCM4350) 802.11ac Wireless<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>name<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">string</span>&gt;</span>Airport<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>pci-aspm-default<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">integer</span>&gt;</span>0<span class="tag">&lt;/<span class="name">integer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>加入Airport驱动<a href="https://github.com/acidanthera/airportbrcmfixup/releases">AirportBrcmFixup.kext</a>, 加入<a href="http://7.daliansky.net/DW1820A/DW1820A_BT_for_Mojave_v2.5.3.zip">蓝牙驱动</a></li>
+<li>加入Airport驱动<a target="_blank" rel="noopener" href="https://github.com/acidanthera/airportbrcmfixup/releases">AirportBrcmFixup.kext</a>, 加入<a target="_blank" rel="noopener" href="http://7.daliansky.net/DW1820A/DW1820A_BT_for_Mojave_v2.5.3.zip">蓝牙驱动</a></li>
 <li>在config.plist的boot-args项中加入<code>brcmfx-country=#a</code></li>
 <li>关机替换网卡为DW1820A（有的机器可能需要屏蔽针脚）</li>
 </ol>
-<p>详细步骤参考<a href="https://blog.daliansky.net/DW1820A_BCM94350ZAE-driver-inserts-the-correct-posture.html">这个</a>和<a href="https://osxlatitude.com/forums/topic/11322-broadcom-bcm4350-cards-under-high-sierramojavecatalina/?tab=comments#comment-89830">这个</a></p>
+<p>详细步骤参考<a target="_blank" rel="noopener" href="https://blog.daliansky.net/DW1820A_BCM94350ZAE-driver-inserts-the-correct-posture.html">这个</a>和<a target="_blank" rel="noopener" href="https://osxlatitude.com/forums/topic/11322-broadcom-bcm4350-cards-under-high-sierramojavecatalina/?tab=comments#comment-89830">这个</a></p>
 <h4 id="电源管理"><a href="#电源管理" class="headerlink" title="电源管理"></a>电源管理</h4><p>这一步是为了启动苹果内置电源管理，影响睡眠</p>
-<p>详细步骤参考<a href="https://dortania.github.io/OpenCore-Post-Install/universal/pm.html#enabling-x86platformplugin">这个</a></p>
+<p>详细步骤参考<a target="_blank" rel="noopener" href="https://dortania.github.io/OpenCore-Post-Install/universal/pm.html#enabling-x86platformplugin">这个</a></p>
 <h4 id="CPU变频"><a href="#CPU变频" class="headerlink" title="CPU变频"></a>CPU变频</h4><p>使CPU的变频挡位更多，台式机不是特别必要。</p>
 <p>可以使用<code>CPU-S</code>软件来查看变频状态</p>
-<p>详细步骤参考<a href="https://dortania.github.io/OpenCore-Post-Install/universal/pm.html#using-cpu-friend">这个</a></p>
+<p>详细步骤参考<a target="_blank" rel="noopener" href="https://dortania.github.io/OpenCore-Post-Install/universal/pm.html#using-cpu-friend">这个</a></p>
 <h4 id="睡眠修复"><a href="#睡眠修复" class="headerlink" title="睡眠修复"></a>睡眠修复</h4><p>如果上面的SSDT和驱动都做好了，睡眠的问题基本不大了，可能要设置下系统参数，禁止休眠到硬盘。</p>
-<p>详细步骤参考<a href="https://dortania.github.io/OpenCore-Post-Install/universal/sleep.html">这个</a></p>
+<p>详细步骤参考<a target="_blank" rel="noopener" href="https://dortania.github.io/OpenCore-Post-Install/universal/sleep.html">这个</a></p>
 <h4 id="启动项，图形化界面"><a href="#启动项，图形化界面" class="headerlink" title="启动项，图形化界面"></a>启动项，图形化界面</h4><p>到此黑苹果配置基本完成了，我们可以去除<code>boot-args</code>中的<code>-v</code>等debug启动参数，添加相关声音和图片资源，配置config.plist启动OpenCore图形界面。（在开机中启用声音，个人觉得不太不要）</p>
-<p>详细步骤参考<a href="https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui.html#setting-up-opencore-s-gui">这个</a></p>
+<p>详细步骤参考<a target="_blank" rel="noopener" href="https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui.html#setting-up-opencore-s-gui">这个</a></p>
 <h3 id="将OpenCore迁移到硬盘"><a href="#将OpenCore迁移到硬盘" class="headerlink" title="将OpenCore迁移到硬盘"></a>将OpenCore迁移到硬盘</h3><p>上面的OpenCore的各种配置都是在U盘上完成的，当配置完成没啥问题之后，我们就可以把OpenCore的文件迁移到硬盘了。<br>这样就不需要每次都从U盘启动了，并且开启会默认进入macOS</p>
 <ol>
 <li>在pe系统下，使用DiskGenius挂载硬盘ESP分区（右键ESP分区-指派新的驱动器号）<br> <img src="https://image.ponder.work/mweb/2020-09-19-16004770939670.jpg" alt="-w1059"></li>
@@ -580,10 +581,10 @@
 <li>修改序列号会影响iCloud账户识别</li>
 </ul>
 <h2 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h2><ul>
-<li><a href="https://dortania.github.io/">https://dortania.github.io</a></li>
-<li><a href="https://github.com/acidanthera">https://github.com/acidanthera</a></li>
-<li><a href="https://blog.daliansky.net/">https://blog.daliansky.net</a></li>
-<li><a href="https://blog.skk.moe/post/hackintosh-fix-magenta-screen/">https://blog.skk.moe/post/hackintosh-fix-magenta-screen/</a></li>
+<li><a target="_blank" rel="noopener" href="https://dortania.github.io/">https://dortania.github.io</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acidanthera">https://github.com/acidanthera</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.daliansky.net/">https://blog.daliansky.net</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.skk.moe/post/hackintosh-fix-magenta-screen/">https://blog.skk.moe/post/hackintosh-fix-magenta-screen/</a></li>
 </ul>
 
     </div>
@@ -648,7 +649,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>

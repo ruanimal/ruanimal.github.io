@@ -29,7 +29,7 @@
 <meta property="og:description" content="缘起从大学开始接触Python，到现在也差不多四年了，也算小有所成。期间也有很多人问我如何学习Python，也只是零散地回答，刚好最近要做个Python的分享，就将这一块东西整理一下。 本文作为Python学习的指路文章，是个人在Python学习过程中的经验总结。阅读的时候不需要太细致，略读即可。读完后，能够对Python学习的各方面有个大致的概念，在学习过程少踩一些坑，收获就很大了。 简介Pyt">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-03-31T13:48:00.000Z">
-<meta property="article:modified_time" content="2021-07-15T08:02:44.000Z">
+<meta property="article:modified_time" content="2020-10-22T02:09:25.000Z">
 <meta property="article:author" content="Jay.Run">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
@@ -86,6 +86,7 @@
 
 
 
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -126,7 +127,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/%E7%BC%96%E7%A8%8B/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/programming/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -296,7 +297,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2021-07-15 16:02:44" itemprop="dateModified" datetime="2021-07-15T16:02:44+08:00">2021-07-15</time>
+      <time title="修改时间：2020-10-22 10:09:25" itemprop="dateModified" datetime="2020-10-22T10:09:25+08:00">2020-10-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -304,7 +305,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
         </span>
     </span>
 
@@ -364,7 +365,7 @@
 <p>同时，你也可以在你的 C 或 C++ 程序中嵌入 Python，从而向你的程序用户提供脚本功能。</p>
 <h3 id="丰富的库"><a href="#丰富的库" class="headerlink" title="丰富的库"></a>丰富的库</h3><p>Python 标准库的规模非常庞大, 可谓<code>自带军需</code>。</p>
 <p>它能够帮助你完成诸多事情，包括正则表达式、文档生成、单元测试、多线程、数据库、网页浏览器、CGI、FTP、邮件、XML、XML-RPC、HTML、WAV 文件、密码系统、GUI，以及其它系统依赖型的活动。</p>
-<p>除了标准库以外，你还可以在 <a href="https://pypi.org/">PYPI（Python Package Index）</a> 中发掘许多其它高质量的库。</p>
+<p>除了标准库以外，你还可以在 <a target="_blank" rel="noopener" href="https://pypi.org/">PYPI（Python Package Index）</a> 中发掘许多其它高质量的库。</p>
 <h2 id="语法简介"><a href="#语法简介" class="headerlink" title="语法简介"></a>语法简介</h2><h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><ol>
 <li><p>string 字符串<br>一个由字符组成的不可更改的有序列。又单引号或双引号包围，如: <code>&quot;strings&quot;</code>。</p>
 </li>
@@ -440,20 +441,20 @@
 <h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><h3 id="Web应用开发"><a href="#Web应用开发" class="headerlink" title="Web应用开发"></a>Web应用开发</h3><p>Python经常被用于Web开发, Python定义了WSGI标准应用接口来协调Http服务器与基于Python的Web程序之间的通信。</p>
 <p>一些Web框架，可以让程序员轻松地开发和管理复杂的Web程序。</p>
 <p>下面介绍最为常见的几个web框架</p>
-<h4 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h4><p><a href="https://www.djangoproject.com/">Django</a>的主要目标是使得开发复杂的、数据库驱动的网站变得简单。<br>Django注重组件的重用性和“可插拔性”，敏捷开发和DRY法则（Don’t Repeat Yourself）</p>
+<h4 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h4><p><a target="_blank" rel="noopener" href="https://www.djangoproject.com/">Django</a>的主要目标是使得开发复杂的、数据库驱动的网站变得简单。<br>Django注重组件的重用性和“可插拔性”，敏捷开发和DRY法则（Don’t Repeat Yourself）</p>
 <p>大而全的Web框架，适合快速建站，自带的网站管理后台功能（admin）非常强大。</p>
-<h4 id="Flask"><a href="#Flask" class="headerlink" title="Flask"></a>Flask</h4><p><a href="http://flask.pocoo.org/">Flask</a>被称为“microframework”，因为它使用简单的核心，同时提供很好的扩展性, 可以用Flask-extension加入这些功能：ORM、窗体验证工具、文件上传、各种开放式身份验证技术。</p>
+<h4 id="Flask"><a href="#Flask" class="headerlink" title="Flask"></a>Flask</h4><p><a target="_blank" rel="noopener" href="http://flask.pocoo.org/">Flask</a>被称为“microframework”，因为它使用简单的核心，同时提供很好的扩展性, 可以用Flask-extension加入这些功能：ORM、窗体验证工具、文件上传、各种开放式身份验证技术。</p>
 <p>小而美，适合写api服务，只需10行代码就能写好一个简单服务。Flask的扩展性固然很好，但是如果上面的功能你都需要，那么还是用Django比较好。</p>
-<h4 id="Tornado"><a href="#Tornado" class="headerlink" title="Tornado"></a>Tornado</h4><p><a href="http://www.tornadoweb.org/">Tornado</a>全称Tornado Web Server，是一个用Python语言写成的Web服务器兼Web应用框架。</p>
+<h4 id="Tornado"><a href="#Tornado" class="headerlink" title="Tornado"></a>Tornado</h4><p><a target="_blank" rel="noopener" href="http://www.tornadoweb.org/">Tornado</a>全称Tornado Web Server，是一个用Python语言写成的Web服务器兼Web应用框架。</p>
 <ul>
 <li>作为Web框架，是一个轻量级的Web框架，其拥有异步非阻塞IO的处理方式。</li>
 <li>作为Web服务器，Tornado有较为出色的抗负载能力，官方用nginx反向代理的方式部署Tornado和其它Python web应用框架进行对比，结果最大浏览量超过第二名近40%。</li>
 </ul>
 <p>性能强劲的异步框架，但是如果出问题调起来比较蛋疼。而且有了gevent之后，个人觉得用tornado的性能意义不大。</p>
-<h4 id="Sanic"><a href="#Sanic" class="headerlink" title="Sanic"></a>Sanic</h4><p><a href="https://github.com/huge-success/sanic">Sanic</a>是异步框架新秀, 基于原生asyncio构建, 性能强劲, 适合编写高性能服务.</p>
+<h4 id="Sanic"><a href="#Sanic" class="headerlink" title="Sanic"></a>Sanic</h4><p><a target="_blank" rel="noopener" href="https://github.com/huge-success/sanic">Sanic</a>是异步框架新秀, 基于原生asyncio构建, 性能强劲, 适合编写高性能服务.</p>
 <h3 id="桌面软件"><a href="#桌面软件" class="headerlink" title="桌面软件"></a>桌面软件</h3><h4 id="tkinter"><a href="#tkinter" class="headerlink" title="tkinter"></a>tkinter</h4><p>Tkinter 是 Python 的标准 GUI 库。Tkinter只适合简单界面的程序开发，界面效果是系统原生框体，总之是比较丑。</p>
 <p>如果是简单的工具开发，可以用这个。</p>
-<h4 id="wxPython"><a href="#wxPython" class="headerlink" title="wxPython"></a>wxPython</h4><p><a href="http://wxpython.org/">wxPython</a>是Python语言的GUI工具包，作为Python的扩展模块实现，包装了wxWidgets。</p>
+<h4 id="wxPython"><a href="#wxPython" class="headerlink" title="wxPython"></a>wxPython</h4><p><a target="_blank" rel="noopener" href="http://wxpython.org/">wxPython</a>是Python语言的GUI工具包，作为Python的扩展模块实现，包装了wxWidgets。</p>
 <p>可配置项比tkinter多些，配起来也比较复杂。</p>
 <h4 id="PyQt"><a href="#PyQt" class="headerlink" title="PyQt"></a>PyQt</h4><ul>
 <li>PyQt的API与Qt类似，Qt的文档通常仍然可以应用于PyQt。因此，PyQt的文档非常丰富。</li>
@@ -475,25 +476,25 @@
 <h4 id="Pandas"><a href="#Pandas" class="headerlink" title="Pandas"></a>Pandas</h4><p>Pandas对numpy进行了封装，是用于数据分析、数据建模、数据可视化的第三方库。</p>
 <h4 id="SciPy"><a href="#SciPy" class="headerlink" title="SciPy"></a>SciPy</h4><p>基于Python的matlab实现，旨在实现matlab的所有功能。</p>
 <h3 id="游戏"><a href="#游戏" class="headerlink" title="游戏"></a>游戏</h3><p>很多游戏使用C++编写图形显示等高性能模块，而使用Python或者Lua编写游戏的逻辑、服务器。</p>
-<h4 id="PyGame"><a href="#PyGame" class="headerlink" title="PyGame"></a>PyGame</h4><p><a href="http://www.pygame.org/">Pygame</a>是跨平台Python模块，专为电子游戏设计。</p>
+<h4 id="PyGame"><a href="#PyGame" class="headerlink" title="PyGame"></a>PyGame</h4><p><a target="_blank" rel="noopener" href="http://www.pygame.org/">Pygame</a>是跨平台Python模块，专为电子游戏设计。</p>
 <p>PyGame适合开发小游戏，大型游戏难度颇大。</p>
-<h4 id="cocos2d"><a href="#cocos2d" class="headerlink" title="cocos2d"></a>cocos2d</h4><p><a href="http://cocos2d.org/">cocos2d</a>是一个基于MIT协议的开源框架，最初的Cocos2D框架是使用Python编写的，基于pyglet开发。</p>
+<h4 id="cocos2d"><a href="#cocos2d" class="headerlink" title="cocos2d"></a>cocos2d</h4><p><a target="_blank" rel="noopener" href="http://cocos2d.org/">cocos2d</a>是一个基于MIT协议的开源框架，最初的Cocos2D框架是使用Python编写的，基于pyglet开发。</p>
 <p>可以用于构建游戏、应用程序和其他图形界面交互应用。被大量应用于手机游戏市场，愤怒的小鸟就是基于cocos2d开发。</p>
 <h3 id="爬虫"><a href="#爬虫" class="headerlink" title="爬虫"></a>爬虫</h3><h4 id="简单爬虫"><a href="#简单爬虫" class="headerlink" title="简单爬虫"></a>简单爬虫</h4><p>一个简单的爬虫，使用 requests + BeatifulSoup就可以快速实现。</p>
 <p>requests请求获取html，通过BeatifulSoup进行解析，就能很轻松拿到想要的数据。</p>
-<h4 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a>Scrapy</h4><p><a href="https://scrapy.org/">Scrapy</a> 是一个爬虫的框架, 而不是一个简单的爬虫.</p>
+<h4 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a>Scrapy</h4><p><a target="_blank" rel="noopener" href="https://scrapy.org/">Scrapy</a> 是一个爬虫的框架, 而不是一个简单的爬虫.</p>
 <p>它整合了爬取, 处理数据, 存储数据的一条龙服务. 能够高效的开发, 爬取网页, 记录数据。</p>
 <h3 id="人工智能"><a href="#人工智能" class="headerlink" title="人工智能"></a>人工智能</h3><p>对于整个机器学习，应用层面放眼望去基本就是Python与R的天下了，而R更偏向与统计学领域，而在深度学习Python简直是红透了半边天。</p>
-<h4 id="scikit-learn"><a href="#scikit-learn" class="headerlink" title="scikit-learn"></a>scikit-learn</h4><p><a href="http://scikit-learn.org/">Scikit-learn</a>项目最早由数据科学家 David Cournapeau 在 2007 年发起，需要NumPy和SciPy等其他包的支持，是Python语言中专门针对机器学习应用而发展起来的一款开源框架。</p>
+<h4 id="scikit-learn"><a href="#scikit-learn" class="headerlink" title="scikit-learn"></a>scikit-learn</h4><p><a target="_blank" rel="noopener" href="http://scikit-learn.org/">Scikit-learn</a>项目最早由数据科学家 David Cournapeau 在 2007 年发起，需要NumPy和SciPy等其他包的支持，是Python语言中专门针对机器学习应用而发展起来的一款开源框架。</p>
 <p>Scikit-learn的基本功能主要被分为六大部分：分类，回归，聚类，数据降维，模型选择和数据预处理。</p>
 <p>Scikit-learn本身不支持深度学习，也不支持GPU加速，因此这里对于MLP的实现并不适合于处理大规模问题。</p>
-<h4 id="TensorFlow"><a href="#TensorFlow" class="headerlink" title="TensorFlow"></a>TensorFlow</h4><p><a href="https://www.tensorflow.org/">TensorFlow</a> 是一个针对深度学习的库，并藉由和谷歌的关系赢得了许多关注。</p>
+<h4 id="TensorFlow"><a href="#TensorFlow" class="headerlink" title="TensorFlow"></a>TensorFlow</h4><p><a target="_blank" rel="noopener" href="https://www.tensorflow.org/">TensorFlow</a> 是一个针对深度学习的库，并藉由和谷歌的关系赢得了许多关注。</p>
 <ul>
 <li>核心库“不仅”适用深度学习，且面向绝大部分的机器学习技术。</li>
 <li>除了主要的机器学习功能以外，TensorFlow 还有自己的日志（logging）系统、可交互的日志可视化工具（interactive log visualizer），甚至有工程性非常强的（heavily engineered）服务架构（serving architecture）。</li>
 <li>TensorFlow 的执行（execution）模型有别于 Python 的 scikit-learn，或是 R 语言中大部分的工具。</li>
 </ul>
-<h4 id="Keras"><a href="#Keras" class="headerlink" title="Keras"></a>Keras</h4><p><a href="https://keras.io/">Keras</a>是基于TensorFlow，Theano与CNTK的高阶神经网络API。</p>
+<h4 id="Keras"><a href="#Keras" class="headerlink" title="Keras"></a>Keras</h4><p><a target="_blank" rel="noopener" href="https://keras.io/">Keras</a>是基于TensorFlow，Theano与CNTK的高阶神经网络API。</p>
 <p>keras+tensorflow应该算是比较好的一种解决办法。对于初学者可以用keras搭搭积木，熟悉之后可以和tensorflow配合起来实现很多复杂功能。</p>
 <h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><p>上面说了这么多Python的应用场景，接下来就说下Python的局限。<br>由于Python本身是解释性语言的，以及GIL的限制，使得其不可避免地由于性能问题被大家诟病。</p>
 <p>这里说下个人的几点看法</p>
@@ -503,33 +504,33 @@
 <li>动态语言的特性, 对团队技术人员水准有一点要求, 否则代码很可能难以维护.</li>
 </ul>
 <h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="Python3还是Python2"><a href="#Python3还是Python2" class="headerlink" title="Python3还是Python2"></a>Python3还是Python2</h3><p>如果是5年前问这个问题，可能还需要犹豫一下，今天来看毫无疑问是选择3。</p>
-<p>到2020年Python2就会完全失去支持，也不会有新的版本出现。还有人专门设立了一个网站进行<a href="https://pythonclock.org/">Python2的死亡倒计时</a>。</p>
+<p>到2020年Python2就会完全失去支持，也不会有新的版本出现。还有人专门设立了一个网站进行<a target="_blank" rel="noopener" href="https://pythonclock.org/">Python2的死亡倒计时</a>。</p>
 <p>Python3还是Python2的问题，其实基本是每一个学习Python的人都会问的问题。</p>
-<p>Python3还是Python2的区别主要在unicode的处理，以及一些内置库的命名上，具体可以看<a href="http://ponder.work/2017/08/30/difference-between-python2-and-python3/">这里</a></p>
+<p>Python3还是Python2的区别主要在unicode的处理，以及一些内置库的命名上，具体可以看<a target="_blank" rel="noopener" href="http://ponder.work/2017/08/30/difference-between-python2-and-python3/">这里</a></p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><strong>强烈建议学习Python使用类unix系统（如macOS, Ubuntu），虚拟机也可以, 会减少很多疑难问题。</strong></p>
-<h4 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h4><p>访问 <a href="https://www.python.org/downloads/"></a> 并下载最新版本的 Python 其安装过程与其它 Windows 平台的软件的安装过程无异。<br>注意：请务必确认你勾选了 Add Python 3.x to PATH 选项。</p>
+<h4 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h4><p>访问 <a target="_blank" rel="noopener" href="https://www.python.org/downloads/"></a> 并下载最新版本的 Python 其安装过程与其它 Windows 平台的软件的安装过程无异。<br>注意：请务必确认你勾选了 Add Python 3.x to PATH 选项。</p>
 <h4 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h4><ul>
 <li>Ubuntu&#x2F;Debain <code>sudo apt-get update &amp;&amp; sudo apt-get install python3</code></li>
 <li>fedora <code>yum update &amp;&amp; yum install python3</code></li>
 <li>centos 由于centos不支持Python3，只能自行编译安装</li>
 </ul>
-<h4 id="macOS"><a href="#macOS" class="headerlink" title="macOS"></a>macOS</h4><p>对于 Mac OS X 用户，你可以使用 <a href="http://brew.sh/">Homebrew</a> 并通过命令 <code>brew install python3</code> 进行安装。</p>
-<h4 id="pyenv"><a href="#pyenv" class="headerlink" title="pyenv"></a>pyenv</h4><p>对于macOS，linux，bsd等类unix系统来说，最好的安装管理Python的方式是通过<a href="https://github.com/yyuu/pyenv">pyenv</a>。</p>
+<h4 id="macOS"><a href="#macOS" class="headerlink" title="macOS"></a>macOS</h4><p>对于 Mac OS X 用户，你可以使用 <a target="_blank" rel="noopener" href="http://brew.sh/">Homebrew</a> 并通过命令 <code>brew install python3</code> 进行安装。</p>
+<h4 id="pyenv"><a href="#pyenv" class="headerlink" title="pyenv"></a>pyenv</h4><p>对于macOS，linux，bsd等类unix系统来说，最好的安装管理Python的方式是通过<a target="_blank" rel="noopener" href="https://github.com/yyuu/pyenv">pyenv</a>。</p>
 <p>pyenv 是 Python 版本管理工具。 pyenv 可以改变全局的 Python 版本，安装多个版本的 Python， 设置目录级别的 Python 版本，还能创建和管理 virtualenv 。所有的设置都是用户级别的操作，不需要 sudo 命令。</p>
 <h4 id="conda-推荐"><a href="#conda-推荐" class="headerlink" title="conda(推荐)"></a>conda(推荐)</h4><p>Conda是一个开源跨平台语言无关的包管理与环境管理系统。<br>可以通过创建不同环境来管理Python版本，支持windows，mac，linux。可以解决一些由于系统库缺失或者版本不对导致的问题。</p>
-<p>这里推荐使用<a href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a>，体积较小，学习Python完全够用了。<br>如果有机器学习相关需求的，可以选择安装<a href="https://docs.anaconda.com/anaconda/install/">anaconda</a></p>
-<h3 id="编辑器-IDE"><a href="#编辑器-IDE" class="headerlink" title="编辑器&#x2F;IDE"></a>编辑器&#x2F;IDE</h3><h4 id="pycharm"><a href="#pycharm" class="headerlink" title="pycharm"></a>pycharm</h4><p><a href="http://www.jetbrains.com/pycharm/">pycharm</a>是jetbrains出品的ide，应该是宇宙最强的吧，有用过他家其他产品的应该很容易上手，有免费的社区版，功能基本够用。</p>
+<p>这里推荐使用<a target="_blank" rel="noopener" href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a>，体积较小，学习Python完全够用了。<br>如果有机器学习相关需求的，可以选择安装<a target="_blank" rel="noopener" href="https://docs.anaconda.com/anaconda/install/">anaconda</a></p>
+<h3 id="编辑器-IDE"><a href="#编辑器-IDE" class="headerlink" title="编辑器&#x2F;IDE"></a>编辑器&#x2F;IDE</h3><h4 id="pycharm"><a href="#pycharm" class="headerlink" title="pycharm"></a>pycharm</h4><p><a target="_blank" rel="noopener" href="http://www.jetbrains.com/pycharm/">pycharm</a>是jetbrains出品的ide，应该是宇宙最强的吧，有用过他家其他产品的应该很容易上手，有免费的社区版，功能基本够用。</p>
 <p>唯一的不足是内存占用有点多，反应偏慢。</p>
 <p>功能齐全适合新手使用</p>
-<h4 id="Visual-Studio-Code"><a href="#Visual-Studio-Code" class="headerlink" title="Visual Studio Code"></a>Visual Studio Code</h4><p><a href="https://code.visualstudio.com/">vscode</a> 微软出品，免费开源。</p>
+<h4 id="Visual-Studio-Code"><a href="#Visual-Studio-Code" class="headerlink" title="Visual Studio Code"></a>Visual Studio Code</h4><p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/">vscode</a> 微软出品，免费开源。</p>
 <p>安装Python插件之后可作为ide使用，功能也很全，本人主力使用。</p>
-<h4 id="Sublime-Text-3"><a href="#Sublime-Text-3" class="headerlink" title="Sublime Text 3"></a>Sublime Text 3</h4><p><a href="https://www.sublimetext.com/">Sublime Text</a>是我第一个使用的代码编辑器，插件很多，响应很快。</p>
+<h4 id="Sublime-Text-3"><a href="#Sublime-Text-3" class="headerlink" title="Sublime Text 3"></a>Sublime Text 3</h4><p><a target="_blank" rel="noopener" href="https://www.sublimetext.com/">Sublime Text</a>是我第一个使用的代码编辑器，插件很多，响应很快。</p>
 <p>vscode、atom一开始都是从Sublime Text上抄功能的。但是随着一段时间的发展Sublime Text渐渐赶不上这两家了，比较它只有一个开发者同时开发3个平台。</p>
 <p>通过安装各种插件，基本上都是达到vscode、atom同等水平的易用性，需要多花一些时间配置。</p>
 <p>不推荐新手使用</p>
 <h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><h4 id="print大法"><a href="#print大法" class="headerlink" title="print大法"></a>print大法</h4><p>通过打印变量的值进行调试，是最传统也是最直接的调试方法。但是过多的print信息比较难以清理</p>
 <h4 id="IDE调试工具（推荐）"><a href="#IDE调试工具（推荐）" class="headerlink" title="IDE调试工具（推荐）"></a>IDE调试工具（推荐）</h4><p>通过PyCharm等现代IDE，可以很方便得进行单步调试，查看当前程序的运行状态，变量的值等。</p>
-<p>参考教程 <a href="https://zhuanlan.zhihu.com/p/62610785">https://zhuanlan.zhihu.com/p/62610785</a></p>
+<p>参考教程 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62610785">https://zhuanlan.zhihu.com/p/62610785</a></p>
 <h4 id="logging"><a href="#logging" class="headerlink" title="logging"></a>logging</h4><p>Python自带logging模块，通过简单配置就可以方便地进行日志控制，具体可以参考本人<a href="/2019/11/02/2019-11-02-python-logging-guide/">这篇文章</a></p>
 <h4 id="IDLE（交互式命令行）"><a href="#IDLE（交互式命令行）" class="headerlink" title="IDLE（交互式命令行）"></a>IDLE（交互式命令行）</h4><p>启动<code>python</code>命令就可以进入IDLE，通过IDLE，我们可以交互式地查看输入语句的执行结果，适用于新库的使用探索。<br>内置的IDLE功能比较简单，使用起来不是很方便。<br>其实有不少第三方的idle，实现了代码补全、历史记录等实用功能，非常推荐使用。<br>下面是我常用的两个第三方idle</p>
 <ul>
@@ -540,39 +541,39 @@
 <h4 id="gdb"><a href="#gdb" class="headerlink" title="gdb"></a>gdb</h4><p>pdb的使用需要预先在源码中引入，对于已经运行的程序无法调试。<br>这时就可以用到gdb进行调试，通过加载gdb的python插件，可以方便地对运行中的Python程序调试，对程序假死卡住的问题定位很有帮助。</p>
 <h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><p>记住一个原则，不要过早优化。<br>一般的应用场景Python的性能都是够用的，如果真的遇到问题，下面也有几个方法解决</p>
 <h4 id="C扩展"><a href="#C扩展" class="headerlink" title="C扩展"></a>C扩展</h4><p>通过将程序中计算密集，耗时最多的部分通过编写C扩展的形式脱离出来，在用Python去调用该扩展。该方法可以绕过GIL，能基本彻底解决性能问题，但开发成本基本高。</p>
-<h4 id="pypy"><a href="#pypy" class="headerlink" title="pypy"></a>pypy</h4><p><a href="http://pypy.org/">pypy</a>是用Python自身实现的解释器。针对CPython的缺点进行了各方面的改良, 最重要的一点就是Pypy集成了JIT（即时编译器），性能得到很大的提升， 可达CPython的几十倍以上的性能。<br>使用方便，可惜兼容性不佳，有些第三方库不能很好地支持，如numpy。</p>
+<h4 id="pypy"><a href="#pypy" class="headerlink" title="pypy"></a>pypy</h4><p><a target="_blank" rel="noopener" href="http://pypy.org/">pypy</a>是用Python自身实现的解释器。针对CPython的缺点进行了各方面的改良, 最重要的一点就是Pypy集成了JIT（即时编译器），性能得到很大的提升， 可达CPython的几十倍以上的性能。<br>使用方便，可惜兼容性不佳，有些第三方库不能很好地支持，如numpy。</p>
 <h4 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h4><p>如果是IO密集型的性能问题，可通过异步的方式解决问题。</p>
 <ul>
 <li>特别是对于web服务器，通过gevent的monkey patch，能够解决大部分的并发性能问题，方便快捷无痛，但是C扩展的IO不能被patch。</li>
 <li>透过async def、await 编写异步代码，编写成本较高</li>
 </ul>
-<h3 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h3><h4 id="pep8"><a href="#pep8" class="headerlink" title="pep8"></a>pep8</h4><p><a href="https://www.jianshu.com/p/52f4416c267d">pep8</a>是python最普遍接受的代码规范，只要认真阅读一遍 PEP 8，并尽量遵守，你的代码就足够 Pythonic 了。</p>
-<h4 id="Google-Python风格规范"><a href="#Google-Python风格规范" class="headerlink" title="Google Python风格规范"></a>Google Python风格规范</h4><p><a href="http://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/python_style_rules/">Google Python风格规范</a>，对pep8规范进行了扩充，并且有很多实际的例子。个人推荐</p>
+<h3 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h3><h4 id="pep8"><a href="#pep8" class="headerlink" title="pep8"></a>pep8</h4><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/52f4416c267d">pep8</a>是python最普遍接受的代码规范，只要认真阅读一遍 PEP 8，并尽量遵守，你的代码就足够 Pythonic 了。</p>
+<h4 id="Google-Python风格规范"><a href="#Google-Python风格规范" class="headerlink" title="Google Python风格规范"></a>Google Python风格规范</h4><p><a target="_blank" rel="noopener" href="http://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/python_style_rules/">Google Python风格规范</a>，对pep8规范进行了扩充，并且有很多实际的例子。个人推荐</p>
 <h2 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h2><h3 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h3><ul>
-<li><a href="https://bop.mol.uno/">简明Python教程</a></li>
-<li><a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000">廖雪峰Python教程</a> （推荐）</li>
-<li><a href="https://docs.python.org/zh-cn/3/tutorial/index.html">官方Tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://bop.mol.uno/">简明Python教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000">廖雪峰Python教程</a> （推荐）</li>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/tutorial/index.html">官方Tutorial</a></li>
 </ul>
 <h3 id="体系化学习"><a href="#体系化学习" class="headerlink" title="体系化学习"></a>体系化学习</h3><ul>
-<li><a href="https://book.douban.com/subject/26829016/">Python编程:从入门到实践</a> （推荐）</li>
-<li><a href="https://book.douban.com/subject/26675127/">Python语言及其应用</a></li>
-<li><a href="https://book.douban.com/subject/5401851/">Python参考手册</a></li>
-<li><a href="https://book.douban.com/subject/4828875/">Python Cookbook</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/26829016/">Python编程:从入门到实践</a> （推荐）</li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/26675127/">Python语言及其应用</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/5401851/">Python参考手册</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/4828875/">Python Cookbook</a></li>
 </ul>
 <h3 id="深入学习"><a href="#深入学习" class="headerlink" title="深入学习"></a>深入学习</h3><ul>
-<li><a href="https://book.douban.com/subject/27028517/">流畅的Python</a></li>
-<li><a href="https://book.douban.com/subject/3117898/">Python源码剖析</a></li>
-<li><a href="https://book.douban.com/subject/27064848/">Python高性能编程</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/27028517/">流畅的Python</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/3117898/">Python源码剖析</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/27064848/">Python高性能编程</a></li>
 </ul>
 <h3 id="特定领域学习"><a href="#特定领域学习" class="headerlink" title="特定领域学习"></a>特定领域学习</h3><ul>
-<li><a href="https://book.douban.com/subject/26274202/">Flask Web开发</a></li>
-<li><a href="https://book.douban.com/subject/25779298/">利用Python进行数据分析</a></li>
-<li><a href="https://book.douban.com/subject/26640135/">Python Web开发：测试驱动方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/26274202/">Flask Web开发</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/25779298/">利用Python进行数据分析</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/26640135/">Python Web开发：测试驱动方法</a></li>
 </ul>
 <h3 id="微软Python教程视频"><a href="#微软Python教程视频" class="headerlink" title="微软Python教程视频"></a>微软Python教程视频</h3><ul>
-<li>炼气： <a href="https://www.bilibili.com/video/BV1nE41127zQ">https://www.bilibili.com/video/BV1nE41127zQ</a></li>
-<li>筑基： <a href="https://www.bilibili.com/video/BV1WT4y137cD">https://www.bilibili.com/video/BV1WT4y137cD</a></li>
-<li>金丹： <a href="https://www.bilibili.com/video/BV1qa4y1Y7CD">https://www.bilibili.com/video/BV1qa4y1Y7CD</a></li>
+<li>炼气： <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1nE41127zQ">https://www.bilibili.com/video/BV1nE41127zQ</a></li>
+<li>筑基： <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1WT4y137cD">https://www.bilibili.com/video/BV1WT4y137cD</a></li>
+<li>金丹： <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1qa4y1Y7CD">https://www.bilibili.com/video/BV1qa4y1Y7CD</a></li>
 </ul>
 
     </div>
@@ -635,7 +636,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>

@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://image.ponder.work/mweb/2021-01-02-2021-01-02_183349.png">
 <meta property="og:image" content="https://image.ponder.work/mweb/2021-01-02-2021-01-02_183046.png">
 <meta property="article:published_time" content="2021-01-02T09:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-09T13:50:24.000Z">
+<meta property="article:modified_time" content="2024-07-09T14:02:56.000Z">
 <meta property="article:author" content="Jay.Run">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="NAS">
@@ -93,6 +93,7 @@
 
 
 
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -133,7 +134,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/%E7%BC%96%E7%A8%8B/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/programming/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -303,7 +304,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-09 21:50:24" itemprop="dateModified" datetime="2024-07-09T21:50:24+08:00">2024-07-09</time>
+      <time title="修改时间：2024-07-09 22:02:56" itemprop="dateModified" datetime="2024-07-09T22:02:56+08:00">2024-07-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -311,7 +312,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E4%BD%9C%E7%94%9F%E6%B4%BB/" itemprop="url" rel="index"><span itemprop="name">工作生活</span></a>
+          <a href="/categories/life/" itemprop="url" rel="index"><span itemprop="name">工作生活</span></a>
         </span>
     </span>
 
@@ -348,8 +349,8 @@
 <h2 id="WSL2-相关准备工作"><a href="#WSL2-相关准备工作" class="headerlink" title="WSL2 相关准备工作"></a>WSL2 相关准备工作</h2><p>需要安装WSL2并启用桥接网络，同时安装好Debian系统</p>
 <p>参考本人<a href="/2021/01/02/WSL2-bridge-mode/">这篇文章</a></p>
 <h2 id="安装-systemd"><a href="#安装-systemd" class="headerlink" title="安装 systemd"></a>安装 systemd</h2><p>由于openmediavault对systemd有强依赖，而WSL的系统默认是由<code>/init</code>启动的，会导致安装出错<br>所以得先把systemd的问题解决。</p>
-<p>经过一番google，找到了<a href="https://github.com/arkane-systems/genie">systemd-genie</a>能够解决问题</p>
-<h3 id="安装-dotnet-源"><a href="#安装-dotnet-源" class="headerlink" title="安装 dotnet 源"></a>安装 dotnet 源</h3><p>systemd-genie 依赖 dotnet-runtime-5.0, 所以把dotnet源配好，参考<a href="https://docs.microsoft.com/zh-cn/dotnet/core/install/linux-debian#debian-10-">文档</a></p>
+<p>经过一番google，找到了<a target="_blank" rel="noopener" href="https://github.com/arkane-systems/genie">systemd-genie</a>能够解决问题</p>
+<h3 id="安装-dotnet-源"><a href="#安装-dotnet-源" class="headerlink" title="安装 dotnet 源"></a>安装 dotnet 源</h3><p>systemd-genie 依赖 dotnet-runtime-5.0, 所以把dotnet源配好，参考<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/core/install/linux-debian#debian-10-">文档</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb</span><br><span class="line"><span class="built_in">sudo</span> dpkg -i packages-microsoft-prod.deb</span><br><span class="line"><span class="built_in">sudo</span> apt-get update; \</span><br><span class="line">  <span class="built_in">sudo</span> apt-get install -y apt-transport-https &amp;&amp; \</span><br><span class="line">  <span class="built_in">sudo</span> apt-get update</span><br></pre></td></tr></table></figure>
 
 <h3 id="安装-systemd-genie"><a href="#安装-systemd-genie" class="headerlink" title="安装 systemd-genie"></a>安装 systemd-genie</h3><p>官网提供了安装脚本, 执行完会配置好systemd-genie源并安装</p>
@@ -368,13 +369,13 @@
 <p>修改<code>/etc/genie.ini</code>，设置<code>update-hostname</code>为false</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[genie]</span></span><br><span class="line"><span class="attr">secure-path</span>=/lib/systemd:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br><span class="line"><span class="attr">unshare</span>=/usr/bin/unshare</span><br><span class="line"><span class="attr">update-hostname</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">clone-path</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">clone-env</span>=WSL_DISTRO_NAME,WSL_INTEROP,WSLENV</span><br></pre></td></tr></table></figure>
 
-<h3 id="ip地址"><a href="#ip地址" class="headerlink" title="ip地址"></a>ip地址</h3><p>注意，由于WSL的mac地址每次重启都会变，该问题暂时无法解决，参考<a href="https://github.com/microsoft/WSL/issues/5352">issue</a><br>所以这里采用静态IPv4地址和DHCPv6来配置网络地址</p>
+<h3 id="ip地址"><a href="#ip地址" class="headerlink" title="ip地址"></a>ip地址</h3><p>注意，由于WSL的mac地址每次重启都会变，该问题暂时无法解决，参考<a target="_blank" rel="noopener" href="https://github.com/microsoft/WSL/issues/5352">issue</a><br>所以这里采用静态IPv4地址和DHCPv6来配置网络地址</p>
 <p>新建<code>/etc/systemd/network/lan.network</code>，内容如下</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Match]</span></span><br><span class="line"><span class="attr">Name</span>=eth0</span><br><span class="line"></span><br><span class="line"><span class="section">[Network]</span></span><br><span class="line"><span class="attr">Description</span>=lan</span><br><span class="line"><span class="attr">DHCP</span>=ipv6</span><br><span class="line"><span class="attr">Address</span>=<span class="number">192.168</span>.<span class="number">123.31</span>/<span class="number">24</span></span><br><span class="line"><span class="attr">Gateway</span>=<span class="number">192.168</span>.<span class="number">123.1</span></span><br><span class="line"><span class="attr">DNS</span>=<span class="number">192.168</span>.<span class="number">123.1</span></span><br><span class="line"><span class="attr">LLDP</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">EmitLLDP</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
 <p>然后执行执行<code>systemctl enable systemd-networkd &amp;&amp; systemctl start systemd-networkd</code></p>
-<h2 id="安装-openmediavault"><a href="#安装-openmediavault" class="headerlink" title="安装 openmediavault"></a>安装 openmediavault</h2><p>参考<a href="https://openmediavault.readthedocs.io/en/5.x/installation/on_debian.html">官方文档</a></p>
-<p>由于要安装的包比较多，建议先把Debian软件源替换成国内镜像，参考<a href="https://mirrors.tuna.tsinghua.edu.cn/help/debian/">这个</a></p>
+<h2 id="安装-openmediavault"><a href="#安装-openmediavault" class="headerlink" title="安装 openmediavault"></a>安装 openmediavault</h2><p>参考<a target="_blank" rel="noopener" href="https://openmediavault.readthedocs.io/en/5.x/installation/on_debian.html">官方文档</a></p>
+<p>由于要安装的包比较多，建议先把Debian软件源替换成国内镜像，参考<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/help/debian/">这个</a></p>
 <ol>
 <li><p>添加软件源keyring</p>
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt-get install --<span class="built_in">yes</span> gnupg</span><br><span class="line">wget -O <span class="string">&quot;/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc&quot;</span> https://packages.openmediavault.org/public/archive.key</span><br><span class="line">apt-key add <span class="string">&quot;/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc&quot;</span></span><br></pre></td></tr></table></figure>
@@ -385,7 +386,7 @@
 <li><p>安装</p>
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LANG=C.UTF-8</span><br><span class="line"><span class="built_in">export</span> DEBIAN_FRONTEND=noninteractive</span><br><span class="line"><span class="built_in">export</span> APT_LISTCHANGES_FRONTEND=none</span><br><span class="line">wget -O <span class="string">&quot;/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc&quot;</span> https://packages.openmediavault.org/public/archive.key</span><br><span class="line">apt-key add <span class="string">&quot;/etc/apt/trusted.gpg.d/openmediavault-archive-keyring.asc&quot;</span></span><br><span class="line">apt-get update</span><br><span class="line">apt-get --<span class="built_in">yes</span> --auto-remove --show-upgraded \</span><br><span class="line">    --allow-downgrades --allow-change-held-packages \</span><br><span class="line">    --no-install-recommends \</span><br><span class="line">    --option Dpkg::Options::=<span class="string">&quot;--force-confdef&quot;</span> \</span><br><span class="line">    --option DPkg::Options::=<span class="string">&quot;--force-confold&quot;</span> \</span><br><span class="line">    install openmediavault-keyring openmediavault</span><br><span class="line"></span><br><span class="line">omv-confdbadm populate</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h2 id="安装-omv-extras（可选）"><a href="#安装-omv-extras（可选）" class="headerlink" title="安装 omv-extras（可选）"></a>安装 omv-extras（可选）</h2><p>参考<a href="https://forum.openmediavault.org/index.php?thread/5549-omv-extras-org-plugin/">官方文档</a></p>
+<h2 id="安装-omv-extras（可选）"><a href="#安装-omv-extras（可选）" class="headerlink" title="安装 omv-extras（可选）"></a>安装 omv-extras（可选）</h2><p>参考<a target="_blank" rel="noopener" href="https://forum.openmediavault.org/index.php?thread/5549-omv-extras-org-plugin/">官方文档</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash</span><br></pre></td></tr></table></figure>
 
 <h2 id="配置-openmediavault"><a href="#配置-openmediavault" class="headerlink" title="配置 openmediavault"></a>配置 openmediavault</h2><h3 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h3><p>OMV里的主机名和网络配置就配置成和上面配置文件里的一样，防止OMV的服务工作异常</p>
@@ -399,18 +400,18 @@
 </ol>
 <h3 id="共享文件夹配置"><a href="#共享文件夹配置" class="headerlink" title="共享文件夹配置"></a>共享文件夹配置</h3><p>由于WSL2读写本机硬盘是使用的微软的驱动，OMV并不支持，默认只能识别到根目录的虚拟硬盘。</p>
 <p>又因为WSL2的本地硬盘都挂载在<code>/mnt/</code>路径下，所以只要能将<code>/mnt/</code>目录共享就ok了</p>
-<p>这里参考<a href="https://github.com/openmediavault/openmediavault/blob/master/deb/openmediavault-sharerootfs/debian/openmediavault-sharerootfs.postinst">openmediavault-sharerootfs</a>的实现</p>
+<p>这里参考<a target="_blank" rel="noopener" href="https://github.com/openmediavault/openmediavault/blob/master/deb/openmediavault-sharerootfs/debian/openmediavault-sharerootfs.postinst">openmediavault-sharerootfs</a>的实现</p>
 <p>修改<code>/etc/openmediavault/config.xml</code>配置文件， 在<code>fstab</code>标签下增加<code>mntent</code>挂载点配置，修改完如下</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--省略其他部分--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">fstab</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mntent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uuid</span>&gt;</span>79684322-3eac-11ea-a974-63a080abab18<span class="tag">&lt;/<span class="name">uuid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fsname</span>&gt;</span>/dev/sdb<span class="tag">&lt;/<span class="name">fsname</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dir</span>&gt;</span>/<span class="tag">&lt;/<span class="name">dir</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>ext4<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">opts</span>&gt;</span>errors=remount-ro<span class="tag">&lt;/<span class="name">opts</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">freq</span>&gt;</span>0<span class="tag">&lt;/<span class="name">freq</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">passno</span>&gt;</span>1<span class="tag">&lt;/<span class="name">passno</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hidden</span>&gt;</span>1<span class="tag">&lt;/<span class="name">hidden</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">mntent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">fstab</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>打开<code>访问权限管理 -&gt; 共享文件夹 -&gt; 添加</code>，添加D盘（&#x2F;mnt&#x2F;d）作为共享文件夹，然后在samba服务中就能引用这个共享文件夹了<br><img src="https://image.ponder.work/mweb/2021-01-02-2021-01-02_183349.png" alt="2021-01-02_183349"></p>
 <p><img src="https://image.ponder.work/mweb/2021-01-02-2021-01-02_183046.png" alt="2021-01-02_183046"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://github.com/arkane-systems/genie">https://github.com/arkane-systems/genie</a></li>
-<li><a href="https://docs.microsoft.com/zh-cn/dotnet/core/install/linux-debian#debian-10-">https://docs.microsoft.com/zh-cn/dotnet/core/install/linux-debian#debian-10-</a></li>
-<li><a href="https://openmediavault.readthedocs.io/en/5.x/installation/on_debian.html">https://openmediavault.readthedocs.io/en/5.x/installation/on_debian.html</a></li>
-<li><a href="https://forum.openmediavault.org/index.php?thread/5549-omv-extras-org-plugin/">https://forum.openmediavault.org/index.php?thread/5549-omv-extras-org-plugin/</a></li>
-<li><a href="https://github.com/openmediavault/openmediavault/blob/master/deb/openmediavault-sharerootfs/debian/openmediavault-sharerootfs.postinst">https://github.com/openmediavault/openmediavault/blob/master/deb/openmediavault-sharerootfs/debian/openmediavault-sharerootfs.postinst</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/arkane-systems/genie">https://github.com/arkane-systems/genie</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/core/install/linux-debian#debian-10-">https://docs.microsoft.com/zh-cn/dotnet/core/install/linux-debian#debian-10-</a></li>
+<li><a target="_blank" rel="noopener" href="https://openmediavault.readthedocs.io/en/5.x/installation/on_debian.html">https://openmediavault.readthedocs.io/en/5.x/installation/on_debian.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://forum.openmediavault.org/index.php?thread/5549-omv-extras-org-plugin/">https://forum.openmediavault.org/index.php?thread/5549-omv-extras-org-plugin/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/openmediavault/openmediavault/blob/master/deb/openmediavault-sharerootfs/debian/openmediavault-sharerootfs.postinst">https://github.com/openmediavault/openmediavault/blob/master/deb/openmediavault-sharerootfs/debian/openmediavault-sharerootfs.postinst</a></li>
 </ol>
 
     </div>
@@ -475,7 +476,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>

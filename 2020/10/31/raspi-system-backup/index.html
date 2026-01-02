@@ -95,6 +95,20 @@
 
 
 
+<script>
+(function() {
+  var canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical && canonical.href) {
+    try {
+      var oldUrl = new URL(canonical.href);
+      canonical.href = window.location.origin + oldUrl.pathname + oldUrl.search + oldUrl.hash;
+    } catch (e) {
+      console.warn('Failed to update canonical link:', e);
+    }
+  }
+})();
+</script>
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>

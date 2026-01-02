@@ -187,7 +187,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -198,7 +198,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">87</span>
+        <span class="site-state-item-count">88</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -244,6 +244,111 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2016/06/12/linux%E6%B7%BB%E5%8A%A0%E5%9B%9E%E6%94%B6%E7%AB%99%E5%8A%9F%E8%83%BD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jay.Run">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 逸思杂陈">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/06/12/linux%E6%B7%BB%E5%8A%A0%E5%9B%9E%E6%94%B6%E7%AB%99%E5%8A%9F%E8%83%BD/" class="post-title-link" itemprop="url">linux添加回收站功能</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-06-12 21:48:00" itemprop="dateCreated datePublished" datetime="2016-06-12T21:48:00+08:00">2016-06-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-03-25 21:41:32" itemprop="dateModified" datetime="2021-03-25T21:41:32+08:00">2021-03-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>212</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在linux服务器上工作，常常和<code>rm</code>打交道，难免手滑删除了重要的东西。而且linux又没有回收站功能，一旦删错东西真是欲哭无泪。别问我为什么知道，说多了都是泪。<br><strong>主要思路是用<code>mv</code>命令代替<code>rm</code>，将要删除的东西移动到回收站目录。</strong></p>
+<h2 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h2><h3 id="新建删除到回收站脚本"><a href="#新建删除到回收站脚本" class="headerlink" title="新建删除到回收站脚本"></a>新建删除到回收站脚本</h3><p><code>mkdir ~/bin</code></p>
+<p><code>vim ~/bin/trash</code>  # 将下面的内容写入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> -v <span class="variable">$@</span> <span class="variable">$&#123;trash_bin&#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>chmod +x ~/bin/trash</code>   # 增加执行权限</p>
+<h3 id="登录时初始化回收站"><a href="#登录时初始化回收站" class="headerlink" title="登录时初始化回收站"></a>登录时初始化回收站</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将以下内容追加到&quot;~/.bashrc&quot;中，回收站是以每天的日期新建文件夹</span></span><br><span class="line"></span><br><span class="line">today=$(<span class="built_in">date</span> <span class="string">&quot;+%Y%m%d&quot;</span>)  <span class="comment"># 形如20160606格式的日期</span></span><br><span class="line"></span><br><span class="line">trash_bin=<span class="string">&quot;/tmp/trash/<span class="variable">$&#123;today&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! -d <span class="string">&quot;/tmp/trash&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">mkdir</span> <span class="string">&quot;/tmp/trash&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! -d <span class="variable">$&#123;trash_bin&#125;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">mkdir</span> <span class="variable">$&#123;trash_bin&#125;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> trash_bin   <span class="comment"># 加入环境变量</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">alias</span> <span class="built_in">rm</span>=<span class="string">&quot;~/bin/trash&quot;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1809,126 +1914,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2016/02/11/%E7%95%AA%E8%8C%84%E5%B7%A5%E4%BD%9C%E6%B3%95%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jay.Run">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="逸思杂陈">
-      <meta itemprop="description" content="学习 思考 行动 Python">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 逸思杂陈">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/02/11/%E7%95%AA%E8%8C%84%E5%B7%A5%E4%BD%9C%E6%B3%95%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/" class="post-title-link" itemprop="url">番茄工作法工具推荐</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-02-11 12:26:00" itemprop="dateCreated datePublished" datetime="2016-02-11T12:26:00+08:00">2016-02-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-09 22:02:56" itemprop="dateModified" datetime="2024-07-09T22:02:56+08:00">2024-07-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/life/" itemprop="url" rel="index"><span itemprop="name">工作生活</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>533</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="番茄工作法简介"><a href="#番茄工作法简介" class="headerlink" title="番茄工作法简介"></a>番茄工作法简介</h2><p>番茄工作法（英语：Pomodoro Technique）是一种时间管理法方法，在上世纪八十年代由Francesco Cirillo创立。 该方法使用一个定时器来分割出一个一般为25分钟的工作时间和5分钟的休息时间，而那些时间段被称为pomodori，为意大利语单词 pomodoro（中文：番茄）之复数。</p>
-<p>番茄工作法有五个基本步骤：</p>
-<ol>
-<li>决定待完成的任务</li>
-<li>设定番茄工作法定时器至 n 分钟（通常为25分钟）。</li>
-<li>持续工作直至定时器提示,记下一个x。</li>
-<li>短暂休息3-5分钟。</li>
-<li>每四个x，休息15-30分钟。</li>
-</ol>
-<p>番茄工作法的关键是规划，追踪，记录，处理，以及可视化。在规划阶段，任务被根据优先级排入”To Do Today” list。 这允许用户预计每个任务的工作量。当每个番茄时结束后，成果会被记录下来以提高参与者的成就感并为未来的自我观察和改进提供原始数据。</p>
-<p>番茄工作法一般与<a target="_blank" rel="noopener" href="http://baike.baidu.com/link?url=ZlEFP9gdzCBmRrqAGqClmdyQ3_1t4Op33-tTyXbN_Gw3LRRqU3zmpwowPhW8VSKLriuLGsq8gJD-TJBO40ez_q"><code>GTD</code></a>相结合，能取得事半功倍的效果。</p>
-<h2 id="工具推荐"><a href="#工具推荐" class="headerlink" title="工具推荐"></a>工具推荐</h2><ol>
-<li>GTD软件，用于任务规划和记录，推荐<a target="_blank" rel="noopener" href="https://www.dida365.com/"><code>滴答清单</code></a>或<a target="_blank" rel="noopener" href="http://doitim.com/cn/"><code>Doit.im</code></a></li>
-<li>小米手环，震动提醒防止打扰别人。</li>
-<li>米环工具 Mi Band Tools, 百度网盘: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1qZ54Rr2">https://pan.baidu.com/s/1qZ54Rr2</a> 密码: pcqh</li>
-<li>极简番茄, 百度网盘: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1smZUZxj">https://pan.baidu.com/s/1smZUZxj</a> 密码: 8fff</li>
-</ol>
-<p>小米手环本来没有番茄钟的功能，通过<code>Mi Band Tools</code>和<code>极简番茄</code>这两个应用，在米环工具的“应用”中添加 极简番茄，可以实现手环震动提醒番茄钟。<br>当然你也可以直接使用<code>极简番茄</code>，通过手机震动或是响铃提醒，或者买一个计时器。</p>
-<h3 id="小米手环和极简番茄结合方法"><a href="#小米手环和极简番茄结合方法" class="headerlink" title="小米手环和极简番茄结合方法"></a>小米手环和极简番茄结合方法</h3><p>在米环工具的“应用”中添加 极简番茄。</p>
-<p>具体的应用配置可以参考截图，一般只修改震动次数、忽略不可清除的通知，其他默认即可</p>
-<p><img src="https://image.ponder.work/mweb/2020-03-05-15833917724588.jpg"><br><img src="https://image.ponder.work/mweb/2020-03-05-15833917804538.jpg"><br><img src="https://image.ponder.work/mweb/2020-03-05-15833917911022.jpg"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/11/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -1958,7 +1943,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">9:13</span>
+    <span title="站点阅读时长">9:14</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动

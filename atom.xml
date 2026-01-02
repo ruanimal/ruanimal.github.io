@@ -6,7 +6,7 @@
   <link href="https://blog.ponder.work/atom.xml" rel="self"/>
   
   <link href="https://blog.ponder.work/"/>
-  <updated>2026-01-02T03:43:07.000Z</updated>
+  <updated>2026-01-02T10:32:09.000Z</updated>
   <id>https://blog.ponder.work/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>阻止 bilibili 网页自动关注</title>
+    <link href="https://blog.ponder.work/2026/01/02/prevent-bilibili-auto-follow/"/>
+    <id>https://blog.ponder.work/2026/01/02/prevent-bilibili-auto-follow/</id>
+    <published>2026-01-02T10:32:09.000Z</published>
+    <updated>2026-01-02T10:32:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>B 站非常逆天，只要你使用网页端看视频，点开首页推荐的视频，观看一定时长，就有概率会触发自动关注该 UP 主。<br>之前也有怀疑是某个浏览器插件的锅，但更换浏览器依然能够触发这个问题。<br>网上发现不少类似的问题，但都没有解决方案，迫于无奈只能使用自定义广告过滤规则了，之后没有再出现问题。</p><p>这里使用 uBlock origin, 其他去广告插件也类似, 进入插件设置 -&gt; 自定义静态规则，添加如下规则。<br>在视频页面禁止关注请求，不影响点开 UP 主主页进行关注。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">www.bilibili.com##+js(no-fetch-if, /api\.bilibili\.com\/x\/relation\/modify/, location.pathname.startsWith(<span class="string">&#x27;/video/&#x27;</span>))</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;B 站非常逆天，只要你使用网页端看视频，点开首页推荐的视频，观看一定时长，就有概率会触发自动关注该 UP 主。&lt;br&gt;之前也有怀疑是某个浏览器插件的锅，但更换浏览器依然能够触发这个问题。&lt;br&gt;网上发现不少类似的问题，但都没有解决方案，迫于无奈只能使用自定义广告过滤规则了，</summary>
+      
+    
+    
+    
+    <category term="工作生活" scheme="https://blog.ponder.work/categories/life/"/>
+    
+    
+    <category term="Web" scheme="https://blog.ponder.work/tags/Web/"/>
+    
+    <category term="uBlock" scheme="https://blog.ponder.work/tags/uBlock/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo 版本更新与技术债务</title>
@@ -435,29 +461,6 @@
     
     
     <category term="MySQL" scheme="https://blog.ponder.work/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Windows 网络共享</title>
-    <link href="https://blog.ponder.work/2021/10/10/windows-network-share/"/>
-    <id>https://blog.ponder.work/2021/10/10/windows-network-share/</id>
-    <published>2021-10-10T07:00:00.000Z</published>
-    <updated>2024-07-09T14:02:56.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>要在不暴露 client 的情况下共享网络，一般就只能使用 nat(Network Address Translation), linux 下可以使用 iptables 很轻松地搞定。<br>nat 包含 DNAT 和 SNAT, 要想双向互通，必须两者都实现。</p><p>windows下的网络共享只有SNAT那一部分，比如各自免费wifi软件。少了DNAT，外部网络就无法访问内部。</p><p>还好windows下可以配置端口转发，实现等效的DNAT</p><span id="more"></span><h2 id="先配置网络共享"><a href="#先配置网络共享" class="headerlink" title="先配置网络共享"></a>先配置网络共享</h2><p>前置要求，需要两张网卡，无线或者有线均可。</p><ul><li>A: 用于访问外网</li><li>B: 共享网络接入点</li></ul><p>打开：控制面板 》网络和Internet 》网络和共享中心 》更改适配器设置</p><p><img src="https://image.ponder.work/mweb/2021-10-10-16338760513347.jpg"></p><p><img src="https://image.ponder.work/mweb/2021-10-10-16338761455929.jpg"></p><p>右键A网卡 &gt; 属性 &gt; 共享 &gt; 勾选允许 （win10可能有下拉选择，下拉选中B网卡）<br><img src="https://image.ponder.work/mweb/2021-10-10-16338761903207.jpg"></p><h2 id="端口映射配置"><a href="#端口映射配置" class="headerlink" title="端口映射配置"></a>端口映射配置</h2><p>netsh是Windows自带的端口转发&#x2F;端口映射工具。</p><p>支持IPv4和IPv6,命令即时生效,重启系统后配置仍然存在。</p><h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ul><li>add - 在一个表格中添加一个配置项。</li><li>delete - 从一个表格中删除一个配置项。</li><li>dump - 显示一个配置脚本。</li><li>help - 显示命令列表。</li><li>reset - 重置端口代理配置状态。</li><li>set - 设置配置信息。</li><li>show - 显示信息。</li></ul><h3 id="用法-以v4tov4为例"><a href="#用法-以v4tov4为例" class="headerlink" title="用法(以v4tov4为例)"></a>用法(以v4tov4为例)</h3><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">add v4tov4 <span class="comment">[listenport=]</span>integer&gt;|servicename&gt; \</span><br><span class="line">           <span class="comment">[connectaddress=]</span>IPv4 address&gt;|hostname&gt;  \</span><br><span class="line">           <span class="comment">[<span class="comment">[connectport=]</span>integer&gt;|servicename&gt;]</span>  \</span><br><span class="line">           <span class="comment">[<span class="comment">[listenaddress=]</span>IPv4 address&gt;|hostname&gt;]</span>  \</span><br><span class="line">           <span class="comment">[<span class="comment">[protocol=]</span>tcp]</span></span><br></pre></td></tr></table></figure><h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><ul><li>listenport      - IPv4 侦听端口。</li><li>connectaddress  - IPv4 连接地址。</li><li>connectport     - IPv4 连接端口。</li><li>listenaddress   - IPv4 侦听地址。</li><li>protocol     - 使用的协议。现在只支持 TCP</li></ul><h3 id="案例-ssh端口转发"><a href="#案例-ssh端口转发" class="headerlink" title="案例(ssh端口转发)"></a>案例(ssh端口转发)</h3><p>将192.168.8.108的22端口映射到本地的2222端口</p><p>这样外部就可以通过本地的对外ip来ssh访问192.168.8.108了</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh<span class="built_in"> interface </span>portproxy <span class="built_in">add</span> v4tov4 <span class="attribute">listenport</span>=2222 <span class="attribute">connectaddress</span>=192.168.8.108 <span class="attribute">connectport</span>=22</span><br></pre></td></tr></table></figure><h3 id="显示端口转发"><a href="#显示端口转发" class="headerlink" title="显示端口转发"></a>显示端口转发</h3><p>一般情况下使用下列命令进行查看</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh <span class="keyword">interface</span> <span class="symbol">portproxy</span> <span class="symbol">show</span> <span class="symbol">all</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;要在不暴露 client 的情况下共享网络，一般就只能使用 nat(Network Address Translation), linux 下可以使用 iptables 很轻松地搞定。&lt;br&gt;nat 包含 DNAT 和 SNAT, 要想双向互通，必须两者都实现。&lt;/p&gt;
-&lt;p&gt;windows下的网络共享只有SNAT那一部分，比如各自免费wifi软件。少了DNAT，外部网络就无法访问内部。&lt;/p&gt;
-&lt;p&gt;还好windows下可以配置端口转发，实现等效的DNAT&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="工作生活" scheme="https://blog.ponder.work/categories/life/"/>
-    
-    
-    <category term="Windows" scheme="https://blog.ponder.work/tags/Windows/"/>
     
   </entry>
   

@@ -1,2 +1,1 @@
-Sitemap: https://ponder.work/sitemap.xml
-Sitemap: https://ponder.work/baidusitemap.xml
+Sitemap: https://blog.ponder.work/sitemap.xml

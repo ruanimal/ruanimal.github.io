@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.ponder.work/2025/12/21/linux-as-the-only/</loc>
+    
+    <lastmod>2026-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.ponder.work/categories/index.html</loc>
     
     <lastmod>2026-01-04</lastmod>
@@ -59,15 +68,6 @@
     <loc>https://blog.ponder.work/2026/01/02/prevent-bilibili-auto-follow/</loc>
     
     <lastmod>2026-01-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.ponder.work/2025/12/21/linux-as-the-only/</loc>
-    
-    <lastmod>2025-12-22</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

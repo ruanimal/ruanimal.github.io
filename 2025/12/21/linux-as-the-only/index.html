@@ -328,7 +328,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.9k</span>
+      <span>3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -541,6 +541,9 @@
 <h3 id="限制硬盘读写速度"><a href="#限制硬盘读写速度" class="headerlink" title="限制硬盘读写速度"></a>限制硬盘读写速度</h3><p>某些nvme硬盘的发热很严重, 如果全速运行会导致系统不稳定.<br>所以需要对硬盘速度进行限制</p>
 <p>使用 systemd 设置限速</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建配置目录</span></span><br><span class="line">sudo mkdir -p mkdir -p /etc/systemd/system/&#123;user,system&#125;.slice.d/</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置用户限制</span></span><br><span class="line">sudo tee /etc/systemd/system/user.slice.d/io-limit.conf  &gt; /dev/null &lt;&lt;EOF</span><br><span class="line">[Slice]</span><br><span class="line">IOReadBandwidthMax=/dev/nvme0n1 800M</span><br><span class="line">IOWriteBandwidthMax=/dev/nvme0n1 300M</span><br><span class="line">IOReadIOPSMax=/dev/nvme0n1 60000</span><br><span class="line">IOWriteIOPSMax=/dev/nvme0n1 30000</span><br><span class="line"></span><br><span class="line">EOF</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">系统也使用同样的限制</span></span><br><span class="line">sudo ln -sf /etc/systemd/system/user.slice.d/io-limit.conf /etc/systemd/system/system.slice.d/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>速度测试</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">~$ </span><span class="language-bash"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=testfile bs=1M count=2048 oflag=direct status=progress &amp;&amp; <span class="built_in">rm</span>  testfile</span></span><br><span class="line">2099249152 bytes (2.1 GB, 2.0 GiB) copied, 7 s, 300 MB/s</span><br><span class="line">2048+0 records in</span><br><span class="line">2048+0 records out</span><br><span class="line">2147483648 bytes (2.1 GB, 2.0 GiB) copied, 7.16429 s, 300 MB/s</span><br></pre></td></tr></table></figure>
 
     </div>
 

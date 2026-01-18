@@ -15,10 +15,11 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.ponder.work","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/config.min.js" defer></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.ponder.work","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="压缩列表(ziplist)是列表和哈希的底层实现之一，是为尽可能地节约内存而设计的特殊编码双端链表。 当一个列表只包含少量列表项，并且每个列表项要么就是小整数值，要么就是长度比较短的字符串，那么Redis就会使用压缩列表来做列表键的底层实现。 压缩列表的优点是节省内存，缺点是插入元素的复杂度较高平均O(N)最坏O(N^2), 但是在小数据量的情况下，这种复杂度也是可以接受的。">
 <meta property="og:type" content="article">
@@ -48,9 +49,9 @@
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134911454-2"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-134911454-2","only_pageview":false,"measure_protocol_api_secret":null}</script>
-  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/third-party/analytics/google-analytics.min.js" defer></script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/third-party/analytics/baidu-analytics.min.js" defer></script>
+  <script src="/js/third-party/analytics/baidu-analytics.js" defer></script>
   <script async src="https://hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7"></script>
 
 
@@ -60,33 +61,32 @@
 
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/utils.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/sidebar.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/next-boot.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/pjax.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/pjax.js" defer></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.5.0/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/third-party/search/local-search.min.js" defer></script>
-
-
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@11.10.1/dist/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
-  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/third-party/tags/mermaid.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/third-party/fancybox.min.js" defer></script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.1/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
 
 
-
-  
-
+  <script src="/js/third-party/fancybox.js" defer></script>
 
 
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
-<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/third-party/math/mathjax.min.js" defer></script>
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
 
 
 
@@ -111,7 +111,7 @@
 <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
 
   <main class="main">
@@ -363,7 +363,7 @@
 <p>ziplist 结构示例图</p>
 <figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">area</span>        |&lt;---- ziplist header ----&gt;|&lt;----------- entries -------------&gt;|&lt;-end-&gt;|</span><br><span class="line"></span><br><span class="line"><span class="title">size</span>          <span class="number">4</span> bytes  <span class="number">4</span> bytes  <span class="number">2</span> bytes    ?        ?        ?        ?     <span class="number">1</span> byte</span><br><span class="line">            +---------+--------+-------+--------+--------+--------+--------+-------+</span><br><span class="line"><span class="title">component</span>   | zlbytes | zltail | zllen | entry1 | entry2 |  ...   | entryN | zlend |</span><br><span class="line">            +---------+--------+-------+--------+--------+--------+--------+-------+</span><br><span class="line">                                       ^                          ^        ^</span><br><span class="line"><span class="title">address</span>                                |                          |        |</span><br><span class="line">                                <span class="type">ZIPLIST_ENTRY_HEAD</span>                |   <span class="type">ZIPLIST_ENTRY_END</span></span><br><span class="line">                                                                  |</span><br><span class="line">                                                        <span class="type">ZIPLIST_ENTRY_TAIL</span></span><br></pre></td></tr></table></figure>
 
-<p><img data-src="https://image.ponder.work/mweb/2021-05-22-16216774199505.jpg" alt="-w1224"></p>
+<p><img src="https://image.ponder.work/mweb/2021-05-22-16216774199505.jpg" alt="-w1224"></p>
 <p>上图我们向ziplist添加了3个entry元素，向list头部插入（redis内部使用时一般向尾部插入），后面会详细解析这些元素。</p>
 <h3 id="ziplist-节点元素"><a href="#ziplist-节点元素" class="headerlink" title="ziplist 节点元素"></a>ziplist 节点元素</h3><p>每个ziplist节点由一下3个部分组成</p>
 <ul>
@@ -371,7 +371,7 @@
 <li>encoding: 节点的编码类型，</li>
 <li>content: 节点内容，可能是字节数组(c语言字符串去除末尾的\0)或者数组</li>
 </ul>
-<p>之前的3个节点的二进制详情<br><img data-src="https://image.ponder.work/mweb/2021-05-22-16216773421053.jpg" alt="-w678"></p>
+<p>之前的3个节点的二进制详情<br><img src="https://image.ponder.work/mweb/2021-05-22-16216773421053.jpg" alt="-w678"></p>
 <p>节点迭代器结构体 zlentry</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zlentry</span> &#123;</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> prevrawlensize;  <span class="comment">// 编码 prevrawlen 所需的字节大小</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> prevrawlen;  <span class="comment">// 前置节点的长度</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> lensize; <span class="comment">// 编码 len 所需的字节大小</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> len;  <span class="comment">// 当前节点值的长度</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> headersize;  <span class="comment">// 当前节点 header 的大小, 等于prevrawlensize + lensize</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> encoding;  <span class="comment">// 当前节点值所使用的编码类型</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> *p;   <span class="comment">// 指向当前节点的指针，也就是内存entry的prelen字段</span></span><br><span class="line">&#125; zlentry;</span><br></pre></td></tr></table></figure>
 
@@ -568,7 +568,7 @@
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"ruanimal/ruanimal.github.io","issue_term":"title","theme":"github-light"}</script>
-<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/third-party/comments/utterances.min.js" defer></script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
 <script>
   document.addEventListener('pjax:success', () => {
     if (CONFIG.sidebar.display !== 'remove') {

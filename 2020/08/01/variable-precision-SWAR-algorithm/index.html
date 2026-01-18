@@ -15,10 +15,11 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.ponder.work","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/config.min.js" defer></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.ponder.work","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="在学习redis源码时，发现BITCOUNT命令实现用到了variable-precision SWAR 算法。 BITCOUNT命令要解决的问题：统计一个位数组中非0二进制位的数量。在数学上被称为“计算汉明重量（Hamming Weight)” 目前已知效率最好的通用算法为variable-precision SWAR 算法。该算法通过一系列位移和位运算操作，可以在常数时间内计算多个字节的汉明重">
 <meta property="og:type" content="article">
@@ -48,9 +49,9 @@
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134911454-2"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-134911454-2","only_pageview":false,"measure_protocol_api_secret":null}</script>
-  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/third-party/analytics/google-analytics.min.js" defer></script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/third-party/analytics/baidu-analytics.min.js" defer></script>
+  <script src="/js/third-party/analytics/baidu-analytics.js" defer></script>
   <script async src="https://hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7"></script>
 
 
@@ -60,33 +61,32 @@
 
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/utils.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/sidebar.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/next-boot.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/pjax.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/pjax.js" defer></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.5.0/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/third-party/search/local-search.min.js" defer></script>
-
-
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@11.10.1/dist/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
-  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/third-party/tags/mermaid.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/third-party/fancybox.min.js" defer></script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.1/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
 
 
-
-  
-
+  <script src="/js/third-party/fancybox.js" defer></script>
 
 
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
-<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/third-party/math/mathjax.min.js" defer></script>
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
 
 
 
@@ -111,7 +111,7 @@
 <link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
 
   <main class="main">
@@ -351,10 +351,10 @@
 
 <h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>这里我们以<code>i=0x12345678</code>(二进制位为<code>00010010001101000101011001111000</code>)为例，讲解算法过程<br>我们可以把i的二进制位理解成：长度为32的数组，每个元素取值区间[0,1]，每个元素正好能代表这个位是不是1.</p>
 <p>所以，问题就可以转化为，求这个数组的和。<br>根据分治法的思想，我们可以把相邻的两个数字相加，得到长度为16的数组，每个元素取值区间[0,2]。<br>并以此类推，最终求出总和。</p>
-<p><img data-src="https://image.ponder.work/mweb/2020-08-01-15962704953270.jpg"><br><img data-src="https://image.ponder.work/mweb/2020-08-01-15962705553725.jpg"></p>
+<p><img src="https://image.ponder.work/mweb/2020-08-01-15962704953270.jpg"><br><img src="https://image.ponder.work/mweb/2020-08-01-15962705553725.jpg"></p>
 <h3 id="步骤1"><a href="#步骤1" class="headerlink" title="步骤1"></a>步骤1</h3><p>这一步用到<code>0x55555555</code>作为掩码，其二进制表示为<code>01010101010101010101010101010101</code><br>此时i可理解为长度为32的数组，每个元素取值区间[0,1]，元素宽度1bit。</p>
 <p>通过<code>i &amp; 0x55555555</code>运算，取得了i的奇数位置元素，存储为16个2bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x55555555</code>运算，取得了i的偶数位置元素，存储为16个2bit整数；</p>
-<p>两者相加，相当于16组2bit整数按位相加，问题就转化成了2bit的二进制加法。<br>由于原数组每个元素取值区间[0,1]，所以每组相加的结果会在[0,2]区间内，2bit刚好存储。<br>最终得到长度为16的数组，每个元素取值区间[0,2]。<br><img data-src="https://image.ponder.work/mweb/2020-08-01-15962660065367.jpg"></p>
+<p>两者相加，相当于16组2bit整数按位相加，问题就转化成了2bit的二进制加法。<br>由于原数组每个元素取值区间[0,1]，所以每组相加的结果会在[0,2]区间内，2bit刚好存储。<br>最终得到长度为16的数组，每个元素取值区间[0,2]。<br><img src="https://image.ponder.work/mweb/2020-08-01-15962660065367.jpg"></p>
 <h3 id="步骤2"><a href="#步骤2" class="headerlink" title="步骤2"></a>步骤2</h3><p>这一步用到<code>0x33333333</code>作为掩码，其二进制表示为<code>00110011001100110011001100110011</code><br>此时i可理解表示为长度为16的数组，每个元素取值区间[0,2]，元素宽度2bit。</p>
 <p>通过<code>i &amp; 0x33333333</code>运算，取得了i的奇数位置元素，存储为8个4bit整数；<br>通过<code>(i&gt;&gt;1) &amp; 0x33333333</code>运算，取得了i的偶数位置元素，存储为8个4bit整数；</p>
 <p>两者相加，相当于8组4bit整数按位相加，问题就转化成了4bit的二进制加法。<br>由于原数组每个元素取值区间[0,2]，所以每组相加的结果会在[0,4]区间内，4bit刚好存储。<br>最终得到长度为8的数组，每个元素取值区间[0,4]。</p>
@@ -470,7 +470,7 @@
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"ruanimal/ruanimal.github.io","issue_term":"title","theme":"github-light"}</script>
-<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.26.0/source/js/third-party/comments/utterances.min.js" defer></script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
 <script>
   document.addEventListener('pjax:success', () => {
     if (CONFIG.sidebar.display !== 'remove') {

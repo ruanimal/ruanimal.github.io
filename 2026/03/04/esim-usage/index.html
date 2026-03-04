@@ -193,7 +193,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#esim-%E9%80%82%E9%85%8D%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">esim 适配器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#esim-%E5%A5%97%E9%A4%90"><span class="nav-number">2.</span> <span class="nav-text">esim 套餐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%B7%E7%A0%81%E5%86%99%E5%85%A5"><span class="nav-number">3.</span> <span class="nav-text">号码写入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">4.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#esim-%E9%80%82%E9%85%8D%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">esim 适配器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#esim-%E5%A5%97%E9%A4%90"><span class="nav-number">2.</span> <span class="nav-text">esim 套餐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%B7%E7%A0%81%E5%86%99%E5%85%A5"><span class="nav-number">3.</span> <span class="nav-text">号码写入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%84%9F%E5%8F%97"><span class="nav-number">4.</span> <span class="nav-text">使用感受</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">5.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -321,7 +321,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>430</span>
+      <span>501</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -344,6 +344,7 @@
 <h2 id="esim-套餐"><a href="#esim-套餐" class="headerlink" title="esim 套餐"></a>esim 套餐</h2><p>一般海外套餐都可以使用，我这里只用于接收短信，故使用 clubsim，成本大概50元。</p>
 <h2 id="号码写入"><a href="#号码写入" class="headerlink" title="号码写入"></a>号码写入</h2><p>购买套餐后，运营商会提供二维码，安卓手机通过 <a target="_blank" rel="noopener" href="https://gitea.angry.im/PeterCxy/OpenEUICC">OpenEUICC</a> 扫描就可以写入和管理 esim。</p>
 <p>如果是 iphone，需要使用 esim 读卡器来管理 esim 号码。</p>
+<h2 id="使用感受"><a href="#使用感受" class="headerlink" title="使用感受"></a>使用感受</h2><p>esim 还是挺方便的，用于接收验证码非常够用，还有些免费流量的卡。<br>但是切换 esim 号码时，可能需要切换飞行模式或者重启手机才能生效，不知是通病还是兼容性问题。</p>
 <h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>由于安卓操作系统（11+）的 bug，在“移动网络”中禁用 esim 适配器会无法打开。<br>需要通过 adb 清除移动网络的数据才能恢复</p>
 <figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb <span class="built_in">shell</span> pm <span class="keyword">clear</span> com.android.providers.telephony</span><br></pre></td></tr></table></figure>
 

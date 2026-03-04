@@ -201,7 +201,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -212,7 +212,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-count">89</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -258,6 +258,118 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/01/25/lightgbm-hang-in-multi-thread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jay.Run">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 逸思杂陈">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/01/25/lightgbm-hang-in-multi-thread/" class="post-title-link" itemprop="url">Lightgbm多线程卡死问题定位</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-01-25 17:03:00" itemprop="dateCreated datePublished" datetime="2020-01-25T17:03:00+00:00">2020-01-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-01-02 22:59:00" itemprop="dateModified" datetime="2021-01-02T22:59:00+00:00">2021-01-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span></span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>NaN:aN</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="症状"><a href="#症状" class="headerlink" title="症状"></a>症状</h2><p>最近在开发的lightgbm树模型，发现服务在处理了一定量请求后会卡死，请求无响应。</p>
+<p><code>pstack</code>之后发现, 进程卡在libgomp.so这个动态库的函数中. 证实确实是卡死</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Thread 8 (Thread 0x7f8eb7900700 (LWP 1859)):</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">0  0x00007f8e9def4af1 <span class="keyword">in</span> ?? () from /usr/lib64/libgomp.so.1</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1  0x00007f8e9def23a0 <span class="keyword">in</span> ?? () from /usr/lib64/libgomp.so.1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="尝试"><a href="#尝试" class="headerlink" title="尝试"></a>尝试</h2><p>首先尝试google <code>lightgbm hang</code>, 看了前几条记录.</p>
+<p>发现,github上的一个<a target="_blank" rel="noopener" href="https://github.com/microsoft/LightGBM/issues/2217#issuecomment-501233873">issue</a>, 顺着发现官网文档上早就记录里这个问题, 并且提供了解决办法.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/01/25/lightgbm-hang-in-multi-thread/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1775,111 +1887,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/10/07/%E3%80%8A%E4%BC%A0%E4%B9%A0%E5%BD%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2019/10/06/%E3%80%8A%E6%89%BE%E5%9B%9E%E9%80%9D%E5%8E%BB%E7%9A%84%E8%87%AA%E6%88%91%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jay.Run">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="逸思杂陈">
-      <meta itemprop="description" content="学习 思考 行动 Python">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 逸思杂陈">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/10/06/%E3%80%8A%E6%89%BE%E5%9B%9E%E9%80%9D%E5%8E%BB%E7%9A%84%E8%87%AA%E6%88%91%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《找回逝去的自我--大脑心灵和往事的记忆》读书笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2019-10-06 09:17:00 / 修改时间：12:02:00" itemprop="dateCreated datePublished" datetime="2019-10-06T09:17:00+00:00">2019-10-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/reading/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span></span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>NaN:aN</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/5406389/"> <img data-src="https://image.ponder.work/mweb/2019-10-06-15703330203326.jpg"> </a></p>
-<p><em>本文为整理以前的读书笔记</em></p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>作者: <a target="_blank" rel="noopener" href="https://book.douban.com/search/%E4%B8%B9%E5%B0%BC%E5%B0%94%C2%B7%E5%A4%8F%E5%85%8B%E7%89%B9">丹尼尔·夏克特</a> &#x2F; <a target="_blank" rel="noopener" href="https://book.douban.com/search/Daniel%20L.%20Schacter">Daniel L. Schacter</a></p>
-<p>顾名思义，这是一本关于记忆的书，讲述了人脑记忆的机制。我们是如何储存，并提前记忆的。</p>
-<p>阅读这本书，对理解记忆，寻找改善记忆的方式有很大帮助。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/10/06/%E3%80%8A%E6%89%BE%E5%9B%9E%E9%80%9D%E5%8E%BB%E7%9A%84%E8%87%AA%E6%88%91%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

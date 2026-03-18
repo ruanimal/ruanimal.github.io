@@ -3684,6 +3684,10 @@
 
 <h3 id="archlinux-命令行不能使用回收站"><a href="#archlinux-命令行不能使用回收站" class="headerlink" title="archlinux 命令行不能使用回收站"></a>archlinux 命令行不能使用回收站</h3><p>安装 cachyos 时，trash-cli 不能使用，其他应用也不能删除文件到回收站</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S gvfs </span><br></pre></td></tr></table></figure>
+
+<h3 id="某些软件中输入法不可用"><a href="#某些软件中输入法不可用" class="headerlink" title="某些软件中输入法不可用"></a>某些软件中输入法不可用</h3><p>在使用 fcitx 输入法时，某些软件中无法唤起输入法，无法输入中文（如：微信）<br>通常是因为该程序默认加载了 ibus 模块，只要设置 <code>QT_IM_MODULE=fcitx</code> 环境变量就能解决问题。<br>为了不带来别的影响，仅修改 .desktop 启动文件就行。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir -p ~/.local/share/applications</span><br><span class="line"></span><br><span class="line">sed &#x27;s|Exec=/usr|Exec=env QT_IM_MODULE=fcitx /usr|&#x27; \</span><br><span class="line">/usr/share/applications/wechat.desktop &gt; ~/.local/share/applications/wechat.desktop</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>编程</category>

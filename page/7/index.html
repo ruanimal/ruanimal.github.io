@@ -201,7 +201,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-count">171</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -212,7 +212,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">89</span>
+        <span class="site-state-item-count">91</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -258,6 +258,118 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/02/28/solution-of-OpenBLAS-blas_thread_init-problem/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jay.Run">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 逸思杂陈">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/02/28/solution-of-OpenBLAS-blas_thread_init-problem/" class="post-title-link" itemprop="url">OpenBLAS blas_thread_init pthread_creat Resource temporarily unavailable 问题分析与解决</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-02-28 09:48:00" itemprop="dateCreated datePublished" datetime="2020-02-28T09:48:00+00:00">2020-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-03-13 15:04:37" itemprop="dateModified" datetime="2020-03-13T15:04:37+00:00">2020-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="症状"><a href="#症状" class="headerlink" title="症状"></a>症状</h2><p>最近在在一台服务器上发现, 一个服务的工作进程会异常退出, 但部署有相同代码的其他服务却没有类似的情况.</p>
+<p>查看日志发现以下错误</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Traceback</span> (most recent call last):</span><br><span class="line">	...</span><br><span class="line">  <span class="built_in">File</span> <span class="string">&quot;/home/q/hawkeye_mid_dev/src/model/b_card_model.py&quot;</span>, line <span class="number">5</span>, in &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    <span class="keyword">import</span> numpy as np</span><br><span class="line">  <span class="built_in">File</span> <span class="string">&quot;/home/sync360/miniconda3/envs/xd_mid/lib/python2.7/site-packages/numpy/__init__.py&quot;</span>, line <span class="number">142</span>, in &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    from . <span class="keyword">import</span> add_newdocs</span><br><span class="line">  <span class="built_in">File</span> <span class="string">&quot;/home/sync360/miniconda3/envs/xd_mid/lib/python2.7/site-packages/numpy/add_newdocs.py&quot;</span>, line <span class="number">13</span>, in &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    from numpy.lib <span class="keyword">import</span> add_newdoc</span><br><span class="line">  <span class="built_in">File</span> <span class="string">&quot;/home/sync360/miniconda3/envs/xd_mid/lib/python2.7/site-packages/numpy/lib/__init__.py&quot;</span>, line <span class="number">8</span>, in &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    from .type_check <span class="keyword">import</span> *</span><br><span class="line">  <span class="built_in">File</span> <span class="string">&quot;/home/sync360/miniconda3/envs/xd_mid/lib/python2.7/site-packages/numpy/lib/type_check.py&quot;</span>, line <span class="number">11</span>, in &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    <span class="keyword">import</span> numpy.core.numeric as _nx</span><br><span class="line">  <span class="built_in">File</span> <span class="string">&quot;/home/sync360/miniconda3/envs/xd_mid/lib/python2.7/site-packages/numpy/core/__init__.py&quot;</span>, line <span class="number">16</span>, in &lt;<span class="keyword">module</span>&gt;</span><br><span class="line">    from . <span class="keyword">import</span> multiarray</span><br><span class="line">KeyboardInterrupt</span><br><span class="line">OpenBLAS blas_thread_init: pthread_create: Resource temporarily unavailable</span><br><span class="line">OpenBLAS blas_thread_init: RLIMIT_NPROC <span class="number">1024</span> current, <span class="number">516033</span> max</span><br></pre></td></tr></table></figure>
+
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="Resouce-limit"><a href="#Resouce-limit" class="headerlink" title="Resouce limit"></a>Resouce limit</h3><p>在上面的错误输出里有一个关键词 <code>RLIMIT_NPROC</code>, 涉及到了linux的Resouce limit.</p>
+<p>在Linux系统中，Resouce limit指在一个进程的执行过程中，它所能得到的资源的限制，比如进程的core file的最大值，虚拟内存的最大值等。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/28/solution-of-OpenBLAS-blas_thread_init-problem/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1798,117 +1910,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2019/10/07/%E3%80%8A%E4%BC%A0%E4%B9%A0%E5%BD%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jay.Run">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="逸思杂陈">
-      <meta itemprop="description" content="学习 思考 行动 Python">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 逸思杂陈">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/10/07/%E3%80%8A%E4%BC%A0%E4%B9%A0%E5%BD%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《传习录》读书笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-10-07 20:17:00" itemprop="dateCreated datePublished" datetime="2019-10-07T20:17:00+00:00">2019-10-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2019-10-09 22:05:00" itemprop="dateModified" datetime="2019-10-09T22:05:00+00:00">2019-10-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/reading/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>717</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img data-src="https://image.ponder.work/mweb/2019-10-09-15706298114022.jpg"></p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>《传习录》是阳明先生的问答语录和论学书信集。是一部儒家简明而有代表性的哲学著作。</p>
-<p>王阳明可贵的不是他的学说，而是他行动和思想一样地伟大，能够知行合一，这样三不朽是理所应当的。</p>
-<p>感悟：心学的核心致良知，就是良知的自我表达，良知的自知，主体性的向外扩展，使主观世界和客观世界融为一体，而不是主体被客观世界异化。</p>
-<p>愿永为阳明先生门下走狗</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/10/07/%E3%80%8A%E4%BC%A0%E4%B9%A0%E5%BD%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -1938,7 +1939,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">9:19</span>
+    <span title="站点阅读时长">9:21</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动

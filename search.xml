@@ -10531,4 +10531,47 @@ img[alt="-w350"] {
         <tag>Python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>mitmproxy 使用</title>
+    <url>/2026/03/20/mitmproxy-usage/</url>
+    <content><![CDATA[<p>做 LLM Agent 开发时，经常要查看模型的请求与响应，需要一个便捷的工具。<br>mitmproxy 是一个功能强大的开源中间人代理，通常用于网络调试、分析 HTTP 和 HTTPS 流量。</p>
+<span id="more"></span>
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li>访问 <a href="https://www.mitmproxy.org/">https://www.mitmproxy.org/</a> ，根据指引安装，不同系统有区别<ul>
+<li>也可以使用 <code>pip install mitmproxy</code> 安装</li>
+</ul>
+</li>
+<li>配置证书，用于解析 https，参考 <a href="https://docs.mitmproxy.org/stable/concepts/certificates/">https://docs.mitmproxy.org/stable/concepts/certificates/</a></li>
+</ol>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>包含以下命令</p>
+<ul>
+<li>mitmdump：支持将捕获的数据导出到文件，类似tcpdump   </li>
+<li>mitmproxy：TUI 实时查看、修改和调试流量</li>
+<li>mitmweb：webui 实时查看、修改和调试流量（一般推荐用这个）</li>
+</ul>
+<p>使用步骤</p>
+<ol>
+<li>启动 mitmweb</li>
+<li>设置代理环境变量：ALL_PROXY,</li>
+</ol>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">~ ❯ mitmweb -<span class="selector-tag">p</span> <span class="number">8082</span> -s ~/projects/scripts/mitmproxy_fix_unicode<span class="selector-class">.py</span></span><br><span class="line"><span class="selector-attr">[15:26:42.046]</span> Loading script /Users/ruan/projects/scripts/mitmproxy_fix_unicode<span class="selector-class">.py</span></span><br><span class="line"><span class="selector-attr">[15:26:42.047]</span> <span class="built_in">HTTP</span>(S) proxy listening at *:<span class="number">8082</span>.</span><br><span class="line"><span class="selector-attr">[15:26:42.047]</span> Web server listening at http:<span class="comment">//127.0.0.1:8081/?token=4987293fea3331a4f3de2b0ba836a85d</span></span><br><span class="line">load: <span class="number">11.06</span>  cmd: mitmweb <span class="number">3541</span> waiting <span class="number">0.55</span>u <span class="number">0.19s</span></span><br><span class="line"><span class="selector-attr">[15:42:34.333]</span><span class="selector-attr">[[::1]</span>:<span class="number">62868</span>] client connect</span><br></pre></td></tr></table></figure>
+
+<h3 id="python-证书相关问题"><a href="#python-证书相关问题" class="headerlink" title="python 证书相关问题"></a>python 证书相关问题</h3><p>python 的 http 客户端有自己的证书处理逻辑，仅安装证书到系统还不能生效<br>需要额外设置环境变量</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 合并证书</span></span><br><span class="line">cat $(python -c <span class="string">&quot;import certifi; print(certifi.where())&quot;</span>) \</span><br><span class="line">~<span class="regexp">/.mitmproxy/mi</span>tmproxy-ca-cert.pem &gt; ~<span class="regexp">/.mitmproxy/</span>py-certifi-combined-ca.pem</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置环境变量</span></span><br><span class="line">SSL_CERT_FILE=<span class="regexp">/Users/</span>ruan<span class="regexp">/.mitmproxy/</span>py-certifi-combined-ca.pem   <span class="comment"># httpx 库</span></span><br><span class="line">REQUESTS_CA_BUNDLE=<span class="regexp">/Users/</span>ruan<span class="regexp">/.mitmproxy/</span>py-certifi-combined-ca.pem  <span class="comment"># requests 库</span></span><br><span class="line">HTTPS_PROXY=https:<span class="regexp">//</span>localhost:<span class="number">8082</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="webui-的-json-中文显示问题"><a href="#webui-的-json-中文显示问题" class="headerlink" title="webui 的 json 中文显示问题"></a>webui 的 json 中文显示问题</h3><p>需要附加脚本：<code>mitmweb -s ~/projects/scripts/mitmproxy_fix_unicode.py</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mitmproxy_fix_unicode.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> mitmproxy <span class="keyword">import</span> contentviews</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PrettyJsonChinese</span>(contentviews.Contentview):</span><br><span class="line">    name = <span class="string">&quot;JSON (中文)&quot;</span></span><br><span class="line">    syntax_highlight = <span class="string">&quot;yaml&quot;</span>  <span class="comment"># YAML is a superset of JSON, so this highlights JSON too</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">prettify</span>(<span class="params">self, data: <span class="built_in">bytes</span>, metadata: contentviews.Metadata</span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">        decoded = json.loads(data)</span><br><span class="line">        <span class="keyword">return</span> json.dumps(decoded, indent=<span class="number">4</span>, ensure_ascii=<span class="literal">False</span>, sort_keys=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">render_priority</span>(<span class="params">self, data: <span class="built_in">bytes</span>, metadata: contentviews.Metadata</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">        <span class="comment"># Match the same content types as the built-in JSON view, but with higher priority</span></span><br><span class="line">        <span class="keyword">if</span> metadata.content_type <span class="keyword">and</span> <span class="string">&quot;json&quot;</span> <span class="keyword">in</span> metadata.content_type:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">contentviews.add(PrettyJsonChinese)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="让-json-request-和-response-能够自动换行"><a href="#让-json-request-和-response-能够自动换行" class="headerlink" title="让 json request 和 response 能够自动换行"></a>让 json request 和 response 能够自动换行</h3><p>使用 <a href="https://github.com/ruanimal/browser-scripts/blob/master/mitmweb_wordwrap.user.js">tampermokey 脚本</a> 修改 webui</p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>抓包</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
 </search>

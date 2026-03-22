@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+  <link rel="mask-icon" href="/favicon.ico" color="#222">
+  <meta name="baidu-site-verification" content="K0iqERgnmF">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.ponder.work","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/config.min.js" defer></script>
+
+    <meta name="description" content="这些年日常操作系统一直是 windows 和 macOS 交替使用，Linux 一般只作为服务器的操作系统。然而，咖喱味的 Windows 11 （LTSC）用起来实在难受（平时只玩游戏，下载）arm 的 macbook 虽然能效惊人，但是内存金子价格，软件也封闭（点名finder）和傲慢，实在受不了。最后，还是转向 Linux，毕竟现在 wayland 基本堪用，国产软件也随着信创逐渐丰富了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="配置 Linux 作为主力操作系统">
+<meta property="og:url" content="https://blog.ponder.work/2025/12/22/linux-as-the-only/index.html">
+<meta property="og:site_name" content="逸思杂陈">
+<meta property="og:description" content="这些年日常操作系统一直是 windows 和 macOS 交替使用，Linux 一般只作为服务器的操作系统。然而，咖喱味的 Windows 11 （LTSC）用起来实在难受（平时只玩游戏，下载）arm 的 macbook 虽然能效惊人，但是内存金子价格，软件也封闭（点名finder）和傲慢，实在受不了。最后，还是转向 Linux，毕竟现在 wayland 基本堪用，国产软件也随着信创逐渐丰富了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-12-21T21:48:00.000Z">
+<meta property="article:modified_time" content="2026-01-15T09:58:50.000Z">
+<meta property="article:author" content="Jay.Run">
+<meta property="article:tag" content="KDE">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.ponder.work/2025/12/22/linux-as-the-only/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.ponder.work/2025/12/22/linux-as-the-only/","path":"2025/12/22/linux-as-the-only/","title":"配置 Linux 作为主力操作系统"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>配置 Linux 作为主力操作系统 | 逸思杂陈</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134911454-2"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-134911454-2","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/analytics/google-analytics.min.js" defer></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/analytics/baidu-analytics.min.js" defer></script>
+  <script async src="https://hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7"></script>
+
+
+
+
+
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/utils.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/sidebar.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/next-boot.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/pjax.min.js" defer></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.5.0/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/search/local-search.min.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@11.10.1/dist/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/tags/mermaid.min.js" defer></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/fancybox.min.js" defer></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/math/mathjax.min.js" defer></script>
+
+
+
+
+<script>
+(function() {
+  var canonical = document.querySelector('head > link[rel="canonical"]');
+  if (canonical && canonical.href) {
+    try {
+      var oldUrl = new URL(canonical.href);
+      canonical.href = window.location.origin + oldUrl.pathname + oldUrl.search + oldUrl.hash;
+    } catch (e) {
+      console.warn('Failed to update canonical link:', e);
+    }
+  }
+})();
+</script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">逸思杂陈</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">人类一思考，上帝就发笑。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/programming/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E8%A1%8C%E7%89%88%E9%80%89%E6%8B%A9"><span class="nav-number">1.</span> <span class="nav-text">发行版选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E8%A6%81%E6%B1%82"><span class="nav-number">2.</span> <span class="nav-text">硬件要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">系统设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Nvidia-%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8"><span class="nav-number">3.1.</span> <span class="nav-text">Nvidia 显卡驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker"><span class="nav-number">3.2.</span> <span class="nav-text">docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ipv6-%E5%90%AF%E7%94%A8-EUI-64"><span class="nav-number">3.3.</span> <span class="nav-text">ipv6 启用 EUI-64</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E7%94%A8%E4%BC%91%E7%9C%A0%E6%96%87%E4%BB%B6"><span class="nav-number">3.4.</span> <span class="nav-text">启用休眠文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%8B%B1%E6%96%87%E7%94%A8%E6%88%B7%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">3.5.</span> <span class="nav-text">使用英文用户文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E8%B0%83%E4%BC%98"><span class="nav-number">3.6.</span> <span class="nav-text">无线网卡调优</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9D%A1%E7%9C%A0%E8%B0%83%E6%95%B4"><span class="nav-number">3.7.</span> <span class="nav-text">睡眠调整</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#intel-%E6%A0%B8%E6%98%BE%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">3.8.</span> <span class="nav-text">intel 核显性能优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDP-%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2"><span class="nav-number">3.9.</span> <span class="nav-text">RDP 远程桌面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B0%E5%86%85%E6%A0%B8%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="nav-number">3.10.</span> <span class="nav-text">使用新内核（可选）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">软件使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%A1%88"><span class="nav-number">4.1.</span> <span class="nav-text">常见应用替代方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KVM-%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">4.2.</span> <span class="nav-text">KVM 虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dolphin-%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F"><span class="nav-number">4.3.</span> <span class="nav-text">dolphin 右键菜单自定义快捷方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#haruna-%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E5%99%A8"><span class="nav-number">4.4.</span> <span class="nav-text">haruna 视频播放器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flatpak-%E4%BD%BF%E7%94%A8"><span class="nav-number">4.5.</span> <span class="nav-text">flatpak 使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%82%E8%BD%BD-SMB-%E5%85%B1%E4%BA%AB%E6%94%AF%E6%8C%81-windows-%E7%AC%A6%E5%8F%B7%E9%93%BE%E6%8E%A5"><span class="nav-number">4.6.</span> <span class="nav-text">挂载 SMB 共享支持 windows 符号链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%E6%96%B9%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">故障排查方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#edge-%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8"><span class="nav-number">5.2.</span> <span class="nav-text">edge 无法启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#steam-%E7%8E%A9%E6%B8%B8%E6%88%8F%E5%8D%A1%E4%BD%8F"><span class="nav-number">5.3.</span> <span class="nav-text">steam 玩游戏卡住</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%81%E7%A7%BB%E7%B3%BB%E7%BB%9F-%E4%BF%AE%E5%A4%8D%E5%BC%95%E5%AF%BC"><span class="nav-number">5.4.</span> <span class="nav-text">迁移系统&amp;修复引导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9D%A1%E7%9C%A0%E5%94%A4%E9%86%92%E5%90%8E%E5%BE%88%E5%8D%A1"><span class="nav-number">5.5.</span> <span class="nav-text">睡眠唤醒后很卡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%88%E7%AB%AF%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E5%88%B0%E5%9B%9E%E6%94%B6%E7%AB%99"><span class="nav-number">5.6.</span> <span class="nav-text">终端删除文件到回收站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#electorn-%E5%BA%94%E7%94%A8%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8"><span class="nav-number">5.7.</span> <span class="nav-text">electorn 应用无法启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E7%95%8C%E9%9D%A2%E9%9A%90%E8%97%8F%E6%97%A0%E5%85%B3%E7%94%A8%E6%88%B7"><span class="nav-number">5.8.</span> <span class="nav-text">登录界面隐藏无关用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%B6%E5%8F%91%E7%A1%AC%E4%BB%B6%E8%AE%BE%E5%A4%87%E5%B7%A5%E4%BD%9C%E4%B8%8D%E6%AD%A3%E5%B8%B8"><span class="nav-number">5.9.</span> <span class="nav-text">偶发硬件设备工作不正常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%A8%E5%90%AF%E5%8A%A8%E5%99%A8%E9%87%8C%E6%89%BE%E4%B8%8D%E5%88%B0"><span class="nav-number">5.10.</span> <span class="nav-text">应用在启动器里找不到</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E5%A4%8D%E7%9D%A1%E7%9C%A0%E5%94%A4%E9%86%92%E9%97%AE%E9%A2%98"><span class="nav-number">5.11.</span> <span class="nav-text">修复睡眠唤醒问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apt-%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86"><span class="nav-number">5.12.</span> <span class="nav-text">apt 设置代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%90%E5%88%B6%E7%A1%AC%E7%9B%98%E8%AF%BB%E5%86%99%E9%80%9F%E5%BA%A6"><span class="nav-number">5.13.</span> <span class="nav-text">限制硬盘读写速度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#archlinux-%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E5%9B%9E%E6%94%B6%E7%AB%99"><span class="nav-number">5.14.</span> <span class="nav-text">archlinux 命令行不能使用回收站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%90%E4%BA%9B%E8%BD%AF%E4%BB%B6%E4%B8%AD%E8%BE%93%E5%85%A5%E6%B3%95%E4%B8%8D%E5%8F%AF%E7%94%A8"><span class="nav-number">5.15.</span> <span class="nav-text">某些软件中输入法不可用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WPS-%E6%AF%8F%E6%AC%A1%E7%99%BB%E5%BD%95%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8"><span class="nav-number">5.16.</span> <span class="nav-text">WPS 每次登录自动启动</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jay.Run</p>
+  <div class="site-description" itemprop="description">学习 思考 行动 Python</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">172</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ruanimal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ruanimal" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/iponder" title="Leetcode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;iponder" rel="noopener me" target="_blank"><i class="cubes fa-fw"></i>Leetcode</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.liaoxuefeng.com/" title="https:&#x2F;&#x2F;www.liaoxuefeng.com&#x2F;" rel="noopener" target="_blank">廖雪峰的官方网站</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="http://www.ruanyifeng.com/" title="http:&#x2F;&#x2F;www.ruanyifeng.com&#x2F;" rel="noopener" target="_blank">阮一峰的个人网站</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://cse.google.com/cse?cx=006975008861986536211%3Alpx3qasaiom" title="https:&#x2F;&#x2F;cse.google.com&#x2F;cse?cx&#x3D;006975008861986536211:lpx3qasaiom" rel="noopener" target="_blank">mac软件搜索引擎</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.kaciras.com/" title="https:&#x2F;&#x2F;blog.kaciras.com&#x2F;" rel="noopener" target="_blank">Kaciras' Blog</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2025/12/22/linux-as-the-only/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jay.Run">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="配置 Linux 作为主力操作系统 | 逸思杂陈">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          配置 Linux 作为主力操作系统
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-12-22 05:48:00" itemprop="dateCreated datePublished" datetime="2025-12-22T05:48:00+08:00">2025-12-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-01-15 17:58:50" itemprop="dateModified" datetime="2026-01-15T17:58:50+08:00">2026-01-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>12 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>这些年日常操作系统一直是 windows 和 macOS 交替使用，Linux 一般只作为服务器的操作系统。<br>然而，咖喱味的 Windows 11 （LTSC）用起来实在难受（平时只玩游戏，下载）<br>arm 的 macbook 虽然能效惊人，但是内存金子价格，软件也封闭（点名finder）和傲慢，实在受不了。<br>最后，还是转向 Linux，毕竟现在 wayland 基本堪用，国产软件也随着信创逐渐丰富了。</p>
+<span id="more"></span>
+
+<h2 id="发行版选择"><a href="#发行版选择" class="headerlink" title="发行版选择"></a>发行版选择</h2><p>这里选用 KDE Neon user edition，基于 Ubuntu LTS, 有以下优点</p>
+<ol>
+<li>Ubuntu 用户基数大，有问题容易解决</li>
+<li>可以安装星火应用商店，方便使用国产软件</li>
+<li>可以用到最新的 KDE 桌面环境，wayland 支持更好</li>
+<li>KDE 远程桌面好用（服务端和客户端）</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">OS:</span> <span class="string">KDE</span> <span class="string">neon</span> <span class="string">User</span> <span class="string">Edition</span> <span class="string">x86_64</span></span><br><span class="line"><span class="attr">Host:</span> <span class="string">MS-7D99</span> <span class="string">(3.0)</span></span><br><span class="line"><span class="attr">Kernel:</span> <span class="string">Linux</span> <span class="number">6.14</span><span class="number">.0</span><span class="number">-33</span><span class="string">-generic</span></span><br><span class="line"><span class="attr">Uptime:</span> <span class="number">1</span> <span class="string">day,</span> <span class="number">19</span> <span class="string">hours,</span> <span class="number">23</span> <span class="string">mins</span></span><br><span class="line"><span class="attr">Packages:</span> <span class="number">2831</span> <span class="string">(dpkg)</span></span><br><span class="line"><span class="attr">Shell:</span> <span class="string">bash</span> <span class="number">5.2</span><span class="number">.21</span></span><br><span class="line"><span class="attr">Display (E2434I-T):</span> <span class="string">1920x1080</span> <span class="string">@</span> <span class="number">60</span> <span class="string">Hz</span> <span class="string">in</span> <span class="number">24</span><span class="string">&quot; [External]</span></span><br><span class="line"><span class="string">Display (KOS2718): 3840x2160 @ 60 Hz (as 1920x1080) in 27&quot;</span> [<span class="string">External</span>] <span class="string">*</span></span><br><span class="line"><span class="attr">DE:</span> <span class="string">KDE</span> <span class="string">Plasma</span> <span class="number">6.4</span><span class="number">.5</span></span><br><span class="line"><span class="attr">WM:</span> <span class="string">KWin</span> <span class="string">(Wayland)</span></span><br><span class="line"><span class="attr">WM Theme:</span> <span class="string">Breeze</span></span><br><span class="line"><span class="attr">Theme:</span> <span class="string">Breeze</span> <span class="string">(Light)</span> [<span class="string">Qt</span>]<span class="string">,</span> <span class="string">Breeze</span> [<span class="string">GTK2/3</span>]</span><br><span class="line"><span class="attr">Icons:</span> <span class="string">Breeze</span> [<span class="string">Qt</span>]<span class="string">,</span> <span class="string">breeze</span> [<span class="string">GTK2/3/4</span>]</span><br><span class="line"><span class="attr">Font:</span> <span class="string">微软雅黑</span> <span class="string">(10pt)</span> [<span class="string">Qt</span>]<span class="string">,</span> <span class="string">微软雅黑</span> <span class="string">(10pt)</span> [<span class="string">GTK2/3/4</span>]</span><br><span class="line"><span class="attr">Terminal:</span> <span class="string">/dev/pts/3</span></span><br><span class="line"><span class="attr">CPU:</span> <span class="string">13th</span> <span class="string">Gen</span> <span class="string">Intel(R)</span> <span class="string">Core(TM)</span> <span class="string">i5-13500</span> <span class="string">(20)</span> <span class="string">@</span> <span class="number">4.80</span> <span class="string">GHz</span></span><br><span class="line"><span class="attr">GPU 1:</span> <span class="string">NVIDIA</span> <span class="string">GeForce</span> <span class="string">RTX</span> <span class="number">4060 </span><span class="string">Ti</span> [<span class="string">Discrete</span>]</span><br><span class="line"><span class="attr">GPU 2:</span> <span class="string">Intel</span> <span class="string">AlderLake-S</span> <span class="string">GT1</span> <span class="string">@</span> <span class="number">1.55</span> <span class="string">GHz</span> [<span class="string">Integrated</span>]</span><br><span class="line"><span class="attr">Memory:</span> <span class="number">25.07</span> <span class="string">GiB</span> <span class="string">/</span> <span class="number">46.67</span> <span class="string">GiB</span> <span class="string">(54%)</span></span><br><span class="line"><span class="attr">Swap:</span> <span class="number">392.00</span> <span class="string">KiB</span> <span class="string">/</span> <span class="number">8.00</span> <span class="string">GiB</span> <span class="string">(0%)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="硬件要求"><a href="#硬件要求" class="headerlink" title="硬件要求"></a>硬件要求</h2><ol>
+<li>NVIDIA 显卡在 Linux 下对 Wayland 支持不好，容易出现卡死或者重启的情况，建议显示器连到核显</li>
+<li>有些主板 Linux 兼容性不行，建议使用御三家主板</li>
+</ol>
+<h2 id="系统设置"><a href="#系统设置" class="headerlink" title="系统设置"></a>系统设置</h2><h3 id="Nvidia-显卡驱动"><a href="#Nvidia-显卡驱动" class="headerlink" title="Nvidia 显卡驱动"></a>Nvidia 显卡驱动</h3><p>显示器插到核显上，只使用 Nvidia 做计算，玩游戏也能调用到显卡。<br>使用开源服务器驱动，解决 Wayland 兼容性问题，防止玩游戏崩溃</p>
+<ol>
+<li>安装驱动</li>
+</ol>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ubuntu-drivers install <span class="number">580</span>-<span class="keyword">server</span>-<span class="keyword">open</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>启用睡眠支持<a target="_blank" rel="noopener" href="https://download.nvidia.com/XFree86/Linux-x86_64/570.172.08/README/powermanagement.html">参考</a><br>将显存内容保存，否则唤醒后程序会报错（如CUDA程序）</li>
+</ol>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/modprobe.d/nvidia-power-management.conf</span></span><br><span class="line">options nvidia <span class="attribute">NVreg_PreserveVideoMemoryAllocations</span>=1 <span class="attribute">NVreg_TemporaryFilePath</span>=/tmp</span><br><span class="line"></span><br><span class="line">sudo update-initramfs</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> pkg <span class="keyword">in</span> docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; <span class="keyword">do</span> <span class="built_in">sudo</span> apt-get remove <span class="variable">$pkg</span>; <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Add Docker&#x27;s official GPG key:</span></span><br><span class="line"><span class="built_in">sudo</span> apt-get update</span><br><span class="line"><span class="built_in">sudo</span> apt-get install ca-certificates curl</span><br><span class="line"><span class="built_in">sudo</span> install -m 0755 -d /etc/apt/keyrings</span><br><span class="line"><span class="built_in">sudo</span> curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> a+r /etc/apt/keyrings/docker.asc</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add the repository to Apt sources:</span></span><br><span class="line"><span class="built_in">echo</span> \</span><br><span class="line">  <span class="string">&quot;deb [arch=<span class="subst">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \</span></span><br><span class="line"><span class="string">  <span class="subst">$(. /etc/os-release &amp;&amp; echo <span class="string">&quot;<span class="variable">$&#123;UBUNTU_CODENAME:-<span class="variable">$VERSION_CODENAME</span>&#125;</span>&quot;</span>)</span> stable&quot;</span> | \</span><br><span class="line">  <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br><span class="line"><span class="built_in">sudo</span> apt-get update</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> usermod -aG docker <span class="variable">$USER</span></span><br><span class="line">newgrp docker  <span class="comment"># 立即生效（或注销重新登录）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># docker 中调用显卡</span></span><br><span class="line">https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html</span><br></pre></td></tr></table></figure>
+
+<h3 id="ipv6-启用-EUI-64"><a href="#ipv6-启用-EUI-64" class="headerlink" title="ipv6 启用 EUI-64"></a>ipv6 启用 EUI-64</h3><p>可以让 ipv6 的ip后缀根据mac生成，可用于配置防火墙规则<br>使用形如 <code>::&lt;后缀&gt;/::ffff:ffff:ffff:ffff</code> 的掩码</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nmcli <span class="built_in">con</span> show</span><br><span class="line">nmcli <span class="built_in">con</span> modify &lt;NETWORK NAME&gt; ipv6.addr-gen-<span class="built_in">mode</span> eui64</span><br></pre></td></tr></table></figure>
+
+<h3 id="启用休眠文件"><a href="#启用休眠文件" class="headerlink" title="启用休眠文件"></a>启用休眠文件</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> su</span><br><span class="line"><span class="attribute">cd</span> /</span><br><span class="line"><span class="attribute">truncate</span> -s <span class="number">0</span> swapfile</span><br><span class="line"><span class="comment"># chattr +C swapfile  # disable COW on btrfs</span></span><br><span class="line"><span class="attribute">fallocate</span> -l <span class="number">8</span>G swapfile</span><br><span class="line"><span class="attribute">chmod</span> <span class="number">0600</span> swapfile</span><br><span class="line"><span class="attribute">mkswap</span> swapfile</span><br><span class="line"><span class="attribute">swapon</span> swapfile</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用英文用户文件夹"><a href="#使用英文用户文件夹" class="headerlink" title="使用英文用户文件夹"></a>使用英文用户文件夹</h3><p>用户个人文件夹（文档、下载等），默认是跟随系统语言。<br>可是中文在终端下输入不太方便，建议使用英文用户文件夹名称。<br>方法步骤：</p>
+<ol>
+<li>语言修改成英文，注销重新登录</li>
+<li>打开文件管理器，确认修改为英文</li>
+<li>语言修改回中文</li>
+<li>打开文件管理器，保留原名称</li>
+</ol>
+<h3 id="无线网卡调优"><a href="#无线网卡调优" class="headerlink" title="无线网卡调优"></a>无线网卡调优</h3><p>WIFI 启用 WOL（网络唤醒）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 WOL 支持</span></span><br><span class="line">iw phy0 wowlan show</span><br><span class="line"><span class="comment"># 开启 WOL 支持</span></span><br><span class="line"><span class="built_in">sudo</span> iw phy0 wowlan <span class="built_in">enable</span> magic-packet</span><br></pre></td></tr></table></figure>
+
+<p>关闭节能模式，解决无线网口入站延迟较大</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &lt;&lt;<span class="string">EOF &gt; /etc/NetworkManager/conf.d/wifi-powersave-off.conf</span></span><br><span class="line"><span class="string">[connection]</span></span><br><span class="line"><span class="string">wifi.powersave = 2</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者启动时设置</span></span><br><span class="line"><span class="built_in">sudo</span> iw dev wlo1 <span class="built_in">set</span> power_save off</span><br></pre></td></tr></table></figure>
+
+<h3 id="睡眠调整"><a href="#睡眠调整" class="headerlink" title="睡眠调整"></a>睡眠调整</h3><p>睡眠到内存（suspend）耗电量很低，够用了，没必要开启混合休眠</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只睡眠到内存</span></span><br><span class="line"><span class="comment"># 修改 /etc/systemd/sleep.conf</span></span><br><span class="line"><span class="attribute">AllowSuspend</span>=<span class="literal">yes</span></span><br><span class="line"><span class="attribute">AllowHibernation</span>=<span class="literal">no</span></span><br><span class="line"><span class="attribute">AllowSuspendThenHibernate</span>=<span class="literal">no</span></span><br><span class="line"><span class="attribute">AllowHybridSleep</span>=<span class="literal">no</span></span><br><span class="line"><span class="attribute">SuspendState</span>=mem standby</span><br><span class="line"></span><br><span class="line"><span class="comment"># 禁用休眠（可选）</span></span><br><span class="line">sudo systemctl mask hibernate.target hybrid-sleep.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># nvida</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="intel-核显性能优化"><a href="#intel-核显性能优化" class="headerlink" title="intel 核显性能优化"></a>intel 核显性能优化</h3><p>10代以上 intel 核显</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/modprobe.d/i915.conf</span></span><br><span class="line">options i915 <span class="attribute">enable_fbc</span>=1 <span class="attribute">enable_guc</span>=2 <span class="attribute">enable_dc</span>=0</span><br><span class="line"></span><br><span class="line">sudo update-initramfs -u</span><br></pre></td></tr></table></figure>
+
+<h3 id="RDP-远程桌面"><a href="#RDP-远程桌面" class="headerlink" title="RDP 远程桌面"></a>RDP 远程桌面</h3><p>服务端: 使用 KDE 默认的远程桌面 （可惜稳定性一般）<br>客户端: <code>apt install krdc</code></p>
+<p>其他配置</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 双屏只显示其中一个屏幕</span></span><br><span class="line"><span class="comment"># 修改 ~/.config/systemd/user/plasma-krdp_server.service</span></span><br><span class="line"><span class="attr">ExecStart=</span>/usr/bin/krdpserver --<span class="literal">monitor</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启服务</span></span><br><span class="line">systemctl --<span class="keyword">user</span> <span class="title">daemon-reload</span></span><br><span class="line">systemctl --<span class="keyword">user</span> <span class="title">restart</span> app-org.kde.krdpserver.service</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用新内核（可选）"><a href="#使用新内核（可选）" class="headerlink" title="使用新内核（可选）"></a>使用新内核（可选）</h3><p>发行版默认内核版本可能比较老，如有必要可以更新内核<br><strong>注意</strong>：mainline 的内核与 ubuntu-drivers 的 nvidia 显卡驱动不兼容（所以一般不推荐）</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="built_in"> add-apt-repository </span>ppa:cappelikan/ppa</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install mainline</span><br></pre></td></tr></table></figure>
+
+<h2 id="软件使用"><a href="#软件使用" class="headerlink" title="软件使用"></a>软件使用</h2><h3 id="常见应用替代方案"><a href="#常见应用替代方案" class="headerlink" title="常见应用替代方案"></a>常见应用替代方案</h3><ul>
+<li>qq: 使用官方linux版本的flatpak打包<ul>
+<li>flatpak install com.qq.QQ</li>
+</ul>
+</li>
+<li>任务管理器<ul>
+<li>flatpak install io.missioncenter.MissionCenter</li>
+</ul>
+</li>
+<li>词典：使用欧陆词典<ul>
+<li>flatpak install net.eudic.dict</li>
+</ul>
+</li>
+<li>微信<ul>
+<li>使用星火应用商店打包的官方linux版本</li>
+</ul>
+</li>
+<li>下载管理器：<ul>
+<li>motrix：普通http下载</li>
+<li>qbittorrent： bt下载</li>
+</ul>
+</li>
+<li>虚拟机<ul>
+<li>KVM：性能更好</li>
+<li>VMware：易用性更好</li>
+</ul>
+</li>
+<li>游戏<ul>
+<li>steam：大部分游戏都可以直接运行，性能损耗也不大</li>
+</ul>
+</li>
+<li>视频播放<ul>
+<li>haruna：使用 flatpak 版本</li>
+</ul>
+</li>
+</ul>
+<h3 id="KVM-虚拟机"><a href="#KVM-虚拟机" class="headerlink" title="KVM 虚拟机"></a>KVM 虚拟机</h3><p>安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install qemu-kvm libvirt-daemon-system virt-manager</span><br><span class="line"><span class="built_in">sudo</span> usermod -aG libvirt,kvm <span class="variable">$USER</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now libvirtd</span><br></pre></td></tr></table></figure>
+
+<p>硬盘直通(scsi), 相比下面的方法性能更好</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">disk</span> <span class="attr">type</span>=<span class="string">&#x27;block&#x27;</span> <span class="attr">device</span>=<span class="string">&#x27;disk&#x27;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">driver</span> <span class="attr">name</span>=<span class="string">&#x27;qemu&#x27;</span> <span class="attr">type</span>=<span class="string">&#x27;raw&#x27;</span> <span class="attr">cache</span>=<span class="string">&#x27;none&#x27;</span> <span class="attr">io</span>=<span class="string">&#x27;native&#x27;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">dev</span>=<span class="string">&#x27;/dev/disk/by-id/ata-TOSHIBA&#x27;</span> <span class="attr">index</span>=<span class="string">&#x27;2&#x27;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">target</span> <span class="attr">dev</span>=<span class="string">&#x27;sdg&#x27;</span> <span class="attr">bus</span>=<span class="string">&#x27;scsi&#x27;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">disk</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>硬盘直通（virtio），samba分享时可能卡顿</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;disk type<span class="operator">=</span><span class="string">&quot;block&quot;</span> device<span class="operator">=</span><span class="string">&quot;disk&quot;</span>&gt;</span><br><span class="line">  &lt;driver name<span class="operator">=</span><span class="string">&quot;qemu&quot;</span> type<span class="operator">=</span><span class="string">&quot;raw&quot;</span> cache<span class="operator">=</span><span class="string">&quot;none&quot;</span>/&gt;</span><br><span class="line">  &lt;source dev<span class="operator">=</span><span class="string">&quot;/dev/disk/by-id/ata-ST3000DM008&quot;</span>/&gt;</span><br><span class="line">  &lt;target dev<span class="operator">=</span><span class="string">&quot;sdc&quot;</span> bus<span class="operator">=</span><span class="string">&quot;virtio&quot;</span>/&gt;</span><br><span class="line">&lt;/disk&gt;</span><br></pre></td></tr></table></figure>
+
+<p>无线网口不支持桥接，使用路由绕过</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改 /etc/sysctl.conf; sudo sysctl -p 生效</span></span><br><span class="line">net.ipv4.ip_forward = 1</span><br><span class="line">net.ipv4.conf.wlo1.proxy_arp=1</span><br><span class="line">net.ipv4.conf.br-routed.proxy_arp=1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建网桥和路由</span></span><br><span class="line"><span class="comment">#/etc/systemd/system/bridge-routed.service</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=Create routed bridge br-routed</span><br><span class="line">After=network.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=oneshot</span><br><span class="line">RemainAfterExit=<span class="built_in">yes</span></span><br><span class="line">ExecStartPre=/usr/bin/ip <span class="built_in">link</span> add br-routed <span class="built_in">type</span> bridge</span><br><span class="line">ExecStart=/usr/bin/ip <span class="built_in">link</span> <span class="built_in">set</span> br-routed up</span><br><span class="line">ExecStartPost=/usr/bin/ip route add 192.168.1.41/32 dev br-routed</span><br><span class="line">ExecStop=/usr/bin/ip <span class="built_in">link</span> delete br-routed</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 kvm 配置</span></span><br><span class="line">&lt;interface <span class="built_in">type</span>=<span class="string">&quot;bridge&quot;</span>&gt;</span><br><span class="line">  &lt;mac address=<span class="string">&quot;00:00:00:00:00:00&quot;</span>/&gt;</span><br><span class="line">  &lt;<span class="built_in">source</span> bridge=<span class="string">&quot;br-routed&quot;</span>/&gt;</span><br><span class="line">  &lt;target dev=<span class="string">&quot;vnet0&quot;</span>/&gt;</span><br><span class="line">  &lt;model <span class="built_in">type</span>=<span class="string">&quot;virtio&quot;</span>/&gt;</span><br><span class="line">  &lt;<span class="built_in">alias</span> name=<span class="string">&quot;net0&quot;</span>/&gt;</span><br><span class="line">  &lt;address <span class="built_in">type</span>=<span class="string">&quot;pci&quot;</span> domain=<span class="string">&quot;0x0000&quot;</span> bus=<span class="string">&quot;0x0a&quot;</span> slot=<span class="string">&quot;0x00&quot;</span> <span class="keyword">function</span>=<span class="string">&quot;0x0&quot;</span>/&gt;</span><br><span class="line">&lt;/interface&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 虚拟机使用静态ip</span></span><br><span class="line">   IPv4 地址 . . . . . . . . . . . . : 192.168.1.41(首选)</span><br><span class="line">   子网掩码  . . . . . . . . . . . . : 255.255.255.0</span><br><span class="line">   默认网关. . . . . . . . . . . . . : 192.168.1.1</span><br><span class="line">   DNS 服务器  . . . . . . . . . . . : 192.168.1.1</span><br></pre></td></tr></table></figure>
+
+<h3 id="dolphin-右键菜单自定义快捷方式"><a href="#dolphin-右键菜单自定义快捷方式" class="headerlink" title="dolphin 右键菜单自定义快捷方式"></a>dolphin 右键菜单自定义快捷方式</h3><p>支持文件和文件夹</p>
+<p>chmod +  ~&#x2F;.local&#x2F;share&#x2F;kio&#x2F;servicemenus&#x2F;mklink.desktop</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Desktop Entry]</span></span><br><span class="line"><span class="attr">Type</span>=Service</span><br><span class="line"><span class="attr">ServiceTypes</span>=KonqPopupMenu/Plugin</span><br><span class="line"><span class="attr">MimeType</span>=inode/directory<span class="comment">;application/octet-stream;</span></span><br><span class="line"><span class="attr">Actions</span>=RunMyScript</span><br><span class="line"></span><br><span class="line"><span class="section">[Desktop Action RunMyScript]</span></span><br><span class="line"><span class="attr">Name</span>=制作符号链接</span><br><span class="line"><span class="attr">Icon</span>=emblem-symbolic-link</span><br><span class="line"><span class="attr">Exec</span>=/home/rlj/scripts/mklink.sh <span class="string">&quot;%F&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>mklink.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line">NAME=$(<span class="built_in">basename</span> <span class="string">&quot;<span class="variable">$1</span>&quot;</span>)</span><br><span class="line"><span class="built_in">ln</span> -s <span class="string">&quot;<span class="variable">$NAME</span>&quot;</span> <span class="string">&quot;<span class="variable">$NAME</span>.lnk&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="haruna-视频播放器"><a href="#haruna-视频播放器" class="headerlink" title="haruna 视频播放器"></a>haruna 视频播放器</h3><p>haruna 是 mpv 播放器的前端，功能比较齐全</p>
+<p>存在的问题:</p>
+<ul>
+<li>视频播放器首次最大化窗口，总是跳到另一个屏幕<ul>
+<li>关闭另一个屏幕，关闭应用，再打开，再最大化，再重新打开屏幕</li>
+</ul>
+</li>
+<li>无法重命名文件<ul>
+<li>设置 flatpak 目录权限</li>
+</ul>
+</li>
+</ul>
+<h3 id="flatpak-使用"><a href="#flatpak-使用" class="headerlink" title="flatpak 使用"></a>flatpak 使用</h3><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 换源</span></span><br><span class="line">flatpak remote-modify flathub <span class="params">--url=https</span>:<span class="string">//mirrors.ustc.edu.cn/flathub</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 目录授权，解决应用无法编辑文件</span></span><br><span class="line">flatpak override <span class="params">--user</span> org.kde.haruna <span class="params">--filesystem=/share</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="挂载-SMB-共享支持-windows-符号链接"><a href="#挂载-SMB-共享支持-windows-符号链接" class="headerlink" title="挂载 SMB 共享支持 windows 符号链接"></a>挂载 SMB 共享支持 windows 符号链接</h3><p>支持原生符号链接（目录连接），双向操作都能同步</p>
+<p>步骤</p>
+<ul>
+<li><p>windows 允许符号链接<br>计算机配置 → 管理模板 → 系统 → 文件系统 → 启用 Win32 长路径<br>计算机配置 → windwows设置 → 安全设置 → 本地策略 → 用户权限分配 → 创建符号链接</p>
+</li>
+<li><p>samba 挂载选项<br>symlink&#x3D;native</p>
+</li>
+<li><p>链接时使用相对路径（两个系统绝对路径不一样）</p>
+</li>
+</ul>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="故障排查方法"><a href="#故障排查方法" class="headerlink" title="故障排查方法"></a>故障排查方法</h3><ol>
+<li>查看系统日志 journalctl -k -b0</li>
+<li>查看用户日志，比如应用崩溃 journalctl –user -b0</li>
+<li>用 AI 搜索相关问题，如果无法解决再尝试 google 搜索</li>
+</ol>
+<h3 id="edge-无法启动"><a href="#edge-无法启动" class="headerlink" title="edge 无法启动"></a>edge 无法启动</h3><p>edge 异常退出后，有概率无法启动</p>
+<p>报错</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Microsoft</span> Edge 进程似乎正在使用此用户配置。</span><br><span class="line">Microsoft Edge 已锁定此用户配置以防止损坏。如果你确定没有其他进程正在使用此用户配置，可以将其解锁并重新启动 Microsoft Edge。</span><br></pre></td></tr></table></figure>
+
+<p>处理方法，其他 chromium 内核浏览器可能也类似</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> ~/.config/microsoft-edge/SingletonLock</span><br></pre></td></tr></table></figure>
+
+<h3 id="steam-玩游戏卡住"><a href="#steam-玩游戏卡住" class="headerlink" title="steam 玩游戏卡住"></a>steam 玩游戏卡住</h3><p>dmesg 信息</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">7</span>月 <span class="number">27</span> <span class="number">10</span>:<span class="number">48</span>:<span class="number">59</span> neon kernel: x86/split lock detection: #AC: CPU <span class="number">0</span>/KVM/<span class="number">88279</span> took a split_lock trap at address: <span class="number">0</span>xfffff80104613be8</span><br><span class="line"><span class="attribute">7</span>月 <span class="number">27</span> <span class="number">10</span>:<span class="number">51</span>:<span class="number">00</span> neon kernel: x86/split lock detection: #AC: CPU <span class="number">2</span>/KVM/<span class="number">88281</span> took a split_lock trap at address: <span class="number">0</span>xfffff8010465701c</span><br><span class="line"><span class="attribute">7</span>月 <span class="number">27</span> <span class="number">10</span>:<span class="number">52</span>:<span class="number">51</span> neon kernel: x86/split lock detection: #AC: CHTTPClientThre/<span class="number">90929</span> took a split_lock trap at address: <span class="number">0</span>xf098fc4f</span><br><span class="line"><span class="attribute">7</span>月 <span class="number">27</span> <span class="number">10</span>:<span class="number">53</span>:<span class="number">07</span> neon kernel: x86/split lock detection: #AC: CPU <span class="number">1</span>/KVM/<span class="number">88280</span> took a split_lock trap at address: <span class="number">0</span>xfffff8010465701c</span><br></pre></td></tr></table></figure>
+
+<p>解决方法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑 /etc/default/grub</span></span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=<span class="string">&#x27;quiet splash split_lock_detect=off&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> update-grub</span><br></pre></td></tr></table></figure>
+
+<h3 id="迁移系统-修复引导"><a href="#迁移系统-修复引导" class="headerlink" title="迁移系统&amp;修复引导"></a>迁移系统&amp;修复引导</h3><ol>
+<li>进入 livecd，使用 Gparted 复制系统到新硬盘</li>
+<li>修改新硬盘分区的 &#x2F;etc&#x2F;fstab 的挂载点 uuid</li>
+<li>重建 grub 引导</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sdaX /mnt/</span><br><span class="line">mount /dev/sda0 /mnt/boot/efi</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;proc,dev/sys&#125;; <span class="keyword">do</span></span><br><span class="line">  mount --<span class="built_in">bind</span> /<span class="variable">$&#123;i&#125;</span> /mnt/<span class="variable">$&#123;i&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">chroot</span> /mnt grub-install --target=x86_64-efi --efi-directory=/boot/efi</span><br></pre></td></tr></table></figure>
+
+<h3 id="睡眠唤醒后很卡"><a href="#睡眠唤醒后很卡" class="headerlink" title="睡眠唤醒后很卡"></a>睡眠唤醒后很卡</h3><p>桌面很卡，cpu 频率上不来，只有 800mhz。<br>映泰主板兼容性问题，换主板解决</p>
+<h3 id="终端删除文件到回收站"><a href="#终端删除文件到回收站" class="headerlink" title="终端删除文件到回收站"></a>终端删除文件到回收站</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install trash-cli</span><br><span class="line"><span class="built_in">alias</span> <span class="built_in">rm</span>=trash</span><br></pre></td></tr></table></figure>
+
+<h3 id="electorn-应用无法启动"><a href="#electorn-应用无法启动" class="headerlink" title="electorn 应用无法启动"></a>electorn 应用无法启动</h3><p>报错 chrome sandbox 相关</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑 /etc/sysctl.conf 添加</span></span><br><span class="line">kernel.<span class="attribute">apparmor_restrict_unprivileged_userns</span>=0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生效</span></span><br><span class="line">sudo sysctl -p</span><br></pre></td></tr></table></figure>
+
+<h3 id="登录界面隐藏无关用户"><a href="#登录界面隐藏无关用户" class="headerlink" title="登录界面隐藏无关用户"></a>登录界面隐藏无关用户</h3><p>比如某些用于文件共享的用户</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改 /etc/sddm.conf</span></span><br><span class="line"><span class="section">[Autologin]</span></span><br><span class="line"><span class="attr">Session</span>=plasma</span><br><span class="line"></span><br><span class="line"><span class="section">[Users]</span></span><br><span class="line"><span class="attr">HideUsers</span>=data,data-r,data-s</span><br><span class="line"><span class="attr">HideShells</span>=/usr/sbin/nologin,/bin/<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="偶发硬件设备工作不正常"><a href="#偶发硬件设备工作不正常" class="headerlink" title="偶发硬件设备工作不正常"></a>偶发硬件设备工作不正常</h3><p>强制重启后或者系统崩溃后，如果设备不正常，可以尝试重启到 windows 再切回 linux</p>
+<h3 id="应用在启动器里找不到"><a href="#应用在启动器里找不到" class="headerlink" title="应用在启动器里找不到"></a>应用在启动器里找不到</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -f ~/.config/menus/</span><br><span class="line">kbuildsycoca6 --noincremental</span><br></pre></td></tr></table></figure>
+
+<h3 id="修复睡眠唤醒问题"><a href="#修复睡眠唤醒问题" class="headerlink" title="修复睡眠唤醒问题"></a>修复睡眠唤醒问题</h3><p>睡眠之后可能出现莫名奇妙的唤醒</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前唤醒触发器</span></span><br><span class="line"><span class="built_in">cat</span> /proc/acpi/wakeup | grep <span class="built_in">enable</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看触发器的设备路径</span></span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> /sys/class/wakeup/*/device/power/wakeup; <span class="keyword">do</span></span><br><span class="line">    dev=$(<span class="built_in">dirname</span> $(<span class="built_in">dirname</span> <span class="variable">$p</span>));</span><br><span class="line">    dev_path=$(<span class="built_in">realpath</span> <span class="variable">$dev</span>)</span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$&#123;dev_path&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接修改是 /proc/acpi/wakeup 是不生效的</span></span><br><span class="line"><span class="comment"># 设置具体设备的方式禁用 rtc 和 AWAC, 位置格式 $&#123;dev_path&#125;/power/wakeup</span></span><br><span class="line"><span class="comment"># 可以将禁用命令配置到 rc.local</span></span><br><span class="line"><span class="built_in">echo</span> disabled | <span class="built_in">tee</span> /sys/devices/platform/rtc_cmos/power/wakeup  <span class="comment"># rtc</span></span><br><span class="line"><span class="built_in">echo</span> disabled | <span class="built_in">tee</span> /sys/devices/platform/rtc_cmos/rtc/rtc0/alarmtimer.0.auto/power/wakeup <span class="comment"># rtc</span></span><br><span class="line"><span class="built_in">echo</span> disabled | <span class="built_in">tee</span> /sys/devices/platform/ACPI000E:00/power/wakeup  <span class="comment"># AWAC</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查是否生效</span></span><br><span class="line"><span class="built_in">cat</span> /proc/acpi/wakeup | grep <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="apt-设置代理"><a href="#apt-设置代理" class="headerlink" title="apt 设置代理"></a>apt 设置代理</h3><p>部分 apt ppa 源需要代理，但是国内的镜像源却不需要。<br>所以需要给每一个源单独设置代理的功能</p>
+<p>有两种设置方式</p>
+<ul>
+<li>白名单模式（只给需要的配置）</li>
+<li>黑名单模式（先设置默认代理， 不需要的设置直连）</li>
+</ul>
+<p>设置语法</p>
+<ul>
+<li>设置代理服务器：<code>Acquire::http::Proxy &lt;proxy-server&gt;</code></li>
+<li>设置某个域名的代理：<code>Acquire::http::proxy::&lt;domain&gt; &lt;proxy-server|DIRECT&gt;</code></li>
+</ul>
+<p>示例</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#  /etc/apt/apt.conf.d/<span class="number">99</span>proxy</span><br><span class="line"></span><br><span class="line"># 给每种协议的源设置代理，一般设置 https::Proxy 就行了</span><br><span class="line">#Acquire::http::Proxy <span class="string">&quot;http://yourproxyaddress:proxyport&quot;</span>;</span><br><span class="line">#Acquire::https::Proxy <span class="string">&quot;http://yourproxyaddress:proxyport&quot;</span>;</span><br><span class="line">#Acquire::ftp::Proxy <span class="string">&quot;http://yourproxyaddress:proxyport&quot;</span>;</span><br><span class="line">#Acquire::socks::Proxy <span class="string">&quot;http://yourproxyaddress:proxyport&quot;</span>;</span><br><span class="line"></span><br><span class="line"># 设置具体域名是否走代理</span><br><span class="line">#Acquire::http::proxy::local.mirror.address <span class="string">&quot;DIRECT&quot;</span>;</span><br><span class="line">#Acquire::http::proxy::HOST_NAME_TO_BE_PROXIED <span class="string">&quot;http://yourproxyaddress:proxyport&quot;</span></span><br><span class="line"></span><br><span class="line"># 黑名单模式示例</span><br><span class="line">Acquire::https::Proxy <span class="string">&quot;http://localhost:10808&quot;</span>;</span><br><span class="line">Acquire::https::Proxy::<span class="string">&quot;mirrors.aliyun.com&quot;</span> <span class="string">&quot;DIRECT&quot;</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="限制硬盘读写速度"><a href="#限制硬盘读写速度" class="headerlink" title="限制硬盘读写速度"></a>限制硬盘读写速度</h3><p>某些nvme硬盘的发热很严重, 如果全速运行会导致系统不稳定.<br>所以需要对硬盘速度进行限制</p>
+<p>使用 systemd 设置限速</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建配置目录</span></span><br><span class="line">sudo mkdir -p mkdir -p /etc/systemd/system/&#123;user,system&#125;.slice.d/</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置用户限制</span></span><br><span class="line">sudo tee /etc/systemd/system/user.slice.d/io-limit.conf  &gt; /dev/null &lt;&lt;EOF</span><br><span class="line">[Slice]</span><br><span class="line">IOReadBandwidthMax=/dev/nvme0n1 800M</span><br><span class="line">IOWriteBandwidthMax=/dev/nvme0n1 300M</span><br><span class="line">IOReadIOPSMax=/dev/nvme0n1 60000</span><br><span class="line">IOWriteIOPSMax=/dev/nvme0n1 30000</span><br><span class="line"></span><br><span class="line">EOF</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">系统也使用同样的限制</span></span><br><span class="line">sudo ln -sf /etc/systemd/system/user.slice.d/io-limit.conf \</span><br><span class="line">    /etc/systemd/system/system.slice.d/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>速度测试</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">~$ </span><span class="language-bash"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=testfile bs=1M count=2048 oflag=direct status=progress \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; <span class="built_in">rm</span>  testfile</span></span><br><span class="line">2099249152 bytes (2.1 GB, 2.0 GiB) copied, 7 s, 300 MB/s</span><br><span class="line">2048+0 records in</span><br><span class="line">2048+0 records out</span><br><span class="line">2147483648 bytes (2.1 GB, 2.0 GiB) copied, 7.16429 s, 300 MB/s</span><br></pre></td></tr></table></figure>
+
+<h3 id="archlinux-命令行不能使用回收站"><a href="#archlinux-命令行不能使用回收站" class="headerlink" title="archlinux 命令行不能使用回收站"></a>archlinux 命令行不能使用回收站</h3><p>安装 cachyos 时，trash-cli 不能使用，其他应用也不能删除文件到回收站</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S gvfs </span><br></pre></td></tr></table></figure>
+
+<h3 id="某些软件中输入法不可用"><a href="#某些软件中输入法不可用" class="headerlink" title="某些软件中输入法不可用"></a>某些软件中输入法不可用</h3><p>在使用 fcitx 输入法时，某些软件中无法唤起输入法，无法输入中文（如：微信）<br>通常是因为该程序默认加载了 ibus 模块，只要设置 <code>QT_IM_MODULE=fcitx</code> 环境变量就能解决问题。<br>为了不带来别的影响，仅修改 .desktop 启动文件就行。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.local/share/applications</span><br><span class="line"></span><br><span class="line">sed &#x27;s|Exec=/usr|Exec=env QT_IM_MODULE=fcitx /usr|&#x27; \</span><br><span class="line">/usr/share/applications/wechat.desktop &gt; ~/.local/share/applications/wechat.desktop</span><br></pre></td></tr></table></figure>
+
+<h3 id="WPS-每次登录自动启动"><a href="#WPS-每次登录自动启动" class="headerlink" title="WPS 每次登录自动启动"></a>WPS 每次登录自动启动</h3><p>WPS 安装后会在 <code>/etc/xdg/autostart/</code> 放置一个 <code>wps-office-autostart.desktop</code>，桌面环境每次登录都会扫描该目录并执行。它会启动 <code>wpsd</code> 守护进程，预加载 wps、wpp、et 三个组件（即”快速启动”功能）。</p>
+<p>这个机制跟 systemd 无关，所以禁用 systemd 服务不会生效。</p>
+<p>排查过程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 XDG 自启动项</span></span><br><span class="line"><span class="built_in">ls</span> /etc/xdg/autostart/ | grep wps</span><br><span class="line"><span class="comment"># wps-office-autostart.desktop</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看启动内容</span></span><br><span class="line"><span class="built_in">cat</span> /etc/xdg/autostart/wps-office-autostart.desktop</span><br><span class="line"><span class="comment"># Exec=/opt/apps/cn.wps.wps-office-pro/files/bin/quickstartoffice start</span></span><br></pre></td></tr></table></figure>
+
+<p>解决方法：在用户级别覆盖禁用（不影响其他用户，WPS 更新也不会覆盖）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/.config/autostart</span><br><span class="line"><span class="built_in">cp</span> /etc/xdg/autostart/wps-office-autostart.desktop ~/.config/autostart/</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hidden=true&quot;</span> &gt;&gt; ~/.config/autostart/wps-office-autostart.desktop</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Jay.Run
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.ponder.work/2025/12/22/linux-as-the-only/" title="配置 Linux 作为主力操作系统">https://blog.ponder.work/2025/12/22/linux-as-the-only/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/KDE/" rel="tag"># KDE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/05/28/pyautogui-in-linux-virtual-machine/" rel="prev" title="在 Linux 虚拟机中使用 PyAutoGUI 做自动化">
+                  <i class="fa fa-angle-left"></i> 在 Linux 虚拟机中使用 PyAutoGUI 做自动化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/01/02/hexo-upgrade-and-tech-debt/" rel="next" title="Hexo 版本更新与技术债务">
+                  Hexo 版本更新与技术债务 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Jay.Run</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">160k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">9:40</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/ruanimal" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"ruanimal/ruanimal.github.io","issue_term":"title","theme":"github-light"}</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/comments/utterances.min.js" defer></script>
+<script>
+  document.addEventListener('pjax:success', () => {
+    if (CONFIG.sidebar.display !== 'remove') {
+      const hasTOC = document.querySelector('.post-toc:not(.placeholder-toc)');
+
+      // 当没有 TOC 且侧边栏正在显示时，隐藏侧边栏
+      if (!hasTOC && document.body.classList.contains('sidebar-active')) {
+        window.dispatchEvent(new Event('sidebar:hide'));
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

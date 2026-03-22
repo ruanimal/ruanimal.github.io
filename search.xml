@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>技嘉GB-BRi5H-8250黑苹果安装指南</title>
-    <url>/2020/07/24/GB-BRi5H-8250-hackintosh-guide/</url>
+    <url>/2020/07/25/GB-BRi5H-8250-hackintosh-guide/</url>
     <content><![CDATA[<h2 id="硬件信息"><a href="#硬件信息" class="headerlink" title="硬件信息"></a>硬件信息</h2><h3 id="GB-BRi5H-8250-准系统"><a href="#GB-BRi5H-8250-准系统" class="headerlink" title="GB-BRi5H-8250 准系统"></a>GB-BRi5H-8250 准系统</h3><p><img data-src="https://image.ponder.work/mweb/2020-07-25-15955608894288.png"></p>
 <span id="more"></span>
 <p><img data-src="https://image.ponder.work/mweb/2020-07-25-15955609109238.png"><br><img data-src="https://image.ponder.work/mweb/2020-07-25-15955609232489.png"></p>
@@ -254,7 +254,7 @@
   </entry>
   <entry>
     <title>《Getting Things Done》读书笔记</title>
-    <url>/2020/05/01/Getting-things-done-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/05/02/Getting-things-done-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><em>本文为整理以前的读书笔记</em><br><em>老拖延症企图又又从这本书中获得救赎之道，然而这笔记也拖延了许久。</em></p>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Getting Things Done（GTD），是一种时间管理的方法，确切地说是事项管理的方法，通过GTD可以将所有事项管理起来，提高效率的同事，降低心智损耗，减少个人焦虑</p>
 <span id="more"></span>
@@ -304,7 +304,7 @@
   </entry>
   <entry>
     <title>Git 常用命令备忘录</title>
-    <url>/2016/01/21/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/</url>
+    <url>/2016/01/22/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/</url>
     <content><![CDATA[<h2 id="git-简介"><a href="#git-简介" class="headerlink" title="git 简介"></a>git 简介</h2><p>git是一个分散式版本控制软件，最初由林纳斯·托瓦兹（Linus Torvalds）創作，於2005年以GPL釋出。最初目的是为更好地管理Linux内核开发而设计。<br>初始版本由Linus大神在两个星期内写出来，之后基本一统文件版本控制的天下。</p>
 <h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p>工作区：就是你在电脑里能看到的目录。<br>暂存区：英文叫stage, 或index。一般存放在”git目录”下的index文件（.git&#x2F;index）中，所以我们把暂存区有时也叫作索引（index）。<br>版本库：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。<br>branch：分支，相当于不同的平行世界<br>remote：远程仓库<br>origin：默认的远程仓库名词<br>HEAD：一个指向当前版本号的指针</p>
 <span id="more"></span>
@@ -327,7 +327,7 @@
   </entry>
   <entry>
     <title>MySQL在django的应用与设置</title>
-    <url>/2015/09/10/MySQL%E5%9C%A8django%E7%9A%84%E5%BA%94%E7%94%A8/</url>
+    <url>/2015/09/11/MySQL%E5%9C%A8django%E7%9A%84%E5%BA%94%E7%94%A8/</url>
     <content><![CDATA[<h2 id="MySQL安装"><a href="#MySQL安装" class="headerlink" title="MySQL安装"></a>MySQL安装</h2><ul>
 <li>检查MySQL是否安装 sudo netstat -tap | grep mysql</li>
 <li>如果没有 sudo apt-get install mysql-server mysql-client</li>
@@ -375,7 +375,7 @@
   </entry>
   <entry>
     <title>Python2中UnicodeDecodeError的几种解决办法</title>
-    <url>/2016/04/16/Python%E4%B8%ADUnicodeDecodeError%E7%9A%84%E5%87%A0%E7%A7%8D%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+    <url>/2016/04/17/Python%E4%B8%ADUnicodeDecodeError%E7%9A%84%E5%87%A0%E7%A7%8D%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
     <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>由于在Python2中字符串有两种类型<code>str</code>和<code>unicode</code>，他们都是<code>basestring</code>的子类。</p>
 <p>str类型，即是ascii字符或者经过encode的unicode，一个字符占用1byte。ascii码是美国信息交换标准代码，主要用于显示现代英语和其他西欧语言，用一个字节储存一个字符，所以ascii字符最多只有256(2^8)个。</p>
 <p>而unicode包含了256个ascii码之外还包含其他各个国家的文字的编码，所以unicode的一个字符占用2个字节，这样理论上一共最多可以表示2^16（即65536）个字符，远大于256。</p>
@@ -405,7 +405,7 @@
   </entry>
   <entry>
     <title>Python中re模块的用法</title>
-    <url>/2016/05/08/Python%E4%B8%ADre%E6%A8%A1%E5%9D%97%E7%9A%84%E7%94%A8%E6%B3%95/</url>
+    <url>/2016/05/09/Python%E4%B8%ADre%E6%A8%A1%E5%9D%97%E7%9A%84%E7%94%A8%E6%B3%95/</url>
     <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>re是python中的正则表达式处理模块，本文是为了总结re模块的用法。</p>
 <p>至于正则表达式的写法可以看<a href="http://deerchao.net/tutorials/regex/regex.htm">正则表达式30分钟入门教程</a></p>
 <h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><h3 id="re-compile"><a href="#re-compile" class="headerlink" title="re.compile"></a>re.compile</h3><p><code>re.complie(pattern, flags=0)</code><br>把正则编译为<code>_sre.SRE_Pattern object</code>对象，在多次匹配的时候可提高运行效率。</p>
@@ -451,7 +451,7 @@
   </entry>
   <entry>
     <title>Python中的类变量与实例变量</title>
-    <url>/2016/05/10/Python%E4%B8%AD%E7%9A%84%E7%B1%BB%E5%8F%98%E9%87%8F%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%8F%98%E9%87%8F/</url>
+    <url>/2016/05/11/Python%E4%B8%AD%E7%9A%84%E7%B1%BB%E5%8F%98%E9%87%8F%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%8F%98%E9%87%8F/</url>
     <content><![CDATA[<p>　　对于初学者来说，python的类变量（也就是java中的静态变量）和实例变量（也就是属性）有一些很容易混淆的地方，同时对这些特性深入了解有助于理解python的面向对象思想。</p>
 <h2 id="类变量与实例变量区分"><a href="#类变量与实例变量区分" class="headerlink" title="类变量与实例变量区分"></a>类变量与实例变量区分</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">class</span> <span class="title class_">ClassA</span>(<span class="title class_ inherited__">object</span>):  <span class="comment"># 1</span></span><br><span class="line"><span class="meta">... </span>    num1 = <span class="number">1</span>  <span class="comment"># 类变量</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line"><span class="meta">... </span>        <span class="variable language_">self</span>.num2 = <span class="number">2</span>  <span class="comment"># 实例变量，或者说属性</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1 = ClassA()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ClassA.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 2</span></span><br><span class="line"><span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1 = <span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.num1 <span class="keyword">is</span> ClassA.num1  <span class="comment"># 3</span></span><br><span class="line"><span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.__class__.num1</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a1.__class__.num1 = <span class="number">4</span>  <span class="comment"># 4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ClassA.num1</span><br><span class="line"><span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a2 = ClassA()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a2.num1</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
 
@@ -481,7 +481,7 @@
   </entry>
   <entry>
     <title>Python项目中包的导入</title>
-    <url>/2016/04/25/Python%E5%8C%85%E5%AF%BC%E5%85%A5/</url>
+    <url>/2016/04/26/Python%E5%8C%85%E5%AF%BC%E5%85%A5/</url>
     <content><![CDATA[<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">taskman</span><br><span class="line">├── db<span class="selector-class">.sqlite3</span></span><br><span class="line">├── manage<span class="selector-class">.py</span></span><br><span class="line">├── task</span><br><span class="line">│   ├── __init__<span class="selector-class">.py</span></span><br><span class="line">│   ├── admin<span class="selector-class">.py</span></span><br><span class="line">│   ├── models<span class="selector-class">.py</span></span><br><span class="line">│   ├── urls<span class="selector-class">.py</span></span><br><span class="line">│   └── views<span class="selector-class">.py</span></span><br><span class="line">└── man</span><br><span class="line">    ├── __init__<span class="selector-class">.py</span> </span><br><span class="line">    ├── settings<span class="selector-class">.py</span> </span><br><span class="line">    ├── urls<span class="selector-class">.py</span> </span><br><span class="line">    └── wsgi<span class="selector-class">.py</span> </span><br></pre></td></tr></table></figure>
 
 <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>上面的例子是一个Django项目，Python包的导入都是相对于<code>主程序</code>来说的。</p>
@@ -563,7 +563,7 @@
   </entry>
   <entry>
     <title>【Chrome扩展】谷歌百度一键搜索修改版</title>
-    <url>/2015/11/25/%5BChrome%E6%89%A9%E5%B1%95%5D%20%E8%B0%B7%E6%AD%8C%E7%99%BE%E5%BA%A6%E4%B8%80%E9%94%AE%E6%90%9C%E7%B4%A2%E4%BF%AE%E6%94%B9%E7%89%88/</url>
+    <url>/2015/11/26/%5BChrome%E6%89%A9%E5%B1%95%5D%20%E8%B0%B7%E6%AD%8C%E7%99%BE%E5%BA%A6%E4%B8%80%E9%94%AE%E6%90%9C%E7%B4%A2%E4%BF%AE%E6%94%B9%E7%89%88/</url>
     <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>谷歌百度一键搜索， 在百度页面上搜谷歌，在谷歌的页面上搜索百度，无需切换，无需重新输入搜索词。</p>
 <p>详细描述：<br>虽然谷歌比较好用，结果也准确，但搜索中文这方面却也弱了点，百度还是有点用。谷歌百度一键搜索， 在谷歌的页面上搜索百度，在百度页面上搜谷歌，无需切换，无需重新输入搜索词。<br>目前支持http(s):&#x2F;&#x2F;<a href="http://www.baidu.com/">www.baidu.com</a>, http(s):&#x2F;&#x2F;<a href="http://www.google.com.hk/">www.google.com.hk</a>, http(s):&#x2F;&#x2F;<a href="http://www.google.com/">www.google.com</a></p>
 <p>创建：2015.11.25<br>作者：ponder.work<br>forked from: raywill&#x2F;BaiGoogleDu</p>
@@ -589,7 +589,7 @@
   </entry>
   <entry>
     <title>【软件】下载链接提取器</title>
-    <url>/2015/07/25/%5B%E8%BD%AF%E4%BB%B6%5D%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E6%8F%90%E5%8F%96%E5%99%A8/</url>
+    <url>/2015/07/26/%5B%E8%BD%AF%E4%BB%B6%5D%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E6%8F%90%E5%8F%96%E5%99%A8/</url>
     <content><![CDATA[<h2 id="软件简介"><a href="#软件简介" class="headerlink" title="软件简介"></a>软件简介</h2><p>提取文本中的电驴、磁力、迅雷、旋风、快车链接。也可作为一个简易的文本编辑器。<br>功能采用python和正则表达式实现，界面采用wxPython类库，并通过py2exe打包。</p>
 <h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><ol>
 <li>粘贴文本到程序窗口，或打开txt文件，或者打开网址。</li>
@@ -615,7 +615,7 @@
   </entry>
   <entry>
     <title>在 iOS 上访问安卓应用</title>
-    <url>/2025/04/26/access-android-apps-on-ios/</url>
+    <url>/2025/04/27/access-android-apps-on-ios/</url>
     <content><![CDATA[<p>有些应用在安卓上是独占的，iOS 上又没有比较好的替代品，而且 iOS 上没有能用安卓模拟器。<br>如果使用多个设备，维护的心智成本又高，被这个问题困扰了许久。</p>
 <p>最近碰巧了解了 <a href="https://github.com/Genymobile/scrcpy">scrcpy</a>, 用于远程控制安卓，终于解决了这个问题。</p>
 <span id="more"></span>
@@ -674,7 +674,7 @@
   </entry>
   <entry>
     <title>给 macOS 词典增加生词本功能</title>
-    <url>/2022/11/12/add-wordlist-for-macOS-dictionary/</url>
+    <url>/2022/11/13/add-wordlist-for-macOS-dictionary/</url>
     <content><![CDATA[<p>macOS 系统的自带词典应用非常强大，与其他应用整合很好，快捷取词很方便（command+control+d）。<br>但是美中不足的是缺少生词本功能，查了单词又很容易忘记，对语言学习者来说就有些不便了。</p>
 <p>经过本强迫症的探索，终于找到基于 Karabiner-Elements + Automator + Logseq 的完美生词本方案。<br>最后的效果是，快捷键取词的同时记录单词卡片到Logseq对应的笔记。</p>
 <span id="more"></span>
@@ -1083,7 +1083,7 @@
   </entry>
   <entry>
     <title>Bitmap 原理及实现</title>
-    <url>/2021/05/31/bitmap-python-edition/</url>
+    <url>/2021/06/01/bitmap-python-edition/</url>
     <content><![CDATA[<p>所谓的 Bitmap 其实就是二进制位数组，由于元素是二进制位，每一个元素只占用1个bit，十分节省内存空间。</p>
 <p>每一个bit有0、1两种状态，所以 Bitmap 适合应用于判断是否存在、桶排序（不含重复元素），具体来说可以用bitmap记录ip信息，实现布隆过滤器等等。</p>
 <span id="more"></span>
@@ -1172,7 +1172,7 @@
   </entry>
   <entry>
     <title>Python2 中 旧式类与property引发的bug</title>
-    <url>/2019/12/01/bug-in-python-old-style-class-and-property/</url>
+    <url>/2019/12/02/bug-in-python-old-style-class-and-property/</url>
     <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>话接上回，说是接手了一个82年的<del>拉菲</del>Python项目，这次又发现了一个新坑</p>
 <p>项目中用了一个上下文类，用于存储本次请求的一些数据，在开发过程中我想把这个上下文类dump成json，详细分析里面的数据，然而发现上下文类的行为不符合预期</p>
 <span id="more"></span>
@@ -1245,7 +1245,7 @@
   </entry>
   <entry>
     <title>centos开关机日志分析</title>
-    <url>/2016/06/22/centos%E5%BC%80%E5%85%B3%E6%9C%BA%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/</url>
+    <url>/2016/06/23/centos%E5%BC%80%E5%85%B3%E6%9C%BA%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>在工作中发现有获取linux具体开关机时间和类型的需求，可以通过分析<code>/var/log/wtmp</code>日志文件得到。<br>通过<code>last -x -F</code>可以将<code>/var/log/wtmp</code>输出以下格式。</p>
 <span id="more"></span>
 <figure class="highlight tap"><table><tr><td class="code"><pre><span class="line">root     pts/1        172.16.3.245     Sun Jun<span class="number"> 12 </span>10:14:47<span class="number"> 2016 </span>- Tue Jun<span class="number"> 14 </span>08:34:31<span class="number"> 2016 </span>(1+22:19)</span><br><span class="line">root     pts/0        172.16.3.245     Sun Jun<span class="number"> 12 </span>10:14:37<span class="number"> 2016 </span>- Tue Jun<span class="number"> 14 </span>08:34:25<span class="number"> 2016 </span>(1+22:19)</span><br><span class="line">root     ttyS0                         Sun Jun<span class="number"> 12 </span>10:14:24<span class="number"> 2016 </span>- down                     (5+03:49)</span><br><span class="line">runlevel (to lvl 3)   3.10.0           Sun Jun<span class="number"> 12 </span>10:14:17<span class="number"> 2016 </span>- Fri Jun<span class="number"> 17 </span>14:03:40<span class="number"> 2016 </span>(5+03:49)</span><br><span class="line">root     pts/1        172.16.3.145     Sun Jun<span class="number"> 12 </span>10:13:57<span class="number"> 2016 </span>- Sun Jun<span class="number"> 12 </span>10:13:57<span class="number"> 2016 </span> (00:00)</span><br><span class="line">reboot   system boot  3.10.0           Sun Jun<span class="number"> 12 </span>10:13:18<span class="number"> 2016 </span>- Fri Jun<span class="number"> 17 </span>14:03:40<span class="number"> 2016 </span>(5+03:50)</span><br><span class="line">shutdown system down  3.10.0           Sun Jun<span class="number"> 12 </span>10:12:51<span class="number"> 2016 </span>- Sun Jun<span class="number"> 12 </span>10:13:18<span class="number"> 2016 </span> (00:00)</span><br><span class="line">root     pts/1        172.16.3.145     Sun Jun<span class="number"> 12 </span>10:12:47<span class="number"> 2016 </span>- down                      (00:00)</span><br><span class="line">root     pts/20       172.16.3.211     Sun Jun<span class="number"> 12 </span>10:07:58<span class="number"> 2016 </span>- down                      (00:04)</span><br><span class="line">root     pts/19       172.16.3.119     Sun Jun<span class="number"> 12 </span>10:07:50<span class="number"> 2016 </span>- down                      (00:05)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">root     pts/3        172.16.3.145     Sun Jun<span class="number"> 12 </span>09:10:15<span class="number"> 2016 </span>- down                      (01:02)</span><br><span class="line">root     pts/2        172.16.3.145     Sun Jun<span class="number"> 12 </span>09:10:15<span class="number"> 2016 </span>- down                      (01:02)</span><br><span class="line">root     tty1                          Sun Jun<span class="number"> 12 </span>09:09:37<span class="number"> 2016 </span>- down                      (01:03)</span><br><span class="line">runlevel (to lvl 3)   3.10.0           Sun Jun<span class="number"> 12 </span>09:09:22<span class="number"> 2016 </span>- Sun Jun<span class="number"> 12 </span>10:12:51<span class="number"> 2016 </span> (01:03)</span><br><span class="line">root     pts/1        172.16.3.245     Sun Jun<span class="number"> 12 </span>09:09:10<span class="number"> 2016 </span>- Sun Jun<span class="number"> 12 </span>10:12:47<span class="number"> 2016 </span> (01:03)</span><br><span class="line">reboot   system boot  3.10.0           Sun Jun<span class="number"> 12 </span>09:07:24<span class="number"> 2016 </span>- Sun Jun<span class="number"> 12 </span>10:12:51<span class="number"> 2016 </span> (01:05)</span><br><span class="line">root     pts/14       172.16.3.211     Sun Jun<span class="number"> 12 </span>08:57:19<span class="number"> 2016 </span>- crash                     (00:10)</span><br><span class="line">root     pts/7        172.16.3.245     Sun Jun<span class="number"> 12 </span>08:52:13<span class="number"> 2016 </span>- crash                     (00:15)</span><br><span class="line">root     pts/11       172.16.3.245     Sun Jun<span class="number"> 12 </span>08:51:38<span class="number"> 2016 </span>- crash                     (00:15)</span><br><span class="line">root     pts/10       172.16.3.211     Sun Jun<span class="number"> 12 </span>08:46:06<span class="number"> 2016 </span>- crash                     (00:21)</span><br><span class="line">root     pts/9        172.16.3.30      Sun Jun<span class="number"> 12 </span>08:41:33<span class="number"> 2016 </span>- crash                     (00:25)</span><br></pre></td></tr></table></figure>
@@ -1311,7 +1311,7 @@
   </entry>
   <entry>
     <title>关闭子进程打开的文件描述符</title>
-    <url>/2022/08/30/close-subprocess-opened-fd/</url>
+    <url>/2022/08/31/close-subprocess-opened-fd/</url>
     <content><![CDATA[<p>我们在测试代码时，由于需要经常重启服务，经常会发现服务端口被占用。<br>一般kill掉后台进程就ok了，但是如果服务有启动一些常驻的后台程序，可能也会导致端口不能释放。</p>
 <p>在类UNIX系统中，一切被打开的文件、端口被抽象为文件描述符（file descriptor）<br>从python3.4开始，文件描述符默认是non-inheritable，也就是子进程不会共享文件描述符。</p>
 <span id="more"></span>
@@ -1346,7 +1346,7 @@
   </entry>
   <entry>
     <title>一致性哈希原理及实现</title>
-    <url>/2021/06/02/consistent-hashing/</url>
+    <url>/2021/06/03/consistent-hashing/</url>
     <content><![CDATA[<p>一致性哈希是一种特殊的哈希算法。在使用一致哈希算法后，哈希表槽位(slots)数的改变平均只需要对 K&#x2F;n 个key需要重新映射，其中K是key的数量，n是槽位数量。然而在传统的哈希表中，添加或删除一个槽位的几乎需要对所有关键字进行重新映射。</p>
 <p>谈到一致性哈希（Consistent hashing），就得先讲一下分布式存储。<br>比如我们有2000w条数据，一台机器存不下，那么我们可以把分成10份每份200w条存到10台机器上。<br>这样存储就不成问题，但是查询效率很低，查一条数据要每台机器都查一遍。<br>如果这些数据能够分类，每一类存到一台机器上，查询前先知道数据的类别，就可以直接定位到某台机器，效率就高了。</p>
 <span id="more"></span>
@@ -1386,7 +1386,7 @@
   </entry>
   <entry>
     <title>在Java环境中使用PMML执行xgboost模型</title>
-    <url>/2020/04/10/convent-xgboost-model-to-pmml-guide/</url>
+    <url>/2020/04/11/convent-xgboost-model-to-pmml-guide/</url>
     <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近有个需求, 在Java环境环境运行xgboost模型, 查询资料后发现PMML可以解决这个问题.</p>
 <p>PMML是数据挖掘的一种通用的规范，它用统一的XML格式来描述我们生成的机器学习模型。这样无论你的模型是sklearn,R还是Spark MLlib生成的，我们都可以将其转化为标准的XML格式来存储。当我们需要将这个PMML的模型用于部署的时候，可以使用目标环境的解析PMML模型的库来加载模型，并做预测。</p>
 <p>可以看出，要使用PMML，需要两步的工作:</p>
@@ -2066,7 +2066,7 @@
   </entry>
   <entry>
     <title>开发Python库并发布到PyPI指南</title>
-    <url>/2020/09/10/develop-python-library-and-upload-it-to-pypi-guide/</url>
+    <url>/2020/09/11/develop-python-library-and-upload-it-to-pypi-guide/</url>
     <content><![CDATA[<h2 id="PyPI"><a href="#PyPI" class="headerlink" title="PyPI"></a>PyPI</h2><p><a href="https://pypi.org/">PyPI</a>（英语：Python Package Index，简称PyPI）是一个用于存储Python写成的软件包的软件存储库，我们平时用pip安装的库就是来自于PyPI</p>
 <p>而且，通过PyPI我们可以把自己写的库代码分享给别人，这也是开源的乐趣之一。</p>
 <span id="more"></span>
@@ -2136,7 +2136,7 @@
   </entry>
   <entry>
     <title>Python2 与 Python3 区别</title>
-    <url>/2017/08/30/difference-between-python2-and-python3/</url>
+    <url>/2017/08/31/difference-between-python2-and-python3/</url>
     <content><![CDATA[<h2 id="速查表"><a href="#速查表" class="headerlink" title="速查表"></a>速查表</h2><p>Python2 vs Python3</p>
 <table>
 <thead>
@@ -2310,7 +2310,7 @@
   </entry>
   <entry>
     <title>django 登录后的跳转到之前的页面</title>
-    <url>/2015/11/25/django%20%E7%99%BB%E5%BD%95%E5%90%8E%E7%9A%84%E8%B7%B3%E8%BD%AC%E9%97%AE%E9%A2%98/</url>
+    <url>/2015/11/26/django%20%E7%99%BB%E5%BD%95%E5%90%8E%E7%9A%84%E8%B7%B3%E8%BD%AC%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在开发django网站时发现，用户登录后不能跳转到之前的页面，google了很多答案，讲得也不清楚。</p>
 <p>其实就是渲染登陆表单时，将原链接带到action参数里，view函数接收到参数后进行重定向。</p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="登录链接"><a href="#登录链接" class="headerlink" title="登录链接"></a>登录链接</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/account/login/?next=&#123;&#123;request.path&#125;&#125;&quot;</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -2334,7 +2334,7 @@
   </entry>
   <entry>
     <title>django-admin过滤foreignkey值</title>
-    <url>/2015/11/25/django-admin%E8%BF%87%E6%BB%A4foreignkey%E5%80%BC/</url>
+    <url>/2015/11/26/django-admin%E8%BF%87%E6%BB%A4foreignkey%E5%80%BC/</url>
     <content><![CDATA[<h2 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h2><p>在用django的admin进行管理的时候，对于指定的用户角色，不希望他看到特定状态的foreignkey，可以采用以下方案。</p>
 <p>当然，也可通过自定义form解决该问题。</p>
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FactoryOrderItemInline</span>(admin.TabularInline):</span><br><span class="line">    model = FactoryOrderItem</span><br><span class="line">    fields = (<span class="string">&#x27;order_item&#x27;</span>, <span class="string">&#x27;product_sn&#x27;</span>, <span class="string">&#x27;style&#x27;</span>, <span class="string">&#x27;size&#x27;</span>, <span class="string">&#x27;factory_sn&#x27;</span>, <span class="string">&#x27;price&#x27;</span>, <span class="string">&#x27;quantity&#x27;</span>, <span class="string">&#x27;amount&#x27;</span>)</span><br><span class="line">    extra = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">formfield_for_foreignkey</span>(<span class="params">self, db_field, request, **kwargs</span>):</span><br><span class="line">        <span class="keyword">if</span> db_field.name == <span class="string">&#x27;order_item&#x27;</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                parent_obj_id = request.resolver_match.args[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">except</span> IndexError: <span class="comment">#仅在新建状态过滤</span></span><br><span class="line">                kwargs[<span class="string">&#x27;queryset&#x27;</span>] = OrderItem.objects.<span class="built_in">filter</span>(order__status=<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>(FactoryOrderItemInline, <span class="variable language_">self</span>).formfield_for_foreignkey(db_field, request, **kwargs)</span><br></pre></td></tr></table></figure>]]></content>
@@ -2348,7 +2348,7 @@
   </entry>
   <entry>
     <title>Docker mtu 引发的加班血案</title>
-    <url>/2021/09/21/docker-mtu-issues/</url>
+    <url>/2021/09/22/docker-mtu-issues/</url>
     <content><![CDATA[<p>最近在搞 torch 的工程化，基于 brpc 和 libtorch，将两者编译在一起的过程也是坑深，容下次再表。</p>
 <p>为了简化部署，brpc 服务在 Docker 容器中运行。本地测试时功能一切正常，上到预发布环境时请求全部超时。</p>
 <p>由于业务代码，brpc，docker环境，机房都是新的，在排查问题的过程中简直一头雾水。（当然根本原因还是水平不足）</p>
@@ -2394,7 +2394,7 @@
   </entry>
   <entry>
     <title>Python2 中 enum 枚举库诡异行为探究</title>
-    <url>/2019/11/21/enum-lib-problem-in-python2/</url>
+    <url>/2019/11/22/enum-lib-problem-in-python2/</url>
     <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近接手了一个82年的<del>拉菲</del>Python项目，简直酸爽。<br>Python版本用的是2.7.5，里面用的第三方库各种老旧，潜藏了不少深坑。这次我们就先讲enum库的坑，其他有空再聊。</p>
 <p>enum是一个枚举类型的第三方库，在Python3.4以后就作为官方库存在了，<a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017595944503424">使用参考</a>。<br>所以如果用新版本的Python就不会存在这个问题了，版本老旧害死人啊。</p>
 <span id="more"></span>
@@ -2565,7 +2565,7 @@
   </entry>
   <entry>
     <title>gmtime 在多线程环境使用引发的 bug</title>
-    <url>/2021/04/15/gmtime-multi-thread-problem/</url>
+    <url>/2021/04/16/gmtime-multi-thread-problem/</url>
     <content><![CDATA[<p>话接<a href="/2021/03/25/xgboost-multi-thread-problem-debug-and-fix/">上文</a>，还是这个 C++ 模型服务，在并发请求的情况下，大概有0.01%的请求部分模型分数不对。定位这种问题，对一个Python程序员来说，真是苦手。还好，经过调整代码不断测试，最终完美解决了问题。</p>
 <span id="more"></span>
 
@@ -2603,7 +2603,7 @@
   </entry>
   <entry>
     <title>容器内进程优雅退出</title>
-    <url>/2022/07/10/gracefully-shutdown-container/</url>
+    <url>/2022/07/11/gracefully-shutdown-container/</url>
     <content><![CDATA[<p>在使用 docker 时，常常会碰到进程退出时资源清理的问题，比如保证当前请求处理完成，再退出程序。</p>
 <p>当执行 <code>docker stop xxx</code> 时，docker会向主进程（pid&#x3D;1）发送 <code>SIGTERM</code> 信号<br>如果在一定时间(默认为10s)内进程没有退出，会进一步发送 <code>SIGKILL</code> 直接杀死程序，该信号既不能被捕捉也不能被忽略。</p>
 <p>一般的web框架或者rpc框架都集成了 <code>SIGTERM</code> 信号处理程序， 一般不用担心优雅退出的问题。<br>但是如果你的容器内有多个程序（称为胖容器，一般不推荐），那么就需要做一些操作保证所有程序优雅退出。</p>
@@ -2693,7 +2693,7 @@
   </entry>
   <entry>
     <title>hexo 站内搜索内容不完全问题修复</title>
-    <url>/2021/10/11/hexo-local-search-not-complete-fix/</url>
+    <url>/2021/10/12/hexo-local-search-not-complete-fix/</url>
     <content><![CDATA[<p>在使用 Hexo 的站内搜索时，发现搜索的内容不全。单步调试发现xml解析不完整，有部分内容被截断了。</p>
 <p>在浏览器中打开<a href="/search.xml">&#x2F;search.xml</a>发现以下错误。显然xml中有非法字符，xml解析产生了错误。</p>
 <span id="more"></span>
@@ -2779,7 +2779,7 @@
   </entry>
   <entry>
     <title>HomeBrew 与无 root 权限 Linux 环境包管理</title>
-    <url>/2023/05/28/homebrew-as-non-root-package-manager/</url>
+    <url>/2023/05/29/homebrew-as-non-root-package-manager/</url>
     <content><![CDATA[<p>一些公用的 Linux 服务器，处于维护以及安全考虑，一般只会提供普通权限用户给使用者。<br>普通用户的权限满足日常使用是够了，但是难以配置自己的开发环境，安装一些自己需要的包。</p>
 <p>如果都从源码编译安装软件，依赖的维护过于复杂，初始编译工具链的版本可能也不满足需求，如 gcc 版本过低。<br>如果申请 sudo 权限或者请求更新系统或安装 docker，后期责任难以界定，运维和管理员一般也不会同意。</p>
 <p>所以，最优方案还是有需求的用户在个人目录维护自己的工具链和环境。下文方案为围绕 HomeBrew 构建。</p>
@@ -2817,7 +2817,7 @@
   </entry>
   <entry>
     <title>IEEE 754 与浮点数的二进制表示</title>
-    <url>/2020/08/03/ieee754-floating-point-representation/</url>
+    <url>/2020/08/04/ieee754-floating-point-representation/</url>
     <content><![CDATA[<p>在计算机科学中，浮点（英语：floating point，缩写为FP）是一种对于实数的近似值数值表现法, 类似于十进制的<a href="https://zh.wikipedia.org/wiki/%E7%A7%91%E5%AD%A6%E8%AE%B0%E6%95%B0%E6%B3%95">科学计数法</a>.</p>
 <span id="more"></span>
 <h2 id="科学记数法"><a href="#科学记数法" class="headerlink" title="科学记数法"></a>科学记数法</h2><p>在科学记数法中，一个数被写成一个”实数”与一个10的<code>n</code>次幂的积<br>$$\pm a \times 10 ^ n$$<br>其中：</p>
@@ -3075,7 +3075,7 @@
   </entry>
   <entry>
     <title>在WSL2中安装openmediavault(OMV)</title>
-    <url>/2021/01/02/install-openmediavault-in-WSL2/</url>
+    <url>/2021/01/03/install-openmediavault-in-WSL2/</url>
     <content><![CDATA[<p><strong>本方案存在不可解决的缺点，已被笔者放弃，请移步<a href="/2021/09/21/openmediavault-on-hyperv/">最新解决方案</a></strong></p>
 <p>NAS的文件系统一直是我比较纠结的一个点。NAS的系统基本上是基于Linux(Unix)，文件系统不是ntfs，数据迁移不方便，数据恢复工具也没那么全。</p>
 <p>WSL就完美解决了这个问题，用Linux提供服务，数据最终还是落在ntfs上，而且重要的是everything也能用上。</p>
@@ -3161,7 +3161,7 @@
   </entry>
   <entry>
     <title>IPython学习环境配置</title>
-    <url>/2020/07/18/ipython-learning-environment-config/</url>
+    <url>/2020/07/19/ipython-learning-environment-config/</url>
     <content><![CDATA[<h2 id="IPython简介"><a href="#IPython简介" class="headerlink" title="IPython简介"></a>IPython简介</h2><p>IPython项目起初是Fernando Pérez在2001年的一个用以加强和Python交互的子项目。在随后的16年中，它成为了Python数据栈最重要的工具之一。</p>
 <p>简单来说，我们可以把IPython当成一个学习Python语言、数据分析、机器学习的平台。</p>
 <span id="more"></span>
@@ -3290,7 +3290,7 @@
   </entry>
   <entry>
     <title>联想笔记本 BIOS 跳过检测强制降级</title>
-    <url>/2025/05/15/levono-bios-force-downgrade/</url>
+    <url>/2025/05/16/levono-bios-force-downgrade/</url>
     <content><![CDATA[<p>联想某些版本的 bios 似乎会禁止降级，即使打开 bios 设置里的允许降级选项，依然会提示 “this platform does not support IHISI interface” 的错误，导致降级失败。</p>
 <span id="more"></span>
 
@@ -3323,7 +3323,7 @@
   </entry>
   <entry>
     <title>缓存淘汰算法之LFU</title>
-    <url>/2021/06/23/lfu-cache/</url>
+    <url>/2021/06/24/lfu-cache/</url>
     <content><![CDATA[<p>Least Frequently Used (LFU) 是一种常见的缓存淘汰算法，译为“最近最不经常使用”，也就是将缓存中使用次数最少的数据淘汰掉。</p>
 <p>有两种常见的实现方法</p>
 <ul>
@@ -3359,7 +3359,7 @@
   </entry>
   <entry>
     <title>使用 iTerm2 管理 Tmux 会话</title>
-    <url>/2021/08/02/iterm2-tmux-integration/</url>
+    <url>/2021/08/03/iterm2-tmux-integration/</url>
     <content><![CDATA[<p>Tmux 是一个终端复用器（terminal multiplexer），非常有用，属于常用的开发工具。</p>
 <p>一个典型的例子就是，SSH 登录远程计算机，打开一个远程窗口执行命令。这时，网络突然断线，再次登录的时候，是找不回上一次执行的命令的。因为上一次 SSH 会话已经终止了，里面的进程也随之消失了。</p>
 <p>Tmux 可以维持和管理我们的远程终端会话，和服务断线重连后也不会丢失工作状态, 同时可以在一个终端连接中开启多个窗口（window）和窗格（pane）。</p>
@@ -3412,7 +3412,7 @@
   </entry>
   <entry>
     <title>xubuntu自动登录root账户</title>
-    <url>/2016/04/16/lightdm%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%95root%E8%B4%A6%E6%88%B7/</url>
+    <url>/2016/04/17/lightdm%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%95root%E8%B4%A6%E6%88%B7/</url>
     <content><![CDATA[<h2 id="设置root密码"><a href="#设置root密码" class="headerlink" title="设置root密码"></a>设置root密码</h2><p>运行 <code>sudo passwd</code><br>根据提示输入root帐户密码。</p>
 <h2 id="修改lightdm配置文件"><a href="#修改lightdm配置文件" class="headerlink" title="修改lightdm配置文件"></a>修改lightdm配置文件</h2><p>运行 <code>ls /usr/share/lightdm/lightdm.conf.d/ -al</code><br>-rw-r–r– 1 root root   72 12月  3 03:57 50-greeter-wrapper.conf<br>-rw-r–r– 1 root root   68 12月  3 03:57 50-guest-wrapper.conf<br>-rw-r–r– 1 root root   51 12月  3 03:57 50-xserver-command.conf<br>-rw-r–r– 1 root root  118  4月 16 17:08 <b>60-lightdm-gtk-greeter.conf</b></p>
 <p>就是greeter这个文件，不同的发行版可能名字不同。<br>运行 <code>sudo gedit /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf</code><br>改完以后是这样</p>
@@ -3431,7 +3431,7 @@
   </entry>
   <entry>
     <title>Lightgbm多线程卡死问题定位</title>
-    <url>/2020/01/25/lightgbm-hang-in-multi-thread/</url>
+    <url>/2020/01/26/lightgbm-hang-in-multi-thread/</url>
     <content><![CDATA[<h2 id="症状"><a href="#症状" class="headerlink" title="症状"></a>症状</h2><p>最近在开发的lightgbm树模型，发现服务在处理了一定量请求后会卡死，请求无响应。</p>
 <p><code>pstack</code>之后发现, 进程卡在libgomp.so这个动态库的函数中. 证实确实是卡死</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Thread 8 (Thread 0x7f8eb7900700 (LWP 1859)):</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">0  0x00007f8e9def4af1 <span class="keyword">in</span> ?? () from /usr/lib64/libgomp.so.1</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1  0x00007f8e9def23a0 <span class="keyword">in</span> ?? () from /usr/lib64/libgomp.so.1</span></span><br></pre></td></tr></table></figure>
@@ -3481,7 +3481,7 @@
   </entry>
   <entry>
     <title>配置 Linux 作为主力操作系统</title>
-    <url>/2025/12/21/linux-as-the-only/</url>
+    <url>/2025/12/22/linux-as-the-only/</url>
     <content><![CDATA[<p>这些年日常操作系统一直是 windows 和 macOS 交替使用，Linux 一般只作为服务器的操作系统。<br>然而，咖喱味的 Windows 11 （LTSC）用起来实在难受（平时只玩游戏，下载）<br>arm 的 macbook 虽然能效惊人，但是内存金子价格，软件也封闭（点名finder）和傲慢，实在受不了。<br>最后，还是转向 Linux，毕竟现在 wayland 基本堪用，国产软件也随着信创逐渐丰富了。</p>
 <span id="more"></span>
 
@@ -3856,7 +3856,7 @@
   </entry>
   <entry>
     <title>电影《活着》随感</title>
-    <url>/2017/03/12/movie-huozhe/</url>
+    <url>/2017/03/13/movie-huozhe/</url>
     <content><![CDATA[<p>　　几年前看过小说，情节都早已淡忘，回想起来只留着忧伤的感觉。偶然看到这电影，虽然情节与原著有些不同，但都让人百感交集。因为其实活着的故事就是父辈人的故事，里面的很多类似的事都听老一辈讲过。</p>
 <p>　　鲁迅曾说过，悲剧是把美好的东西撕碎给人看。人生，又何尝不是呢。活着的故事虽然与时代背景有些关系，小人物在其中很是无力，被历史的洪流裹挟着近乎无路可走。但是，看当今的世上，在我们的视野之外，也还有无数的悲剧在发生。当悲剧发生在别人身上时，那是新闻，那是故事；当发生在你身上时，你却无处述说。所以，我很少看新闻，特别是报道苦难的新闻，看多了会觉得悲伤而又无力。</p>
 <p>　　其实某个角度来说，社会一直都没有变过，也就是阶级。每个小镇上都龙二，也有富贵；只是后来他们的地位转换了。阶级就如同金字塔一般，每个人就其占有资源的多少处在不同的层级上，下层的人想往上爬，一切都是赤裸裸的丛林法则。每个人都在往上面看，羡慕上方的美好生活，有谁会往下看一眼，下面是一群穷困潦倒的富贵，如同蝼蚁，在苦苦挣扎。</p>
@@ -3869,7 +3869,7 @@
   </entry>
   <entry>
     <title>MySQL 自定义数据库路径</title>
-    <url>/2021/10/14/mysql-custom-location/</url>
+    <url>/2021/10/15/mysql-custom-location/</url>
     <content><![CDATA[<p><em>最近的一些文章是整理以前的笔记</em><br>MySQL 是最常用的数据，有时希望将数据库文件存放在自定义路径，或者在系统中启动多个 MySQL服务。</p>
 <span id="more"></span>
 <p>当然，如果条件允许，建议直接使用 docker </p>
@@ -3914,7 +3914,7 @@
   </entry>
   <entry>
     <title>Hyper-V 中安装 openmediavault(OMV) 实现完美 NAS 文件共享</title>
-    <url>/2021/09/21/openmediavault-on-hyperv/</url>
+    <url>/2021/09/22/openmediavault-on-hyperv/</url>
     <content><![CDATA[<p>一直在寻找适合自己的 NAS 存储方案，也做过一些尝试，可总有些不完美的点。</p>
 <p>最近终于找到一个接近完美的方案：<code>Hyper-V + NFS + openmediavault</code></p>
 <span id="more"></span>
@@ -4027,7 +4027,7 @@
   </entry>
   <entry>
     <title>linux添加回收站功能</title>
-    <url>/2016/06/12/linux%E6%B7%BB%E5%8A%A0%E5%9B%9E%E6%94%B6%E7%AB%99%E5%8A%9F%E8%83%BD/</url>
+    <url>/2016/06/13/linux%E6%B7%BB%E5%8A%A0%E5%9B%9E%E6%94%B6%E7%AB%99%E5%8A%9F%E8%83%BD/</url>
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在linux服务器上工作，常常和<code>rm</code>打交道，难免手滑删除了重要的东西。而且linux又没有回收站功能，一旦删错东西真是欲哭无泪。别问我为什么知道，说多了都是泪。<br><strong>主要思路是用<code>mv</code>命令代替<code>rm</code>，将要删除的东西移动到回收站目录。</strong></p>
 <h2 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h2><h3 id="新建删除到回收站脚本"><a href="#新建删除到回收站脚本" class="headerlink" title="新建删除到回收站脚本"></a>新建删除到回收站脚本</h3><p><code>mkdir ~/bin</code></p>
 <p><code>vim ~/bin/trash</code>  # 将下面的内容写入</p>
@@ -4044,7 +4044,7 @@
   </entry>
   <entry>
     <title>OpenWrt执行自定义CGI脚本</title>
-    <url>/2020/11/26/openwrt-run-custom-cgi-script/</url>
+    <url>/2020/11/27/openwrt-run-custom-cgi-script/</url>
     <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>我家里的路由器是矿渣newifi3, 刷了OpenWrt系统，可玩性还是非常强的。<br>而且路由器作为24小时在线的设备，很适合作为网络设备的控制中心，比如使用<a href="https://zh.wikipedia.org/wiki/%E7%B6%B2%E8%B7%AF%E5%96%9A%E9%86%92">WOL</a>唤醒其他设备。<br>之前就写过一个Python服务，用来控制其他设备的唤醒和睡眠。但是由于newifi3的rom空间十分有限，usb又十分不稳定，Python环境在路由器上还是太重了。<br>所以就想到了利用路由器默认的uhttpd网页服务器，自己编写CGI脚本来实现相应功能。</p>
 <span id="more"></span>
 
@@ -4085,7 +4085,7 @@
   </entry>
   <entry>
     <title>优雅地使用 Pizza Boy GBA 金手指</title>
-    <url>/2021/02/11/pizza-boy-gba-cheat/</url>
+    <url>/2021/02/12/pizza-boy-gba-cheat/</url>
     <content><![CDATA[<p>最近偶然又玩起了GBA游戏，瞬间又像是回到了儿时的时光。也碰到了许久以来的老问题，如何作弊，毕竟游戏里刷资源和练级实在是体力劳动，年龄大了毕竟肝不动了。</p>
 <p>先说一下，我现在玩GBA的平台是安卓的<code>Pizza Boy GBA</code>模拟器加游戏手柄，总体游戏体验感觉比GBA真机还好，毕竟现在的设备机能放在这，而且还有倍速播放相关功能。</p>
 <span id="more"></span>
@@ -4169,7 +4169,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>阻止 bilibili 网页自动关注</title>
-    <url>/2026/01/02/prevent-bilibili-auto-follow/</url>
+    <url>/2026/01/03/prevent-bilibili-auto-follow/</url>
     <content><![CDATA[<p>B 站非常逆天，只要你使用网页端看视频，点开首页推荐的视频，观看一定时长，就有概率会触发自动关注该 UP 主。<br>之前也有怀疑是某个浏览器插件的锅，但更换浏览器依然能够触发这个问题。</p>
 <blockquote>
 <p>后来发现疑似是 bilibili 默认绑定了按键 <code>G</code> 关注 UP，非常容易误触发。 </p>
@@ -4188,7 +4188,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>在 Linux 虚拟机中使用 PyAutoGUI 做自动化</title>
-    <url>/2025/05/27/pyautogui-in-linux-virtual-machine/</url>
+    <url>/2025/05/28/pyautogui-in-linux-virtual-machine/</url>
     <content><![CDATA[<p>PyAutoGUI 是 GUI 功能强大自动化方案，但 UI 程序的运行环境选择与配置也是一大难题。</p>
 <span id="more"></span>
 
@@ -4274,7 +4274,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>Python2迁移Python3指南</title>
-    <url>/2020/05/11/python-2to3-guide/</url>
+    <url>/2020/05/12/python-2to3-guide/</url>
     <content><![CDATA[<h2 id="前置要求"><a href="#前置要求" class="headerlink" title="前置要求"></a>前置要求</h2><ul>
 <li>了解Python3和Python2的区别，参考<a href="/2017/08/30/difference-between-python2-and-python3/">Python2和Python3区别</a>，<a href="https://github.com/wjo1212/PythonChinaMeetup2020/blob/master/PythonChinaMeetup-20200510-Python3%E6%96%B0%E7%89%B9%E6%80%A7%E4%BB%8B%E7%BB%8D.pdf">Python3新特性</a></li>
 <li>完备的测试用例</li>
@@ -4351,7 +4351,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>使用SWIG实现Python调用c++</title>
-    <url>/2020/08/05/python-connect-cpp-programs-with-SWIG/</url>
+    <url>/2020/08/06/python-connect-cpp-programs-with-SWIG/</url>
     <content><![CDATA[<p> <strong><a href="http://www.swig.org/">SWIG</a></strong> (Simplified Wrapper and Interface Generator) 是一个开源工具，用于让C&#x2F;C++的程序和库可以被其他语言调用。</p>
 <p>支持的非常多语言，有Lua, Perl, PHP, Python, R, Ruby, C#, Java, JavaScript, Go, Scheme 等。</p>
 <span id="more"></span>
@@ -4453,7 +4453,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>Python不完全指北</title>
-    <url>/2018/03/31/python-learning-guide/</url>
+    <url>/2018/04/01/python-learning-guide/</url>
     <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>从大学开始接触Python，到现在也差不多四年了，也算小有所成。期间也有很多人问我如何学习Python，也只是零散地回答，刚好最近要做个Python的分享，就将这一块东西整理一下。</p>
 <p><strong>本文作为Python学习的指路文章，是个人在Python学习过程中的经验总结。<br>阅读的时候不需要太细致，略读即可。<br>读完后，能够对Python学习的各方面有个大致的概念，在学习过程少踩一些坑，收获就很大了。</strong></p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Python（音：派森），是一种强类型的动态语言，由吉多·范罗苏姆 创造，第一版发布于 1991 年。</p>
@@ -4869,7 +4869,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>Python 循环变量泄露与延迟绑定</title>
-    <url>/2022/03/04/python-loop-variables-leak/</url>
+    <url>/2022/03/05/python-loop-variables-leak/</url>
     <content><![CDATA[<p>循环变量泄露与延迟绑定叠加在一起，会产生一些让人迷惑的结果。</p>
 <span id="more"></span>
 
@@ -4911,7 +4911,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>Python排序算法总结</title>
-    <url>/2016/01/20/python-sort-algorithms/</url>
+    <url>/2016/01/21/python-sort-algorithms/</url>
     <content><![CDATA[<h2 id="冒泡排序-BubbleSort"><a href="#冒泡排序-BubbleSort" class="headerlink" title="冒泡排序 BubbleSort"></a>冒泡排序 BubbleSort</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>遍历序列，比较两个元素，如果前面的大于后面的就交换两者的位置。其实称之为冒泡排序不如加沉底排序，因为每一轮比较，这一轮轮最大都会被排到序列末尾，其实沉底更为贴切。</p>
 <h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
 <li>遍历序列，比较序列的相邻元素，比较n-1次，如果前面的大于后面的就交换两者的位置。</li>
@@ -5207,7 +5207,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>使用line_profiler分析Python程序耗时情况</title>
-    <url>/2020/09/15/python-time-consuming-analysis-with-line_profiler/</url>
+    <url>/2020/09/16/python-time-consuming-analysis-with-line_profiler/</url>
     <content><![CDATA[<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近发生了一个服务故障，在一个同事对日志服务做了改动后，服务的耗时就变大了很多，数据大量积压。<br>通过观察监控报表，我们发现从他的改动上线后，服务器的CPU使用率大幅增加，基本处于满载状态。<br>粗略审查代码并没有发现问题，我们只能紧急回滚了服务，日志消费也恢复到正常状态了。<br>但是根本问题还没有找到，所以我请出了line_profiler来分析程序的具体耗时情况。</p>
 <p><a href="https://github.com/pyutils/line_profiler">line_profiler</a>是个代码耗时分析器，可以逐行分析代码的耗时情况。</p>
 <span id="more"></span>
@@ -5464,7 +5464,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>Python中yield语句的运行机制</title>
-    <url>/2016/04/16/python%E4%B8%ADyield%E8%AF%AD%E5%8F%A5%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/</url>
+    <url>/2016/04/17/python%E4%B8%ADyield%E8%AF%AD%E5%8F%A5%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/</url>
     <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>如果一个在函数中存在yield关键字，那么这个函数就构成了生成器。生成器是一个函数，它生成一个序列，以便在迭代中使用。<br>调用这个函数，并不会马上开始执行函数体中的代码，而是返回一个生成器对象，通过调用生成器对象的<code>next()</code>方法（python3中是<code>__netx__()</code>）执行函数。</p>
 <p>那么，具体的函数中语句的执行顺序是怎么样的呢？</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>(<span class="params">x=<span class="number">10</span></span>):</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;the beginning of function&#x27;</span></span><br><span class="line">    <span class="keyword">if</span> x &lt;= <span class="number">0</span> <span class="keyword">or</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(x, <span class="built_in">int</span>):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(x):</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&#x27;before yield&#x27;</span>, i</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&#x27;after yield&#x27;</span>, i</span><br><span class="line"></span><br><span class="line">gen = func(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;*&#x27;</span>*<span class="number">20</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;-&gt; yielding: %s&#x27;</span> % gen.<span class="built_in">next</span>()</span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;*&#x27;</span>*<span class="number">20</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;-&gt; yielding: %s&#x27;</span> % gen.<span class="built_in">next</span>()</span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;*&#x27;</span>*<span class="number">20</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;-&gt; yielding: %s&#x27;</span> % gen.<span class="built_in">next</span>()</span><br></pre></td></tr></table></figure>
@@ -5488,7 +5488,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>Python中的装饰器（decorator）</title>
-    <url>/2016/04/27/python%E4%B8%AD%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8/</url>
+    <url>/2016/04/28/python%E4%B8%AD%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8/</url>
     <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>顾名思义，所谓装饰器就是对原有的对象做一些装饰，也就是给已有的对象添加一些功能。</p>
 <p>假如我现在想在函数运行时输出一些信息</p>
 <h2 id="小学水平"><a href="#小学水平" class="headerlink" title="小学水平"></a>小学水平</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">running</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;`%s` is running...&#x27;</span> % func.__name__</span><br><span class="line">    <span class="keyword">return</span> func</span><br><span class="line">    </span><br><span class="line"><span class="meta">@running</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">my_sum</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;I cat&#x27;t sum right now!&quot;</span></span><br><span class="line">    </span><br><span class="line"><span class="built_in">print</span> my_sum()</span><br></pre></td></tr></table></figure>
@@ -5524,7 +5524,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>python包导入再谈</title>
-    <url>/2016/06/22/python%E5%8C%85%E5%AF%BC%E5%85%A5%E5%86%8D%E8%B0%88/</url>
+    <url>/2016/06/23/python%E5%8C%85%E5%AF%BC%E5%85%A5%E5%86%8D%E8%B0%88/</url>
     <content><![CDATA[<h2 id="python包导入机制"><a href="#python包导入机制" class="headerlink" title="python包导入机制"></a>python包导入机制</h2><p>包是指含有<code>__init__.py</code>的文件夹，模块就是一个.py文件。</p>
 <p><strong>python的包和模块是先查找<code>buil-in moudle</code>然后是<code>sys.path</code>这个list里的所有路径。</strong></p>
 <ul>
@@ -5574,7 +5574,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>python赋值语句小坑</title>
-    <url>/2016/01/10/python%E8%B5%8B%E5%80%BC%E8%AF%AD%E5%8F%A5%E5%B0%8F%E5%9D%91/</url>
+    <url>/2016/01/11/python%E8%B5%8B%E5%80%BC%E8%AF%AD%E5%8F%A5%E5%B0%8F%E5%9D%91/</url>
     <content><![CDATA[<p>说到python赋值语句，大家想必一个念头——so easy，不是<code>lz = &#39;dashabi&#39;</code>吗。<br>确实，easy是easy，里面却有个小坑，虽小，却不易发现。在代码量多的时候，就有点恶心了。</p>
 <p><strong>正常的语句是这样</strong></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa = <span class="string">u&#x27;这是一个坑&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>aa </span><br><span class="line"><span class="string">u&#x27;\u8fd9\u662f\u4e00\u4e2a\u5751&#x27;</span></span><br></pre></td></tr></table></figure>
@@ -5623,7 +5623,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>Redis主从复制机制</title>
-    <url>/2021/07/21/redis-master-slave/</url>
+    <url>/2021/07/22/redis-master-slave/</url>
     <content><![CDATA[<p>Redis作为内存型数据，为了高可用，必须有数据备份，这里采取主从的模式。<br>用户可以通过执行 SLAVEOF 命令或者设置 slaveof 选项，让一个服务器去复制 （replicate) 另一个服务器。</p>
 <span id="more"></span>
 <p>如果服务器 <code>127.0.0.1:12345</code> 向 <code>127.0.0.1:6379</code> 发送 <code>SLAVEOF 127.0.0.1 6379</code>, 则服务器（12345）将成为服务器（6379）的从服务器。</p>
@@ -5660,7 +5660,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>树莓派系统备份</title>
-    <url>/2020/10/31/raspi-system-backup/</url>
+    <url>/2020/11/01/raspi-system-backup/</url>
     <content><![CDATA[<p>在玩树莓派的过程中难免会碰到如何高效的备份系统的问题。</p>
 <p>由于树莓派用的是Linux系统，所以常见的有两种备份方式</p>
 <ol>
@@ -5770,7 +5770,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>Redis原理 —— SDS 简单动态字符串</title>
-    <url>/2021/05/07/redis-source-code-data-structure-sds/</url>
+    <url>/2021/05/08/redis-source-code-data-structure-sds/</url>
     <content><![CDATA[<p>Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种名为简单动态字符串SD S(simple dynamic string)的数据结构 ，并将SDS用作Redis的默认字符串表示。</p>
 <p>Redis内部所有字符串都由SDS来表示，其本质就是动态字节数组，和python的<code>bytearray</code>类似。</p>
 <span id="more"></span>
@@ -5802,7 +5802,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>Redis原理 —— ziplist 压缩列表</title>
-    <url>/2021/05/22/redis-source-code-data-structure-ziplist/</url>
+    <url>/2021/05/23/redis-source-code-data-structure-ziplist/</url>
     <content><![CDATA[<p>压缩列表(ziplist)是列表和哈希的底层实现之一，是为尽可能地节约内存而设计的特殊编码双端链表。 当一个列表只包含少量列表项，并且每个列表项要么就是小整数值，要么就是长度比较短的字符串，那么Redis就会使用压缩列表来做列表键的底层实现。</p>
 <p>压缩列表的优点是节省内存，缺点是插入元素的复杂度较高<code>平均O(N)最坏O(N^2)</code>, 但是在小数据量的情况下，这种复杂度也是可以接受的。</p>
 <span id="more"></span>
@@ -5928,7 +5928,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>Redis原理 —— zskiplist 跳跃表</title>
-    <url>/2021/04/20/redis-source-code-data-structure-zskiplist/</url>
+    <url>/2021/04/21/redis-source-code-data-structure-zskiplist/</url>
     <content><![CDATA[<p>跳跃表 （skiplist) 是一种有序数据结构，它通过在每个节点中维持多个指向其他节点的 指针，从而达到快速访问节点的目的。</p>
 <p>跳跃表优点</p>
 <ul>
@@ -5973,7 +5973,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>Redis持久化：RDB与AOF</title>
-    <url>/2021/07/20/redis-source-code-rdb-aof-persistence/</url>
+    <url>/2021/07/21/redis-source-code-rdb-aof-persistence/</url>
     <content><![CDATA[<p>Redis是内存型数据库，所有数据都存储在内存中。而内存是易失型存储，一旦进程退出所有数据都会丢失。</p>
 <p>所谓持久化，就是将Redis在内存中的数据库状态以某次格式保存到磁盘里面，避免数据意外丢失。</p>
 <p>Redis有两种持久化方式：RDB (Redis Database)、AOF (Append Only File)</p>
@@ -6063,7 +6063,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>雪花算法原理及实现</title>
-    <url>/2021/06/08/snowflake-python-edition/</url>
+    <url>/2021/06/09/snowflake-python-edition/</url>
     <content><![CDATA[<p>分布式系统中，全局唯一id的生成是个常见的问题。在互联网的业务系统中，涉及到各种各样的ID，如在支付系统中就会有支付ID、退款ID等。</p>
 <span id="more"></span>
 <h2 id="常见ID生成方案"><a href="#常见ID生成方案" class="headerlink" title="常见ID生成方案"></a>常见ID生成方案</h2><h3 id="UUID"><a href="#UUID" class="headerlink" title="UUID"></a>UUID</h3><p>算法的核心思想是结合机器的网卡、当地时间、一个随记数来生成UUID。</p>
@@ -6116,7 +6116,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>redroid “设备未获得play保护机制认证” 问题</title>
-    <url>/2025/05/07/redroid-google-play-login/</url>
+    <url>/2025/05/08/redroid-google-play-login/</url>
     <content><![CDATA[<p>使用 redroid 等安卓虚拟环境，可能会发现 google play 用不了的问题。<br>虽然系统集成了 gapps，但系统提示 “设备未获得play保护机制认证”，无法登录 play 商店。<br>可能的原因比较多，这里大概是因为虚拟机的型号没在google的数据库里。<br>解决方案就是，获取 GSF ID 注册到 Google。</p>
 <span id="more"></span>
 <p><img data-src="https://image.ponder.work/mweb/2025-05-08---17466861942743.jpg"></p>
@@ -6138,7 +6138,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>数独与回溯法</title>
-    <url>/2021/07/10/sodoku-and-backtracking/</url>
+    <url>/2021/07/11/sodoku-and-backtracking/</url>
     <content><![CDATA[<p>数独是一种数学逻辑游戏，游戏由9×9个格子组成，玩家需要根据格子提供的数字推理出其他格子的数字。游戏设计者会提供最少17个数字使得解答谜题只有一个答案。</p>
 <p>数独的解法需 遵循如下规则：</p>
 <ol>
@@ -6345,7 +6345,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>全新出发</title>
-    <url>/2019/09/19/start-again/</url>
+    <url>/2019/09/20/start-again/</url>
     <content><![CDATA[<p>博客荒废了许久，换个主题，又是一个新的开始。。。</p>
 ]]></content>
       <categories>
@@ -6354,7 +6354,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>SQLAlchemy Core 使用教程</title>
-    <url>/2019/10/28/the-guide-of-SQLAlchemy-core/</url>
+    <url>/2019/10/29/the-guide-of-SQLAlchemy-core/</url>
     <content><![CDATA[<p>SQLAlchemy core 是SQLAlchemy的核心部件，主要负责生成sql查询和具体的数据库操作，SQLAlchemy orm 就是构建在core之上的。</p>
 <p>在不需要对象映射的时候，使用core而不是orm，可以降低数据库操作成本，提高性能。</p>
 <h2 id="Table映射"><a href="#Table映射" class="headerlink" title="Table映射"></a>Table映射</h2><h3 id="创建数据库连接"><a href="#创建数据库连接" class="headerlink" title="创建数据库连接"></a>创建数据库连接</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine</span><br><span class="line">engine = create_engine(<span class="string">&#x27;sqlite:///test.sqlite3&#x27;</span>, echo=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
@@ -6388,7 +6388,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>SQLAlchemy ORM 使用教程</title>
-    <url>/2019/10/26/the-guide-of-SQLAlchemy-orm/</url>
+    <url>/2019/10/27/the-guide-of-SQLAlchemy-orm/</url>
     <content><![CDATA[<p>ORM是指对象关系映射（英语：Object Relational Mapping），是一种程序设计技术，是数据库记录和程序对象之间的映射关系。</p>
 <p>使用ORM可以简化数据库的操作，使数据操作更加面向对象，并且程序逻辑和具体数据库解耦。缺点是会有一定的性能损耗。</p>
 <p>Python中的ORM主要有Django ORM，SQLAlchemy, peewee； 其中Django ORM只能和Django框架一起使用，SQLAlchemy功能比较全，peewee较为轻量。</p>
@@ -6429,7 +6429,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>Windows Subsystem for Linux(WSL) 简单指引</title>
-    <url>/2017/01/08/the-guide-of-windows-subsystem-for-linux/</url>
+    <url>/2017/01/09/the-guide-of-windows-subsystem-for-linux/</url>
     <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>　　<code>Windows Subsystem for Linux</code>（简称WSL）是一个为在Windows 10上能够原生运行Linux二进制可执行文件（ELF格式）的兼容层。它是由微软与Canonical公司合作开发，目标是使纯正的Ubuntu 14.04 “Trusty Tahr”映像能下载和解压到用户的本地计算机，并且映像内的工具和实用工具能在此子系统上原生运行。<br>　　WSL提供了一个微软开发的Linux兼容内核接口（不包含Linux代码），来自Ubuntu的用户模式二进制文件在其上运行。</p>
 <p>　　此功能组件从Win10 Insider Preview build 14316开始可用，正式版是Win10 RedStone1才可用，并且只有64位系统才有此功能。我目前的系统是预览版Insider Preview build 14986，相比正式版Win10 RedStone1版本WSL功能会完善些，但系统就不稳定些了。建议大家还是用Win10 RedStone1吧</p>
 <p>　　WSL 的出现解决了很大程度上解决了Windows用户使用linux工具链的需求，同时也解决部分用户（比如我）在Linux与Windows之间切换的麻烦。</p>
@@ -6486,7 +6486,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>语言的力量</title>
-    <url>/2025/05/27/the-power-of-language/</url>
+    <url>/2025/05/28/the-power-of-language/</url>
     <content><![CDATA[<p>语言的力量远比想象的强大，某种程度上是有虚空造物的能力。</p>
 <span id="more"></span>
 <p>你可以凭空创造一个概念，并植入你的听众脑子，不论好还是坏。诈骗分子、PUA 大师、营销大师无不精通此等技艺。</p>
@@ -6503,7 +6503,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>ubuntu静态ip配置</title>
-    <url>/2016/04/16/ubuntu%E9%9D%99%E6%80%81ip%E9%85%8D%E7%BD%AE/</url>
+    <url>/2016/04/17/ubuntu%E9%9D%99%E6%80%81ip%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<p>以vmware虚拟机为例</p>
 <h2 id="设置IP"><a href="#设置IP" class="headerlink" title="设置IP"></a>设置IP</h2><p>运行 <code>sudo nano /etc/network/interfaces</code><br>将文件修改成如下：</p>
 <figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">auto</span> eth0  <span class="comment"># eth0是网卡名称，你的不一定是这个，可通过ifconfig查看</span></span><br><span class="line">iface eth0 inet static</span><br><span class="line">address <span class="number">192.168.157.129</span>   <span class="comment"># 地址</span></span><br><span class="line">gateway <span class="number">192.168.157.2</span>    <span class="comment"># 网关</span></span><br><span class="line">netmask <span class="number">255.255.255.0</span>   <span class="comment"># 掩码</span></span><br></pre></td></tr></table></figure>
@@ -6554,7 +6554,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>在 VSCode 中用 Rust 刷LeetCode</title>
-    <url>/2025/03/08/vscode-leetcode-rust/</url>
+    <url>/2025/03/09/vscode-leetcode-rust/</url>
     <content><![CDATA[<p>本文介绍在 VSCode 中配置和使用插件来高效地解决 LeetCode 问题，并使用 Rust 语言编写和测试代码。</p>
 <span id="more"></span>
 
@@ -6643,7 +6643,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>windows优秀软件推荐（多图注意流量）</title>
-    <url>/2016/07/31/windows%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/</url>
+    <url>/2016/08/01/windows%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/</url>
     <content><![CDATA[<p>本人结合自己使用的感受，推荐以下几十款软件给大家使用，覆盖了日常的大部分使用场景。<br>软件不追新，够用就好，因为软件随着不断更新过度开发的可能性是很大的。<br>资源大部分来自互联网，请知悉相关风险。</p>
 <p>部分分享已经失效，这里补一下: <a href="https://pan.baidu.com/s/1ehg5VNksD7u-eWm1KFmPSw">https://pan.baidu.com/s/1ehg5VNksD7u-eWm1KFmPSw</a><br><em>提取码: g2fx</em></p>
 <p><strong>善用佳软，节约时间，提高效率。</strong></p>
@@ -6735,7 +6735,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>xgboost C++线程安全问题定位与修复</title>
-    <url>/2021/03/25/xgboost-multi-thread-problem-debug-and-fix/</url>
+    <url>/2021/03/26/xgboost-multi-thread-problem-debug-and-fix/</url>
     <content><![CDATA[<p>公司的线上模型服务是基于<code>brpc + xgboost</code>实现的，而xgboost官方是不支持在多线程环境下使用的（1.2.0版本之前）</p>
 <p>这个模型服务已经有两年多了，显然当时用的版本是不支持多线程的，有位同事当时修改了xgboost的源码，解决了多线程的问题，在线上也稳定运行到现在。</p>
 <p>那么，问题来了。最近有个新需求，用到了xgboost的<code>pred_leaf</code>功能，然后就发现并发请求时<code>0.1%</code>的模型结果不对。</p>
@@ -6784,7 +6784,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《一九八四》读书笔记</title>
-    <url>/2015/10/17/%E3%80%8A%E4%B8%80%E4%B9%9D%E5%85%AB%E5%9B%9B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2015/10/18/%E3%80%8A%E4%B8%80%E4%B9%9D%E5%85%AB%E5%9B%9B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
 <li><p>简介：政治寓言，可惜在过往历史中已经能找到他的影子了，老大哥、真理部等梗的来源。说的是在1984年世界被三个国家瓜分，他们均高度集权，改变历史，改变语言（所谓新话）；建立健全的监控系统，控制人们的思想和行为。</p>
 </li>
@@ -6827,7 +6827,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《七十年代》读书笔记</title>
-    <url>/2016/08/17/%E3%80%8A%E4%B8%83%E5%8D%81%E5%B9%B4%E4%BB%A3%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2016/08/18/%E3%80%8A%E4%B8%83%E5%8D%81%E5%B9%B4%E4%BB%A3%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>作者：北岛、李陀</p>
 <p>最早识得北岛这个作家，是因为他的诗句，并为之倾倒。</p>
 <pre><code>卑鄙是卑鄙者的通行证，
@@ -6911,7 +6911,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《传习录》读书笔记</title>
-    <url>/2019/10/07/%E3%80%8A%E4%BC%A0%E4%B9%A0%E5%BD%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2019/10/08/%E3%80%8A%E4%BC%A0%E4%B9%A0%E5%BD%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img data-src="https://image.ponder.work/mweb/2019-10-09-15706298114022.jpg"></p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>《传习录》是阳明先生的问答语录和论学书信集。是一部儒家简明而有代表性的哲学著作。</p>
 <p>王阳明可贵的不是他的学说，而是他行动和思想一样地伟大，能够知行合一，这样三不朽是理所应当的。</p>
@@ -6978,7 +6978,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《冬吴相对论》读书笔记</title>
-    <url>/2019/12/16/%E3%80%8A%E5%86%AC%E5%90%B4%E7%9B%B8%E5%AF%B9%E8%AE%BA%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2019/12/17/%E3%80%8A%E5%86%AC%E5%90%B4%E7%9B%B8%E5%AF%B9%E8%AE%BA%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img data-src="https://image.ponder.work/mweb/2019-12-16-15765097203009.jpg"></p>
 <p><em>本文为整理以前的读书笔记</em></p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>《冬吴相对论》是一档商业脱口秀广播节目，节目由原凤凰卫视著名主持人梁冬与《21世纪商业评论》发行人吴伯凡共同主持。</p>
@@ -7043,7 +7043,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《十万小时天才理论》摘录</title>
-    <url>/2020/03/29/%E3%80%8A%E5%8D%81%E4%B8%87%E5%B0%8F%E6%97%B6%E5%A4%A9%E6%89%8D%E7%90%86%E8%AE%BA%E3%80%8B%E6%91%98%E5%BD%95/</url>
+    <url>/2020/03/30/%E3%80%8A%E5%8D%81%E4%B8%87%E5%B0%8F%E6%97%B6%E5%A4%A9%E6%89%8D%E7%90%86%E8%AE%BA%E3%80%8B%E6%91%98%E5%BD%95/</url>
     <content><![CDATA[<p><em>本文为整理以前的读书笔记</em></p>
 <p>精深练习：朝着既定目标挣扎前进，挑战自己的能力极限，不断放错，这让你更聪明</p>
 <p>设定一个稍微超过自己现有能力的目标，盲目受挫毫无帮助，实现目标才能突破原有水平。</p>
@@ -7139,7 +7139,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《变态心理学》摘录</title>
-    <url>/2020/03/21/%E3%80%8A%E5%8F%98%E6%80%81%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/</url>
+    <url>/2020/03/22/%E3%80%8A%E5%8F%98%E6%80%81%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/</url>
     <content><![CDATA[<p><em>补录，笔记太过久远，原文已然忘记。</em></p>
 <p>心理变态定义所遵循的标准：</p>
 <ul>
@@ -7170,7 +7170,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《可乐牛奶经济学3》摘录</title>
-    <url>/2020/03/29/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A63%E3%80%8B%E6%91%98%E5%BD%95/</url>
+    <url>/2020/03/30/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A63%E3%80%8B%E6%91%98%E5%BD%95/</url>
     <content><![CDATA[<p><em>本文为整理以前的读书笔记, 该书是通俗的经济学读物</em></p>
 <p>若奖励主要取决于绝对绩效，个人选择的确有极高效率，可是若奖励取决于相对绩效，看不见的手就会失效。</p>
 <p>负外部性：你收益的成本由别人承担（常使看不见的手失效）</p>
@@ -7196,7 +7196,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《可乐牛奶经济学》摘录</title>
-    <url>/2020/03/29/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/</url>
+    <url>/2020/03/30/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/</url>
     <content><![CDATA[<p><em>本文为整理以前的读书笔记, 该书是通俗的经济学读物</em></p>
 <p>“让钱花得物有所值”，只应该发生在交易之前</p>
 <p>只要边际收益大于边际成本，我们就应该提高进行此事的程度</p>
@@ -7238,7 +7238,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《国史大纲》读书笔记</title>
-    <url>/2019/11/27/%E3%80%8A%E5%9B%BD%E5%8F%B2%E5%A4%A7%E7%BA%B2%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2019/11/28/%E3%80%8A%E5%9B%BD%E5%8F%B2%E5%A4%A7%E7%BA%B2%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img data-src="https://image.ponder.work/mweb/2019-11-27-15748658640077.jpg"></p>
 <p><em>本文为整理以前的读书笔记</em></p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>国史大纲是钱穆先生大作，本是民国大学生的历史教科书。<br>所谓大纲者，不在完备，而是有提纲振领的作用。从中更是能体会到文化的精神，不是史料堆砌，不是无感情的上帝视角。</p>
@@ -7293,7 +7293,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《在华五十年》读书笔记</title>
-    <url>/2019/10/01/%E3%80%8A%E5%9C%A8%E5%8D%8E%E4%BA%94%E5%8D%81%E5%B9%B4%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2019/10/02/%E3%80%8A%E5%9C%A8%E5%8D%8E%E4%BA%94%E5%8D%81%E5%B9%B4%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img data-src="https://image.ponder.work/mweb/2019-10-02-15699994564737.jpg"></p>
 <p><em>本文为整理以前的读书笔记</em></p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>之前对于传教士无甚好感，觉得他们总是将自己的信仰推销给别人，然而信仰的好坏暂且不论，总归是要自由的。</p>
@@ -7341,7 +7341,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>读《在细雨中呼喊》感悟</title>
-    <url>/2019/09/22/%E3%80%8A%E5%9C%A8%E7%BB%86%E9%9B%A8%E4%B8%AD%E5%91%BC%E5%96%8A%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2019/09/23/%E3%80%8A%E5%9C%A8%E7%BB%86%E9%9B%A8%E4%B8%AD%E5%91%BC%E5%96%8A%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img data-src="https://image.ponder.work/mweb/15691588851421.jpg"></p>
 <p><em>本文为整理以前的读书笔记</em></p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>《在细雨中呼喊》是一本关于记忆的书，是余华发表于1991年的第一部长篇小说。</p>
@@ -7366,7 +7366,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《大话设计模式》读书笔记</title>
-    <url>/2016/06/21/%E3%80%8A%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2016/06/22/%E3%80%8A%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="面向对象基础"><a href="#面向对象基础" class="headerlink" title="面向对象基础"></a>面向对象基础</h2><ol>
 <li>类是对对象的抽象，抽象类是对类的抽象，接口是对行为的抽象。</li>
 <li>如果行为跨越不同类的对象，可使用接口；对于一些相似的类对象，用继承抽象类</li>
@@ -7416,7 +7416,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>房龙:《宽容》摘录</title>
-    <url>/2020/03/22/%E3%80%8A%E5%AE%BD%E5%AE%B9%E3%80%8B%E6%91%98%E5%BD%95/</url>
+    <url>/2020/03/23/%E3%80%8A%E5%AE%BD%E5%AE%B9%E3%80%8B%E6%91%98%E5%BD%95/</url>
     <content><![CDATA[<p><em>补录，笔记太过久远，原文已然忘记。</em></p>
 <p>泰勒斯: 世间万物来源于水</p>
 <p>苏格拉底: 把大量的时间用在空洞的欢乐和虚无的胜利上使年华虚度, 这样的生活毫无意义; 为了满足自己小心的虚荣心和野心而肆意挥霍上帝赐予的一切.</p>
@@ -7436,7 +7436,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《少有人走的路》读书笔记</title>
-    <url>/2020/03/29/%E3%80%8A%E5%B0%91%E6%9C%89%E4%BA%BA%E8%B5%B0%E7%9A%84%E8%B7%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/03/30/%E3%80%8A%E5%B0%91%E6%9C%89%E4%BA%BA%E8%B5%B0%E7%9A%84%E8%B7%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><em>本文为整理以前的读书笔记</em></p>
 <p>放弃人生的某些东西，一定会给心灵带来痛苦。</p>
 <p>从生理上决定了人是目光短浅的，因为离你最近的东西看起来总是比较大。</p>
@@ -7520,7 +7520,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《怪诞行为学2》读书笔记</title>
-    <url>/2020/04/10/%E3%80%8A%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A62%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/04/11/%E3%80%8A%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A62%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><em>本文为整理以前的读书笔记</em><br><em>本书解析一系列不合常理的行为, 分析背后的原因. 难度较小, 属于入门读物</em></p>
 <p>发放高额奖金对简单机械操作类工作可以提高成绩, 如果需要动脑, 则适得其反.</p>
 <!--薪水与工作成果哪个更重要?-->
@@ -7583,7 +7583,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《意志力：受益一生的潜能开发工具》读书笔记</title>
-    <url>/2020/04/24/%E3%80%8A%E6%84%8F%E5%BF%97%E5%8A%9B%EF%BC%9A%E5%8F%97%E7%9B%8A%E4%B8%80%E7%94%9F%E7%9A%84%E6%BD%9C%E8%83%BD%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/04/25/%E3%80%8A%E6%84%8F%E5%BF%97%E5%8A%9B%EF%BC%9A%E5%8F%97%E7%9B%8A%E4%B8%80%E7%94%9F%E7%9A%84%E6%BD%9C%E8%83%BD%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><em>本文为整理以前的读书笔记</em><br><em>老拖延症又企图从这本书中获得救赎之道，然而这笔记也拖延了许久。</em></p>
 <p>意志力训练的关键：专注于目标，合乎道德。</p>
 <p>意志力需要渐渐积累的</p>
@@ -7616,7 +7616,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《意志力：关于专注、自控与效率的心理学》读书笔记</title>
-    <url>/2020/04/23/%E3%80%8A%E6%84%8F%E5%BF%97%E5%8A%9B%EF%BC%9A%E5%85%B3%E4%BA%8E%E4%B8%93%E6%B3%A8%E3%80%81%E8%87%AA%E6%8E%A7%E4%B8%8E%E6%95%88%E7%8E%87%E7%9A%84%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/04/24/%E3%80%8A%E6%84%8F%E5%BF%97%E5%8A%9B%EF%BC%9A%E5%85%B3%E4%BA%8E%E4%B8%93%E6%B3%A8%E3%80%81%E8%87%AA%E6%8E%A7%E4%B8%8E%E6%95%88%E7%8E%87%E7%9A%84%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><em>本文为整理以前的读书笔记</em><br><em>老拖延症企图从这本书中获得救赎之道，然而这笔记也拖延了许久。总体来说理论是很有道理的。</em></p>
 <p>人们醒着的时候，把大约1&#x2F;4的时间用来抵制欲望，每天至少4个小时。首先是食欲，其次睡欲，休闲欲，性欲，交往欲。</p>
 <p>平均而言，用意志力抵制欲望，10次当中只有5次是成果的。</p>
@@ -7695,7 +7695,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《我们台湾这些年》读书笔记</title>
-    <url>/2019/12/01/%E3%80%8A%E6%88%91%E4%BB%AC%E5%8F%B0%E6%B9%BE%E8%BF%99%E4%BA%9B%E5%B9%B4%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2019/12/02/%E3%80%8A%E6%88%91%E4%BB%AC%E5%8F%B0%E6%B9%BE%E8%BF%99%E4%BA%9B%E5%B9%B4%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img data-src="https://image.ponder.work/mweb/2019-12-01-15752068894466.jpg"></p>
 <p><em>本文为整理以前的读书笔记</em></p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>历史到底是什么样子的？很难确定。</p>
@@ -7812,7 +7812,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《浮生六记》笔记</title>
-    <url>/2019/11/02/%E3%80%8A%E6%B5%AE%E7%94%9F%E5%85%AD%E8%AE%B0%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2019/11/03/%E3%80%8A%E6%B5%AE%E7%94%9F%E5%85%AD%E8%AE%B0%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img data-src="https://image.ponder.work/mweb/2019-12-07-15756871927995.jpg?300x"></p>
 <p>浮生六记算是沈复的自传吧，其人才情虽好，德行却是没什么称道的地方。当然他前半生神仙眷侣般的生活，也不知惹多少人羡慕，红袖添香夜读书大概就是如此吧。</p>
 <p>名为六记，只余其四，也是人生一大憾事</p>
@@ -7877,7 +7877,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《燃灯者》摘录</title>
-    <url>/2020/03/21/%E3%80%8A%E7%87%83%E7%81%AF%E8%80%85%E3%80%8B%E6%91%98%E5%BD%95/</url>
+    <url>/2020/03/22/%E3%80%8A%E7%87%83%E7%81%AF%E8%80%85%E3%80%8B%E6%91%98%E5%BD%95/</url>
     <content><![CDATA[<p><em>补录，笔记太过久远，原文已然忘记。《维摩诘经》有云，无尽灯者，譬如一灯燃百千灯，冥者皆明，明终不尽。所谓燃灯者，大抵如此</em></p>
 <p>文革十年甚于崖山者百倍</p>
 <p>视其平居无以异于俗人，临大节而不可夺，此不俗人也</p>
@@ -7893,7 +7893,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《潜规则》读书笔记</title>
-    <url>/2019/12/06/%E3%80%8A%E6%BD%9C%E8%A7%84%E5%88%99%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2019/12/07/%E3%80%8A%E6%BD%9C%E8%A7%84%E5%88%99%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img data-src="https://image.ponder.work/mweb/2019-12-07-15756868332950.jpg?300x"></p>
 <p><em>本文为整理以前的读书笔记</em></p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>潜规则应该是对三观冲击最大的书之一，也是作者在读遍历史的总结。对于政权的更迭，剖析其原因，以及背后的潜规则。</p>
@@ -7945,7 +7945,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《狂热分子》笔记</title>
-    <url>/2016/08/28/%E3%80%8A%E7%8B%82%E7%83%AD%E5%88%86%E5%AD%90%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2016/08/29/%E3%80%8A%E7%8B%82%E7%83%AD%E5%88%86%E5%AD%90%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>作者，埃里克·霍弗。本书主要讲述处于群众运动中的个体的心理状态。作者亲身参与过群众运动，发现这些运动的参与者主要是现实生活的失意者。他们抛弃自己本已无可救药的生活，投身于“神圣的”群众运动，化身为伟大集体的一份子，号召自我牺牲以获救赎。阅读本书或许会对中国的革命年代多一些不一样的理解。</p>
 <h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>愈做不好一般事情是人愈的胆大妄为。</p>
 <p>希望并不是生命可以寄托的东西。</p>
@@ -8004,7 +8004,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《社会契约论》读书笔记</title>
-    <url>/2015/09/29/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%A5%91%E7%BA%A6%E8%AE%BA%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2015/09/30/%E3%80%8A%E7%A4%BE%E4%BC%9A%E5%A5%91%E7%BA%A6%E8%AE%BA%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
 <li>作者：卢梭</li>
 <li>主要谈论国家最初是凭借什么组织起来的，以及社会公约与公民自由之间的关系。</li>
@@ -8146,7 +8146,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《程序员的数学》读书笔记</title>
-    <url>/2016/08/14/%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2016/08/15/%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>本书讲的的是一些程序员必须了解的数学知识，有些知识点挺有意义的，特别是对于非科班出身的程序员来说。<br>就我的观点来说，一般的程序员需要的数学水平大概是高中就够了，当然要做算法研究大学数学专业水平也不一定够。<br>下文记录本书一些有用知识点，包括一些算法的数学思路，还有有趣的逻辑问题。</p>
 <span id="more"></span>
 <h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><p>对于一个问题的分析要注意每种情况的排他性和全体的完整性，也就是不能遗漏也不能重复。</p>
@@ -8225,7 +8225,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《自我实现的人》读书笔记</title>
-    <url>/2020/04/19/%E3%80%8A%E8%87%AA%E6%88%91%E5%AE%9E%E7%8E%B0%E7%9A%84%E4%BA%BA%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/04/20/%E3%80%8A%E8%87%AA%E6%88%91%E5%AE%9E%E7%8E%B0%E7%9A%84%E4%BA%BA%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><em>本文为整理以前的读书笔记</em></p>
 <p>自我实现：充分利用和开发天资，能力，潜能。较少地受愿望、欲望、焦虑、恐惧的影响；或较少地受性格决定的乐观或悲观倾向的影响，对未来的预测更加准确。</p>
 <p>自我实现者更倾向于领悟实际的存在而不是他们所属文化群的愿望、恐惧以及理论或信仰。</p>
@@ -8287,7 +8287,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《血酬定律》读书笔记</title>
-    <url>/2020/03/28/%E3%80%8A%E8%A1%80%E9%85%AC%E5%AE%9A%E5%BE%8B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/03/29/%E3%80%8A%E8%A1%80%E9%85%AC%E5%AE%9A%E5%BE%8B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img data-src="https://image.ponder.work/mweb/2020-03-29-15854093269717.jpg"></p>
 <p><em>本文为整理以前的读书笔记</em></p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>所谓血酬，即流血拼命所得的酬报，体现着生命与生存资源的交换关系。从晚清到民国，吃这碗饭的人比产业工人多得多。血酬的价值，取决于所拼抢的东西，这就是“血酬定律”。</p>
@@ -8327,7 +8327,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《超越自卑》读书笔记</title>
-    <url>/2015/09/30/%E3%80%8A%E8%B6%85%E8%B6%8A%E8%87%AA%E5%8D%91%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2015/10/01/%E3%80%8A%E8%B6%85%E8%B6%8A%E8%87%AA%E5%8D%91%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img data-src="https://image.ponder.work/mweb/2019-12-07-15757289828316.jpg"></p>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
 <li>作者：A·阿德勒</li>
@@ -8455,7 +8455,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《通往奴役之路》读书笔记</title>
-    <url>/2019/12/20/%E3%80%8A%E9%80%9A%E5%BE%80%E5%A5%B4%E5%BD%B9%E4%B9%8B%E8%B7%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2019/12/21/%E3%80%8A%E9%80%9A%E5%BE%80%E5%A5%B4%E5%BD%B9%E4%B9%8B%E8%B7%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><em>本文为整理以前的读书笔记</em></p>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>这本书应该是对三观冲击最大的一本，在大学时第一次读，先是震惊，再是愤怒，然后是害怕。</p>
 <p>当然现在看来，又有一些不一样的见解。一直自认为，思维深刻，三观稳定，然而也不可避免地被各种书籍媒体塑造。</p>
@@ -8505,7 +8505,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《道德箴言录》读书笔记</title>
-    <url>/2019/12/14/%E3%80%8A%E9%81%93%E5%BE%B7%E7%AE%B4%E8%A8%80%E5%BD%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2019/12/15/%E3%80%8A%E9%81%93%E5%BE%B7%E7%AE%B4%E8%A8%80%E5%BD%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><img data-src="https://image.ponder.work/mweb/2019-12-15-15763936994979.jpg"></p>
 <p><em>本文为整理以前的读书笔记</em></p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>书如其名，是作者对与道德或者说真理的思索，内容多的短小的片段。</p>
@@ -8603,7 +8603,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《超脱烦恼的练习》笔记</title>
-    <url>/2016/06/05/%E3%80%8A%E8%B6%85%E8%84%B1%E7%83%A6%E6%81%BC%E7%9A%84%E7%BB%83%E4%B9%A0%E3%80%8B/</url>
+    <url>/2016/06/06/%E3%80%8A%E8%B6%85%E8%84%B1%E7%83%A6%E6%81%BC%E7%9A%84%E7%BB%83%E4%B9%A0%E3%80%8B/</url>
     <content><![CDATA[<p><strong>四念处观</strong></p>
 <ol>
 <li>身体的观察——身随念处</li>
@@ -8673,7 +8673,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>一些句子</title>
-    <url>/2016/10/22/%E4%B8%80%E4%BA%9B%E5%8F%A5%E5%AD%90/</url>
+    <url>/2016/10/23/%E4%B8%80%E4%BA%9B%E5%8F%A5%E5%AD%90/</url>
     <content><![CDATA[<p>如果你不抱怨呢，你会感受到巨大的心理压力。压力有时并不是个坏东西，是的，它也许会让你感觉不舒服，但同时也是促使你进行改变的力量。</p>
 <p>一旦压力减轻，人就容易维持现状。然而，如果压力没有在抱怨中流失，它就会推积起来，到达一个极限，迫使你采取行动变现状。</p>
 <blockquote>
@@ -8738,7 +8738,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>事物组织的本质</title>
-    <url>/2015/09/29/%E4%BA%8B%E7%89%A9%E7%BB%84%E7%BB%87%E7%9A%84%E6%9C%AC%E8%B4%A8/</url>
+    <url>/2015/09/30/%E4%BA%8B%E7%89%A9%E7%BB%84%E7%BB%87%E7%9A%84%E6%9C%AC%E8%B4%A8/</url>
     <content><![CDATA[<h2 id="万物如何组织"><a href="#万物如何组织" class="headerlink" title="万物如何组织"></a>万物如何组织</h2><p><strong>区分</strong>与<strong>联系</strong>。 </p>
 <ul>
 <li><p>所谓区分也就是一事物仅仅是它本身而不被认为是他物，有了区分才有了物与无之间的界线，没有和其他的“区分”就可以说该事物就不能存在。</p>
@@ -8768,7 +8768,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>使用git的hooks自动同步代码</title>
-    <url>/2016/04/16/%E4%BD%BF%E7%94%A8git%E7%9A%84hooks%E8%87%AA%E5%8A%A8%E5%90%8C%E6%AD%A5%E4%BB%A3%E7%A0%81/</url>
+    <url>/2016/04/17/%E4%BD%BF%E7%94%A8git%E7%9A%84hooks%E8%87%AA%E5%8A%A8%E5%90%8C%E6%AD%A5%E4%BB%A3%E7%A0%81/</url>
     <content><![CDATA[<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>由于最近做Python的linux服务器脚本，经常要同步代码到测试服务器，又不想直接ssh登录到服务器，所以萌生了用git自动同步代码的想法。<br>具体的要求是：测试机是服务器，需要本地一push代码，测试机能实时更新。<br>查阅相关资料发现可以用git的hooks来实现。</p>
 <span id="more"></span>
 
@@ -8843,7 +8843,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>关于生活</title>
-    <url>/2016/05/22/%E5%85%B3%E4%BA%8E%E7%94%9F%E6%B4%BB/</url>
+    <url>/2016/05/23/%E5%85%B3%E4%BA%8E%E7%94%9F%E6%B4%BB/</url>
     <content><![CDATA[<p>　　有些人以为生活只有诗与远方，后来他离开了生活。<br>　　<br>　　有些人以为生活只是眼前的苟且，后来他失去了自我。</p>
 <p>　　人生在世，无论理想如何远大，终须为稻粱谋。陶渊明不为五斗米折腰，前提没这点俸禄也不至于饿死。若是形式迫人，虽嗟来之食亦受之。一旦不为生计发愁，迎接你的必是诗与远方。故我先欲求之财务自由，后践吾心之所向。</p>
 <p>　　不够强大的理想主义者，一大部分矮化成了现实主义者，另一部分成了随波逐流的躯壳，余下的抛弃了这个娑婆世界。<br>　　<br>　　而我，先欲求安身立命之所，后追寻最初的梦想，希望能走得更远。</p>
@@ -8876,7 +8876,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>图书馆见闻</title>
-    <url>/2016/05/08/%E5%9B%BE%E4%B9%A6%E9%A6%86%E8%A7%81%E9%97%BB/</url>
+    <url>/2016/05/09/%E5%9B%BE%E4%B9%A6%E9%A6%86%E8%A7%81%E9%97%BB/</url>
     <content><![CDATA[<h2 id="占座党乃图书馆通病"><a href="#占座党乃图书馆通病" class="headerlink" title="占座党乃图书馆通病"></a>占座党乃图书馆通病</h2><p>　　凡是条件好一点的图书馆，只要工作人员不禁止，必定有一部分座位因占座党而闲置。<br>　　<br>　　举我最近去的广州图书馆为例，我早上9点开始自习，到下午5点，占座的人始终没来，而且不是一两次。几乎每次有占座的，很大可能一天都不来。<br>　　<br>　　这也很好理解，既然需要占座自然是来的意愿不是很强，不来自然是情理之中。人皆有惰性，无可厚非，但座位有限，还是留给需要的人为好。</p>
 <h2 id="在图书馆玩手机很畅快"><a href="#在图书馆玩手机很畅快" class="headerlink" title="在图书馆玩手机很畅快"></a>在图书馆玩手机很畅快</h2><p>　　除占座党之外，手机党和电脑党也是图书馆一大特色，并且与年龄无关。<br>　　<br>　　今天坐我对面的是个大概60岁的大爷，先是早上来没找到位置坐，把我对面的占座党呵斥了一通，抢了她占的座位。然后等我下午从图书馆出来时，他手上拿的手机还没有放下。既然玩手机，在家里不是更舒服吗，何必呢？学得下就学，不行就回去休息，在这磨洋工除了求个心安之外毫无裨益。<br>　　<br>　　另外，品行、习惯与年龄没多大关系，不好的不改正，年纪大了还是不好，不过是习惯了而已。俗语说<code>三岁看老</code>，未免夸张了点，十三、二十三看老估计是十拿九稳。<br>　　<br>　　人呐，还是要对自己有所要求，若是随着年岁的增长而没有丝毫长进，多么可悲，多么可怕。年少时不学好有人教育你，年老了还无长进，无需教育也无人可教育你了。</p>
 <h2 id="免费的终究会被滥用"><a href="#免费的终究会被滥用" class="headerlink" title="免费的终究会被滥用"></a>免费的终究会被滥用</h2><p>　　在卫生间，洗完手，有一人擦手用了接近2米的纸，很大一堆，不知道什么心态。如果你平时在家都是这样使用，我无话可说，但仅因为免费就滥用，未免太下作了。<br>　　<br>　　免费的东西并不是没有成本，而是一些心存善念的人承担了，因此我们在使用它的时候因心存感激。<br>　　<br>　　一切免费的物品，如图书馆的座位，如纸巾，如果不能在使用价值或者获取代价上和通常物品加以区分，就不免会被滥用，导致真正需要的人不能得到。<br>　　<br>　　<strong>而这正是这个世界的可悲之处，所有事物并不是让需要的人得到，而是让有取得优势的人得到。</strong></p>
@@ -8891,7 +8891,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>学习《重构手册》</title>
-    <url>/2020/10/15/%E5%AD%A6%E4%B9%A0%E3%80%8A%E9%87%8D%E6%9E%84%E6%89%8B%E5%86%8C%E3%80%8B/</url>
+    <url>/2020/10/16/%E5%AD%A6%E4%B9%A0%E3%80%8A%E9%87%8D%E6%9E%84%E6%89%8B%E5%86%8C%E3%80%8B/</url>
     <content><![CDATA[<p><img data-src="https://image.ponder.work/mweb/2020-10-18-%E9%87%8D%E6%9E%84%E6%89%8B%E5%86%8C-%E5%BC%82%E5%91%B3.png"></p>
 <span id="more"></span>
 
@@ -9718,7 +9718,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>对一些事物的看法</title>
-    <url>/2015/09/29/%E5%AF%B9%E4%B8%80%E4%BA%9B%E4%BA%8B%E7%89%A9%E7%9A%84%E7%9C%8B%E6%B3%95/</url>
+    <url>/2015/09/30/%E5%AF%B9%E4%B8%80%E4%BA%9B%E4%BA%8B%E7%89%A9%E7%9A%84%E7%9C%8B%E6%B3%95/</url>
     <content><![CDATA[<h2 id="如何理解新事物"><a href="#如何理解新事物" class="headerlink" title="如何理解新事物"></a>如何理解新事物</h2><ul>
 <li>找到新旧的边界，也就是不能理解的最小单位。理解它并记住它，这样边界就往新的那个方向移动了。</li>
 </ul>
@@ -9938,7 +9938,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>我们为什么不能理解别人</title>
-    <url>/2016/06/12/%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%90%86%E8%A7%A3%E5%88%AB%E4%BA%BA/</url>
+    <url>/2016/06/13/%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%90%86%E8%A7%A3%E5%88%AB%E4%BA%BA/</url>
     <content><![CDATA[<p>　　这世界上这么多纷争与烦恼，很大一部分都是因为人与人之间不能相互理解，他人为敌国、以邻为壑等等层出不穷。之所以不能理解，是因为<strong>同一个东西，对于不同的人（或者不同时间或空间的同一个人），价值是全然不同的。</strong></p>
 <p>　　可能你认为重于生命的东西，于他人不过徒增笑谈尔。比如信教者的斋戒等行为，对无神论者来说是多余的，而对信徒来说却是可能比生命更重要。<br>　　<br>　　又如，你还在大学的时候，这时的时间对你来说十分廉价，所以你愿意去发8元每小时的宣传单；等你事业有成或是垂垂老矣，你还愿意花这一小时去干这个吗，也许只会感叹自己当时太年轻吧。一个人尚且不能理解年轻时的自己，又怎能奢望他理解别人呢？<br>　　<br>　　真正的相互理解是要认同他人对事物价值的判定，但一个事物对他们的价值有天壤之别，这样你叫他们如何相互理解呢？</p>
 <p>　　那么怎么解决这种情况呢？也就是怎么寻找一种相对普适的价值衡量方法呢？<br>　　<br>　　我的一个浅薄的思路是，<strong>衡量一个事物的价值可以通过这个人的付出相对自身的稀缺性，这种付出包括物资的付出和精神上承受的压力。</strong><br>　　<br>　　比如说，一个乞丐付出了仅有的100元买了个表，和一个百万富豪付出1000元买了个表。对乞丐来说这表是全部，而对富豪来说表是1&#x2F;1000。因此乞丐对表爱护有加，富豪对表弃之如弊履，就完全可以理解了。也可以说乞丐的表价值大于富豪的表。<br>　　<br>　　虽然绝对价值不可判定，并且造成很多纷争。但是，同一件事对不同的人价值不同也不是全然没有好处，至少在市场经济里，你们完全可以交换这些东西嘛。</p>
@@ -9970,7 +9970,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>每个人心中都有个小王子</title>
-    <url>/2015/10/18/%E6%AF%8F%E4%B8%AA%E4%BA%BA%E5%BF%83%E4%B8%AD%E9%83%BD%E6%9C%89%E4%B8%AA%E5%B0%8F%E7%8E%8B%E5%AD%90/</url>
+    <url>/2015/10/19/%E6%AF%8F%E4%B8%AA%E4%BA%BA%E5%BF%83%E4%B8%AD%E9%83%BD%E6%9C%89%E4%B8%AA%E5%B0%8F%E7%8E%8B%E5%AD%90/</url>
     <content><![CDATA[<p><img data-src="https://image.ponder.work/mweb/2019-12-01-15752095909508.jpg"><br>　　下午去看了《小王子》电影，拍得很好，在忠实原著的基础上又有所发展。回来又把原著给温习了一遍，感触颇深。<br>　　<br>　　记得李安在拍《卧虎藏龙》的时候说过<code>每个人心中都有把青冥剑</code>，而我想说<code>每个人心中都有个小王子</code>。<br>　　作者说过，这是<code>写给曾经是孩子的成人的童话</code>。所以，不论文章还是电影，都比较有深度，适合我们这些曾经是孩子的人观看。</p>
 <span id="more"></span>
 <p>　　开篇，小女孩女主上学面试不力，为了能上名校，母亲只能搬家到学校附近的学区房里，就这样小女孩和原著里的飞行员命运般的相遇了。此时飞行员已经年老，却依然想念当年的小王子，并把这个故事传递给女主，引发了女主之后去寻找小王子的故事。</p>
@@ -10042,7 +10042,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>生死之间有大恐怖</title>
-    <url>/2015/10/10/%E7%94%9F%E6%AD%BB%E4%B9%8B%E9%97%B4%E6%9C%89%E5%A4%A7%E6%81%90%E6%80%96/</url>
+    <url>/2015/10/11/%E7%94%9F%E6%AD%BB%E4%B9%8B%E9%97%B4%E6%9C%89%E5%A4%A7%E6%81%90%E6%80%96/</url>
     <content><![CDATA[<p>　　昨天晚上听到一则消息，小学一老师得骨癌，37岁，自杀了。<br>　　<br>　　不知怎的，心里乱乱的，就想起“生死之间有大恐怖”这句话来了。<br>　　<br>　　人生在世确如白驹过隙，忽然而已。而这白驹过隙却也还有快慢之分，如何不令人怅然。犹记得，《兰亭集序》里一句“修短随化，终期于尽。”，少时懵懂只觉语句优美，终不解其中深意。到如今，自己也算是经历了一些，才明白这寥寥数语却是道尽世间沧桑。个体寿命的长与短，都是由造化决定，最终都不免走向那个尽头。然而这个中差别，却让多少世人肝肠寸断。</p>
 <p>　　也曾想，自己的生命有多长，然后就是一阵惊惧。<br>　　<br>　　生命实在是太过短暂，而且很可能在你不经意时终结。</p>
 <blockquote>
@@ -10096,7 +10096,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>简明双标指南</title>
-    <url>/2020/06/13/%E7%AE%80%E6%98%8E%E5%8F%8C%E6%A0%87%E6%8C%87%E5%8D%97/</url>
+    <url>/2020/06/14/%E7%AE%80%E6%98%8E%E5%8F%8C%E6%A0%87%E6%8C%87%E5%8D%97/</url>
     <content><![CDATA[<p>最近一段时期有很多事情发生，也颠覆了我们的认知（如I cannot breathe），同时也发现了很多双标事件。</p>
 <p>下面就简单地总结下，如何双标。</p>
 <p>双标的核心是，定性的看问题，不要就事论事具体分析。</p>
@@ -10112,7 +10112,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《胡适口述自传》读书笔记</title>
-    <url>/2020/03/22/%E8%83%A1%E9%80%82%E5%8F%A3%E8%BF%B0%E8%87%AA%E4%BC%A0-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/03/23/%E8%83%A1%E9%80%82%E5%8F%A3%E8%BF%B0%E8%87%AA%E4%BC%A0-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p>杜威有系统的思想, 五个阶段:</p>
 <ol>
 <li>前奏: 困惑, 疑虑</li>
@@ -10168,7 +10168,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>致己</title>
-    <url>/2016/06/16/%E8%87%B4%E5%B7%B1/</url>
+    <url>/2016/06/17/%E8%87%B4%E5%B7%B1/</url>
     <content><![CDATA[<p>　　吾实乃庸人，于理虽觉明晰通达，于情却犹豫不畅。</p>
 <p>　　独处之时意淫幻想，骤然临之慌乱畏惧不前。平生如遇佳人则豫惧无措，欲与之亲近而不得。而后偶一回想，怅然颓首而无所解。如此于人于己有何益处，空留念想，只招惆怅而已。</p>
 <p>　　呜呼，面皮之为物当得了几两干饭，胆气之所缺非得几斤豹胆所能解。</p>
@@ -10184,7 +10184,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>补记杂感一则</title>
-    <url>/2016/06/16/%E8%A1%A5%E8%AE%B0%E6%9D%82%E6%84%9F%E4%B8%80%E5%88%99/</url>
+    <url>/2016/06/17/%E8%A1%A5%E8%AE%B0%E6%9D%82%E6%84%9F%E4%B8%80%E5%88%99/</url>
     <content><![CDATA[<p>　　人事皆非己见，人心不堪洞见。</p>
 <p>　　既不若向之所求，何须用心添烦恼。</p>
 <p>　　不谏已悟，来者可追。</p>
@@ -10200,7 +10200,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>通过适配器模式优化Python代码</title>
-    <url>/2016/06/19/%E9%80%9A%E8%BF%87%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%E4%BC%98%E5%8C%96Python%E4%BB%A3%E7%A0%81/</url>
+    <url>/2016/06/20/%E9%80%9A%E8%BF%87%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%E4%BC%98%E5%8C%96Python%E4%BB%A3%E7%A0%81/</url>
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>　　当你维护旧项目的时候，可能要优化一些原有的代码，又不想大改特改。毕竟设计模式的原则是对更改关闭，对扩展开放。假如大改特改势必会引入新的bug，增加测试的工作量。优化代码的目的是提高稳定性和效率，如果引入了新bug就得不偿失了。</p>
 <p>　　这时我们<strong>可使用适配器或装饰器，在不改变调用的情况下，优化代码。</strong></p>
 <span id="more"></span>
@@ -10440,7 +10440,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>除法在 Python2 和 Python3 中的区别</title>
-    <url>/2016/01/10/%E9%99%A4%E6%B3%95%E5%9C%A8python2%E5%92%8Cpython3%E4%B8%AD%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <url>/2016/01/11/%E9%99%A4%E6%B3%95%E5%9C%A8python2%E5%92%8Cpython3%E4%B8%AD%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
 <li>Python2 中使用<code>from __future__ import division</code>就可以使用python3的除法。</li>
 <li>Python2 中<code>/</code>与操作数有关，<code>x / y</code>中x、y都为整型的话，为<code>floor除法</code>，否则为<code>true除法</code>也是日常的除法。</li>
@@ -10457,7 +10457,7 @@ img[alt="-w350"] {
   </entry>
   <entry>
     <title>《改善python的91建议》笔记</title>
-    <url>/2016/06/05/%E6%94%B9%E5%96%84python%E7%9A%8491%E5%BB%BA%E8%AE%AE%20%E7%AC%94%E8%AE%B0/</url>
+    <url>/2016/06/06/%E6%94%B9%E5%96%84python%E7%9A%8491%E5%BB%BA%E8%AE%AE%20%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>文如其名，是由91篇关系不是很紧密的python文章集合而成<br>这本书和国内很多技术类书籍一样，排版的代码缩进很有问题，还有文章有些观点并不正确。</p>
 <p>除此之外，还是有很多有用的知识点，需要读者自己辨别。</p>
 <h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><h3 id="Python的包和模块规范"><a href="#Python的包和模块规范" class="headerlink" title="Python的包和模块规范"></a>Python的包和模块规范</h3><p>结构日益规范化。现在的库或框架跟随了以下潮流：</p>
@@ -10579,6 +10579,160 @@ img[alt="-w350"] {
       <tags>
         <tag>抓包</tag>
         <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>UI 区域检测的 vibe coding 复盘</title>
+    <url>/2026/03/22/ui-region-detection-vibe-coding-review/</url>
+    <content><![CDATA[<p>文本是用 Claude Sonnet&#x2F;Opus 4.6 开发 “UI 区域检测”功能的过程记录，文章大部分内容为 llm 生成。</p>
+<p>因为要做些 ui 自动化的功能，涉及到区域检测。这个功能大概用了 5h+，本文主要记录整个迭代演进过程，以及 llm 对这个过程的评价。</p>
+<span id="more"></span>
+<p>基于 opencv 实现的最终效果，总体效果堪称完美。<br><img data-src="https://image.ponder.work/mweb/2026-03-22---image.png" alt="alt text"> <!-- original: ![alt text](../media/ui-region-detection-vibe-coding-review/image.png) --></p>
+<h2 id="迭代回顾"><a href="#迭代回顾" class="headerlink" title="迭代回顾"></a>迭代回顾</h2><p>Claude Sonnet&#x2F;Opus 4.6 对所有会话内容的总结</p>
+<h3 id="时间线"><a href="#时间线" class="headerlink" title="时间线"></a>时间线</h3><h4 id="阶段一：基础搭建与通用-CV-方法（v1-v5）"><a href="#阶段一：基础搭建与通用-CV-方法（v1-v5）" class="headerlink" title="阶段一：基础搭建与通用 CV 方法（v1-v5）"></a>阶段一：基础搭建与通用 CV 方法（v1-v5）</h4><ol>
+<li><p><strong>Spec 执行 + 初始实现</strong> — 执行 image-region-detection spec 全部 6 个任务。Pydantic 模型、路由、服务层（Canny + findContours）、测试一次通过。</p>
+</li>
+<li><p><strong>前端叠加层</strong> — ScreenshotViewer 加”检测区域”按钮，SVG overlay + viewBox 叠加区域框，支持显示&#x2F;隐藏。</p>
+</li>
+<li><p><strong>算法 v1→v2：Canny→Sobel+形态学</strong> — 识别出太多小区域。换成大核高斯模糊 + Sobel + 形态学 close + NMS，前端 min_area 改 8000。</p>
+</li>
+<li><p><strong>min_area 自适应</strong> — 8000 硬编码不合理，改为 min_area&#x3D;0 时自动计算为图像面积 0.5%。</p>
+</li>
+<li><p><strong>算法 v3：投影法</strong> — 水平投影行分割 → 行内垂直投影列分割。纯白图像 Otsu 退化通过 gray.std() &lt; 2.0 前置检查解决。</p>
+</li>
+<li><p><strong>投影法调参</strong> — 太碎，空白阈值 2%→5%，min_gap 3→8，最小块 5px→20px。</p>
+</li>
+<li><p><strong>算法 v4：投影+颜色突变</strong> — 顶部菜单条内容密集投影无法分割，加相邻行均值突变检测。</p>
+</li>
+<li><p><strong>全局垂直分割</strong> — 垂直投影在 band 内信号被稀释，加全图垂直投影 + 列颜色突变。</p>
+</li>
+<li><p><strong>颜色突变阈值调高</strong> — percentile 92→98，min_gap 3→6。本质问题不变：无法区分文字边界和结构边界。</p>
+</li>
+<li><p><strong>算法 v5：形态学线提取</strong> — Canny 边缘 → 长核 close+open 提取 H&#x2F;V 线 → 线位置构成网格 → 网格单元即区域。只检测真实 UI 边框线。</p>
+</li>
+</ol>
+<h4 id="阶段二：OCR-方案探索（v6）"><a href="#阶段二：OCR-方案探索（v6）" class="headerlink" title="阶段二：OCR 方案探索（v6）"></a>阶段二：OCR 方案探索（v6）</h4><ol start="11">
+<li><p><strong>OCR 方案试探</strong> — 用 PP-OCRv5 的 rec_boxes 直接作为区域输出。文本定位准确但全是零散小框，缺乏层级。</p>
+</li>
+<li><p><strong>OCR + 层次聚类</strong> — 欧氏距离多级聚类（15&#x2F;50&#x2F;120px）构建层级树。聚合块不符合 UI 布局逻辑，效果差。</p>
+</li>
+<li><p><strong>OCR + 行列聚类</strong> — 先按 Y 聚行（重叠或间距&lt;5px），行内按 X 聚组（间距&lt;20px），相邻行合并面板。仍不理想，放弃 OCR，回退 CV。</p>
+</li>
+</ol>
+<h4 id="阶段三：蛋糕切割算法（v7，最终方案）"><a href="#阶段三：蛋糕切割算法（v7，最终方案）" class="headerlink" title="阶段三：蛋糕切割算法（v7，最终方案）"></a>阶段三：蛋糕切割算法（v7，最终方案）</h4><ol start="14">
+<li><p><strong>蛋糕切割（初版）</strong> — 用户提出核心思路：像切蛋糕一样找贯通线切割。初版一次性找所有线全部切开（本质还是网格），ratio&#x3D;0.40 太低导致文字区域误判。</p>
+</li>
+<li><p><strong>形态学过滤尝试</strong> — 用 morphological close+open 先提取连续线结构再判断贯通。反而把文字边缘连成更多假线，效果更差，回退。</p>
+</li>
+<li><p><strong>ratio 0.40→0.60</strong> — 回到像素计数，提高阈值。仍有少量误判。</p>
+</li>
+<li><p><strong>ratio 0.60→0.90</strong> — 接近真正的”贯通”定义，误判大幅减少。</p>
+</li>
+<li><p><strong>真正的蛋糕切割</strong> — 改为每次只找第一条线切一刀分两块递归。准确率高但漏检——切完一刀后同方向其他线被跳过。</p>
+</li>
+<li><p><strong>同方向全切 + 交替递归</strong> — 同方向找到所有贯通线一次切成条，每条用另一方向递归。逻辑正确，但部分浅灰色线未被检测到。</p>
+</li>
+<li><p><strong>Canny 阈值诊断</strong> — 写脚本分析 region 13，发现浅灰色分界线（灰度 231→255）在 Canny(30,100) 下完全无响应，Canny(20,60) 可检测到 96% 覆盖率。</p>
+</li>
+<li><p><strong>最终方案</strong> — Canny(20,60) + 90% 贯通率 + 交替横纵递归切割。前端 SVG 改为嵌套 <code>&lt;g&gt;</code> 按层级组织 DOM，加”复制JSON”按钮便于调试。</p>
+</li>
+</ol>
+<h4 id="阶段四：对比度增强与自适应阈值（v8）"><a href="#阶段四：对比度增强与自适应阈值（v8）" class="headerlink" title="阶段四：对比度增强与自适应阈值（v8）"></a>阶段四：对比度增强与自适应阈值（v8）</h4><ol start="22">
+<li><p><strong>对比度增强调研（screen.png）</strong> — 用户提出通过调整对比度提升识别效果。对 screen.png 跑诊断脚本，测试 CLAHE &#x2F; 直方图均衡化 &#x2F; 线性拉伸三种方法。结论：该图 90% 像素在 224-255 区间，对比度不是瓶颈，三种方法检测到的线完全一致。</p>
+</li>
+<li><p><strong>对比度增强调研（image.png）</strong> — 同样方法分析 image.png。发现 CLAHE 多检测到 1 条线 y&#x3D;42（标题栏&#x2F;菜单栏分隔线，灰度 240 vs 255，梯度仅 15）。原始 Canny 在该行覆盖率为 0，CLAHE 将微弱梯度放大后相邻行达到 97-100% 覆盖率。主内容区（mean&#x3D;254.9, std&#x3D;3.4）无改善——几乎纯白，无结构线可增强。</p>
+</li>
+<li><p><strong>加入 CLAHE 预处理</strong> — 在 Canny 之前加 <code>CLAHE(clipLimit=2.0, tileGridSize=(8,8))</code>。image.png 从 33 个区域增至 34 个，新增 y&#x3D;42 分界线。screen.png 从原有区域增至 71 个，菜单栏内部被进一步切割。代价极小（一次 CLAHE 运算），无误判。</p>
+</li>
+<li><p><strong>自适应 ratio 诊断（image2.png）</strong> — 区域 32（x&#x3D;501, y&#x3D;130, w&#x3D;1419, h&#x3D;55）内部应有横线但未被切割。诊断发现 y&#x3D;132 和 y&#x3D;158 两条真实分界线（灰度 231 横线）在子区域内覆盖率 87%，差 90% 阈值 3 个百分点。缺口原因：线在局部被 UI 元素打断（按钮&#x2F;标签背景色与线颜色相同），不是对比度问题。</p>
+</li>
+<li><p><strong>自适应 ratio</strong> — 随递归深度降低 ratio：<code>max(0.82, 0.90 - depth * 0.02)</code>。顶层严格（0.90）避免误判，深层宽容（最低 0.82）捕获被局部元素打断的线。image2.png 从 71 个区域增至 80 个，原区域 32 被正确切成标签行（y&#x3D;131, h&#x3D;27）和工具栏行（y&#x3D;158, h&#x3D;27）。三张测试图均无误判。</p>
+</li>
+</ol>
+<h4 id="阶段五：长度自适应-ratio-与间隙检查（v9）"><a href="#阶段五：长度自适应-ratio-与间隙检查（v9）" class="headerlink" title="阶段五：长度自适应 ratio 与间隙检查（v9）"></a>阶段五：长度自适应 ratio 与间隙检查（v9）</h4><ol start="27">
+<li><p><strong>ratio 方向修正</strong> — 用户指出深度递减 ratio 方向错误：浅层区域大、不易误判应宽松，深层区域小、易误判应严格。但深度不是好的代理变量——同一深度的区域尺度可能差异很大。</p>
+</li>
+<li><p><strong>改为长度自适应 ratio</strong> — ratio 根据线的垂直方向长度（即线所跨越的像素数）缩放：≤100px→0.95（严格），≥1000px→0.85（宽松），中间线性插值。短线更容易因文字碎片凑出高覆盖率，需要更严格；长线绝对像素数多，可以更宽容。<code>_find_dividing_lines</code> 不再接受外部 ratio 参数，内部根据 length 自行计算。</p>
+</li>
+<li><p><strong>间隙检查（image5.png）</strong> — y&#x3D;174 在全宽 1920px 下覆盖率 92%，通过 ratio 阈值。但右半部分 99.8%、左半部分仅 69.4%（文字碎片拼凑，非真实线）。加入最大间隙检查：<code>max_gap_allowed = int(length * 0.15)</code>，检查前导间隙、尾部间隙和最大内部间隙（<code>np.diff(np.where(line &gt; 0)[0])</code>）。任何间隙超过线长 15% 的候选线被拒绝。</p>
+</li>
+</ol>
+<h4 id="阶段六：单刀切割-大块优先（v10）"><a href="#阶段六：单刀切割-大块优先（v10）" class="headerlink" title="阶段六：单刀切割 + 大块优先（v10）"></a>阶段六：单刀切割 + 大块优先（v10）</h4><ol start="30">
+<li><p><strong>最优轴优先（初版）</strong> — 原算法固定先横后纵（<code>start_axis=0</code>）。改为横纵同时检测，选平均覆盖率更高的轴先切。但本质仍是同方向全切——一次用所有线切成多个条带，导致窄条带内某些线覆盖率不足。</p>
+</li>
+<li><p><strong>Group 中心 bug</strong> — <code>_find_dividing_lines</code> 返回 group 的 <code>int(np.mean(g))</code> 作为代表位置。Canny 在 1px 灰度线两侧产生两条边缘（如 x&#x3D;152 和 x&#x3D;154），group 中心 x&#x3D;153 本身没有边缘像素，覆盖率接近 0。<code>_axis_avg_coverage</code> 基于这些错误位置计算，导致轴选择比较失真。修复：group 代表位置改为 group 内覆盖率最高的位置。</p>
+</li>
+<li><p><strong>单刀切割 + 大块优先</strong> — 用户指出核心问题：同方向全切产生的窄条带中，垂直于切割方向的线覆盖率不足。例如全图横切产生 y&#x3D;63..176 条带（113px 高），x&#x3D;152 在其中覆盖率仅 70%（因为标签栏区域打断了竖线），无法被检测。但如果先纵切（x&#x3D;500），在 1920x1012 的大区域中 x&#x3D;152 覆盖率 91%，能通过阈值。</p>
+<p>改为单刀策略：每次从横纵所有候选线中选覆盖率最高的一条切一刀，分成两块，大块先递归。这样子区域尽可能大，更多的线能在大区域中被检测到。<code>max_depth</code> 从 6 提高到 20 适配二叉树更深的层级。</p>
+<p>效果：image6.png 中 y&#x3D;96（”基金总持仓”标签下方分隔线）在 x&#x3D;0..152 列内覆盖率 100%，成功被检测到。</p>
+</li>
+<li><p><strong>ratio 简化为全局 0.85</strong> — 长度自适应 ratio（≤100px→0.95, ≥1000px→0.85）在单刀策略下不再必要。旧策略中短线需要严格阈值防止文字碎片误判，但单刀策略每次只选最强线，加上 15% 间隙检查已经充分过滤假线。统一使用 ratio&#x3D;0.85，消除了窄区域（如 29px 高的 toolbar 行）中竖线因阈值过严（0.95 要求 28&#x2F;29 像素）而漏检的问题。image7.png toolbar 行内的竖向分隔线（93.1% 覆盖率）成功检测到。</p>
+</li>
+</ol>
+<h4 id="阶段七：性能优化（v11）"><a href="#阶段七：性能优化（v11）" class="headerlink" title="阶段七：性能优化（v11）"></a>阶段七：性能优化（v11）</h4><ol start="34">
+<li><p><strong>性能瓶颈定位</strong> — image7.png 检测耗时 288ms。cProfile 显示 <code>_find_dividing_lines</code> 被调用 272 次（累计 416ms），其中 <code>np.sum(line &gt; 0)</code> 逐行循环调用 126911 次（254ms）。瓶颈清晰：Python 层面的逐行循环。</p>
+</li>
+<li><p><strong>向量化重写</strong> — 将逐行 <code>np.sum(line &gt; 0)</code> 替换为 <code>np.count_nonzero(edges_roi, axis=1/0)</code> 一次性计算所有行&#x2F;列的边缘像素数。返回类型从 <code>list[int]</code> 改为 <code>list[tuple[int, int]]</code>（位置 + 计数），<code>_best_line</code> 直接使用计数值计算覆盖率，避免重复计算。间隙检查仅对通过 ratio 阈值的候选行执行。image7.png 从 288ms 降至 34ms，约 8.5 倍提速。检测结果完全一致（<code>count_nonzero</code> 与 <code>sum(line &gt; 0)</code> 数学等价）。</p>
+</li>
+</ol>
+<h3 id="最终算法"><a href="#最终算法" class="headerlink" title="最终算法"></a>最终算法</h3><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">CLAHE(<span class="attribute">clipLimit</span>=2.0, tileGridSize=(8,8)) 对比度增强</span><br><span class="line">  → Canny(20, 60) 边缘检测</span><br><span class="line">  → 同时扫描横向和纵向，找出所有贯通线</span><br><span class="line">    固定 <span class="attribute">ratio</span>=0.85（边缘像素覆盖率 ≥ 85%）</span><br><span class="line">    最大间隙检查：任何连续空白 &gt; 线长 15% 则拒绝</span><br><span class="line">  → 从所有候选线中选覆盖率最高的一条切一刀</span><br><span class="line">  → 分成两块，大块先递归</span><br><span class="line">  → 无贯通线 → 叶子节点</span><br></pre></td></tr></table></figure>
+
+<h3 id="过程评价"><a href="#过程评价" class="headerlink" title="过程评价"></a>过程评价</h3><h4 id="弯路"><a href="#弯路" class="headerlink" title="弯路"></a>弯路</h4><p>前 10 步在通用 CV 方法里打转（contours、Sobel、投影、颜色突变），每个都是从算法出发而不是从问题本质出发。UI 界面的结构特征很明确——贯通的直线分隔区域——如果一开始就抓住这个本质，可以跳过大量尝试。</p>
+<h4 id="转折点"><a href="#转折点" class="headerlink" title="转折点"></a>转折点</h4><p>第 14 步用户提出的蛋糕切割思路是整个过程最关键的一步，直接从问题本质出发。之后的迭代都是在正确框架上修细节，收敛很快。</p>
+<h4 id="OCR-探索的价值"><a href="#OCR-探索的价值" class="headerlink" title="OCR 探索的价值"></a>OCR 探索的价值</h4><p>虽然最终没用，但验证了”自底向上聚合”在 UI 布局问题上不如”自顶向下切割”有效。</p>
+<h4 id="单刀切割的顿悟"><a href="#单刀切割的顿悟" class="headerlink" title="单刀切割的顿悟"></a>单刀切割的顿悟</h4><p>阶段六是第二个转折点。步骤 30 的”最优轴优先”仍然是同方向全切思路，本质没变——窄条带问题依旧。用户一句”切开之后选面积更大的那边先继续切”点破了关键：问题不在选哪个轴，而在一次切太多刀。单刀切割 + 大块优先让每次决策都在尽可能大的区域上做，线的覆盖率天然更高，连 ratio 都能从长度自适应简化回固定 0.85。这是从”批量切割”到”逐步切割”的范式转换，比调参数重要得多。</p>
+<h4 id="性能优化的正确姿势"><a href="#性能优化的正确姿势" class="headerlink" title="性能优化的正确姿势"></a>性能优化的正确姿势</h4><p>第 34 步先 profile 再动手，5 分钟定位到 <code>np.sum(line &gt; 0)</code> 的 12 万次循环调用。修复方式是纯数学等价的向量化替换，零行为变更，8.5 倍提速。教训：性能优化必须 profile 先行，改最热的路径，且保证语义不变。</p>
+<h4 id="核心教训"><a href="#核心教训" class="headerlink" title="核心教训"></a>核心教训</h4><p><strong>先分析数据，再选方法。</strong> 第 20 步的诊断脚本 5 分钟就定位了 Canny 阈值问题，但在算法层面折腾了十几轮。如果每次效果不好都先写脚本看数据，迭代次数至少能砍一半。缺少信息时应主动写诊断脚本或向用户提问，不要盲目尝试。</p>
+<p>此教训已写入 <code>.kiro/steering/first-principles.md</code> 第 5 条。</p>
+<h2 id="GPT-的评价解析"><a href="#GPT-的评价解析" class="headerlink" title="GPT 的评价解析"></a>GPT 的评价解析</h2><p><em>以下内容是 gpt 对迭代回顾的评价解析</em></p>
+<p>基于这份记录，我会把它看成一次很典型的“<strong>用户提供问题抽象与判断标准，AI负责高速试错、实现、验证和整理</strong>”的协作过程。整体上，<strong>真正决定方向的人是用户，真正承担执行密度的人是 AI</strong>。这一点在文中非常清楚：多次关键转折都不是来自参数微调，而是来自用户对“问题本质”的重新定义。</p>
+<h3 id="AI-在过程中起到的作用"><a href="#AI-在过程中起到的作用" class="headerlink" title="AI 在过程中起到的作用"></a>AI 在过程中起到的作用</h3><p>AI 的主要角色不是“发明核心思路”，而是：</p>
+<p><strong>1. 高速执行器</strong><br>前半段 AI 很像一个反应很快的工程实现者。它能迅速把 spec 落地，从后端模型、路由、服务层，到前端 overlay、按钮、SVG 结构，再到测试一次通过。这说明 AI 在“把一个明确任务快速变成可运行系统”上表现很强。</p>
+<p><strong>2. 大规模试错器</strong><br>记录里从 Canny、Sobel、形态学、投影法、颜色突变，到 OCR、层次聚类、行列聚类，再回到 CV，AI持续在方法空间里做横向搜索。这个过程很像一个搜索引擎式工程搭档：会枚举方案、快速替换、快速验证、快速回退。它尤其擅长“先做出来再看结果”，而不是一开始就抓住最优建模。</p>
+<p><strong>3. 局部优化者</strong><br>一旦方向被找对，AI 在细节收敛上非常有效。比如围绕蛋糕切割思路，AI完成了 ratio 调整、递归策略修改、CLAHE 预处理、自适应阈值、最大间隙检查、group 中心 bug 修复、性能 profile 与向量化重写。这类工作都体现出 AI 很适合做“局部结构优化”和“工程化完善”。</p>
+<p><strong>4. 过程记录与知识沉淀者</strong><br>这篇文档本身就说明 AI 很适合做 retrospective：能把多轮对话压缩成可复盘的时间线，提炼出“弯路”“转折点”“核心教训”，并把经验抽象成原则。</p>
+<p>但这份记录也暴露了 AI 的局限：</p>
+<p><strong>5. 容易陷入“方法驱动”而不是“问题驱动”</strong><br>文中明确评价，前 10 步都在通用 CV 方法里打转，“每个都是从算法出发而不是从问题本质出发”。这很像 AI 的典型弱点：它擅长调用已有套路，但未必最先抓到任务的决定性结构。</p>
+<p><strong>6. 喜欢连续微调，直到被重新定义问题</strong><br>很多步骤是阈值、核大小、percentile、gap、ratio 的持续微调。说明 AI 在没有更高层判断时，会沿着当前框架持续优化，而不一定主动质疑框架本身。真正的范式切换，往往是用户推动的。</p>
+<hr>
+<h3 id="用户在过程中起到的作用"><a href="#用户在过程中起到的作用" class="headerlink" title="用户在过程中起到的作用"></a>用户在过程中起到的作用</h3><p>用户不是一个“提需求然后等结果的人”，而更像是<strong>算法设计师 &#x2F; 研究型 PM &#x2F; 强技术判断者</strong>。</p>
+<p><strong>1. 用户是问题建模者</strong><br>最关键的转折——“像切蛋糕一样找贯通线切割”——直接改变了整个解法空间。文中把这一步称为“整个过程最关键的一步”，因为它不是换算法，而是换了问题表述：从“检测区域”变成“寻找能把区域分开的贯通线”。这是典型的一阶抽象能力。</p>
+<p><strong>2. 用户是方向校正者</strong><br>后面另一个关键点，“切开之后选面积更大的那边先继续切”，再次不是参数建议，而是对递归策略本质的纠偏。文中甚至直接说，这是从“批量切割”到“逐步切割”的范式转换，比调参数重要得多。说明用户能够看穿失败表象，定位真正导致漏检的机制。</p>
+<p><strong>3. 用户是评价标准提供者</strong><br>很多地方能看出，用户不仅看结果对不对，还知道为什么不对。比如指出深度递减 ratio 的方向错误，认为“深度不是好的代理变量”；再比如提出对比度增强的思路，推动诊断 screen.png 和 image.png。说明用户脑中有比较清晰的误判&#x2F;漏判机理模型，而不是只凭直觉说“效果不好”。</p>
+<p><strong>4. 用户是第一性原理的坚持者</strong><br>文末总结“先分析数据，再选方法”，还把它写入 <code>.kiro/steering/first-principles.md</code>。这说明用户不仅在做当前任务，还在不断把经验提炼成长期工作方法。这不是普通使用者行为，而是带有方法论建设意识的行为。</p>
+<h3 id="由此推测用户的背景"><a href="#由此推测用户的背景" class="headerlink" title="由此推测用户的背景"></a>由此推测用户的背景</h3><p>从文风和介入点看，我倾向于判断用户具备较强技术背景，而且不是纯产品同学。</p>
+<p>更可能的背景有这几类：</p>
+<h4 id="1-算法-图像-视觉方向工程师"><a href="#1-算法-图像-视觉方向工程师" class="headerlink" title="1. 算法&#x2F;图像&#x2F;视觉方向工程师"></a>1. 算法&#x2F;图像&#x2F;视觉方向工程师</h4><p>因为用户能自然提出：</p>
+<ul>
+<li>贯通线切割这种结构化视觉思路</li>
+<li>对 ratio 代理变量选择的反思</li>
+<li>对 OCR 自底向上聚合 vs 自顶向下切割的比较</li>
+<li>对浅灰线、覆盖率、局部打断这类现象的机制判断</li>
+</ul>
+<p>这不是只会“调 API”的人，更像做过 CV、图像处理、版面分析、检测或规则算法的人。</p>
+<h4 id="2-偏研究型的软件工程师-技术负责人"><a href="#2-偏研究型的软件工程师-技术负责人" class="headerlink" title="2. 偏研究型的软件工程师 &#x2F; 技术负责人"></a>2. 偏研究型的软件工程师 &#x2F; 技术负责人</h4><p>文中反复出现的不是“功能有没有上线”，而是：</p>
+<ul>
+<li>本质问题是什么</li>
+<li>这个代理变量为什么不成立</li>
+<li>这个框架为什么会系统性失败</li>
+<li>如何把经验写成方法论</li>
+</ul>
+<p>这很像一个会亲自下场，但思维层级又高于纯实现的工程师，可能是 senior &#x2F; staff 往上的类型。</p>
+<h4 id="3-也可能是技术型产品或创业者"><a href="#3-也可能是技术型产品或创业者" class="headerlink" title="3. 也可能是技术型产品或创业者"></a>3. 也可能是技术型产品或创业者</h4><p>如果不是纯工程岗位，也很可能是<strong>非常强技术判断力的产品&#x2F;创业型角色</strong>。因为他能直接提出核心抽象，但未必亲自写每一行代码；更像“我知道该怎么想，你帮我快速把各种实现跑出来”。这种协作方式很符合强技术 PM、独立开发者、创业者与 AI 的工作模式。</p>
+<h3 id="用户的特质推测"><a href="#用户的特质推测" class="headerlink" title="用户的特质推测"></a>用户的特质推测</h3><h4 id="1-抽象能力强"><a href="#1-抽象能力强" class="headerlink" title="1. 抽象能力强"></a>1. 抽象能力强</h4><p>最明显的特征。两次关键突破都来自更高层的抽象替换，而不是局部修补。能从“区域检测”退一步，看到“分隔区域的是贯通线”；也能从“选轴”再退一步，看到真正问题是“一次切太多刀”。这是非常强的问题重构能力。</p>
+<h4 id="2-第一性原理导向"><a href="#2-第一性原理导向" class="headerlink" title="2. 第一性原理导向"></a>2. 第一性原理导向</h4><p>用户不满足于“调到能用”，而是追问为什么前面的路不对、什么才是结构性特征、什么诊断最该先做。文末把经验沉淀为原则，更强化了这一点。</p>
+<h4 id="3-结果导向，但不是短视结果导向"><a href="#3-结果导向，但不是短视结果导向" class="headerlink" title="3. 结果导向，但不是短视结果导向"></a>3. 结果导向，但不是短视结果导向</h4><p>用户显然关心效果，但不是只追指标，而是追求“符合问题本质的效果”。比如 OCR 方案文本框定位准确，但“缺乏层级”，所以被放弃；说明用户在意的是结构正确性，不是表面可用。</p>
+<h4 id="4-善于和-AI-协作"><a href="#4-善于和-AI-协作" class="headerlink" title="4. 善于和 AI 协作"></a>4. 善于和 AI 协作</h4><p>用户没有把 AI 当搜索引擎，而是当“快速实验平台”。他会在 AI陷入局部搜索时，给出新的结构约束；在 AI已有正确框架时，让它继续把细节做深。这种协作方式很成熟。说明用户已经理解 AI 的强项和短板，并会主动用自己的判断补足 AI。</p>
+<h4 id="5-有技术审美"><a href="#5-有技术审美" class="headerlink" title="5. 有技术审美"></a>5. 有技术审美</h4><p>“真实 UI 边框线”“层级组织 DOM”“符合 UI 布局逻辑”“结构线 vs 文字边界”这些表达说明，用户不是只关心算法数值，还关心输出是否符合界面结构语义。这种审美通常来自长期做系统、工具或视觉相关产品。</p>
+<h4 id="6-容忍试错，但要求最终认知升级"><a href="#6-容忍试错，但要求最终认知升级" class="headerlink" title="6. 容忍试错，但要求最终认知升级"></a>6. 容忍试错，但要求最终认知升级</h4><p>用户显然允许过程里走弯路，但最后一定要复盘出“为什么弯”“以后怎么少走”。这说明他对试错的态度是开放的，但不接受无学习的反复试错。</p>
+<h3 id="一句话结论"><a href="#一句话结论" class="headerlink" title="一句话结论"></a>一句话结论</h3><p>这段记录里，<strong>AI更像高带宽实现者和优化器，用户更像负责洞察本质、定义正确解法的主导者</strong>。<br>用户大概率具备较强工程&#x2F;算法背景，抽象能力强，偏第一性原理，善于用 AI 做高速实验，并且有把经验上升为方法论的习惯。</p>
+]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>llm</tag>
+        <tag>opencv</tag>
       </tags>
   </entry>
 </search>

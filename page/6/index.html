@@ -201,7 +201,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">171</span>
+          <span class="site-state-item-count">172</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -212,7 +212,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-count">93</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -267,7 +267,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/04/10/%E3%80%8A%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A62%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/04/11/convent-xgboost-model-to-pmml-guide/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -285,7 +285,114 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/04/10/%E3%80%8A%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A62%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《怪诞行为学2》读书笔记</a>
+          <a href="/2020/04/11/convent-xgboost-model-to-pmml-guide/" class="post-title-link" itemprop="url">在Java环境中使用PMML执行xgboost模型</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-04-11 05:48:00 / 修改时间：23:24:00" itemprop="dateCreated datePublished" datetime="2020-04-11T05:48:00+08:00">2020-04-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>759</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>最近有个需求, 在Java环境环境运行xgboost模型, 查询资料后发现PMML可以解决这个问题.</p>
+<p>PMML是数据挖掘的一种通用的规范，它用统一的XML格式来描述我们生成的机器学习模型。这样无论你的模型是sklearn,R还是Spark MLlib生成的，我们都可以将其转化为标准的XML格式来存储。当我们需要将这个PMML的模型用于部署的时候，可以使用目标环境的解析PMML模型的库来加载模型，并做预测。</p>
+<p>可以看出，要使用PMML，需要两步的工作:</p>
+<ul>
+<li>第一块是将离线训练得到的模型转化为PMML模型文件</li>
+<li>第二块是将PMML模型文件载入在线预测环境，进行预测</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/11/convent-xgboost-model-to-pmml-guide/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/04/11/%E3%80%8A%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A62%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jay.Run">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 逸思杂陈">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/04/11/%E3%80%8A%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A62%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《怪诞行为学2》读书笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -296,14 +403,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-04-10 21:17:00" itemprop="dateCreated datePublished" datetime="2020-04-10T21:17:00+00:00">2020-04-10</time>
+      <time title="创建时间：2020-04-11 05:17:00" itemprop="dateCreated datePublished" datetime="2020-04-11T05:17:00+08:00">2020-04-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-04-23 21:43:44" itemprop="dateModified" datetime="2020-04-23T21:43:44+00:00">2020-04-23</time>
+      <time title="修改时间：2020-04-24 05:43:44" itemprop="dateModified" datetime="2020-04-24T05:43:44+08:00">2020-04-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -357,7 +464,7 @@
 </ol>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/04/10/%E3%80%8A%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A62%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/#more" rel="contents">
+              <a class="btn" href="/2020/04/11/%E3%80%8A%E6%80%AA%E8%AF%9E%E8%A1%8C%E4%B8%BA%E5%AD%A62%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -388,7 +495,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/29/%E3%80%8A%E5%B0%91%E6%9C%89%E4%BA%BA%E8%B5%B0%E7%9A%84%E8%B7%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/30/%E3%80%8A%E5%B0%91%E6%9C%89%E4%BA%BA%E8%B5%B0%E7%9A%84%E8%B7%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -406,7 +513,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/03/29/%E3%80%8A%E5%B0%91%E6%9C%89%E4%BA%BA%E8%B5%B0%E7%9A%84%E8%B7%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《少有人走的路》读书笔记</a>
+          <a href="/2020/03/30/%E3%80%8A%E5%B0%91%E6%9C%89%E4%BA%BA%E8%B5%B0%E7%9A%84%E8%B7%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《少有人走的路》读书笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -416,15 +523,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2020-03-29 21:17:00" itemprop="dateCreated datePublished" datetime="2020-03-29T21:17:00+00:00">2020-03-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-03-30 00:23:58" itemprop="dateModified" datetime="2020-03-30T00:23:58+00:00">2020-03-30</time>
+      <time title="创建时间：2020-03-30 05:17:00 / 修改时间：08:23:58" itemprop="dateCreated datePublished" datetime="2020-03-30T05:17:00+08:00">2020-03-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -467,7 +568,7 @@
 <p>完全接受痛苦，在某种意义上痛苦就不再存在。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/29/%E3%80%8A%E5%B0%91%E6%9C%89%E4%BA%BA%E8%B5%B0%E7%9A%84%E8%B7%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/#more" rel="contents">
+              <a class="btn" href="/2020/03/30/%E3%80%8A%E5%B0%91%E6%9C%89%E4%BA%BA%E8%B5%B0%E7%9A%84%E8%B7%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -498,7 +599,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/29/%E3%80%8A%E5%8D%81%E4%B8%87%E5%B0%8F%E6%97%B6%E5%A4%A9%E6%89%8D%E7%90%86%E8%AE%BA%E3%80%8B%E6%91%98%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/30/%E3%80%8A%E5%8D%81%E4%B8%87%E5%B0%8F%E6%97%B6%E5%A4%A9%E6%89%8D%E7%90%86%E8%AE%BA%E3%80%8B%E6%91%98%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -516,7 +617,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/03/29/%E3%80%8A%E5%8D%81%E4%B8%87%E5%B0%8F%E6%97%B6%E5%A4%A9%E6%89%8D%E7%90%86%E8%AE%BA%E3%80%8B%E6%91%98%E5%BD%95/" class="post-title-link" itemprop="url">《十万小时天才理论》摘录</a>
+          <a href="/2020/03/30/%E3%80%8A%E5%8D%81%E4%B8%87%E5%B0%8F%E6%97%B6%E5%A4%A9%E6%89%8D%E7%90%86%E8%AE%BA%E3%80%8B%E6%91%98%E5%BD%95/" class="post-title-link" itemprop="url">《十万小时天才理论》摘录</a>
         </h2>
 
         <div class="post-meta-container">
@@ -526,15 +627,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2020-03-29 20:37:00" itemprop="dateCreated datePublished" datetime="2020-03-29T20:37:00+00:00">2020-03-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-03-30 00:00:43" itemprop="dateModified" datetime="2020-03-30T00:00:43+00:00">2020-03-30</time>
+      <time title="创建时间：2020-03-30 04:37:00 / 修改时间：08:00:43" itemprop="dateCreated datePublished" datetime="2020-03-30T04:37:00+08:00">2020-03-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -577,7 +672,7 @@
 <p>专业选手与普通人之间的差别是懂这种语言与不懂的区别</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/29/%E3%80%8A%E5%8D%81%E4%B8%87%E5%B0%8F%E6%97%B6%E5%A4%A9%E6%89%8D%E7%90%86%E8%AE%BA%E3%80%8B%E6%91%98%E5%BD%95/#more" rel="contents">
+              <a class="btn" href="/2020/03/30/%E3%80%8A%E5%8D%81%E4%B8%87%E5%B0%8F%E6%97%B6%E5%A4%A9%E6%89%8D%E7%90%86%E8%AE%BA%E3%80%8B%E6%91%98%E5%BD%95/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -608,7 +703,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/29/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/30/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -626,7 +721,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/03/29/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/" class="post-title-link" itemprop="url">《可乐牛奶经济学》摘录</a>
+          <a href="/2020/03/30/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/" class="post-title-link" itemprop="url">《可乐牛奶经济学》摘录</a>
         </h2>
 
         <div class="post-meta-container">
@@ -638,7 +733,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2020-03-29 16:37:00 / 修改时间：17:09:30" itemprop="dateCreated datePublished" datetime="2020-03-29T16:37:00+00:00">2020-03-29</time>
+      <time title="创建时间：2020-03-30 00:37:00 / 修改时间：01:09:30" itemprop="dateCreated datePublished" datetime="2020-03-30T00:37:00+08:00">2020-03-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -681,7 +776,7 @@
 <p>自愿前提下发生的交换活动会让所有的参与者生活质量变好。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/29/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/#more" rel="contents">
+              <a class="btn" href="/2020/03/30/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -712,7 +807,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/29/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A63%E3%80%8B%E6%91%98%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/30/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A63%E3%80%8B%E6%91%98%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -730,7 +825,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/03/29/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A63%E3%80%8B%E6%91%98%E5%BD%95/" class="post-title-link" itemprop="url">《可乐牛奶经济学3》摘录</a>
+          <a href="/2020/03/30/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A63%E3%80%8B%E6%91%98%E5%BD%95/" class="post-title-link" itemprop="url">《可乐牛奶经济学3》摘录</a>
         </h2>
 
         <div class="post-meta-container">
@@ -742,7 +837,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2020-03-29 16:17:00 / 修改时间：17:09:30" itemprop="dateCreated datePublished" datetime="2020-03-29T16:17:00+00:00">2020-03-29</time>
+      <time title="创建时间：2020-03-30 00:17:00 / 修改时间：01:09:30" itemprop="dateCreated datePublished" datetime="2020-03-30T00:17:00+08:00">2020-03-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -784,7 +879,7 @@
 <p>负外部性：你收益的成本由别人承担（常使看不见的手失效）</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/29/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A63%E3%80%8B%E6%91%98%E5%BD%95/#more" rel="contents">
+              <a class="btn" href="/2020/03/30/%E3%80%8A%E5%8F%AF%E4%B9%90%E7%89%9B%E5%A5%B6%E7%BB%8F%E6%B5%8E%E5%AD%A63%E3%80%8B%E6%91%98%E5%BD%95/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -843,9 +938,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-03-29 15:17:00 / 修改时间：16:27:55" itemprop="dateCreated datePublished" datetime="2020-03-29T15:17:00+00:00">2020-03-29</time>
+      <time title="创建时间：2020-03-29 23:17:00" itemprop="dateCreated datePublished" datetime="2020-03-29T23:17:00+08:00">2020-03-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-03-30 00:27:55" itemprop="dateModified" datetime="2020-03-30T00:27:55+08:00">2020-03-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -917,7 +1018,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/28/%E3%80%8A%E8%A1%80%E9%85%AC%E5%AE%9A%E5%BE%8B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/29/%E3%80%8A%E8%A1%80%E9%85%AC%E5%AE%9A%E5%BE%8B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -935,7 +1036,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/03/28/%E3%80%8A%E8%A1%80%E9%85%AC%E5%AE%9A%E5%BE%8B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《血酬定律》读书笔记</a>
+          <a href="/2020/03/29/%E3%80%8A%E8%A1%80%E9%85%AC%E5%AE%9A%E5%BE%8B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《血酬定律》读书笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -945,15 +1046,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2020-03-28 21:17:00" itemprop="dateCreated datePublished" datetime="2020-03-28T21:17:00+00:00">2020-03-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-03-29 10:11:00" itemprop="dateModified" datetime="2020-03-29T10:11:00+00:00">2020-03-29</time>
+      <time title="创建时间：2020-03-29 05:17:00 / 修改时间：18:11:00" itemprop="dateCreated datePublished" datetime="2020-03-29T05:17:00+08:00">2020-03-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -997,7 +1092,7 @@
 <p>这书第一次读带来很大震撼，有种过于真实引起不适的感觉，慎读，慎读，慎读。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/28/%E3%80%8A%E8%A1%80%E9%85%AC%E5%AE%9A%E5%BE%8B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/#more" rel="contents">
+              <a class="btn" href="/2020/03/29/%E3%80%8A%E8%A1%80%E9%85%AC%E5%AE%9A%E5%BE%8B%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1028,7 +1123,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/22/%E8%83%A1%E9%80%82%E5%8F%A3%E8%BF%B0%E8%87%AA%E4%BC%A0-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/23/%E8%83%A1%E9%80%82%E5%8F%A3%E8%BF%B0%E8%87%AA%E4%BC%A0-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1046,7 +1141,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/03/22/%E8%83%A1%E9%80%82%E5%8F%A3%E8%BF%B0%E8%87%AA%E4%BC%A0-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《胡适口述自传》读书笔记</a>
+          <a href="/2020/03/23/%E8%83%A1%E9%80%82%E5%8F%A3%E8%BF%B0%E8%87%AA%E4%BC%A0-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《胡适口述自传》读书笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1057,14 +1152,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-03-22 22:17:00" itemprop="dateCreated datePublished" datetime="2020-03-22T22:17:00+00:00">2020-03-22</time>
+      <time title="创建时间：2020-03-23 06:17:00" itemprop="dateCreated datePublished" datetime="2020-03-23T06:17:00+08:00">2020-03-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-03-24 22:00:02" itemprop="dateModified" datetime="2020-03-24T22:00:02+00:00">2020-03-24</time>
+      <time title="修改时间：2020-03-25 06:00:02" itemprop="dateModified" datetime="2020-03-25T06:00:02+08:00">2020-03-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1150,7 +1245,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/22/%E3%80%8A%E5%AE%BD%E5%AE%B9%E3%80%8B%E6%91%98%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/23/%E3%80%8A%E5%AE%BD%E5%AE%B9%E3%80%8B%E6%91%98%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1168,7 +1263,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/03/22/%E3%80%8A%E5%AE%BD%E5%AE%B9%E3%80%8B%E6%91%98%E5%BD%95/" class="post-title-link" itemprop="url">房龙:《宽容》摘录</a>
+          <a href="/2020/03/23/%E3%80%8A%E5%AE%BD%E5%AE%B9%E3%80%8B%E6%91%98%E5%BD%95/" class="post-title-link" itemprop="url">房龙:《宽容》摘录</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1179,14 +1274,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-03-22 21:17:00" itemprop="dateCreated datePublished" datetime="2020-03-22T21:17:00+00:00">2020-03-22</time>
+      <time title="创建时间：2020-03-23 05:17:00" itemprop="dateCreated datePublished" datetime="2020-03-23T05:17:00+08:00">2020-03-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-03-24 12:00:08" itemprop="dateModified" datetime="2020-03-24T12:00:08+00:00">2020-03-24</time>
+      <time title="修改时间：2020-03-24 20:00:08" itemprop="dateModified" datetime="2020-03-24T20:00:08+08:00">2020-03-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1258,7 +1353,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/21/%E3%80%8A%E5%8F%98%E6%80%81%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/22/%E3%80%8A%E5%8F%98%E6%80%81%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1276,7 +1371,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/03/21/%E3%80%8A%E5%8F%98%E6%80%81%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/" class="post-title-link" itemprop="url">《变态心理学》摘录</a>
+          <a href="/2020/03/22/%E3%80%8A%E5%8F%98%E6%80%81%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/" class="post-title-link" itemprop="url">《变态心理学》摘录</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1288,7 +1383,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2020-03-21 21:17:00 / 修改时间：23:24:25" itemprop="dateCreated datePublished" datetime="2020-03-21T21:17:00+00:00">2020-03-21</time>
+      <time title="创建时间：2020-03-22 05:17:00 / 修改时间：07:24:25" itemprop="dateCreated datePublished" datetime="2020-03-22T05:17:00+08:00">2020-03-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1335,7 +1430,7 @@
 </ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/21/%E3%80%8A%E5%8F%98%E6%80%81%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/#more" rel="contents">
+              <a class="btn" href="/2020/03/22/%E3%80%8A%E5%8F%98%E6%80%81%E5%BF%83%E7%90%86%E5%AD%A6%E3%80%8B%E6%91%98%E5%BD%95/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1366,7 +1461,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/21/%E3%80%8A%E7%87%83%E7%81%AF%E8%80%85%E3%80%8B%E6%91%98%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/03/22/%E3%80%8A%E7%87%83%E7%81%AF%E8%80%85%E3%80%8B%E6%91%98%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1384,7 +1479,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/03/21/%E3%80%8A%E7%87%83%E7%81%AF%E8%80%85%E3%80%8B%E6%91%98%E5%BD%95/" class="post-title-link" itemprop="url">《燃灯者》摘录</a>
+          <a href="/2020/03/22/%E3%80%8A%E7%87%83%E7%81%AF%E8%80%85%E3%80%8B%E6%91%98%E5%BD%95/" class="post-title-link" itemprop="url">《燃灯者》摘录</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1396,7 +1491,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2020-03-21 20:17:00 / 修改时间：23:24:25" itemprop="dateCreated datePublished" datetime="2020-03-21T20:17:00+00:00">2020-03-21</time>
+      <time title="创建时间：2020-03-22 04:17:00 / 修改时间：07:24:25" itemprop="dateCreated datePublished" datetime="2020-03-22T04:17:00+08:00">2020-03-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1492,9 +1587,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-03-21 09:48:00 / 修改时间：18:25:00" itemprop="dateCreated datePublished" datetime="2020-03-21T09:48:00+00:00">2020-03-21</time>
+      <time title="创建时间：2020-03-21 17:48:00" itemprop="dateCreated datePublished" datetime="2020-03-21T17:48:00+08:00">2020-03-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-03-22 02:25:00" itemprop="dateModified" datetime="2020-03-22T02:25:00+08:00">2020-03-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1594,9 +1695,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-03-12 09:48:00 / 修改时间：21:49:00" itemprop="dateCreated datePublished" datetime="2020-03-12T09:48:00+00:00">2020-03-12</time>
+      <time title="创建时间：2020-03-12 17:48:00" itemprop="dateCreated datePublished" datetime="2020-03-12T17:48:00+08:00">2020-03-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-03-13 05:49:00" itemprop="dateModified" datetime="2020-03-13T05:49:00+08:00">2020-03-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1703,14 +1810,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-03-11 09:48:00" itemprop="dateCreated datePublished" datetime="2020-03-11T09:48:00+00:00">2020-03-11</time>
+      <time title="创建时间：2020-03-11 17:48:00" itemprop="dateCreated datePublished" datetime="2020-03-11T17:48:00+08:00">2020-03-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-12 10:21:00" itemprop="dateModified" datetime="2022-10-12T10:21:00+00:00">2022-10-12</time>
+      <time title="修改时间：2022-10-12 18:21:00" itemprop="dateModified" datetime="2022-10-12T18:21:00+08:00">2022-10-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1780,116 +1887,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2020/02/29/build-python-program-to-standalone-binary/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jay.Run">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="逸思杂陈">
-      <meta itemprop="description" content="学习 思考 行动 Python">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 逸思杂陈">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/02/29/build-python-program-to-standalone-binary/" class="post-title-link" itemprop="url">用exxo将Python程序编译成单一可执行文件</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-02-29 09:48:00" itemprop="dateCreated datePublished" datetime="2020-02-29T09:48:00+00:00">2020-02-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-03-01 11:34:31" itemprop="dateModified" datetime="2020-03-01T11:34:31+00:00">2020-03-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>417</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>golang将程序编译成一个可执行文件，部署起来特别方便。</p>
-<p>那么Python是否也有类似解决方案呢？单一可执行文件，免去安装Python环境的麻烦，也避免了直接暴露源码程序。</p>
-<p>经过多次搜索之后找到解决方案 <a target="_blank" rel="noopener" href="https://github.com/mbachry/exxo">exxo</a></p>
-<p><em>注意：exxo只支持linux64平台</em></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/29/build-python-program-to-standalone-binary/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -1913,13 +1910,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">154k</span>
+    <span title="站点总字数">160k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">9:21</span>
+    <span title="站点阅读时长">9:40</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动

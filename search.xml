@@ -3688,6 +3688,13 @@
 <h3 id="某些软件中输入法不可用"><a href="#某些软件中输入法不可用" class="headerlink" title="某些软件中输入法不可用"></a>某些软件中输入法不可用</h3><p>在使用 fcitx 输入法时，某些软件中无法唤起输入法，无法输入中文（如：微信）<br>通常是因为该程序默认加载了 ibus 模块，只要设置 <code>QT_IM_MODULE=fcitx</code> 环境变量就能解决问题。<br>为了不带来别的影响，仅修改 .desktop 启动文件就行。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir -p ~/.local/share/applications</span><br><span class="line"></span><br><span class="line">sed &#x27;s|Exec=/usr|Exec=env QT_IM_MODULE=fcitx /usr|&#x27; \</span><br><span class="line">/usr/share/applications/wechat.desktop &gt; ~/.local/share/applications/wechat.desktop</span><br></pre></td></tr></table></figure>
 
+<h3 id="WPS-每次登录自动启动"><a href="#WPS-每次登录自动启动" class="headerlink" title="WPS 每次登录自动启动"></a>WPS 每次登录自动启动</h3><p>WPS 安装后会在 <code>/etc/xdg/autostart/</code> 放置一个 <code>wps-office-autostart.desktop</code>，桌面环境每次登录都会扫描该目录并执行。它会启动 <code>wpsd</code> 守护进程，预加载 wps、wpp、et 三个组件（即”快速启动”功能）。</p>
+<p>这个机制跟 systemd 无关，所以禁用 systemd 服务不会生效。</p>
+<p>排查过程</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看 XDG 自启动项</span></span><br><span class="line"><span class="built_in">ls</span> /etc/xdg/autostart/ | grep wps</span><br><span class="line"><span class="comment"># wps-office-autostart.desktop</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看启动内容</span></span><br><span class="line"><span class="built_in">cat</span> /etc/xdg/autostart/wps-office-autostart.desktop</span><br><span class="line"><span class="comment"># Exec=/opt/apps/cn.wps.wps-office-pro/files/bin/quickstartoffice start</span></span><br></pre></td></tr></table></figure>
+
+<p>解决方法：在用户级别覆盖禁用（不影响其他用户，WPS 更新也不会覆盖）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/.config/autostart</span><br><span class="line"><span class="built_in">cp</span> /etc/xdg/autostart/wps-office-autostart.desktop ~/.config/autostart/</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hidden=true&quot;</span> &gt;&gt; ~/.config/autostart/wps-office-autostart.desktop</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>编程</category>

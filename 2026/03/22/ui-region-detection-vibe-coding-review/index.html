@@ -415,7 +415,7 @@
 </li>
 </ol>
 <h4 id="阶段六：单刀切割-大块优先（v10）"><a href="#阶段六：单刀切割-大块优先（v10）" class="headerlink" title="阶段六：单刀切割 + 大块优先（v10）"></a>阶段六：单刀切割 + 大块优先（v10）</h4><ol start="30">
-<li><p><strong>最优轴优先（初版）</strong> — 原算法固定先横后纵（<code>start_axis=0</code>）。改为横纵同时检测，选平均覆盖率更高的轴先切。但本质仍是同方向全切——一次用所有线切成多个条带，导致窄条带内某些线覆盖率不足。</p>
+<li><p><strong>最优轴优先（初版）</strong> — （用户提出）原算法固定先横后纵（<code>start_axis=0</code>）。改为横纵同时检测，选平均覆盖率更高的轴先切。但本质仍是同方向全切——一次用所有线切成多个条带，导致窄条带内某些线覆盖率不足。</p>
 </li>
 <li><p><strong>Group 中心 bug</strong> — <code>_find_dividing_lines</code> 返回 group 的 <code>int(np.mean(g))</code> 作为代表位置。Canny 在 1px 灰度线两侧产生两条边缘（如 x&#x3D;152 和 x&#x3D;154），group 中心 x&#x3D;153 本身没有边缘像素，覆盖率接近 0。<code>_axis_avg_coverage</code> 基于这些错误位置计算，导致轴选择比较失真。修复：group 代表位置改为 group 内覆盖率最高的位置。</p>
 </li>

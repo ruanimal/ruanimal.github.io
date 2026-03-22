@@ -345,7 +345,7 @@
 <p>因为要做些 ui 自动化的功能，涉及到区域检测。这个功能大概用了 5h+，本文主要记录整个迭代演进过程，以及 llm 对这个过程的评价。</p>
 <span id="more"></span>
 <p>基于 opencv 实现的最终效果，总体效果堪称完美。<br><img data-src="https://image.ponder.work/mweb/2026-03-22---image.png" alt="alt text"> <!-- original: ![alt text](../media/ui-region-detection-vibe-coding-review/image.png) --></p>
-<h2 id="迭代回顾"><a href="#迭代回顾" class="headerlink" title="迭代回顾"></a>迭代回顾</h2><p>Claude Sonnet&#x2F;Opus 4.6 对所有会话内容的总结</p>
+<h2 id="迭代回顾"><a href="#迭代回顾" class="headerlink" title="迭代回顾"></a>迭代回顾</h2><p>以下是 Claude Sonnet&#x2F;Opus 4.6 对所有 vibe coding 会话内容的总结</p>
 <h3 id="时间线"><a href="#时间线" class="headerlink" title="时间线"></a>时间线</h3><h4 id="阶段一：基础搭建与通用-CV-方法（v1-v5）"><a href="#阶段一：基础搭建与通用-CV-方法（v1-v5）" class="headerlink" title="阶段一：基础搭建与通用 CV 方法（v1-v5）"></a>阶段一：基础搭建与通用 CV 方法（v1-v5）</h4><ol>
 <li><p><strong>Spec 执行 + 初始实现</strong> — 执行 image-region-detection spec 全部 6 个任务。Pydantic 模型、路由、服务层（Canny + findContours）、测试一次通过。</p>
 </li>
@@ -423,7 +423,7 @@
 <p>改为单刀策略：每次从横纵所有候选线中选覆盖率最高的一条切一刀，分成两块，大块先递归。这样子区域尽可能大，更多的线能在大区域中被检测到。<code>max_depth</code> 从 6 提高到 20 适配二叉树更深的层级。</p>
 <p>效果：image6.png 中 y&#x3D;96（”基金总持仓”标签下方分隔线）在 x&#x3D;0..152 列内覆盖率 100%，成功被检测到。</p>
 </li>
-<li><p><strong>ratio 简化为全局 0.85</strong> — 长度自适应 ratio（≤100px→0.95, ≥1000px→0.85）在单刀策略下不再必要。旧策略中短线需要严格阈值防止文字碎片误判，但单刀策略每次只选最强线，加上 15% 间隙检查已经充分过滤假线。统一使用 ratio&#x3D;0.85，消除了窄区域（如 29px 高的 toolbar 行）中竖线因阈值过严（0.95 要求 28&#x2F;29 像素）而漏检的问题。image7.png toolbar 行内的竖向分隔线（93.1% 覆盖率）成功检测到。</p>
+<li><p><strong>ratio 简化为全局 0.85</strong> — （用户提出）长度自适应 ratio（≤100px→0.95, ≥1000px→0.85）在单刀策略下不再必要。旧策略中短线需要严格阈值防止文字碎片误判，但单刀策略每次只选最强线，加上 15% 间隙检查已经充分过滤假线。统一使用 ratio&#x3D;0.85，消除了窄区域（如 29px 高的 toolbar 行）中竖线因阈值过严（0.95 要求 28&#x2F;29 像素）而漏检的问题。image7.png toolbar 行内的竖向分隔线（93.1% 覆盖率）成功检测到。</p>
 </li>
 </ol>
 <h4 id="阶段七：性能优化（v11）"><a href="#阶段七：性能优化（v11）" class="headerlink" title="阶段七：性能优化（v11）"></a>阶段七：性能优化（v11）</h4><ol start="34">
@@ -439,7 +439,7 @@
 <h4 id="OCR-探索的价值"><a href="#OCR-探索的价值" class="headerlink" title="OCR 探索的价值"></a>OCR 探索的价值</h4><p>虽然最终没用，但验证了”自底向上聚合”在 UI 布局问题上不如”自顶向下切割”有效。</p>
 <h4 id="单刀切割的顿悟"><a href="#单刀切割的顿悟" class="headerlink" title="单刀切割的顿悟"></a>单刀切割的顿悟</h4><p>阶段六是第二个转折点。步骤 30 的”最优轴优先”仍然是同方向全切思路，本质没变——窄条带问题依旧。用户一句”切开之后选面积更大的那边先继续切”点破了关键：问题不在选哪个轴，而在一次切太多刀。单刀切割 + 大块优先让每次决策都在尽可能大的区域上做，线的覆盖率天然更高，连 ratio 都能从长度自适应简化回固定 0.85。这是从”批量切割”到”逐步切割”的范式转换，比调参数重要得多。</p>
 <h4 id="性能优化的正确姿势"><a href="#性能优化的正确姿势" class="headerlink" title="性能优化的正确姿势"></a>性能优化的正确姿势</h4><p>第 34 步先 profile 再动手，5 分钟定位到 <code>np.sum(line &gt; 0)</code> 的 12 万次循环调用。修复方式是纯数学等价的向量化替换，零行为变更，8.5 倍提速。教训：性能优化必须 profile 先行，改最热的路径，且保证语义不变。</p>
-<h4 id="核心教训"><a href="#核心教训" class="headerlink" title="核心教训"></a>核心教训</h4><p><strong>先分析数据，再选方法。</strong> 第 20 步的诊断脚本 5 分钟就定位了 Canny 阈值问题，但在算法层面折腾了十几轮。如果每次效果不好都先写脚本看数据，迭代次数至少能砍一半。缺少信息时应主动写诊断脚本或向用户提问，不要盲目尝试。</p>
+<h4 id="核心教训"><a href="#核心教训" class="headerlink" title="核心教训"></a>核心教训</h4><p><strong>先分析数据，再选方法。</strong> 第 20 步的诊断脚本 5 分钟就定位了 Canny 阈值问题，但在算法层面折腾了十几轮。如果每次效果不好都先写脚本看数据，迭代次数至少能砍一半。缺少信息时应主动写诊断脚本或向用户提问，不要盲目尝试。（此条也是由用户引导）</p>
 <p>此教训已写入 <code>.kiro/steering/first-principles.md</code> 第 5 条。</p>
 <h2 id="GPT-的评价解析"><a href="#GPT-的评价解析" class="headerlink" title="GPT 的评价解析"></a>GPT 的评价解析</h2><p><em>以下内容是 gpt 对迭代回顾的评价解析</em></p>
 <p>基于这份记录，我会把它看成一次很典型的“<strong>用户提供问题抽象与判断标准，AI负责高速试错、实现、验证和整理</strong>”的协作过程。整体上，<strong>真正决定方向的人是用户，真正承担执行密度的人是 AI</strong>。这一点在文中非常清楚：多次关键转折都不是来自参数微调，而是来自用户对“问题本质”的重新定义。</p>

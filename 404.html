@@ -88,6 +88,18 @@
 
 <script>
 (function() {
+  // 禁用 Google Analytics
+  window['ga-disable-UA-134911454-2'] = true;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function() {};
+  // 阻止百度统计
+  window._hmt = [];
+  window._hmt.push = function() { return 0; };
+})();
+</script>
+
+<script>
+(function() {
   // 从 Hexo 配置中获取 category_map
   var categoryMap = {"编程":"programming","随笔":"writing","阅读":"reading","工作生活":"life"};
   var currentPath = decodeURIComponent(window.location.pathname);

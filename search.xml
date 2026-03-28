@@ -3481,7 +3481,7 @@
   </entry>
   <entry>
     <title>配置 Linux 作为主力操作系统</title>
-    <url>/2025/12/22/linux-as-the-only/</url>
+    <url>/2025/12/21/linux-as-the-only/</url>
     <content><![CDATA[<p>这些年日常操作系统一直是 windows 和 macOS 交替使用，Linux 一般只作为服务器的操作系统。<br>然而，咖喱味的 Windows 11 （LTSC）用起来实在难受（平时只玩游戏，下载）<br>arm 的 macbook 虽然能效惊人，但是内存金子价格，软件也封闭（点名finder）和傲慢，实在受不了。<br>最后，还是转向 Linux，毕竟现在 wayland 基本堪用，国产软件也随着信创逐渐丰富了。</p>
 <span id="more"></span>
 
@@ -3695,6 +3695,8 @@
 
 <p>解决方法：在用户级别覆盖禁用（不影响其他用户，WPS 更新也不会覆盖）</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/.config/autostart</span><br><span class="line"><span class="built_in">cp</span> /etc/xdg/autostart/wps-office-autostart.desktop ~/.config/autostart/</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hidden=true&quot;</span> &gt;&gt; ~/.config/autostart/wps-office-autostart.desktop</span><br></pre></td></tr></table></figure>
+
+<h3 id="关于-ntfs"><a href="#关于-ntfs" class="headerlink" title="关于 ntfs"></a>关于 ntfs</h3><p>尽量不要在 linux 下使用 ntfs 硬盘，特别是在大量读写的情况下稳定性一般，可能出现掉盘（即使使用 ntfs3 驱动）<br>如果出现 ntfs 硬盘的异常，如掉盘、文件不显示等问题，建议重新启动到 windows 然后运行硬盘的检测修复。</p>
 ]]></content>
       <categories>
         <category>编程</category>

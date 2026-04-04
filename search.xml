@@ -3702,7 +3702,9 @@
 <figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 后台开始回写脏页的内存大小（1G）</span></span><br><span class="line"><span class="attr">vm.dirty_background_bytes</span> = <span class="number">1073741824</span></span><br><span class="line"><span class="comment"># 强制同步回写脏页的内存 (2G)</span></span><br><span class="line"><span class="attr">vm.dirty_bytes</span> = <span class="number">2147483648</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 相应的回写比例，实际值等于：ratio x 内存大小</span></span><br><span class="line"><span class="comment"># 上面的固定值和比例值两种二选一</span></span><br><span class="line"><span class="attr">vm.dirty_background_ratio</span> = <span class="number">2</span></span><br><span class="line"><span class="attr">vm.dirty_ratio</span> = <span class="number">4</span></span><br></pre></td></tr></table></figure>
 
 <p>一般桌面使用设置 1G&#x2F;2G 够了，而 ubuntu 24 默认是 10%&#x2F;20%，在大内存上有点丧心病狂了。<br>如果主要使用机械硬盘，还可以考虑再调小些。</p>
-]]></content>
+<h3 id="修改文件句柄数量限制"><a href="#修改文件句柄数量限制" class="headerlink" title="修改文件句柄数量限制"></a>修改文件句柄数量限制</h3><p>默认限制是 1024, 文件句柄数量太小会导致应用异常，比如 vscode 无法监控文件变更</p>
+<p>修改 &#x2F;etc&#x2F;security&#x2F;limits.conf，在最后追加</p>
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"><span class="bullet">* </span>soft nofile 10240</span><br><span class="line"><span class="bullet">* </span>hard nofile 10240</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>编程</category>
       </categories>

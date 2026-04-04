@@ -3696,6 +3696,10 @@
 <p>解决方法：在用户级别覆盖禁用（不影响其他用户，WPS 更新也不会覆盖）</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/.config/autostart</span><br><span class="line"><span class="built_in">cp</span> /etc/xdg/autostart/wps-office-autostart.desktop ~/.config/autostart/</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hidden=true&quot;</span> &gt;&gt; ~/.config/autostart/wps-office-autostart.desktop</span><br></pre></td></tr></table></figure>
 
+<p><strong>然而，以上配置并没有效果</strong></p>
+<p>其实是 KDE <code>会话恢复</code>机制启动的 wps, KDE 的会话管理基于 X11 的 XSMP（X Session Management Protocol）。<br>保存时机是注销&#x2F;关机时，ksmserver 会向所有注册了 XSMP 的客户端发送 SaveYourself，然后把各客户端返回的 restartCommand 写进 ksmserverrc。</p>
+<p>但问题在于 WPS 的行为比较特殊：即使你在关机前关闭了 WPS 的窗口，wpscloudsvr 和 et 等后台进程可能并没有真正退出。<br>它们会驻留在后台（类似托盘常驻），所以 ksmserver 在保存会话时检测到它们仍在运行，就记录下来了。</p>
+<p>所以：关闭会话恢复（启动为空会话）就行了，我并不需要这个。</p>
 <h3 id="关于-ntfs"><a href="#关于-ntfs" class="headerlink" title="关于 ntfs"></a>关于 ntfs</h3><p>尽量不要在 linux 下使用 ntfs 硬盘，特别是在大量读写的情况下稳定性一般，可能出现掉盘（即使使用 ntfs3 驱动）<br>如果出现 ntfs 硬盘的异常，如掉盘、文件不显示等问题，建议重新启动到 windows 然后运行硬盘的检测修复。</p>
 <h3 id="文件写入磁盘先快后慢"><a href="#文件写入磁盘先快后慢" class="headerlink" title="文件写入磁盘先快后慢"></a>文件写入磁盘先快后慢</h3><p>由于 linux 默认的磁盘缓存策略比较激进，导致文件复制一开始时很快后面变得很慢。<br>特别是内存比较大、或者硬盘速度比较慢（如U盘）时，可能导致后期写入时假死或者写入失败。</p>
 <p>相关的内核参数</p>
@@ -3703,8 +3707,17 @@
 
 <p>一般桌面使用设置 1G&#x2F;2G 够了，而 ubuntu 24 默认是 10%&#x2F;20%，在大内存上有点丧心病狂了。<br>如果主要使用机械硬盘，还可以考虑再调小些。</p>
 <h3 id="修改文件句柄数量限制"><a href="#修改文件句柄数量限制" class="headerlink" title="修改文件句柄数量限制"></a>修改文件句柄数量限制</h3><p>默认限制是 1024, 文件句柄数量太小会导致应用异常，比如 vscode 无法监控文件变更</p>
-<p>修改 &#x2F;etc&#x2F;security&#x2F;limits.conf，在最后追加</p>
-<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"><span class="bullet">* </span>soft nofile 10240</span><br><span class="line"><span class="bullet">* </span>hard nofile 10240</span><br></pre></td></tr></table></figure>]]></content>
+<p>修改 &#x2F;etc&#x2F;security&#x2F;limits.conf，在最后追加，然后重启电脑</p>
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"><span class="bullet">* </span>soft nofile 10240</span><br><span class="line"><span class="bullet">* </span>hard nofile 10240</span><br></pre></td></tr></table></figure>
+
+<p>如果没有生效，可能需要修改 systemd 配置文件</p>
+<p>编辑 &#x2F;etc&#x2F;systemd&#x2F;system.conf 或者 &#x2F;etc&#x2F;systemd&#x2F;user.conf 文件，找到 DefaultLimitNOFILE 这一行，取消注释并修改：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">DefaultLimitNOFILE</span>=<span class="number">10240</span>:<span class="number">10240</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 重载系统配置</span></span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line"><span class="comment"># 重载用户配置</span></span><br><span class="line">systemctl --<span class="keyword">user</span> <span class="title">daemon-reload</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="开启-zram"><a href="#开启-zram" class="headerlink" title="开启 zram"></a>开启 zram</h3><p>在大内存的场景，swapfile 就没啥必要了。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">sudo apt install zram-tools</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑 /etc/default/zramswap，添加</span></span><br><span class="line"><span class="attribute">ALGO</span>=zstd</span><br><span class="line"><span class="attribute">PERCENT</span>=50</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启服务</span></span><br><span class="line">sudo systemctl restart zramswap.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭 swapfile （可选），从fstab 中注释 swapfile 条目</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>编程</category>
       </categories>

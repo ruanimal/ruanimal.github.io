@@ -3697,6 +3697,11 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/.config/autostart</span><br><span class="line"><span class="built_in">cp</span> /etc/xdg/autostart/wps-office-autostart.desktop ~/.config/autostart/</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hidden=true&quot;</span> &gt;&gt; ~/.config/autostart/wps-office-autostart.desktop</span><br></pre></td></tr></table></figure>
 
 <h3 id="关于-ntfs"><a href="#关于-ntfs" class="headerlink" title="关于 ntfs"></a>关于 ntfs</h3><p>尽量不要在 linux 下使用 ntfs 硬盘，特别是在大量读写的情况下稳定性一般，可能出现掉盘（即使使用 ntfs3 驱动）<br>如果出现 ntfs 硬盘的异常，如掉盘、文件不显示等问题，建议重新启动到 windows 然后运行硬盘的检测修复。</p>
+<h3 id="文件写入磁盘先快后慢"><a href="#文件写入磁盘先快后慢" class="headerlink" title="文件写入磁盘先快后慢"></a>文件写入磁盘先快后慢</h3><p>由于 linux 默认的磁盘缓存策略比较激进，导致文件复制一开始时很快后面变得很慢。<br>特别是内存比较大、或者硬盘速度比较慢（如U盘）时，可能导致后期写入时假死或者写入失败。</p>
+<p>相关的内核参数</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 后台开始回写脏页的内存大小（1G）</span></span><br><span class="line"><span class="attr">vm.dirty_background_bytes</span> = <span class="number">1073741824</span></span><br><span class="line"><span class="comment"># 强制同步回写脏页的内存 (2G)</span></span><br><span class="line"><span class="attr">vm.dirty_bytes</span> = <span class="number">2147483648</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 相应的回写比例，实际值等于：ratio x 内存大小</span></span><br><span class="line"><span class="comment"># 上面的固定值和比例值两种二选一</span></span><br><span class="line"><span class="attr">vm.dirty_background_ratio</span> = <span class="number">2</span></span><br><span class="line"><span class="attr">vm.dirty_ratio</span> = <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<p>一般桌面使用设置 1G&#x2F;2G 够了，而 ubuntu 24 默认是 10%&#x2F;20%，在大内存上有点丧心病狂了。<br>如果主要使用机械硬盘，还可以考虑再调小些。</p>
 ]]></content>
       <categories>
         <category>编程</category>

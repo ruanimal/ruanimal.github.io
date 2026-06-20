@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+  <link rel="mask-icon" href="/favicon.ico" color="#222">
+  <meta name="baidu-site-verification" content="K0iqERgnmF">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.ponder.work","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/config.min.js" defer></script>
+
+    <meta name="description" content="因为房子的大小布局不同，个人的要求不同，家庭网络的设备布局一直没有完美的方案。而且很多人的网络知识不够，导致最终家庭网络称不上好用。如果有一定的网络知识，vlan是简化家庭网络的利器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="家用网络 vlan 单线复用">
+<meta property="og:url" content="https://blog.ponder.work/2026/06/20/vlan-of-home-network/index.html">
+<meta property="og:site_name" content="逸思杂陈">
+<meta property="og:description" content="因为房子的大小布局不同，个人的要求不同，家庭网络的设备布局一直没有完美的方案。而且很多人的网络知识不够，导致最终家庭网络称不上好用。如果有一定的网络知识，vlan是简化家庭网络的利器。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.ponder.work/media/vlan-of-home-network/image-3.png">
+<meta property="og:image" content="https://blog.ponder.work/media/vlan-of-home-network/image-4.png">
+<meta property="og:image" content="https://blog.ponder.work/media/vlan-of-home-network/Xnip2026-06-19_12-22-12.jpg">
+<meta property="og:image" content="https://blog.ponder.work/media/vlan-of-home-network/Xnip2026-06-19_12-22-25.jpg">
+<meta property="og:image" content="https://blog.ponder.work/media/vlan-of-home-network/image-5.png">
+<meta property="article:published_time" content="2026-06-20T01:40:36.000Z">
+<meta property="article:modified_time" content="2026-06-20T01:40:36.000Z">
+<meta property="article:author" content="Jay.Run">
+<meta property="article:tag" content="硬件">
+<meta property="article:tag" content="网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.ponder.work/media/vlan-of-home-network/image-3.png">
+
+
+<link rel="canonical" href="https://blog.ponder.work/2026/06/20/vlan-of-home-network/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.ponder.work/2026/06/20/vlan-of-home-network/","path":"2026/06/20/vlan-of-home-network/","title":"家用网络 vlan 单线复用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>家用网络 vlan 单线复用 | 逸思杂陈</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134911454-2"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-134911454-2","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/analytics/google-analytics.min.js" defer></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/analytics/baidu-analytics.min.js" defer></script>
+  <script async src="https://hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7"></script>
+
+
+
+
+
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/utils.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/sidebar.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/next-boot.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/pjax.min.js" defer></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.5.0/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/search/local-search.min.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@11.10.1/dist/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/tags/mermaid.min.js" defer></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/fancybox.min.js" defer></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/math/mathjax.min.js" defer></script>
+
+
+
+
+<script>
+(function() {
+  var canonical = document.querySelector('head > link[rel="canonical"]');
+  if (canonical && canonical.href) {
+    try {
+      var oldUrl = new URL(canonical.href);
+      canonical.href = window.location.origin + oldUrl.pathname + oldUrl.search + oldUrl.hash;
+    } catch (e) {
+      console.warn('Failed to update canonical link:', e);
+    }
+  }
+})();
+</script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">逸思杂陈</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">人类一思考，上帝就发笑。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/programming/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%86%B5"><span class="nav-number">1.</span> <span class="nav-text">概况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">交换机设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">路由器设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VLAN-%E7%AE%80%E5%8D%95%E7%9F%A5%E8%AF%86"><span class="nav-number">4.</span> <span class="nav-text">VLAN 简单知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jay.Run</p>
+  <div class="site-description" itemprop="description">学习 思考 行动 Python</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ruanimal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ruanimal" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/iponder" title="Leetcode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;iponder" rel="noopener me" target="_blank"><i class="cubes fa-fw"></i>Leetcode</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.liaoxuefeng.com/" title="https:&#x2F;&#x2F;www.liaoxuefeng.com&#x2F;" rel="noopener" target="_blank">廖雪峰的官方网站</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="http://www.ruanyifeng.com/" title="http:&#x2F;&#x2F;www.ruanyifeng.com&#x2F;" rel="noopener" target="_blank">阮一峰的个人网站</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://cse.google.com/cse?cx=006975008861986536211%3Alpx3qasaiom" title="https:&#x2F;&#x2F;cse.google.com&#x2F;cse?cx&#x3D;006975008861986536211:lpx3qasaiom" rel="noopener" target="_blank">mac软件搜索引擎</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.kaciras.com/" title="https:&#x2F;&#x2F;blog.kaciras.com&#x2F;" rel="noopener" target="_blank">Kaciras' Blog</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2026/06/20/vlan-of-home-network/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jay.Run">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="家用网络 vlan 单线复用 | 逸思杂陈">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          家用网络 vlan 单线复用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-06-20 09:40:36" itemprop="dateCreated datePublished" datetime="2026-06-20T09:40:36+08:00">2026-06-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/life/" itemprop="url" rel="index"><span itemprop="name">工作生活</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>因为房子的大小布局不同，个人的要求不同，家庭网络的设备布局一直没有完美的方案。<br>而且很多人的网络知识不够，导致最终家庭网络称不上好用。如果有一定的网络知识，vlan是简化家庭网络的利器。</p>
+<span id="more"></span>
+
+<h2 id="概况"><a href="#概况" class="headerlink" title="概况"></a>概况</h2><p>先说下原先的网络布局，光猫桥接模式，软路由作为主路由拨号，客厅的无线路由器使用 ap 模式。<br>虽然能够满足使用效果，但是多了个软路由，弱电箱空间变拥挤了，而且软路由发热也大，网络拓扑也复杂了。<br>原先是光猫拨号的，虽然能少个设备，但光猫的功能很弱，也不方便调整网络设置（如 DHCP, ipv6）。<br>也想过将无线路由器直接放弱电箱，又影响信号。总之当前的方案能满足需求，但不够完美。</p>
+<p><img data-src="/../media/vlan-of-home-network/image-3.png" alt="alt text"></p>
+<p>现在，将傻瓜交换机换成网管交换机后，交换机只通过一条线连接客厅的的路由器。<br>在路由器拨号后，这条线又可以承载LAN网络，也就是WAN&#x2F;LAN单线复用。<br>路由器的LAN口和交换机其他端口是一样的子网，也就是房子内所有网口的网络都是一致的，插上就能用。</p>
+<p><img data-src="/../media/vlan-of-home-network/image-4.png" alt="alt text"></p>
+<p>用到的设备</p>
+<ul>
+<li>网管交换机：水星 SE109 Pro</li>
+<li>无线路由器：小米 AX3000T v1 （immortalwrt 24.10）</li>
+</ul>
+<p>这里的设备没有硬性要求，只要支持 802.1Q VLAN 的交换机和路由器就行了。<br>如果不想用 immortalwrt&#x2F;openwrt 等系统的路由器，也可以使用另一个网管交换机+普通路由器替代，但这样就背离初衷了。</p>
+<h2 id="交换机设置"><a href="#交换机设置" class="headerlink" title="交换机设置"></a>交换机设置</h2><p>我们需要使用 2 个 VLAN, VLAN1 用于 LAN 网络, VLAN10 用于 WAN 网络。<br>交换机共 9 个端口，先确定好每个端口的用途：1 连路由器，2 连光猫，3-9连普通设备。<br>打开交换机的 vlan 功能，依次设置 VLAN1 和 VLAN10 的端口成员和端口的 Tagged&#x2F;Untagged 状态。<br><em>我对 VLAN 原理其实也不是很熟悉，确保设置完和下图一致就行</em></p>
+<p><img data-src="/../media/vlan-of-home-network/Xnip2026-06-19_12-22-12.jpg" alt="alt text"></p>
+<p>设置完 VLAN 端口后 PVID 应该会自动设置好，如果不是手动修改下。</p>
+<p><img data-src="/../media/vlan-of-home-network/Xnip2026-06-19_12-22-25.jpg" alt="alt text"></p>
+<p>所有设置完成后，记得 “保存设置”</p>
+<h2 id="路由器设置"><a href="#路由器设置" class="headerlink" title="路由器设置"></a>路由器设置</h2><p><strong>设置时最好先将路由器系统初始化，否则有可能保存失败。</strong></p>
+<p>A. 网络  -&gt; 接口 -&gt; 设备 -&gt; br-lan 网桥 -&gt; 配置</p>
+<ol>
+<li>将 “交换机端口 wan”加入到网桥端口</li>
+<li>启用 VLAN 过滤</li>
+<li>添加 VLAN1, 勾选本地，并设置所有端口为 Untagged</li>
+<li>添加 VLAN10, 勾选本地，设置 WAN 为 Tagged, 其他为非成员</li>
+<li>保存，但是不要应用</li>
+</ol>
+<p><img data-src="/../media/vlan-of-home-network/image-5.png" alt="alt text"></p>
+<p>B. 网络  -&gt; 接口 -&gt; lan -&gt; 编辑</p>
+<ol>
+<li>将设备改为 “软件 VLAN： br-lan.1”</li>
+<li>保存不要应用</li>
+</ol>
+<p>C. 网络  -&gt; 接口 -&gt; wan -&gt; 编辑</p>
+<ol>
+<li>将设备改为 “软件 VLAN： br-lan.10”</li>
+<li>保存不要应用</li>
+</ol>
+<p>D. 网络  -&gt; 接口 -&gt; wan6 -&gt; 编辑</p>
+<ol>
+<li>将设备改为 “软件 VLAN： br-lan.10”</li>
+<li>保存不要应用</li>
+</ol>
+<p>E. 保存并应用</p>
+<p><strong>注意：</strong></p>
+<ol>
+<li>此次的设置和很多教程不同，因为我想要将路由器的 LAN 和 交换机普通端口联通</li>
+<li>如果是单口软路由设备，直接添加 VLAN（802.1q）的 VLAN10设备，应该也是可行的</li>
+<li>openwrt 老版本（19以前）的设置和新版不同，不能作为参考</li>
+</ol>
+<h2 id="VLAN-简单知识"><a href="#VLAN-简单知识" class="headerlink" title="VLAN 简单知识"></a>VLAN 简单知识</h2><ul>
+<li>VLAN 就是虚拟局域网，也就是将某几个端口划分到某个虚拟局域网</li>
+<li>VLAN ID：虚拟局域网ID</li>
+<li>非成员端口：该端口不属于某 VLAN, 不收不发，直接丢弃该 VLAN 的数据（隔离的关键）</li>
+<li>成员端口：该端口属于某 VLAN，能收能发</li>
+<li>Access 口：普通端口，只属于某个 VLAN, 用于连接非交换机设备</li>
+<li>Trunk 口: 网络主干道，用于连接其他交换机设备,可以有多个 VLAN ID</li>
+<li>PVID：无 VLAN ID 的数据，从该端口进入交换机时附加的默认VLAN ID</li>
+<li>一般 VLAN 成员端口的 PVID 等于 VLAN ID</li>
+<li>Trunk 端口的 PVID 绝对不等于它放行的所有 VLAN ID。Trunk 口的 PVID 通常保持默认的 1（Native VLAN）</li>
+<li>交换机内部交换时不改变数据包的 VLAN ID</li>
+<li>Untagged：出端口数据去除ID</li>
+<li>Tageed：出端口数据保留ID</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1e34y1Q7bj/?spm_id_from=333.337.search-card.all.click&vd_source=638baf738d326f470fb0dd9f615c8d29">https://www.bilibili.com/video/BV1e34y1Q7bj/?spm_id_from=333.337.search-card.all.click&amp;vd_source=638baf738d326f470fb0dd9f615c8d29</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Cx2008Lxl/article/details/122990497">https://blog.csdn.net/Cx2008Lxl/article/details/122990497</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Jay.Run
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.ponder.work/2026/06/20/vlan-of-home-network/" title="家用网络 vlan 单线复用">https://blog.ponder.work/2026/06/20/vlan-of-home-network/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag"># 硬件</a>
+              <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"># 网络</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/27/intel-igpu-uhd6xx-openvino-on-linux/" rel="prev" title="Linux 平台 intel UHD 6xx 核显 openvino 探索">
+                  <i class="fa fa-angle-left"></i> Linux 平台 intel UHD 6xx 核显 openvino 探索
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Jay.Run</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">162k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">9:50</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/ruanimal" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"ruanimal/ruanimal.github.io","issue_term":"title","theme":"github-light"}</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/comments/utterances.min.js" defer></script>
+<script>
+  document.addEventListener('pjax:success', () => {
+    if (CONFIG.sidebar.display !== 'remove') {
+      const hasTOC = document.querySelector('.post-toc:not(.placeholder-toc)');
+
+      // 当没有 TOC 且侧边栏正在显示时，隐藏侧边栏
+      if (!hasTOC && document.body.classList.contains('sidebar-active')) {
+        window.dispatchEvent(new Event('sidebar:hide'));
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

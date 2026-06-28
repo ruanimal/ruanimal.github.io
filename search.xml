@@ -3500,7 +3500,7 @@
 <li>QT 软件版本问题，Neon 由于是用的最新的 KDE，所以用的 QT 版本也是最新的，可能会导致软件不兼容（如 Deepin 系软件）</li>
 <li>其他系统软件兼容性问题，比如 fcitx 与 KDE 6.7.0 不兼容，见 <a href="https://bugs.kde.org/show_bug.cgi?id=520566">BUG</a></li>
 </ol>
-<p>这些问题一般用 flatpak 版本的软件都能解决，如果不行就需要看看 KDE 的 bug tracker 看看有没有解决方案。</p>
+<p>这些问题一般用 flatpak 版本的软件都能解决，如果不行就需要看看 KDE 的 bug tracker 看看有没有解决方案。<br>另外，一般新的大版本（如 6.6.x -&gt; 6.7.0）发布时，不要急于更新，初期都不是很稳定，可以等待更新几个小版本再更新。</p>
 <h2 id="硬件要求"><a href="#硬件要求" class="headerlink" title="硬件要求"></a>硬件要求</h2><ol>
 <li>NVIDIA 显卡在 Linux 下对 Wayland 支持不好，容易出现卡死或者重启的情况，建议显示器连到核显</li>
 <li>有些主板 Linux 兼容性不行，建议使用御三家主板</li>

@@ -6,7 +6,7 @@
   <link href="https://blog.ponder.work/atom.xml" rel="self"/>
   
   <link href="https://blog.ponder.work/"/>
-  <updated>2026-06-20T01:40:36.000Z</updated>
+  <updated>2026-09-19T15:43:00.000Z</updated>
   <id>https://blog.ponder.work/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>真正的手艺活</title>
+    <link href="https://blog.ponder.work/2026/09/19/my-handicrafts/"/>
+    <id>https://blog.ponder.work/2026/09/19/my-handicrafts/</id>
+    <published>2026-09-19T15:43:00.000Z</published>
+    <updated>2026-09-19T15:43:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录做过的手工</p><p><img data-src="/../media/my-handicrafts/IMG_20260918_021216.jpg" alt="alt text"></p><span id="more"></span><p><img data-src="/../media/my-handicrafts/IMG_20210823_131755.jpg" alt="alt text"></p><p><video controls src="../media/my-handicrafts/wx_camera_1585309305271.mp4" title="Title"></video></p><p><img data-src="/../media/my-handicrafts/IMG_20200213_231429_1789833290259edit.jpg" alt="alt text"></p><p><img data-src="/../media/my-handicrafts/IMG_20200116_220619.jpg" alt="alt text"></p><p><img data-src="/../media/my-handicrafts/IMG_20160702_223235.jpg" alt="alt text"></p><p><img data-src="/../media/my-handicrafts/IMG_20160702_222459.jpg" alt="alt text"></p><p><img data-src="/../media/my-handicrafts/IMG_20160624_202410.jpg" alt="alt text"></p><p><img data-src="/../media/my-handicrafts/IMG_20160617_221903_1466173159774.jpg" alt="alt text"></p><p><img data-src="/../media/my-handicrafts/IMG_20160617_221856_1466173339879.jpg" alt="alt text"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;记录做过的手工&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&quot;/../media/my-handicrafts/IMG_20260918_021216.jpg&quot; alt=&quot;alt text&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="工作生活" scheme="https://blog.ponder.work/categories/life/"/>
+    
+    
+    <category term="手工， 折纸" scheme="https://blog.ponder.work/tags/%E6%89%8B%E5%B7%A5%EF%BC%8C-%E6%8A%98%E7%BA%B8/"/>
+    
+  </entry>
   
   <entry>
     <title>家用网络 vlan 单线复用</title>
@@ -448,27 +470,6 @@
     <category term="Linux" scheme="https://blog.ponder.work/tags/Linux/"/>
     
     <category term="Docker" scheme="https://blog.ponder.work/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python 循环变量泄露与延迟绑定</title>
-    <link href="https://blog.ponder.work/2022/03/05/python-loop-variables-leak/"/>
-    <id>https://blog.ponder.work/2022/03/05/python-loop-variables-leak/</id>
-    <published>2022-03-04T20:17:00.000Z</published>
-    <updated>2022-03-05T13:15:04.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>循环变量泄露与延迟绑定叠加在一起，会产生一些让人迷惑的结果。</p><span id="more"></span><h2 id="梦开始的地方"><a href="#梦开始的地方" class="headerlink" title="梦开始的地方"></a>梦开始的地方</h2><p>先看看一开始的问题，可以看到这里lambda函数的返回值一直在变。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">xx = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]:</span><br><span class="line">    xx.append(<span class="keyword">lambda</span>: i)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;a:&#x27;</span>, xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> xx:</span><br><span class="line">    <span class="built_in">print</span>(j())</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;b:&#x27;</span>, xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xx:</span><br><span class="line">    <span class="built_in">print</span>(i, i())</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;c:&#x27;</span>, xx[<span class="number">0</span>], xx[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;d:&#x27;</span>, xx[<span class="number">0</span>], xx[<span class="number">0</span>]())</span><br></pre></td></tr></table></figure><p>输出如下</p><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="params">a:</span> <span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="params">b:</span> <span class="number">3</span></span><br><span class="line"><span class="operator">&lt;</span>function main2.<span class="symbol">&lt;locals&gt;</span>.<span class="symbol">&lt;lambda&gt;</span> at <span class="number">0</span>x10ca30310<span class="operator">&gt;</span> <span class="operator">&lt;</span>function main2.<span class="symbol">&lt;locals&gt;</span>.<span class="symbol">&lt;lambda&gt;</span> at <span class="number">0</span>x10ca30310<span class="operator">&gt;</span></span><br><span class="line"><span class="operator">&lt;</span>function main2.<span class="symbol">&lt;locals&gt;</span>.<span class="symbol">&lt;lambda&gt;</span> at <span class="number">0</span>x10ca303a0<span class="operator">&gt;</span> <span class="operator">&lt;</span>function main2.<span class="symbol">&lt;locals&gt;</span>.<span class="symbol">&lt;lambda&gt;</span> at <span class="number">0</span>x10ca303a0<span class="operator">&gt;</span></span><br><span class="line"><span class="operator">&lt;</span>function main2.<span class="symbol">&lt;locals&gt;</span>.<span class="symbol">&lt;lambda&gt;</span> at <span class="number">0</span>x10ca30430<span class="operator">&gt;</span> <span class="operator">&lt;</span>function main2.<span class="symbol">&lt;locals&gt;</span>.<span class="symbol">&lt;lambda&gt;</span> at <span class="number">0</span>x10ca30430<span class="operator">&gt;</span></span><br><span class="line"><span class="params">c:</span> <span class="operator">&lt;</span>function main2.<span class="symbol">&lt;locals&gt;</span>.<span class="symbol">&lt;lambda&gt;</span> at <span class="number">0</span>x10ca30310<span class="operator">&gt;</span> <span class="operator">&lt;</span>function main2.<span class="symbol">&lt;locals&gt;</span>.<span class="symbol">&lt;lambda&gt;</span> at <span class="number">0</span>x10ca30430<span class="operator">&gt;</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="params">d:</span> <span class="operator">&lt;</span>function main2.<span class="symbol">&lt;locals&gt;</span>.<span class="symbol">&lt;lambda&gt;</span> at <span class="number">0</span>x10ca30310<span class="operator">&gt;</span> <span class="number">6</span></span><br></pre></td></tr></table></figure><h2 id="循环变量泄露"><a href="#循环变量泄露" class="headerlink" title="循环变量泄露"></a>循环变量泄露</h2><p>由于Python没有块级作用域，所以循环会改变当前作用域变量的值，也就是循环变量泄露。<br><strong>注意</strong>：Python3中列表推导式循环变量不会泄露，Python2中和常规循环一样泄露。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = -<span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">7</span>):</span><br><span class="line">    <span class="keyword">if</span> x == <span class="number">6</span>:</span><br><span class="line">        <span class="built_in">print</span>(x, <span class="string">&#x27;: for x inside loop&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(x, <span class="string">&#x27;: x in global&#x27;</span>)</span><br></pre></td></tr></table></figure><p>输出如下</p><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">6 </span>: <span class="keyword">for</span> x inside loop</span><br><span class="line"><span class="symbol">6 </span>: x in global</span><br></pre></td></tr></table></figure><h2 id="闭包与延迟绑定"><a href="#闭包与延迟绑定" class="headerlink" title="闭包与延迟绑定"></a>闭包与延迟绑定</h2><p>再讲一下<strong>闭包</strong>，在一个内部函数中，对外部作用域的变量进行引用，(并且一般外部函数的返回值为内部函数)，那么内部函数就被认为是闭包。<br>这里所谓的引用可以也就是内部函数记住了<strong>变量的名称</strong>（而不是值，这个从ast语法树可以看出），而变量对应的值是会变化的。<br>如果在循环中定义闭包，引用的变量的值在循环结束才统一确定为最后一次循环时的值，也就是<strong>延迟绑定</strong>（lazy binding）。</p><p>所以下面的例子，<code>xx</code>的所有匿名函数的返回值均为<code>3</code></p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xx = <span class="selector-attr">[]</span></span><br><span class="line"><span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> <span class="selector-attr">[1,2,3]</span>:</span><br><span class="line">    xx<span class="selector-class">.append</span>(lambda: i)</span><br></pre></td></tr></table></figure><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>再分析一开始的问题，这里的匿名函数引用了变量<code>i</code>，而<code>i</code>是全局变量，所以再次使用<code>i</code>作为循环变量时，列表中的匿名函数引用的值就被覆盖了。</p><p>正确做法：</p><ul><li>在独立的函数中定义闭包</li><li>闭包引用的变量应该是其他函数不可修改的</li><li>优先使用列表推导式</li></ul><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://stackoverflow.com/questions/3611760/scoping-in-python-for-loops">https://stackoverflow.com/questions/3611760/scoping-in-python-for-loops</a></li><li><a href="https://www.educative.io/courses/python-ftw-under-the-hood/N8RW8508RkL">https://www.educative.io/courses/python-ftw-under-the-hood/N8RW8508RkL</a></li><li><a href="https://mail.python.org/pipermail/python-ideas/2008-October/002109.html">https://mail.python.org/pipermail/python-ideas/2008-October/002109.html</a></li></ul>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;循环变量泄露与延迟绑定叠加在一起，会产生一些让人迷惑的结果。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="编程" scheme="https://blog.ponder.work/categories/programming/"/>
-    
-    
-    <category term="Python" scheme="https://blog.ponder.work/tags/Python/"/>
     
   </entry>
   

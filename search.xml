@@ -3736,6 +3736,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> e2fsck -f -y /dev/sda1</span><br></pre></td></tr></table></figure>
 
 <p>具体原因还不太清楚，不确定是 pe 的问题还是 diskgenius 的问题。</p>
+<h3 id="某些应用没有窗口装饰"><a href="#某些应用没有窗口装饰" class="headerlink" title="某些应用没有窗口装饰"></a>某些应用没有窗口装饰</h3><p>某些应用没有窗口装饰，导致应用窗口不容易识别。<br>为此，我专门开发了 kde 插件 <a href="https://github.com/ruanimal/kwin-windowborder">kwin-windowborder</a> 来解决这个问题，针对指定应用开启窗口装饰（圆角和阴影），下载安装即可。</p>
 ]]></content>
       <categories>
         <category>编程</category>

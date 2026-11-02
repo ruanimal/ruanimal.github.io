@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+  <link rel="mask-icon" href="/favicon.ico" color="#222">
+  <meta name="baidu-site-verification" content="K0iqERgnmF">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.ponder.work","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/config.min.js" defer></script>
+
+    <meta name="description" content="小米 5（xiaomi-gemini）是 2016 年的骁龙 820 机型，官方 LineageOS 一直维护到现在。一直想试试 postmarketOS 能把一台老手机折腾到什么程度，于是从 10 月 29 日开始，前后花了三天时间做移植适配。 最终结果：系统能正常进入 Phosh 桌面，USB 网络、Wi-Fi、蓝牙、显示触摸、传感器等基本硬件可用，但相机、扬声器、蜂窝网络没有修好，10 月">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小米 5 移植 postmarketOS 适配记录">
+<meta property="og:url" content="https://blog.ponder.work/2026/11/02/postmarketos-on-xiaomi-mi5/index.html">
+<meta property="og:site_name" content="逸思杂陈">
+<meta property="og:description" content="小米 5（xiaomi-gemini）是 2016 年的骁龙 820 机型，官方 LineageOS 一直维护到现在。一直想试试 postmarketOS 能把一台老手机折腾到什么程度，于是从 10 月 29 日开始，前后花了三天时间做移植适配。 最终结果：系统能正常进入 Phosh 桌面，USB 网络、Wi-Fi、蓝牙、显示触摸、传感器等基本硬件可用，但相机、扬声器、蜂窝网络没有修好，10 月">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-11-02T13:30:00.000Z">
+<meta property="article:modified_time" content="2026-11-02T13:30:00.000Z">
+<meta property="article:author" content="Jay.Run">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="postmarketos">
+<meta property="article:tag" content="硬件">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.ponder.work/2026/11/02/postmarketos-on-xiaomi-mi5/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.ponder.work/2026/11/02/postmarketos-on-xiaomi-mi5/","path":"2026/11/02/postmarketos-on-xiaomi-mi5/","title":"小米 5 移植 postmarketOS 适配记录"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>小米 5 移植 postmarketOS 适配记录 | 逸思杂陈</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134911454-2"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-134911454-2","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/analytics/google-analytics.min.js" defer></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/analytics/baidu-analytics.min.js" defer></script>
+  <script async src="https://hm.baidu.com/hm.js?11c4bbd295ba9de285292ef966eb17b7"></script>
+
+
+
+
+
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/utils.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/sidebar.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/next-boot.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/pjax.min.js" defer></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.5.0/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/search/local-search.min.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@11.10.1/dist/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/tags/mermaid.min.js" defer></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/fancybox.min.js" defer></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/math/mathjax.min.js" defer></script>
+
+
+
+
+<script>
+(function() {
+  var canonical = document.querySelector('head > link[rel="canonical"]');
+  if (canonical && canonical.href) {
+    try {
+      var oldUrl = new URL(canonical.href);
+      canonical.href = window.location.origin + oldUrl.pathname + oldUrl.search + oldUrl.hash;
+    } catch (e) {
+      console.warn('Failed to update canonical link:', e);
+    }
+  }
+})();
+</script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="逸思杂陈" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">逸思杂陈</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">人类一思考，上帝就发笑。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-编程"><a href="/categories/programming/" rel="section"><i class="fa fa-code fa-fw"></i>编程</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E4%B8%8E%E6%96%B9%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">设备与方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F"><span class="nav-number">2.</span> <span class="nav-text">构建镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%B7%E6%9C%BA%EF%BC%9A%E5%81%9C%E5%9C%A8-MI-%E6%A0%87%E5%BF%97"><span class="nav-number">3.</span> <span class="nav-text">刷机：停在 MI 标志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%9B%A0%EF%BC%9Aramdisk-%E5%92%8C%E5%86%85%E6%A0%B8%E5%8A%A0%E8%BD%BD%E8%8C%83%E5%9B%B4%E9%87%8D%E5%8F%A0"><span class="nav-number">3.1.</span> <span class="nav-text">原因：ramdisk 和内核加载范围重叠</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E9%80%82%E9%85%8D"><span class="nav-number">4.</span> <span class="nav-text">硬件适配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#USB%EF%BC%9A%E5%BB%B6%E5%90%8E%E9%87%8D%E6%8E%A2%E6%B5%8B"><span class="nav-number">4.1.</span> <span class="nav-text">USB：延后重探测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wi-Fi%EF%BC%9A%E9%93%BE%E8%B7%AF%E6%99%9A%E5%88%B0%EF%BC%8C%E4%BD%86%E6%B2%A1%E4%BA%BA%E8%A1%A5%E6%89%AB"><span class="nav-number">4.2.</span> <span class="nav-text">Wi-Fi：链路晚到，但没人补扫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%93%9D%E7%89%99%EF%BC%9A%E5%B7%A5%E5%8E%82%E5%9C%B0%E5%9D%80"><span class="nav-number">4.3.</span> <span class="nav-text">蓝牙：工厂地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPU%EF%BC%9A60-%E7%A7%92%E7%9A%84%E5%9B%BA%E4%BB%B6%E7%AD%89%E5%BE%85"><span class="nav-number">4.4.</span> <span class="nav-text">GPU：60 秒的固件等待</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SlimBus%EF%BC%9ARecovery-%E9%87%8C%E6%8D%9E%E5%87%BA%E5%AE%8C%E6%95%B4-Oops"><span class="nav-number">4.5.</span> <span class="nav-text">SlimBus：Recovery 里捞出完整 Oops</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E6%84%9F%E5%99%A8%EF%BC%9A%E6%AF%8F%E5%8F%B0%E6%9C%BA%E5%99%A8%E7%9A%84%E6%A0%A1%E5%87%86%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%90%8C"><span class="nav-number">4.6.</span> <span class="nav-text">传感器：每台机器的校准数据不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E9%A2%91%EF%BC%9A%E5%85%88%E4%BF%9D%E5%91%BD%EF%BC%8C%E5%86%8D%E6%85%A2%E6%85%A2%E6%81%A2%E5%A4%8D"><span class="nav-number">4.7.</span> <span class="nav-text">调频：先保命，再慢慢恢复</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%8A%E6%96%AD%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">诊断方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B2%A1%E4%BF%AE%E5%A5%BD%E7%9A%84%E9%83%A8%E5%88%86"><span class="nav-number">6.</span> <span class="nav-text">没修好的部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E5%B1%80"><span class="nav-number">7.</span> <span class="nav-text">结局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">9.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jay.Run</p>
+  <div class="site-description" itemprop="description">学习 思考 行动 Python</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">176</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">95</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ruanimal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ruanimal" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/iponder" title="Leetcode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;iponder" rel="noopener me" target="_blank"><i class="cubes fa-fw"></i>Leetcode</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.liaoxuefeng.com/" title="https:&#x2F;&#x2F;www.liaoxuefeng.com&#x2F;" rel="noopener" target="_blank">廖雪峰的官方网站</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="http://www.ruanyifeng.com/" title="http:&#x2F;&#x2F;www.ruanyifeng.com&#x2F;" rel="noopener" target="_blank">阮一峰的个人网站</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://cse.google.com/cse?cx=006975008861986536211%3Alpx3qasaiom" title="https:&#x2F;&#x2F;cse.google.com&#x2F;cse?cx&#x3D;006975008861986536211:lpx3qasaiom" rel="noopener" target="_blank">mac软件搜索引擎</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.kaciras.com/" title="https:&#x2F;&#x2F;blog.kaciras.com&#x2F;" rel="noopener" target="_blank">Kaciras' Blog</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.ponder.work/2026/11/02/postmarketos-on-xiaomi-mi5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jay.Run">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逸思杂陈">
+      <meta itemprop="description" content="学习 思考 行动 Python">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="小米 5 移植 postmarketOS 适配记录 | 逸思杂陈">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          小米 5 移植 postmarketOS 适配记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-11-02 21:30:00" itemprop="dateCreated datePublished" datetime="2026-11-02T21:30:00+08:00">2026-11-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/life/" itemprop="url" rel="index"><span itemprop="name">工作生活</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>小米 5（<code>xiaomi-gemini</code>）是 2016 年的骁龙 820 机型，官方 LineageOS 一直维护到现在。<br>一直想试试 postmarketOS 能把一台老手机折腾到什么程度，于是从 10 月 29 日开始，前后花了三天时间做移植适配。</p>
+<p>最终结果：系统能正常进入 Phosh 桌面，USB 网络、Wi-Fi、蓝牙、显示触摸、传感器等基本硬件可用，但相机、扬声器、蜂窝网络没有修好，10 月 31 日刷回了 LineageOS。本文整理整个过程和踩过的坑。</p>
+<blockquote>
+<p>本文由 AI 根据适配过程中的文档、验收记录和日志整理编写，内容经过人工核对。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="设备与方案"><a href="#设备与方案" class="headerlink" title="设备与方案"></a>设备与方案</h2><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>设备</td>
+<td>Xiaomi Mi 5（<code>xiaomi-gemini</code>，MSM8996），64GB 存储</td>
+</tr>
+<tr>
+<td>内存</td>
+<td>3GB 改造为 6GB（Android 下使用正常）</td>
+</tr>
+<tr>
+<td>原系统</td>
+<td>LineageOS 22.2 &#x2F; Android 15，bootloader 已解锁，保留 Lineage Recovery</td>
+</tr>
+<tr>
+<td>目标系统</td>
+<td>postmarketOS v26.06 + Phosh，内核 Linux 6.19.5（msm8996-mainline）</td>
+</tr>
+<tr>
+<td>构建工具</td>
+<td>pmbootstrap 3.12.1</td>
+</tr>
+</tbody></table>
+<p>刷机策略上只写 <code>userdata</code> 和 <code>boot</code> 两个分区，recovery、system、基带、bootloader 全部保留，留一条后路。<br><code>userdata</code> 内部是嵌套 GPT，逻辑扇区 4096 字节，根分区首次启动时自动扩展到剩余空间：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">userdata</span><br><span class="line">├─ pmOS_boot：从 8 MiB 开始，480 MiB，ext2，挂载到 /boot</span><br><span class="line">└─ pmOS_root：从 488 MiB 开始，ext4，挂载到 /</span><br></pre></td></tr></table></figure>
+
+<p>装好后根分区可用空间 47.7G，对手机来说非常充裕。</p>
+<h2 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h2><p>pmbootstrap 的关键初始化参数：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">device</span> = xiaomi-gemini</span><br><span class="line"><span class="attr">ui</span> = phosh</span><br><span class="line"><span class="attr">user</span> = user</span><br><span class="line"><span class="attr">hostname</span> = mi5</span><br></pre></td></tr></table></figure>
+
+<p>整个构建流程封装成了一个脚本：<code>install</code> → <code>export</code> → 生成修正版 boot → 展开 sparse 镜像供校验，结束时自动 <code>pmbootstrap shutdown</code>。</p>
+<p>构建时踩到的坑主要是网络：国外镜像 SSL 超时、下载中断，高通固件 <code>linux-firmware-qcom</code> 最终改从清华 Alpine 镜像获取，核对包名、字节数后用 pmbootstrap 内置的 Alpine 公钥验签通过；另外补取了 19 个 x86_64 工具包，最后用缓存离线打包成功。<br>宿主机还修了一处 <code>/etc/hosts</code> 的 127.0.1.1 别名不一致问题（sudo 告警会污染 pmbootstrap 输出），全程没有通过 apt 装任何全局软件包。</p>
+<h2 id="刷机：停在-MI-标志"><a href="#刷机：停在-MI-标志" class="headerlink" title="刷机：停在 MI 标志"></a>刷机：停在 MI 标志</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fastboot flash userdata images/xiaomi-gemini.img   <span class="comment"># 耗时 269 秒</span></span><br><span class="line">fastboot flash boot images/boot-fixed.img</span><br><span class="line">fastboot reboot</span><br></pre></td></tr></table></figure>
+
+<p>刷完直接卡在 MI 标志，进不了系统。</p>
+<h3 id="原因：ramdisk-和内核加载范围重叠"><a href="#原因：ramdisk-和内核加载范围重叠" class="headerlink" title="原因：ramdisk 和内核加载范围重叠"></a>原因：ramdisk 和内核加载范围重叠</h3><p>原始配置中内核加载地址是 <code>0x80008000</code>，ramdisk 地址是 <code>0x81000000</code>，两者间隔只有 16MiB。<br>而 Linux 6.19.5 的 arm64 Image 头声明的运行时镜像大小为 28,049,408 字节，从 <code>0x80008000</code> 一路占用到 <code>0x81ac8000</code>，已经越过 ramdisk 地址，启动时直接重叠。</p>
+<p>修复很简单，把 ramdisk 挪到 <code>0x84000000</code>：</p>
+<ol>
+<li>先做了一个只改 ramdisk 地址的临时镜像，用 <code>fastboot boot</code> 不刷写验证，能正常进桌面。</li>
+<li>生成正式的 <code>boot-fixed.img</code> 刷入，正常重启通过。</li>
+<li>在 initramfs 的 <code>hooks-cleanup</code> 中加幂等钩子，向 <code>/etc/deviceinfo</code> 写入 <code>deviceinfo_flash_offset_ramdisk=&quot;0x04000000&quot;</code>，这样后续内核&#x2F;initramfs 更新也能读到覆盖值。</li>
+</ol>
+<p>这是整个适配中最”一击致命”的问题，也最适合反馈上游设备包。</p>
+<h2 id="硬件适配"><a href="#硬件适配" class="headerlink" title="硬件适配"></a>硬件适配</h2><p>能进桌面只是开始，真正的工作量在硬件 bring-up。每个子系统都要单独排查，下表是最终结果：</p>
+<table>
+<thead>
+<tr>
+<th>硬件</th>
+<th>现象</th>
+<th>解决方法</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>USB</td>
+<td><code>QUSB2PHY pll lock failed</code>，DWC3 probe <code>-16</code>，UDC 为空</td>
+<td>开机延后重探测 <code>6a00000.usb</code>，配 NCM&#x2F;DHCP，再启专用 SSH</td>
+<td>规避成功，PHY 根因未解</td>
+</tr>
+<tr>
+<td>Wi-Fi</td>
+<td>PCIe <code>Phy link never came up</code>，只有根端口</td>
+<td><code>pcie_aspm=off pci=nomsi</code> + 链路迟到后自动 rescan 服务</td>
+<td>自动恢复，建链根因未解</td>
+</tr>
+<tr>
+<td>蓝牙</td>
+<td>hci0 存在但 BlueZ 无控制器</td>
+<td>用 persist 中的工厂地址做 MGMT public-address 配置</td>
+<td>可用，未测配对</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>固件早期缺失，两次 60 秒 fallback 等待</td>
+<td>initramfs 预置三个 A530 固件 + 关闭 sysfs fallback</td>
+<td>加速性能未验证</td>
+</tr>
+<tr>
+<td>声卡</td>
+<td>约 101 秒 SlimBus <code>NULL+4</code> Oops</td>
+<td>回移上游修复为独立模块，原模块黑名单</td>
+<td>声卡注册，扬声器无声</td>
+</tr>
+<tr>
+<td>传感器</td>
+<td><code>sns.reg</code> 固件请求失败</td>
+<td>从 persist 复制本机校准数据到 <code>/lib/firmware</code></td>
+<td>五类 IIO 出现</td>
+</tr>
+<tr>
+<td>调频</td>
+<td>CPU 0 早期 RCU stall（<code>sugov:0</code>）</td>
+<td>先关调频保稳定，后改 userspace 启动 + TuneD 排序</td>
+<td>已恢复，根因未定位</td>
+</tr>
+</tbody></table>
+<h3 id="USB：延后重探测"><a href="#USB：延后重探测" class="headerlink" title="USB：延后重探测"></a>USB：延后重探测</h3><p>手机 USB 网络完全不可用，电脑端 <code>lsusb</code> 看不到设备。日志显示 PHY PLL 锁定失败、DWC3 probe 返回 <code>-16</code>。<br>没有直接去啃供电域&#x2F;时钟根因，而是做了个运行时变通：开机约 60 秒后向 <code>/sys/bus/platform/drivers_probe</code> 重新探测 <code>6a00000.usb</code>，首次重试即成功，UDC 出现后 NCM 网络枚举、SSH 登录验证通过。</p>
+<p>配套做了三个 systemd 服务：USB 重探测、专用 SSH（只监听 <code>172.16.42.1:22</code>，通用 sshd 禁用）、以及后续的启动顺序编排。</p>
+<h3 id="Wi-Fi：链路晚到，但没人补扫"><a href="#Wi-Fi：链路晚到，但没人补扫" class="headerlink" title="Wi-Fi：链路晚到，但没人补扫"></a>Wi-Fi：链路晚到，但没人补扫</h3><p>这是最有意思的一个问题。PCIe 早期链路训练超时后总线上只有根端口，没有 Wi-Fi 端点（QCA6174，<code>168c:003e</code>），<code>wlan0</code> 根本不出现。<br><code>pcie_aspm=off pci=nomsi</code> 能提高成功率，但不能保证每次启动。</p>
+<p>关键证据来自一次失败启动的后续日志：稍后读取 Link Status 已经是 <code>0x3011</code>（DLL Link Active 已置位），说明链路其实建起来了，但总线仍然是空的——早期扫描落空后，没有任何代码去补扫。</p>
+<p>对照源码确认了原因：<code>dw_pcie_host_init()</code> 忽略 <code>dw_pcie_wait_for_link()</code> 的超时结果继续 <code>pci_host_probe()</code>；而 <code>pcie-qcom.c</code> 只有在设备树提供名为 <code>global</code> 的中断时才启用 Link Up IRQ 路径，MSM8996 的 PCIe0 设备树只列了八个 MSI 中断，这个配置下链路迟到就永远没人发现。</p>
+<p>于是写了个启动服务 <code>mi5-wifi-startup.service</code>：链路未就绪时最多等 120 秒，<code>DLL Link Active</code> 置位后对空下游总线做标准重扫描，最多三次。安装后连续五次普通重启全部通过，其中两次自然复现早期链路超时，都由服务自动恢复（约 76 秒 rescan，78 秒出现 wlan0，86 秒自动联网，网关 ping 3&#x2F;3）。</p>
+<h3 id="蓝牙：工厂地址"><a href="#蓝牙：工厂地址" class="headerlink" title="蓝牙：工厂地址"></a>蓝牙：工厂地址</h3><p><code>bluetoothctl list</code> 为空，管理接口显示控制器缺 public address。工厂地址在 persist 分区的 <code>wlan_bt/bt.mac</code>（6 字节小端），复制到本地后通过 MGMT Set Public Address 配置，BlueZ 立刻 <code>Powered=yes</code>，扫描到 12 个设备，且 Wi-Fi 同时在线。<br>persist 全程只读，地址副本存手机 <code>/etc/mi5-hardware/</code> 下，权限 0600。</p>
+<h3 id="GPU：60-秒的固件等待"><a href="#GPU：60-秒的固件等待" class="headerlink" title="GPU：60 秒的固件等待"></a>GPU：60 秒的固件等待</h3><p>启动日志里 <code>a530_pm4.fw</code> 请求失败后进入 sysfs fallback，每次等 60 秒超时，前后浪费两分多钟。initramfs 里根本没有这三个 A530 固件。<br>把固件加入 initramfs 预置清单，并通过内核参数 <code>sysctl.kernel.firmware_config.ignore_sysfs_fallback=1</code> 关闭 fallback，早期固件 13.8 秒加载完成，显示触摸正常。</p>
+<h3 id="SlimBus：Recovery-里捞出完整-Oops"><a href="#SlimBus：Recovery-里捞出完整-Oops" class="headerlink" title="SlimBus：Recovery 里捞出完整 Oops"></a>SlimBus：Recovery 里捞出完整 Oops</h3><p>声卡这块最曲折。系统运行约 101 秒时 <code>qcom_slim_ngd_runtime_resume</code> 出现 <code>NULL+4</code> Oops。<br>问题是 Recovery 4.4 内核只读挂载不回放事务，读不到新日志；读写挂载又被 <code>orphan_present</code> 特性拒绝。<br>最后把手机自带的 e2fsck 1.47.4 和依赖库复制到 Recovery <code>/tmp</code>，在未挂载的 loop 上仅做 <code>journal_only</code> 回放，才取到完整调用栈。</p>
+<p>修复本身是回移上游提交 <a target="_blank" rel="noopener" href="https://github.com/torvalds/linux/commit/2a9d50e9ea406e0c8735938484adc20515ef1b47">2a9d50e9ea406</a> 及生命周期调整（额外把 <code>ngd-&gt;base</code> 初始化提前到子设备注册之前），用 clang 18 编译成独立模块 <code>slim_qcom_ngd_ctrl_fixed</code>，原模块黑名单隔离，启动服务延后加载。<br>加载后 WCD9335 和 gemini 声卡正常注册，多次重启无 Oops。模块校验内核版本和原模块哈希，不匹配直接拒绝加载。</p>
+<h3 id="传感器：每台机器的校准数据不同"><a href="#传感器：每台机器的校准数据不同" class="headerlink" title="传感器：每台机器的校准数据不同"></a>传感器：每台机器的校准数据不同</h3><p><code>sns.reg</code> 是高通传感器的注册&#x2F;校准数据，每台机器都不同。从 persist 分区只读复制本机的 25KB 数据到 <code>/lib/firmware/qcom/sensors/sns.reg-xiaomi,gemini</code> 后，accel、gyro、mag、prox、pressure 五类 IIO 接口全部出现，加速度计读到了实际三轴样本。</p>
+<h3 id="调频：先保命，再慢慢恢复"><a href="#调频：先保命，再慢慢恢复" class="headerlink" title="调频：先保命，再慢慢恢复"></a>调频：先保命，再慢慢恢复</h3><p>早期启动反复出现 CPU 0 的 RCU stall，调用栈全在 <code>sugov:0</code>（schedutil 的工作线程）做时钟切换的路径上。<br>诊断阶段先用 <code>cpufreq.off=1</code> 关掉整个 CPUFreq 子系统，系统稳定了，代价是 CPU 锁在约 1.04GHz。</p>
+<p>后来逐步恢复：临时镜像验证 <code>cpufreq.default_governor=userspace</code> 可以正常变频后，发现是 TuneD 的 <code>powersave</code> profile 会把 governor 接管回 <code>schedutil</code>。<br>最终方案是启动先用 userspace，通过 drop-in 让 TuneD 等蓝牙恢复服务完成后才启动，再由它接管 schedutil。持久化后普通重启、短时四核负载（policy0&#x2F;policy2 分别达到 1.59GHz&#x2F;2.15GHz）均通过。<br>这属于启动时序修复，底层时钟&#x2F;RCU 根因没有闭环。</p>
+<h2 id="诊断方法"><a href="#诊断方法" class="headerlink" title="诊断方法"></a>诊断方法</h2><p>回头总结，这套流程能走下来主要靠几个原则：</p>
+<ol>
+<li><strong>每次只改一个变量。</strong> 所有试验先用 <code>fastboot boot</code> 临时启动验证，不刷写分区；只有实机验收通过的方案才写入 boot，且刷前先完整备份原 64MiB boot 分区。</li>
+<li><strong>证据先于重启。</strong> 进 Recovery 第一时间保存 pstore，再考虑重启，否则日志会被覆盖。</li>
+<li><strong>每个镜像记 SHA256。</strong> 试验镜像、回退镜像、当前 boot 全部留哈希，避免”到底刷的是哪版”的混乱。</li>
+<li><strong>失败也是结果。</strong> 扬声器两代候选（一版无声、一版导致 UFS 超时）都明确否定并记录，防止将来重复踩坑。</li>
+</ol>
+<p>过程中也有哭笑不得的时刻：Fastboot 返回 <code>Booting OKAY</code> 只代表命令被接受，手机屏幕停在 Fastboot 画面也不代表内核没跑——完整 pstore 证明它其实进了内核然后卡死。</p>
+<h2 id="没修好的部分"><a href="#没修好的部分" class="headerlink" title="没修好的部分"></a>没修好的部分</h2><ul>
+<li><strong>相机</strong>：设备树里根本没有相机传感器管线配置，<code>/dev/video0</code> 是 Venus 编解码器。需要先确认前后摄型号才能补管线。</li>
+<li><strong>扬声器</strong>：TFA9890 功放能绑定，但播放无声，DSP 侧有 COPP 关闭和 q6asm 超时；补 SD line 的候选镜像反而导致 UFS 链路断裂，已否定。</li>
+<li><strong>蜂窝&#x2F;SIM</strong>：基带实际读到了卡（QMI 查询 <code>present</code>&#x2F;<code>ready</code>），但 ModemManager 因 <code>Failed to find a net port in the QMI modem</code> 拒绝创建 modem。当前内核缺少 MSM8996 的 IPA 2.5 数据通路支持，这是个需要真正移植驱动的大坑。</li>
+<li><strong>其他</strong>：蓝牙配对&#x2F;A2DP、GPU 加速性能、部分传感器（除加速度外仅确认枚举）、通话、GNSS、NFC 均未验证。</li>
+</ul>
+<h2 id="结局"><a href="#结局" class="headerlink" title="结局"></a>结局</h2><p>10 月 31 日决定暂停移植，恢复日常使用的手机。备份好 postmarketOS 的配置、校准数据和 boot 分区后，格式化 userdata&#x2F;cache，sideload 官方最新 <code>LineageOS 22.2 / Android 15</code>（2026-10-28 构建），安装 status 0，boot 读回哈希与官方一致，正常进入桌面。</p>
+<p>项目目录、镜像、诊断日志都保留在电脑上，也整理了一份可上游化的成果清单（ramdisk 地址修复证据最明确，其次是 SlimBus 回移反馈和 Wi-Fi 问题报告），但尚未提交。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>postmarketOS 对 msm8996 的支持已经能让老机器进桌面，但”能进桌面”和”日常可用”之间隔着一整套硬件 bring-up：USB、Wi-Fi、蓝牙、音频、传感器，每个子系统都要单独过一遍，而且多数问题的解法是带条件的规避而非根治。</p>
+<p>对想尝试的人的建议：先确认设备页状态、准备好 Recovery 和完整备份，然后享受过程——这类折腾的乐趣大概就在于此。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://wiki.postmarketos.org/wiki/Xiaomi_Mi_5_(xiaomi-gemini)">https://wiki.postmarketos.org/wiki/Xiaomi_Mi_5_(xiaomi-gemini)</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitlab.com/msm8996-mainline/linux">https://gitlab.com/msm8996-mainline/linux</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/torvalds/linux/commit/2a9d50e9ea406e0c8735938484adc20515ef1b47">https://github.com/torvalds/linux/commit/2a9d50e9ea406e0c8735938484adc20515ef1b47</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Jay.Run
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.ponder.work/2026/11/02/postmarketos-on-xiaomi-mi5/" title="小米 5 移植 postmarketOS 适配记录">https://blog.ponder.work/2026/11/02/postmarketos-on-xiaomi-mi5/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag"># 硬件</a>
+              <a href="/tags/postmarketos/" rel="tag"># postmarketos</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/09/19/my-handicrafts/" rel="prev" title="真正的手艺活">
+                  <i class="fa fa-angle-left"></i> 真正的手艺活
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Jay.Run</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">166k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">10:02</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/ruanimal" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"ruanimal/ruanimal.github.io","issue_term":"title","theme":"github-light"}</script>
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-next@8.27.0/source/js/third-party/comments/utterances.min.js" defer></script>
+<script>
+  document.addEventListener('pjax:success', () => {
+    if (CONFIG.sidebar.display !== 'remove') {
+      const hasTOC = document.querySelector('.post-toc:not(.placeholder-toc)');
+
+      // 当没有 TOC 且侧边栏正在显示时，隐藏侧边栏
+      if (!hasTOC && document.body.classList.contains('sidebar-active')) {
+        window.dispatchEvent(new Event('sidebar:hide'));
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

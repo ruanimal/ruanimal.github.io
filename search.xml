@@ -11080,4 +11080,97 @@ img[alt="-w350"] {
         <tag>postmarketos</tag>
       </tags>
   </entry>
+  <entry>
+    <title>在 PikaOS 的 COSMIC Wayland 虚拟机上配置 Lamco RDP</title>
+    <url>/2026/11/22/cosmic-rdp-setup/</url>
+    <content><![CDATA[<p>这次配置的目标是用标准 RDP 客户端访问 PikaOS 虚拟机中正在运行的 COSMIC 桌面。<br>FreeRDP 可以在 1920×1080 下显示桌面，KRDC 在这个尺寸下黑屏。将虚拟显示切到 1920×1200 后，KRDC 能出画。<br>最终使用 1920×1200 和 AVC420，macOS 的 Windows App 与 Windows 自带的 <code>mstsc</code> 均通过实测，Windows 还需要允许保存该连接的凭据。</p>
+<span id="more"></span>
+
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>实测环境</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>服务端</td>
+<td>PikaOS 4，x86_64，Linux <code>7.3.5-pikaos</code></td>
+</tr>
+<tr>
+<td>虚拟化与显示</td>
+<td>KVM&#x2F;QEMU，虚拟输出 <code>Virtual-1</code>，对照测试使用 1920×1080 和 1920×1200</td>
+</tr>
+<tr>
+<td>桌面与登录管理器</td>
+<td>COSMIC Wayland，<code>cosmic-comp</code>、<code>cosmic-greeter</code> 和 <code>xdg-desktop-portal-cosmic</code> 均为 <code>1.11.0-101pika1</code>，登录由 greetd 管理</td>
+</tr>
+<tr>
+<td>RDP 服务</td>
+<td>Lamco RDP Server 原生 Debian 包 <code>1.4.5-1</code>，OpenH264 <code>2.6.0</code></td>
+</tr>
+<tr>
+<td>客户端</td>
+<td>KDE neon User Edition，KRDC <code>26.08.2</code>，FreeRDP 库与 <code>xfreerdp</code> 均为 <code>3.32.1</code></td>
+</tr>
+<tr>
+<td>网络与认证</td>
+<td>局域网内直连 TCP 3389，服务绑定 <code>0.0.0.0</code>，使用 TLS 和 PAM，关闭 NLA</td>
+</tr>
+</tbody></table>
+<p>Lamco 的作用是共享已有 COSMIC 桌面，适合从远端接着操作虚拟机控制台里同一个会话。<a href="https://lamco.ai/products/lamco-rdp-server/docs/v1/installation/">Lamco 安装文档</a></p>
+<h2 id="从仅观看恢复到可控制"><a href="#从仅观看恢复到可控制" class="headerlink" title="从仅观看恢复到可控制"></a>从仅观看恢复到可控制</h2><p>Lamco 最初检测到 COSMIC 提供 <code>RemoteDesktop</code> portal，于是走了 libei 路径。该路径在这台虚拟机上没有返回屏幕流，随后退回 ScreenCast-only，客户端只能观看。此前的屏幕共享弹窗也来自这条 portal 路径。</p>
+<p>处理方式是把系统的 <code>cosmic-portals.conf</code> 复制到 <code>~/.config/xdg-desktop-portal/</code>，在已有的 <code>[preferred]</code> 段中增加这一行，再重启用户的 <code>xdg-desktop-portal.service</code> 和 Lamco 服务。这个覆盖只作用于该账户的 COSMIC 会话，也会影响同一会话中依赖 <code>RemoteDesktop</code> portal 的其他应用。</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">org.freedesktop.impl.portal.RemoteDesktop</span>=none</span><br></pre></td></tr></table></figure>
+
+<p>再次启动后，Lamco 选择了内置 <code>portal-generic</code> 路径，直接捕获 Wayland 画面。日志确认虚拟键盘和 <code>/dev/uinput</code> 指针已初始化，操作者也在虚拟机控制台看到远程鼠标移动。服务在同一次 COSMIC 会话内重启后，原生捕获无需再次确认共享。<a href="https://github.com/flatpak/xdg-desktop-portal/blob/main/doc/portals.conf.rst.in">XDG Portal 配置说明</a> · <a href="https://lamco.ai/products/lamco-rdp-server/platforms/">Lamco 的 COSMIC 支持说明</a></p>
+<h2 id="PAM-登录故障"><a href="#PAM-登录故障" class="headerlink" title="PAM 登录故障"></a>PAM 登录故障</h2><p>安装的 Lamco 版本拒绝 <code>auth_method = &quot;pam&quot;</code> 与 <code>security_mode = &quot;auto&quot;</code> 的组合。实测可用的服务端配置为：</p>
+<figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="section">[security]</span></span><br><span class="line"><span class="attr">security_mode</span> = <span class="string">&quot;tls&quot;</span></span><br><span class="line"><span class="attr">auth_method</span> = <span class="string">&quot;pam&quot;</span></span><br><span class="line"><span class="attr">enable_nla</span> = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>配置能加载后，系统验证接受了同一个账户密码，RDP 连接却仍被 PAM 拒绝。关键线索是 <code>/proc/&lt;PID&gt;/uid_map</code>。Lamco 用户服务的文件系统沙箱把进程放进了只映射当前用户的命名空间。用 <code>systemd-run --user</code> 做对照测试时，系统密码验证辅助程序在普通用户服务中成功，单独加入 <code>ReadWritePaths</code> 后失败。此前测试已经放宽数项 systemd 沙箱限制，最后清除 <code>ReadWritePaths</code> 后，进程恢复到常规用户命名空间，FreeRDP 通过 PAM 成功登录。</p>
+<p>这台测试虚拟机保留了放宽后的服务覆盖文件。结果说明文件系统隔离是当时仍在阻碍验证的一项设置，尚未逐项回加其他限制来确定最小变更。监听所有 IPv4 接口和放宽服务隔离都是这次实验环境的配置取舍，不宜直接当作长期对外部署的模板。</p>
+<h2 id="为什么-1080p-会触发-KRDC-黑屏"><a href="#为什么-1080p-会触发-KRDC-黑屏" class="headerlink" title="为什么 1080p 会触发 KRDC 黑屏"></a>为什么 1080p 会触发 KRDC 黑屏</h2><p>故障的典型表现是客户端能登录，虚拟机端也能看到远程鼠标移动，但客户端窗口没有桌面画面。服务端日志表明桌面帧已经被捕获和编码。用同版本 KRDC 复现时，客户端在处理首批 <code>RDPGFX_CMDID_ENDFRAME</code> 消息时报告错误 16。在 KRDC 中切换到 RemoteFX 或关闭图形加速，均未恢复 1080p 画面。另一次用 <code>xfreerdp</code> 强制图形通道、服务端固定 AVC420 的对照测试，也复现了黑屏。</p>
+<p>H.264 以 16×16 像素的宏块组织编码画面。1920 是 16 的倍数，1080 向上补齐到 <code>68 × 16 = 1088</code>。额外的 8 行属于编码填充，实际桌面高度仍是 1080。<a href="https://www.itu.int/rec/dologin_pub.asp?id=T-REC-H.264-202408-I!!PDF-E&lang=e&type=items">ITU-T H.264 标准</a></p>
+<p>本例中，Lamco 同时创建了 1920×1088 的 RDP 图形表面，并将实际桌面尺寸设为 1920×1080。日志和源码指向同一处兼容问题。尺寸不一致使客户端走入图像缩放路径，而 KRDC 使用的 <code>PIXEL_FORMAT_RGBX32</code> 缺少这个版本的 FreeRDP 缩放映射。1920×1200 的宽高都是 16 的倍数，绕过了这次尺寸差异，两次显示结果也与这个解释一致。<a href="https://github.com/lamco-admin/lamco-rdp-server/blob/v1.4.5/src/server/display_handler.rs">Lamco 显示管线</a> · <a href="https://github.com/KDE/krdc/blob/v26.08.2/rdp/rdpsession.cpp">KRDC 渲染代码</a> · <a href="https://github.com/FreeRDP/FreeRDP/blob/3.32.1/libfreerdp/codec/color.c">FreeRDP 缩放实现</a></p>
+<table>
+<thead>
+<tr>
+<th>虚拟机显示模式</th>
+<th>客户端</th>
+<th>实测结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1920×1080</td>
+<td>KRDC 26.08.2</td>
+<td>能登录，远程鼠标移动可见，客户端黑屏</td>
+</tr>
+<tr>
+<td>1920×1200</td>
+<td>KRDC 26.08.2</td>
+<td>能显示桌面</td>
+</tr>
+<tr>
+<td>1920×1080</td>
+<td><code>xfreerdp</code> 3.32.1</td>
+<td>能登录并显示桌面</td>
+</tr>
+</tbody></table>
+<p>如果虚拟机使用 1080p，<code>xfreerdp</code> 可用以下命令连接。把示例地址和账户替换成实际值，密码按提示输入。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">xfreerdp /v:192.0.2.10:3389 /u:vmuser /sec:tls /size:1920x1080 /from-stdin:force</span><br></pre></td></tr></table></figure>
+
+<h2 id="Windows-和-macOS-客户端复测"><a href="#Windows-和-macOS-客户端复测" class="headerlink" title="Windows 和 macOS 客户端复测"></a>Windows 和 macOS 客户端复测</h2><p>Windows 自带的 <code>mstsc</code> 起初提示“由于协议错误，会话连接将断开”。服务端日志表明，预填用户名以后，客户端已经发送了用户名，但密码字段仍然为空。操作者允许 Windows 保存该连接的凭据后，<code>mstsc</code> 正常连接。服务器记录了 PAM 认证成功，随后持续发送 1920×1080 画面。这与当前 TLS 模式下 Lamco 需要客户端在连接时提交密码的行为一致。<a href="https://github.com/lamco-admin/lamco-rdp-server/blob/v1.4.5/src/security/auth.rs">Lamco 凭据验证源码</a></p>
+<p>macOS 的 Windows App 最初能显示第一帧，后续画面卡住。关闭客户端动态调整分辨率及 AVC444 省略辅助色彩数据的优化后，Mac 一次重连出现了黑屏。固定为 AVC420 后，1080p 又能显示首帧，但后续画面仍卡住。保留 AVC420，将虚拟机显示改为 1920×1200 并重启 Lamco 后，操作者确认 Mac 画面能持续刷新。这个结果确认了可用组合，尚不能确定 Windows App 内部在哪一步丢失了更新。</p>
+<p>服务端最终采用 1920×1200、AVC420，并禁止客户端动态改变会话分辨率。操作者随后再次用保存过凭据的 Windows <code>mstsc</code> 连接，确认这套配置在 Windows 上也正常。</p>
+<h2 id="无人值守启动"><a href="#无人值守启动" class="headerlink" title="无人值守启动"></a>无人值守启动</h2><p>这里的无人值守指虚拟机开机后由 greetd 启动 COSMIC 用户会话，然后由 systemd 启动 Lamco。RDP 连接共享的是这个已登录会话。</p>
+<p>在 COSMIC Greeter 实际使用的 <code>/etc/greetd/cosmic-greeter.toml</code> 中加入初始会话，保留原有 <code>[default_session]</code>。将 <code>vmuser</code> 替换为实际账户。<a href="https://manpages.debian.org/bookworm/greetd/greetd.5.en.html">greetd 配置手册</a></p>
+<figure class="highlight toml"><table><tr><td class="code"><pre><span class="line"><span class="section">[initial_session]</span></span><br><span class="line"><span class="attr">command</span> = <span class="string">&quot;/usr/bin/start-cosmic&quot;</span></span><br><span class="line"><span class="attr">user</span> = <span class="string">&quot;vmuser&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>Lamco 用户服务 <code>app-io.lamco.rdp-server.service</code> 已启用，由 <code>graphical-session.target</code> 拉起。服务依赖 <code>WAYLAND_DISPLAY</code>，因此只启动用户服务管理器还不足以提供桌面。测试账户另外关闭了 COSMIC 的空闲熄屏和自动挂起，避免虚拟机长时间无人操作后中断访问。配置已落盘，服务重启后能恢复连接，整机冷启动仍需验证。<a href="https://github.com/pop-os/cosmic-idle/blob/master/cosmic-idle-config/src/lib.rs">COSMIC 空闲配置</a></p>
+<h2 id="AI-参与声明"><a href="#AI-参与声明" class="headerlink" title="AI 参与声明"></a>AI 参与声明</h2><p>本文由 OpenAI Codex（AI）辅助排查、查阅上游文档和源码，并整理和撰写初稿。</p>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
 </search>
